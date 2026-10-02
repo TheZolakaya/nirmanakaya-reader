@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The work is here, in your hands, and it is holding.",
-      "ask": "Choose one thing you've been circling and give it a full hour of unhurried work, then stop while it's still good.",
-      "core": "You're not just thinking about the thing anymore. There's a method you've built and you're inside it — questions that get asked in the right order, answers that get tested before they're trusted. Maybe the best part is what it looks like when it's going well: the work gets quieter, not louder, and you're still in it. Right now it's steady. You can pick something up and finish it without the whole engine shaking. The hour after it is still yours.\\n\\nThe next piece is keeping the balance without turning it into a rule. The method works because it's yours, not because it's perfect. So take one thing you've been circling and give it a full hour of unhurried work. Then put it down while it still feels good, before the fourth or fifth pass, and let that be enough for today.",
-      "sheetLine": "Your method is holding. Let the hour after work stay yours.",
-      "verb": "working a thing until it holds",
-      "place": "the open room before anything has been chosen",
+      "tense": "The pen is here now, and what was open has begun to take a shape.",
+      "act": "move the structure one real inch",
+      "ask": "Pick the draft, form, or decision you've been circling longest. Do the next concrete step on that one — and stop there.",
+      "core": "You carry more open possibilities than most people get near, and the pull is to sort all of them at once. The method runs on sequence, not volume: one move, then the next. Let the actual next step land on the one thing at hand, and the rest get quieter behind it. That's what the discipline is for here — not arriving, touching.\n\nChoose the pending thing that isn't waiting on more information. Take the next physical or mental move on it and stop there. The insight that follows isn't the point; the move is. Once the step is made, the shape you see next is not the shape you imagined — and that's how it will show itself as real.",
+      "sheetLine": "One open thing, one real step — not all of them.",
+      "verb": "applying a method to whatever is in front of you",
+      "place": "the open space before anything has been chosen",
       "provenance": {
         "signature_id": 69,
         "position_id": 0,
@@ -26,31 +27,42 @@
         "partner": "Catalyst of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move the structure one real inch\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a future where the work has to be finished before it can begin.",
-      "ask": "Pick one thing you've been rehearsing and do the worst, quickest version now, then leave it alone until tomorrow.",
-      "core": "You're running the whole thing in advance. Before anything is picked, the method is already there, testing futures that haven't happened, scanning for the mistake that will make it not count. Somewhere ahead is the version where the work is finished and proven, and you're living in that version, which means nothing here is allowed to be rough yet. This could look like rigor from the outside. From inside it's pressure.\\n\\nThe way through isn't more discipline. It's letting one thing be finished and unproven. Pick something you've been rehearsing and do the worst, quickest version now. Then leave it alone until tomorrow. Whatever it turns out to be, that's the one you'll have to beat later, and that's fine. Speed is not a betrayal of the method.",
-      "sheetLine": "You're testing work you haven't started. Do the bad version now.",
-      "verb": "working a thing until it holds",
-      "place": "the open room before anything has been chosen",
+      "tense": "You're already planning how you'll handle the outcome of a choice that hasn't been made yet.",
+      "act": "release what is done and keep what is not",
+      "ask": "Take the decision or worry you've already rehearsed the aftermath of. Check whether it has actually happened; if it hasn't, set it down for a day.",
+      "core": "Method in excess stops being preparation and starts being rehearsal. You're writing the follow-up before the decision exists, and the planning is doing the job of the living. That's the strain — a system for something that hasn't asked for you yet. It isn't wasted discipline. It's discipline aimed past the moment, and it's costing you the moment.\n\nWhat's done and what isn't is the one distinction that helps. Put the pre-solved thing down for one day, untouched. If it's real, it will still be there tomorrow and you'll meet it armed. If it isn't, you'll find it was not the task. Either way, the day is yours.",
+      "sheetLine": "You're writing the follow-up to a decision not made.",
+      "verb": "applying a method to whatever is in front of you",
+      "place": "the open space before anything has been chosen",
       "provenance": {
         "signature_id": 69,
         "position_id": 0,
@@ -59,14 +71,24 @@
         "partner": "Executor of Intent",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -78,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still standing at the door where you stopped starting things.",
-      "ask": "Name one small thing you've wanted to try and do it at the smallest possible size this week, badly, with no plan to continue.",
-      "core": "The tools are there. You know how to work, how to check, how to sit with something until it's clear. What stopped is the starting. Maybe a while back you picked something up and it didn't go, and you set it down and haven't picked anything up since, and now the room feels like a room you used to work in. The skill didn't leave. It just isn't being asked to do anything.\\n\\nThe way out isn't a big project. It's one small thing you've wanted to try. Do it at the smallest possible size this week. Badly. With no plan to continue. If it turns out to be good, you'll know where to find it. If not, you've at least moved the moment from before to after, and the door is behind you either way.",
-      "sheetLine": "You stopped starting. Try one small thing badly this week.",
-      "verb": "working a thing until it holds",
-      "place": "the open room before anything has been chosen",
+      "tense": "The door at hand has been open, and the step through it happened without being marked.",
+      "act": "make the fair call about a feeling, yourself",
+      "ask": "Find a recent spot where you stayed neutral because deciding felt heavy. Later, say the fair thing — a line to yourself, or a sentence to someone. Then leave it.",
+      "core": "You're at the edge of a choice, waiting for the method to arrive, and pausing there has become the move. What you have is a practiced sense of what's fair — you haven't been using it on the matters that most involve you. That's the lack. It reads as patience and works as absence. Nobody can tell that from the outside, which is part of the loss.\n\nFeelings aren't built to sit unweighed; they cool into positions. Make the call on one of them, small. Not the whole relationship, not the pattern — the single thing that went unweighed. You don't have to announce it or defend it. Say it plainly, and leave the rest where it falls.",
+      "sheetLine": "You keep waiting to decide what your sense already says.",
+      "verb": "applying a method to whatever is in front of you",
+      "place": "the open space before anything has been chosen",
       "provenance": {
         "signature_id": 69,
         "position_id": 0,
@@ -92,19 +115,14 @@
         "partner": "Executor of Resonance",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
@@ -113,20 +131,31 @@
           "hard": false
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The pen is moving and you are calling it somebody else's hand.",
-      "ask": "Name one piece of work you did this week and say aloud that you made it, even if it was small and even if you had help.",
-      "core": "You're already working a method — asking the right question first, checking before trusting, not moving until the thing is clear. But you describe it as the project's requirement or the team's habit or just how the thing has to be done. Somebody else's discipline, borrowed. Meanwhile it's running in your decisions and getting them right.\\n\\nSometimes what shows up is that when it works, it looks like your judgment rather than a rule you followed. Somewhere in the last few days you made one small call and it held. Say aloud that you made it. Not the process, not the requirement — the pick. That's the ownership that's been going unclaimed, and it was yours the whole time.",
-      "sheetLine": "You made the call. Stop crediting the method.",
-      "verb": "working a thing until it holds",
-      "place": "the open room before anything has been chosen",
+      "tense": "You're writing the shape of what comes next in a room where the writing looks like watching.",
+      "act": "dream the next step and take it",
+      "ask": "Let yourself imagine something you want that hasn't been planned. Then do one small, concrete act toward it — enough to make it less imaginary.",
+      "core": "The work is being done from a place you don't credit: the part of you that feels toward what's coming before there are steps. People nearby see the cautious reader. The one who senses and chooses and moves in private doesn't get named, and that's the gap — not lost, uncredited. Dreaming is your method in an earlier form: sensing the ground before laying the route.\n\nTake the thing you've been quietly reaching for. Don't build the whole approach — take one step that puts it into the real, for no reason beyond that pull. You don't have to explain it as progress, and it doesn't need to be seen. It just needs to be taken, by you, where you actually are.",
+      "sheetLine": "The shape you're building has no witness yet.",
+      "verb": "applying a method to whatever is in front of you",
+      "place": "the open space before anything has been chosen",
       "provenance": {
         "signature_id": 69,
         "position_id": 0,
@@ -135,14 +164,19 @@
         "partner": "Initiate of Resonance",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"dream the next step and take it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
@@ -161,15 +195,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5891,
+      "ms": 6737,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "\"moving the structure one real inch\" is not one of Catalyst of Structure's listed acts",
+          "hard": true,
           "status": 1
         },
         {
@@ -179,8 +219,44 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -191,14 +267,32 @@
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
           "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it has\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -210,8 +304,20 @@
         },
         {
           "code": "refrain",
-          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -222,13 +328,25 @@
         },
         {
           "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"Everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it not the whole plan\"",
           "hard": true,
           "status": 4
         },
@@ -243,32 +361,67 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The claim the record doesn't support is that Potential can only be expressed through method, when the seat is really about the moment before any method has been chosen. A reader could reasonably say that in their life the lack isn't discipline but the fact that nothing has been selected yet, so a method would be premature. The ask survives being wrong because it is an act of selecting one thing and staying with it for a short, fixed time, which is useful whether the diagnosis is correct or not, and does not require money, a safe person or a free schedule. The sentence that serves the writer more than the person is any line about the seed containing everything, which is beautiful and unactionable, so every cell stays with the concrete move instead."
+      "check": "The record supports that this signature's method runs in Potential — possibility before anything is chosen — but it doesn't say the person names that as where they live; a reader could reasonably say the method is the identity and the seat is irrelevant. The asks survive that: each is one small act anyone can do without the map, and each teaches something even if I've placed them wrong. The sentence that serves me more than them — that every unresolved thing is potential waiting for a method — is the one I've kept out, because it praises the seat's shape rather than what the person can hold."
     },
     {
       "attempt": 2,
-      "ms": 3480,
+      "ms": 4163,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move the structure one real inch\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -279,32 +432,68 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it land\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the waiting has become the\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"dream the next step and take it\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -321,13 +510,125 @@
           "status": 4
         }
       ],
-      "check": "The claim the record doesn't support is that Potential can only be expressed through method, when the seat is really about the moment before any method has been chosen. A reader could reasonably say the lack isn't discipline but that nothing has been selected yet, so a method would be premature. The ask survives being wrong because it's an act of selecting one thing and staying with it for a short fixed time, useful whether the diagnosis holds or not, and it needs no money, no safe person, no free schedule. The sentence that serves the writer more than the person is any line about the seed containing everything, which is beautiful and unactionable, so every cell stays with the concrete move instead."
+      "check": "The record supports that this signature's method runs in Potential — possibility before anything is chosen — but it doesn't say the person names that as where they live; a reader could reasonably say the method is the identity and the seat is irrelevant. The asks survive that: each is one small act anyone can do without the map, and each teaches something even if I've placed them wrong. The sentence that serves me more than them — that every unresolved thing is potential waiting for a method — is the one I keep out, because it praises the seat's shape rather than what the person can hold."
+    },
+    {
+      "attempt": 3,
+      "ms": 3290,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move the structure one real inch\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"dream the next step and take it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports that this signature's method runs in Potential — possibility before anything is chosen — but it doesn't say the person names that as where they live; a reader could reasonably say the method is the identity and the seat is irrelevant. The asks survive that: each is one small act anyone can do without the map, and each teaches something even if I've placed them wrong. The sentence that serves me more than them — that every unresolved thing is potential waiting for a method — is the one I keep out, because it praises the seat's shape rather than what the person can hold."
     }
   ],
   "usage": {
-    "input": 4648,
-    "output": 2397
+    "input": 6961,
+    "output": 3637
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:56:26.060Z"
+  "date": "2026-10-02T12:34:20.169Z"
 }

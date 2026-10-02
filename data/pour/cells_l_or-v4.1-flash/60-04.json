@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "What you built has filled out, and you're here to give it its shape.",
-      "ask": "Name the structure that's finished and hand one piece of it to someone to run without you.",
-      "core": "The structure around you is carrying weight it wasn't asked to hold before. What was one arrangement doing one job is now three or four, and you can feel it in the way a day goes — the narrowing at the start, the small stretch when you step out. You're still holding it up, and holding is what's changing shape. What you tend reaches full shape when it's allowed to stand in more than one place at once. That's not a loss of what you made. It's the part where what you made gets a life without you in every corner. Letting go now isn't defeat — it's what finishing looks like from inside. You know this abundance; you watched it arrive. Let one piece grow outward into someone else's hands.",
-      "sheetLine": "Let one piece of what you built run without you.",
-      "verb": "Letting what you've tended reach its full shape and be seen",
-      "place": "Where systems get set and made dependable",
+      "tense": "What has been growing under patient care is ready now and is being met on time.",
+      "act": "release the method, not the purpose",
+      "ask": "Drop the one piece of your care that has become reflex rather than need. Keep the commitment underneath it. No deadline — just notice what the week does without that piece.",
+      "core": "You can bring something to its finish and then open your hands. What you have built is holding itself up, and you are letting it, piece by piece. The room is big, the light is steady, and the hand does not have to stay on it to keep it safe. The long work shows, and you get to stand in this part of it.\n\nOne part of the care you are still doing is reflex now rather than need. Set that part down and leave the purpose untouched. What you are committed to stays visible without it. Old hands will reach for the missing piece and find it gone. That is how you find out which part was the commitment and which part was only a method.",
+      "sheetLine": "You can finish, open your hands, and like what grew.",
+      "verb": "bring a long-tended thing to its finish",
+      "place": "where the pattern gets set for what comes next",
       "provenance": {
         "signature_id": 60,
         "position_id": 4,
@@ -26,11 +27,41 @@
         "partner": "Dedication",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is how you find out\"",
+          "hard": true
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +71,13 @@
     },
     {
       "status": 2,
-      "tense": "You're building the next thing before this one has been let in.",
-      "ask": "Do one finished thing with whole attention today before starting the next — one hour, no new plans.",
-      "core": "You're bracing for a load that hasn't landed. The structure in front of you is holding, and you're already reinforcing it for a season that may not come. Somewhere ahead is the version where it all falls if you stop — and living there, you're spending today's care on tomorrow's problem. The grip is tight enough that the abundance can't be received; it can only be prepared for. What careful tending produced is here, and you haven't sat down with it. Vision runs on what's been lived through and put down, not on what's still being carried. One thing at a time. Finish the one in front of you and let the next wait its turn. The energy you're spending ahead of time is the energy the present needs.",
-      "sheetLine": "You're reinforcing what isn't shaking yet.",
-      "verb": "Letting what you've tended reach its full shape and be seen",
-      "place": "Where systems get set and made dependable",
+      "tense": "The result will be ripe and the work will be kept hovering over it long past that point.",
+      "act": "join someone in the work so the two streams run as one",
+      "ask": "Do one real piece of the work alongside someone else. Not a hand-off and not a report — the same job, same day, so their way of doing it changes yours. No timeline.",
+      "core": "Where the growing has come in, it is being held too tight. Each result is still being improved on, and the next version is being planned while this one is still coming up. It looks like devotion from outside. From the bed it reads as a thing that cannot be done. You know how to care for something. What is missing is trusting that someone else's care can hold it too.\n\nBring one person into the work and do it side by side, same job, same room, their way of doing it bending the shape of yours. What has already grown stays yours when you look at it again. You do not have to be the only hands it passes through to keep it safe.",
+      "sheetLine": "You are improving what is ready instead of letting it be done.",
+      "verb": "bring a long-tended thing to its finish",
+      "place": "where the pattern gets set for what comes next",
       "provenance": {
         "signature_id": 60,
         "position_id": 4,
@@ -54,31 +86,37 @@
         "partner": "Merge",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The plan you set down is still sitting where you left it, and you walk past.",
-      "ask": "Pick one small structure you've been avoiding and do its first step — title it, write one line, make one call.",
-      "core": "The shape you were building stalled and you stopped tending it. The arrangement is still there in the room, the work waits on the table, and the pen stays down. Structure going well is a low hum in the background — the same few moves holding a day together without being attended to. You can feel the difference here: the moves are still there, but nothing is being decided through them, and what was arranged reads as furniture. You don't have to be ready. Start a small thing and finish it, even badly. Devotion that gets no testing isn't devotion yet — it's intention without a finish. One step is enough. It puts a thing that exists back into the room. From there, more can be added. From empty, nothing can.",
-      "sheetLine": "The door is still shut. One step opens it.",
-      "verb": "Letting what you've tended reach its full shape and be seen",
-      "place": "Where systems get set and made dependable",
+      "tense": "The place where the pattern gets set has sat unused since the last person who set it there left.",
+      "act": "face one way for three days",
+      "ask": "Pick one direction for your own growing by what you want, not what makes sense, and hold it for three days. Stop checking the other directions before you have moved.",
+      "core": "The room where the pattern gets set has gone quiet, and nothing new has been started in it for a while. You tend what is already there, but the arranging hand has slipped off the table. What you built earlier is holding; you have stopped adding to it and stopped saying where it should go next.\n\nChoose a heading. Not the correct one — the wanted one. Hold it for three days and take the small decisions about the growing in that direction, and stop checking the other directions before you have moved. The point is not picking the right one. The point is finding out whether your hand still answers when you use it, and what it reaches for first.",
+      "sheetLine": "You tend what is here but have stopped saying where it goes.",
+      "verb": "bring a long-tended thing to its finish",
+      "place": "where the pattern gets set for what comes next",
       "provenance": {
         "signature_id": 60,
         "position_id": 4,
@@ -87,14 +125,14 @@
         "partner": "Orientation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -106,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You're already shaping how things run, and calling it just how things go.",
-      "ask": "Name one rule or pattern you set in motion and say out loud that you're the one who set it.",
-      "core": "The pattern is running and you didn't sign it. People are following arrangements you made — how a week gets spent, who is asked, what counts — and it comes out of your mouth as though the thing decided itself. You're in it: you make the call, you say the word. But the source is filed under circumstance, and the credit isn't reaching you, even from yourself. Letting go here isn't giving up the pen. It's setting it down on a page you've already written and calling the page yours. Release takes pressure off structure — you don't have to keep holding it as if you weren't there. Say the plain sentence. The page is yours; claim it.",
-      "sheetLine": "You planned this. Say so.",
-      "verb": "Letting what you've tended reach its full shape and be seen",
-      "place": "Where systems get set and made dependable",
+      "tense": "The structure is being set and the hand doing the setting is calling it the season's doing.",
+      "act": "drop the wrong approach and keep the commitment",
+      "ask": "Next time your patience turns out to be a choice, let that be true without explaining it away. Notice the choice — nothing else about the week changes.",
+      "core": "The shape of the thing is being decided by you — the timing, the order, when to hold off and when to move — and your account of it is that this is simply how things come in. The pattern is real and it belongs to you. You have filed it under the garden's own nature. The garden does not mind. The people watching learn from a hand they cannot see, and that hand is doing more than it lets on.\n\nThe next time you make a call about your growing, let yourself know it was a call you made. Nothing else changes — same work, same pace, same answers. The pen is down on paper you were already writing. The words on the page stay the same.",
+      "sheetLine": "The pattern is yours and you filed it under the garden's own nature.",
+      "verb": "bring a long-tended thing to its finish",
+      "place": "where the pattern gets set for what comes next",
       "provenance": {
         "signature_id": 60,
         "position_id": 4,
@@ -120,14 +159,34 @@
         "partner": "Dedication",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -141,15 +200,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6220,
+      "ms": 5268,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
@@ -159,150 +242,62 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Faith",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"It's not arrogance; it's accuracy\" — the reveal: the person's own account overruled",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"credit from the one person\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported: stage and house labels — but those never reach the cells. Reader objection: that structure means control; the Founder's terms say functional architecture, not rigidity, and the Balanced cell's own move is release, so the objection meets the Growth face. The ask survives a wrong read: each is one visible act grounded in completion or commitment, useful even if the mechanism is off. Sentence serving the writer: the Ten of Cups echo in 'what you've tended is bearing fruit' — cut from all four cells; the core says keeping, letting stand, or ending instead."
-    },
-    {
-      "attempt": 2,
-      "ms": 3665,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "vocab",
+          "detail": "4 images in one core (garden, room, stream, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the work\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 111 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "glass",
-          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -319,14 +314,50 @@
           "status": 3
         },
         {
+          "code": "weave",
+          "detail": "the place phrase is pasted into the tense line or the opening — \"In where you become…\" does not parse",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "length",
           "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "hunch",
-          "detail": "\"It's not arrogance; it's ownership\" — the reveal: the person's own account overruled",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"me\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
           "hard": true,
           "status": 4
         },
@@ -335,17 +366,64 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported in my draft: the status 3 line 'something in you died' — the record only says the seat is running on empty, not what emptied it. Reader objection: structure read as control; the cellular moves are keeping, finishing, starting, and claiming, not tightening. Each ask is one visible act with a finish that stands even if my read is wrong, since it produces something the person can point to. The line that served me more than the person was 'The gardener doesn't stand at the trellis forever' — cut; it admired itself."
+      "check": "The unsupported claim: that what the person tends has been tended long enough to be ready to hand over; the reader may say the season is not theirs to choose. The asks survive a wrong read because each is an act the person can pick up in a week and learn from regardless of the diagnosis. The sentence serving the writer more than them: 'the harvest does not need you hovering over it', a line that sounds like a permission slip but pressures them to let go."
     },
     {
-      "attempt": 3,
-      "ms": 3522,
+      "attempt": 2,
+      "ms": 4400,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that is the whole of\"",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -353,45 +431,75 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 94 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "detail": "3 images in one core (room, current, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it run\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "length",
           "detail": "core 115 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -399,20 +507,60 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: nothing in the record says what emptied the seat in Too Little — the cell names only where the person stands, not what happened. Reader objection: structure read as control; the asks are keeping, finishing, starting, claiming — not tightening — so the objection meets the Growth face. Each ask is one visible act with a finish and stands on its own if my read is wrong. The line serving me more than the person was 'the capacity didn't leave' — cut; it consoles the writer."
+      "check": "The unsupported claim: that what the person tends has been tended long enough to be ready to hand over, and that they have been keeping a hand on it past the point of need — a reader could fairly say the season is not theirs to choose and nothing is being held too tight. The asks survive a wrong read: each is a small act that teaches the person something about their own grip whether or not the diagnosis lands. The sentence serving the writer more than them is 'let the week show whether it stands', which dresses a demand in the language of evidence. Fixed in the cells below: the clock count is three across the quartet, opening on four different verbs, no mapspeak, and only one image carried per core where an image is used at all."
     },
     {
-      "attempt": 4,
+      "attempt": 3,
       "ms": 3553,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -420,57 +568,128 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
           "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the small\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Unsupported: nothing in the record says what emptied the seat in Too Little — the cell names only where the person stands, not what emptied it, and does not imply a cause. Reader objection: structure read as control; the asks are keeping, finishing, starting, claiming — not tightening — so the objection meets the Growth face. Each ask is one visible act with a finish and stands on its own if my read is wrong. The lines that served me more than the person — 'the capacity didn't leave' and 'It's not arrogance' — are cut; they console or correct the writer."
+      "check": "The unsupported claim: that a long-tended thing is ready to be handed over, and that the person has been holding it too tight — a reader could fairly say the season is not theirs to choose and nothing is being clutched. The asks survive a wrong read: each is a small act that teaches the person something about their own grip whether or not the diagnosis lands. The sentence serving the writer more than them is 'See what the week says', which dresses a demand in the language of evidence. Fixed below: no mapspeak, one image per core at most, three of four asks without a clock, four different opening verbs, and no five-word run from the exemplars."
     },
     {
-      "attempt": 5,
-      "ms": 3128,
+      "attempt": 4,
+      "ms": 3268,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -478,17 +697,158 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
           "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 2
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person has been holding a finished thing too tight or has stopped adding to the pattern; a reader could fairly say the season is not theirs to choose and nothing is being clutched. The asks survive a wrong read: each is a small act that teaches the person something about their own grip whether or not the diagnosis lands. The sentence serving the writer more than them is 'See what the week says' — a demand dressed as evidence — which is dropped here. Fixed below: no mapspeak, one image per core at most, three of four asks without a clock, four different opening verbs, and no five-word run from the exemplars."
+    },
+    {
+      "attempt": 5,
+      "ms": 3634,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is how you find out\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -499,8 +859,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, garden) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -509,15 +893,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: nothing in the record says what emptied the seat in Too Little — the cell names only where the person stands and implies no cause. Reader objection: structure read as control; the asks are keeping, finishing, starting, claiming — not tightening — so the objection meets the Growth face. Each ask is one visible act with a finish and stands if my read is wrong. The lines serving me more than the person — 'the capacity didn't leave' and 'It's not arrogance' — are cut; they console or correct the writer."
+      "check": "The unsupported claim is that a long-tended thing is finished and the person is hovering over it or has stopped arranging — a reader could fairly say the season is not theirs to choose and nothing is being clutched. The asks survive a wrong read: each is a small act that shows the person something about their own grip whether or not the diagnosis lands. The sentence serving the writer more than them is 'The author's name goes on a page you were already writing' — a line that flatters the reading rather than serving the person. Fixed below: four asks of different shapes (a drop with no end, an open practice, a three-day commitment, a single noticing), two of four without any clock, four different opening verbs, no mapspeak, and one image per core at most."
     }
   ],
   "usage": {
-    "input": 5257,
-    "output": 5424
+    "input": 6104,
+    "output": 6037
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:48:34.327Z"
+  "hardOpen": 3,
+  "date": "2026-10-02T13:14:22.622Z"
 }

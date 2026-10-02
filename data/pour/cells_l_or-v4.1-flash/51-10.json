@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You know the whole of a bond is here because you feel it in your body.",
-      "ask": "Say out loud once today what you feel for someone in the room — the real words, however they come, no tidying them first.",
-      "core": "What's coming through is a fullness of feeling, and you're standing in it while it arrives. A bond's whole shape is here and you can sense all of it at once, not one strand at a time.\n\nYou don't need to finish anything or name what it means. The way this works when it's going well is plain: feel it, and let the feeling stay within you instead of turning into a decision about them or you. You're free to let this steadiness feed whatever comes next, and free not to. It's an invitation, not a task.\n\nThe one thing that keeps it steady is saying what you feel once, plainly, to the person it belongs to, without making them responsible for anything.",
-      "sheetLine": "You can feel the whole bond, and it's yours to keep steady.",
-      "verb": "Feeling the whole of a connection at once",
-      "place": "Where what is arriving now crosses the threshold",
+      "tense": "Something is entering now, and you can feel all of it without anything being settled.",
+      "act": "sit with what the heart already knows",
+      "ask": "Take ten quiet minutes with what's arriving, and stay beside it without naming it or deciding.",
+      "core": "Something is coming into your life and you can feel the whole of it at once — the welcome, the worry, the entire shape of it, with nothing decided yet. That width doesn't scatter you. You can hold a wide feeling and keep your feet on the floor.\n\nThe work here is small. Take ten quiet minutes with what's arriving, and stay beside it without naming it or deciding. Not every arrival needs a verdict by evening. The feeling can remain a whole thing instead of getting cut into pieces you can manage. Nothing is asking you to finish it today; it's asking you to stay near it long enough to be honest about it.",
+      "sheetLine": "You can feel a whole thing before you decide about it.",
+      "verb": "the whole feeling of a thing arriving at once.",
+      "place": "the doorway where something new is coming in.",
       "provenance": {
         "signature_id": 51,
         "position_id": 10,
@@ -26,19 +27,34 @@
         "partner": "Reverie",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, floor) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sit with what the heart already knows\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -48,19 +64,20 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're bracing for a closeness you keep trying to lock down ahead of time.",
-      "ask": "Pick one relationship you're pushing toward a decided outcome and wait a day before acting on it — notice the pull to steer and don't.",
-      "core": "You can feel the whole of a connection at once, and some of your attention has jumped ahead — deciding what it should become, checking it, trying to get it finished before it's actually here.\n\nWhat's arriving keeps getting shaped to fit the ending you've already written. That grip is how a wide-open feeling gets narrowed into something to manage. The thing about a feeling this full is that it deepens as it goes rather than wrapping up — there's no last page waiting for you to reach it.\n\nLetting one thing stay open today isn't neglect. Waiting a day before you act on an outcome you already decided is the whole move. When you don't force the ending, you get to find out what the connection is when nobody's steering it.",
-      "sheetLine": "You're trying to finish a closeness that's still arriving.",
-      "verb": "Feeling the whole of a connection at once",
-      "place": "Where what is arriving now crosses the threshold",
+      "tense": "Something is entering, and you're already living past it into an ending you can't write.",
+      "act": "decide what this is for before you spend it",
+      "ask": "Before you spend a thing you're about to give — time, care, money — say in one line what it's for.",
+      "core": "Something is arriving and you're already past it, arranging the end before the thing has started. Feeling it all as complete means you grieve the loss before the hello, and everything gets decided early. That habit buys you a kind of safety, and it leaves the present thin while you pay for it.\n\nUse the same habit, aimed differently. Before you spend a thing you're about to give — time, care, money — say in one line what it's for. That keeps you standing at the door you're actually at. The wider knowing comes back without you forcing it; it only needs you where the new thing is.",
+      "sheetLine": "You arrange the ending before the thing has started.",
+      "verb": "the whole feeling of a thing arriving at once.",
+      "place": "the doorway where something new is coming in.",
       "provenance": {
         "signature_id": 51,
         "position_id": 10,
@@ -69,31 +86,42 @@
         "partner": "Definition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The whole feeling is here to enter, and you're still standing at a door you kept closed.",
-      "ask": "Send someone one true sentence about how you actually feel today, then do nothing with it — no follow-up, no watching for a reply.",
-      "core": "The whole of a bond is available and it isn't landing with you yet. You can be in the room and still feel at arm's length from what's arriving. That distance isn't a verdict on you, and it isn't something to fix by pushing harder at feeling.\n\nWhen this opens on its own, it's small and sudden. One honest exchange, and something dormant catches. No plan attached. So today, put one true sentence into the world and let it go — no follow-up, no watching the reply.\n\nThe point is meeting what's here, not manufacturing it. You're at a threshold. The smallest real contact counts as arrival.",
-      "sheetLine": "The moment is arriving, at a door you've kept shut.",
-      "verb": "Feeling the whole of a connection at once",
-      "place": "Where what is arriving now crosses the threshold",
+      "tense": "Something stands at the door, and you're still answering one that closed and isn't coming back.",
+      "act": "catch the first spark before you point it anywhere",
+      "ask": "When something new catches you — a person, a chance, an idea — let the flicker have ten seconds before you decide what it's for.",
+      "core": "Something is at the door and you're back at an earlier one, so the new thing arrives — and you don't. The welcoming part of you has gone quiet. Feelings come and nothing opens to them. What should land as a fresh whole feels like it belongs to a finished chapter, and the new thing waits outside.\n\nDon't push feeling into an empty landing; start at the front instead, small. When something new catches you — a person, a chance, an idea — let the flicker have ten seconds before you decide what it's for. No commitment, no plan. Starting is how the rest of the cycle finds its way back.",
+      "sheetLine": "You're answering a door that's already closed.",
+      "verb": "the whole feeling of a thing arriving at once.",
+      "place": "the doorway where something new is coming in.",
       "provenance": {
         "signature_id": 51,
         "position_id": 10,
@@ -102,19 +130,19 @@
         "partner": "Activation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 106 words (120–160)",
+          "detail": "core 108 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, threshold) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -123,20 +151,31 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're living the whole of a connection now while calling all of it normal operations.",
-      "ask": "Name one kind thing you did today and say out loud that you decided to do it — no assigned causes.",
-      "core": "You feel people fully and you move close without thinking about it — the recognition runs all the time, shaping how you show up. Right now you'd probably call it just being a person in the room.\n\nThe whole shape of a bond is already alive in you. It doesn't announce itself as a feeling; it looks like ordinary care, the way you check on someone without noticing you decided to.\n\nWhat's missing is the acknowledgment — the sentence waiting underneath the doing. Not an announcement. Just once, say it was you. That's the smallest move that brings the claim back down, and today is a fair day to make it, while what you feel is easy to see.",
-      "sheetLine": "The connection is already whole. You're calling it habit.",
-      "verb": "Feeling the whole of a connection at once",
-      "place": "Where what is arriving now crosses the threshold",
+      "tense": "What is entering now is already being met by you, and you'd say you're just watching it happen.",
+      "act": "do the fair thing where no one will see",
+      "ask": "Pick a small case you've quietly sorted — who gave, who owes — and settle it honestly, with no one watching.",
+      "core": "Something is entering your life and it's being met — by you. You'd say you're just coping, not steering. But you read a new situation and quietly weigh what's owed, who gets a fair moment, what keeps things level. That's judgment without calculation, and it belongs to you. Nothing shows on your face while you do it.\n\nThe inner sense of what's right is the compass guiding this, and you've been treating it as something that just happens. Pick a small case you've quietly sorted — who gave, who owes — and settle it honestly, with no one watching. Then sit with the fact that you did it. That part has been going unclaimed for a while.",
+      "sheetLine": "You're meeting what arrives, though you'd say you're only watching.",
+      "verb": "the whole feeling of a thing arriving at once.",
+      "place": "the doorway where something new is coming in.",
       "provenance": {
         "signature_id": 51,
         "position_id": 10,
@@ -145,29 +184,29 @@
         "partner": "Conscience",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -176,15 +215,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5905,
+      "ms": 5894,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 1
         },
         {
@@ -194,102 +239,144 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"long ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 112 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, threshold) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person's history, what an earlier room cost them, or that any bond has ended — it only says the capacity of felt connection is drawn now, so the whole cell must stay on what is arriving and how it is met. A reader could reasonably say the bond or the wholeness is still alive and deepening, not finished — which is exactly why Too Much and Unacknowledged never declare a finish and the ask has them claim a living thing, not close one. The ask survives being wrong because it costs nothing and asks only for one plain sentence. The sentence that would serve me more than the person is any line that sounds like a verdict on their life — none of that is in the cells."
+      "check": "The unsupported claim is that the person's arriving feeling is whole or settled — the record only says a cycle has reached wholeness, not that anything is currently landing or that it is welcome. A reader could rightly say 'I don't feel whole at all; this is dread I'm feeling.' The asks survive that: they invite one small act, not a verdict on the person's state. The sentence that serves the writer is 'you can feel the whole thing at once' — it's flattering and unearned; I've kept it out."
     },
     {
       "attempt": 2,
-      "ms": 3712,
+      "ms": 4135,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, floor) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -300,44 +387,62 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "refrain",
+          "detail": "\", and let it sit\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, threshold) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -348,26 +453,38 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 106 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -376,26 +493,50 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record does not say the person's history, what an earlier room cost them, or that any bond has ended — it only says the capacity of felt connection is drawn now, so the whole cell stays on what is arriving and how it is met. A reader could say the bond is still deepening, not finished, which is why the excess and the disowned cells never declare a close and the ask has them claim a living thing rather than end one. The ask survives being wrong because it costs nothing and asks for one plain sentence. The sentence that would serve me more than the person is any line that sounds like a verdict on their life — none of that is in the cells."
+      "check": "The unsupported claim in the draft was that the person already knows the arrival's worth — the record says a cycle has reached wholeness, not that anything is currently welcome or legible. A reader could rightly say 'I don't feel whole, this is dread.' The asks survive that: each is one small act, not a verdict on the person's state, and none promises what it fixes. The sentence that serves the writer is the closing reassurance about knowing — I cut it and let the acts stand on their own."
     },
     {
       "attempt": 3,
-      "ms": 3684,
+      "ms": 3569,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, floor) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sit with what the heart already knows\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -407,131 +548,43 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (door, shape, threshold) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person's history, what an earlier room cost them, or that any bond has ended — it only says the capacity of felt connection is drawn now, so the cells stay on what is arriving and how it is met. A reader could say the bond is still deepening, not finished, which is why the excess and the disowned cells never declare a close and the ask has them claim a living thing rather than end one. The ask survives being wrong because it costs nothing and asks for one plain sentence. The sentence that would serve me more than the person is any line that sounds like a verdict on their life — none of that is in the cells."
-    },
-    {
-      "attempt": 4,
-      "ms": 3857,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "length",
           "detail": "core 106 words (120–160)",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, threshold) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -542,26 +595,38 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -570,15 +635,299 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record does not say a bond has ended, gone wrong, or that the person has a history of shutting people out — it says only that full felt connection is drawn at the threshold now, so the cells stay on what is arriving and how it gets met. A reader could reasonably say the connection is intact and has simply not announced itself, which is why the Too Little cell stays on what isn't landing and the ask stays one sentence sent, no reply watched for. The ask survives a wrong read because it costs nothing and promises nothing. The sentence that would serve me more than the person would be any line that sounds like a verdict on their history or their feeling — none of that is in the cells."
+      "check": "The unsupported claim in the draft was that the person already knows the arrival's worth — the record says a cycle has reached wholeness, not that anything is currently welcome or legible. A reader could rightly say 'I don't feel whole, this is dread.' The asks survive that: each is one small act, not a verdict on the person's state, and none promises what it fixes. The sentence that serves the writer is the closing reassurance about knowing — I cut it and let the acts stand alone. I also cut the three refrains the last pass flagged."
+    },
+    {
+      "attempt": 4,
+      "ms": 4242,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, floor) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sit with what the heart already knows\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the doing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim in the draft was that the person already knows the arrival's worth — the record says a cycle has reached wholeness, not that anything is currently welcome or legible. A reader could rightly say 'I don't feel whole, this is dread.' The asks survive that: each is one small act, not a verdict on the person's state, and none promises what it fixes. The sentence that serves the writer is the closing reassurance about knowing — I cut it and let the acts stand alone. The status 4 refrain was replaced with a plain second-person address."
+    },
+    {
+      "attempt": 5,
+      "ms": 4241,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, floor) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sit with what the heart already knows\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"catch the first spark before you point it anywhere\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person already knows the arrival's worth — the record says a cycle has reached wholeness, not that anything is currently welcome or legible. A reader could rightly say 'I don't feel whole, this is dread.' The asks survive that: each is one small act, not a verdict on the person's state, and none promises what it fixes. The sentence that serves the writer is the closing reassurance about knowing — it is cut, and the acts are left to stand alone. The status 4 refrain is replaced with a plain second-person address, and the closing move there now ends on the act itself."
     }
   ],
   "usage": {
-    "input": 3918,
-    "output": 4442
+    "input": 8844,
+    "output": 5588
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:41:44.180Z"
+  "date": "2026-10-02T12:16:52.764Z"
 }

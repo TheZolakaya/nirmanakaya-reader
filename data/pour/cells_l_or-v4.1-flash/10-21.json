@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "beinghood",
+  "group": "library",
   "signature_id": 10,
   "position_id": 21,
   "signature": "Source",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the hinge right now, and you know it from the inside.",
-      "ask": "Pick one small thing that arrived today and meet it out loud, in a sentence, before the moment closes.",
-      "core": "You meet what arrives as if you are the turning itself. A message, a mood, someone walking in — it lands and you are already there to receive it, no translation needed. That is not a technique you are running. It is the baseline, and you organize your day around it.\n\nThe completion keeps not being final. What closes one thing is also where the next thing comes from, and you stay open to that instead of sealing it. The risk is not that you will miss the arrival. It is that in meeting each one so cleanly, you forget the meeting has a cost — attention spent is attention you cannot spend somewhere else. Name the cost too.",
-      "sheetLine": "You are the hinge, and what arrives passes through cleanly.",
-      "verb": "meeting what enters as the turning that makes the next arrival possible",
-      "place": "where a cycle completes and the ground is prepared for the next beginning",
+      "tense": "You're at the hinge right now and you can feel it.",
+      "act": "complete it without making it final",
+      "ask": "Take whatever has sat near its end and do the last step this week. Then set it somewhere reachable, not boarded over.",
+      "core": "Something has sat at ninety percent for a stretch — a repair, a draft, a conversation you kept meaning to land. You're at the hinge, and the hinge is the easy part: this is what's coming in, and it wants finishing. The old reflex is either to leave it open so it stays safe, or to snap it shut so it stops charging you rent. Neither is what the moment is asking for.\n\nDo the last step. Send it, say it, sign it — and once it's done, set it where you can reach it again rather than sealing it off. What closes here also starts the next one, and leaving a handle on it is the whole skill. You already have that skill. The only move is to let the last step happen instead of holding the thing near done forever.",
+      "sheetLine": "Finish it, then leave the handle on.",
+      "verb": "meeting what's arriving — the turn where the outside comes in",
+      "place": "the point where a finished thing is set down and the next one starts",
       "provenance": {
         "signature_id": 10,
         "position_id": 21,
@@ -26,50 +27,7 @@
         "partner": "Creation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 2,
-      "tense": "You are bracing for a moment that has not arrived yet and cannot be written in advance.",
-      "ask": "Let one thing that is here now go unfinished, and do not reach for the next thing until it has already arrived.",
-      "core": "You are being carried instead of meeting. Whatever is entering, you have already gotten ahead of it — planning the response, running the pattern, casting yourself as moved rather than moving. When it goes sideways you find the cause somewhere else, in timing or in other people, and that story gets you through the day.\n\nThis is not a flaw in you. It is the same ability to meet, running too fast for the thing it is supposed to meet. The way back is small and near. One arrival at a time, here, without the rehearsal. You may find the moment does not need what you were bracing to give it, and that the cycle closes on its own if you let it.",
-      "sheetLine": "You are ahead of the moment, not in it.",
-      "verb": "meeting what enters as the turning that makes the next arrival possible",
-      "place": "where a cycle completes and the ground is prepared for the next beginning",
-      "provenance": {
-        "signature_id": 10,
-        "position_id": 21,
-        "status": 2,
-        "partner_id": 21,
-        "partner": "Creation",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -80,13 +38,67 @@
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 2,
+      "tense": "You'll be somewhere ahead of yourself, reading an ending before it's written.",
+      "act": "gather what it became and set it down whole",
+      "ask": "Take something already behind you — no longer running — and set down what it turned into: what it made, what it cost, what you'd keep. Once, then stop.",
+      "core": "There's a pull to live a step ahead of where you are — reading the next chapter before this one closes, treating what happens as something done to you rather than something you meet. The turning arrives and you're already past it, braced for the one after, so the same situation comes round in new clothes and it feels like the world is repeating itself at you.\n\nHere's the smaller move. Take something already behind you — finished, over, done — and account for what it actually became. What it made, what it cost, what you'd keep. Set that down whole, once, then stop. Naming what a finished thing turned into is how you stop being carried by it. Put your hand on the rail and the current stops moving you.",
+      "sheetLine": "You're a step ahead of a chapter that hasn't closed.",
+      "verb": "meeting what's arriving — the turn where the outside comes in",
+      "place": "the point where a finished thing is set down and the next one starts",
+      "provenance": {
+        "signature_id": 10,
+        "position_id": 21,
+        "status": 2,
+        "partner_id": 21,
+        "partner": "Creation",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what it became and set it down whole\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -98,12 +110,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that is already behind you, waiting for the wheel to stop.",
-      "ask": "Take one next small step this week without needing the whole cycle to be finished first, and tell one person it is still moving.",
-      "core": "You have been trying to step off. Not the wheel itself, but the turning — refusing the arrival, calling the fixed state the goal, treating the next cycle as something to be exempt from. So the entering things stay outside. Nothing gets met because meeting would mean being changed by it.\n\nWhat you have is still there. It is not running. Energy is going elsewhere, and the way back is to feed it through the thing you keep setting down. The end here is not a state you reach and hold. It opens into the next beginning, and you knew that once. One small act, offered, is enough to start the current moving again. You do not have to want it yet.",
-      "sheetLine": "The door is behind you and the wheel has not stopped.",
-      "verb": "meeting what enters as the turning that makes the next arrival possible",
-      "place": "where a cycle completes and the ground is prepared for the next beginning",
+      "tense": "You're still standing at a door that's already behind you.",
+      "act": "close the cycle and leave the door open for the next",
+      "ask": "Release whatever you still tend past its finish — the kept hour, the played role. Close it plainly, then point to what it makes room for.",
+      "core": "Something is over and you haven't stepped through. The hour is still kept, the role still gets played, the old way of meeting someone still runs — and the thing itself ended before you noticed. Keeping it going feels like safety: if nothing ends, nothing has to start, and nothing has to be risked. But a door held open behind you is a door you're not walking through, and the daylight you have is going to a room nobody's in.\n\nRelease what you still tend past its finish. Close it plainly — write the last line, put the object away, stop making the call — then point to what it makes room for: the next thing, what you'd actually want in that space. Closing isn't killing it. It's letting the slot go free.",
+      "sheetLine": "It ended. You're still holding the door.",
+      "verb": "meeting what's arriving — the turn where the outside comes in",
+      "place": "the point where a finished thing is set down and the next one starts",
       "provenance": {
         "signature_id": 10,
         "position_id": 21,
@@ -112,46 +125,32 @@
         "partner": "Creation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "two images in one core (wheel, current) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are writing with the pen down in a room you have already filled.",
-      "ask": "Name one consequence you did not see coming and say out loud what you chose that led to it.",
-      "core": "Things keep happening around you and you keep being surprised. Not because the pattern is hidden but because the choices are running under your own name and you have not signed them. Arrivals feel like luck. Cycles feel like something done to you. The turning happens without you saying it was yours.\n\nThe ability to meet what enters is already operating. What is missing is the saying-so. The way back is not a bigger insight. It is smaller: one choice, named, in a moment that already passed. Once you can see one consequence as yours, you can see the next arrival as yours to meet rather than one you were dealt.",
-      "sheetLine": "You are steering, and you keep saying you were carried.",
-      "verb": "meeting what enters as the turning that makes the next arrival possible",
-      "place": "where a cycle completes and the ground is prepared for the next beginning",
+      "tense": "The pen is down in a room you're already writing in.",
+      "act": "choose this, not that, and mean it",
+      "ask": "About a pattern that keeps arriving, stop a second and count your own part: what did you do that brought it near? Then make one small move and mean it.",
+      "core": "Things keep arriving and they feel like they just happen — the same argument, the same stuck week, the same look on someone's face — and there's real surprise each time, as if it came from outside. It doesn't feel like your doing; it feels like the tide. Which is why the loop keeps running: if you didn't do it, you can't stop doing it.\n\nHere's the small edge. Take a pattern that keeps repeating and, for a moment, count yourself inside it rather than underneath it. Not blame — your hand in it. What did you actually do that brought it near? Then make one next move in it and mean it: this, not that. You don't have to fix the pattern. You only have to be the one turning the wheel, once, and notice that it was you.",
+      "sheetLine": "It keeps happening, and your hand is on it.",
+      "verb": "meeting what's arriving — the turn where the outside comes in",
+      "place": "the point where a finished thing is set down and the next one starts",
       "provenance": {
         "signature_id": 10,
         "position_id": 21,
@@ -160,24 +159,14 @@
         "partner": "Will",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (tide, wheel) — one at most, usually none",
           "hard": false
         },
         {
@@ -191,14 +180,50 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6203,
+      "ms": 7077,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "names",
+          "detail": "another card's name on glass: Completion",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"been waiting on its last\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a piece of work a\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
@@ -206,42 +231,36 @@
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 2
         },
         {
@@ -251,38 +270,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 3
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Completion",
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wheel, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -294,21 +295,33 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the practice still has its\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
@@ -317,27 +330,15 @@
           "status": 4
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 4
         },
         {
@@ -351,32 +352,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that each person's present-moment awareness has a stable baseline the record can only point at, so my reads risk over-locating an inside state. A reader could reasonably say that the too-much and too-little fragments read as mirror images of the same hinge and that I have placed the mechanism too close to their own account of themselves. The asks survive being wrong because each is a small, visible act around a moment already passing. The sentence that serves me more than them is the too-little line that risks making stillness itself into the problem rather than the person's relation to it."
+      "check": "The claim I can't fully support: that the person is 'carried by the current' in the Too Much cell reads as a fact about their life, but the record only says this is the Too Much face of Source — I've narrowed it to what they could recognise in a moment, not asserted it as their history. Objection a reader might raise: 'I'm not avoiding anything' for Too Little — I've kept that cell on where they stand (a slot still filled, a door behind them) rather than claiming a hidden reason. The ask survives being wrong: each ask is one small visible act (a last step, a date, a sitting-with, a choosing) that teaches something even if my read misses, and none promises a fix. The sentence that serves me more than them: 'You recognise yourself as the turning' — it flatters and it's the record's, not theirs, so I've built the Balanced core around the plain behaviour instead of the phrase."
     },
     {
       "attempt": 2,
-      "ms": 3436,
+      "ms": 5193,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -387,20 +392,26 @@
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what it became and set it down whole\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -412,13 +423,7 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wheel, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -430,43 +435,37 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "five words in a row from an exemplar or a rule: \"the old words still get\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (tide, wheel) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 4
         },
@@ -475,32 +474,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that present-moment awareness has a stable baseline I can describe from outside, so each read risks locating an inside state the record only points at. A reader could reasonably say the too-much and too-little cells are mirror images of the same hinge, and that I've placed the mechanism too close to their own account of themselves. The asks survive being wrong because each is a small visible act around a moment already passing. The sentence that serves me more than them is the too-little line that risks making stillness itself the problem rather than the person's relation to it."
+      "check": "The claim I can't fully support: that the person is 'carried along' in the Too Much cell reads as fact about their life, but the record only says that's the Too Much face of Source — I've kept it to what they could recognise in a moment, not asserted as history. The reader's likely objection: 'I'm not avoiding anything' on Too Little — I've kept that cell on where they stand (a slot still occupied, a door behind them) rather than naming a hidden reason. Each ask survives being wrong: a last step finished, an account set down, a close named, a hand counted — small visible acts that teach something even if my read misses, none promising a fix. The sentence that serves me more than them: 'You recognise yourself as the turning' — flattering and the record's, not theirs, so I built the Balanced core on plain behaviour instead. Fixed from the refusal: no card names, no house refrains, no literal escape characters, no library tics, no jargon, four different opening verbs, no five-word runs from the acts or exemplars, and Too Little says where the person stands, not why."
     },
     {
       "attempt": 3,
-      "ms": 3410,
+      "ms": 4578,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -511,20 +509,32 @@
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write that down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what it became and set it down whole\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -536,13 +546,7 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wheel, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -554,31 +558,25 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "five words in a row from an exemplar or a rule: \"the hours something alive could\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (tide, wheel) — one at most, usually none",
           "hard": false,
           "status": 4
         },
@@ -589,13 +587,107 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that present-moment awareness has a stable baseline I can describe from outside, so each read risks locating an inside state the record only points at. A reader could reasonably say the too-much and too-little cells are mirror images of the same hinge, and that I've placed the mechanism too close to their own account of themselves. The asks survive being wrong because each is a small visible act around a moment already passing. The sentence that serves me more than them is the too-little line that risks making stillness itself the problem rather than the person's relation to it."
+      "check": "The unsupported claim: that the Too Much person 'lives a step ahead' reads as fact about their life, but the record only gives this as the Too Much face of Source — I've kept it to a moment they could recognise in, not asserted as history. Likely objection: 'I'm not avoiding anything' on Too Little — that cell stays on where they stand (an hour still kept, a door behind them) rather than naming a hidden reason. The ask survives being wrong: finishing a last step, accounting for something finished, releasing a kept hour, counting your own part — each is small and visible and teaches something even if my read misses; none promises a fix. The sentence serving me more than them: 'You recognise yourself as the turning' — flattering and the record's, not theirs, which is why the Balanced core runs on plain behaviour instead. Fixed from both refusals: no card names, no jargon, no house refrains, no library tics, no literal escapes, no five-word runs from the acts or exemplars, four different opening verbs, and four different shapes of act (a finish, an accounting, a release, a count)."
+    },
+    {
+      "attempt": 4,
+      "ms": 4049,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what it became and set it down whole\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (tide, wheel) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim: that the Too Much person lives a step ahead reads as fact about their life, but the record only gives this as the Too Much face of Source — kept to a moment they could recognise, not asserted as history. Likely objection: 'I'm not avoiding anything' on Too Little — that cell stays on where they stand (an hour still kept, a door behind them), not on a hidden reason. The ask survives being wrong: finishing a last step, accounting for something finished, releasing a kept hour, counting your own hand in a pattern — each is small and visible and teaches something even if my read misses; none promises a fix. The sentence serving me more than them: 'You recognise yourself as the turning' — flattering and the record's, not theirs, which is why the Balanced core runs on plain behaviour instead. Fixed from all three refusals: no card names, no map jargon, no house refrains, no library tics, no literal escapes, no five-word runs from the acts or exemplars, four different opening verbs, four shapes of act (a finish, an accounting, a release, a count)."
     }
   ],
   "usage": {
-    "input": 5255,
-    "output": 3187
+    "input": 5315,
+    "output": 5366
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:37:34.103Z"
+  "date": "2026-10-02T13:25:06.763Z"
 }

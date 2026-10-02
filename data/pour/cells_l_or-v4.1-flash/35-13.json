@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Emotion",
+  "group": "library",
   "signature_id": 35,
   "position_id": 13,
   "signature": "Repose",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The mind recharges in quiet, and the quiet is the recharge.",
-      "ask": "Spend ten minutes beside one person without filling the silence; when they speak, let their meaning set the topic.",
-      "core": "You went through an ending carefully. Not just getting through it — putting down what had already finished, letting the next thing arrive when it arrived. The mind you used to do that still knows how to rest on purpose. It goes quiet, checks the load, and the load settles.\n\nThat stillness has weight now. People near it feel the room change. If you want one direction to feed it further, a way of passing on what matters — not a rulebook, the living version — is where that current wants to go. It won't stay useful if it stays private. Let someone watch how you set things down.",
-      "sheetLine": "Your quiet is not empty, it is part of the load-bearing.",
-      "verb": "Resting the mind, calibrating; the quiet that lets a thing be over.",
-      "place": "A clearing where something necessary has already ended.",
+      "tense": "Right now the mind is resting inside its own balance, and that still point is holding while endings come.",
+      "act": "cross over to the people it actually requires",
+      "ask": "Name the person this ending actually concerns, and go to them — one honest conversation about what is being closed.",
+      "core": "You've found the still point in the middle of a clearing-out. Before anything gets decided or said, the mind settles into its own balance, and from there the endings come one at a time instead of in a rush. That quiet is doing work — you can tell because what you close, you close without flinching.\n\nThe clearing isn't over. There's a person on the other side of it you've kept at arm's length, and this connection goes through them or it doesn't go. Go over. One real conversation about what's ending is worth more than a hundred managed silences. What stays afterward is a connection that lived through the ending, which is not the same as one that was spared it.",
+      "sheetLine": "The mind is still. Let the ones it concerns hear it from you.",
+      "verb": "settling the mind into balance before anything is closed",
+      "place": "necessary endings and clearing",
       "provenance": {
         "signature_id": 35,
         "position_id": 13,
@@ -26,46 +27,32 @@
         "partner": "Passage",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Your mind is already at the end of a clearing that hasn't happened.",
-      "ask": "Choose one unfinished thing and leave it visibly unfinished for a week; write down the first date you would naturally return to it.",
-      "core": "You are pressing at the clearing, trying to push endings that haven't finished. You can feel the next branch of the tree before it's loaded — so you fill the quiet with preparation, run scenarios for a conversation no one has asked for. That nervous making-ready is standing in the room where rest should be.\n\nThe trouble is not that you're wrong about the ending. It's that preparing for it now spends the momentum you'll need when it actually arrives. Give it one thing you are willing to let lie open. That is the direction you already have — genuine movement from what you actually feel, not from the shape of what might happen.",
-      "sheetLine": "You are bracing for a door that is still open.",
-      "verb": "Resting the mind, calibrating; the quiet that lets a thing be over.",
-      "place": "A clearing where something necessary has already ended.",
+      "tense": "The mind keeps rehearsing a future ending it cannot write yet, and the rehearsal is out ahead of the actual clearing.",
+      "act": "keep the heading when it is contested",
+      "ask": "When someone pushes you to hurry the closing along, stay on the heading you already chose, once, without renegotiating it.",
+      "core": "You're bracing. The mind has gone past the present quiet into a future where everything is already settled, and it keeps writing that ending before the life it belongs to has arrived. The still point is in you somewhere; the bracing has buried it under plans for a close that hasn't come.\n\nWhat's called for isn't more planning. It's standing on the direction you already chose the next time somebody pushes you to hurry it, or the next time you push yourself. Hold the heading once. You'll know the ending is real when you can sit in it rather than argue with it. Until then, the calm you had is what you're defending, not the timing.",
+      "sheetLine": "The ending is being rehearsed before it is here.",
+      "verb": "settling the mind into balance before anything is closed",
+      "place": "necessary endings and clearing",
       "provenance": {
         "signature_id": 35,
         "position_id": 13,
@@ -74,51 +61,42 @@
         "partner": "Resolve",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You learned to keep moving through a door that closed behind you.",
-      "ask": "Name one thing that is over and done, out loud, to one person this week.",
-      "core": "There is a clearing you still treat as if you could reverse it. The door closed some time back, and part of you is planted at the threshold, not moving through and not coming back. Meanwhile the quiet doesn't land; thinking turns into spinning and the rest doesn't come.\n\nWhat restores this is not more rest, and not more analysis. Put one ending into a sentence. Say it to one person — the plainest version, no framing. What you have kept unspoken will move when it meets someone else's ear. That is the form your own attachment to life takes here, and it is waiting just past the ledge you have been planted on.",
-      "sheetLine": "The door behind you is closed, your body is still at it.",
-      "verb": "Resting the mind, calibrating; the quiet that lets a thing be over.",
-      "place": "A clearing where something necessary has already ended.",
+      "tense": "The mind was at rest back there, and the present clearing is still being stood at from the far side of that door.",
+      "act": "let yourself be drawn before you choose",
+      "ask": "Think of one thing this ending makes room for, and let yourself be drawn toward it a little — look at it up close, without committing.",
+      "core": "The stillness got left behind. The clearing is happening around you and the mind is standing on the wrong side of it, at a door that already closed. The ability to rest in your own balance is still there; it isn't reaching the present, so the endings feel like they're being done to you rather than by you.\n\nNothing here needs forcing. What's empty is the pull — the sense that something on the other side is worth walking toward. So look at one of those things without deciding anything. A possibility you can feel from here is enough; the appetite comes back at its own pace. Don't ask the clearing for energy yet. Ask it what it opened.",
+      "sheetLine": "You are standing past a door that already closed behind you.",
+      "verb": "settling the mind into balance before anything is closed",
+      "place": "necessary endings and clearing",
       "provenance": {
         "signature_id": 35,
         "position_id": 13,
@@ -127,24 +105,14 @@
         "partner": "Allure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, threshold) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
@@ -161,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already easing the endings that have less meaning than they once did, you just haven't claimed it.",
-      "ask": "Say to one person that you decided to stop carrying an old tradition — using the word decided, not the word let.",
-      "core": "You have been quietly loosening something that belonged to a shared past. A holiday remains unnarrated, a habit you inherited gets skipped, a story people like to retell goes unretold around you. You call it life being busy. But the release has already happened; you just haven't put your name on it.\n\nThe clearing here isn't some dramatic break — it is a smaller, older act: letting what no longer carries meaning travel out of your hands. When you don't claim the choice, the looseness reads as drift and other people keep treating the old shape as still binding you. It isn't. Say it once, out loud, so they can hear where you actually stand.",
-      "sheetLine": "You are already setting it down, your mouth hasn't caught up.",
-      "verb": "Resting the mind, calibrating; the quiet that lets a thing be over.",
-      "place": "A clearing where something necessary has already ended.",
+      "tense": "The mind is steady and the endings are being made, but the steadying is going unaccounted for as yours.",
+      "act": "leave the hollow ritual for the living one",
+      "ask": "At a gathering you attend out of habit rather than want, leave early — and spend that hour with the person or table you would choose.",
+      "core": "The calm you bring into endings is real, and you've been treating it as something that happens to you rather than something you do. The clearing goes better because you stay level through it. Nobody outside can see the leveling, so it doesn't get named — and you've stopped naming it too.\n\nWhich makes some of the endings look like they're happening without you. They aren't. There's a simpler form of what you keep doing: hold the connection that's alive, and stop feeding the one that's through. When you're somewhere out of routine instead of want, leave early and spend the hour where you'd choose to be. The same quiet, only with you in it.",
+      "sheetLine": "You steady the endings. That part is not happening to you.",
+      "verb": "settling the mind into balance before anything is closed",
+      "place": "necessary endings and clearing",
       "provenance": {
         "signature_id": 35,
         "position_id": 13,
@@ -175,7 +144,7 @@
         "partner": "Passage",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -186,18 +155,13 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -206,32 +170,26 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5095,
+      "ms": 6551,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "code": "names",
+          "detail": "another card's name on glass: Transformation",
           "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -242,38 +200,171 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Transformation",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Transformation",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Transformation",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the mind's quiet here is chosen calibration rather than simple fatigue or avoidance; the record gives a mechanism (Tune through Cognition), not the person's motive. A reader might say 'no, I'm just tired,' and that's fine — the ask is still a workable act whether the quiet is read right or wrong. The sentence serving the writer more than the person is any line implying the endings are already accepted; I've cut that and left the clearing as the place, not the accomplishment."
+    },
+    {
+      "attempt": 2,
+      "ms": 4229,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
@@ -284,32 +375,107 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 113 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, threshold) — one at most, usually none",
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\" and let the dead\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that this quiet is chosen calibration rather than plain fatigue or avoidance; the record gives a mechanism, not a motive. A reader could say 'I'm just tired,' and that's fine — the ask works either way, since crossing to the person the ending concerns is useful regardless of why the stillness is there. The line serving me more than them was any phrasing implying the endings are already accepted; the clearing stays the setting, never the achievement."
+    },
+    {
+      "attempt": 3,
+      "ms": 3597,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -321,7 +487,7 @@
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"returns in its own time\"",
           "hard": true,
           "status": 3
         },
@@ -333,26 +499,20 @@
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\", and let the finished\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the letting go\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -360,38 +520,20 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The record supports only that repose calibrates, not that the endings themselves are final; someone might say the rest has already happened and no threshold remains. The ask survives being wrong because it sends the person to the person they trust, whose answer works either way. The sentence that serves the writer more than the person is any line implying stillness has already settled, so I have kept each cell face down toward the clearing."
+      "check": "The unsupported claim is that this quiet is chosen calibration rather than plain fatigue or avoidance; the record gives a mechanism, not a motive. A reader could say 'I'm just tired,' and that's fine — the ask works either way, since crossing to the person the ending concerns is useful regardless of why the stillness is there. The line serving me more than them was any phrasing implying the endings are already accepted; the clearing stays the setting, never the achievement."
     },
     {
-      "attempt": 2,
-      "ms": 2896,
+      "attempt": 4,
+      "ms": 3123,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -402,32 +544,20 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
@@ -438,26 +568,96 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 113 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, threshold) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\", and let the finished\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the quiet here is chosen calibration rather than plain fatigue or avoidance; the record gives a mechanism, not a motive. A reader could say 'I'm just tired,' and that's fine — the ask works either way, since crossing to the person the ending concerns is useful regardless of why the stillness is there. The line serving me more than them was any phrasing implying the endings are already accepted; the clearing stays the setting, never the achievement."
+    },
+    {
+      "attempt": 5,
+      "ms": 3336,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -480,8 +680,8 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -490,21 +690,15 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The record supports only that repose calibrates, not that the endings themselves are final; someone might say the rest has already happened and no threshold remains. The ask survives being wrong because it sends the person to the person they trust, whose answer works either way. The sentence that serves the writer more than the person is any line implying stillness has already settled, so I have kept each cell face down toward the clearing."
+      "check": "The unsupported claim is that the quiet here is chosen calibration rather than plain fatigue or avoidance; the record gives a mechanism, not a motive. A reader could say 'I'm just tired,' and that's fine — the ask works either way, since crossing to the person the ending concerns is useful regardless of why the stillness is there. The line serving me more than them was any phrasing implying the endings are already accepted; the clearing stays the setting, never the achievement."
     }
   ],
   "usage": {
-    "input": 4402,
-    "output": 2025
+    "input": 9002,
+    "output": 5744
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:18:28.178Z"
+  "date": "2026-10-02T13:03:07.660Z"
 }

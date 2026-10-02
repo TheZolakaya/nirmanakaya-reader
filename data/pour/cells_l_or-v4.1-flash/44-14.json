@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here in the middle of it, adjusting the room as you go.",
-      "ask": "Pick one upcoming gathering and decide ahead what you will bring and what you will leave for others, then hold that split all the way through.",
-      "core": "You feel when the room has had enough of one thing and needs another, and you make that shift without making a production of it. Somebody starts a story and you pass it on instead of topping it. That is what keeps a shared hour airborne, and it is happening under your hands more than you notice.\n\nThe next thing in front of you can be worked the same way. Figure out in advance what you will carry and what you will leave for other people to lift, then let that split stand when the moment pushes at it. Not a rule for every evening — one gathering, picked on purpose. It holds up better when the deciding is deliberate rather than reactive, and it costs you the pleasure of rescuing a moment that did not need rescuing.",
-      "sheetLine": "You keep the shared moment in tune, and you can choose to.",
-      "verb": "share joy and meaning outward until it multiplies",
-      "place": "in the continuous adjusting of how much to add, subtract, or blend",
+      "tense": "Right now the shared joy is rising, and it is being attended to as it goes.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Before the next gathering, take ten minutes and put into one line whatever you want the people there to come away carrying.",
+      "core": "You know how to raise a joy with people and keep it from tipping — when the table gets loud, you sense what it needs next, another round or the hush after. That is why what you make together lands. It is calibrated, not just loud.\nThe live risk is drift. A gathering tuned this finely can end with nobody able to say what it was for, and your attention will have gone into the blend rather than the meaning. So name the meaning before you set the room. Gather the scattered aims into one line and let everything serve it. You get the joy and the thing it was carrying, and that kept line is what makes the next table easier.",
+      "sheetLine": "You tune the room. Give it one line to carry.",
+      "verb": "raising joy together until it belongs to everyone in the room",
+      "place": "in a life kept steady by constant small adjustments",
       "provenance": {
         "signature_id": 44,
         "position_id": 14,
@@ -26,7 +27,7 @@
         "partner": "Reconciliation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -35,17 +36,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a good night that has not happened yet.",
-      "ask": "For one gathering this week, plan nothing, bring no list, and stay twenty minutes past the point where you feel you have gotten what you came for.",
-      "core": "You have started managing the joy before it arrives. There is a version of the evening in your head — who will be there, how it should go, the moment it lands — and you are working toward that version instead of being in the one happening. The organizing is not the problem by itself. The problem is that the people in the room get held to a night that does not exist.\n\nGenuine joy will not survive being staged. What it survives is your attention being in the room rather than ahead of it. So try the opposite move once: attend something with no plan, no list, no role you have assigned yourself, and stay past the point where you feel you have extracted what you came for. The measure is not how well it went — it is whether you were actually there when it did.",
-      "sheetLine": "You are organizing the celebration instead of being in it.",
-      "verb": "share joy and meaning outward until it multiplies",
-      "place": "in the continuous adjusting of how much to add, subtract, or blend",
+      "tense": "The next gathering is being built in full before anyone has said what it is for.",
+      "act": "commit to the long build and do today's part",
+      "ask": "Name the shared thing you want standing in a year, then do only today's small piece of it and stop, with no plan past tonight.",
+      "core": "You keep building the room before anyone has arrived — the guest list, the right night, the exact mood the evening should have. Planning that far out feels like giving a gift. From the other side, it is a lot of work landing on people who came for a drink.\nYou are trying to hold open something meant to be light, and hauling it is what tires you. The long work only holds if you take it a day at a time — today's piece, then hands off. Choose a shared thing worth building over months, do today's part and stop. You will find out which parts want to live without your supervision, and the evening can belong to the people in it again.",
+      "sheetLine": "You're engineering the party before anyone has eaten.",
+      "verb": "raising joy together until it belongs to everyone in the room",
+      "place": "in a life kept steady by constant small adjustments",
       "provenance": {
         "signature_id": 44,
         "position_id": 14,
@@ -54,31 +61,37 @@
         "partner": "Commitment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"commit to the long build and do today s part\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing at a door that has closed behind you.",
-      "ask": "Tell one person about something that genuinely delighted you this week — a book, a song, a small win — and keep going past the first sentence.",
-      "core": "Joy that used to be shared has gone quiet. Not because there is nothing worth sharing — because the sharing stopped and nothing has asked it to start again. So when something good does happen, it stays with you, unspoken, and the pleasure thins out for lack of use.\n\nThe fix is not to throw yourself at the nearest party. It is smaller and more embarrassing than that. Say the good thing out loud to one person who will hear it. Tell them about the song you had on repeat, the thing that made you laugh, the small win nobody knows about. Let the telling run longer than is comfortable. Being known is what makes delight stick, and one listener is enough to bring it back into the room.",
-      "sheetLine": "The joy is still yours. The sharing stopped.",
-      "verb": "share joy and meaning outward until it multiplies",
-      "place": "in the continuous adjusting of how much to add, subtract, or blend",
+      "tense": "The joy that used to be shared is over, and you are still standing at its edge.",
+      "act": "follow the thought past where it is comfortable",
+      "ask": "Take a question you have about why people gather and follow it somewhere it gets hard — stay with it longer than feels easy.",
+      "core": "Something you used to make with people ran its course, and a spot has stayed empty since. You are waiting for it to return unprompted, or for the right invitation, and neither is on the way. So the good nights get watched from the edge rather than entered.\nDepth, not cheer, is what gets you back. Take a question about why people gather and keep after it until it turns hard, staying longer than feels easy. The mind finds its own floor that way. Then a piece of what you used to make shows up in your hands, and you can begin it small, for two or three people.",
+      "sheetLine": "The gathering ended. You've been waiting at its edge.",
+      "verb": "raising joy together until it belongs to everyone in the room",
+      "place": "in a life kept steady by constant small adjustments",
       "provenance": {
         "signature_id": 44,
         "position_id": 14,
@@ -87,41 +100,47 @@
         "partner": "Immersion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already holding the room together and calling it nobody's doing.",
-      "ask": "At the next shared meal, name one thing you deliberately kept in flow, and say out loud that you did it.",
-      "core": "You are running the thing and talking about it as if it ran itself. The way you draw people in, keep the pacing easy, notice when someone is being left at the edge — that is your hand on it. You call it the group's energy, the mood, just how the night went. Your work keeps going unnamed by the one person doing it.\n\nHere is the cost. What you cannot claim, you cannot rest from. Start small: at the next shared meal or call, say plainly that you moved a moment in a direction — you changed the subject because it was getting sharp, you took the heavy seat. One sentence, first person. The aim is not credit. It is that the adjusting becomes something you do rather than something that happens through you.",
-      "sheetLine": "You are already steering the shared hour. Own one of those moves.",
-      "verb": "share joy and meaning outward until it multiplies",
-      "place": "in the continuous adjusting of how much to add, subtract, or blend",
+      "tense": "The room is already full of what you host, and you are telling it as if you only showed up.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Put into one sentence whatever you wanted the last gathering you hosted to mean — then hold the next one to nothing else.",
+      "core": "You say you do not do the point of the evening — someone else picks the place, the crowd, the shape of it. That is not what your friends would say. Whatever warmth the last few gatherings had, you set something moving and then spoke as if you had merely attended.\nTake one sentence and put down what you wanted the last evening you hosted to mean. Not a plan and not a speech — one line, for you. With it named, the next time you host you are doing something you chose, and when someone thanks you, you can take the thanks instead of handing back a shrug. Gathering your own intentions into one line shows you the shape you have been keeping.",
+      "sheetLine": "The evening was your doing. You say you just showed up.",
+      "verb": "raising joy together until it belongs to everyone in the room",
+      "place": "in a life kept steady by constant small adjustments",
       "provenance": {
         "signature_id": 44,
         "position_id": 14,
@@ -130,24 +149,29 @@
         "partner": "Reconciliation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -156,20 +180,32 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6658,
+      "ms": 6790,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "code": "glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"That kept line is what makes the next table easier, not hard\" — end on the plain thing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
@@ -180,135 +216,152 @@
           "status": 1
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"commit to the long build and do today s part\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record does not say why the present is thin — I place a stale shared joy in the Too Little life and a thinning circle in the Unacknowledged one, and both are my inference, not the record's. A reader may rightly say the shared thing is not stale but deliberately done quietly, or that the circle isn't thinning; each core stays usable because the ask is an act that does not depend on my read being right. The sentence that serves me more than them is the poster-clean one: 'joy that wants a table' — it flatters the card and I keep it out of the cores."
+    },
+    {
+      "attempt": 2,
+      "ms": 3879,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"That kept line is what makes the next table easier, not hard\" — end on the plain thing",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "scope",
           "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a duration the person never gave",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"Ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 1
         },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's dynamic calibration is currently carrying this card's joy at all — the record gives the seat and the card, not whether joy is presently running in them. A reader could reasonably say the calibration they know is steadier or narrower than described here, and the readings would still hold because each describes a habit of adjusting rather than a fact about today. The ask survives a wrong read: it is a small act of proportion that teaches something about where the person ends and the group begins, whatever the deeper state. The sentence that serves me more than them would be anything about joy being 'already there' in Too Little or Unacknowledged — cut, since it flatters the map rather than the person."
-    },
-    {
-      "attempt": 2,
-      "ms": 3587,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -316,77 +369,195 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"commit to the long build and do today s part\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"past the point where you'd\"",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Say so once\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that shared joy is presently running through this person's adjusting at all — the record gives the card and the seat, not whether the joy is live today. A reader could reasonably say their adjusting is steadier or flatter than these cells suggest, and the readings still stand because each names a habit of proportion, not a fact about this week. The ask survives a wrong read: it is one small act of proportion or one sentence of ownership that teaches something regardless of the deeper state. The sentence serving me rather than them was anything implying the joy is 'already there' in Too Little — cut, since it flatters the map."
+      "check": "The record does not say why the present is thin — I place a stale shared joy in the Too Little life and a thinning circle in the Unacknowledged one, and both are my inference. A reader may rightly say the shared thing is not stale but deliberately done quietly, or that the circle isn't thinning; each core stays usable because the ask is an act that does not depend on my read being right. The sentence that serves me more than them is the poster-clean one about joy wanting a table, and I keep it out."
     },
     {
       "attempt": 3,
-      "ms": 3856,
+      "ms": 3946,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "\"Ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"commit to the long build and do today s part\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record does not say why the present is thin — I place a run-down shared joy in the Too Little life and a quietly-authored circle in the Unacknowledged one, and both are inference. A reader may rightly say the shared thing is not over but deliberately quiet, or that the circle isn't thinning; each core stays usable because the ask is an act that does not depend on my read being right. The sentence that serves me more than them is the poster-clean one about joy wanting a table, and I keep it out."
+    },
+    {
+      "attempt": 4,
+      "ms": 3285,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -398,50 +569,68 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"commit to the long build and do today s part\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -450,15 +639,21 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is that shared joy is presently running through this person's adjusting at all — the record gives the card and the seat, not whether the joy is live this week. A reader could reasonably say their adjusting is steadier or flatter than these cells suggest, and the readings still stand because each names a habit of proportion, not a fact about today. The ask survives a wrong read: one small act of proportion or one cold sentence of ownership teaches something whatever the deeper state is. The sentence serving me rather than them was anything implying the joy is 'already there' in Too Little — cut, since it flatters the map."
+      "check": "The record does not say why the present is thin — I place a run-down shared joy in the Too Little life and a quietly-authored circle in the Unacknowledged one, and both are inference. A reader may rightly say the shared thing is not over but deliberately quiet, or that the circle isn't thinning; each core stays usable because the ask is an act that does not depend on my read being right. The sentence that serves me more than them is the poster-clean one about joy wanting a table, and I keep it out."
     }
   ],
   "usage": {
-    "input": 5785,
-    "output": 3452
+    "input": 4454,
+    "output": 4539
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:35:33.130Z"
+  "date": "2026-10-02T13:07:47.820Z"
 }

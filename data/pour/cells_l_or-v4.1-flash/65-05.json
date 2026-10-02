@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding a tradition that keeps, and you know what to hand on and what to let go.",
-      "ask": "Choose one practice you carry and tell someone younger in it why it is worth keeping — then let them change one part of it.",
-      "core": "You keep something alive that other people rely on, and you know the difference between the parts that must stay and the parts that can move. That is why it still runs. When a form stops serving, you set it down without ceremony. When it still carries weight, you defend it and it holds.\n\nNone of this runs on worry. You have already done the harder thing somewhere back there — released something you had every right to grip — and how you hold steady now comes from that. What is free to feed next is growth that happens without forcing: care for what you hand on that does not run you empty. Give away more than you can fully control, and let the next person make it theirs.",
-      "sheetLine": "You keep the tradition alive and know what to let go.",
-      "verb": "carrying a shared tradition with authority earned by knowing what to release",
-      "place": "where meaning is kept and handed on between people",
+      "tense": "You know what to let go of here, and you are letting go of it on purpose.",
+      "act": "tend the small thing and learn from it",
+      "ask": "Work a piece of this practice by hand for a season, without fixing anything, and notice what it asks of you as the months go.",
+      "core": "You can carry something handed down without gripping it. When a custom or a way of doing things has run its course, you put it down cleanly, and the people doing it with you can feel you mean it. That's rare, and it's the whole reason what you carry stays alive rather than turning into furniture.\n\nSo spend a season with one piece of it, hands on the work, no verdict waiting at the end. Take the practice you've kept the longest — the one you might be running on habit — and handle it slowly. Be the one learning it rather than the one running it. Part of it will ask to change, and part will ask to stay exactly as it is. Both are answers, and you don't have to decide in advance which one wins. Whatever it turns into is still yours to pass on, and it will be more yours than it was.",
+      "sheetLine": "You can let a custom go without losing what it carried.",
+      "verb": "carrying a body of practice by hand, at whatever it now asks",
+      "place": "in the shared meaning and the customs that carry it, where it is kept or dropped",
       "provenance": {
         "signature_id": 65,
         "position_id": 5,
@@ -26,36 +27,32 @@
         "partner": "Initiate of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a loss of the shared thing that has not happened yet, guarding it before anyone moves.",
-      "ask": "Pick one practice you are guarding hardest and let someone else run it once this month without your corrections.",
-      "core": "You are already defending a tradition against damage that has not arrived, and the defense is what is taking the toll. Conversations about how it should be done turn into corrections. You hand the practice on with a grip on it, checking whether it is being kept right, and the checking is what people feel.\n\nWhat you want is release to follow completion on its own — to finish something and let it go without it reading as loss. That is what the guarding is standing in the way of. You know how to complete a thing. The work now is letting the finished thing leave your hands while you are still here. The tradition does not need the watch you keep on it.",
-      "sheetLine": "You are guarding the tradition from a loss that hasn't come.",
-      "verb": "carrying a shared tradition with authority earned by knowing what to release",
-      "place": "where meaning is kept and handed on between people",
+      "tense": "You are guarding the tradition against a change that has not arrived yet.",
+      "act": "put the inquiry on paper and follow it",
+      "ask": "Get one worry about how this practice might change onto a single page in plain order, then do only the next thing that page asks.",
+      "core": "There's a way here that you keep alive, and lately you've been defending it against things that haven't happened. Every possible drift gets pre-empted, every new version gets corrected before it's tried, and the guarding has grown bigger than the thing being guarded. Anyone standing near it can feel the grip. The practice is carrying more of your worry than of itself.\n\nGet one of those worries onto a single page and follow it. Lay the facts out in plain order, no mood in the lines, and then do the next thing the facts actually ask — not the whole campaign against what might go wrong. Inquiry is your way back here, not more holding. Once it's written out, you'll see which fears are just the future being imagined. The ones that are real are few, and they can be handled one at a time, at the speed they arrive.",
+      "sheetLine": "You're protecting the practice from a change that hasn't come.",
+      "verb": "carrying a body of practice by hand, at whatever it now asks",
+      "place": "in the shared meaning and the customs that carry it, where it is kept or dropped",
       "provenance": {
         "signature_id": 65,
         "position_id": 5,
@@ -64,14 +61,24 @@
         "partner": "Executor of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the inquiry on paper and follow it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -83,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "Something in the shared meaning failed or fell apart back then, and you stopped stepping forward with it.",
-      "ask": "Take one piece of what you know and teach it to one person this week — a single conversation, nothing prepared, badly is fine.",
-      "core": "You know how this is done and you are not handing it on. Whatever room you carried it into and got a bad result, you are still at that door, and it is behind you. Nothing has been lost from your side; only the offering has stopped.\n\nYou have strength to build with, and it went quiet rather than away. What steadies now is holding without forcing — keeping something steady rather than crushing it to keep it safe. You do not need to feel sure about the tradition to carry one piece forward this week. Being certain is not the price of passing something on. Start again small and imperfect.",
-      "sheetLine": "You know how this is kept, and you stopped handing it on.",
-      "verb": "carrying a shared tradition with authority earned by knowing what to release",
-      "place": "where meaning is kept and handed on between people",
+      "tense": "You have been standing at the door of your own tradition for a while now.",
+      "act": "lay the one step you can see, solidly",
+      "ask": "Pick the smallest piece of this culture you've stepped away from — one meal, one evening — and carry it out once, solidly, as if you meant it.",
+      "core": "Something in the shared thing went quiet for you, and you haven't picked it back up. You watch it continue without you, know the words and the shape of it, and take no part. The strength to hold it is still in you — you could do it in your sleep — but nothing is being carried, and the distance feels like it happened to you rather than like something you chose.\n\nDon't try to want the whole tradition back. Lay one step, the one you can see. Choose the smallest piece you can do with your own hands — one meal, one evening, one practice — and do only that one, solidly, the way you'd do a thing you meant. Being able to carry something returns through the doing, not through deciding to care again. One piece done for real tells you whether the rest still fits, and you'll know from there.",
+      "sheetLine": "You'll only return once you can do the whole thing again.",
+      "verb": "carrying a body of practice by hand, at whatever it now asks",
+      "place": "in the shared meaning and the customs that carry it, where it is kept or dropped",
       "provenance": {
         "signature_id": 65,
         "position_id": 5,
@@ -97,51 +105,32 @@
         "partner": "Executor of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already shaping what this group carries forward, and you describe it as just how things go.",
-      "ask": "Name one thing you decided about how this is done and say out loud, once, that the choice was yours.",
-      "core": "The way this group does things has your fingerprints on it. You decided what stays and what gets dropped, and people followed, and it looks to you like it just happened that way. You are doing the shaping and not calling it yours.\n\nWhat carried it is care that does not exhaust — tending something so it grows, holding the space without clutching it. That care is doing daily work, and you are the only one who has not credited it. You do not have to announce anything to anyone. You just have to know you are the one who chose, and stop explaining your own decisions as though they came from the room.",
-      "sheetLine": "You chose how this is kept and call it how things go.",
-      "verb": "carrying a shared tradition with authority earned by knowing what to release",
-      "place": "where meaning is kept and handed on between people",
+      "tense": "What gets kept alive here is your work, and you tell it as if it just happened.",
+      "act": "apprentice yourself to the material thing",
+      "ask": "Sit down as a beginner with one piece of this practice, under someone or something that knows it better than you do now.",
+      "core": "The customs people keep and pass on here hold because you keep making them hold. You arrange who learns what, remember what matters, keep the thing going through changes most people aren't tracking. Your account of it is that it simply continues. The ones who receive it don't know to say otherwise, and there's nobody else in a position to notice.\n\nGo back to the beginning of it. Before you were the one keeping this alive, you were someone learning it, and something in you liked being shown how — the grip of it in your hands, the plain surprise of it working. Take one piece of the practice and learn it again as a beginner, slowly, from a person or a craft that knows it better than you do now. That's where the whole thing came from. Learn like that for a while, and you'll feel the size of what you've been holding up.",
+      "sheetLine": "This holds because you hold it, and you'd say it just continues.",
+      "verb": "carrying a body of practice by hand, at whatever it now asks",
+      "place": "in the shared meaning and the customs that carry it, where it is kept or dropped",
       "provenance": {
         "signature_id": 65,
         "position_id": 5,
@@ -150,24 +139,14 @@
         "partner": "Initiate of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -181,33 +160,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4714,
+      "ms": 6320,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "diagnosis",
-          "detail": "\"anxious\"",
+          "code": "refrain",
+          "detail": "\" and let it teach\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The keeping\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
           "status": 1
         },
         {
@@ -217,21 +178,21 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"write the facts down in\" — say the act in the person's words",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"the people around it can\"",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -241,10 +202,108 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "vocab",
+          "detail": "\"The carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"comes back through the hands\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"they were there before anyone\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"small\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that culture-work here involves other people at all: culture is shared meaning, so the cells render it as customs and practices carried by a group, not as a body of people to be met, and the reader could rightly say 'no, this is my writing/teaching practice alone.' The asks survive either way — tending a small practice, laying out the facts at a table, building one small thing that lasts, apprenticing to it — none of them needs another person on hand. The sentence that serves the writer more than the person is 'the inheritance is already yours to give'; it flatters the seat, and I have cut it."
+    },
+    {
+      "attempt": 2,
+      "ms": 3661,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "glass",
@@ -253,39 +312,15 @@
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"gone anywhere the offering stopped\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -295,33 +330,9 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 4
         },
         {
@@ -329,126 +340,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"choose\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record says faith-as-behavior seated in shared meaning, but nothing in it shows what the person actually believes or what they have already let go of — the cells must describe how the capacity is running, not what they trust or sacrificed. A reader could reasonably say they do not see themselves as an executor of anything, only as the one keeping the thing going, so each cell has to be recognizable from the outside of their account. The asks survive a wrong read because each is a single act toward their own tradition, doable today with nothing extra and useful even if the mechanism is off. The sentence serving me rather than them is any line about commanding authority — it sounds like flattery and I have cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3070,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says faith shows up as behavior seated in shared meaning, but it does not say the person has actually sacrificed anything or that they believe what they carry — the cells describe how the capacity runs, not what they trust. A reader could fairly say they are not an executor of anything, just the one who keeps the thing going, so the cells must be recognizable from outside their own account. Each ask is one act toward their own tradition, doable today with nothing extra, and useful even if the mechanism is off. The line that serves me more than them is anything about commanding authority — I have cut it."
+      "check": "The unsupported claim is that culture-work here necessarily involves other people: culture is shared meaning, so the cells render it as customs and practices carried by a group, not a body of people to be met, and the reader could rightly say 'no, this is my own writing or teaching habit.' The asks survive either way — apprenticing to a piece of it, writing a worry flat on a page, doing one small piece once, learning one practice as a beginner — none of them needs another person on hand. The sentence that serves the writer more than the person is 'the practice shows your fingerprints on it'; it flatters the seat, and I have cut it."
     },
     {
       "attempt": 3,
-      "ms": 2867,
+      "ms": 3422,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -459,14 +380,8 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -477,32 +392,14 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -513,20 +410,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -535,15 +426,170 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says faith shows up as behavior seated in shared meaning, but it does not say the person has actually sacrificed anything or that they believe what they carry — the cells describe how the capacity runs, not what they trust. A reader could fairly say they are not an executor of anything, just the one who keeps the thing going, so the cells must be recognizable from outside their own account. Each ask is one act toward their own tradition, doable today with nothing extra, and useful even if the mechanism is off. The line that serves me more than them is anything about commanding authority — I have cut it."
+      "check": "The unsupported claim is that culture-work here necessarily involves other people: culture is shared meaning, so the cells render it as customs and practices carried by a group, not as a body of people to be met, and the reader could rightly say 'no, this is my own writing or teaching habit.' The asks survive either way — tending a piece of it, writing a worry flat on a page, doing one small piece once, learning one practice as a beginner — none of them needs another person on hand. The sentence that serves the writer more than the person is 'you'll feel the size of what you've been holding up'; it flatters the seat, and I have cut it."
+    },
+    {
+      "attempt": 4,
+      "ms": 3635,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that culture-work here necessarily involves other people: culture is shared meaning, so the cells render it as customs and practices carried by a group, not as a body of people to be met, and the reader could rightly say 'no, this is my own writing or teaching habit.' The asks survive either way — tending a piece of it, writing a worry flat on a page, doing one small piece once, learning one practice as a beginner — none of them needs another person on hand. The sentence that serves the writer more than the person is 'the practice stops being only something you keep standing'; it flatters the seat, and I have cut it."
+    },
+    {
+      "attempt": 5,
+      "ms": 3662,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the inquiry on paper and follow it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that culture-work here necessarily involves other people: culture is shared meaning, so the cells render it as customs and practices carried by a group, not as a body of people to be met, and the reader could rightly say 'no, this is my own writing or teaching habit.' The asks survive either way — working a piece of it by hand over a season, writing a worry flat onto a page, doing one small piece once, apprenticing to one practice — none of them needs another person on hand. The sentence that serves the writer more than the person is 'you'll feel the size of what you've been holding up'; it flatters the seat, and I have cut it."
     }
   ],
   "usage": {
-    "input": 2673,
-    "output": 3207
+    "input": 6072,
+    "output": 6496
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T03:20:20.584Z"
+  "hardOpen": 1,
+  "date": "2026-10-02T13:16:08.102Z"
 }

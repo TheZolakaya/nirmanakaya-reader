@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The pen is in your hand right now and something is taking shape under it.",
-      "ask": "Fifteen minutes on one piece of this you keep circling, written plainly enough that another person could pick it up and use it.",
-      "core": "Something came clear and you're building with it — not talking about building, not waiting for the design to finish itself. It's quiet work and it doesn't feel dramatic, which is part of why it's holding.\n\nThe sign it's going well is that the practice runs without forcing. Solitude doesn't close you off in here, it feeds the work, and refining this stays different from worrying it. Keeping that costs something: staying reachable while you build, letting one other person see what's forming before it's done. When the balance slips you'll notice the refining start serving the fret instead of the work. The next thing this is free to become is direction someone else can follow — your hand on the wheel, the structure showing them the way.",
-      "sheetLine": "You're building something quiet, and it's holding.",
-      "verb": "Building the first new structure from what the clearing revealed",
-      "place": "Where something that couldn't hold has come down and the ground is bare",
+      "tense": "You are on open ground, and what you build on it is coming up solid.",
+      "act": "give directions plainly, once, and let them walk",
+      "ask": "Think of the person still circling that clearing. Give them the route you took through it plainly, in order, once — then stop and leave them to it.",
+      "core": "Open ground is where your work goes well. A false thing came down and you didn't stand around mourning it — you started laying the next piece, one solid course at a time, and it's holding. You build best in the clearing, and you don't need the wreckage explained to you first.\n\nThe invite is to hand the route over. Pick someone still circling the same clearing, someone who keeps asking what they should do, and give them the directions you found, plainly, once. Say the route in order, from where they stand to where it opens, then stop narrating. Directions that flow don't need enforcing; they land or they don't, and either way your hands are free for the build.",
+      "sheetLine": "You build best on open ground, and you can hand the route over.",
+      "verb": "raising the first solid thing on ground something false just vacated",
+      "place": "the open ground just after a false structure came down",
       "provenance": {
         "signature_id": 54,
         "position_id": 16,
@@ -26,11 +27,21 @@
         "partner": "Guidance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You're living a few rooms ahead, bracing for a storm that hasn't formed.",
-      "ask": "Walk to one place where two people have to look at each other and put the unfinished version in front of them there.",
-      "core": "Parts are still up in the air, and you're already living in the finished thing — what it'll mean, who'll take it wrong, what you'll say when it breaks. Some of the walls you keep taking down didn't need taking down. When that reach runs the show, the clearing stops coming from what you actually saw and starts coming from what you're afraid of.\n\nWhat holds is the truer thing: the ground falls out from under a bad plan, not from everything. The practice is one you can share — something you can teach that shifts when the people in front of you shift, that belongs without needing the room to agree. Stop deciding for a room you haven't entered. Take the unfinished version out of your head and into the place where meaning gets made with other people. It will change when it lands. That's not the failure; that's the point.",
-      "sheetLine": "You're tearing down walls you haven't stood in yet.",
-      "verb": "Building the first new structure from what the clearing revealed",
-      "place": "Where something that couldn't hold has come down and the ground is bare",
+      "tense": "You are bracing for a clearing that hasn't happened yet, and your hands are already rebuilding.",
+      "act": "walk toward what connects, leaving what does not",
+      "ask": "Pick a shared thing you've been hollowing out ahead of its time. Walk toward it this week — one unhurried hour inside it, no repair — and let what genuinely connects stay.",
+      "core": "You can see the clearing coming before anyone else, and your hands are already rebuilding on ground that hasn't opened. Every shared thing gets examined for what's hollow, and the honest ones come down with the false ones. The people in those things feel it: nothing they're part of stays whole long enough to mean much to them.\n\nWhat's wanted is contact, not another inspection. Walk toward one shared thing you were about to gut and go deeper into it than is comfortable — sit inside it the way it actually is, unhurried, without fixing. Let what still connects there show itself. That's a different move than clearing. What holds keeps; what doesn't falls once you've stopped pushing it, and you'll have lost nothing you weren't about to lose anyway.",
+      "sheetLine": "You're tearing shared things down before anyone's finished using them.",
+      "verb": "raising the first solid thing on ground something false just vacated",
+      "place": "the open ground just after a false structure came down",
       "provenance": {
         "signature_id": 54,
         "position_id": 16,
@@ -54,16 +66,11 @@
         "partner": "Passage",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -73,12 +80,13 @@
     },
     {
       "status": 3,
-      "tense": "You're at a door that already closed, with your hand still on it.",
-      "ask": "Pick one arrangement you're still keeping — a routine, a rule, a standing plan — and hold it exactly as it is for one week.",
-      "core": "The old thing came down and you're at the edge of where it stood, waiting for someone to say whether it was allowed to fall. The daylight's there; you keep asking permission to walk into it.\n\nThe insight landed. What would carry it is a plain structure, and there isn't one yet. Set a simple thing in place and hold it steady. People find the ground again around you when you keep one small arrangement going, and the fog starts lifting from the doing, not before it. The step and the sign arrive together, and nothing here asks you to force feeling back into the hollow. Once, on the structure you've kept, and let it hold you.",
-      "sheetLine": "The old thing already fell. You're still at the edge of it.",
-      "verb": "Building the first new structure from what the clearing revealed",
-      "place": "Where something that couldn't hold has come down and the ground is bare",
+      "tense": "You stood at the clearing once, and you are still standing there while the opening closes.",
+      "act": "make the call and carry it through",
+      "ask": "Something you decided about this clearing and then left sitting — decide it again, do its first move the same day, and explain nothing to anyone.",
+      "core": "The clearing happened. The false thing came down and you were there for it, and then you didn't step onto the ground it opened. You keep meaning to. You know what you'd build. It's all sitting there and no piece of it is getting laid, and the open ground is filling back up with the old arrangement while you wait to feel ready.\n\nWhat's starved isn't courage; it's a call. Take the smallest piece of what you already decided and act it the same day you decide, in one move, without announcing it to anyone first. No explanation, no checking whether it's allowed. Structure that works moves; it doesn't describe. The step lands on open ground and the ground holds you before you've had time to brace, which is the order that works here.",
+      "sheetLine": "You know what you'd build. You're waiting to be sure.",
+      "verb": "raising the first solid thing on ground something false just vacated",
+      "place": "the open ground just after a false structure came down",
       "provenance": {
         "signature_id": 54,
         "position_id": 16,
@@ -87,19 +95,19 @@
         "partner": "Command",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the call and carry it through\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -111,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "You're already clearing the false structure and calling it something that happened to you.",
-      "ask": "Say one sentence out loud about a piece of the new shape — that you picked it — where you've been describing it as coming together on its own.",
-      "core": "You stop people from carrying assumptions that don't hold up, and you do it without drama — a look, a question, the thing left unsaid. The clearing gets described as if it passed through of its own accord. It gets laid at your door as circumstance.\n\nYou're doing the work, and you keep the credit parked somewhere else. The honest version is the older one: you picked this direction because you wanted it, and you're still defending it, which is the same thing wearing work clothes. There's no rule that says what you want has to be presentable. Say the plain thing somewhere small, in one line of your own, even if it only goes in a notebook. The shape stays; the hiding gets expensive. The structure fell by your hand. That part is worth keeping.",
-      "sheetLine": "The structure fell by your hand, and you're calling it circumstance.",
-      "verb": "Building the first new structure from what the clearing revealed",
-      "place": "Where something that couldn't hold has come down and the ground is bare",
+      "tense": "The new thing is already half-raised, and you are telling people it built itself.",
+      "act": "keep the heading when it is contested",
+      "ask": "The next time someone pushes against what you're building from that clearing, hold your heading — one plain sentence of what you chose, then stay on it without re-arguing the case.",
+      "core": "There's something going up out of the clearing, and if anyone asked, you'd say it was the natural next step, what the situation required. It's your work. You made the calls, laid the pieces, held the line when it was contested, and you talk about it like something that happened to you. The people around it take your account as given, so the build stays ground you found.\n\nGo back to when you picked the direction because you wanted it, not because it was assigned. So when the next push comes against what you're building, hold the heading — one plain sentence of what you chose, and stay on it. Saying it once, you'll notice you're defending it. That part you've been leaving off, and it's also the part that's true.",
+      "sheetLine": "You're defending a heading you say someone else set.",
+      "verb": "raising the first solid thing on ground something false just vacated",
+      "place": "the open ground just after a false structure came down",
       "provenance": {
         "signature_id": 54,
         "position_id": 16,
@@ -125,14 +134,14 @@
         "partner": "Resolve",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -146,21 +155,45 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6693,
+      "ms": 6204,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "glass",
+          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let them walk\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that's the whole of it\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
           "status": 1
         },
         {
@@ -170,57 +203,63 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 172 words (120–160): long",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"back in balance\" — a map idiom, a product name or a tarot word on glass",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 2
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty room\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"Everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"One thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the call and carry it through\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -236,32 +275,20 @@
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
           "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
           "status": 4
         },
@@ -272,55 +299,72 @@
           "status": 4
         },
         {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it have no reason to\"",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the old structure was false and its fall was liberation — the record says the seat is 'not catastrophe but liberation', but a person who lost a job, a marriage, or a friend's loyalty when something collapsed may reasonably say the collapse was simply damage, and no reading gets to tell them it was good. If that read is wrong, the asks still hold: one draft shown to one other person, one wall left standing, one line about a small daily structure, one sentence taken back from 'it' — none of them require the collapse to have been a gift. The sentence that serves me more than the person is any line that calls the clearing a gift; cut it."
+      "check": "The record does not say the person has already built or is mid-build; it says this capacity is in the room, and the seat says clearing. The reader could reasonably say 'nothing of mine has been cleared, I'm just tired of how things are.' The asks survive being wrong because each is one visible act they can choose this week whether or not the read lands. The sentence that serves me more than them is any line implying they've been cleared or broken open — I've cut all of those."
     },
     {
       "attempt": 2,
-      "ms": 4149,
+      "ms": 3732,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the call and carry it through\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -330,20 +374,26 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The simpler form of this\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it have no reason to\"",
           "hard": true,
           "status": 4
         },
@@ -354,15 +404,27 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the old structure was false and its fall was liberation — the record says the seat is 'not catastrophe but liberation', but a person who lost a job, a marriage, or a friend's loyalty when something collapsed may reasonably say the collapse was simply damage, and no reading gets to tell them it was good. If that read is wrong, the asks still hold: one draft shown to one other person, one wall left standing, one small daily structure kept for a week, one sentence said plainly — none of them require the collapse to have been a gift. The sentence that serves me more than the person is anything that calls the clearing a gift, or that certifies what they already know; cut it."
+      "check": "The record doesn't say the person has actually been through a clearing lately; it says this capacity is in the room and the seat names clearing as the ground. A reader could say 'nothing false has come down for me, I'm just tired of how things run.' The asks survive being wrong because each is one visible act they can choose this week regardless. The sentence that serves me more than them was any line implying they've already been broken open — that's cut. Two escapes were printing as characters, and a handful of library tics were in the prose; both fixed here."
     },
     {
       "attempt": 3,
-      "ms": 3822,
+      "ms": 3561,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -370,26 +432,20 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the call and carry it through\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -400,20 +456,14 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"it have no reason to\"",
           "hard": true,
           "status": 4
         },
@@ -424,15 +474,27 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the old structure was false and its fall was liberation — the record says the seat is 'not catastrophe but liberation', but a person who lost a job, a marriage, or a friend's loyalty when something collapsed may reasonably say the collapse was simply damage, and no reading gets to tell them it was good. If that read is wrong, the asks still hold: one draft shown to one other person, one unfinished version walked into a shared room, one small daily structure kept for a week, one sentence said plainly — none of them require the collapse to have been a gift. The sentence that serves me more than the person is anything that calls the clearing a gift, or that certifies what they already know; cut it. Also cut any universal — 'everyone', 'every time' — and any refrain the last drafts leaned on."
+      "check": "The record doesn't say the person has been through a clearing lately; it says this capacity is in the room and the seat names clearing as the ground. A reader could say 'nothing false has come down for me, I'm just tired of how things run.' The asks survive being wrong because each is one visible act they can choose this week regardless. The sentence that serves me more than them was any line implying they've already been broken open — that's cut. The two 'never' universals, the 'simpler form' tic, and the exemplar-phrase overlap are gone; a fourth ask shape (a hold, not a bounded errand) now sits in the quartet."
     },
     {
       "attempt": 4,
-      "ms": 3739,
+      "ms": 3366,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -440,26 +502,20 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the call and carry it through\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -470,8 +526,8 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -482,13 +538,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the old structure was false and its fall was liberation — the record says the seat is 'not catastrophe but liberation', but a person who lost a job, a marriage, or a friend's loyalty when something collapsed may reasonably say the collapse was simply damage, and no reading gets to tell them it was good. If that read is wrong, the asks still hold: fifteen minutes on one piece, one unfinished version walked into a shared room, one small arrangement kept for a week, one sentence said out loud — none of them require the collapse to have been a gift. The sentence that serves me more than the person is anything that calls the clearing a gift or certifies what they already know; the sheet line in status 4 still leaned on 'weather', so it is rebuilt, and 'the wanting' is gone, out loud now."
+      "check": "The record doesn't say the person has been through a clearing lately; it says this capacity is in the room and the seat names clearing as the ground. A reader could say 'nothing false came down for me, I'm just tired of how things run.' The asks survive being wrong because each is one visible act they can choose this week regardless. The sentence that serves me more than them was any line implying they've already been broken open — that's cut. The 'no reason to correct you' overlap with an exemplar is gone, and the four asks open on four different verbs with one of them a hold rather than a bounded errand."
     }
   ],
   "usage": {
-    "input": 4522,
-    "output": 4942
+    "input": 8332,
+    "output": 5097
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:43:36.157Z"
+  "date": "2026-10-02T12:20:19.702Z"
 }

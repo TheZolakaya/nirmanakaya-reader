@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding the shape of this thing steady and it is holding because you are.",
-      "ask": "Name the one structure carrying the most right now, out loud, to nobody in particular. Then leave it exactly as it is for a day.",
-      "core": "Somewhere under the long haul you've been on, there's a structure — a way you organize the week, the sequences you run without thinking, the order you do things in. That structure is doing what it should: carrying weight without forcing anything, holding rather than crushing. You're not muscling this. You built the thing that keeps it standing, and it keeps working.\n\nThe strength here isn't grit or grinding. It's the quiet fact that the same shape holds after everything that's already tested it. Name what's carrying the most. Then let it carry, without adjusting it. That's not coasting. That's the structure doing the job you made it for, and it'll keep doing it whether or not you're watching.",
-      "sheetLine": "You built the thing that keeps this standing.",
-      "verb": "keeping the whole thing standing through a long haul, still keeping it",
-      "place": "where the shapes that hold a complicated thing get made",
+      "tense": "Right now you are at the bench, setting one piece of the pattern in place while the rest waits.",
+      "act": "persist on your own reserves through the pressure",
+      "ask": "Next time the pressure lands, keep the piece you're holding going using only what you've got. Don't ask, don't borrow, don't wait for the right moment. The one piece, finished on your own fuel.",
+      "core": "You stay at something long after the first energy is gone. That is the engine here: the shape gets set because you keep showing up to it, unglamorously, past the point where anyone would notice if you stopped. Nothing about it is forced. You push where pushing helps and wait where waiting helps, and the pattern comes together because you gave it enough mornings.\n\nThe piece worth knowing is that when the pressure is on, you take the pressure onto yourself rather than spreading it. You hold without pressing down. So the ask is narrow: the piece you are holding, carried on your own reserves, not another person's share, not the whole structure. Carry that one and what you were bearing eases, because part of it is done.",
+      "sheetLine": "You keep showing up until the shape holds.",
+      "verb": "persisting through the long hoping until the shape holds",
+      "place": "the workbench of pattern and structure",
       "provenance": {
         "signature_id": 30,
         "position_id": 4,
@@ -26,14 +27,19 @@
         "partner": "Steadfastness",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a future that hasn't been written in yet, and the bracing is the problem.",
-      "ask": "Pick one thing on tomorrow's list. Before you add a plan for it, sit with it for five minutes and write down what's true about it. Don't act on the notes.",
-      "core": "You're ahead of yourself, bracing for a version of this that hasn't arrived — planning against futures that may not come, pushing structure onto things still forming. The impulse to organize is real and useful. But it's running ahead of what's actually here, and the persistence is starting to look like control. You're not keeping the thing standing now; you're keeping every possible version of it standing at once.\n\nUnderneath that is something quieter: a knowing that hasn't been given room to land. What's true about this registers before you say it. It doesn't need to be pre-empted with a plan. Before you add the next structure, sit with what's true. That's not passivity. That's letting what you see inform what you build, instead of building around what you can't see yet.",
-      "sheetLine": "You're building for a future that hasn't shown up.",
-      "verb": "keeping the whole thing standing through a long haul, still keeping it",
-      "place": "where the shapes that hold a complicated thing get made",
+      "tense": "By the time the structure is finished in your head, you will already have built past what the ground can carry.",
+      "act": "pause before you let it be known",
+      "ask": "When the plan is ready and nobody has asked for it, hold it for a day before it goes anywhere. Let the day decide whether it needs to be said at all.",
+      "core": "The pattern you are building is being completed in advance. You see where it should land, and you set it there before the materials are in — before the ground has agreed, before the people involved have caught up. The bracing looks like care. To anyone else it looks like the plan was decided alone, and being handed a shape that is already shut.\n\nWhat this pattern would hold better than your hurry is one beat of not telling. You know more than you have said; some of it is not ready to leave your hands. Keep it with you a day, and let whether to speak be decided by whether anything genuinely needs it. Most of the time, the plan is stronger when it is heard second.",
+      "sheetLine": "You finish the pattern in your head before the ground agrees.",
+      "verb": "persisting through the long hoping until the shape holds",
+      "place": "the workbench of pattern and structure",
       "provenance": {
         "signature_id": 30,
         "position_id": 4,
@@ -59,11 +66,21 @@
         "partner": "Reflection",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -73,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You are standing at a door that already closed behind you, still waiting for it to open.",
-      "ask": "Pick the smallest upkeep task in this thing — the one you keep putting off. Do it today, badly, and don't tell anyone you did.",
-      "core": "The shape that used to hold this isn't holding anymore, and you haven't quite arrived in the place where it stopped. Maybe the structure worked and then it didn't, or maybe it didn't quite form, and either way you're standing a little behind the present, watching a door that's already closed. The persistence is still there — that's not the missing piece. What's empty is where pattern gets built.\n\nSo don't try to rebuild the whole thing. Pick the smallest upkeep task in this — the one that keeps getting pushed. Do it today, badly. Don't announce it. That's not a fix. It's the first motion of a structure that can actually hold, and it doesn't need you to feel ready first.",
-      "sheetLine": "You're standing behind a door that already closed.",
-      "verb": "keeping the whole thing standing through a long haul, still keeping it",
-      "place": "where the shapes that hold a complicated thing get made",
+      "tense": "There was a shape you stopped building on, and you are still standing where you left it.",
+      "act": "tend the resource with responsible care",
+      "ask": "Go back to the structure you dropped when you ran low. Ten minutes of ordinary tending on it, no rescue, no grand restart. Stop when the ten minutes are up.",
+      "core": "There is a pattern you were part of making, and it has been left mid-motion. The shaping impulse is still in you; it has just been standing at a door that shut behind it, keeping the old stance because the stance is all that is left of the work. What looks like waiting is a hold. The thing has not collapsed. It is unattended.\n\nWhat recovers here is not powering through and not waiting for the want to return. It is tending the thing, small and regular, without needing the full vision back first. Ten minutes on it is enough to prove the bench is still yours. Care that doesn't exhaust is what keeps it alive, and it can be ten minutes.",
+      "sheetLine": "You stopped mid-build and you're still holding the stance.",
+      "verb": "persisting through the long hoping until the shape holds",
+      "place": "the workbench of pattern and structure",
       "provenance": {
         "signature_id": 30,
         "position_id": 4,
@@ -87,36 +105,42 @@
         "partner": "Stewardship",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already writing the shape of this, pen down, in a room you don't think you're in.",
-      "ask": "Pick one recurring thing in your week and answer honestly: who set it up? If the answer is you, say so out loud once. If it's someone else, leave it alone for now.",
-      "core": "The structure is already there. You set up how this runs — the order, the timing, the small rules that hold it together — and then you describe it as just how things are. The persistence is real. The making is running. But you're calling it the situation rather than something you made and keep making.\n\nThe strength underneath is simpler than the story around it. You're holding this up. Not fate, not circumstance, not somebody else's system. You. Pick one recurring piece of your week and trace where it came from. Naming it doesn't change it. It just stops the work from being invisible to the person doing it.",
-      "sheetLine": "You're already writing this. You just aren't saying so.",
-      "verb": "keeping the whole thing standing through a long haul, still keeping it",
-      "place": "where the shapes that hold a complicated thing get made",
+      "tense": "You keep setting the frame people rest inside, and you would say it just happens that way.",
+      "act": "carry your own share, all of it",
+      "ask": "Tomorrow, catch the moments where you quietly hold the day's shape for the ones nearby. Don't announce it, don't change it. Just let yourself see your own hand doing it.",
+      "core": "A pattern holds around you, and the account of it is that the pattern holds itself. Meeting times, what comes next, how the work flows — you set the frame and then speak as though you found it there. The persistence is real. The part that went missing is who did it. You carry the whole share and call it the conditions.\n\nUnderneath all of it, you are the one who keeps setting the bench, and you have been doing it longer than you would say. Spend a day noticing without correcting, without announcing, without changing a thing. Let yourself see your own hand on the frame. A quiet place where you can stop calling your standing here an accident.",
+      "sheetLine": "You set the frame, then talk like it was already there.",
+      "verb": "persisting through the long hoping until the shape holds",
+      "place": "the workbench of pattern and structure",
       "provenance": {
         "signature_id": 30,
         "position_id": 4,
@@ -125,19 +149,24 @@
         "partner": "Steadfastness",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -151,208 +180,200 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6012,
+      "ms": 7452,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "the map's jargon: \"signature\"",
           "hard": true,
           "status": 4
         },
         {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record doesn't support claims about what keeping this person going has cost them or why they keep going; the reader could reasonably say the strain isn't showing that way in their life. The asks survive that — each one is a plain, checkable act that teaches something whether or not the read lands. The sentence that serves me more than them is 'you know you're the one deciding what holds' — it flatters the reader's role instead of showing the mechanism, and it would go in the Balanced core if I let it."
+      "check": "The unsupported claim is that the person is establishing pattern and structure at all — a Bound earning at the outer face may be holding patterns that were never consciously chosen, so a reader could reasonably say the structure was inherited, not built. The asks survive being wrong because each is one small visible act that teaches the same thing whether the read of the seat is right or off. The sentence that serves the writer more than the person is any line implying the persistence itself has been rewarded or that the pattern-making is in the person's hands when the record only says the capacity is there."
     },
     {
       "attempt": 2,
-      "ms": 3639,
+      "ms": 4252,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record doesn't support claims about what the long haul has cost this person or why they keep going; the reader could reasonably say the strain isn't showing that way in their life. The asks survive that — each one is a plain, checkable act that teaches something whether or not the read lands. The sentence that serves me more than them is 'you're the one keeping it standing' — it flatters the reader's role instead of showing the mechanism, and it would go in the Balanced core if I let it."
+      "check": "The unsupported claim is that the person is establishing pattern and structure at all — a Bound earning at the outer face may be holding patterns that were never consciously chosen, so a reader could reasonably say the structure was inherited, not built. The asks survive being wrong because each is one small visible act that teaches the same thing whether the read of the seat is right or off. The sentence that serves the writer more than the person is any line implying the persistence itself has been rewarded or that the pattern-making is in the person's hands when the record only says the capacity is there."
     },
     {
       "attempt": 3,
-      "ms": 3350,
+      "ms": 4642,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -361,6 +382,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -370,31 +403,49 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -405,13 +456,207 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't support claims about what the long haul has cost this person or why they keep going; the reader could reasonably say the strain isn't showing that way in their life. The asks survive that — each one is a plain, checkable act that teaches something whether or not the read lands. The sentence that serves me more than them is 'you built the thing that keeps this standing' — it flatters the reader's role instead of showing the mechanism, and it would go in the Balanced core if I let it."
+      "check": "The unsupported claim is that the person is establishing pattern and structure at all — a Bound earning at the outer face may be holding patterns that were never consciously chosen, so a reader could reasonably say the structure was inherited, not built. The asks survive being wrong because each is one small visible act that teaches the same thing whether the read of the seat is right or off. The sentence that serves the writer more than the person is any line implying the persistence itself has been rewarded or that the pattern-making is in the person's hands when the record only says the capacity is there."
+    },
+    {
+      "attempt": 4,
+      "ms": 3679,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person is establishing pattern and structure at all — a Bound earning at the outer face may be holding patterns that were never consciously chosen, so a reader could reasonably say the structure was inherited, not built. The asks survive being wrong because each is one small visible act that teaches the same thing whether the read of the seat is right or off. The sentence that serves the writer more than the person is any line implying the persistence itself has been rewarded or that the pattern-making is in the person's hands when the record only says the capacity is there."
+    },
+    {
+      "attempt": 5,
+      "ms": 3907,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (engine, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, bench) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person is establishing pattern and structure at all — a Bound earning at the outer face may be holding patterns that were never consciously chosen, so a reader could reasonably say the structure was inherited, not built. The asks survive being wrong because each is one small visible act that teaches the same thing whether the read of the seat is right or off. The sentence that serves the writer more than the person is any line implying the persistence itself has been rewarded or that the pattern-making is in the person's hands when the record only says the capacity is there."
     }
   ],
   "usage": {
-    "input": 2807,
-    "output": 3442
+    "input": 9117,
+    "output": 6087
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:22:37.321Z"
+  "date": "2026-10-02T11:52:56.452Z"
 }

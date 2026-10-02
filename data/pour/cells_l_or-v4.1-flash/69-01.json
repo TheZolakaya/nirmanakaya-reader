@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing here with the pen, and the choice you make will be the one you keep.",
-      "ask": "Pick the direction you have already proven, say it out loud, set it where you'll see it, and let one finished piece leave the table today.",
-      "core": "You're the one at the table deciding what gets chosen. Your method isn't the loudest thing in the room — it's the proven one. You test a thing, you keep what held, and you decide from that steadiness, not from how you feel about it that morning.\n\nThat authority comes from all the hours behind it. People can feel when a decision has been worked through, and they follow it. Keep the method clean and it will keep carrying weight. What this balance is free to feed is the next build — the version of this where ground you've tested becomes ground something else stands on.",
-      "sheetLine": "You choose by method, and the choice holds.",
-      "verb": "deciding by method, committing to the answer your own practice has already tested",
-      "place": "at a worktable where a direction gets chosen and held",
+      "tense": "Here, with the pen, the method is doing the deciding and the direction holds.",
+      "act": "force the change into reality by steady effort",
+      "ask": "Give some work you have been circling thirty real minutes this week, with nothing planned after it — and notice which part finally gives way.",
+      "core": "You know how to do this. When the direction is set, you can move something forward by showing up to it the way you'd show up to an argument worth winning — same care, same patience, no drama about it. The force here isn't speed. It's the not stopping.\n\nWhat this steadiness is free to feed next is a breakthrough: a structure that should have fallen finally gives, because you kept leaning on it with real weight. So give some work you have been circling thirty real minutes, nothing planned after it, and watch which part finally gives way. The piece that cracks was ready to. The piece that holds, that's yours to keep standing on.",
+      "sheetLine": "The work moves because you keep showing up to it.",
+      "verb": "building the work by method, one proven move at a time",
+      "place": "where direction is chosen and meant",
       "provenance": {
         "signature_id": 69,
         "position_id": 1,
@@ -26,26 +27,47 @@
         "partner": "Catalyst of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"force the change into reality by steady effort\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a version of this that hasn't arrived yet, and the bracing is spending today.",
-      "ask": "Take one question you keep answering ahead of time, write it down open, and leave it unanswered until tomorrow.",
-      "core": "You're deciding ahead of the evidence. Every open question gets an answer before it has earned one, and you're living in an argument you keep winning in advance. The thinking that used to make things clear has turned into defense.\n\nWhen this sits right, practice runs without force. You go quiet with a problem, the quiet connects you to the work instead of walling you off, and the refining serves the thing itself rather than your worry about it. That's the version to aim at. Your method isn't built to answer the future — it settles what's in front of you, and it's very good at that. Loosen the grip on what hasn't happened and the same discipline goes back to being a tool instead of a shift that runs all night.",
-      "sheetLine": "You're answering questions that haven't been asked yet.",
-      "verb": "deciding by method, committing to the answer your own practice has already tested",
-      "place": "at a worktable where a direction gets chosen and held",
+      "tense": "The future is being built in advance, and the person building it has stopped arriving in the present.",
+      "act": "release what is done and keep what is not",
+      "ask": "Find something on your list that is genuinely finished and close it out — filed, off the board — before you pick up the next item.",
+      "core": "There is a list running ahead of you with more on it than the week can hold, and the method is on the next item before the last one has landed. None of this is slack. You are working, planning well, showing up. What gets stretched is that you are not here yet — you are already on the next one, and the future is being written in a hand that hasn't sat down.\n\nRelease does the work here, not more discipline. Find something on your list that is genuinely finished and close it out — filed, off the board — before you pick up the next item. Not because you slowed down. Because you finished. Let the finishing be a finishing, and the next item will meet you where you actually are instead of in the version already drafted ahead of it.",
+      "sheetLine": "The future is being written before you have arrived in it.",
+      "verb": "building the work by method, one proven move at a time",
+      "place": "where direction is chosen and meant",
       "provenance": {
         "signature_id": 69,
         "position_id": 1,
@@ -54,26 +76,47 @@
         "partner": "Executor of Intent",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that closed behind you, and you haven't turned around to see it.",
-      "ask": "Ask one person what you're actually good at, take the answer without arguing, and use it to pick a small thing to commit to this week.",
-      "core": "At the worktable you knew something and you're not bringing it forward. The committing stopped; what you'd proven didn't. You're treating a situation as still open that has already resolved, and holding the pen without using it.\n\nThe method isn't gone. It's waiting on a decision that hasn't been said out loud. Bring one small thing to a person and let them answer — the exchange is what keeps you honest about what you actually know. Standing still reads as neutral and isn't the same as being neutral. The push back is toward deciding again, small enough to finish, so the same steady attention gets something to run on instead of holding a question you already answered.",
-      "sheetLine": "You know something and you've stopped deciding with it.",
-      "verb": "deciding by method, committing to the answer your own practice has already tested",
-      "place": "at a worktable where a direction gets chosen and held",
+      "tense": "The door was open, was chosen, and the person has not stepped through it.",
+      "act": "make the fair call about a feeling, yourself",
+      "ask": "Take something that is over between you and someone, and decide once, alone, whether it was fair — without asking anyone to agree.",
+      "core": "The method is still in you — the ability to choose and mean it hasn't gone anywhere — but the choice sits in the past and you're near it. Not moving forward, not going back. Just there, next to it. The effort that should be going into work is going into not choosing again.\n\nThe current comes back through the feeling, not through more discipline. So take something that is over between you and someone, and decide once, by yourself, whether what happened was fair. No asking anyone to agree, no qualifying it, no checking it twice. It isn't much. But it lands somewhere, and it tells whatever chooses in you that choosing is safe again.",
+      "sheetLine": "The choice was made, and you have not stepped through it.",
+      "verb": "building the work by method, one proven move at a time",
+      "place": "where direction is chosen and meant",
       "provenance": {
         "signature_id": 69,
         "position_id": 1,
@@ -82,19 +125,19 @@
         "partner": "Executor of Resonance",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -106,17 +149,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already running the method here, and the pen sits down while you talk about it as if it ran itself.",
-      "ask": "Say 'I decided this' about the timeline or the pressure, wherever you've been calling it out of your hands.",
-      "core": "You're already navigating questions with the method — in how you frame the option, what you test, what you wave off. The discipline is running the room, and you describe it as circumstances. It isn't the situation choosing. It's you.\n\nWhen this sits right, practice runs without force: solitude connects rather than isolates, and the refining serves growth instead of worry. That's the version underneath. What's happened here is that the deciding is real and unclaimed, so it reads as weight instead of something you did. Say it was you, and today's small moves start to feel like yours. No life story needed — one honest assignment of cause.",
-      "sheetLine": "You're deciding already. You keep calling it the situation.",
-      "verb": "deciding by method, committing to the answer your own practice has already tested",
-      "place": "at a worktable where a direction gets chosen and held",
+      "tense": "The work is happening, is being done by their own hand, and is described as if no one did it.",
+      "act": "dream the next step and take it",
+      "ask": "Before the next step, sit a minute and picture building this without knowing how it goes — just the wonder — then take the step you pictured.",
+      "core": "The direction was chosen — by you, with method, with work — and somewhere in the telling it turned into something that happened around you. You speak about it like terrain you walked into, not ground you laid. The method is yours. The credit has been left sitting on the table.\n\nBefore method there was something simpler: wanting to know how a thing would turn out, wondering whether you could make it. That part is still in you. So before the next step, sit a minute and let yourself picture building this without already knowing how it goes — the wonder of it, just the picture. Then take the step you saw. The wonder doesn't replace the method. It is where the method came from, and it has been waiting to be let back in.",
+      "sheetLine": "The work is yours, and you tell it as if it happened around you.",
+      "verb": "building the work by method, one proven move at a time",
+      "place": "where direction is chosen and meant",
       "provenance": {
         "signature_id": 69,
         "position_id": 1,
@@ -125,24 +174,14 @@
         "partner": "Initiate of Resonance",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -151,33 +190,81 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5430,
+      "ms": 5362,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Will",
+          "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"force the change into reality by steady effort\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "names",
+          "detail": "another card's name on glass: Will",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the arriving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 2
         },
         {
@@ -187,33 +274,27 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Will",
+          "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (room, current, door) — a parable, not a sentence to a person",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
@@ -223,38 +304,38 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 83 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "code": "names",
+          "detail": "another card's name on glass: Will",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
+          "detail": "five words in a row from an exemplar or a rule: \"it as if it were\"",
           "hard": true,
           "status": 4
         },
@@ -265,26 +346,55 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record gives a tight operational span and a Body-house, inner-horizon card; it never says what the person's practice actually is, so every cell keeps the verb open and names no field. A reader could fairly say the method they'd guard isn't other people's — the ask in Too Much doesn't settle that, it just spends one answer on an experiment. The sentence serving the writer is 'you have already chosen the one that holds', because it keeps the door open, while the act of committing one direction out loud carries the cell either way. The ask survives being wrong: saying one check out loud is cheap and only finishes the commit."
+      "check": "The record says Discipline here is rigorous method and embodied clarity, and the medicine is breakthrough by structure; my draft's weakest claim is that the person's method has become a way of bracing against the future rather than a genuine commitment to it, which the record doesn't establish. A reader could reasonably say their pushing is real necessity, not anxiety, and the Too Much cell must survive that reading. The ask — releasing one thing that is finished rather than starting anything new — still teaches something if my read is wrong, and the sentence that serves me more than them is any line that names their interior state as if I knew it; I've cut those."
     },
     {
       "attempt": 2,
-      "ms": 4171,
+      "ms": 4035,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"force the change into reality by steady effort\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the arriving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -300,20 +410,8 @@
         },
         {
           "code": "glass",
-          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
           "status": 3
         },
         {
@@ -327,161 +425,244 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record gives a tight operational span and a Body-house, inner-horizon card; it never says what the person's practice actually is, so every cell keeps the verb open and names no field. A reader could fairly say the method they'd guard isn't other people's — the ask in Too Much doesn't settle that, it just spends one answer on an experiment. The sentence serving the writer was 'you have already chosen the one that holds'; I've cut it, and the act of committing one direction out loud carries the cell either way. The ask survives being wrong: saying one check out loud is cheap and only finishes the commit."
-    },
-    {
-      "attempt": 3,
-      "ms": 3494,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record gives a tight operational span and a Body-house, inner-horizon card; it never says what the person's practice actually is, so every cell keeps the verb open and names no field. A reader could fairly say the method they'd guard isn't other people's — the ask in Too Much doesn't settle that, it just spends one answer on an experiment. The ask survives being wrong: writing one question down open is cheap and only delays an answer that won't keep. The sentence that served me more than them was 'you have already chosen the one that holds'; it's cut, and committing one direction out loud carries the cell either way."
-    },
-    {
-      "attempt": 4,
-      "ms": 3540,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record gives method, embodied clarity, and a seat of chosen direction; the weakest claim in my draft is that the Too Much pushing is bracing rather than real necessity, which the record does not establish, and a reader could reasonably call it just a heavy workload honestly handled. The asks still teach something if my read is wrong — closing a finished item, making one fair call, taking an imagined step are useful regardless of cause — and the sentence that served me more than them was the one naming interior state as if I knew it, which I have cut. I have also removed the seat vocabulary, the card name, and the two refrains the checker flagged, and put a clock only where the act itself has one."
+    },
+    {
+      "attempt": 3,
+      "ms": 3087,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"force the change into reality by steady effort\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the arriving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives a tight operational span and a Body-house, inner-horizon card; it never says what the person's practice actually is, so every cell keeps the verb open and names no field. A reader could fairly say the method they'd guard isn't other people's — the ask in Too Much doesn't settle that, it just spends one answer on an experiment. The ask survives being wrong: writing one question down open is cheap and only delays an answer that won't keep. The sentence that served me more than them was 'you have already chosen the one that holds'; it's cut, and committing one direction out loud carries the cell either way."
+      "check": "The record gives method, embodied clarity, and a seat of chosen direction; the weakest claim in my draft is that the Too Much pushing is bracing against a future rather than honest necessity, which the record does not establish, and a reader could reasonably call it a heavy workload handled well. The asks still teach something if my read is wrong — closing a finished item, making one fair call, taking an imagined step are useful regardless of cause — and the sentence that served me more than them was the one naming their interior state as if I knew it, which I have cut."
+    },
+    {
+      "attempt": 4,
+      "ms": 3439,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"force the change into reality by steady effort\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record gives method, embodied clarity, and a seat of chosen direction; the weakest claim in my draft is that the Too Much pushing is bracing against a future rather than honest necessity, which the record does not establish, and a reader could reasonably call it a heavy workload handled well. The asks still teach something if my read is wrong — closing a finished item, making one fair call, taking an imagined step are useful regardless of cause — and the sentence that served me more than them was the one naming their interior state as if I knew it, which I have cut. The stray 'arriving' noun is gone; the cell now says the plain thing: you're not here yet, you're already on the next one."
     }
   ],
   "usage": {
-    "input": 3942,
-    "output": 4230
+    "input": 4635,
+    "output": 4794
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:56:44.957Z"
+  "date": "2026-10-02T13:17:07.826Z"
 }

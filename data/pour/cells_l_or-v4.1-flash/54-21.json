@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The shape of the work is visible to you now, and you are holding it open.",
-      "ask": "Name the piece of this that is finished, say out loud who it is for, and let the next thing start.",
-      "core": "You can see the shape of what you're building, and you're holding it open just enough for the last pieces to land. The form is real — it isn't wishful. You've been at this long enough that the structure holds itself when you step back, and that's the part most people miss. You're not forcing it past the point where it would crack. The work is integrating because you're letting it.\n\nThe balance here is the frame up, the pieces fitting, the thing nearly ready to stand without you. What it costs to keep is letting it be finished in front of someone else — not improving it in private where nobody sees. That's the open edge of it. Name what's done, say who it's for, and let the next thing start.",
-      "sheetLine": "You built it, and you can say it's finished.",
-      "verb": "forming — the first raising of a structure that needs more than one pair of hands",
-      "place": "the threshold where what is finished becomes what comes next",
+      "tense": "The structure is going up now and the hands are still on it.",
+      "act": "show someone the way you found",
+      "ask": "With one person stuck at the point you already got past, put the route down in plain words and then go quiet about it — no doubling back to check.",
+      "core": "You're at the part where work gets finished well enough to leave your hands. It's going without strain, because you're trusting the form to hold rather than guarding it. What you built is integrated, and the finishing opens instead of closing. New structure is emerging in how you think about the work, the first frame of it, and it comes out of the hands-on part rather than the plans.\n\nThe way back moves through other people, and it looks like plain direction. You spent real effort learning this route; someone behind you on the same stretch hasn't. Put down where the passage is and go quiet. The telling won't thin you — solitude on the way back connects instead of isolating, and refining your own work could turn into gripping. Here it doesn't, because you're willing to hand it on.",
+      "sheetLine": "What you built is finished enough to leave your hands.",
+      "verb": "building something new from what the clearing left standing",
+      "place": "the threshold where finished work becomes the next beginning",
       "provenance": {
         "signature_id": 54,
         "position_id": 21,
@@ -26,20 +27,37 @@
         "partner": "Guidance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
     },
     {
       "status": 2,
-      "tense": "You are already living in the finished version, and you are managing the present around it.",
-      "ask": "Leave one piece of this unfinished tonight, without a plan for how it closes, and go do something that isn't it.",
-      "core": "Somewhere ahead of you there's a finished form, and you're living there — managing now as if the last panel were already in place. A choice comes up, and it gets checked against a version of this that doesn't exist yet. The checking has taken the place of the making. You're pushing the last pieces in faster than they'll set. The pushing isn't building the thing; it's costing you the thing.\n\nWhat you actually want is the moment it stands on its own, and that moment can't be forced into being early. The way back is not to finish harder. It's to leave one piece unfinished on purpose — no plan for how it closes — and let the work be un-done in front of you for a night. That opens the door you've been leaning on.",
-      "sheetLine": "You're finishing it in your head before it's finished in your hands.",
-      "verb": "forming — the first raising of a structure that needs more than one pair of hands",
-      "place": "the threshold where what is finished becomes what comes next",
+      "tense": "The finished version is being lived in already, ahead of the hands.",
+      "act": "walk toward what connects, leaving what does not",
+      "ask": "Drop the piece you keep re-adding out of habit, even though nobody living uses it — take it out of the next version by your own hand.",
+      "core": "You're at the crossing point and already living past it. The final form is in your head, so the raising feels behind schedule and the hands get pushed past what the thing can hold. What you're defending isn't the work; it's a shape that hasn't arrived. The last step keeps getting thrown over the top of the one under it.\n\nWhat brings you back is going toward the connection that's still live — the people this is actually for — and letting the rest fall away. The piece you keep adding because it was once right, or because cutting it feels like loss, is the piece that no longer travels. Take out one of those by your own hand and watch what the live connection does with the space that opens.",
+      "sheetLine": "You're finishing it in your head before it's built.",
+      "verb": "building something new from what the clearing left standing",
+      "place": "the threshold where finished work becomes the next beginning",
       "provenance": {
         "signature_id": 54,
         "position_id": 21,
@@ -48,19 +66,14 @@
         "partner": "Passage",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"walk toward what connects leaving what does not\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -72,12 +85,13 @@
     },
     {
       "status": 3,
-      "tense": "You have been standing at this same unfinished edge for longer than the building has needed.",
-      "ask": "Choose one piece you've been circling and do it badly, today, in ten minutes, in front of no one.",
-      "core": "There's a piece of this you keep circling and not placing. You know the shape of the work — that part isn't missing — but the last join hasn't been made, and you're not the one who gets to decide it's still in progress. Standing here isn't patience; it's the absence of the next move. The structure is waiting on something that isn't going to arrive unless you make it.\n\nThe way back is not to feel more ready. It's to put weight into your own direction: pick one piece you've been avoiding and do it badly in ten minutes, with no one watching. The clarity you're waiting for comes after the move, not before it. The unfinished thing doesn't need more thinking. It needs one hand on it.",
-      "sheetLine": "You're still calling it not-yet-done, and the not-yet is yours.",
-      "verb": "forming — the first raising of a structure that needs more than one pair of hands",
-      "place": "the threshold where what is finished becomes what comes next",
+      "tense": "The old structures came down and nothing new has risen since.",
+      "act": "decide it and act the same day, without explaining",
+      "ask": "Make the next call on this build and carry it through before the day ends — nobody is told, nobody is given a reason.",
+      "core": "You can see the cleared ground and you stand at the far side of it. The old structures came down — you know exactly where they were — and nothing is going up on the space. You can describe what should be raised; you just don't start. The not-starting has gone on long enough that it feels like judgment rather than fear.\n\nWhat's called for doesn't require you to feel like building. Make the call and carry it through the same day. Small, no announcement, no reasons given to anybody. Real authority doesn't assert itself — it moves, and the structure does the talking. This first move doesn't have to be right. It has to be made, because making it is the only thing that puts ground back under your feet.",
+      "sheetLine": "You can see the cleared ground. Nothing's rising on it.",
+      "verb": "building something new from what the clearing left standing",
+      "place": "the threshold where finished work becomes the next beginning",
       "provenance": {
         "signature_id": 54,
         "position_id": 21,
@@ -86,19 +100,14 @@
         "partner": "Command",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -115,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "The building is going up under your hands while you talk about it as if it were happening on its own.",
-      "ask": "Write one sentence that names the outcome you want from this, stick it where you'll see it this week, and leave it alone.",
-      "core": "You're already assembling this — choosing what goes where, what holds and what gets set aside. But you describe the shape as if it were arriving from the work itself, or from timing, or from what the situation asked for. The decisions are yours, and they're running without your name on them. That's not modesty. It's a missing line in the accounts.\n\nStart with one sentence, in your own hand, that says what you want this to become. Put it where you'll see it this week and leave it. When you say out loud that you made the calls you've already made, the direction usually turns out to have been there the whole time — waiting to be said by the one who set it.",
-      "sheetLine": "You're building it and calling it the situation building itself.",
-      "verb": "forming — the first raising of a structure that needs more than one pair of hands",
-      "place": "the threshold where what is finished becomes what comes next",
+      "tense": "The build is underway and your telling credits it to circumstance.",
+      "act": "keep the heading when it is contested",
+      "ask": "Somebody questions where this is going — let the course stand exactly as it is, through that conversation, without mounting a case for it.",
+      "core": "You're building, and you credit the build to luck. Asked how it came together, you say it came together — you had the opportunity, the pieces happened to fit. Meanwhile the direction is genuinely yours: the choices, the order of them, the refusal of the easier shape. Your hand decided. Your account of it leaves the hand out.\n\nWhat's needed is older than you think. Before the build there was a want — a pull toward a particular thing that the structure now carries — and it's still what moves you when you let it. Feel for what you actually want here and keep the heading from there. Momentum isn't gathered by pushing; it's harvested from engagement. What you're engaged with has been yours the whole time.",
+      "sheetLine": "The build is yours, and your telling leaves the hand out.",
+      "verb": "building something new from what the clearing left standing",
+      "place": "the threshold where finished work becomes the next beginning",
       "provenance": {
         "signature_id": 54,
         "position_id": 21,
@@ -129,19 +139,24 @@
         "partner": "Resolve",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the heading when it is contested\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -150,32 +165,62 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5912,
+      "ms": 5811,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "names",
-          "detail": "another card's name on glass: Creation",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"Every decision\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Guidance does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let them walk\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"once and let them walk\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (threshold, shape, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Passage does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -186,9 +231,9 @@
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"does with the room it\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -198,15 +243,33 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"medicine\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Authority",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The looking\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Command does\") — the act in plain words, the name once at most",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -222,27 +285,39 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"signature\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"all along\" — a motive the cell cannot know",
-          "hard": true,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The way back is smaller\" — a house refrain; a person who draws twice meets it twice",
+          "code": "glass",
+          "detail": "\"medicine\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Resolve does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so once\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -250,27 +325,56 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that late-stage formation is being crowded out — the record shows Formation seated in Creation, not what the person is actually building or how close it is to done. The reader could reasonably say the construction is going fine and the problem is elsewhere. The ask survives being wrong because it is one deliberate release, not a diagnosis; it teaches something even if the read misses. The sentence that serves the writer more than the person is 'the last piece is the one you keep almost finishing' — it sounds knowing, but it assumes a shape the record doesn't carry, so I've dropped it."
+      "check": "Unsupported claim: that the person is at the moment of finishing or releasing anything — the record shows the seat, not that arrival is happening. A reader could say the building is long done and nothing is being released, so the core should describe the capacity as it shows up now rather than assert a stage they are in. The asks survive being wrong because each is a small visible act (a page, one piece down, one same-day call, one heading kept) useful even if the read misses. The sentence that serves me more than them is any 'you are at the threshold' phrasing — cut; the cores point at what the capacity does, not where I place them."
     },
     {
       "attempt": 2,
-      "ms": 3638,
+      "ms": 5016,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people walking with\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -278,18 +382,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "tense",
@@ -304,9 +396,9 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
         },
         {
@@ -314,26 +406,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that late-stage formation is being crowded out — the record shows Formation seated in Creation, not what the person is actually building or how close it is to done. The reader could reasonably say the construction is going fine and the problem is elsewhere. The ask survives being wrong because it is one deliberate release, not a diagnosis; it teaches something even if the read misses. The sentence that serves the writer more than the person is 'the last piece is the one you keep almost finishing' — it sounds knowing, but it assumes a shape the record doesn't carry, so I've dropped it."
+      "check": "Unsupported claim: that the person is at the moment of finishing or releasing anything — the record gives the seat, not evidence that arrival is happening now. A reader could say the building is long done and nothing is being let go, so the cores should describe what this capacity is doing rather than place the person at a stage. The asks survive a wrong read because each is one visible act — telling someone the route, dropping one stale piece, making a move the same day, holding a heading through one argument — useful even if the read misses. The sentences that serve me more than them are the threshold phrasings; cut, and the partner is never named on glass."
     },
     {
       "attempt": 3,
-      "ms": 3156,
+      "ms": 4128,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
           "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"walk toward what connects leaving what does not\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -344,14 +453,8 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -368,89 +471,31 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that late-stage formation is being crowded out — the record shows Formation seated in Creation, not what the person is actually building or how close it is to done. The reader could reasonably say the construction is going fine and the problem is elsewhere. The ask survives being wrong because it is one deliberate release, not a diagnosis; it teaches something even if the read misses. The sentence that serves the writer more than the person is 'the last piece is the one you keep almost finishing' — it sounds knowing, but it assumes a shape the record doesn't carry, so I've dropped it."
-    },
-    {
-      "attempt": 4,
-      "ms": 3294,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the heading when it is contested\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that late-stage formation is being crowded out — the record shows Formation seated in Creation, not what the person is actually building or how close it is to done. The reader could reasonably say the construction is going fine and the problem is elsewhere. The ask survives being wrong because it is one deliberate release, not a diagnosis; it teaches something even if the read misses. The sentence that serves the writer more than the person is 'the last piece is the one you keep almost finishing' — it sounds knowing, but it assumes a shape the record doesn't carry, so I've dropped it."
+      "check": "Unsupported claim: that the person is at the moment of finishing or releasing anything — the record gives the seat, not evidence that arrival is happening now. A reader could say the building is long done and nothing is being let go, so the cores should describe what this capacity is doing rather than place the person at a stage. The asks survive a wrong read because each is a visible act — showing a route, dropping a stale piece, making a move the same day, holding a heading through one argument — useful even if the read misses. The sentences that serve me more than them are the threshold phrasings, and any place the partner is named as a common noun; both cut."
     }
   ],
   "usage": {
-    "input": 7166,
-    "output": 4681
+    "input": 6765,
+    "output": 3603
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:43:41.926Z"
+  "date": "2026-10-02T12:20:25.275Z"
 }

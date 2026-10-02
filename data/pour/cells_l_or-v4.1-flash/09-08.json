@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You're keeping the practice lit, and the solitude in it is where you refill rather than hide.",
-      "ask": "After one session this week, tell the person who'd ask about it what you actually did — one line, no more detail than they need.",
-      "core": "You're keeping the practice lit. Not with flash — with a small steady light, tended on the days you'd rather not and tended anyway. That's what's carrying the load right now, and it's holding form without going hard about it.\n\nThe solitude works in your favor. You go quiet to refill, not to get away from people, and when you come back there's more of you to be around. When you finish a session, you let it be finished. That's the balance — refining serves the growing, not the worrying. The one place it could tip: you keep the practice so private that no one else ever gets to see its shape. You can spend a whole season on something real that's entirely yours, and nobody knows it exists. A practice can stay honest and still be invisible.",
-      "sheetLine": "The practice is steady, and the quiet works in your favor.",
-      "verb": "keeping a small practice lit by attention",
-      "place": "where you hold form under weight without going hard or going rigid",
+      "tense": "Right now, the practice is running and your hands are steady on it.",
+      "act": "let one structure collapse that could not hold",
+      "ask": "Name the part of your practice you keep propping up out of habit, and stop propping it. Let it go quiet and see whether it was ever needed.",
+      "core": "There is a steadiness under your practice that does not need pushing. You show up, you repeat the thing, it gets better in small increments. The work itself is calm, and the solitude is where it feeds you rather than where it hides you.\n\nNot everything you carry is load-bearing. Name the part of your practice you keep propping up out of habit, and stop propping it. Let it go quiet and see whether it was ever needed. What was false falls quickly and quietly, and there is less to brace against than you expected. What is left stands without help, and the practice gets lighter to keep.",
+      "sheetLine": "The practice holds you back, and it holds you up.",
+      "verb": "Keeping a practice alive through repetition — the small daily return to a craft",
+      "place": "Where you hold steady under load and keep going — the place endurance lives",
       "provenance": {
         "signature_id": 9,
         "position_id": 8,
@@ -26,31 +27,42 @@
         "partner": "Breakthrough",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Ahead of you there's a version where the practice is finally beyond criticism, and you're already living there, refining toward it.",
-      "ask": "Before the next session, write down what would make it good enough — then do the session and stop at that line, even if the line is low.",
-      "core": "Ahead of you sits the version where the practice is finally beyond criticism, and you're already living there. So every session becomes proof — and none of them quite pass. You finish one and the flaws are visible. The refining starts before the session ends. That's the shape too much takes here, and the cost is the thing refining was for.\n\nIt doesn't land, that measuring. No session ends with you done, because the next one is already being weighed against a standard that moved while you were working. Endurance turns into hardness — the grip is doing the work now, not the strength. Somewhere you suspect that stopping would prove something. It wouldn't. What you've done has already landed; it just hasn't been given permission to count.",
-      "sheetLine": "Nothing finishes, because you're already judging the next one.",
-      "verb": "keeping a small practice lit by attention",
-      "place": "where you hold form under weight without going hard or going rigid",
+      "tense": "By the time you look up, the practice will have closed the door behind you.",
+      "act": "let go of the thing you are gripping",
+      "ask": "Pick what you have been polishing longest and set it down, unfinished, for two days. Keep your hands off it till the second night.",
+      "core": "The practice has tightened into something brittle. The hours grow, the standards sharpen, and stopping has started to feel like losing ground. You are holding the shape so hard it takes effort to breathe inside it.\n\nPick what you have been polishing longest and set it down, unfinished, for two days. Keep your hands off it till the second night. The grip is not the work. What you make well on Tuesday is still there Thursday, and the gap shows you something you cannot see with your hands on it. Nothing is gained by holding on the whole time, and nothing is lost when you don't.",
+      "sheetLine": "You're holding the practice so hard it can't breathe.",
+      "verb": "Keeping a practice alive through repetition — the small daily return to a craft",
+      "place": "Where you hold steady under load and keep going — the place endurance lives",
       "provenance": {
         "signature_id": 9,
         "position_id": 8,
@@ -59,36 +71,47 @@
         "partner": "Faith",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "Past experiences have made practice feel like a door you stopped knocking on, and you've been standing at its far side since.",
-      "ask": "Do one small version of the practice where someone can see you doing it — or share one session's result with one person, nothing more.",
-      "core": "There's a door you're not knocking on. Solitude stopped being the place you refill and started being a place to stay out of reach, and you've been calling it not having time, or not being in the right season for it, while the seasons keep going.\n\nWhat's still working is standing under weight. You bear up everywhere else, well enough that people don't notice the one spot where you won't pick anything back up. Nothing is broken; nothing is getting added back either, so the practice asks more of you than it used to and returns less. Pushing harder at the dry spot won't help. What refills it is a step out where the give and take are even — small, and seen by one other person, once.",
-      "sheetLine": "The practice isn't gone, it's just not getting picked back up.",
-      "verb": "keeping a small practice lit by attention",
-      "place": "where you hold form under weight without going hard or going rigid",
+      "tense": "Years back, something made picking up the practice again feel like a risk you stopped taking.",
+      "act": "put it in proportion, not in punishment",
+      "ask": "Do one small stretch of the thing you stopped, then stop there — no catching up, no making it count for anything.",
+      "core": "The practice has gone quiet, and it stays that way. You do not keep at anything long enough for it to build, and the longer that goes on, the stranger the first stretch feels. The ability is still in you. It just has not been asked to do anything yet.\n\nDo one small stretch of the thing you stopped, then stop there — no catching up, no making it count for anything. A practice that owes no debt is easier to pick up than one that has been tallying what you missed. One return, kept light, tells you what it costs and what it gives. Decide from there, or don't decide at all.",
+      "sheetLine": "The practice has gone quiet, and you've stopped asking it for anything.",
+      "verb": "Keeping a practice alive through repetition — the small daily return to a craft",
+      "place": "Where you hold steady under load and keep going — the place endurance lives",
       "provenance": {
         "signature_id": 9,
         "position_id": 8,
@@ -97,36 +120,42 @@
         "partner": "Equity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 112 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it in proportion not in punishment\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're keeping a practice right now and calling it something else — the pen is down, but the writing hasn't stopped.",
-      "ask": "Pick one thing you already do on a schedule and write down what it's built — two lines, plain, no explaining yourself.",
-      "core": "You have something you do regularly — early, or late, or when the household doesn't need anything — and you'd not call it practice. You'd call it just how you get through, or just how you've managed it as long as you can remember. It's been building skill the whole time. That skill arrived without you noticing how, which is why it looks like something you just have.\n\nWhat isn't claimed is that you're the one doing it. You move through a room, take its weight without thinking, and the fact that you lit that practice again today doesn't get your name on it anywhere. That's the gap — the doing is real, the saying-so isn't. Sitting with the ambiguity for an hour wouldn't fix it. A small, plain record of what's already yours would.",
-      "sheetLine": "The skill is real. What's missing is you calling it yours.",
-      "verb": "keeping a small practice lit by attention",
-      "place": "where you hold form under weight without going hard or going rigid",
+      "tense": "You keep a practice going right now and would not call it that if asked.",
+      "act": "move through the fog without demanding the map",
+      "ask": "Take the thing you are already good at and do it once more slowly, no plan for where it leads. Stop when it stops being easy.",
+      "core": "You have a practice that runs whether or not you attend to it. It shows in how good you have gotten at something you do not count, and you would likely say you are not the kind who practices at all. The work happens anyway. That is the part worth keeping.\n\nTake the thing you are already good at and do it once more slowly, no plan for where it leads. Stop when it stops being easy. You do not need to see the whole road to take it; one step is enough light to know how the step feels. You built this by repetition, and doing it on purpose once puts it back where you can find it.",
+      "sheetLine": "You already practice — you just don't call it that.",
+      "verb": "Keeping a practice alive through repetition — the small daily return to a craft",
+      "place": "Where you hold steady under load and keep going — the place endurance lives",
       "provenance": {
         "signature_id": 9,
         "position_id": 8,
@@ -135,11 +164,26 @@
         "partner": "Imagination",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
@@ -148,6 +192,11 @@
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -156,15 +205,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7344,
+      "ms": 5712,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 1
         },
         {
@@ -174,33 +247,39 @@
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Fortitude",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"you're already holding\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -210,38 +289,32 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "glass",
           "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Fortitude",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, current) — one at most, usually none",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give back what is owed and take what is yours\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -252,39 +325,39 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "history",
-          "detail": "\"for years\" — a cell knows no one's past",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"your noticing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -298,21 +371,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record doesn't license a history, so Too Little must locate the person at a stopped practice without saying what made practice feel dangerous — no event, no person, no duration. The most likely objection is 'that's not what's happening — I just haven't started'; the ask survives being wrong because inviting one more person in is still a smaller, fairer calibration of a practice whether or not my read is right. The sentence that serves me more than them would be 'you're so disciplined' — praise for a method I invented, cut."
+      "check": "The record does not say what past experiences made practice feel dangerous on this card, so the Too Little cell must not name or characterise them. A reader could object that they do practice fine and nothing feels risky; the asks here are all single, small moves that stand on their own either way. The sentence that serves the writer is 'something taught you that the effort would be taken' — it is not in the record, and it goes. The cell says only that practice has gone quiet and the ground under it can be tested without more effort."
     },
     {
       "attempt": 2,
-      "ms": 4707,
+      "ms": 4486,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -322,21 +417,27 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -346,32 +447,20 @@
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it in proportion not in punishment\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -382,15 +471,33 @@
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "detail": "\"your noticing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -404,21 +511,44 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"do\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't license a history, so Too Little must locate the person at a stopped practice without saying what made practice feel dangerous — no event, no person, no duration, no cost. The most likely objection is 'that's not what's happening — I just haven't started'; the ask survives being wrong because sharing one session's result is still a small, fair, visible step whether or not my read is right. The sentence that serves me more than them would be 'you're so disciplined' — praise for a method I invented, cut."
+      "check": "The record does not say what past experience made practice feel dangerous, so the Too Little cell must not name it or its cost — the cell says only that the practice has gone quiet, and the ask tests the ground without demanding the person explain why it went quiet. A reader could object that they already practice plenty and nothing in it feels forced; all four asks are single small moves that stand whether or not the read lands. The sentence that serves the writer is 'something taught you that the effort would be taken' — it isn't in the record, and it stays out. The quartet also had to be reshaped: three asks were bounded 'one thing' moves and three carried a clock, so the Too Little ask is now a stop with nothing after it, and only the Too Much ask keeps a duration."
     },
     {
       "attempt": 3,
-      "ms": 4515,
+      "ms": 3189,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -428,21 +558,27 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -452,20 +588,20 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it in proportion not in punishment\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -476,9 +612,33 @@
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"your noticing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -492,20 +652,32 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record doesn't license a history, so Too Little must locate the person at a stopped practice without naming an event, a person, a duration or a cause — no 'cost', no 'something back there'. The most likely objection is 'that's not what's happening — I just haven't started'; the ask survives being wrong because sharing one session's result with one person is still a small, fair, visible step whether or not my read is right. The sentence that would serve me more than them is 'you're so disciplined' — praise for a method I invented, cut."
+      "check": "The record does not say what past experience made practice feel dangerous, so the Too Little cell names no history and no cost — it says only that the practice has gone quiet, and the ask is a stop with nothing after it. A reader could object that they already practice plenty and nothing in it feels forced; each ask is a single small move that stands whether or not the read lands. The sentence that serves the writer is 'something taught you that the effort would be taken' — it isn't in the record and stays out. The quartet is now four different opening verbs — name, pick, do, take — with only the Too Much ask carrying a clock."
     },
     {
       "attempt": 4,
-      "ms": 4162,
+      "ms": 3051,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -516,14 +688,26 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -534,14 +718,20 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it in proportion not in punishment\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -550,6 +740,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "tense",
@@ -562,15 +776,145 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record licenses no history, so Too Little locates the person at a stopped practice without naming an event, a person, a duration, or a cause. The likely objection is 'that's not what's happening — I just haven't started'; the ask survives being wrong because sharing one session's result with one person is still a small, fair, visible step whether or not my read is right. The sentence that would serve me more than them is 'you're so disciplined' — praise for a method I invented, cut."
+      "check": "The record does not say what past experience made practice feel dangerous, so the Too Little cell names no history and no cost — it says only that the practice has gone quiet, and the ask is a stop with nothing after it. A reader could object that they already practice plenty and nothing in it feels forced; each ask is a single small move that stands whether or not the read lands. The sentence that serves the writer is 'something taught you that the effort would be taken' — it isn't in the record and stays out. The quartet now opens on four different verbs — name, pick, do, take — and only the Too Much ask carries a clock; 'on its own' is gone from the Balanced ask and 'your noticing' from the Unacknowledged core."
+    },
+    {
+      "attempt": 5,
+      "ms": 3238,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it in proportion not in punishment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record does not say what past experience made practice feel dangerous, so the Too Little cell names no history and no cost — it says only that practice has gone quiet, and the ask is a stop with nothing after it. A reader could object that they already practice plenty and nothing in it feels forced; each ask is a single small move that stands whether or not the read lands. The sentence that serves the writer is 'something taught you that the effort would be taken' — it isn't in the record and stays out. The quartet opens on four different verbs — name, pick, do, take — and only the Too Much ask carries a clock. 'Steadiness' is gone from the fourth cell: the core now says the person built the skill and kept at it, not a quality that was stored."
     }
   ],
   "usage": {
-    "input": 4396,
-    "output": 4864
+    "input": 5178,
+    "output": 5541
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:03:12.250Z"
+  "date": "2026-10-02T13:24:25.010Z"
 }

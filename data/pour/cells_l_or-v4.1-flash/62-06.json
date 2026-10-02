@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The fire is burning steady here, and the people close to you can feel it — you are growing in front of them, not away from them.",
-      "ask": "Show one of them something today half-finished — a sketch, a wrong turn, a plan that is not right yet. Let the doing be the whole point, not the outcome.",
-      "core": "You start things and you mean them. There is a pull that brings friends along without selling anything to them, and you can feel it when someone stands closer because you stood up. That is what it looks like when your own bright patch is grown up and standing in the open — the fire reaching the people in the room, not just the work.\n\nStay in the open with them and let them answer back in their own language. The loudest one in the room is still you, and you do not need to outshine what comes back. Something said plainly, like this is building and it is not finished yet, is the kind of thing a friend can hold, and it can be handed over without ceremony.",
-      "sheetLine": "The fire is steady near you, and the people close can feel it.",
-      "verb": "lighting the fire before you know the way",
-      "place": "in the company of the people you are close to",
+      "tense": "Right now you are carrying a spark into a room and trusting it to land.",
+      "act": "cut to the logic and act on it",
+      "ask": "When a conversation starts circling, name the point that matters, plainly, and stop talking there.",
+      "core": "At a table where you and another person are level, you can bring heat without performing it. That's the whole of what's working: your enthusiasm is real, so people lean in, and you aren't asking them to hold it for you. Both of you stay honest about what's here, and that honesty is the connection.\n\nSharpen it. When something matters in a conversation, most people circle it. Get to the middle — state the actual point, skip the throat-clearing — and watch what the honesty does between you. You don't have to soften it into a question or pad it afterward. Your fire gets useful the moment you stop warming the air and say the thing instead.",
+      "sheetLine": "You bring real heat, and you trust it to land.",
+      "verb": "lighting the fire and finding out where it wants to go",
+      "place": "at the table where you and another person are actually level",
       "provenance": {
         "signature_id": 62,
         "position_id": 6,
@@ -26,19 +27,24 @@
         "partner": "Catalyst of Cognition",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already a few steps past where you are, lit up with what this will look like once it lands, and the people with you are still catching their breath.",
-      "ask": "Say the honest version of where the idea actually stands before the version on the way. One sentence to one person — not a pitch, just the real state of it.",
-      "core": "What is happening is that the fire is outrunning the people near you. You are already living inside a version that has not happened, and the interest is real, but the timing has slipped ahead of your feet. When someone asks how it is going, you answer from the future and the present goes missing between you.\n\nThe shine is coming from force, not from growth. What works is curiosity you practice out loud — what they think, what they see, whether the thing is even good — and then letting that land and stay. Wherever you find yourself selling, you have already skipped a few of the steps between the idea and the room you are standing in.",
-      "sheetLine": "You are ahead of the people you are lighting up.",
-      "verb": "lighting the fire before you know the way",
-      "place": "in the company of the people you are close to",
+      "tense": "You are already rehearsing how the next conversation will go before anyone has said anything.",
+      "act": "perceive it with fresh eyes before judging",
+      "ask": "Let a beat pass before you answer someone this week, and answer what they actually said rather than the shape you expected.",
+      "core": "You've started arriving early in your own head when you sit down with someone. You can feel the connection coming before it gets here, so you sketch your half in advance; the other person walks into a script they didn't agree to. The warmth that brought people in is now steering them toward a version of themselves you already drew.\n\nTry the other direction. When someone starts talking, wait a beat before answering, and take in what they did say — the particular words, the particular mood — instead of the familiar shape you were braced for. Curiosity is the correction here. You don't have to know where the conversation lands. You can find out at the same pace they do.",
+      "sheetLine": "You wrote their lines before they got a chance to speak.",
+      "verb": "lighting the fire and finding out where it wants to go",
+      "place": "at the table where you and another person are actually level",
       "provenance": {
         "signature_id": 62,
         "position_id": 6,
@@ -64,46 +71,37 @@
         "partner": "Initiate of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The bright one in the room is not the one you are being, and you have been the steady one for a while now, keeping the work close.",
-      "ask": "Pick something you can actually finish small, do it weekly, and let one friend see it grow. Four minutes on a Tuesday is enough.",
-      "core": "What it looks like going well here is someone whose ideas reach the people around them without fanfare — a thing started and shown, a plan that gets a name and a date. You bring real energy to a room when you let yourself, and the people close to you take it in and give it back. That is the ordinary version, not a performance.\n\nWhat is happening instead is that the showing has gone quiet. The ideas still come, but they stay in drafts and half-thoughts, and the people in the room mostly see you as the steady one. The fire is real and no one hears about it. Starting small and letting one person in is enough to get the current moving again.",
-      "sheetLine": "The fire is real and no one hears about it.",
-      "verb": "lighting the fire before you know the way",
-      "place": "in the company of the people you are close to",
+      "tense": "You used to step toward people with your whole chest and now you hold back at the door.",
+      "act": "tend the small thing and learn from it",
+      "ask": "Put your hands on one small living thing this week — a pot by the window, a herb — and give it a few days of what it asks for.",
+      "core": "You've gone quiet when you're level with someone. The aliveness that used to make you reach toward people first is set down, and you're standing still while the room moves. What your warmth runs on has gone dry, and pushing feeling at it won't refill it.\n\nInstead of working on the connection directly, put your hands on something alive and small. Basil on a sill. A plant you've walked past. Water it for a few days and pay attention to what it wants — light, less water, more room. Care for a thing that is quietly telling you what it needs. This isn't rehearsal for the people in your life. It's the refill, and it comes back through your hands.",
+      "sheetLine": "You've stopped stepping toward people. Tend something small first.",
+      "verb": "lighting the fire and finding out where it wants to go",
+      "place": "at the table where you and another person are actually level",
       "provenance": {
         "signature_id": 62,
         "position_id": 6,
@@ -112,19 +110,29 @@
         "partner": "Initiate of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -136,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You credit the warmth in the room to circumstance or to their good luck, while you are the one who has been raising the temperature.",
-      "ask": "Look at one thing in the room that is different because of you — a habit, a playlist, a standing thing — and say out loud that you started it.",
-      "core": "What it looks like going well here is someone whose energy shows up in the people around them and who owns it — a mood set, a plan that took, a room that runs warmer because they walked in. That is not vanity. It is just what happens when you let yourself be seen starting things.\n\nRight now you keep giving that credit elsewhere — to the group, to luck, to the fact that people were ready. The people in your life take their energy from you and they would say so if asked. You have not said so yourself. This has been yours the whole time it was happening. Claiming it is not boasting, and it is not taking something away from them.",
-      "sheetLine": "You set the mood. You keep calling it shared.",
-      "verb": "lighting the fire before you know the way",
-      "place": "in the company of the people you are close to",
+      "tense": "Warmth is moving through you toward people, and you are calling it nothing much.",
+      "act": "lay the one step you can see, solidly",
+      "ask": "Think of one person you've held steady for, and note the specific thing you did — the call, the ride, the remembering. Keep it as yours.",
+      "core": "You already reach toward people — remembering the worry they mentioned, checking in, holding a seat for them — and you describe it as just how you are, as nothing worth naming. Where you and another are level, you're doing the load-bearing and filing it under luck. That isn't modesty. It's someone else's name on work of yours.\n\nTake one concrete move you made for someone and look at it plainly. Don't dismiss it as circumstance or as small. You don't have to announce it or argue for it; simply let yourself see the move as one you made. That's how what you do comes back under your own name — and once it's yours, you can build on it instead of handing it off to chance.",
+      "sheetLine": "You hold people steady and file it under nothing.",
+      "verb": "lighting the fire and finding out where it wants to go",
+      "place": "at the table where you and another person are actually level",
       "provenance": {
         "signature_id": 62,
         "position_id": 6,
@@ -150,19 +159,19 @@
         "partner": "Executor of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -171,135 +180,157 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5668,
+      "ms": 6355,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\" and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 67 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "status": 1
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 71 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "vocab",
+          "detail": "\"The tending\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
+          "code": "vocab",
+          "detail": "two images in one core (room, seed) — one at most, usually none",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"your steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"tell them\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"in a room…\")",
+          "hard": true
         }
       ],
-      "check": "No biography is named and none is needed, but the reading has to stay on the person's own life rather than on anyone they know. Objection: everything here is only as true as the person's own account of their relationships — so the cells describe moments they would recognise, not causes. If this is wrong about them there is still something to use: one honest scene, one move is worth trying whether the scene lands or not. The sentence that serves the writer more than the reader is any line about what the relationship 'really' does; keep those out. One clause, about what long-kept-with care is allowed to look like, stays in the core and nowhere near the ask."
+      "check": "The unsupported claim is that the person's warmth in company is starving — the record says the seat runs empty at Too Little, not why, and I only locate them at the door. A reader could fairly say the withdrawal they recognise is recent and situational, not a long habit; the ask survives that, since tending one small living thing for a few days is useful even if the drought is new. The sentence that serves me rather than them is the Radiant-heart turn in the Too Little core — it flatters the card instead of telling them what watering something does. Cut it."
     },
     {
       "attempt": 2,
-      "ms": 4138,
+      "ms": 4581,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -307,210 +338,92 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\" and let it actually\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
           "code": "shape",
-          "detail": "the four cells open the same way (\"the fire is…\")",
+          "detail": "the four cells open the same way (\"where you and…\")",
           "hard": true
         }
       ],
-      "check": "No biography is named and none is needed, but the reading has to stay on the person's own life rather than on anyone they know. Objection: everything here is only as true as the person's own account of their relationships — so the cells describe moments they would recognise, not causes. If this is wrong about them there is still something to use: one honest scene, one move is worth trying whether the scene lands or not. The sentence that serves the writer more than the reader is any line about what the relationship 'really' does; keep those out. One clause, about what long-kept-with care is allowed to look like, stays in the core and nowhere near the ask."
+      "check": "The unsupported claim is that the person's warmth in company is starving — the record says the seat runs empty at Too Little, not why, and I only locate them at the door. A reader could fairly say the withdrawal they recognise is recent and situational, not a long habit; the ask survives that, since tending one small living thing for a few days is useful even if the drought is new. The sentence that serves me rather than them is the Radiant-heart turn in the Too Little core — it flatters the card instead of telling them what watering something does. Cut it."
     },
     {
       "attempt": 3,
-      "ms": 3947,
+      "ms": 3560,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "scope",
-          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "No biography is named and none is needed, but the reading has to stay on the person's own life rather than on anyone they know. Objection: everything here is only as true as the person's own account of their relationships — so the cells describe moments they would recognise, not causes. If this is wrong about them there is still something to use: one honest scene, one move is worth trying whether the scene lands or not. The sentence that serves the writer more than the reader is any line about what the relationship 'really' does; keep those out. One clause, about what long-kept-with care is allowed to look like, stays in the core and nowhere near the ask. The openings now differ cell to cell, no wound is given to Too Little, and no universal about their life stands anywhere."
-    },
-    {
-      "attempt": 4,
-      "ms": 3650,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -518,8 +431,107 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\" and let it land\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"at a table…\")",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's warmth in company has run dry — the record says the seat runs empty at Too Little, not why or for how long, and I only place them at the door. A reader could fairly say the quiet is recent and situational rather than a habit; the ask still works, since tending one small living thing for a few days is useful either way. The sentence that serves me rather than them is any line that praises the card instead of saying what watering something does — so the cores stay on what the hands learn."
+    },
+    {
+      "attempt": 4,
+      "ms": 3964,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -531,72 +543,72 @@
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "No biography is named and none is needed, but the reading has to stay on the person's own life rather than on anyone they know. Objection: everything here is only as true as the person's own account of their relationships — so the cells describe moments they would recognise, not causes. If this is wrong about them there is still something to use: one honest scene, one move is worth trying whether the scene lands or not. The sentence that serves the writer more than the reader is any line about what the relationship 'really' does; keep those out. One clause, about what long-kept-with care is allowed to look like, stays in the core and nowhere near the ask. The openings now differ cell to cell, no wound is given to Too Little, no universal about their life stands anywhere, and no sentence certifies what a thing costs them."
+      "check": "The unsupported claim is that the person's warmth in company has run dry — the record says the seat runs empty at Too Little, not why or for how long, and I only place them at the door. A reader could fairly say the quiet is recent and situational rather than a habit; the ask still works, since tending one small living thing for a few days is useful either way. The sentence that serves me rather than them is any line that praises the card instead of saying what the hands learn — so the cores stay on what the hands find out."
     }
   ],
   "usage": {
-    "input": 4091,
-    "output": 4655
+    "input": 7948,
+    "output": 4699
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:50:28.979Z"
+  "date": "2026-10-02T12:27:59.518Z"
 }

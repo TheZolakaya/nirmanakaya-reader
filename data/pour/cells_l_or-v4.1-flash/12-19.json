@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the pen, and the release is finishing itself.",
-      "ask": "Name one thing you have finished with, out loud, before you tidy it away. Then let someone see the room it left.",
-      "core": "You know what it looks like when a thing you have been shaping is done. Not because you quit — because you can feel the last knot pull tight. When that happens you stop holding. You hand it over, or set it down, or let somebody else carry it, and you sleep. That is not distance from your life. It is contact with something that grew until it was ready to leave your hands.\n\nWhat makes it work is that you are not managing the outcome while the thing goes. You let it change shape once it is out of the room. Others keep checking what it becomes; you know how to stop checking. Keep the same attention on what you are now, piece by piece, without asking it to prove it deserves the space.",
-      "sheetLine": "You let go when it is done, because it is done.",
-      "verb": "Letting go of what you have finished with",
-      "place": "Where what you are becomes visible without being forced",
+      "tense": "You are done with something, and you are letting it go from here.",
+      "act": "make room for it without steering it",
+      "ask": "Clear the hours or the shelf that a finished thing was taking, and leave the space open. Don't plan the replacement — just let whatever grows there grow.",
+      "core": "Something in your life has finished, and you're putting it down without calling it a defeat. You can feel the difference between setting something down and having it torn out of your hands. This is the first one. There's a lightness in your body where the grip used to be, and you're not rushing to fill the space. That's the mechanism working — what you are shows more clearly because less is covering it.\n\nThe next step keeps the balance from sliding back: clear the hours or the shelf a finished thing was taking, and leave the space open. Don't plan the replacement. Let whatever grows there grow. This is the part people skip. You won't skip it — you'll notice nothing has to be pushed into the space, and the space stays yours.",
+      "sheetLine": "You put it down. The space is yours, not a wound.",
+      "verb": "letting go of a grip on purpose, once what it was holding is finished",
+      "place": "where you're becoming what you already are",
       "provenance": {
         "signature_id": 12,
         "position_id": 19,
@@ -26,19 +27,24 @@
         "partner": "Nurturing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make room for it without steering it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already packing up the room before the last thing has been said in it.",
-      "ask": "Pick one unfinished thing and say what is still missing for you, not for anyone else. Then stay with it until that part is done.",
-      "core": "You keep getting ahead of the nearness of endings. Before anything has really finished, you are already letting go, and it looks like maturity. But it is not the soft release of something complete. You call it letting go when you are avoiding the part where you would be present for the last step. It feels safer to leave early than to stand in a room that is still filling up.\n\nStay long enough to feel the weight of it. The practice is not to grip harder — it is to let the thing be unfinished until it is not, and to let yourself be seen in the meantime. Solitude with your own craft can steady you. It turns into a place to hide if you use it to disappear. Let one thing run its whole length. You will know the difference when it lands.",
-      "sheetLine": "You are letting go too soon to avoid the ending.",
-      "verb": "Letting go of what you have finished with",
-      "place": "Where what you are becomes visible without being forced",
+      "tense": "You will be finished with things before they are done, and you will call it release.",
+      "act": "do the plain version first, before the plans",
+      "ask": "Before you release anything this week, do the plain version of it once — the smallest real piece, not the plan — then decide whether it's actually finished.",
+      "core": "You're releasing things ahead of their time, and releasing has started to look like a performance. A thing is barely underway and you've already let it go — quit the class, ended the arrangement, called it finished. There's a story in it about surrender, but from outside it reads as leaving before anyone could measure you. You're braced for a future you can't write, so you keep making endings you can control.\n\nWhat's thin is follow-through, not release. Keep a small practice alive instead — alone, repeated, unglamorous. Before you let anything go this week, do the plain version of it once: the smallest real piece, not your plan for it. Then decide, with that behind you, whether it's actually finished. Most things won't be. The ones that are, you'll release for real, and you'll know the difference.",
+      "sheetLine": "You're quitting things to finish them. Do one small piece first.",
+      "verb": "letting go of a grip on purpose, once what it was holding is finished",
+      "place": "where you're becoming what you already are",
       "provenance": {
         "signature_id": 12,
         "position_id": 19,
@@ -64,24 +71,14 @@
         "partner": "Discipline",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
           "code": "hunch",
-          "detail": "\"call it letting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "\"called it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
@@ -93,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still holding something that finished before you noticed the door behind you.",
-      "ask": "Pick the thing you are carrying hardest. Put it down for one hour, somewhere you can see it, and do not touch it.",
-      "core": "You are tired in a way that rest does not fix. Something in your life has ended, or changed, and you are still gripping it, still carrying the shape of it because letting go feels like losing. So you hold. You hold the old job, the old version of a person, the plan you made when things were different. None of it is alive anymore, and still you keep it up.\n\nWhat would help is not more will. It is a little endurance spent differently, the kind that holds without crushing. You can set something down without throwing it away. Try letting a thing be as heavy as it is for one hour while you do nothing to fix it. The strength is already in you; it just needs somewhere to go that is not the same clenched grip.",
-      "sheetLine": "You carry what has already gone, and it is heavy.",
-      "verb": "Letting go of what you have finished with",
-      "place": "Where what you are becomes visible without being forced",
+      "tense": "You stood at a door for too long, and the room behind you has already moved on.",
+      "act": "carry it without tightening around it",
+      "ask": "Bear something you're still holding that's already over, without deciding anything about it — no plan to drop it, no digging into why. Stay standing there a while.",
+      "core": "You're holding onto something long past its end, and it's gone into your body — shoulders, jaw, the low ache that doesn't quite leave. Keeping your grip on has become the daily work, as if it might still need you. It hasn't for a while. The tiredness isn't from the load. It's from the tightening.\n\nWhat's empty is your strength to hold, not your strength to release. Build the stronger standing first. Bear something you're still clutching that's already finished, without deciding anything about it — no plan to drop it, no digging into why you haven't. Let it sit as it is. Stay standing with it a while. Your grip eases once you stop asking it to hold the entire weight.",
+      "sheetLine": "You're not failing to let go. You're gripping too hard to feel it.",
+      "verb": "letting go of a grip on purpose, once what it was holding is finished",
+      "place": "where you're becoming what you already are",
       "provenance": {
         "signature_id": 12,
         "position_id": 19,
@@ -107,36 +105,32 @@
         "partner": "Fortitude",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You have been writing the ending without noticing that the pen has been in your hand the whole time.",
-      "ask": "Say one thing you have already let go of, as a fact, in a plain sentence to one person. Do not explain it.",
-      "core": "You have already released something. That happened. But you describe it like it was done to you, or like it has not happened yet, so you keep checking for it. You may also be holding on to something and calling it steady. From the outside you cannot tell which one is true. What is missing is not another effort. It is recognizing which motion you are actually in.\n\nStart smaller. Pay attention to what is growing, even the slow part, and do not force it into a shape. Look at one ordinary thing you do for someone and see the care in it. That is the same hand that lets go. You are not behind on this. You are already in it.",
-      "sheetLine": "You have already let go. You just have not claimed it.",
-      "verb": "Letting go of what you have finished with",
-      "place": "Where what you are becomes visible without being forced",
+      "tense": "You have already let something go, and you are still talking about it as if you hadn't.",
+      "act": "tend it small and ask nothing of it",
+      "ask": "Look after something alive right now — a habit, a person, a patch of work — by what today asks for, not by what its schedule says. Expect nothing back.",
+      "core": "Something has already ended, and part of you has already let it go — but your story and your hands don't agree. You describe it as ongoing, as something you're still keeping. Meanwhile you've quietly stopped showing up; the release is done and unsigned. It runs the other way too: sometimes you insist you're at peace with something you're still clutching. Either way, the one doing the moving isn't watching.\n\nThe next move is small and physical. Look after something alive right now — a habit, a person, a patch of work — by what today asks for, not by what its schedule says. Show up without forcing a result. The point isn't the growing thing. It's that you'll catch your own hands at work: your attention, your choice, your timing. Say what you've already released. Say what you haven't. That's the whole act, and it's enough.",
+      "sheetLine": "You already let it go. Your story just hasn't caught up.",
+      "verb": "letting go of a grip on purpose, once what it was holding is finished",
+      "place": "where you're becoming what you already are",
       "provenance": {
         "signature_id": 12,
         "position_id": 19,
@@ -145,24 +139,29 @@
         "partner": "Nurturing",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -171,56 +170,50 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6395,
+      "ms": 9525,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is to keep what's already\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "detail": "\"the letting go\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "hunch",
-          "detail": "\"call it letting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "\"called it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
@@ -231,9 +224,15 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -243,27 +242,39 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (3 words) more than the medicine's (2) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"The letting go\" — a verb turned into a mystical noun",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -273,78 +284,64 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The way back is smaller\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record says the seat is Actualization, becoming what you are, and I have let the card's language of release fill it up; what the person could reasonably say is that what looks like letting go is just the latest shape they are becoming, not a surrender at all. The ask survives being wrong: naming what a thing wants is useful whether it turns out to have been release or simply completion. The sentence that serves me more than them is about unseen fruit, since it would flatter an ending the reader never chose."
+      "check": "The draft's shakiest claim is that the person's body is where the grip and the letting go live — the record says the signature seats in the Body house on the Intent channel, so I can describe a felt, physical holding-on, but I can't say what they've been carrying or for how long. A reader could reasonably say the holding isn't physical at all, it's mental; the core keeps the mechanism as grip and release, which survives that objection. The ask survives being wrong either way: tending one small living thing without steering it teaches the person something about their own hands whether or not my read fits, and it doesn't promise what it fixes. The sentence that serves me more than them is any line that makes surrender sound noble — I cut those. Every ask is one of the listed acts, copied first, then made small. Too Much and Too Little are the same capacity at opposite failures: releasing before it's done, versus never releasing at all."
     },
     {
       "attempt": 2,
-      "ms": 4119,
+      "ms": 6645,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "hunch",
-          "detail": "\"call it letting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make room for it without steering it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"called it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
@@ -355,9 +352,15 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -367,20 +370,56 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the naming\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the naming\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend it small and ask nothing of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"give it what it needs\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
@@ -389,50 +428,61 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record says the seat is Actualization, becoming what you are, and I let the card's language of release fill it up; the reader could reasonably say that what looks like letting go is just the latest shape they are becoming, not a surrender at all. The ask survives being wrong: naming what a thing wants is useful whether it turns out to have been release or simply completion. The sentence that serves me more than them is about the hard thing at the bottom of the closet, since it would flatter an ending the reader never chose."
+      "check": "The shakiest claim is that the grip lives in the body — the record seats this card in the Body house on the Intent channel, so a felt physical holding-on is fair, but I can't say what they've been carrying or for how long. A reader could say the holding is mental, not physical; the core keeps it as grip and release, which survives that. The ask survives being wrong either way: it teaches something about their own hands without promising a fix. The sentence serving me more than them is any line making surrender sound noble — those are cut. Acts are copied from the medicine's list first, then made small. I fixed the refrains, replaced the noun forms with verbs, dropped the universal, and varied the asks so not all are one bounded thing with a clock."
     },
     {
       "attempt": 3,
-      "ms": 3778,
+      "ms": 5246,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "hunch",
-          "detail": "\"call it letting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make room for it without steering it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"called it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
@@ -443,9 +493,9 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -455,20 +505,32 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
@@ -477,15 +539,196 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record says the seat is Actualization — becoming what you are — and I have let the card's language of release fill it up; the reader could reasonably say that what looks like letting go is just the latest shape they are becoming, not surrender at all. The ask survives being wrong: naming what a thing wants is useful whether it turns out to have been release or simply completion. The sentence that serves me more than them is about the last knot pulling tight, since it flatters an ending the reader never chose."
+      "check": "The shakiest claim is that the grip lives in the body — the record seats this card in the Body house on the Intent channel, so a felt physical holding-on is fair, but I can't say what they've been carrying or for how long. A reader could say the holding is mental, not physical; the core keeps it as grip and release, which survives that. The ask survives being wrong either way: it teaches something about their own hands without promising a fix. The sentence serving me more than them is any line making surrender sound noble — those are cut. Acts are copied from the medicine's list first, then made small; I dropped the repeated 'on its own', kept verb forms as verbs (carry, tend, name), removed 'capacity' from glass, and let two asks carry no clock."
+    },
+    {
+      "attempt": 4,
+      "ms": 5071,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make room for it without steering it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"called it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The shakiest claim is that the grip lives in the body — the record seats this card in the Body house on the Intent channel, so a felt physical holding-on is fair, but I can't say what they've been carrying or for how long. A reader could say the holding is mental, not physical; the core keeps it as grip and release, which survives that. The ask survives being wrong either way: it teaches something about their own hands without promising a fix. The sentence serving me more than them is any line making surrender sound noble — those are cut. Acts are copied from the medicine's list first, then made small; no verb is turned into a noun ('to carry' stays a verb), no 'on its own' or 'let that be' tics, two asks carry no clock, and the asks open on four different verbs."
+    },
+    {
+      "attempt": 5,
+      "ms": 4655,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make room for it without steering it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"called it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The shakiest claim is that the grip lives in the body — the record seats this card in the Body house on the Intent channel, so a felt physical holding-on is fair, but I can't say what they've been carrying or for how long. A reader could say the holding is mental, not physical; the core keeps it as grip and release, which survives that. The ask survives being wrong either way: it teaches something about their own hands without promising a fix. The sentence serving me more than them is any line making surrender sound noble — those are cut. Acts are copied from the medicine's list first, then made small. The four asks now open on four different verbs: clear, do, bear, look after. No verb is turned into a noun, no 'on its own' or 'let that be' or 'the way back' tics, and only one ask carries a clock."
     }
   ],
   "usage": {
-    "input": 2708,
-    "output": 3359
+    "input": 9528,
+    "output": 6702
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:06:21.483Z"
+  "date": "2026-10-02T11:33:20.876Z"
 }

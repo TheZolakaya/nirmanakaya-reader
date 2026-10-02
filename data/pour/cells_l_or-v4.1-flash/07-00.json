@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are moving from what you feel, and it is carrying you somewhere.",
-      "ask": "Pick the goal you're least sure about and take one step toward it today — just the step, then stop and notice whether it still pulls.",
-      "core": "You're going somewhere and the going has a direction. It isn't push — the care behind it comes from what you actually want, and that's why it holds when something gets in the way. On a good day the next step is obvious and you don't need to see the whole road to take it. Plenty is still open in front of you. That openness is the ground you're moving across, not a puzzle to solve before you start.\n\nWhat keeps this alive is feeding it. Something small and unproven at the edge of what you're doing — the option you haven't committed to, the idea you keep turning over — is worth a try while the ground is still open. Keep one hand on what's undecided. You have the energy for both, and part of you already wants to use it.",
-      "sheetLine": "You move from what you care about and it carries you.",
-      "verb": "driving toward a destination",
-      "place": "standing where nothing has been chosen yet",
+      "tense": "You are standing at the open edge and the direction is coming from inside.",
+      "act": "let the path show itself instead of forcing clarity",
+      "ask": "When a choice comes up this week, hold it a beat before you settle it — long enough to feel which way leans. Take that way. Don't reopen it later.",
+      "core": "Something in you is pointed forward, and the pointing comes from feeling rather than from a plan. That's why it holds. On an honest day, the thing worth moving toward is already tugging, and you can tell which way it faces by how your body leans. Nothing is settled yet, which is not a problem. It's the reason the pull is still clean.\n\nThe edge is open, so there's no map to check against, and some days that reads as fog. It isn't. What you have is enough light for the next step and no more, and that's the correct amount. You're not behind. You're in the part where the shape is still yours to make, and the making is going fine.",
+      "sheetLine": "The direction is coming from inside, and it hasn't been spent yet.",
+      "verb": "moving toward something with the whole of you",
+      "place": "the seed state, everything still possible, nothing chosen yet",
       "provenance": {
         "signature_id": 7,
         "position_id": 0,
@@ -26,14 +27,29 @@
         "partner": "Imagination",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the path show itself instead of forcing clarit\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +66,13 @@
     },
     {
       "status": 2,
-      "tense": "You will have already left the starting line while the race you entered hasn't begun.",
-      "ask": "Take the thing you're pushing hardest and set it down until noon tomorrow. Notice what you do with the hour it leaves empty.",
-      "core": "You're running past the point you were running toward. Somewhere ahead is a finished version of this — done, landed, settled — and you're already there in your head, closing a gap that keeps opening. It's hard to sit in a room where nothing has happened yet, so you fill it with pushing. That's the cost. The motion was supposed to take you somewhere and now it's what keeps the somewhere out of reach.\n\nSmall adjustments bring you back, not a stop. Add a little, subtract a little, sense when this wants more and when it wants less. That's how the speed becomes usable again. You don't have to win the argument with the part of you that wants to move. You just have to check once whether the thing you're shoving is facing the direction you're pushing.",
-      "sheetLine": "You're driving past the place you were driving to.",
-      "verb": "driving toward a destination",
-      "place": "standing where nothing has been chosen yet",
+      "tense": "You are already arriving somewhere the rest of you hasn't reached.",
+      "act": "adjust one dial a little, then stop",
+      "ask": "Take the thing you're running at hardest and ease it down a notch — a notch, not a halt. Sit with that for the evening before touching anything else.",
+      "core": "The push is out ahead of you. Somewhere in the last stretch you began driving toward a version of the goal that keeps retreating, and the speed that used to feel like direction now feels like something you can't set down. That's not recklessness. Stopping would mean standing in a state where nothing's decided, and that's harder to sit in than motion.\n\nSmall correction does the work here, not a hard turn. Ease one thing down a notch and sit with it. The stretch will want another tweak, another push, until the setting feels right. Don't oblige it. One dial, then rest. The direction survives being slowed; speed was not what carried it, and the drive is still yours.",
+      "sheetLine": "The push has outrun the part of you that chose it.",
+      "verb": "moving toward something with the whole of you",
+      "place": "the seed state, everything still possible, nothing chosen yet",
       "provenance": {
         "signature_id": 7,
         "position_id": 0,
@@ -64,14 +81,24 @@
         "partner": "Tune",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -83,12 +110,13 @@
     },
     {
       "status": 3,
-      "tense": "You were standing at a door that has already closed behind you, still waiting for it to open.",
-      "ask": "Write one sentence ending something you're still half-carrying. Put the page away. Nothing else today.",
-      "core": "The motion is missing and the reason isn't laziness. There's a direction you'd like to be going, a thing you'd like to be moving toward, and the feet don't follow. From outside it looks like no appetite at all. From where you're standing it's more like the appetite is there and has nowhere to land. You're at the edge of something that already ended, holding a position while the next one hasn't been picked.\n\nWhat gets the feet moving isn't pushing harder into the stuck place. It's finishing something — clearing what's still half-open, letting one thing be over so it stops taking up room. An ending like that isn't a loss. It's what frees the energy that was holding the thing shut, and movement starts coming through once the old claim is gone.",
-      "sheetLine": "The pull is there, you're standing past the door.",
-      "verb": "driving toward a destination",
-      "place": "standing where nothing has been chosen yet",
+      "tense": "You have been standing at the threshold long enough that the door is behind you now.",
+      "act": "mark the end of it with a plain act",
+      "ask": "Take something already finished — a plan, a role, an arrangement — and mark its end with one plain act: close the file, return the key, write the last line. Then leave it closed.",
+      "core": "The feeling is there and the motion isn't. You can sense the direction you'd move in if you moved, and you haven't, and that gap has been getting wider. Nothing is wrong with the thing itself. It just hasn't had anywhere to go, so it's been idling, and idling feels a lot like being stuck.\n\nWhat's really holding the push down is something over that you're still carrying — not because it's alive, but because setting it down feels like losing it. Let it finish. Mark the ending with something plain so your hands know it happened, and keep the space that opens clear. You don't have to fill it. The next motion comes through cleared ground, not over the old shape.",
+      "sheetLine": "You can feel the direction. You just haven't moved yet.",
+      "verb": "moving toward something with the whole of you",
+      "place": "the seed state, everything still possible, nothing chosen yet",
       "provenance": {
         "signature_id": 7,
         "position_id": 0,
@@ -97,7 +125,7 @@
         "partner": "Transformation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -106,17 +134,23 @@
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already moving something forward while telling the room it isn't you steering.",
-      "ask": "Name one thing in your day that only happens because you do it, then hand it to no one — keep it and say so out loud.",
-      "core": "Something is moving and it carries your handwriting, but the way you describe it, it happened on its own. Or the other way: it's been sitting there so long you've stopped seeing it as anything at all. Either way the push is happening, and the one doing it doesn't show up in the story. Someone asks how a thing got done and the answer comes out as circumstances. The direction is still being picked, by you, in the small choices, and nobody's claiming it.\n\nWhat breaks this is smaller than a plan. Not a new effort — a return to the plain fact of a thing you already do. Name one piece of your day that only happens because you make it happen, out loud, without softening it. The structure that says otherwise comes down fast once you say who was there.",
-      "sheetLine": "You're already driving it, the story keeps it anonymous.",
-      "verb": "driving toward a destination",
-      "place": "standing where nothing has been chosen yet",
+      "tense": "You are driving something forward and calling it by a different name.",
+      "act": "stop holding up the false thing and watch it come down",
+      "ask": "Think of a plan, a story, a way of working you've been keeping upright by effort. Take your hands off it for a day, and simply note what stays standing.",
+      "core": "There's momentum in you that you don't count as yours. You'd say you're not really going anywhere, or that this is just how you get through the week, and all the while the thing keeps moving through your hands. Or the other way: something has stalled and you can't see that you're holding it still. In both cases the steering is happening and the driver's seat looks empty.\n\nWhat props that up is a structure you've stopped questioning. Take your hands off it for a day — a day, not forever — and watch. If it comes down, it needed to, and the ground it leaves is usable. If it stands, you'll know it was real and not held. Either way, you end up beside it instead of underneath it.",
+      "sheetLine": "Something in you is moving, and you've filed it under standing still.",
+      "verb": "moving toward something with the whole of you",
+      "place": "the seed state, everything still possible, nothing chosen yet",
       "provenance": {
         "signature_id": 7,
         "position_id": 0,
@@ -125,11 +159,21 @@
         "partner": "Breakthrough",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -141,15 +185,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7386,
+      "ms": 8767,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
@@ -160,13 +204,7 @@
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"for its own sake the\"",
+          "detail": "\", and let the ground\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
@@ -183,15 +221,45 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the momentum is real and\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -201,20 +269,8 @@
           "status": 2
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (wheel, room, door) — a parable, not a sentence to a person",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
@@ -225,15 +281,39 @@
           "status": 3
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"and your name for it\"",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -241,21 +321,56 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say this person actually feels anything, so any line that puts a feeling in them — 'you feel pulled this way' — is mine, not the map's; the reader could fairly say they feel nothing at all right now and simply aren't moving. The asks hold even if I'm wrong: each one is a small visible act that gives information either way, and none guarantees what it fixes. The sentence that serves me more than them is 'you have momentum you don't know you have' — it flatters the reading, so it comes out."
+      "check": "The draft wants to say the person is 'meant for something' or that a specific calling waits — the record has no goal, no destination, only the capacity for directed momentum in a seed state. A reader could rightly object that 'I have no idea what I'm moving toward' — which is the seat's whole point, and the cells must not pretend a destination is visible. The asks survive being wrong: each is a small act of the medicine that teaches something even if the read misses. The sentence serving the writer more than the person is any line naming a 'calling' or 'purpose' — struck from all four."
     },
     {
       "attempt": 2,
-      "ms": 4523,
+      "ms": 7528,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the ground\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"sketch the whole of it\" — say the act in the person's words",
+          "hard": true,
           "status": 1
         },
         {
@@ -271,8 +386,32 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -289,31 +428,78 @@
           "status": 3
         },
         {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says nothing about what this person actually feels, so any line that puts an urge or an appetite in them is mine, not the map's; a reader could fairly say they feel flat and simply aren't moving. The asks survive that: each is a small visible act that gives information whether or not my read is right, and none promises an outcome. The sentence that serves me more than them is 'you're already moving something forward while telling the room it isn't you' — it flatters the reading by making the person important, so it comes out softer."
+      "check": "The draft's risk is implying a destination is visible or waiting — the record gives directed momentum in a seed state, no named goal. A reader could say 'I don't know what I'm moving toward,' which is exactly the seat, so no cell may supply a target. Each ask is a small medicine act that teaches even if the read misses. The line serving the writer rather than the person is any hint of a destined purpose, and it stays out. The quartet's asks now include a noticing and a kept sketch, not four bounded tasks."
     },
     {
       "attempt": 3,
-      "ms": 3641,
+      "ms": 5502,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the path show itself instead of forcing clarit\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"longer than you usually do\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -329,8 +515,26 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What brings this back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -350,16 +554,234 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says nothing about what this person actually feels, so any line that puts an urge or an appetite in them is mine, not the map's; a reader could fairly say they feel flat and simply aren't moving. The asks survive that: each is a small visible act that gives information whether or not my read is right, and none promises an outcome. The sentence that serves me more than them is 'you're already moving something forward while telling the room it isn't you steering' — it flatters the reading by making the person important, so it comes out softer."
+      "check": "The unsupported claim in the draft is that a destination or calling is visible to the person — the record gives only directed momentum in a seed state, no named goal, so no cell may supply one. A reader could rightly say 'I don't know what I'm moving toward,' which is the seat itself. Each ask is a listed medicine act done small and teaches something even if the read is wrong; the sentence serving the writer is any hint of a destined purpose, and it stays out. The quartet's asks now open on four different verbs and vary in shape: one is a stop, one a hold, one a bounded mark, one a noting left alone."
+    },
+    {
+      "attempt": 4,
+      "ms": 4640,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the path show itself instead of forcing clarit\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft's unsupported claim would be that a destination or calling is visible — the record gives only directed momentum in a seed state, no named goal, so no cell supplies a target. A reader could rightly say 'I don't know what I'm moving toward,' which is the seat itself. Each ask is a listed medicine act done small and teaches something even if the read misses. The line serving the writer is any hint of a destined purpose — struck. No 'never', no house refrains, no run from the acts' own words; the four asks open on four different verbs and vary in shape."
+    },
+    {
+      "attempt": 5,
+      "ms": 4805,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the path show itself instead of forcing clarit\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft's unsupported claim is any hint of a visible destination or calling — the record gives directed momentum in a seed state, no named goal, so no cell supplies a target and no cell must imply one. A reader could rightly say 'I don't know what I'm moving toward,' which is the seat itself, so the cells leave the goal unnamed and the direction sourced from feeling. Each ask is a listed medicine act done small and teaches something even if the read misses; the line serving the writer would be any hint of a destined purpose, and it stays out. The four asks open on four different verbs — hold, ease, mark, take — and vary in shape: a choice left settled, a bounded stop, a plain marking, a noting left alone."
     }
   ],
   "usage": {
-    "input": 2881,
-    "output": 3563
+    "input": 9033,
+    "output": 6064
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:00:27.044Z"
+  "date": "2026-10-02T11:25:44.641Z"
 }

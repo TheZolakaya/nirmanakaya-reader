@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The thing you started as a chance is fully built and you are carrying it now.",
-      "ask": "Pick the one thing that's finished and say out loud where it goes next. Let that chart the direction for a week.",
-      "core": "You're carrying something that started as a maybe and is now a real thing in the world. Not a draft, not a plan — something finished, with weight, that you made. It's heavier than you expected because it's actual. That weight is the point.\n\nFrom here the work is heading, not hauling. The thing that's done no longer needs you to make it; it needs you to point it somewhere. You know how to build. There's a next move that is about direction, and you're the one who gets to choose it. Ask yourself what you'd aim at if the making part were already behind you — and then aim.",
-      "sheetLine": "You made the real thing. Now aim it.",
-      "verb": "carrying what was possible into what is now real",
-      "place": "where things show as pattern with the particulars gone",
+      "tense": "The whole load of what you started is here in your own hands now.",
+      "act": "choose which star to steer by and steer",
+      "ask": "Pick the one direction you actually want, to yourself or on paper, and take one real step today that only that direction would take. Nothing else needs to happen. Then stop for the day.",
+      "core": "You can carry something all the way to its end, and you can see how it works while you do it. From the high window, the shape is clear — you know what fits, what follows, which way the whole thing runs. That clarity is real and it is rare, and it is also almost entirely in your head.\n\nThere is a step you have been circling. Not a plan — one step, actual, today, taken because you chose the direction and not because the shape argued you into it. When clarity is this good, the temptation is to survey every possible road instead of walking one, and the walking is where the weight you are carrying gets lighter. Pick the direction. Take the step. Let the shape update itself from the ground.",
+      "sheetLine": "Pick the direction, then take one real step toward it.",
+      "verb": "carry what the beginning became, all the way to its end",
+      "place": "the high window where the shape of things shows and the furniture does not",
       "provenance": {
         "signature_id": 31,
         "position_id": 15,
@@ -26,14 +27,24 @@
         "partner": "Orientation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already deciding what this finished thing must do next before it has been looked at.",
-      "ask": "Sit with the finished thing for two minutes and describe what's actually in front of you. No plans for it, just the plain fact of it.",
-      "core": "The ease here is that a finished thing can be looked at and left alone. You see its shape, you see it holds, and no verdict attaches. The gaze is open and the thing gets to be in front of you. Seeing and steering stay separate, and nothing has to be decided yet.\n\nBut you're out ahead of it, deciding what it has to become before you've stood back and seen it. Some part of you thinks if you aim it fast enough you'll beat the moment it can disappoint you. The thing you built becomes a problem to steer instead of something to look at. The next move is to stop moving. Let your eyes land on it before your plans do.",
-      "sheetLine": "Look at it before you steer it.",
-      "verb": "carrying what was possible into what is now real",
-      "place": "where things show as pattern with the particulars gone",
+      "tense": "You are braced for every road this could still take, before it has taken any.",
+      "act": "describe what is in front of your eyes in five plain lines, no conclusions",
+      "ask": "Write five plain lines about what is actually around you right now — the room, the objects, the light. No interpretation, no next move, no pattern. Stop at five and put the pen down.",
+      "core": "You are running every version of how this ends, and you are running them before the ending has arrived, so nothing you have made gets to simply exist. Your clarity is doing what it does well — seeing the mechanism — but it has turned toward scenarios, and it is building shapes for outcomes nobody has asked for yet. The whole thing stays hypothetical, and the load you are carrying gets heavier than the thing you actually built.\n\nBring it back to the surface. The mechanism is not the object. Five plain lines about what is around you will do more than a fifth scenario. Clear seeing starts with seeing what is here, and what is here is smaller and more real than the future you are bracing against. The bracing drops when the eyes have something to land on. Then you can pick up the real thing again.",
+      "sheetLine": "You're bracing for roads you haven't taken yet.",
+      "verb": "carry what the beginning became, all the way to its end",
+      "place": "the high window where the shape of things shows and the furniture does not",
       "provenance": {
         "signature_id": 31,
         "position_id": 15,
@@ -59,11 +71,21 @@
         "partner": "Perception",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -73,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You set the finished thing down a while back and have been standing away from it since.",
-      "ask": "Say one plain thing about what's sitting there unclaimed. Tell it to someone who won't fix it for you. Just the sentence.",
-      "core": "The open version is that a finished thing stays reachable. You can walk over to it any time and it's still yours, still warm from the making. Being near it doesn't require deciding what it means. The pattern is right there to read whenever you turn your head.\n\nSomething you carried to completion is sitting unattended. You may not have forgotten it — you just stopped being near it. Maybe it mattered too much to look at directly. The pattern is still visible to you, the shape of what worked and why it held, but you're reading it from outside. Coming back is not about pushing. Let it be yours before you know what it means. Start by letting one person hear about it.",
-      "sheetLine": "It finished. You walked away. You can walk back.",
-      "verb": "carrying what was possible into what is now real",
-      "place": "where things show as pattern with the particulars gone",
+      "tense": "You are still at a door that is already behind you, waiting to be let through.",
+      "act": "receive what comes, unprepared",
+      "ask": "Sit somewhere for ten minutes with your hands empty — no phone, no plan — and let things arrive on their own. You do not have to do anything with them. When the ten minutes are up, stand up.",
+      "core": "Something finished, and your attention is still at the threshold of it, waiting. You can see how it worked clearly enough — you know what it meant, which way it ran — and that knowing has become the place you live instead of the ground you stand on. The door is behind you. You have not walked through because walking through was not the part you were waiting for.\n\nWhat is missing is not more understanding. It is the open hand. Receptivity comes back by receiving something, not by figuring out how to receive. Ten ordinary minutes with empty hands, somewhere you did not plan, gives the moment a chance to arrive as itself. You do not have to feel anything in particular. You just have to be somewhere without a plan for it, and see what shows up.",
+      "sheetLine": "You've been standing at a door you already walked through.",
+      "verb": "carry what the beginning became, all the way to its end",
+      "place": "the high window where the shape of things shows and the furniture does not",
       "provenance": {
         "signature_id": 31,
         "position_id": 15,
@@ -87,14 +110,29 @@
         "partner": "Receptivity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive what comes unprepared\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -106,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already built on the pattern you learned making that thing, and you're acting like it appeared on its own.",
-      "ask": "Tell one person what you figured out by finishing that — the shape underneath, not the story. Name it as yours.",
-      "core": "What it looks like when this is clean: you can say how a thing held together and know you're the one who built the understanding. The pattern is yours, named plainly, no story attached. That is available right now; it does not need sorting first.\n\nYou can see how things work under their surface, and that clarity didn't come from nowhere. It came from finishing real things and living with what that showed you. You use it in rooms, in choices, in what you notice and what you skip. You just talk about it like it arrived by itself. The part that's missing isn't insight. It's your name on the understanding. There's a simpler line under all this — what you worked out by carrying something to the end. Say that once, as something you earned.",
-      "sheetLine": "You know how it works. You learned that. Say so.",
-      "verb": "carrying what was possible into what is now real",
-      "place": "where things show as pattern with the particulars gone",
+      "tense": "The room is being run by your own hand, and your account has you only passing through.",
+      "act": "join someone in the work so the two streams run as one",
+      "ask": "Take one piece of something you are already carrying and do it with one other person this week — not a handoff, not a report, the two of you in it together at the same time. Let them see the seam.",
+      "core": "You have been running this for a while, and the running has become the background. From the high window you see the whole mechanism, and you describe it as though you found it rather than made it. The ones near you have no reason to say otherwise, because it works, and it keeps working because your hand is on it.\n\nWhat started this was two people in the same room, seeing the same shape and choosing to move as one. That is the smallest form of the thing you have grown large. Find one other person and put them inside one piece of it — same time, same work, no briefing that makes you the source. The pattern was only partly yours to hold. Letting someone see how it runs is how it stays alive, and how you stop being the only one carrying it.",
+      "sheetLine": "You run it, and your story says you only walked through.",
+      "verb": "carry what the beginning became, all the way to its end",
+      "place": "the high window where the shape of things shows and the furniture does not",
       "provenance": {
         "signature_id": 31,
         "position_id": 15,
@@ -120,14 +159,24 @@
         "partner": "Merge",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"join someone in the work so the two streams run as\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -141,15 +190,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5357,
+      "ms": 7147,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "glass",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 1
         },
         {
@@ -159,75 +232,111 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 92 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the next\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"with nothing in your hands\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
           "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"join someone in the work so the two streams run as\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you speak about it as\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -237,18 +346,30 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is holding a finished thing at all — the record says something that started as possibility reached completion, but I can't know they made it or that it's done; they may be standing near a project, not carrying one. A reader could say this isn't about a whole finished thing, it's about one part. The ask survives being wrong because noticing what already came through is useful even from outside the frame. The sentence that serves me more than them would be any second-person flourish praising the load; I cut those."
+      "check": "The record says the function is operating correctly in the Balanced cell, but it also states the medicine is 'an invitation, optional by definition' — so the Balanced ask must be an offer, not a requirement, and I have written it as one. A reader could reasonably object that the seat is described as pattern-recognition, not action, and an ask about stepping a direction into the literal world might feel like work done outside the seat; the ask is still useful if my read is wrong because it names a small, physical act that returns pattern-sight to a body in a room. The sentence that serves me more than the person is any line that explains what Abstraction is for — the person did not come for a lecture on their own seat. I have kept the mechanism language out of the glass and left the person their own words for what this is."
     },
     {
       "attempt": 2,
-      "ms": 4566,
+      "ms": 4246,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -259,8 +380,20 @@
           "status": 1
         },
         {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -271,15 +404,33 @@
           "status": 2
         },
         {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the next\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"and let whatever comes come\" — say the act in the person's words",
+          "hard": true,
           "status": 3
         },
         {
@@ -289,26 +440,32 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is working, you can say ho…\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"processed\" — a map idiom, a product name or a tarot word on glass",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"join someone in the work so the two streams run as\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "five words in a row from an exemplar or a rule: \"you speak about it as\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -319,18 +476,30 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that a thing is finished at all — the record says possibility reached completion through directed will, but I can't know whether that completion is a project, a season, or a way of holding something; a reader could say nothing in my frame is actually over. The ask survives being wrong because noticing what already came through is useful even from outside the frame, and the same act works at a smaller scale. The sentence that serves me more than them would be any flourish that praises the carrying; I cut those and kept the plain facts of the seat."
+      "check": "The record says the function is operating correctly in the Balanced cell, but it also states the medicine is 'an invitation, optional by definition' — so the Balanced ask must be an offer, not a requirement, and I have written it as one. A reader could reasonably object that the seat is described as pattern-recognition, not action, and an ask about taking a physical step might feel like work done outside the seat; the ask is still useful if my read is wrong because it names one small, physical act that returns pattern-sight to a body in a room. The sentence that serves me more than the person is any line that explains what the seat is for — the person did not come for a lecture on their own capacity. I have kept the mechanism language out of the glass and left the person their own words for what this is."
     },
     {
       "attempt": 3,
-      "ms": 3599,
+      "ms": 3814,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -339,6 +508,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -347,8 +528,26 @@
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive what comes unprepared\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -360,65 +559,19 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"join someone in the work so the two streams run as\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that a thing is finished at all — the record says possibility reached completion through directed will, but I can't know whether that completion is a project, a season, or a way of holding something; a reader could say nothing in my frame is actually over. The ask survives being wrong because noticing what already came through is useful even from outside the frame, and the same act works at a smaller scale. The sentence that serves me more than them would be any flourish that praises the carrying; I cut those and kept the plain facts of the seat."
-    },
-    {
-      "attempt": 4,
-      "ms": 3258,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -429,13 +582,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that a thing is finished at all — the record says possibility reached completion through directed will, but I can't know whether that completion is a project, a season, or a way of holding something; a reader could say nothing in my frame is actually over. The ask survives being wrong because noticing what already came through is useful even from outside the frame, and the same act works at a smaller scale. The sentence that serves me more than them would be any flourish that praises the carrying; I cut those and kept the plain facts of the seat."
+      "check": "The record says the function is operating correctly in Balanced, but calls the medicine 'an invitation, optional by definition' — so the Balanced ask must stay an offer. A reader could reasonably say the seat is pattern-sight, not motion, and a physical step lands outside it; the ask still helps if my read is wrong, because one small act returns the pattern to a body in a room. The sentence that serves me more than the person is any line explaining what the seat is for — keep the mechanism out of the glass."
     }
   ],
   "usage": {
-    "input": 3904,
-    "output": 4313
+    "input": 7112,
+    "output": 4012
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:23:59.128Z"
+  "date": "2026-10-02T13:01:02.080Z"
 }

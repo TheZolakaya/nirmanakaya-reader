@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Mind",
+  "group": "library",
   "signature_id": 59,
   "position_id": 20,
   "signature": "Commitment",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are at the bench with the whole work in view and your hand steady on it.",
-      "ask": "Choose the piece you know best and take it one pass further today, then stop when it's done.",
-      "core": "You can see how all the parts fit, and that's what lets the work go deep. Not guessing from inside the next step — standing where the whole shape is visible, then returning to the bench with what you saw. The practice has its own pull and you're following it rather than forcing it.\n\nA good week here looks like this: studying the work and making it take turns, and neither one rushes the other. Time alone at the bench feeds the work instead of cutting you off from it. What you're building holds because each pass got your full attention before the next one started. That rhythm is worth trusting.",
-      "sheetLine": "You see how it all fits, and you build from there.",
-      "verb": "going one pass deeper at the bench",
-      "place": "standing where every part of the work is visible at once",
+      "tense": "The bench is set, your hands know the next pass, and the pattern is showing itself cleanly.",
+      "act": "refine one distinction by close attention",
+      "ask": "Pick a single distinction inside what you're building — the thing that separates it from its nearest neighbour — and give it close attention for one session, then stop.",
+      "core": "What you're building has been deepening for a while, and you can see it now from outside yourself while still inside it. That's rare. Most people either lose the pattern in the doing or stand so far back they stop making anything. You're seeing the whole of it and adding to it in the same hour, and the difference between a pass that lands and a pass that's just motion is something you can feel on the day.\n\nThere's a habit worth keeping: when a distinction inside the work gets sharp, you stop and look at it closely instead of pressing on. That's what honing does when it's well — it stays a practice instead of turning into a chase. This week, give one distinction that treatment, and don't expect it to feel like progress. It pays back over months.",
+      "sheetLine": "You see the whole of it and you're still building.",
+      "verb": "deepening into the work through committed, persistent craft",
+      "place": "standing back from the whole pattern while still inside it",
       "provenance": {
         "signature_id": 59,
         "position_id": 20,
@@ -26,51 +27,27 @@
         "partner": "Honing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, bench) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a threshold that hasn't arrived, pushing toward a version of the work that can't be written in yet.",
-      "ask": "Pick one piece you've been holding to a future standard and let it stand unfinished for a week.",
-      "core": "There's a finished version out ahead of you — the craft at its peak, the structure perfect — and each session gets set against it. So a pass becomes a test of whether you've arrived. Pushing has taken over the work. You're not going deeper; you're pressing forward, trying to force the next level before it's ready to be forced.\n\nWhat you want from this is real. But pressing so hard drains it, because a pattern gripped too tightly stops being visible. Let one piece rest where it is. Notice what the next pass wants to be when you're not driving it. Skill grows on its own time, and it does grow.",
-      "sheetLine": "You're forcing the next level instead of building it.",
-      "verb": "going one pass deeper at the bench",
-      "place": "standing where every part of the work is visible at once",
+      "tense": "The finished thing is already vivid in your mind while your hands are still on the early passes.",
+      "act": "share the joy with the people it belongs to",
+      "ask": "Before the work is done, show a piece of it to someone who'd be glad to see it — not for notes, just to let the good of it meet another person.",
+      "core": "You're running past the work. The finished version is vivid — how it will land, who'll see it, what it proves — and the slow passes under your hands can't compete with that picture. The rush is real, and it's pushing at the pace of the making. You can feel the gap between where the work actually is and where you keep picturing it.\n\nWhat gets squeezed out when you grip the outcome this hard is the pleasure of the thing being shared before it's done. Not for notes, not for polishing — just the gladness of it existing yet. Show one unfinished piece to a person who'd be glad to see it. The work stays yours, and the picture in your head gets a little less loud when something real goes out to someone.",
+      "sheetLine": "You're living with the finished thing before it's finished.",
+      "verb": "deepening into the work through committed, persistent craft",
+      "place": "standing back from the whole pattern while still inside it",
       "provenance": {
         "signature_id": 59,
         "position_id": 20,
@@ -79,14 +56,19 @@
         "partner": "Celebration",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -98,12 +80,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that closed behind you, not turning around to see it.",
-      "ask": "Name one thing you've already built and still talk about as though it were ahead of you, and say it out loud once.",
-      "core": "What you've made is sitting there finished, and your attention isn't on it. It's back where you started, or forward at where you thought you'd be by now. The work has already crossed into something real, and you're still waiting on the far side of it for something to open.\n\nTurn toward it and you can see the whole shape clearly — that part still works. What's missing is the turning. What you built holds on its own; it doesn't need another pass to become legitimate. Say what already exists, out loud, once. It isn't ahead of you. It's here, and you made it.",
-      "sheetLine": "You've already built it. You're still waiting for it to start.",
-      "verb": "going one pass deeper at the bench",
-      "place": "standing where every part of the work is visible at once",
+      "tense": "The door closed behind you and you're still standing at it, waiting for it to open again.",
+      "act": "put the frame on the table before anyone asks",
+      "ask": "Take something you've been waiting on permission for, and say how it's going to work — plainly, once, to whoever's there — then let it stand.",
+      "core": "You've been looking at this work from a step further back than anyone asked you to. Maybe you're waiting for someone to tell you the shape of it, or you half-believe you missed the moment it was handed out. Either way the reading is still in you; it just hasn't been said in a while. There's a pattern you can still trace across all of it, and no one has heard you name it.\n\nWhat closes that gap isn't more understanding. Say the shape of it aloud once — here's how this goes, here's what's mine, this is the order — to a person who's in it with you. Not a case, not an argument. One pass at the frame, and then you leave it standing without defending it. Once it's outside your head it stops waiting for someone else to confirm it. Structure that serves the thing you're building is yours to name.",
+      "sheetLine": "You've seen the shape. The waiting is what's yours.",
+      "verb": "deepening into the work through committed, persistent craft",
+      "place": "standing back from the whole pattern while still inside it",
       "provenance": {
         "signature_id": 59,
         "position_id": 20,
@@ -112,29 +95,24 @@
         "partner": "Assertion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"The door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -146,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are reading the whole pattern clearly, but you describe it as though it were reading itself.",
-      "ask": "When you notice how something fits in your work today, say quietly that you noticed it, before you act.",
-      "core": "You already see how the pieces connect and you act on what you see — but your account of it leaves you out. You call it the process, or just the next step, or what the work needed. The credit goes nowhere. The one who noticed is you.\n\nCatching how something fits is not passive; it's your hand on the work. A good week here looks like trusting that: acting on what you noticed, then letting yourself have noticed it. Start saying so, quietly, in the moment. This was mine. That one sentence is enough. The pattern has been yours to see the whole time. Naming it is what makes it yours to keep.",
-      "sheetLine": "You're the one noticing. Say so, quietly, once.",
-      "verb": "going one pass deeper at the bench",
-      "place": "standing where every part of the work is visible at once",
+      "tense": "You're steering by a pattern you can read, and you've stopped counting yourself among the ones who read it.",
+      "act": "let the will and the wanting go the same way",
+      "ask": "Next time you see the whole thing laid out and you're about to move, wait one beat, let what you actually want be in the choice, and then go at your own pace.",
+      "core": "There's a pattern running through this and you keep following it well — anticipating what the work needs, where it's going next — without ever saying the reading is yours. The grip looks like it comes from somewhere else. The timing looks like circumstance. Meanwhile you're moving at a speed that isn't quite the one you'd pick, because it isn't quite connected to what you want.\n\nThe fix is smaller than a decision. Next time you see the whole thing clearly and you're about to act, take one breath and let what you want be in it — not instead of the read, alongside it. Then move at your own pace. Nothing changes about the pattern except who's holding it, and that's enough to keep the momentum honest.",
+      "sheetLine": "You're reading it, steering it, and not counting yourself.",
+      "verb": "deepening into the work through committed, persistent craft",
+      "place": "standing back from the whole pattern while still inside it",
       "provenance": {
         "signature_id": 59,
         "position_id": 20,
@@ -160,24 +139,14 @@
         "partner": "Alignment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -186,23 +155,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4909,
+      "ms": 7256,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -210,33 +167,21 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"somewhere ahead there's a version\"",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -244,18 +189,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
@@ -264,20 +197,14 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"The door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
           "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, threshold, door) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
@@ -289,8 +216,20 @@
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing is the claim\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"put the frame on the\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 3
         },
         {
@@ -300,75 +239,56 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"Every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "code": "refrain",
+          "detail": "\" and let the wanting\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that's the whole of it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim in the Too Much draft is that the person is 'further along than anyone asked' or 'pushing to convert' — the record shows bracing at a future that can't be written in, not necessarily that the person is ahead of others. The reader could reasonably object that they aren't pushing anything, they're just holding a standard. The ask (step back from one piece of the structure this week) survives being wrong: even if the read is off, taking the pressure off one completed piece teaches something about timing. The sentence that serves the writer more than the person would be 'you're building what no one asked for, and only you know the cost' — that flatters the writer's insight, not the person's agency."
+      "check": "The unsupported claim is that Commitment's Too Much status is crowding out rest or celebration; the record gives only the diagonal shift (excess structure crossing toward Celebration), not what is being lost. A reader could reasonably say structure is exactly what they need right now, not less of it. The ask survives being wrong: sharing a finished piece of work with someone who'd want to see it costs little and teaches something about how the work lives when it leaves the bench. The sentence that serves the writer is the Too Little core's 'there is a shape you can still see' — cut it if it starts doing the person's feeling for them."
     },
     {
       "attempt": 2,
-      "ms": 4276,
+      "ms": 3964,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, bench) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -377,38 +297,20 @@
         },
         {
           "code": "refrain",
-          "detail": "\"This is what it looks like when\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is costing you the thing\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -418,20 +320,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"The door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -442,32 +332,20 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 92 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"What returns is\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
@@ -478,45 +356,20 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The Too Much draft still leans on 'you're forcing the threshold' — the record says the capacity is future-projected and pushing ahead of timing, not that the person is doing violence to the work; a reader could fairly say they're just holding a standard high. The ask survives being wrong: setting one piece down for a week teaches timing either way. The sentence that serves the writer more than the person is 'you're holding it too tightly' — it sounds like insight but hands the person nothing to do."
+      "check": "The unsupported claim is that Commitment at Too Much loses rest or shared pleasure; the record only gives the diagonal crossing toward Celebration, not what it costs. A reader could reasonably say more structure is exactly what they need. The asks survive being wrong: showing unfinished work to a willing person and naming the frame out loud both teach something even if the read misses. The sentence that serves the writer is the Too Much core's picture of the finished thing — trim it if it starts doing the person's imagining for them."
     },
     {
       "attempt": 3,
-      "ms": 3073,
+      "ms": 3699,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, bench) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -524,33 +377,15 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"The opening comes from depth, not hurry.\" — end on the plain thing",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 2
         },
         {
@@ -560,20 +395,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"The door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -584,261 +407,31 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The unsupported claim across the Too Much draft is that the person is 'already living' in a finished version — the record says the capacity is future-projected and pushing ahead of timing, not that the person inhabits a completed future; a reader could fairly say they're just holding a high standard. The ask survives being wrong: letting one piece stand unfinished for a week teaches timing either way. The sentence that serves the writer more than the person is 'the threshold doesn't open from pressure' — it sounds like insight but hands the person nothing to try."
-    },
-    {
-      "attempt": 4,
-      "ms": 3174,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, bench) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim in the Too Much draft is that part of the person is 'already measuring every session' against a finished version — the record shows bracing at a future that can't be written in, which may show up as standard-holding without any felt comparison; a reader could fairly say they aren't measuring anything, they just want it right. The ask survives being wrong: letting one piece stand unfinished for a week teaches something about timing regardless. The sentence that serves the writer more than the person is 'the opening comes from depth, not hurry' — it sounds wise and hands the person nothing to try."
-    },
-    {
-      "attempt": 5,
-      "ms": 3211,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, bench) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim in the Too Much draft is that each session 'gets measured' against a finished version — the record says future-projected and pushing ahead of timing, which can show as standard-holding with no felt comparison at all; a reader could fairly say they aren't measuring anything, they just want it right. The ask survives being wrong: letting one piece stand unfinished for a week teaches timing either way. The sentence that serves the writer more than the person is 'depth opens on its own time, and it does open' — it sounds comforting and hands the person nothing to try."
+      "check": "The unsupported claim is that Commitment at Too Much is losing shared pleasure; the record only gives the diagonal crossing toward Celebration, not what it costs. A reader could reasonably say more structure is exactly what they need right now. The asks survive being wrong: showing unfinished work to a willing person and naming the frame aloud both teach something even if the read misses. The sentence that serves the writer is the Too Much core's picture of the finished version — trim it if it starts doing the person's imagining for them."
     }
   ],
   "usage": {
-    "input": 5300,
-    "output": 5255
+    "input": 6891,
+    "output": 3871
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:28:46.155Z"
+  "date": "2026-10-02T12:25:30.399Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing at the threshold right now, and the pen is in your hand.",
-      "ask": "Set one exchange right today, out loud, with someone who can hear the terms.",
-      "core": "You can tell which things are worth your attention and which can stay unfinished. The real ones stand up on their own and the rest don't, and you act from that all day without a fuss. At a threshold like this, that read of the room is most of the work.\n\nIt bends when keeping a space open starts to feel like something that has to be defended, and the defending quietly costs you whatever else wanted you. Two people can give and take in a room, and it stays easy only while nobody is keeping score. Set one exchange right, out loud, and you'll see which side of it you'd been on. Fair terms cost you nothing that has to stay.",
-      "sheetLine": "You can tell what deserves your attention before you've reasoned it out.",
-      "verb": "holding what change left standing",
-      "place": "at the threshold of knowing what deserves your attention",
+      "tense": "Right now you can tell what deserves your attention before your reasons arrive, and you are keeping it.",
+      "act": "return the favour at its true size",
+      "ask": "Something someone gave you lately, return at its true size — not more, not less. Notice the exact size before you do.",
+      "core": "You can tell what matters here before you can explain how you know. Lately you've been holding something that came out of a change — a way of doing things, a quiet, an arrangement — keeping it steady while your reasons catch up. That is what this looks like going well: not gripping, just keeping a true thing true while it settles. This is where that way of knowing stands.\n\nIt can feed the exchange around it. The favour you owe someone sits at a size you already sense; giving it back at that size, not padded and not short, is ordinary and it moves. Do one of those this week and keep it small. Paying it clears a line that was holding you still, and the thing you've been keeping gets lighter.",
+      "sheetLine": "You know what matters and keep it steady.",
+      "verb": "holding what a change produced, steady and intact",
+      "place": "where you know what matters before you can say why",
       "provenance": {
         "signature_id": 55,
         "position_id": 2,
@@ -26,36 +27,32 @@
         "partner": "Reciprocity",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You haven't crossed the threshold yet, but you're already bracing against what's on the other side.",
-      "ask": "Pick one change running through your life and write, in a plain sentence, what you mean to keep from it.",
-      "core": "Somewhere ahead the work is finished, the thing is saved, the next thing is already laid out. You're living in that version, so you save everything now — not because anyone handed it to you, but because the saving itself has become the point. You're deciding what to keep before the shape of it has settled.\n\nThat isn't a failure of care. It's a question about what the clearing was for. You might be running this on willpower and calling it devotion. Say one thing you're keeping, and who it's being kept for. Keeping gets lighter when the grip loosens, and it loosens by naming one thing and letting the rest wait. The future can stay where it is for now.",
-      "sheetLine": "You're keeping things that haven't ripened yet.",
-      "verb": "holding what change left standing",
-      "place": "at the threshold of knowing what deserves your attention",
+      "tense": "Soon — you'll be guarding what you've kept against a harm that hasn't arrived yet.",
+      "act": "go once toward the thing that draws you and see what it is up close",
+      "ask": "Once this week, go toward the thing pulling at you — the feeling you keep almost having — and look at it up close. Decide nothing yet.",
+      "core": "You know what matters before the reasons show. That's a gift for holding what a change produced — keeping the good thing that came out of it, steady and undamaged. But where you're braced, that same way of knowing turns into defense against a harm that hasn't arrived. You see a future and build a wall against it. Holding a true thing was the point; protecting a false one is what's happening.\n\nThere is a pull under the wall — a feeling you keep almost having and setting down again. Go toward that once, without committing to it, and see what is actually there. You keep the power to hold; nothing gets torn down. You only look, and the wall stops standing between you and the thing it was supposed to keep.",
+      "sheetLine": "You're bracing against a forecast you wrote.",
+      "verb": "holding what a change produced, steady and intact",
+      "place": "where you know what matters before you can say why",
       "provenance": {
         "signature_id": 55,
         "position_id": 2,
@@ -64,14 +61,14 @@
         "partner": "Allure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"calling it devotion\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -83,12 +80,13 @@
     },
     {
       "status": 3,
-      "tense": "You knew what mattered once, and you haven't stepped back through that door.",
-      "ask": "Name one thing you're holding right now, in one word, to one person.",
-      "core": "You've stopped stepping past a point you once stood on. What used to happen by itself — this one counts, that one doesn't — has gone quiet, so everything in front of you arrives at the same volume and nothing stands up. Keeping a room as it was is easier than letting it be what it is now.\n\nThat's a way of holding still on what was, not laziness. It still works, badly, and it costs you the present, which is where the picking happens. Say one thing you're holding, in one word, to one person. You don't need the reasons to come back first; the picking comes back by doing it.",
-      "sheetLine": "You stopped attending to what mattered, and the door is still behind you.",
-      "verb": "holding what change left standing",
-      "place": "at the threshold of knowing what deserves your attention",
+      "tense": "You already walked through a door that changed what you keep, and you're still standing before it.",
+      "act": "defend the direction you chose against the next push",
+      "ask": "Pick one concrete thing you'll do next, and when the first push comes against it, hold that heading anyway.",
+      "core": "A change has already happened around you. Something ended, something got cleared, and what came out of that clearing — a way of doing things, a quiet, a new order — you can't quite hold yet. You can still tell what matters. It's just not being used to keep anything. Nothing gets noticed or let go of, and the present has nothing to stand on.\n\nYou don't need feeling to move toward a direction you once chose. Pick a heading — one real thing you'll do — and when the next push arrives, hold the heading anyway, once. It gives you something to do with what you can still tell, and the place that's starved comes back from the outside in.",
+      "sheetLine": "You know what matters and you've stopped holding anything.",
+      "verb": "holding what a change produced, steady and intact",
+      "place": "where you know what matters before you can say why",
       "provenance": {
         "signature_id": 55,
         "position_id": 2,
@@ -97,24 +95,19 @@
         "partner": "Resolve",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -126,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "You are holding a clearing you say you only visited, and you're writing in it already.",
-      "ask": "Point at one thing you're keeping and say, 'I'm the one keeping this here.'",
-      "core": "You call it circumstance, or timing, or just what happened. But you cleared it, and you're keeping it — deciding what stays and what goes, in a room you describe as if it were doing the deciding on its own. The authority is running. It just isn't claimed.\n\nThe cost is quiet: real energy goes into holding the door open, and it gets called maintenance. When this is working, things feel clear and reliable around you — you organize what serves, and people feel the organizing. Say that one thing is here because you keep it here. The work looks smaller once it has your name on it, and keeping gets a choice back in it.",
-      "sheetLine": "You're already keeping this together. You call it what happened.",
-      "verb": "holding what change left standing",
-      "place": "at the threshold of knowing what deserves your attention",
+      "tense": "Right now, you know what matters and arrange things around it without ever calling it by your name.",
+      "act": "let the structure act instead of announcing it",
+      "ask": "Next time you quietly arrange something for someone, let the arrangement do the work. Don't announce it. Then notice what you actually did.",
+      "core": "Things run steady around you. You know what matters, you arrange accordingly, and if someone asked you to account for it, you'd say you weren't really involved. That is not false; it's the shape of hands doing good work while the eyes watch something else. You keep the thing that came out of the change standing — no heroics, just a quiet order that others arrange themselves around.\n\nWhat returns it is the simpler form, done on purpose: let the arrangement act instead of announcing it, once. Then notice what you actually did. That last part is the whole act — you don't have to take credit, just to have seen it. The order stays; you stay with it.",
+      "sheetLine": "You keep the order and say you're not involved.",
+      "verb": "holding what a change produced, steady and intact",
+      "place": "where you know what matters before you can say why",
       "provenance": {
         "signature_id": 55,
         "position_id": 2,
@@ -140,24 +134,24 @@
         "partner": "Command",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -171,188 +165,40 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5438,
+      "ms": 6290,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, ledger) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When it goes right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this goes right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim: I've written the Too Much father as holding a harvest that isn't his — that he's grandmothering or project-managing other people's transitions. The record only says his preservation is bracing ahead on inner Emotion Fruition; it names no one else's harvest. A reader could reasonably say the excess is all private — shelves of his own past. If the read is wrong, the asks still teach: both are one concrete act about definition that holds whether or not the load is shared. The sentence that serves me more than him: 'when he laughs it, it's the organ voice' — it's a line for the page, not for him."
-    },
-    {
-      "attempt": 2,
-      "ms": 4592,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, threshold, room) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"it doesn't take argument the\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "vocab",
@@ -361,8 +207,8 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call it devotion\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -373,26 +219,20 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "code": "glass",
+          "detail": "\"empty seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
@@ -403,9 +243,9 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
+          "hard": true,
           "status": 3
         },
         {
@@ -415,26 +255,38 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -445,48 +297,36 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim: I wrote the Too Much face as holding other people's harvests — grandmothering and project-managing transitions that were never handed to him. The record only says the excess is bracing ahead on inner Emotion Fruition; it names no one else's material. A reader could reasonably say the excess is entirely private, shelves of his own past. The asks survive being wrong: both are one concrete act about defining what gets kept, and that works whether the load is shared or not. The sentence that serves me more than him: the old 'when he laughs it, it's the organ voice' line — it was page-writing, not a reading, and it is gone."
+      "check": "Status 4's core says the person supplies a steadiness others organize themselves around; the record shows the capacity operating without their awareness, not that they deny it or that others lean on them. A reader could say, 'I never asked to be the ground everyone stands on,' which the cell should leave room for. The ask survives being wrong: someone who does not recognize themselves as the steady one can still do it and learn something. The line that serves the writer more than the person is any version of 'they trust the ground you forgot you were' — cut it, because it asks the person to accept a role they never chose."
     },
     {
-      "attempt": 3,
-      "ms": 3480,
+      "attempt": 2,
+      "ms": 4651,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"proof that you\" — certifies the person; the record cannot know it",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it devotion\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -498,13 +338,13 @@
         },
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "code": "vocab",
+          "detail": "\"your knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
@@ -515,132 +355,38 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: I keep writing the Too Much person as keeping other people's things — no record says the load is shared. A reader could say the excess is entirely private, his own unsettled business. The asks survive a wrong read: both are one concrete act of defining what he keeps, useful either way. The sentence that serves me more than him: the old 'when he laughs it, it's the organ voice' — gone."
-    },
-    {
-      "attempt": 4,
-      "ms": 3459,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "length",
           "detail": "core 117 words (120–160)",
           "hard": false,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it devotion\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -651,36 +397,30 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim: I keep writing the Too Much person as bracing against a future that has already finished, and the record says the excess is future-projected anxiety and control, not that anything is actually settled ahead. A reader could reasonably say he's just cautious about what comes next, not living in a finished version. The asks survive a wrong read: both are one concrete act of defining what gets kept, which works whether the excess is private or shared. The sentence that serves me more than him: any line where I get to sound like I know what his future holds — that is the one to watch, and it is not in the cells."
+      "check": "Status 4's core says the person supplies a steadiness others organize themselves around; the record shows the capacity operating without their awareness, not that they deny it or that others lean on them. A reader could say, 'I never asked to be the ground everyone stands on,' which the cell should leave room for. The ask survives being wrong: someone who does not recognize themselves as the steady one can still do it and learn something. The line that serves the writer more than the person is any version of 'they trust the ground you forgot you were' — cut it, because it asks the person to accept a role they never chose."
     },
     {
-      "attempt": 5,
-      "ms": 3686,
+      "attempt": 3,
+      "ms": 3690,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it devotion\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -692,7 +432,7 @@
         },
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -703,12 +443,6 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -716,19 +450,19 @@
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -739,13 +473,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim I keep making: that the Too Much person is bracing against a future that has already finished and holds things nobody handed him. The record only says the excess is future-projected anxiety and control on inner Fruition, not that anything is settled ahead or that the load is shared. A reader could reasonably say he is careful about what comes next, or that the excess is entirely private. The asks survive a wrong read: both are one concrete act of defining what gets kept, which is useful whether the excess is private or shared. The sentence that serves me more than him: any line where I sound like I know what his future holds or what he carries — none of that is in the cells."
+      "check": "Status 4's core says the person supplies a steadiness others organize themselves around; the record shows the capacity operating without their awareness, not that they deny it or that others lean on them. A reader could say, 'I never asked to be the ground everyone stands on,' which the cell should leave room for. The ask survives being wrong: someone who does not recognize themselves as the steady one can still do it and learn something. The line that serves the writer more than the person is any version of 'they trust the ground you forgot you were' — cut it, because it asks the person to accept a role they never chose."
     }
   ],
   "usage": {
-    "input": 5164,
-    "output": 5322
+    "input": 6519,
+    "output": 3599
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:43:55.765Z"
+  "date": "2026-10-02T12:20:34.339Z"
 }

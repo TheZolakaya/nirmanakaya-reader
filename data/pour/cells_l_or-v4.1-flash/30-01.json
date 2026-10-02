@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are choosing this right now, and the choosing is not scraping you out.",
-      "ask": "Name one thing you are still choosing on purpose, say it out loud to somebody tonight, then let tomorrow take its own run at it.",
-      "core": "You picked a direction and you are still walking it. Nothing has knocked you loose — the aim held through the stretch where it stopped being exciting, and you don't make a speech about that. That is the good part.\n\nThe same talent has a dull edge, and it is worth knowing where. Staying has made you loyal to the course past the point of checking it; you pick up the same aim out of habit instead of deciding again. A steadiness that doesn't look up can keep steering a road you would not choose today.\n\nPick one thing that should carry on exactly as it is, and say who you are keeping it for. Anything else can wait until you mean it again.",
-      "sheetLine": "You chose this and you're still choosing it. Say so out loud.",
-      "verb": "keeping on toward a direction already chosen, after the weather",
-      "place": "where you decide this and not that, and mean it",
+      "tense": "The hope that started this is still doing work, and the direction is still being chosen.",
+      "act": "stand firm in the material hardship",
+      "ask": "Stay in a commitment you already chose, through a stretch that doesn't reward it. Not for a fixed time — for as long as you're still choosing it. Let the pressure be there without reaching for a way to make it lighter.",
+      "core": "The direction you picked a while back is holding — not because nothing has tested it, but because each time something has, you've come back and stayed. Patience has turned into structure. What began as wanting now runs under its own weight, and nothing has come along that you couldn't take.\n\nWhat grows next out of this is sturdiness: staying with a chosen thing through friction, not because the friction has lifted but because you're still in it. Take a commitment you've kept long past where leaving would have made sense, and stay in it without adding anything to help it along. The pressure stays. You don't have to carry it any differently than you already do.",
+      "sheetLine": "The direction is holding, and it's holding through you.",
+      "verb": "keeps going after the thing was supposed to stop — hoping worn down to endurance",
+      "place": "where direction gets picked — this, not that, and meaning it",
       "provenance": {
         "signature_id": 30,
         "position_id": 1,
@@ -26,14 +27,29 @@
         "partner": "Steadfastness",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -45,12 +61,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already standing inside a moment that has not arrived, bracing for the part you cannot write.",
-      "ask": "Take one plan you are bracing over and turn it into a question, then put something on the table today that you can see.",
-      "core": "Somewhere ahead the whole thing works, the people around you understand, and the waiting ends — and you are living there instead of here. So moves get made early, gaps get filled before anyone asks, and you call it persistence. Same aim, throttle jammed.\n\nWhat the force is protecting is the direction itself, and that part is fine. Nothing has ended. You just can't stand the stretch where the outcome sits outside your hands, and waiting looks like doing nothing.\n\nBefore the next push, take one thing you are pressing on and leave it alone for a day. If it falls over without you, that tells you something about it. If it stands, that tells you something better.",
-      "sheetLine": "You're bracing for a moment that hasn't arrived. Set one plan down.",
-      "verb": "keeping on toward a direction already chosen, after the weather",
-      "place": "where you decide this and not that, and mean it",
+      "tense": "A decision gets made before the ground under the last one has settled.",
+      "act": "keep the truth a while before saying it",
+      "ask": "Take a call you were about to announce and keep it off the table. Not decided against — just unsaid, for as long as it takes to see whether it holds. It's still yours; nobody needs it yet.",
+      "core": "The persistence that started as aspiration has picked up speed. Something gets decided, and before its consequences land, the next move is being weighed. Endurance looks like momentum now — you keep going because stopping would mean finding out whether the last step holds. The pushing outruns the ground it was meant to stand on.\n\nWhat's slow here is sitting with a choice before you let it loose. Knowing something without needing to say it yet is its own kind of grip. Take a call you were about to announce and keep it in your hands a while. It's still yours; nobody needs it yet.",
+      "sheetLine": "You're deciding the next thing before this one lands.",
+      "verb": "keeps going after the thing was supposed to stop — hoping worn down to endurance",
+      "place": "where direction gets picked — this, not that, and meaning it",
       "provenance": {
         "signature_id": 30,
         "position_id": 1,
@@ -59,36 +76,42 @@
         "partner": "Reflection",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it persistence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing at a door that has been behind you for a while now.",
-      "ask": "Pick one thing you stopped pushing last year and tend it small this week — fifteen minutes, only the piece you still care about.",
-      "core": "The direction is still in view somewhere; the hand that steered it isn't on the wheel. Decisions here come late, get made by whoever else is in the room, and get called fine. The thing is still wanted. The acting like it stopped.\n\nYou keep coming back to it in the abstract and you stopped pitching in. That is ground to be tended, not a mood to wait on.\n\nOne low-stakes piece of it, this week, before the question is settled anywhere. Enough to find out whether the care is still warm. That kind of answer comes from practice, not from courage.\n\nNothing about the ask depends on this reading being right. Tend one small piece and you will know more either way.",
-      "sheetLine": "Someday starts with one small piece, this week.",
-      "verb": "keeping on toward a direction already chosen, after the weather",
-      "place": "where you decide this and not that, and mean it",
+      "tense": "Something ended, and the standing is still happening at the old address.",
+      "act": "tend the resource with responsible care",
+      "ask": "Something you've been looking after has been running down — a body, a room, a tool, an account. Do a single act of upkeep on it. Not a plan for it. Just that act, and then leave it.",
+      "core": "The resilience is real, but it's aimed behind you. Whatever finished, finished — and the staying is still going on there. Yes to anything new takes more than it should right now, and the not-yes has weight other people can feel. The way ahead is open and the direction isn't being picked.\n\nDon't try to force the spark back. Tend something instead: one resource that's been running down, one act of care toward it. Care builds a shape, and the shape is what makes the next thing possible. Afterward the direction may not have arrived. That's fine. What isn't fine is leaving every next thing untouched because the last one still has your eyes.",
+      "sheetLine": "You're standing at a door you already went through.",
+      "verb": "keeps going after the thing was supposed to stop — hoping worn down to endurance",
+      "place": "where direction gets picked — this, not that, and meaning it",
       "provenance": {
         "signature_id": 30,
         "position_id": 1,
@@ -97,19 +120,19 @@
         "partner": "Stewardship",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -121,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You are steering already, and you keep describing the steering as if it were weather.",
-      "ask": "For one decision you keep calling inevitable, write three lines of what you actually want before you answer anybody about it.",
-      "core": "Nobody is making you keep going at this. That's you, and you've been at it long enough that it feels like conditions — the industry is slow, the timing is off, the season is wrong. Some of that is even true. It also isn't the whole account, and your thumb is on it.\n\nOnce the steering gets said out loud as yours, you can steer harder or set it down. Either one works. What doesn't work is the version where it happens to you, because then there is nothing to reshape.\n\nBefore the next update you give somebody, make your own shorthand first: what you want, what you will do, what you are leaving open. Fifteen minutes and a corner of the page.",
-      "sheetLine": "You're already going. Start saying that you're the one going.",
-      "verb": "keeping on toward a direction already chosen, after the weather",
-      "place": "where you decide this and not that, and mean it",
+      "tense": "The staying is being decided every day, and it isn't being tallied as a decision.",
+      "act": "stand firm in the material hardship",
+      "ask": "Next time something makes you want to leave — a bill, a week that broke you, one more thing going wrong — catch the moment you don't. Note it, plainly, once: that was staying. Then stay, if you still want to. Nobody sees that part but you.",
+      "core": "The persistence shows up as conditions — things keep happening, and you keep being there when they do. Somewhere in it, the decision to remain is made over and over and written down as nothing: whatever follows a hard stretch is just an ordinary day to you. The strength from hoping is kept by someone, and that someone is you.\n\nWhat's the simpler, earlier form of this? Standing firm is a choice before it's a trait. Catch one moment where you hold your ground and note it as the decision it is. Not a celebration. Just the writer back on the line that was being written.",
+      "sheetLine": "You keep staying through it, and you don't call that staying.",
+      "verb": "keeps going after the thing was supposed to stop — hoping worn down to endurance",
+      "place": "where direction gets picked — this, not that, and meaning it",
       "provenance": {
         "signature_id": 30,
         "position_id": 1,
@@ -135,11 +159,31 @@
         "partner": "Steadfastness",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -151,27 +195,45 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6302,
+      "ms": 8865,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 1
         },
         {
@@ -181,27 +243,39 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call that persistence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "ask 49 words (≤40)",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the reaching\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Reflection does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the one after that\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -211,39 +285,27 @@
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"got expensive\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Enough to find out whether the wanting is still warm — that \" — end on the plain thing",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "code": "length",
+          "detail": "ask 46 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Nurturing",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (wheel, room, field) — a parable, not a sentence to a person",
+          "detail": "3 images in one core (gate, engine, door) — a parable, not a sentence to a person",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that fine\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
           "status": 3
         },
         {
@@ -253,21 +315,93 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 49 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"signature\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"name it as yours\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "detail": "first person: \"me\" — a cell has no I; the Reader may add one live",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has a hand on it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
           "status": 4
         },
         {
@@ -275,108 +409,54 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record gives no evidence about what the person has actually been through, so any line locating a specific loss or injury behind a Too Little state would be unsupported; the reader could reasonably say the blank is not about a past door at all. The asks still work if my read is wrong: each one is a small, finishable act that teaches something about steering regardless of whether it lands on this status. The sentence that serves me more than them is any tidy closing line about 'still standing' — I cut those and kept the fact inside the cards instead of on the sheet."
+      "check": "The unsupported claim is that the right ask for too-much is to pause and weigh before declaring — the record says Reflection's acts include weighing and holding, but nothing confirms this person deliberates in the heat of direction; a reader could say the excess is willfulness rather than haste in speech. The ask still works if the read is wrong: a pause before deciding costs nothing and teaches where the choice actually came from. The sentence that serves me rather than them is the too-much core's implied verdict that their wanting is unearned; I have narrowed it to what the seat can be seen doing — making the next move before the ground is settled. The Too Much ask IS the listed act 'keep the truth a while before saying it' made small as holding the choice in hand for a day. The Balanced ask is the listed act 'stand firm in the material hardship' made small as honoring one commitment when stopping would be reasonable — resilient without pressure. Too Little's ask is 'tend the resource with responsible care' made small as a single upkeep act. Unacknowledged's ask is 'stand firm in the material hardship' (Reduction repeats the simpler form of the same line — same act as Balanced but at a different depth: Balanced stands through pressure while Unacknowledged names the choice to stay as one's own) made small as naming the decision. The verbs open: Balanced 'stand', Too Much 'hold', Too Little 'tend', Unacknowledged 'name'."
     },
     {
       "attempt": 2,
-      "ms": 3839,
+      "ms": 7378,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 3 contracted — written, not said",
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that persistence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Enough to find out whether the care is still warm — that ans\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that fine\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record gives no evidence about what the person has actually been through, so any line locating a specific loss or injury behind a Too Little state would be unsupported; the reader could reasonably say the blank is not about a past door at all. The asks still work if my read is wrong: each one is a small, finishable act that teaches something about steering regardless of whether it lands on this status. The sentence that serves me more than them is any tidy closing line about 'still standing' — I cut those and kept the fact inside the cards instead of on the sheet."
-    },
-    {
-      "attempt": 3,
-      "ms": 4660,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -388,13 +468,43 @@
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call it persistence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"if it doesn't you'll know\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -405,14 +515,172 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has a hand on it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is still that the excess in Too Much is haste in declaring rather than force in directing — the record names Reflection's acts as holding and weighing, not as evidence this person speaks early. A reader could say the overreach is wanting more than the ground supports, not announcing too soon. The ask survives either way: keeping a decision in hand for a week costs little and shows where the choice came from. The sentence that served me rather than them was the implied verdict that their wanting is unearned; it is gone. The Balanced ask is the listed act 'stand firm in the material hardship' made small as staying with one chosen thing and letting the pressure be there. Too Much is 'keep the truth a while before saying it' made small as not announcing one decision yet. Too Little is 'tend the resource with responsible care' made small as one upkeep act. Unacknowledged is 'stand firm in the material hardship' again, at the simpler depth — the same staying, caught once as a decision. Verbs open: stay, hold, tend, catch. Only Too Much carries a clock; the others do not."
+    },
+    {
+      "attempt": 3,
+      "ms": 4907,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -421,6 +689,153 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that in Too Much the excess is announcing decisions early rather than pushing direction past what the ground supports — the record licenses Reflection's acts (holding, weighing) but not the reading of this person as speaking first. A reader could say the overreach is wanting more than the ground supports, not saying it too soon. The ask survives either way: keeping one announcement back costs nothing and shows how the choice was made. The sentence that served me was the verdict that their wanting is unearned — removed. Balanced ask is the listed act 'stand firm in the material hardship' made small as staying in a chosen thing with nothing added; no clock. Too Much is 'keep the truth a while before saying it' made small as holding one announcement back — no fixed week, open-ended. Too Little is 'tend the resource with responsible care' made small as one upkeep act — no clock. Unacknowledged is 'stand firm in the material hardship' again at the simpler depth — same staying, noticed once as a decision — no clock. Verbs: stay, hold, tend, notice."
+    },
+    {
+      "attempt": 4,
+      "ms": 4762,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"your keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -429,13 +844,125 @@
           "status": 4
         }
       ],
-      "check": "The record establishes a capacity — directed choosing — and its condition, not a history, so any line that supplies a reason for the Too Little state (a costly moment, a loss, a person) is unsupported and was cut; the Too Little core now only reports conduct a person could recognise. The reader could reasonably say the bracing described in Too Much is just diligence, and the withdrawing described in Too Little is just a season of low energy, so both cores lean on what can be seen from outside and leave the motive alone. The asks survive being wrong about the status: naming one deliberate choice, turning one plan into a question, tending one small piece, writing three lines before replying — each is finishable today, needs nobody else, costs nothing, and teaches something about steering whatever the read was."
+      "check": "The unsupported claim is that in Too Much the excess is announcing decisions early rather than pushing direction past what the ground supports — the record licenses Reflection's acts (holding, weighing) but not the reading of this person as speaking first. A reader could say the overreach is wanting more than the ground supports, not saying it too soon. The ask survives either way: keeping one announcement back costs nothing and shows how the choice was made. The sentence that served me was the verdict that their wanting is unearned — removed. Balanced ask is the listed act 'stand firm in the material hardship' made small as staying in a chosen commitment with nothing added to help it along. Too Much is 'keep the truth a while before saying it' made small as holding one announcement back — no clock. Too Little is 'tend the resource with responsible care' made small as a single upkeep act. Unacknowledged is 'stand firm in the material hardship' again at the simpler depth — the same staying, caught once as a decision. Verbs: stay, hold, tend, catch."
+    },
+    {
+      "attempt": 5,
+      "ms": 4022,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that in Too Much the excess is announcing decisions early rather than pushing direction past what the ground supports — the record licenses Reflection's acts (holding, weighing) but not the reading of this person as speaking first. A reader could say the overreach is wanting more than the ground supports, not saying it too soon. The ask survives either way: keeping one announcement back costs nothing and shows how the choice was made. The sentence that served me was the verdict that their wanting is unearned — removed. Balanced ask is the listed act 'stand firm in the material hardship' made small as staying in a chosen commitment with nothing added to help it along. Too Much is 'keep the truth a while before saying it' made small as holding one announcement back — no clock. Too Little is 'tend the resource with responsible care' made small as a single upkeep act. Unacknowledged is 'stand firm in the material hardship' again at the simpler depth — the same staying, caught once as a decision. Verbs: stay, hold, tend, catch. In the quartet: no ask is the same shape — Balanced is an open-ended stay, Too Much is a holding-back, Too Little is one bounded act, Unacknowledged is a noticing left alone; none carries a clock."
     }
   ],
   "usage": {
-    "input": 2962,
-    "output": 3523
+    "input": 10137,
+    "output": 6729
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:22:31.579Z"
+  "date": "2026-10-02T13:00:33.195Z"
 }

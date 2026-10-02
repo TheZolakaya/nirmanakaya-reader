@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Body",
+  "group": "library",
   "signature_id": 11,
   "position_id": 9,
   "signature": "Equity",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are keeping the practice even, and it is doing the work.",
-      "ask": "Name one exchange you are part of and leave the accounting open for a week. Do not keep score, do not announce it. If something pulls at you unspoken, write it down and keep it private.",
-      "core": "The habit does not need to be argued for anymore. You can tell when a thing has drifted out of proportion without sitting down to do the math, and you correct it when you touch it — in what you give, what you take back, what you stop carrying for someone else. That reading is quick for you, almost wordless.\n\nThe practice is what keeps it from getting fussy. The same session done again, at the same hour, keeps the sense clean and slow enough to read the moment instead of defending against it. The one thing worth watching is the scorecard — that is the way this one goes wrong. When something is ending and you can feel that it should, let it end fully.",
-      "sheetLine": "You can feel the even weight again and trust what you find there.",
-      "verb": "recalibrating what is out of proportion",
-      "place": "in focused practice, kept up by repetition",
+      "tense": "Fairness is moving through your hands right now, here with the pen.",
+      "act": "let the thing end that is already over",
+      "ask": "Notice what at the bench is already finished and carry on past it — spend the session on what is still live and leave the finished thing where it lies.",
+      "core": "Fairness moves through your hands without arithmetic. You can feel what is level and what is off, and the whole correction is a small adjustment nobody watching would call a correction. Practice and exchange are one motion: give, receive, refine, repeat, and nothing is owed past the next round. That is what makes the work hold, and the same thing makes it fair. Where you are working through this one, you can feel what is level without arguing for it.\n\nThere is something at the bench that is already finished, and you are keeping it going out of habit. Notice it and move on — the session is better spent on what is still alive. Rooms left behind a finished thing are where the next form arrives. You will want to fill that space the same evening; wait. Ending one thing is the part of this that is easiest to skip, and it is the part that keeps the rest level.",
+      "sheetLine": "Fairness is a small correction your hands already make.",
+      "verb": "Setting right what has slipped out of proportion",
+      "place": "At the bench, in the long repetition done alone",
       "provenance": {
         "signature_id": 11,
         "position_id": 9,
@@ -26,31 +27,37 @@
         "partner": "Transformation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "vocab",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already running the tally on exchanges that have not happened yet.",
-      "ask": "Pick one person you are keeping a running count with. Say nothing about it for a day. When you notice the count move, put it somewhere written and leave it. Then ask them for one small thing with no offering attached.",
-      "core": "Fairness has turned into a ledger you keep about people who have not wronged you yet. You bought that gift in March, they owe you a call, they got more hours than you, they were short with you on Tuesday. The list is not written down, so it does not get cleared, and some of it counts slights that have not happened and may not.\n\nNone of that is about being mean. It is bracing for a bill, so you stay ahead of it. The practice you already have is the way back — the same chair, the same ten minutes, no one watching — because that is the one place where being even matters less than being steady. Holding the count tight does not keep you safe. It keeps you at the table alone.",
-      "sheetLine": "The ledger is running on people who have not wronged you yet.",
-      "verb": "recalibrating what is out of proportion",
-      "place": "in focused practice, kept up by repetition",
+      "tense": "You are bracing at a tally you're already running in the future.",
+      "act": "hold your shape under the weight",
+      "ask": "Keep the hours at their real size: do the practice, tally nothing about who owes what, and read the totals only when the week is out.",
+      "core": "The scale has come out. You count what went out and what came back, and you count the counting, and the practice stops more often for tallies than for repetitions. Fairness has become a thing you administer rather than a thing you do with your hands. The people near the work can feel it. You are not wrong that something is off.\n\nHold your shape for a week without tightening around it. Keep the next hour at its real size: do the practice, tally nothing about who owes what, and read the totals only when the week is out. Then look once and deal with what you find once. What you carry is lighter held than gripped.",
+      "sheetLine": "The scale has come out and the practice is stopping for tallies.",
+      "verb": "Setting right what has slipped out of proportion",
+      "place": "At the bench, in the long repetition done alone",
       "provenance": {
         "signature_id": 11,
         "position_id": 9,
@@ -59,29 +66,19 @@
         "partner": "Fortitude",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "ask 41 words (≤40)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -93,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped asking for the share that was yours a while back and did not mark it.",
-      "ask": "Write one sentence naming what you are owed and have not asked for. Read it to no one. Put it where you will see it tomorrow, and pick one thing on it to ask for this week, in plain words, once.",
-      "core": "When something is not even, you let it stand. You make it fit by giving more and needing less, and the missing part lands on you — the hours, the credit, the room, the night. It does not look like a wound. It looks like you are low-maintenance, and people take it that way.\n\nWhat is actually missing is not the fairness. It is the claim. You know what an even thing looks like; you stopped saying where the line is, and after enough silence it gets hard to find. The practice that helps is not fierce — it is the small kind, kept daily, where you are allowed to be bad at it at first. That is the door back to asking for what is actually yours.",
-      "sheetLine": "You know what even looks like. You stopped saying where the line is.",
-      "verb": "recalibrating what is out of proportion",
-      "place": "in focused practice, kept up by repetition",
+      "tense": "You have been standing at a closed door that is already behind you.",
+      "act": "do the small practice again, alone, today",
+      "ask": "Go back to the plain version of the practice — alone, the length that once felt right, no plans — and stop when it ends, then let it be done.",
+      "core": "You give and don't claim, and the work gets what you have and you leave with nothing back. People ask less of you than they should, and you make it easy, because asking for your share feels like the riskier move. The practice that would steady this is something you once did easily, alone, before any of it had to be argued for. It is still yours. It has gone quiet.\n\nGo back to the plain version — alone, the length that once felt right, no plans and no outcomes, no deciding what it is worth. When it ends, let it be done; that is the whole act. Nothing about fairness is settled by one session; the point is only that something goes in and something comes back, in the same hour, without anyone's permission. Do it once and notice whether the bench feels less like a place you owe.",
+      "sheetLine": "The practice is still yours, and it has gone quiet.",
+      "verb": "Setting right what has slipped out of proportion",
+      "place": "At the bench, in the long repetition done alone",
       "provenance": {
         "signature_id": 11,
         "position_id": 9,
@@ -107,46 +105,37 @@
         "partner": "Discipline",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "ask 41 words (≤40)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are weighing how much people owe you, and you would say you are not keeping track.",
-      "ask": "Pick one person and one thing they did that has been sitting in you. Say it once to them plainly, in a sentence, and stop. No list, no history, no case. Just the one thing, said flat.",
-      "core": "Somewhere in you a count is running you did not open. Who got more, who got off easy, who asked you for one thing too many — the tally keeps itself and you would say you are not the type. It shows in a flat tone, a comment you did not plan, a door you leave a little closed.\n\nYou are allowed to say it. That is the whole correction here. The clear knowing is already there — it lands before you have a case for it — and it does not need the whole story to be true. Name the one thing out loud, once, and let the count close on it. What you carry quietly gets heavier each year you carry it this way.",
-      "sheetLine": "You have been keeping a count you would not admit was there.",
-      "verb": "recalibrating what is out of proportion",
-      "place": "in focused practice, kept up by repetition",
+      "tense": "The pen is down, and you are still writing somewhere you don't notice.",
+      "act": "notice what you already know before you reason about it",
+      "ask": "When something at the bench bothers you, catch the flash that lands before the explaining does; hold it unargued.",
+      "core": "You keep a quiet account — small ones, mostly, something that was asked of you and not returned — and if someone asked, you would say you were keeping nothing. The tally runs under the practice and makes the repetitions heavier than they should be. You would call it mood, or say the work has been slow. Your hands already know which arrangement is off; you arrive at it sideways, through reasons.\n\nCatch the flash that lands before the explaining does. One line is enough, and you don't have to act on it or call it a decision. The same sense that settles your adjustments can settle the rest — you trust it in the work and argue with it everywhere else. Give it a day before you explain it away.",
+      "sheetLine": "Your hands know which arrangement is off before you do.",
+      "verb": "Setting right what has slipped out of proportion",
+      "place": "At the bench, in the long repetition done alone",
       "provenance": {
         "signature_id": 11,
         "position_id": 9,
@@ -155,34 +144,24 @@
         "partner": "Wisdom",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -191,111 +170,111 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5572,
+      "ms": 9979,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "detail": "core 166 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "10 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
           "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
-          "status": 4
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "detail": "5 uncontracted to 4 contracted — written, not said",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so once\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (bench, room, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"fairness run this hard has\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let that count\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the first thing you knew\" — say the act in the person's words",
+          "hard": true,
           "status": 4
         },
         {
@@ -305,66 +284,63 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"at the bench…\")",
+          "hard": true
         }
       ],
-      "check": "The record does not say the person built this seat from a past injury; Too Little may only say claim has stopped, not what caused it, so my draft's line about fairness having once gone badly — as a half-said origin — is the unsupported claim. A reader might object that they do claim things often, but the reading can narrow to this: claiming stops when the price is not even, and the ask still works even if my read misses, because naming the number is a plain act anyone can run against reality. The sentence that serves me more than them is any line implying their past made them this way."
+      "check": "The unsupported claim is that in the Balanced cell the person already settles fairness with a clear eye; the record says balanced fairness flows, not that they have a practice for keeping it, so the ask is offered as the next small act, not a remedy. A reader could reasonably say, 'I don't tally anything,' which every cell's ask survives because each is optional and teaches something either way. The sentence that serves the writer more than the person is the Too Much line about the ledger running every mile — it is vivid, and if the person's accounting is quiet, it invents a drama; the cell is written so the person can say no and still carry their own share for a week."
     },
     {
       "attempt": 2,
-      "ms": 3198,
+      "ms": 9531,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "ask 41 words (≤40)",
+          "detail": "core 161 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "said",
           "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -375,50 +351,38 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "10 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -429,66 +393,53 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record does not say the person built this seat from a past injury; Too Little may only say the claim has stopped, not what caused it, so the line about fairness having once gone badly is the unsupported claim. A reader might object that they do claim things often, but the reading can narrow to this: claiming stops when the price is not even, and the ask still works even if the read misses, because naming the number is a plain act anyone can run against reality. The sentence that serves me more than them is any line implying their past made them this way."
+      "check": "The unsupported claim is that in the Balanced cell the person already settles fairness with a clear eye; the record says balanced fairness flows, not that they keep a practice for it, so the ask is offered as a next small act, not a remedy. A reader could reasonably say 'I don't tally anything,' which every ask survives because each is optional and teaches something either way. The sentence that serves the writer more than the person is the Too Much line about the tally running under everything — it is vivid, and if the person's accounting is quiet, it invents a drama; the cell lets them say no and still hold their shape for a week."
     },
     {
       "attempt": 3,
-      "ms": 3079,
+      "ms": 5656,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "vocab",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "ask 41 words (≤40)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "said",
           "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\", and let the week\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -499,50 +450,32 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\", and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -551,110 +484,80 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The record does not say the person built this seat from a past injury; Too Little may only say the claim has stopped, not what caused it, so the line about fairness having once gone badly is the unsupported claim. A reader might object that they do claim things often, but the reading can narrow to this: claiming stops when the price is not even, and the ask still works even if the read misses, because naming the number is a plain act anyone can run against reality. The sentence that serves me more than them is any line implying their past made them this way."
+      "check": "The unsupported claim is that in the Balanced cell the person already settles fairness with a clear eye; the record says balanced fairness flows, not that they keep a practice for it, so the ask is offered as a next small act, not a remedy. A reader could reasonably say 'I don't tally anything,' which every ask survives because each is optional and teaches something either way. The sentence that serves the writer more than the person is the Too Much line about the tally running under the practice — it is vivid, and if the person's accounting is quiet, it invents a drama; the cell lets them say no and still hold their shape for a week. I also worried that 'the knowing' in the last cell borrowed a mystical noun, so that act is now rendered as the flash that lands before the explaining does."
     },
     {
       "attempt": 4,
-      "ms": 3226,
+      "ms": 4997,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "ask 41 words (≤40)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "ask 41 words (≤40)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
           "hard": false,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -665,25 +568,100 @@
           "status": 4
         },
         {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that in the Balanced cell the person already settles fairness with a clear eye; the record says balanced fairness flows, not that they keep a practice for it, so the ask is offered as a next small act, not a remedy. A reader could reasonably say 'I don't tally anything,' which every ask survives because each is optional and teaches something either way. The sentence that serves the writer more than the person is the Too Much line about the scale and the repetitions — it is vivid, and if the person's accounting is quiet, it invents a drama; the cell lets them say no and still hold their shape for a week."
+    },
+    {
+      "attempt": 5,
+      "ms": 5218,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"notice what you already know before you reason abo\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person built this seat from a past injury; Too Little may only say the claim has stopped, not what caused it, so any line implying fairness once went badly is the unsupported claim. A reader might object that they do claim things often, but the reading can narrow to this: claiming stops when the price is not even, and the ask still works even if the read misses, because naming the number is a plain act anyone can run against reality. The sentence that serves me more than them is any line implying their past made them this way."
+      "check": "The unsupported claim is that in the Balanced cell the person already settles fairness with a clear eye; the record says balanced fairness flows, not that they keep a practice for it, so the ask is offered as a next small act, not a remedy. A reader could reasonably say 'I don't tally anything,' which every ask survives because each is optional and teaches something either way. The sentence that serves the writer more than the person is the Too Much line about the scale and the repetitions — it is vivid, and if the person's accounting is quiet, it invents a drama; the cell lets them say no and still hold their shape for a week. The clock was the last refusal: two of the four asks now carry none, and the two that do mark different edges — a session's end and a week's end."
     }
   ],
   "usage": {
-    "input": 6860,
-    "output": 4782
+    "input": 9181,
+    "output": 6346
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:39:58.605Z"
+  "date": "2026-10-02T11:31:21.771Z"
 }

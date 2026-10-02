@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding what the ending left behind, and you are steady while you hold it.",
-      "ask": "Tell one person what you are keeping from a finished thing, and hand them one piece of it, today.",
-      "core": "The grip is loose. You keep the part of a changed thing that still belongs to you, and the part that does not gets put down without a fight. Most people can't do that after something ends. You do it while staying upright.\n\nIt shows in small ways — a friendship kept through a move, a working method kept through a hard season, a routine kept after someone left. The stable shape around the change still fits, so you keep it. What comes next is not more holding. It is the exchange that holding makes possible: something given out, something taken in. So name the kept thing to one person and hand a piece of it over, today.",
-      "sheetLine": "You keep what the ending left, and you can put part of it down.",
-      "verb": "holding what the ending left behind",
-      "place": "at the edge of a finished room, deciding what leaves with you",
+      "tense": "You are here with the pen, and what the change left standing has settled enough to pass through your hands.",
+      "act": "let the exchange with someone run both ways",
+      "ask": "Let one exchange run both ways — offer something from what you kept, and take what comes back without shrinking it.",
+      "core": "The change you carried has cooled into something solid. The routine, the room, the way mornings go — this is the harvest resting after the clearing, and it looks like peace because it is.\n\nExchange is what comes next. Open one door on what you saved: let someone see it, and receive what they bring back. Fairness flows when it moves, and moving it is the work. Give a piece freely and take what comes without trimming it down. What you preserved was meant to pass through and keep going, and a single fair exchange starts that. Nothing is lost in the offering. You find out what you were saving it for.",
+      "sheetLine": "What you preserved is ready to move.",
+      "verb": "holding steady what the change left standing",
+      "place": "the threshold where release makes room",
       "provenance": {
         "signature_id": 55,
         "position_id": 12,
@@ -26,36 +27,47 @@
         "partner": "Reciprocity",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are holding onto what transformed as if something is about to take it from you.",
-      "ask": "This week, when you catch yourself bracing over something you kept from a change, ask the person in front of you what they see.",
-      "core": "The grip is tight around things that would probably survive if you opened your hand a little. You have protected past the point where protecting was needed, and you brace for a loss that has not happened. The room starts to fill with what you might keep rather than what you are keeping.\n\nSo you imagine a return — a person, a mood, a piece of a life that has already changed shape — and you live half in that imagined return. What goes missing is the person actually in front of you. When you catch the brace, ask the person in front of you what they see. Their answer, not your watch, tells you which end is near.",
-      "sheetLine": "You hold what changed as if it were about to be taken.",
-      "verb": "holding what the ending left behind",
-      "place": "at the edge of a finished room, deciding what leaves with you",
+      "tense": "You will brace for a turn that hasn't come, gripping the stable shape until it can't breathe.",
+      "act": "hold the cloud of possible feeling without picking yet",
+      "ask": "Before deciding what comes next, sit with the feelings the possibilities pull up — all of them, none chosen — and pick nothing yet.",
+      "core": "You can feel the next turn coming before it arrives, so the stance that kept the last change steadies itself against one that hasn't happened. The cleared room fills with what-ifs, and the form turns into armor around a future you can't write in.\n\nThe pull is real — it's the draw of what might be felt, and it isn't the enemy. Let it gather without sorting. Hold the possibilities as a cloud, none of them chosen, none fused to you: that's the work. Knowing which feeling is yours comes after, when the cloud settles. The structure holds better when it isn't guarding the door. Let the pull show you what it wants before you decide what it means.",
+      "sheetLine": "The grip is holding a future that hasn't arrived.",
+      "verb": "holding steady what the change left standing",
+      "place": "the threshold where release makes room",
       "provenance": {
         "signature_id": 55,
         "position_id": 12,
@@ -64,19 +76,29 @@
         "partner": "Allure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the cloud of possible feeling without picking\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false
         },
         {
@@ -88,12 +110,13 @@
     },
     {
       "status": 3,
-      "tense": "The change finished and you are still standing in the doorway of it.",
-      "ask": "Name one finished thing you are still inside, and put one kept object from it where you live now.",
-      "core": "When the change finished you did not move your weight forward, so the space it made stayed empty. The thing worth keeping got lost track of, because the instruction to release took over the room. You are not arrived in the present, and the conversation in front of you runs on a version of you that is elsewhere.\n\nWhat is missing is not the release itself. It is the direction that would make release real — a chosen way forward, defended against the pull back. That direction has to come from what you actually feel, not from what you were told to feel. Name one finished thing you are still inside, and move one kept object from it to where you live now.",
-      "sheetLine": "The change finished and you are still in the doorway.",
-      "verb": "holding what the ending left behind",
-      "place": "at the edge of a finished room, deciding what leaves with you",
+      "tense": "You were standing at a door already behind you, carrying what the change asked you to set down.",
+      "act": "defend the direction you chose against the next push",
+      "ask": "Name a direction you chose after the change and hold it against the next tug sideways — the same heading kept through one contested moment — and skip asking if it's still right.",
+      "core": "The change happened, and you're still at the door. What you meant to release is in your hands, and the space it would have made is filled with old weight. Nothing has curdled exactly — you're just behind, standing where the turn was, carrying what the turn asked you to lay down.\n\nCharge the other side first. Take a direction you already chose after the change, and defend it against the next thing that pulls you off course. Once. Write it where you'll see it, and keep the heading. That gathered movement is what pulls feeling back into the choice. Don't push the door open by force; just stop being the person who stayed behind. You already chose. Let that hold for one contested moment.",
+      "sheetLine": "You're still at the door the change closed.",
+      "verb": "holding steady what the change left standing",
+      "place": "the threshold where release makes room",
       "provenance": {
         "signature_id": 55,
         "position_id": 12,
@@ -102,14 +125,14 @@
         "partner": "Resolve",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
@@ -118,20 +141,21 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already preserving what the change made, and you call it something else.",
-      "ask": "Name one thing you are holding steady for other people right now, and say 'I am keeping this' about it, out loud, once.",
-      "core": "In how you hold the shape of a day, keep the small arrangements running, maintain what other people stand on — the stable thing is there, and it is your pressure on it that keeps it still. You describe it as just how the household runs, or just the job.\n\nThe authority is real and mostly unclaimed. People can feel that things make sense around you, and you have been calling that a matter of course instead of something you are doing. The claim stays unmade. Say one thing you are holding steady for other people, out loud, once, and do not put a joke after it.",
-      "sheetLine": "You keep what the change made, and credit it to circumstance.",
-      "verb": "holding what the ending left behind",
-      "place": "at the edge of a finished room, deciding what leaves with you",
+      "tense": "You are standing in the room you cleared, pen down, sure the order came from somewhere else.",
+      "act": "make the call and carry it through",
+      "ask": "Settle a call you've been circling — make it and carry it through the same day, no explaining to anyone — and leave the decision standing there.",
+      "core": "You kept what the change produced, and you kept it in order. Things hold because someone holds them, and that someone is you — but if asked, you'd say the structure was simply there, obvious, not yours to claim. The authority is real. The account has it filed under circumstances.\n\nThe earlier form of that same line is quieter: not asserting, just acting. So make a call you've been circling, on the same day, and carry it through without a speech. The clarity shows in the doing, not the announcing. No explaining means no debt to the room — the act stands. When you decide without narrating why, you'll see the structure was obeying you. That's the acknowledgment. It needs one unannounced move.",
+      "sheetLine": "The order in this room is yours.",
+      "verb": "holding steady what the change left standing",
+      "place": "the threshold where release makes room",
       "provenance": {
         "signature_id": 55,
         "position_id": 12,
@@ -140,24 +164,14 @@
         "partner": "Command",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -171,38 +185,62 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5651,
+      "ms": 6686,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can tell the difference\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the tense line is pasted into the core — the person reads it twice",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "3 images in one core (shape, room, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Recognition",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the cloud of possible feeling without picking\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -211,70 +249,64 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the tense line is pasted into the core — the person reads it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the tense line is pasted into the core — the person reads it twice",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "refrain",
           "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Command does\") — the act in plain words, the name once at most",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
           "status": 4
         },
@@ -285,36 +317,187 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the tense line is pasted into the core — the person reads it twice",
-          "hard": true,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "One unsupported claim in the draft: that what the person keeps holding is emotional and inner — the record says the card is in the inner horizon, but nothing establishes why the grip is there in a given life. A reader could reasonably say this is not about feelings at all, but about a practical arrangement. The asks are one concrete act each and survive a wrong read because they leave the determination of what is being held to the person. The sentence that serves the writer more than the person is any line that says the holding is out of love, or that the release is about grief."
+      "check": "The unsupported claim is that the person's grip on what changed is gripping too hard — the record gives the signature but never says their history cost them anything. A reader might say 'I'm holding it because it's still new, not because I'm afraid.' The asks survive being wrong: each is small, repeatable, and teaches something even if my read misses. The sentence that serves me more than them is any line that turns letting go into a virtue — cut those."
     },
     {
       "attempt": 2,
-      "ms": 3516,
+      "ms": 4671,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the cloud of possible feeling without picking\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"decide it and act the\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's grip is fear-driven — the record gives the signature but never says what the holding costs them or why. A reader could fairly say 'I'm holding this because it's still ripening, not because I'm afraid of losing it.' The asks survive being wrong: each is small, repeatable, and useful even if my read misses. The sentence that serves me more than the person is any line that makes releasing sound like the mature choice — the seat says release, but the cell shouldn't preach it."
+    },
+    {
+      "attempt": 3,
+      "ms": 3504,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
@@ -326,7 +509,19 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the cloud of possible feeling without picking\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -337,8 +532,8 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
@@ -349,32 +544,20 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\" and let the decision\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -385,42 +568,66 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the thing being held is emotional and inner for a specific person — the record puts the card in the inner horizon, but nothing establishes what the grip is actually on in a given life. A reader could say this is about a practical arrangement, not a feeling. The asks each name one visible act and leave the person to decide what is being held, so they survive a wrong read. The sentence that serves the writer more than the person is any line that says the holding is out of love or that the release is about grief."
+      "check": "The unsupported claim is that the person's grip is fear-driven — the record gives the signature but never says what the holding costs them or why. A reader could fairly say 'I'm holding this because it's still ripening, not because I'm afraid of losing it.' The asks survive being wrong: each is small, repeatable, and useful even if my read misses. The sentence that serves me more than the person is any line that makes releasing sound like the mature choice — the seat says release, but the cell shouldn't preach it."
     },
     {
-      "attempt": 3,
-      "ms": 3055,
+      "attempt": 4,
+      "ms": 3574,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the cloud of possible feeling without picking\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -431,8 +638,8 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
@@ -443,26 +650,14 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -473,13 +668,13 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the thing being held is emotional and inner for a specific person — the record puts the card in the inner horizon, but nothing establishes what the grip is actually on in a given life. A reader could say this is about a practical arrangement, not a feeling. The asks each name one visible act and leave the person to decide what is being held, so they survive a wrong read. The sentence that serves the writer more than the person is any line that says the holding is out of love or that the release is about grief."
+      "check": "The unsupported claim is that the person's grip is fear-driven — the record gives the signature and the seat but never says what holding this costs them or why they hold it. A reader could fairly say 'I'm keeping this close because it's still ripening, not because I'm afraid of losing it.' The asks survive being wrong: each is small, useful even if my read misses. The sentence that serves me more than the person is any line that makes releasing sound like the mature choice — the seat says release, but the cell shouldn't preach it."
     }
   ],
   "usage": {
-    "input": 2698,
-    "output": 3227
+    "input": 8076,
+    "output": 4752
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:44:09.822Z"
+  "date": "2026-10-02T12:21:07.600Z"
 }

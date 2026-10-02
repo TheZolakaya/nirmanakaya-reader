@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding the open place and letting what is ready move through it.",
-      "ask": "Pick one thing you have been holding and pass it to someone today, cleanly, without explaining what it cost.",
-      "core": "You are holding this open place well. A thousand things could still become something here, and you are not forcing any of them into shape before they are ready. What you have built or carried sits in your hands, and you hand it out by measure — not scraped out of yourself, not kept back. People around you stand firmer because your strength goes where it meets their need.\n\nThe next thing this can feed is direction. Not more things to hold, but a clearer sense of which light you move toward. When you give next, hand over the one thing that matches what someone is actually missing, and let that choice show you where you are headed. Balance costs a little attention: sharing stays clean only while it stays chosen.",
-      "sheetLine": "You share what you carry by measure, and it lands.",
-      "verb": "sharing your strength outward through structure",
-      "place": "the open place where nothing has chosen its shape yet",
+      "tense": "Strength is moving outward from you now, by measure, and it lands where it is needed.",
+      "act": "choose which star to steer by and steer",
+      "ask": "Pick the season you want next and what it's for, then take a single step toward it that a friend would notice.",
+      "core": "You can hand strength to someone and still have enough left for your own day. What you pass along tends to land where it's needed, and people settle near you without knowing why. That's a real skill, and it isn't the same as being endlessly available.\n\nSomething is still unspent, though. You've kept your strength moving without deciding what the whole of it is for. Name the direction you actually want, not the one that keeps things smooth, and take one step in it this week. Not a plan. One step, where a friend would notice it happen. Strength that goes somewhere carries further than strength scattered in every direction at once.",
+      "sheetLine": "You can give and still have enough.",
+      "verb": "to share strength outward, in measure, with the people near you",
+      "place": "in the open field before anything has been chosen",
       "provenance": {
         "signature_id": 57,
         "position_id": 0,
@@ -26,14 +27,24 @@
         "partner": "Orientation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for needs that have not arrived and spending strength on them now.",
-      "ask": "Name one future cost you are already carrying, and put it down until someone asks.",
-      "core": "You are ahead of the moment. You can feel the need arriving before it lands — someone's shortfall, some group's gap — and you have already shaped yourself around fixing it. The strength is real. The timing is not. You are spending weight on loads nobody handed you, and pressing that hard costs you the very contact it was meant to make.\n\nThe way back is fairness, not more force. Your own sense of what is right, felt plainly, can tell you which costs are actually yours and which you picked up early. Set one of them down and leave it with its owner for a day. Notice what you are owed as cleanly as you notice what you owe. Then support can move again instead of pressing.",
-      "sheetLine": "You are carrying needs that have not arrived yet.",
-      "verb": "sharing your strength outward through structure",
-      "place": "the open place where nothing has chosen its shape yet",
+      "tense": "You will have handed your strength out past what you had, and you will still be looking for the next one who needs it.",
+      "act": "keep your own count of what is owed, and pay it",
+      "ask": "Set who you're helping and what each cost beside what comes back to you, and see whether the two sides line up.",
+      "core": "You're spending ahead. Someone needs something and your hand is already open — money, hours, the strength to fix it — before you've checked whether it was yours to carry. From the outside this still looks like generosity. From the inside it's getting hard to tell where helping ends and bracing begins. When you've given past your own supply, the ones close to you start needing you to be fine, and nobody says so.\n\nGiving less isn't the answer. Being honest about the ledger is. List who you're carrying and what it costs, beside what they carry for you. Two columns, no rounding in your own favour. Keep the page private. You'll see the shape of it in about a minute — where there's surplus, and where you've been paying quietly and calling it love.",
+      "sheetLine": "You give until there's nothing left to give from.",
+      "verb": "to share strength outward, in measure, with the people near you",
+      "place": "in the open field before anything has been chosen",
       "provenance": {
         "signature_id": 57,
         "position_id": 0,
@@ -59,19 +71,29 @@
         "partner": "Conscience",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (ledger, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it love\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -83,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped putting your strength outward and never quite came forward again.",
-      "ask": "Choose one small resource you can give this week, finish giving it, and let it be done.",
-      "core": "There is a strength here you are not putting outward. You can still hold and still endure, but the sharing part has gone quiet, and the space stays open because nothing has committed to it. What is missing is not ability. It is the act of testing commitment through real engagement, small and specific.\n\nStart where you can finish. Give something that costs little, complete it, and let that completion release you instead of asking you to keep pouring. That release is not defeat; it is what lets the next thing be possible. Let someone witness the weight while you do it, and leave the lifting to them.",
-      "sheetLine": "You have strength to share and you have stopped sharing it.",
-      "verb": "sharing your strength outward through structure",
-      "place": "the open place where nothing has chosen its shape yet",
+      "tense": "You were strong enough to carry things to people once, and the carrying stopped.",
+      "act": "drop the wrong approach and keep the commitment",
+      "ask": "Think of somebody you still mean to stand by, and change how you reach them — a different contact, or a smaller one — even if the old way is what you know.",
+      "core": "You are not hard or stingy. Some form of giving got set down at a point you may not remember choosing, and being set down became the norm. The people who used to get your help have quietly stopped asking. A door you meant to walk back through is still behind you, and you haven't noticed that it's behind you.\n\nYou don't have to get big again. Pick somebody you still mean to stand by, and change the method — a shorter visit, a different kind of help, one thing instead of everything. The commitment stays; the way you meet it doesn't have to look like it used to. Small works here. What got interrupted wasn't your strength. It was the form you were doing it in.",
+      "sheetLine": "The strength you were going to share stayed with you.",
+      "verb": "to share strength outward, in measure, with the people near you",
+      "place": "in the open field before anything has been chosen",
       "provenance": {
         "signature_id": 57,
         "position_id": 0,
@@ -97,19 +120,14 @@
         "partner": "Dedication",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -121,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already giving your strength outward and calling it something that just happens.",
-      "ask": "Say plainly, once, that one thing you did today that kept someone else standing.",
-      "core": "Look at the shape you are already making. Resources move through you toward the people who need them — in how you steady someone, what you quietly cover, where you show up. You describe it as if the situation were doing the work. The sharing is running. The ownership is not. That open, undecided place is being written in your hand already, and you keep calling it nobody's move.\n\nDirection would name it. Not a plan, but a light you can point to and say that is why. Pick one thing you gave this week and say out loud that you chose it. You don't have to make it louder or bigger. Let what you are cultivating finish enough that you can stand in its light without denying it.",
-      "sheetLine": "You are already carrying people here. You just haven't claimed it.",
-      "verb": "sharing your strength outward through structure",
-      "place": "the open place where nothing has chosen its shape yet",
+      "tense": "You are already steering by a direction you chose, and it has not been named as yours.",
+      "act": "turn toward the one direction and stop surveying",
+      "ask": "Look at where your effort went this week, find the heading it kept, and say that heading was your choice.",
+      "core": "Something in your life has been turning toward a chosen direction and gathering weight, and it isn't filed under your name. You may be calling it circumstances, or how the month went, or what someone needed. It's been a heading the whole time. Support moves by measure, and you've been metering — choosing what gets your strength and what doesn't — while the deciding stayed off the record.\n\nStop surveying. More than one direction was open, and the one you keep returning to is the one. Say it plainly, in a sentence, as something you picked. That may feel like overclaiming. It isn't. The steering has been yours throughout, and the only thing missing is your own word on it — one sentence, where you can see it.",
+      "sheetLine": "You've been heading somewhere by choice. Put your name on it.",
+      "verb": "to share strength outward, in measure, with the people near you",
+      "place": "in the open field before anything has been chosen",
       "provenance": {
         "signature_id": 57,
         "position_id": 0,
@@ -135,19 +154,14 @@
         "partner": "Orientation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"turn toward the one direction and stop surveying\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -161,20 +175,32 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5713,
+      "ms": 6934,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
+          "code": "scope",
+          "detail": "\"without it costing you\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the star you steer by\"",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that other people can see\"",
           "hard": true,
           "status": 1
         },
@@ -185,20 +211,32 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "\"your giving\" — a verb turned into a mystical noun",
+          "detail": "\"The giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (ledger, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it love\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -210,7 +248,7 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"already taken the shape of\"",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 2
         },
@@ -221,44 +259,342 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"habit and the people who\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that what is unspent still moves outward toward people; the record says support is underway, not that it reaches anyone here, so a reader could reasonably say the giving is only happening inside them. The acts survive being wrong because each one is small, self-contained, and teaches something about steering even if the read misses. The sentence that serves me more than them is the one about quiet generosity; it flatters the card and would let the person sit still, so I left it out."
+    },
+    {
+      "attempt": 2,
+      "ms": 4574,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "vocab",
           "detail": "\"the giving\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (ledger, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it love\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that strength is already reaching others; the record says it is shared in measure, and could be moving inside the person only, so the reader could reasonably say the giving has not landed anywhere yet. The asks survive being wrong because each is one small act the person can do alone and learn from, none of them requiring the read to be true. The sentence that serves me more than them is the quiet-generosity line; it admires the card and would let the person stop, so it stays out."
+    },
+    {
+      "attempt": 3,
+      "ms": 3839,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (ledger, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it love\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the ledger\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"turn toward the one direction and stop surveying\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that strength is already reaching others; the record says it is shared in measure and could still be moving only inside the person, so a reader could reasonably say nothing has landed anywhere yet. The asks survive being wrong because each is one small act done alone, and each teaches something about steering even if the read misses. The sentence that serves me more than them is the quiet-generosity line; it admires the card and would let the person sit still, so it stays out."
+    },
+    {
+      "attempt": 4,
+      "ms": 3341,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (ledger, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "hunch",
+          "detail": "\"calling it love\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"let one person see the\"",
-          "hard": true,
-          "status": 3
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -269,114 +605,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is the person's motive history — that giving more once went badly, or that they learned to keep resources from people. The cards only show the Support capacity's current playing-out in the Potential seat, so I must locate the mechanism without telling the story behind it. The reader could reasonably say 'some of that isn't me', so every cell stays narrow enough to refuse and still use. The ask survives being wrong because it is an outward, completion-facing act that helps regardless of diagnosis. The sentence that serves the writer instead of the person is 'You know how it went last time.' — cut from the final cells."
-    },
-    {
-      "attempt": 2,
-      "ms": 3812,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the pushing is costing you\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"without asking them to lift\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"turn toward the one direction and stop surveying\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -387,171 +617,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is any account of what the person learned or when they withdrew — the record shows the capacity's current shape, not its history, so the past-tense cell locates the quieting without naming a moment or a cause. A reader could fairly say the bold version is too certain, so each cell states the mechanism and leaves them room to correct it. The ask survives being wrong because it is a small outward act that helps whether or not the read fits. The sentence that serves the writer more than the person — 'You know how it went last time' — is not in any cell."
-    },
-    {
-      "attempt": 3,
-      "ms": 3128,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"let one thing stay theirs\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is any account of when the offering quieted or what it cost — the record shows the capacity's current shape, not its history, so the past-tense cell locates the quieting without naming a moment or cause. A reader could fairly say the bold version is too certain, so each cell states the mechanism and leaves room to correct it. The ask survives being wrong because it is a small outward act that helps whether or not the read fits. The sentence that serves the writer more than the person — 'You know how it went last time' — is not in any cell."
-    },
-    {
-      "attempt": 4,
-      "ms": 3087,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is any account of when the outward strength quieted or what it cost — the record shows the capacity's current shape, not its history, so the past-tense cell locates the quieting without naming a moment or a cause. A reader could fairly say the bold version is too certain, so each cell states the mechanism and leaves room to correct it. The ask survives being wrong because it is a small outward act that helps whether or not the read fits. The sentence that serves the writer more than the person — 'You know how it went last time' — is not in any cell."
+      "check": "The unsupported claim is that strength is already reaching others; the record says it is shared in measure and could still be moving only inside the person, so a reader could reasonably say nothing has landed anywhere yet. The asks survive being wrong because each is a small act done alone, and each teaches something about steering even if the read misses. The sentence that serves me more than them is the quiet-generosity line; it admires the card and would let the person sit still, so it stays out."
     }
   ],
   "usage": {
-    "input": 3680,
-    "output": 4213
+    "input": 8098,
+    "output": 4849
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:45:42.076Z"
+  "date": "2026-10-02T12:22:43.048Z"
 }

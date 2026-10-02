@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now the exchange runs even between you and the people walking beside you.",
-      "ask": "Name one thing you are owed and have stopped counting, and ask for it out loud today.",
-      "core": "Things come back to you at about the rate they go out. You do not have to do the arithmetic. When something is off you feel it, say it, and it gets settled — no grudge kept warm, no scorecard under the table. Most people either give past their limit or stop giving to protect the count.\n\nYou do neither. You keep moving and keep the exchange honest at the same time, and because both are running, the thing up ahead stops being the only thing on the road. Staying here is quiet, not heroic — the checking stays light. Start auditing every trade in your head and the road shortens and the walking companions drift back. Let the fairness stay plain. There is one person you have gone silent with about something owed — say the words today.",
-      "sheetLine": "You keep the exchange even while you move.",
-      "verb": "keeping the exchange even as you move",
-      "place": "the road where the goal is still up ahead",
+      "tense": "You are here with your hand on the pace of this, and the thing is moving.",
+      "act": "hold the new form steady",
+      "ask": "Name the one thing this stretch of work just secured, and keep it exactly where it is — same terms, unchanged — so it can't quietly drift back.",
+      "core": "You keep a fair exchange running. What you put into the work and what comes back are roughly level, and you notice when they aren't without it turning into a whole accounting. Momentum here isn't force. It's the steady tick of something you're holding direction on, still moving because you didn't stop.\n\nWhat this stretch produced is fresh and easy to lose. Keep the piece that just settled exactly where it is, on the same terms, for now — a rate, a habit, a part of the work you only just built. Hold it still while the run continues around it. What feels like the next push is usually a step past the thing worth protecting first.",
+      "sheetLine": "The exchange is even. Keep it steady for now.",
+      "verb": "trading fairly with people, giving and receiving in even measure",
+      "place": "on the course of a goal you're holding direction on",
       "provenance": {
         "signature_id": 47,
         "position_id": 7,
@@ -26,14 +27,24 @@
         "partner": "Preservation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "Somewhere ahead the books are already settled in your head, and you are paying now for a return that has not happened yet.",
-      "ask": "Pick one thing you have been carrying for someone, put it down for a day, and say nothing about it.",
-      "core": "You are moving ahead of the actual trade. In your head this one comes out even at some point down the road, so you front what should be shared and call it being ahead of the game. The comfort has a hook in it: each kindness gets weighed against a return still out ahead. The weighing is what drains you, not the load.\n\nPeople can feel the hook. They get the help and the expectation together, and they step back, which makes you push more. What this wants is holding without forcing — the kind that endures pressure and does not crush the other person with it. You do not have to make fairness arrive on your schedule. Let this burden stay with its owner. The road is still there in the morning.",
-      "sheetLine": "You are paying now for fairness that has not arrived.",
-      "verb": "keeping the exchange even as you move",
-      "place": "the road where the goal is still up ahead",
+      "tense": "You are reading the ledger and the road at once, out past where the work stands.",
+      "act": "carry your own share, all of it",
+      "ask": "Carry the share this goal actually asks of you — all of it, quietly — and don't glance at who owes what till it's finished.",
+      "core": "Out at the point of finishing, fairness is being run ahead of itself. The balance gets checked before anything has had a chance to land — who gave what, who's owed — and the same grip is on the goal: pushed further along than the work can go, so you're braced at a date that hasn't arrived. Exchange stops feeling like exchange and starts feeling like a count being kept.\n\nOne load, carried the whole way, quietly, brings the grip back to a size you can hold. Not a tally — your share, the piece this goal asks of you, done steadily while nobody watches the books. The ledger can sit untended for a while. Fairness tends itself better when no one is tracking it second by second.",
+      "sheetLine": "You check the balance before it's had time to land.",
+      "verb": "trading fairly with people, giving and receiving in even measure",
+      "place": "on the course of a goal you're holding direction on",
       "provenance": {
         "signature_id": 47,
         "position_id": 7,
@@ -59,19 +71,19 @@
         "partner": "Steadfastness",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -83,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You stand at a door you have already walked past, where the trade did not come out even.",
-      "ask": "Write down what you actually bring to one person, then send it to them without softening it.",
-      "core": "You stopped expecting anything to come back, so you stopped offering much. It is not coldness — more a flat tiredness. You watch other people trade easily and it looks like a language you used to speak. The motion is still in you somewhere, but it has no direction, because the aim keeps sliding back to that door.\n\nWhat is starved is not your drive. It is your ability to tell a real offer from an old reflex — to sort one from the other. That sorting is a practice, and it starts small: one person, one honest account of what you bring, no performing. Do it alone first if that is easier. The point is to get your own measure back before putting it in front of anybody.",
-      "sheetLine": "You stopped expecting a return, so you stopped offering.",
-      "verb": "keeping the exchange even as you move",
-      "place": "the road where the goal is still up ahead",
+      "tense": "You are where the exchange stopped, and the road has carried on without you.",
+      "act": "sort what matters from what does not, carefully",
+      "ask": "Go through what this goal has been waiting on — a missing reply, a stalled signal — and sort each item: does it still matter, or has it stopped.",
+      "core": "Something in the exchange stopped, and you haven't moved past the spot. What you put in keeps going out, and little comes back, or none does. The goal you were carrying direction on sits where you left it, waiting on a signal that already came, or might not come. It isn't that fairness broke. It's that no new current has arrived to carry the thing forward.\n\nSorting, not pushing, gets it moving again. Don't send the next thing. Don't chase the answer. Take what the goal has been waiting on and run it past yourself once, close attention, a hard look at whether it still matters. Whichever way each item falls, the road gets a clear patch to step onto.",
+      "sheetLine": "The exchange stopped. You're where it stopped.",
+      "verb": "trading fairly with people, giving and receiving in even measure",
+      "place": "on the course of a goal you're holding direction on",
       "provenance": {
         "signature_id": 47,
         "position_id": 7,
@@ -97,24 +110,19 @@
         "partner": "Honing",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (current, road) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -126,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already setting the terms of the exchange and calling it circumstance, or the other person's idea.",
-      "ask": "Say out loud, to the person across from you, that a fair thing between you was your doing.",
-      "core": "You set the terms a while back. The deals you make, the way you split things, the small corrections you run when someone takes too much — that is your hand. Describing it, though, you leave yourself out, as if the situation arranged itself. The fairness is already running; your name is not on it. There is an act here — knowing what is true and holding it quietly before speaking it — and it is already yours.\n\nThe claim matters, because something no one owns can slip without anyone noticing, you included. One sentence to the right person puts the account in your name, where you can keep it honest.",
-      "sheetLine": "The fairness is yours. You call it circumstance.",
-      "verb": "keeping the exchange even as you move",
-      "place": "the road where the goal is still up ahead",
+      "tense": "You are holding the exchange fair through this stretch and calling it what simply happened.",
+      "act": "write both sides of it on one page and close the page",
+      "ask": "Set both sides of one question in this goal on a page — what you're fairly owed, what you fairly owe — then close the page and get on with your day.",
+      "core": "You keep the give and take honest through this stretch, in the middle of a run toward something — smoothing the exchange between people, holding your own end, adjusting when the balance tips — and your account of it is that things settled that way on their own, that there was nothing much to decide. The steering is happening. The one doing it isn't in the story.\n\nBefore you were the person keeping it fair, you knew, quietly, what was true about a situation, and that came first. You have that same sense about this goal right now, and it hasn't been trusted as yours. Before you say what you know — to anyone, or into the goal itself — set both sides down on one page. Then close it. What's known doesn't need to be declared. It only needs to be held, and held by its owner.",
+      "sheetLine": "You keep the balance even and say it did itself.",
+      "verb": "trading fairly with people, giving and receiving in even measure",
+      "place": "on the course of a goal you're holding direction on",
       "provenance": {
         "signature_id": 47,
         "position_id": 7,
@@ -140,29 +149,14 @@
         "partner": "Reflection",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -171,35 +165,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6986,
+      "ms": 7038,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (ledger, road) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -207,69 +177,51 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Steadfastness does\") — the act in plain words, the name once at most",
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "detail": "\"The giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (current, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "\"two piles\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -279,47 +231,27 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"long ago\" — a duration the person never gave",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Reflection does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record already gives me the door for Too Little — a room where saying it didn't go well — and for Too Much the forward tilt of fairness. The risk is that Drive (focused motion, not aggression) gets read as 'goal-chasing' and I write four cells about personal ambition rather than about how fairness travels between two people; the reader would reasonably say 'this is about my own pace, not about giving and getting.' A second risk: in Too Little I'm tempted to make the old room a wound with a cause, which the record doesn't say and the rules forbid. The asks survive being wrong because each is one visible act — make a list, put it in a message, offer one trade — that teaches something about exchange even if I've misread where it sits. The sentence that serves me more than the person would be any line where I sound like I know what the fairness cost."
+      "check": "The record does not say whether what's being given is being counted evenly or where any relationship stands, so each core sticks to the mechanism — exchange running through the room — and names no one's ledger. A reader could reasonably say the work is internal, not relational; the asks stay acts the person does with their own momentum, so if the reading is wrong about the relational side, sorting what's theirs, writing both sides, and holding one thing steady are still useful this week. The sentence that serves me more than them would be any clean line about 'fairness flowing as if by second nature' — I have kept the plain mechanism instead."
     },
     {
       "attempt": 2,
-      "ms": 4907,
+      "ms": 3999,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -337,45 +269,21 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (current, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
           "status": 3
         },
         {
@@ -385,39 +293,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record stands behind: fairness moving between two people, seated in steady forward motion. What it does not support is any account of what the person's history was — the closed room in Too Little may not be described, only that standing at it is where they are. My own sentence that would serve me more than them: the 'you cannot protect what you will not claim' line in status four, which sounds wise and tells them nothing they can use. Everything below is written so a person who says 'no, that's not happening' still has one act and one way of looking."
+      "check": "The record does not say whether the exchange described is one specific relationship, a workplace, or a wider social field, so each core sticks to the mechanism — fairness moving through the room — and names no one's ledger. A reader could reasonably say the work is internal, not relational; the asks stay acts the person does with their own momentum, so if the read is wrong about the relational side, sorting one stalled item, writing both sides on a page, and holding one thing steady are still useful this week. The sentence that serves me more than them would be any clean line about 'fairness flowing as if by second nature' — I have kept the plain mechanism instead."
     },
     {
       "attempt": 3,
-      "ms": 3893,
+      "ms": 4098,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -425,20 +326,20 @@
           "status": 1
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -449,61 +350,124 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (current, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 3
+          "status": 4
         },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record does not say whose exchange this is or how the accounts stand between any two people, so each core stays on the mechanism — fairness moving back and forth — and puts no ledger in anyone's hand. A reader could reasonably say the momentum trouble is internal, not relational; the asks are acts the person does with their own stride, so sorting a stalled item, writing both sides on a page, holding one thing steady, and carrying a share still work this week either way. The line that would serve me more than them is any smooth phrase about fairness flowing on its own — I have kept the plain mechanism instead."
+    },
+    {
+      "attempt": 4,
+      "ms": 3708,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (current, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports fairness moving through exchange, seated in steady forward motion; it does not support knowledge of the person's history, their private account of themselves, or any universal about how things go for them. The one claim I cannot stand behind when I look again is the word 'everyone' in Too Much — a statement about all their transactions, where the card is about one capacity in one kind of moment; narrowing it to 'in this one' rather than the general case. My sentence that serves me more than them, if I am honest, is any clean aphorism about ownership in the shadow cell — the person gets a pleasing line and no place to stand. Everything below is narrowed rather than hedged, and a person who says 'that is not what is happening' still has one visible act and one way of looking."
+      "check": "The record does not say whose exchange this is or how the accounts stand between any two people, so each core stays on the mechanism — fairness moving back and forth — and puts no ledger in anyone's hand. A reader could reasonably say the momentum trouble is internal, not relational; the asks are acts the person does with their own stride, so sorting a stalled item, writing both sides on a page, holding one thing steady, and carrying a share still work this week either way. The line that would serve me more than them is any smooth phrase about fairness flowing on its own — I have kept the plain mechanism instead."
     }
   ],
   "usage": {
-    "input": 2657,
-    "output": 3423
+    "input": 7886,
+    "output": 4979
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:38:05.027Z"
+  "date": "2026-10-02T12:11:57.769Z"
 }

@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "regression",
+  "group": "library",
   "signature_id": 50,
   "position_id": 11,
   "signature": "Fulfillment",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one carrying what you imagined, and you are still holding it up.",
-      "ask": "Say what you want one time, out loud, and then let them answer.",
-      "core": "You can say what you want without dressing it up first, and you don't need anyone to approve it before you mean it. What you imagined is real enough to you — you feel it, and it holds, and that's most of why it works. You count things and you don't stop counting. Somewhere in a room someone is deciding something that's yours to decide.\n\nYou've already answered for something this week and brought it back into the open. That's the shape of it: you ask, they answer, and nothing has to be undone afterward. Today it can tip the other way — you read the room before you speak, and by the time you've decided what's fair it's already happening. Ask for one thing plainly, once, and then let it sit where they put it.",
-      "sheetLine": "You can say what you want without dressing it up.",
-      "verb": "Imagining fully and feeling what was made",
-      "place": "Somewhere both people can still raise what needs raising",
+      "tense": "You are here with your pen, leveling what the satisfaction applies to before it disappears.",
+      "act": "find the rhythm and stay in it",
+      "ask": "Take a good thing you have finished and match what surrounds it — sleep, food, rest — to what the satisfaction actually holds. Move at the pace it can sustain. Then stop, not because the books balance, but because what you received is already in your hands.",
+      "core": "What you imagined has been fully felt, and you are working out what that feeling is worth. It does not need to be perfect. It needs to be measured, and you are the one with the pen.\n\nWhen something between you and the people near you is tilted — more given, less said, one side carrying what the other dropped — you bring it level. Not with a verdict. With a small act. You stop smoothing over a gap and speak the actual truth of what you wanted, or you take back a load someone else has been walking with since before anyone decided it was theirs to carry. The satisfaction gets tested in the open, cheaply, without a speech.",
+      "sheetLine": "You level the record before you can let the good thing have you.",
+      "verb": "Receiving what was imagined, fully and finally, and letting it satisfy",
+      "place": "The place where things between people are recalibrated to rest level",
       "provenance": {
         "signature_id": 50,
         "position_id": 11,
@@ -26,62 +27,34 @@
         "partner": "Alignment",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 2,
-      "tense": "You will be bracing for the moment this comes apart before anyone has even moved.",
-      "ask": "Choose one thing that's growing badly and let it be, for now.",
-      "core": "You're ahead of it — you've already seen who ends up owing what and how this gets unfair, and you're trying to settle it before it opens. You're treating what's not balanced yet as if it already broke. Closing that gap early keeps things square, but it costs you the part where it gets to work itself out.\n\nLoosened up, watching something grow doesn't mean holding it — you handle what needs handling and leave the rest where it is until it moves. You're carrying what hasn't happened. Pick one thing you're managing ahead of schedule, and this week leave it alone where it sits. Nothing gets worse from one week of not arranging it.",
-      "sheetLine": "You're settling a score that hasn't happened yet.",
-      "verb": "Imagining fully and feeling what was made",
-      "place": "Somewhere both people can still raise what needs raising",
-      "provenance": {
-        "signature_id": 50,
-        "position_id": 11,
-        "status": 2,
-        "partner_id": 53,
-        "partner": "Stewardship",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -97,13 +70,58 @@
       ]
     },
     {
+      "status": 2,
+      "tense": "You will keep refusing to enjoy it until some future you has negotiated first.",
+      "act": "steward it without clutching",
+      "ask": "Name one good thing already in your hands, and for a week do not improve it, extend it, or hedge it against a future that has not arrived. Tend what is there without clutching to make it hold. If that feels strange, the strangeness is where the bracing lives.",
+      "core": "You brace against a goalless future by holding what is already good in a grip that keeps it from being good now. Plans, stackings, small assurances — each one built to keep the satisfaction safe from a time that has not happened. Stewardship here is not a throttle, it is a steady hand: a vision grown under a steady hand and not a clenching one.\n\nWhen the future keeps being written in, the satisfaction does not get its own day. The grip is not something to be ashamed of; it started as care. But the grip is the part that does not get to feel the meal. Hold the good things looser and the hand that tends them also gets a minute to be present. The person across the table sees a hand that cares; they cannot tell yet that it is tired.",
+      "sheetLine": "A hand that tends too tight grows tired and calls it devotion.",
+      "verb": "Receiving what was imagined, fully and finally, and letting it satisfy",
+      "place": "The place where things between people are recalibrated to rest level",
+      "provenance": {
+        "signature_id": 50,
+        "position_id": 11,
+        "status": 2,
+        "partner_id": 53,
+        "partner": "Stewardship",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "ask 49 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
       "status": 3,
-      "tense": "You kept walking past the moment when what you wanted could have been said out loud.",
-      "ask": "Write down one thing you want. Then say it to one person.",
-      "core": "You know what you want, and somewhere along the line you stopped saying it. So now the room runs on what other people bring, and you keep the wider picture to yourself. None of that left. What left was the moment where you could put something on the table and let it count.\n\nWhen this is working, it's simple: you name what you want before you're sure it's fair, and you let the answer land where it lands. That's still yours to do. Nothing in you is broken from having waited; you just haven't used it in a while. Write one thing down for yourself, then say it to one person this week, accepting whatever they do with it.",
-      "sheetLine": "You know what you want. You stopped saying it.",
-      "verb": "Imagining fully and feeling what was made",
-      "place": "Somewhere both people can still raise what needs raising",
+      "tense": "You were at a door when the good news arrived and you did not fully step through it.",
+      "act": "hold two true things without declaring either",
+      "ask": "Keep both what was given and what you actually got — silently, past the point where you would usually report on it. Not explaining, not comparing, not announcing. What arrived will be in your hands without the account attached.",
+      "core": "A complete thing happened that you did not let take. You keep your voice low and your report short, and the satisfaction that was available went unmeasured. The door is behind you now, but you are still at it, telling anyone who asks that you did not really get it.\n\nThe old voice runs on what was withheld: taking, keeping, or being owed something. But satisfaction is not a claim you file; it is something you hold without arguing for it. Hold two true things — what you wanted and what you got — without settling either. The felt thing comes back without the account attached. You do not have to fix the chair to sit in it.",
+      "sheetLine": "You hold what you got and what you wanted, and wait.",
+      "verb": "Receiving what was imagined, fully and finally, and letting it satisfy",
+      "place": "The place where things between people are recalibrated to rest level",
       "provenance": {
         "signature_id": 50,
         "position_id": 11,
@@ -112,19 +130,39 @@
         "partner": "Reflection",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -136,12 +174,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already making fair calls, and you talk about it as if the room were doing the deciding.",
-      "ask": "Pick one call you make and say it was yours.",
-      "core": "You're already keeping things level — saying what's useful, adjusting when something tips, staying with what's actually here. It works, and it works well enough that you don't call it a keeping. You call it reading what's in the room, which is what it looks like from the inside.\n\nSomebody's going to bring up fairness soon, and you'll want to get it right. Before that conversation, take one call you made this week — one small call — and write it down as yours. Not as what the situation required. As something you decided. Then you'll know which decisions these are, and the next one will be easier to say out loud.",
-      "sheetLine": "You're the one keeping things level. You call it the room.",
-      "verb": "Imagining fully and feeling what was made",
-      "place": "Somewhere both people can still raise what needs raising",
+      "tense": "Your pen is down in a room you are already keeping level without knowing it.",
+      "act": "refine one distinction by close attention",
+      "ask": "Catch yourself smoothing a decision, easing a tension, or heading off what might offend — as it happens. Not changing it, not announcing it. Just clock the moment. What is seen becomes a distinction you can shape.",
+      "core": "You feel the satisfaction of having imagined something fully, and you have not given yourself credit for it. The thing works; someone is kept level around you; the account says it just happens this way and the person doing the work stays unnamed. Your own satisfaction is being authored by the room, not by you.\n\nRefine one distinction by close attention, not by force: watch yourself hold a thing level, or keep a promise no one remembers, or carry the answer someone else needed. Notice it while it is happening. You cannot accidentally stop being the one who does it; you can only refuse to see it. Practice flows without force when the work is named to itself. Let such a moment be counted, and the account starts running the right way.",
+      "sheetLine": "A level room is a hand you do not see doing it.",
+      "verb": "Receiving what was imagined, fully and finally, and letting it satisfy",
+      "place": "The place where things between people are recalibrated to rest level",
       "provenance": {
         "signature_id": 50,
         "position_id": 11,
@@ -150,14 +189,14 @@
         "partner": "Honing",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -171,57 +210,63 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4696,
+      "ms": 8149,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "ask 52 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"when it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (4 words) more than the medicine's (0) — the card prescribing itself",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "ask 52 words (≤40)",
           "hard": false,
           "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
           "status": 2
         },
         {
@@ -231,8 +276,160 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "ask 54 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (4 words) more than the medicine's (2) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 54 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the positive form of this signature — satisfaction in what was imagined and fully felt, with fairness toward others — but it cannot tell how this person's satisfaction is currently running: satisfied, gambled ahead, deferred, or unrecognized while still being kept. A reader could reasonably say the image of leveling the record to reflect what's been received is my invention; the mechanism (receiving the satisfaction properly calibrated in this seat) is the record's, but the specific picture is not. The ask in each cell survives being wrong because it is one bounded act from the person's own medicine, useful regardless of diagnosis. The sentence that serves the writer more than the person is the Too Little line about a room 'still short of what was actually deserved' — it flatters the writer's empathy and quietly writes the person's story for them; it has been cut from the cell."
+    },
+    {
+      "attempt": 2,
+      "ms": 4550,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (3 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 49 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
@@ -243,21 +440,33 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -268,7 +477,13 @@
         },
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -277,32 +492,54 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person is satisfied with what they actually imagined and felt — the record says self-praise may be at stake, so I avoid making the record's description of the card sound like a verdict on their state; the reader could reasonably say 'I'm not satisfied at all, I'm just not fighting what's here.' The asks are still useful if I'm wrong about which of those is happening, because each is an action that works regardless of whether the diagnosis is about satisfaction or exhaustion. The sentence that serves the writer more than the person is any line that would make them feel praised for not counting — the plain thing is the asking-and-answering, not the not-tallying."
+      "check": "The record supports the positive form of this signature — satisfaction in what was imagined and fully felt, with fairness toward others — but it cannot tell how this person's satisfaction is currently running: satisfied, gambled ahead, deferred, or unrecognized while still being kept. A reader could reasonably say the image of leveling the record to reflect what's been received is my invention; the mechanism (receiving the satisfaction properly calibrated in this seat) is the record's, but the specific picture is not. The ask in each cell survives being wrong because it is one bounded act from the person's own medicine, useful regardless of diagnosis. The sentence that serves the writer more than the person was the Too Little line about a room 'still short of what was actually deserved' — it flatters the writer's empathy and quietly writes the person's story for them; it has been cut from the cell."
     },
     {
-      "attempt": 2,
-      "ms": 3327,
+      "attempt": 3,
+      "ms": 4187,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -311,53 +548,71 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 49 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "length",
           "detail": "core 116 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -367,8 +622,8 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -379,101 +634,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's balance here is about speaking up or staying silent on what they want; Equity can be running on any exchange, and I may be reading my own first draft's theme back in. The reader could reasonably say the leveling is in how they split work, money, or time — not in whether they say what they want. Each ask survives that: asking for one thing plainly, leaving one managed thing alone, writing down one want, or claiming one call all work whether the imbalance is spoken or unspoken. The sentence that serves the writer more than the person is the one that makes waiting or not-counting sound noble; the plain thing is the asking and the answering, not the not-tallying."
-    },
-    {
-      "attempt": 3,
-      "ms": 2905,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's imbalance here turns on speaking up about what they want; Equity can be running on any exchange — work, money, time — and I may be reading my own theme back in. The reader could reasonably say the leveling is about chores or pay, not about saying things out loud. Each ask survives that: asking for one thing plainly, leaving one managed thing alone, writing down one want, and claiming one call all work whether the imbalance is spoken or unspoken. The sentence that serves the writer more than the person is any line that makes waiting or not-counting sound noble; the plain thing is the asking and the answering."
+      "check": "The record supports the positive form of this signature — satisfaction in what was imagined and fully felt, with fairness toward others — but it cannot tell how this person's satisfaction is currently running: satisfied, gambled ahead, deferred, or unrecognized while still being kept. A reader could reasonably say the image of leveling the record to reflect what's been received is my invention; the mechanism (receiving the satisfaction properly calibrated in this seat) is the record's, but the specific picture is not. Each ask is one bounded act from the person's own medicine — Alignment, Stewardship, Reflection, Honing — not from the card, and each survives being wrong because the act is useful regardless of diagnosis. The sentence that serves the writer more than the person was the Too Little line about a room 'still short of what was actually deserved' — it flatters the writer's empathy and quietly writes the person's story for them; it is cut. The clock words and the 'one thing' tic have been removed or replaced so the quartet varies in shape and timing."
     }
   ],
   "usage": {
-    "input": 2569,
-    "output": 3131
+    "input": 7096,
+    "output": 4105
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:29:57.767Z"
+  "date": "2026-10-02T12:15:54.384Z"
 }

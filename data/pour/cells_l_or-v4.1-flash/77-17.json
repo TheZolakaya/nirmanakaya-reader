@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Body",
+  "group": "library",
   "signature_id": 77,
   "position_id": 17,
   "signature": "Executor of Structure",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here now and the building has your full weight behind it.",
-      "ask": "When one thing is done, sit with a person beside it before starting the next. Let them see the finished thing with you.",
-      "core": "You build like someone who knows what lasts. Not rushing, not waiting for permission — steady on the ground, choosing what to raise and raising it. The pull toward what is real and good is steering, and your hands are doing what hands do when they are that sure.\n\nWhat keeps this clean is that the building does not close you off. People feel it and come near. That is the part worth guarding: when the work is good, let it stay open long enough to be shared, not only finished. Often the next right thing arrives through someone standing next to what you already built.",
-      "sheetLine": "You are building steadily and you can still be reached in it.",
-      "verb": "building something solid and staying with it",
-      "place": "standing where the next real thing is felt before it is seen",
+      "tense": "You are here, now, with the work in your hands and the light still ahead.",
+      "act": "ask how it feels to them and stay with the answer",
+      "ask": "Next time you're building toward what you want, ask the person closest to it how it feels from where they stand — then hold their answer a beat and don't reach to fix anything.",
+      "core": "You can build toward what you can't yet see. The light you're steering by is real to you, and your hands keep making the thing that belongs in it. When the next stretch is dark, you lay one step and stand on it. That's the strength here — embodied, in the body, in the work.\n\nWhat's free to come next is the person beside you in it. You feel your way toward the light on your own by default; the pull is strong enough to hide how alone it is. Ask someone walking it how it feels from where they stand, and hold their answer — not to adjust the build, just to be in it with them. Being close without merging is the invitation here. What you make after that is still yours. It's made in the same room as their fear or their hope, which is a different thing.",
+      "sheetLine": "You build toward the light, and you build alone by default.",
+      "verb": "Build the one thing that holds, out of what's already in your hands.",
+      "place": "Where you steer by light you can't yet see, in the part of you that keeps pulling toward it.",
       "provenance": {
         "signature_id": 77,
         "position_id": 17,
@@ -26,14 +27,14 @@
         "partner": "Steward of Resonance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -45,12 +46,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living past the next three steps before the present one is done.",
-      "ask": "Finish one thing and stop there for a day. Do not start what is next, even if the plan is ready.",
-      "core": "You are racing the plan. Somewhere ahead there is a place where every stone is set and nothing can fall — so you build for that place instead of the one in front of you. The pull toward light gets used as a schedule, and the schedule does not let you rest.\n\nWhat is missing is not effort or vision. It is the pause after finishing. You can hold something heavy without forcing it, but right now you are forcing it by not letting it be done. One more load and then another. The strength you have is built for holding, not for outrunning. Put something down and let the ground carry it for a day.",
-      "sheetLine": "You are building ahead of time, not on time.",
-      "verb": "building something solid and staying with it",
-      "place": "standing where the next real thing is felt before it is seen",
+      "tense": "Your hands are laying tomorrow's structure over a stretch tomorrow hasn't shown you.",
+      "act": "make the fair call about a feeling, yourself",
+      "ask": "Choose one person in this build and make the fair call on the feeling between you — what it asks of them weighed beside what it gives back — then say it plainly, once.",
+      "core": "The future is getting structures thrown over it before any of it has shown itself. Every unlit stretch gets covered so it can't surprise you, and the structures are heavier than anyone can carry. What was strength has turned into bracing. The people in this with you carry scaffold they didn't ask for, and you're calling it the plan.\n\nA fair call is needed here, not more construction. Choose one person in this, and judge the feeling between you honestly — weigh what it asks of them beside what it gives back — and say it out loud, once, without building a case around it. You're someone who decides what to build because you know what it costs; turn that same clear eye on the emotional load. The road gets lighter. A stretch of honest dark opens, and the next step is sitting there, under the scaffold, waiting.",
+      "sheetLine": "You're building over the dark so it can't show you anything.",
+      "verb": "Build the one thing that holds, out of what's already in your hands.",
+      "place": "Where you steer by light you can't yet see, in the part of you that keeps pulling toward it.",
       "provenance": {
         "signature_id": 77,
         "position_id": 17,
@@ -59,19 +61,39 @@
         "partner": "Executor of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"scaffold they didn't ask for\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -83,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door you already walked through, waiting for a sign that did not come.",
-      "ask": "Pick one thing you finished long ago and say out loud that it is done. Then close the drawer on it.",
-      "core": "The strength is there. You can see it in how you still carry what you carried before. But it is not arriving here, in the present, because part of you is still back at the start of something — waiting to see whether it counted. The pull toward what is real got stuck at the gate.\n\nWhat this is not is lost strength. It is energy that did not come home. You do not have to push harder or feel more; you can let something that is over be over. When you mark one finished thing as finished, the current that has been standing still starts moving again. The next real thing is visible from here. It was only hidden behind the last one.",
-      "sheetLine": "The work is done. Part of you is still waiting for the first stone.",
-      "verb": "building something solid and staying with it",
-      "place": "standing where the next real thing is felt before it is seen",
+      "tense": "You are standing at a door that isn't the one you're in anymore.",
+      "act": "release what is done and keep what is not",
+      "ask": "Pick something in this build that's finished — done, over — and set it down once this week, by your own hand. Then see what your hands are actually holding.",
+      "core": "The light is still there, and your hands have gone still. You're holding to a condition, a guarantee, a not-yet — something that isn't the one you're in anymore — and nothing will move without it. The strength is present; you can feel it in your palms. No step is being laid. The waiting has become the stance, and the waiting is doing the building now.\n\nWhat moves you through isn't more push. Take the thing in this that is finished — a structure you've kept upright for no one's good — and release it. Not the whole build. Just that one. Set it down and see what your hands are actually holding; it'll be lighter than you expect and more yours than you thought. Letting go as fulfillment, not as giving up. A foot lands on new ground, and the next patch of light shows itself. That is how this road works.",
+      "sheetLine": "You'll only build where it's already guaranteed, so you've stopped.",
+      "verb": "Build the one thing that holds, out of what's already in your hands.",
+      "place": "Where you steer by light you can't yet see, in the part of you that keeps pulling toward it.",
       "provenance": {
         "signature_id": 77,
         "position_id": 17,
@@ -97,24 +120,34 @@
         "partner": "Executor of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "two images in one core (gate, current) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the strength is present you\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -126,12 +159,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already steering by a light you have not named, and you still call it chance.",
-      "ask": "Tell someone one thing you made because it was right to make, not because it was asked for. Say only that.",
-      "core": "You are already building toward something you can feel. The choices you make have a direction in them — what you keep, what you let go, what you start again. It has been happening for a while. But you describe it as the circumstances arranging themselves, not you.\n\nThe pull is real. The light is yours. What is missing is only the saying-so. When you name one thing as yours, the direction gets a place to land, and the building stops being a reaction. It becomes a direction you chose. That is not a new burden. It is seeing something you have been doing, and saying so.",
-      "sheetLine": "You are already following a light. You just call it circumstance.",
-      "verb": "building something solid and staying with it",
-      "place": "standing where the next real thing is felt before it is seen",
+      "tense": "You're writing and the pen feels like it isn't yours, here, in the room you built.",
+      "act": "start something for the spark of starting",
+      "ask": "Start something in this direction with no hand on it but yours — no one waiting, nothing it has to do yet. Begun because the beginning is the part you like.",
+      "core": "You've been laying solid ground for other people through a long stretch, and your version has you being practical about it. The light exists because you keep building toward it. The road under their feet is your work, and you speak about it as if it were terrain you found rather than something your hands made. The people walking it have no reason to correct you.\n\nWhat's gone quiet is the spark that started it. Before you were building for them, you were someone who started things because starting felt good. Begin a build out here that belongs to you entirely — no one waiting on it, nothing it has to do yet. The road shows your footprints, and they were there before anyone walked it. Radiance comes back when what you've cultivated is finally allowed to be seen as yours.",
+      "sheetLine": "The path under their feet is your work, and you'd say you were only getting on.",
+      "verb": "Build the one thing that holds, out of what's already in your hands.",
+      "place": "Where you steer by light you can't yet see, in the part of you that keeps pulling toward it.",
       "provenance": {
         "signature_id": 77,
         "position_id": 17,
@@ -140,34 +174,29 @@
         "partner": "Initiate of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false
-        },
         {
           "code": "vocab",
           "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"beginning is the part you\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -176,135 +205,171 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5780,
+      "ms": 5784,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"a version of this where\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (gate, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "glass",
           "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 4
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"stay with what they say\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"medicine\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "hunch",
           "detail": "\"all along\" — a motive the cell cannot know",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"what it costs them against\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is being built before the\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"then look at what's left\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"medicine\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that's yours alone before you\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -314,31 +379,24 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The draft risks claiming the person deliberately overbuilt or is choosing to hide the pull; the record only supports structure-building behavior becoming what they consult instead of their own direction. A reader could reasonably say they simply prefer working to feeling. The asks survive this because each one asks for a single act, not a confession."
+      "check": "The unsupported claim: that the person's strength in this seat is currently *bent* by bracing or withdrawal in a way they will recognise — the record gives the seat and the status, not the person's history, so the cells describe the mechanism's motion rather than naming events. A reader could reasonably say 'I don't recognise myself in that' — the asks survive because each is one act from the partner's own medicine, useful whether or not the read is right. The sentence that serves the writer more than the person is any 'you've always' or 'underneath' clause that converts a status into a verdict."
     },
     {
       "attempt": 2,
-      "ms": 3256,
+      "ms": 3759,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
           "status": 1
         },
         {
@@ -348,14 +406,50 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"for a minute and don't\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"them against what it gives\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before the dark has shown\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -366,26 +460,14 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (gate, current) — one at most, usually none",
+          "detail": "two images in one core (door, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -396,22 +478,34 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 4
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you've kept standing past its\"",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
@@ -420,8 +514,20 @@
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before you know what it's\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -430,26 +536,20 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The draft risked turning a behavior into destiny and leaning on map words like 'capacity' and 'star'; the record supports only that steady building is what this person consults, not that they chose it or that it hides a buried motive. A reader might say they just like working with their hands and finishing things, which the asks still survive because each asks for one visible act, not a confession. The sentence that served the writer more than the person was the one calling their follow-through a schedule they made; the record does not say they made it."
+      "check": "The unsupported claim: that the person's strength in this seat is currently bent by bracing or withdrawal in a way they will recognize — the record gives the seat and the status, not the person's history, so the cells describe the mechanism's motion rather than naming events. A reader could reasonably say 'that's not what's happening' — the asks survive because each is one act from the partner's own medicine, useful whether or not the read is right. The sentence that serves the writer more than the person is any 'you've always' or 'underneath' clause that converts a status into a verdict; those are gone."
     },
     {
       "attempt": 3,
-      "ms": 2934,
+      "ms": 4183,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
@@ -460,14 +560,38 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"heavier than the walking what\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -479,13 +603,19 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (gate, current) — one at most, usually none",
+          "detail": "3 images in one core (door, room, road) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -496,16 +626,28 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"stop holding it let it\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
@@ -514,8 +656,20 @@
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"no one waiting on it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -526,19 +680,266 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim: that the strength in this seat is currently bent by bracing or by withdrawal in a way the person will recognise — the record gives the seat and the status, not their history, so the cells describe the mechanism's motion rather than naming events. A reader could reasonably say 'that's not what's happening' — the asks survive because each is one act from the partner's own medicine, useful whether or not the read lands. The sentence that serves the writer more than the person is any clause that turns a status into a verdict about who they are; those are gone. The quartet's act shapes are varied: sit with an answer, say a fair call out loud, set a finished structure down, begin a build."
+    },
+    {
+      "attempt": 4,
+      "ms": 3584,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"with you are carrying scaffold\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and nothing in you will\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"begun because beginning is the\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The draft still risks turning a behavior into a settled trait and leaning on map words like 'capacity' and 'star'. The record supports only that steady building is what this person consults, not that they chose it or that it hides a buried motive. A reader might say they just like finishing things well, which the asks survive because each asks for one visible act, not a confession. The sentence that served the writer more than the person was the one making their follow-through a schedule they set; the record does not say they set it."
+      "check": "The unsupported claim: that the strength in this seat is currently bent by bracing or by withdrawal in a way the person will recognise — the record gives the seat and the status, not their history, so the cells describe the mechanism's motion rather than naming events. A reader could reasonably say 'that's not what's happening' — the asks survive because each is one act from the partner's own medicine, useful whether or not the read lands. The sentence that serves the writer more than the person is any clause that turns a status into a verdict about who they are; those are gone. The quartet's act shapes are varied: hold an answer, say a fair call out loud, set a finished structure down, begin a build with no hand on it but yours."
+    },
+    {
+      "attempt": 5,
+      "ms": 3714,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it the\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"scaffold they didn't ask for\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the strength is present you\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"beginning is the part you\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim: that this person's strength in this seat is currently bent by bracing or by withdrawal in a way they will recognise — the record gives the seat and the status, not their history, so the cells describe the mechanism's motion rather than naming events. A reader could reasonably say 'that's not what's happening' — the asks survive because each is one act from the partner's own medicine, useful whether or not the read lands. The sentence that serves the writer more than the person is any clause that turns a status into a verdict about who they are; those are gone. The quartet's act shapes are varied: hold an answer, weigh and say a fair call, let a finished structure end, start a build of your own."
     }
   ],
   "usage": {
-    "input": 5934,
-    "output": 3048
+    "input": 6808,
+    "output": 6904
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:40:09.036Z"
+  "hardOpen": 3,
+  "date": "2026-10-02T13:21:06.104Z"
 }

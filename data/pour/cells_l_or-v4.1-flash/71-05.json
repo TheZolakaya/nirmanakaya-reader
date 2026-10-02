@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You're moving people through what matters, and that's what's happening in the room.",
-      "ask": "Give one thing you love a little of your attention today — a song, a walk, a person — without trying to do anything with it. Then notice if you want to hand it to someone.",
-      "core": "You're the one who moves people toward what matters. Not by argument — by how you carry it yourself. When you love something, it gets passed on without you meaning to, and the room picks up what you're feeling before you've said a word about it.\n\nWhat you're holding is that doing it and seeing it aren't separate. You can tell what's happening between you and the people in front of you, and that's what keeps it from turning into a performance. There's a next thing in this and you're not obliged to chase it, but you could carry more than you currently think is yours to carry. Start smaller than feels useful. Hand one thing over without dressing it up first.",
-      "sheetLine": "You move people by what you love, and that's deliberate.",
-      "verb": "Charging toward what connects, moving people through the passionate pursuit of shared meaning",
-      "place": "Where meaning gets handed down between people and across time",
+      "tense": "The pen is in your hand, and you are writing this in the present, with the ones who share it.",
+      "act": "calibrate what you say to what can be heard",
+      "ask": "When you next pass on something that matters to the people you belong to, hear it first the way the one across from you will hear it — then hand it over at that size, and no more.",
+      "core": "You pass things on and the passing changes them. Stories, customs, a phrase your family uses — they go through you and come out with your heat in them. That's not distortion. That's what keeps meaning alive, and you do it in plain view.\nBecause you're steady about it, you can hold two things true at once: what was handed to you, and what this moment actually needs. When both are in your hands, what you say lands, and the ones listening lean toward it. Hold that. The next time you carry something worth carrying, hear it first the way the one across from you will hear it, then give it at that size.",
+      "sheetLine": "You hand meaning on and it comes out alive.",
+      "verb": "carrying a piece of shared meaning forward and setting it alight",
+      "place": "where meaning is handed down between people and rituals keep what proved worth keeping",
       "provenance": {
         "signature_id": 71,
         "position_id": 5,
@@ -26,31 +27,42 @@
         "partner": "Steward of Cognition",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're already pushing into a room that hasn't happened yet, and it's costing you the room you're in.",
-      "ask": "Pick one thing you're trying to get someone to feel and leave it alone for a week. Do something unrelated that takes your hands and your attention. Notice what's still there when you come back.",
-      "core": "You're out ahead of where anyone can meet you. The feeling you want to land, the connection you're working toward — you're already living in the version where it's happened, and every moment here is being spent getting them there. Conversations turn into chances to bring someone around. The pushing has started to cost you the thing the pushing was for.\n\nYou're a builder, and the honest way through this is to stop forcing the structure the way you'd force a fact. Something doesn't need to be pushed into real existence to be real. Let one thing stay unfinished. The pull you feel isn't wrong — it's the thing you want most, and it's the thing that needs you to slow down rather than get louder.",
-      "sheetLine": "What you want is real. It doesn't need you to force it.",
-      "verb": "Charging toward what connects, moving people through the passionate pursuit of shared meaning",
-      "place": "Where meaning gets handed down between people and across time",
+      "tense": "You will build the change into the tradition, and until it is built there is no rest in it.",
+      "act": "build the change by persistent work",
+      "ask": "For the next month, break ground on the change you want in how your people keep this. Work it slowly, without stopping, and let a month pass before you check whether it moved.",
+      "core": "The version in your head is better than the one on the table. So you push the table toward it. You push fast, at the ones who keep it with you, at the ritual, at how your people say things. The vision holds. The pace is outrunning what anyone can carry, and the ones sharing this with you can feel it arriving ahead of its time.\nWhat is actually yours to do is slower and duller than the vision. Break ground on the change you want, and work it slowly for a month without stopping, no looking to see if it moved until the month is up. Undramatic, and it holds. The rest of the version in your head can wait its turn.",
+      "sheetLine": "You want the whole change now. Break ground slowly instead.",
+      "verb": "carrying a piece of shared meaning forward and setting it alight",
+      "place": "where meaning is handed down between people and rituals keep what proved worth keeping",
       "provenance": {
         "signature_id": 71,
         "position_id": 5,
@@ -59,36 +71,32 @@
         "partner": "Catalyst of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You were carrying feeling into a room and you stopped at a door you've already passed.",
-      "ask": "Cut through to the plain logic of one thing you believe — write one sentence you'd defend. Then say it out loud to someone who wasn't in the room. Notice what the saying does.",
-      "core": "You know how to move people and it isn't moving now. Music, food, jokes, small traditions — the stuff that used to pass between you and others now goes across the table and stops. The wish is still there. You've been leaving it outside and coming in without it.\n\nWhat's starved isn't your heart, it's your thinking about it. Before you can hand someone something that matters, get clear on why it matters to you — not the long version, the short one. So find the plain reason underneath. Name one thing you actually believe, in a single sentence, and say it where someone can hear it. Being understood is a practice you can pick back up.",
-      "sheetLine": "What you love is still there. Bring it in with you.",
-      "verb": "Charging toward what connects, moving people through the passionate pursuit of shared meaning",
-      "place": "Where meaning gets handed down between people and across time",
+      "tense": "You were the one who used to carry this, and you have not come back to the table.",
+      "act": "reason it through fast and cleanly",
+      "ask": "Follow the custom you keep circling, on paper, until it reaches its sharpest point. Take it as far as it goes in one sitting, then put the pen down. No one sees it.",
+      "core": "Something you used to carry — a ritual, a story, a way your people have of doing things — and you stand outside it now. You watch it happen and say nothing. You still know it well. You just don't lift it anymore. The part of you that handed meaning to others has gone quiet, and the quiet has grown comfortable.\nFeeling won't do this. Thinking will. Follow the custom you keep circling, on paper, until it reaches its sharpest point — in one sitting, as far as it goes. Then put the pen down. You don't need to hand it to anyone, and nobody sees what you wrote. Just see where it lands.",
+      "sheetLine": "You carry nothing now, and you keep circling it.",
+      "verb": "carrying a piece of shared meaning forward and setting it alight",
+      "place": "where meaning is handed down between people and rituals keep what proved worth keeping",
       "provenance": {
         "signature_id": 71,
         "position_id": 5,
@@ -97,36 +105,52 @@
         "partner": "Catalyst of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it through fast and cleanly\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're already handing people something in what you share and how you say it, and you're calling it nothing in particular.",
-      "ask": "Notice one thing you did today that someone else felt — a tone, a joke, a choice you made for the group — and say out loud, once, \"that was me.\" Nothing more.",
-      "core": "You're already setting what people around you pick up. The song, the joke, the way you kept someone at the table — you've been shaping the room for a while now. But it comes out sounding like it happens on its own, like you just happen to be standing there when meaning gets made.\n\nThe charge is running and you haven't signed it. You've been the one moving things toward connection and giving the credit to the situation, or the other person, or the fact that it came up. Saying otherwise doesn't make you important. It makes you the source of something you keep leaving unattributed. Try claiming one small thing out loud, even to yourself.",
-      "sheetLine": "You've been the one moving it toward connection. Say so.",
-      "verb": "Charging toward what connects, moving people through the passionate pursuit of shared meaning",
-      "place": "Where meaning gets handed down between people and across time",
+      "tense": "You are already writing what these people hold, and you have not put your name to it.",
+      "act": "say the hard thing gently, once",
+      "ask": "When a moment comes this week and your people are headed somewhere untrue, say it — gently, once, then let it go. Choose the moment. Say it as yours, and hold nothing after it.",
+      "core": "You shape what this group holds. A correction made before anyone names it, a story told a little truer than it was, an old practice quietly adjusted — and asked, you'd say it just went that way. The shaping is happening. Your hand is on it. You file it under the times changing, and the ones beside you don't.\nWhat's missing is only that you know it. When a moment comes this week and your people are headed somewhere untrue, say so — gently, once, then let it go. Choose the moment. Not as a correction somebody else should have made. As something true, and yours.",
+      "sheetLine": "The changes in what your people hold have your hand on them.",
+      "verb": "carrying a piece of shared meaning forward and setting it alight",
+      "place": "where meaning is handed down between people and rituals keep what proved worth keeping",
       "provenance": {
         "signature_id": 71,
         "position_id": 5,
@@ -135,24 +159,24 @@
         "partner": "Steward of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -161,20 +185,44 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6136,
+      "ms": 7705,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before the next time you\"",
           "hard": true,
           "status": 1
         },
@@ -185,21 +233,21 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -209,40 +257,40 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"or not at all\" — an ultimatum; the way back is a condition, never a countdown",
+          "detail": "five words in a row from the medicine's own acts: \"think it through to its\" — say the act in the person's words",
           "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
@@ -252,32 +300,55 @@
         },
         {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports a capacity for cultural transmission charged through Resonance, but nothing about how this person feels, what they've suffered, or what happened at that door. The reader could reasonably say the pulse I describe is just their ordinary way of talking, not a capacity at all. The ask still works if I've read the status wrong, because it's one bounded real-world act that returns information about what they want for the relationship. The sentence serving the writer more than the person is 'Somewhere behind you there's a door you stopped at' — it's my picture, not a fact about their life, so I keep it soft and let them refuse it."
+      "check": "The status is a condition of one capacity in one part of a life, not proof of anyone's history or feelings; where a cell reads like a person's whole character rather than this capacity in this seat, narrow the claim. A reader could object that a strong urge to change a tradition, or a holding back from one, is simply good judgment rather than excess or depletion — the ask survives that, because handing something down and pausing before you speak are useful regardless of the diagnosis. The sentence that serves me more than them is any line where the reader is told what they really feel underneath; cut those and keep only what they could recognize and answer back to."
     },
     {
       "attempt": 2,
-      "ms": 3910,
+      "ms": 4222,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Balanced's time",
@@ -285,73 +356,308 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it through fast and cleanly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports a capacity for cultural transmission charged through Resonance, but nothing about how this person feels, what they've suffered, or what happened at that door. The reader could reasonably say the pulse I describe is just their ordinary way of talking, not a capacity at all. The ask still works if I've read the status wrong, because it's one bounded real-world act that returns information about what they want for the relationship. The sentence serving the writer more than the person is 'Somewhere behind you there's a door you stopped at' — it's my picture, not a fact about their life, so I keep it soft and let them refuse it."
+      "check": "The status is a condition of one capacity in one part of a life, not proof of anyone's history or feelings; where a cell reads like the person's whole character rather than this capacity in this seat, narrow the claim. A reader could object that a strong urge to change a tradition, or a holding back from one, is simply good judgment rather than excess or depletion — the ask survives that, because handing something down and pausing before you speak are useful regardless. My draft had 'You already know,' which certifies the person; also 'everyone,' 'in front of you,' and 'Pick one thing,' which are tics or universals, and three of four asks shaped as a bounded thing. Cut those; let the acts take different shapes."
+    },
+    {
+      "attempt": 3,
+      "ms": 3405,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it through fast and cleanly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The status is a condition of one capacity in one part of a life, never proof of anyone's history or feelings. A reader could say that pushing a tradition is good judgment rather than excess, and that standing outside one is simply distance, not depletion — the asks survive that, because calibrating what lands, moving one inch, reasoning to a sharp point, and saying a true thing once are useful whichever way the reading is wrong. The lines that serve me more than them were the ones certifying what the person already knows; those are cut, along with 'in the room,' 'The way back is,' and 'people around you.'"
+    },
+    {
+      "attempt": 4,
+      "ms": 3470,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it through fast and cleanly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The status is a condition of one capacity in one part of a life, never proof of anyone's history or feelings. A reader could say that pushing a tradition is good judgment rather than excess, and that standing outside one is distance, not depletion — the asks survive that: calibrating what lands, breaking ground slowly, reasoning to a sharp point, and saying a true thing once are useful whichever way the reading is wrong. My draft's asks were three of four shaped as one bounded thing; vary the shapes so some carry a clock, some a hold, some nothing after them."
     }
   ],
   "usage": {
-    "input": 1590,
-    "output": 2405
+    "input": 7870,
+    "output": 4788
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:58:35.451Z"
+  "date": "2026-10-02T12:36:35.061Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding under weight right now without it cracking you.",
-      "ask": "Before asking anyone for help with the next ordinary task, say out loud what you're already carrying into it.",
-      "core": "You keep going while the weight stays on. Not the loudest person there and not waiting to be rescued — you find something inside that carries you through what's actually here. Seeing the whole picture in one glance is what holds the line. You can tell how much of this is real and how much is noise, and that sorting keeps the load proportionate instead of swallowing you. What's under you is enough for what's on you. Steadiness like that is rare and it doesn't announce itself.\n\nThe next move is a small exchange: name what you're carrying before you ask for help. The weight gets said, and you don't walk the whole thing alone. Being seen in it may not make you weaker — it gives the strength somewhere to go besides holding on.",
-      "sheetLine": "You carry the weight and name it without buckling.",
-      "verb": "Persisting through material pressure on internal strength",
-      "place": "Standing outside the system while still inside it",
+      "tense": "You are here with the pen, and the strength holds while the pattern shows itself.",
+      "act": "keep following the star after everything that has happened",
+      "ask": "Stay with the thing you're carrying this week, with nothing new to confirm it's working and nobody cheering it on.",
+      "core": "You read a whole situation while you're still inside it. Not judging it, not stepping out — seeing what runs through all of it, and holding steady underneath while you look. That's the strength showing. The pattern comes clear because you don't hurry it and you don't flinch from what it says.\n\nWhat this balance can feed is quieter than that. You've chosen what you're carrying; the week doesn't need to prove the choice was right. Keep at it and take the going as enough — no confirmation, nobody saying it's working. That kind of follow-through is what you're good at, and it's what makes the endurance worth having.",
+      "sheetLine": "You can see the whole shape and keep your footing in it.",
+      "verb": "holding steady through what presses on you",
+      "place": "where the whole shape of it comes clear",
       "provenance": {
         "signature_id": 56,
         "position_id": 20,
@@ -26,11 +27,26 @@
         "partner": "Resilience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a load that hasn't landed on you yet.",
-      "ask": "Choose one thing you're straining against today that isn't due, and leave it alone until tomorrow morning.",
-      "core": "You're getting ready before the test arrives. Ahead of you is a conversation, a bill, an hour where you've already rehearsed your face — and you're living it now, tightening before anything has been asked. Seeing the whole pattern is what does it: you spot the shape of what's coming from across the room. The spotter, though, has stopped looking and started pre-empting. The strength is real. It just has nowhere to put itself.\n\nWhat's thin is exchange — giving what you can, taking what you need, without totting up who owes what. One thing you're straining against isn't due yet: leave it alone until tomorrow morning. You'll find the bracing is a choice, not a requirement, and the weight doesn't grow while you're not watching it.",
-      "sheetLine": "You're carrying stakes that haven't been raised yet.",
-      "verb": "Persisting through material pressure on internal strength",
-      "place": "Standing outside the system while still inside it",
+      "tense": "You are braced already for a version of this that hasn't arrived yet.",
+      "act": "accept what is offered for what you gave",
+      "ask": "Next time something comes back to you for what you carried, take it at full size instead of shrinking it or waving it off.",
+      "core": "Where you hold steady, the bracing has run past the load. You're reading the pattern a month out and carrying the hard part now, before it's here — gripping so tight that nothing can be handed to you without you weighing it first. What was staying power has turned into standing guard. People can feel it when they reach for you; the reach stops short.\n\nWhat comes back has to be allowed in by size, not by need. Take the next thing you're offered for what you carried — thanks, a hand, a share of it — at exactly the size it's given. Don't trim it, don't hand it back. What you gave and what returns can both be true at once, and the exchange stays honest only when it runs both ways.",
+      "sheetLine": "You're carrying what hasn't happened yet.",
+      "verb": "holding steady through what presses on you",
+      "place": "where the whole shape of it comes clear",
       "provenance": {
         "signature_id": 56,
         "position_id": 20,
@@ -54,31 +71,37 @@
         "partner": "Reciprocity",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You have stopped reaching for help even when the load is heavy.",
-      "ask": "Tell one person one specific thing you did to get through last week, and let them just hear it.",
-      "core": "The strength to carry is still here. What's gone quiet is asking — the arms stay down, the need stays unsaid, the load gets handled alone. You can still see the whole pattern and use it, but now you only use it to measure the gap between what you have and what you need, which keeps confirming the answer. Holding without forcing is what this can become: a grip that contains instead of crushes.\n\nWhat's starved is being heard in the middle of it. Tell one person one specific thing you did to get through last week, and let them simply hear it. No fixing, no rescue, just the record landing somewhere outside your own head. That is how the exchange starts moving again.",
-      "sheetLine": "You carry the weight but stopped putting it down out loud.",
-      "verb": "Persisting through material pressure on internal strength",
-      "place": "Standing outside the system while still inside it",
+      "tense": "You are still standing at a door that has closed behind you.",
+      "act": "do the next piece of it in front of the person it is for",
+      "ask": "Do the next bit of the work where the person it's for can see you do it — no announcement, no explanation, just in the open.",
+      "core": "Where you hold steady, the standing still has outlasted what it was for. You can still read the pattern, you just aren't moving inside it — you answer from a room you've left, and the strength you're known for isn't landing anywhere now. Nothing here is wrong. It's that nothing has come along to close it out, so the door stays open in you.\n\nA finished thing wants a witness, not more effort. Do the next piece of what you carry in front of the person it's for — where they can see it happening, without a word from you about it. What has been done quietly for so long gets done in the open once. The pattern only completes where somebody saw it complete.",
+      "sheetLine": "You're holding a door open that already closed.",
+      "verb": "holding steady through what presses on you",
+      "place": "where the whole shape of it comes clear",
       "provenance": {
         "signature_id": 56,
         "position_id": 20,
@@ -87,36 +110,42 @@
         "partner": "Honor",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false
+        },
+        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already steadying what shakes without signing your name to it.",
-      "ask": "Name one small choice you made today as the thing that held the day, and don't credit the situation for it.",
-      "core": "You're already finding what's unshakable, but you call it just getting through. Where people are up in the air, you're the one locating the floor — not with a speech, just with what you notice and what you refuse to let wobble. That steadiness is a craft you're practicing, not a trait you were handed. Seeing the whole picture keeps it flowing into the right places. But you don't own it, which means it can't refill itself.\n\nThe line you're on is longer than one hard week, and it isn't finished. Name one small choice you made today as the thing that held the day, and don't hand the credit to the situation. Saying the strength is yours is what lets it hold more later — without crushing you.",
-      "sheetLine": "You steady what shakes and call it just getting through.",
-      "verb": "Persisting through material pressure on internal strength",
-      "place": "Standing outside the system while still inside it",
+      "tense": "The pen is down while you are still writing in the room it belongs to.",
+      "act": "carry on with the version you chose through another week of doubt",
+      "ask": "Keep going with the version you settled on for one more week, doubt and all, and notice that the choice was yours.",
+      "core": "You can see the whole pattern and stand in it under pressure — and the version you're living was picked on purpose. It's been holding. You call that just how things went. It's happening, all of it, and somehow it reads to you like something that keeps occurring rather than something you keep doing.\n\nGo back to the version you chose and carry it another week — through the doubt, no fresh evidence needed. It isn't a new decision and nothing needs rebuilding. The point is only to feel your own hand in it while it runs: the same load, the same follow-through, and what you're living is what you picked.",
+      "sheetLine": "You chose this and you keep calling it the circumstances.",
+      "verb": "holding steady through what presses on you",
+      "place": "where the whole shape of it comes clear",
       "provenance": {
         "signature_id": 56,
         "position_id": 20,
@@ -125,19 +154,29 @@
         "partner": "Resilience",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -146,93 +185,141 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4701,
+      "ms": 7454,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"in the room and not\"",
+          "code": "glass",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"a version of this where\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"every room\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -242,15 +329,39 @@
           "status": 4
         }
       ],
-      "check": "The seed frame tempting me to stage a house move is unsupported; the reader could reasonably say this is one week of one project, not a life stage. The ask still yields fruit under that objection, because naming the future anchor reveals a pattern wherever it lives. The sentence that serves me most is 'it isn't a stage, it's a habit', which I cut because it labels instead of showing."
+      "check": "The draft keeps saying the person is seen for their endurance, but the record gives no witness and no history of unrecognized giving — I cut every claim about who has or hasn't noticed. A reader could reasonably say the steadiness isn't private at all, that people lean on them daily; so every core stays inside the moment and lets them refuse the read. The asks all survive a wrong read because each one is small, costs nothing, and teaches something even if none of it lands. The sentence that serves me rather than them is 'no one has been watching' — it sounds deep and proves nothing, so it is gone."
     },
     {
       "attempt": 2,
-      "ms": 3757,
+      "ms": 4474,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the going\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -258,26 +369,38 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
@@ -288,33 +411,69 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim I keep reaching for is a cause — the idea that something once backfired and taught the person to stop asking. The record doesn't say that, and a reader could reasonably say nothing failed, they simply never had the habit. The ask survives either way, because saying one true thing about what you carry is useful whether or not there's a wound under it. The sentence that serves me most was 'it worked for a while' — it was me admiring a story, not the person's situation, so I cut it."
+      "check": "The draft kept drifting into claims the record can't support — that the person is unseen, that they already know what's worth carrying, that a door closed some time ago — and every one of those is a history I don't have. A reader could reasonably say the endurance isn't private at all, that people lean on them daily and say so; so each core stays inside a moment they could recognise and leaves them room to say no. The asks survive a wrong read because each is small, costs nothing to try, and teaches something either way. The sentence serving me rather than them was 'no one has been watching' — it sounds deep and proves nothing, so it is gone."
     },
     {
       "attempt": 3,
-      "ms": 2876,
+      "ms": 3732,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -322,20 +481,38 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
@@ -346,31 +523,37 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim I keep reaching for is a cause — the idea that something once backfired and taught this person to stop asking. The record doesn't say that, and a reader could reasonably say nothing failed, they simply never had the habit. The ask survives either way, because saying one true thing about what you carry is useful whether or not there's a wound under it. The sentence that serves me most was 'it worked for a while' — that was me admiring a story, not the person's situation, so I cut it."
+      "check": "The points the checker flagged are gone: no map words on glass, no claim that the person knows or remembers anything, no closed doors in their history, no verb dressed as a noun. A reader could still say the steadiness isn't private at all, that people lean on them daily and say so — so each core stays inside a moment they could recognise and leaves room to say no. Every ask survives a wrong read: each is small, costs nothing to try, and teaches something either way. The sentence that would serve me rather than them is 'nobody's watching' — it sounds deep and proves nothing, so it stays out."
     }
   ],
   "usage": {
-    "input": 2770,
-    "output": 3311
+    "input": 6486,
+    "output": 3397
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:18:59.689Z"
+  "date": "2026-10-02T12:22:28.755Z"
 }

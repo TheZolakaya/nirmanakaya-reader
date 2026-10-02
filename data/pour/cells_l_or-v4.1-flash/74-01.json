@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with your hands in it, choosing what to tend and what to leave.",
-      "ask": "Pick one living thing you have been growing — a plant, a habit, someone's skill — and tend it today just past the point where it stops needing you, then stop.",
-      "core": "You are the one who decides what gets tended. Not by announcement — by where your hands go, what you water, what you let sit and harden. You can read the difference between a thing that needs more from you and a thing that needs you gone, and you act on what you read. That is direction, and you are in it.\n\nThe next thing this balance is free to feed is release. Care that ends when the growing is done. Not everything you started needs carrying to the end; some of it needs to be handed over while you are upright and finished with it. What that looks like today is small. It has a finish line. You will know you crossed it because nothing in you is still pulling.",
-      "sheetLine": "You choose what gets tended, and you know when to stop.",
-      "verb": "Tending what is growing, by hand, until it can stand without you.",
-      "place": "Where direction gets chosen — the moment of saying 'this, not that' and meaning it.",
+      "tense": "Your hands are on the material now, and they are learning how it takes shape.",
+      "act": "release what is done and keep what is not",
+      "ask": "Take what you have been pushing toward an end. Call it finished enough, set it down, and keep only the unfinished part in your hands.",
+      "core": "You steer by tending what is actually here — how it grows, what it needs, what shape it is taking. The direction is not a decision you made once and left standing; you read it off the work itself. That is why you can tell when something is done without anyone approving it. Care teaches you the finish line.\n\nThe hands that learn how something flourishes also learn when to stop feeding it. Take what you have been pushing toward an end. Call it finished enough, set it down, and keep only the unfinished part. It will not feel like losing if you let the work tell you. What is done gets laid down; what is not stays with you, and the direction stays clean because the finished thing is no longer muddying it.",
+      "sheetLine": "The work itself tells you when it is finished.",
+      "verb": "learning how things grow by tending them",
+      "place": "at the point where a direction gets chosen and held",
       "provenance": {
         "signature_id": 74,
         "position_id": 1,
@@ -26,31 +27,52 @@
         "partner": "Executor of Intent",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
         {
           "code": "said",
           "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
+          "code": "hunch",
+          "detail": "\"Call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are living ahead of the season, bracing a harvest that has not been planted yet.",
-      "ask": "Find one thing you are forcing ahead of its time and leave it untouched today — no check, no adjustment, no plan for what it will become.",
-      "core": "You are hauling the growth. Somewhere ahead is a version where it is done, standing, finished — and you are already there, dragging the present toward it. Every check-in, every adjustment, every small intervention is an attempt to arrive early at a season with its own clock. The work is not making it grow faster. It is keeping you away from the part of it that is already growing on its own.\n\nCare that clutches is control wearing care's clothes. The way back is not more effort — it is vision that comes from having lived what you already grew, instead of dreaming past it. Let one thing be exactly where it is today. Not abandoned — unhurried. You will feel the difference between holding space and holding on, and that difference is the whole thing.",
-      "sheetLine": "You are forcing a season that hasn't arrived.",
-      "verb": "Tending what is growing, by hand, until it can stand without you.",
-      "place": "Where direction gets chosen — the moment of saying 'this, not that' and meaning it.",
+      "tense": "You are already past the next harvest in your head, and the ground you have is standing empty.",
+      "act": "dream the next step and take it",
+      "ask": "Where you catch yourself fixing a result, picture the next step just once — then take it, and let what comes be whatever it is.",
+      "core": "You are tending what does not exist yet. The plan for how it will flourish arrives before anything is in the ground, and your hands keep reaching toward a version that has not been given. Pushing that hard toward a result you cannot see keeps you working past the material — and the material is the only place you actually learn from, so it sits untouched.\n\nWhere you catch yourself fixing an outcome, picture the next step once. Not the whole design — the single step you would take if the result did not matter. Then take it, and let what comes of it be whatever it is. You will learn more from what actually happens than from what you braced for, and the next direction shows itself in the doing. One real step beats a season of planned harvest.",
+      "sheetLine": "You are tending a field that is not planted yet.",
+      "verb": "learning how things grow by tending them",
+      "place": "at the point where a direction gets chosen and held",
       "provenance": {
         "signature_id": 74,
         "position_id": 1,
@@ -59,29 +81,19 @@
         "partner": "Initiate of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -93,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped deciding what to tend a while back, and you are still at that door.",
-      "ask": "Name one thing you want to grow this month, out loud, and do the first physical act of it today — buy the seed, clear the shelf, open the file.",
-      "core": "The care is there. The decision is not. At some point the practice of tending got set down, and the days now fill themselves with things growing around you that you did not pick. You call that not being in charge. It is not humility. It is a door you are not walking through.\n\nWhat is missing is not the ability to nurture — you have not lost that. It is the spark that makes a direction real: wanting something, saying so, and moving toward it before you know how it ends. Radiance comes from development that reached its finish, not from waiting to deserve one. Start one thing small and visible today. Readiness is not the door. Putting your hand on something and choosing it is.",
-      "sheetLine": "You stopped tending, and you are still at that door.",
-      "verb": "Tending what is growing, by hand, until it can stand without you.",
-      "place": "Where direction gets chosen — the moment of saying 'this, not that' and meaning it.",
+      "tense": "You stood at the door of choosing, and the door is still standing behind you.",
+      "act": "ask the beginner's question about where to go",
+      "ask": "Ask someone who does this well what they would try first. Ask as a beginner, with no position to hold, and walk toward whatever their answer opens.",
+      "core": "You know what direction looks like when it has a body: hands on something, learning it by doing, keeping it alive because you keep feeding it. None of that has been lifted lately. What you once cultivated has no heat in it now.\n\nAsk someone who does this well what they would try first. Ask as a beginner, with no position to hold, and walk toward whatever their answer opens. Do not push effort into the cold place; the spark is what pulls direction back. A question asked fresh does that work. You do not need to feel ready — you only need to be curious enough to ask, and the asking is already a little fire.",
+      "sheetLine": "The direction is not missing, it is uncultivated.",
+      "verb": "learning how things grow by tending them",
+      "place": "at the point where a direction gets chosen and held",
       "provenance": {
         "signature_id": 74,
         "position_id": 1,
@@ -107,19 +120,14 @@
         "partner": "Initiate of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
@@ -131,17 +139,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already writing the direction of this — the pen is down in your hand.",
-      "ask": "Notice one thing you declined to tend today — a person, a project, a piece of yourself — and say plainly, in one sentence, that you chose that.",
-      "core": "You are steering this more than you say. Where your attention goes, what you water and what you let dry — that is direction, and it is running right now. But you describe the shape of things as if it were arriving from somewhere else. Circumstances. Other people's needs. The way it has to be.\n\nCaring without owning the choice is care that exhausts, because no one is holding the frame. The way back is the simpler form: notice what you are already growing, and the moment a thing is done, let it be done — release as fulfillment, not as loss. You are allowed to have chosen this. Saying so is not taking credit. It is picking up the pen you are already holding.",
-      "sheetLine": "You're steering this. The pen is already in your hand.",
-      "verb": "Tending what is growing, by hand, until it can stand without you.",
-      "place": "Where direction gets chosen — the moment of saying 'this, not that' and meaning it.",
+      "tense": "You are already steering — the course is set — and the hand on the wheel is not on the record.",
+      "act": "govern by knowing what to surrender",
+      "ask": "Name a decision you have been running without calling it yours, claim it plainly, and let go of one rule you set on how it has to turn out.",
+      "core": "The direction is being set. Something got shaped by care, someone learned how the thing grows, and whoever did the shaping is not in the account. It gets described as the circumstances, or the people who needed it, or what anybody would have done. That is the disowning — the steering works and the hand is off the wheel.\n\nSo put the hand back on. Name a decision you have been running without calling it yours, and claim it plainly. Then let go of one rule you set on it — the one that says it has to come out a certain way or it does not count. Directing by what you can release is the older and simpler move. Begin there, and the course is yours again.",
+      "sheetLine": "The course is being steered, and your hand is not on the wheel.",
+      "verb": "learning how things grow by tending them",
+      "place": "at the point where a direction gets chosen and held",
       "provenance": {
         "signature_id": 74,
         "position_id": 1,
@@ -150,29 +164,29 @@
         "partner": "Executor of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
           "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"govern by knowing what to surrender\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -181,21 +195,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6905,
+      "ms": 6296,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "the map's jargon: \"agency\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
@@ -205,32 +237,26 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
+          "code": "vocab",
+          "detail": "the map's jargon: \"agency\"",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the pushing is costing you\"",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -241,32 +267,155 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
+          "code": "vocab",
+          "detail": "the map's jargon: \"agency\"",
           "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"agency\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, wheel) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"govern by knowing what to surrender\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and you'd say you were\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim: 'learning how things grow by tending them' as the reader's present activity — they may correctly say they tend nothing, they direct attention. The reader's likely objection is that a card about learning-through-care has nothing to do with choosing direction. The ask survives being wrong because it is one act on one page or one unnamed start, useful as a small discipline whether or not the read is accurate. The sentence that serves the writer more than them is the future cell's scaffolding picture, which is grand — cut it and made plain."
+    },
+    {
+      "attempt": 2,
+      "ms": 4795,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "hunch",
-          "detail": "\"call that not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"Call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -278,55 +427,148 @@
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, wheel) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"govern by knowing what to surrender\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and you'd say you were\"",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
           "status": 4
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Nurturing",
-          "hard": true,
-          "status": 4
-        },
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim: that this person's directing capacity is currently apprenticed to tending something material — they may correctly say they direct attention without any hands-on tending at all. The reader's likely objection is that a card about learning-through-care has nothing to do with choosing direction. The asks survive being wrong because each is one small act — a handover, a step, a start, a dropped condition — useful as a discipline whether or not the read lands. The sentence that serves the writer more than them was the future cell's planned-harvest picture, which was grand; it is now the plainer field-not-planted line."
+    },
+    {
+      "attempt": 3,
+      "ms": 4354,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"Call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the answer\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"govern by knowing what to surrender\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from the medicine's own acts: \"drop one condition you set\" — say the act in the person's words",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "five words in a row from an exemplar or a rule: \"say you were only getting\"",
           "hard": true,
           "status": 4
         },
@@ -338,20 +580,26 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that small daily care is already steering their direction; the record supports the capacity being present (balanced) but not that it is currently operating unacknowledged in a specific life. A reader could say 'no, I am not the one choosing — my circumstances are.' The ask still works if the read is wrong: noticing what you declined to care for today produces the same material either way. The sentence that serves the writer is 'You're already the one deciding what gets tended' — it is the cell's spine, not the person's fact."
+      "check": "The unsupported claim: that this person is presently apprenticed to something material they tend — they may say they only direct attention and tend nothing. The reader's likely objection is that a card about learning-through-care has nothing to do with choosing direction. The asks survive a wrong read because each is a small discipline — a handover, a step taken, a beginner's question, a surrender — useful whether or not the read lands. The sentence that serves the writer more than them is the future cell's tended-field picture; keep it plain."
     },
     {
-      "attempt": 2,
-      "ms": 4136,
+      "attempt": 4,
+      "ms": 3520,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "said",
           "detail": "4 uncontracted to 0 contracted — written, not said",
@@ -359,32 +607,38 @@
           "status": 1
         },
         {
+          "code": "hunch",
+          "detail": "\"Call it finished\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -395,26 +649,8 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -431,143 +667,43 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"govern by knowing what to surrender\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already choosing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's small daily care is currently steering their direction without their noticing; the record supports the capacity being present, not that it is running disowned in a specific life. A reader could say the direction is being chosen for them by circumstance, not by them. The ask survives being wrong: finding one thing left untended today produces usable material whether or not they own the steering. The sentence that serves the writer is 'You're the one deciding what gets tended' — it is the spine of the cell, not a fact about the person."
-    },
-    {
-      "attempt": 3,
-      "ms": 3685,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that not\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's small daily care is currently steering their direction without their noticing; the record supports the capacity being present, not that it is running disowned in a specific life. A reader could say the direction is being chosen for them by circumstance, not by them. The ask survives being wrong: finding one thing left untended today produces usable material whether or not they own the steering. The sentence that serves the writer is 'You're the one deciding what gets tended' — it is the spine of the cell, not a fact about the person."
+      "check": "The unsupported claim: that this person is presently apprenticed to something material they tend — they may say they only direct attention and tend nothing. The reader's likely objection is that a card about learning-through-care has nothing to do with choosing direction. The asks survive a wrong read because each is a small discipline — a handover, a step taken, a beginner's question, a course correction — useful whether or not the read lands. The sentence that serves the writer more than them is the future cell's tended-field picture; keep it plain."
     }
   ],
   "usage": {
-    "input": 2960,
-    "output": 3558
+    "input": 8428,
+    "output": 4815
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:01:18.613Z"
+  "date": "2026-10-02T12:39:39.677Z"
 }

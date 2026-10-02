@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You're moving clean from what you actually feel, and the pattern work is where that lands.",
-      "ask": "Name one step whose only reason is that you want it. Take it before the day is over.",
-      "core": "You're on this because it stays true after the feeling drops. You strip a situation down to its moving parts, and where other people stall on the surface, the lines underneath are where you put your hands. That's not coldness. It's trusting the thing enough to find its spine.\\n\\nTake something you're carrying right now. Not the story you tell about it — the two or three parts that are actually pulling: what holds, what moves if nothing gets in the way. Say them out loud, plain, then pick one thing you'd do before the day ends without seeing how it comes out. Seeing the whole road was not the engine. The step is.",
-      "sheetLine": "You move best from what's real, and you don't need the whole road.",
-      "verb": "Moving at it until the thing is real, with or without the feeling.",
-      "place": "Working the pattern clean, where the lines that hold are the lines that move.",
+      "tense": "Direction is being taken now, from what is actually felt across the table.",
+      "act": "let the path show itself instead of forcing clarity",
+      "ask": "Say the true next sentence you feel, once, instead of the one that moves the conversation toward where you think it should go.",
+      "core": "You move toward what you want, and it gets translated before it lands. A face becomes a shape, a table becomes a reading, and you know how it works without having to feel your way through it. That is what this gives you — the mechanism under everything, seen clean. It is also where the balance bends. When someone is alive and specific across from you, you have their outline before they have finished being themselves.\n\nIt works best when it stays hooked to what you feel. You don't have to choose between understanding someone and being with them. Direction still comes from feeling; you just notice it arriving.\n\nSay the true next sentence you feel, once. Let the path show itself. Nothing has to be forced clear for it to move.",
+      "sheetLine": "You move toward things, and you see them before they arrive.",
+      "verb": "Keep moving toward a thing you want, through resistance, without using yourself up.",
+      "place": "Where feeling arrives as pattern first and person second, where a face is a shape before it is a face.",
       "provenance": {
         "signature_id": 7,
         "position_id": 15,
@@ -26,24 +27,19 @@
         "partner": "Imagination",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (road, engine) — one at most, usually none",
+          "detail": "two images in one core (shape, path) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -55,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You'll have the whole thing worked out in your head before you take a step you could take right now.",
-      "ask": "Say what you know, what you don't, and what's still being decided. Three lines. Stop there for the day.",
-      "core": "You're keeping the pattern open longer than it needs to be open, using the shape of it as the room — when what you actually want is to be somewhere that works. You've got the mechanism, the two versions of how this turns out, and the step still not taken. The figuring stays interesting, and the ground stays untouched. More thinking won't produce the next move.\\n\\nTake one stand: what you know, what you're actually unsure of, and what's still being decided. Write the three lines or say them aloud, then leave them alone today. Notice the pull to add one more layer. That pull is the thing, not the plan. Your sense of timing is good. It just has to land somewhere.",
-      "sheetLine": "The pattern has to land somewhere, or it's all story.",
-      "verb": "Moving at it until the thing is real, with or without the feeling.",
-      "place": "Working the pattern clean, where the lines that hold are the lines that move.",
+      "tense": "A destination is being reached for before the person across from you has finished arriving.",
+      "act": "adjust one dial a little, then stop",
+      "ask": "When you catch yourself reading three moves ahead in a conversation, turn down a single dial — pace, planning, or needing to be understood — and stay where you are.",
+      "core": "You keep moving past where you already got to. A feeling hasn't finished and the next version of it is already mapped — not from coldness, from knowing too well how these things go. What you do with that momentum here is run it through the pattern, and the pattern takes everything with it. The moment gets skipped because you are already at the end of it.\n\nIt isn't a flaw to fix. Even so, some stretch of your own forward motion stops getting a map under it, and the pull you put on what you want turns it into a machine that can't stop.\n\nWhen you catch yourself reading three moves ahead, turn one dial down and stay a beat. The rest will still be there. Adjust one dial, then stop.",
+      "sheetLine": "You're already at the end of a conversation that hasn't started.",
+      "verb": "Keep moving toward a thing you want, through resistance, without using yourself up.",
+      "place": "Where feeling arrives as pattern first and person second, where a face is a shape before it is a face.",
       "provenance": {
         "signature_id": 7,
         "position_id": 15,
@@ -69,31 +66,47 @@
         "partner": "Tune",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped moving before you knew what this was, and you can't tell whether that's still true.",
-      "ask": "Clear one thing that's over — a note you've been keeping, an item you've stopped using. One, today.",
-      "core": "You can see the shape and you're not making first contact. The pattern lives in the mind and the body hasn't moved, and the not-moving has started to look like method. What you can see is bigger than what you're spending.\\n\\nThat isn't a failing of wanting. Something here finished and it hasn't landed as finished. Take one thing that's over — a note, a thing you kept in case, something you no longer use — and close it plainly today. You don't have to know what takes its place, and you don't have to feel something first. Clear one thing, then let the next hour be whatever it is.",
-      "sheetLine": "Stop waiting for going to feel like something. Clear it, then go.",
-      "verb": "Moving at it until the thing is real, with or without the feeling.",
-      "place": "Working the pattern clean, where the lines that hold are the lines that move.",
+      "tense": "The step out of the doorway was taken once, and the weight of it is still being carried.",
+      "act": "let the thing end that is already over",
+      "ask": "Find where you keep re-reading something that has already closed, and keep it shut — no final pass, no reopening.",
+      "core": "You are standing where the door was, and the door has closed. What happened is still being examined, so nothing gets to simply be finished — the feeling wants to move and the pattern inspects it instead. Under the inspection is a pull toward forward motion that hasn't been allowed its simple expression. Everything is being understood in hindsight.\n\nA forward step got taken a while back, and something in you is still waiting for permission to be past it. Waiting isn't failure. It is just where the weight sits.\n\nFind where you keep re-reading something already closed, and keep it shut. One door, closed. What wanted to move does not need to be checked to exist. Let the ending be the ending, at least once.",
+      "sheetLine": "You keep checking a door that's already shut.",
+      "verb": "Keep moving toward a thing you want, through resistance, without using yourself up.",
+      "place": "Where feeling arrives as pattern first and person second, where a face is a shape before it is a face.",
       "provenance": {
         "signature_id": 7,
         "position_id": 15,
@@ -102,19 +115,24 @@
         "partner": "Transformation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -126,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "The moving is happening in how you arrange the week, and you've been calling it a phase.",
-      "ask": "Write down what you've done in the last two weeks. Look for the one direction it kept going.",
-      "core": "You've been steering and calling it waiting. The hours go a certain way — the same few things get kept, the rest get set down, and the shape of that is a direction whether or not it has a name. Answers about what comes next aren't the hold-up. The hold-up is claiming the one you're living.\\n\\nSomewhere under the careful thinking there's a line that's been running — a pull that doesn't need the right mood, just the next step along it. Pick one thing on that line and call it yours out loud, to yourself or to someone who'd hear it. That's the whole move. The rest is hurry.",
-      "sheetLine": "You've been moving this whole time. Call it yours.",
-      "verb": "Moving at it until the thing is real, with or without the feeling.",
-      "place": "Working the pattern clean, where the lines that hold are the lines that move.",
+      "tense": "Direction is being carried through the room by a hand that doesn't know it is holding the pen.",
+      "act": "stand in the gap it leaves without rebuilding yet",
+      "ask": "For a week, stand beside something you have been keeping going without having chosen it — unfinished, unfixed, unexplained.",
+      "core": "You are steering something, and your own version of it is that you're just reading the room. There's a person or a project where your direction has been the engine, and you talk about it like terrain. Asked what you want, you give a picture of how it works — pattern instead of wanting. The picture is not false. It has just been standing where your own momentum goes.\n\nSomewhere earlier, you were the one who wanted a thing plainly, before you understood it. That version is still what is actually moving.\n\nStand beside something you have been keeping going without having chosen it, unfinished. Don't repair it or defend it. Stand in the gap; leave the rebuilding for later.",
+      "sheetLine": "The thing you're steering, you didn't choose to start.",
+      "verb": "Keep moving toward a thing you want, through resistance, without using yourself up.",
+      "place": "Where feeling arrives as pattern first and person second, where a face is a shape before it is a face.",
       "provenance": {
         "signature_id": 7,
         "position_id": 15,
@@ -140,14 +159,19 @@
         "partner": "Breakthrough",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, engine) — one at most, usually none",
           "hard": false
         },
         {
@@ -166,32 +190,203 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7096,
+      "ms": 7394,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "detail": "4 images in one core (shape, room, floor, path) — a parable, not a sentence to a person",
           "hard": true,
           "status": 1
         },
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (room, road, map) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 2
+        },
+        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, engine) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 3 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported leap: saying the person's reading of the room is wrong is the one claim the record never supports. The reader could say: you said I can frame a feeling, but I don't know that, and I don't think my picture is pat. The ask survives a wrong read because framing a feeling everyone in the room can name costs nothing if the person is right about the room. The sentence that serves the writer more than the person: momentum in the seat where everything is pattern and nothing has to be lived."
+    },
+    {
+      "attempt": 2,
+      "ms": 6128,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (shape, room, floor, path) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -202,20 +397,20 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "code": "vocab",
+          "detail": "3 images in one core (room, road, map) — a parable, not a sentence to a person",
           "hard": true,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
@@ -226,14 +421,172 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, engine) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's own account of what moves them is wrong; the record gives the mechanism, not their history. A reader could say: I do know what I want, I just haven't said it. The asks survive a wrong read because each one is small, bounded, and teaches something about the mechanism even if the read is off. The sentence that serves the writer more than the person: the pattern is the driver."
+    },
+    {
+      "attempt": 3,
+      "ms": 4166,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"The seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, path) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -244,21 +597,21 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, engine) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"you're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -268,36 +621,24 @@
           "status": 4
         }
       ],
-      "check": "The one claim the record doesn't back is anything positive about where the low points of too little drive came from, or what someone once felt about starting; I name the threshold and the stall and stop. A reader could fairly say the pattern-seeing is exactly what keeps them from moving rather than what they're moving on, so I keep Drive as the card and Abstraction as the place and let the cards stay where they are. The asks name one next step, one act seen from the outside, one clear ending, one condition stated — they'd survive if the reading is wrong about why. The sentence that serves me more than the person is 'you were always the one already building' — the house would swallow it and the record doesn't."
+      "check": "The unsupported claim is that the person's own account of what moves them is wrong; the record gives the mechanism, not their history. A reader could say: I do know what I want, I just haven't said it. The asks survive a wrong read because each is small and teaches something about the mechanism even if the read is off. The sentence that serves the writer more than the person: the pattern is the driver."
     },
     {
-      "attempt": 2,
-      "ms": 4800,
+      "attempt": 4,
+      "ms": 3770,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (shape, path) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Clarity",
-          "hard": true,
-          "status": 1
-        },
-        {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -306,222 +647,70 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"you're already doing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't support anything about where the stall came from or what the person once felt about starting; I name the threshold and stop there. A reader could fairly say the pattern-seeing is what keeps them from moving rather than what they move on, so I keep Drive as the card and Abstraction as the place and let the tension sit. The asks name one step, one limit, one ending, one claim — they'd survive if my read is wrong about why. The sentence that serves me more than the person was 'you were always the one already building'; the record doesn't back it and this house wouldn't either."
-    },
-    {
-      "attempt": 3,
-      "ms": 4011,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (road, engine) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't support anything about where the stall came from or what the person once felt about starting; I name the threshold and stop there. A reader could fairly say the pattern-seeing is what keeps them from moving rather than what they move on, so I keep Drive as the card and Abstraction as the place and let the tension sit. The asks name one step, one limit, one ending, one claim — they'd survive if my read is wrong about why. The sentence that serves me more than the person was 'you were always the one already building'; the record doesn't back it and this house wouldn't either."
-    },
-    {
-      "attempt": 4,
-      "ms": 3684,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, engine) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "two images in one core (room, engine) — one at most, usually none",
           "hard": false,
           "status": 4
         },
@@ -538,95 +727,13 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't support where the stall came from or what the person once felt about starting; I name the threshold and stop. A reader could fairly say the pattern-seeing is what keeps them from moving rather than what they move on, so I keep Drive as the card and Abstraction as the place and let the tension sit. The asks name one step, one limit, one ending, one claim — they'd survive if my read is wrong about why. The sentence that serves me more than the person was 'you were always the one already building'; the record doesn't back it and this house wouldn't either."
-    },
-    {
-      "attempt": 5,
-      "ms": 3578,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, engine) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't support where the stall came from or what the person once felt about starting; I name the threshold and stop. A reader could fairly say the pattern-seeing is what keeps them from moving rather than what they move on, so I keep Drive as the card and Abstraction as the place and let the tension sit. The asks name one step, one limit, one ending, one claim — they'd survive if my read is wrong about why. The sentence that serves me more than the person was 'you were always the one already building'; the record doesn't back it and this house wouldn't either."
+      "check": "The unsupported claim is that the person's own account of what moves them is wrong; the record gives the mechanism, not their history. A reader could say: I do know what I want, I just haven't said it. The asks survive a wrong read because each is small and teaches something about the mechanism even if the read is off. The sentence that serves the writer more than the person: the pattern is the driver."
     }
   ],
   "usage": {
-    "input": 5052,
-    "output": 5585
+    "input": 7744,
+    "output": 4895
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:01:24.916Z"
+  "date": "2026-10-02T12:48:42.185Z"
 }

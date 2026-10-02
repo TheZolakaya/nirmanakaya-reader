@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are right here at the door as something comes across, and your hand is already open.",
-      "ask": "Before it goes anywhere, write down in one line what just arrived and what you'll do with it, then do that today.",
-      "core": "Something is arriving and you're present for it. Not bracing, not late — you're at the threshold when it crosses, and your hand is open. That catches more than it looks like. Most people only know what they're doing is good once it's answered back to them. You can feel it while it's still in your grip. You name it, you give it a shape, you don't wait for the form to prove itself first.\n\nWhat this can feed next is itself, and support is how that happens. The resource in your hand gets stronger when it moves. You can hand that practical grip to someone else and still have it. So let it land somewhere. One line on what just came in, and one thing you'll do about it before the day ends, is the whole act.",
-      "sheetLine": "Something is at the door and your hand is already open.",
-      "verb": "taking a first form into the hand before anything is built on it",
-      "place": "at the moment something crosses the threshold and hasn't been absorbed yet",
+      "tense": "A concrete piece of what you intend is arriving, and you are here to meet it.",
+      "act": "give a concrete piece of help and finish it",
+      "ask": "Someone near you needs one specific thing today — hand it over and stay until it's done, not just started.",
+      "core": "Something tangible is coming through the door — a resource, an offer, the first real piece of a plan you've been circling. What you have on hand is enough to give, and the way you meet this now sets what comes after it.\n\nChoose one person who actually needs something from you and hand it over — one real piece of help, carried all the way through, not turned into advice or a project about you. That is where a new beginning lands: in a hand, not in a plan. Giving like this doesn't cost you what you think it costs; it steadies the ground you are about to build on.\n\nWhat you put in someone else's hands today is how you keep your own steady.",
+      "sheetLine": "Give one real piece of help and finish it.",
+      "verb": "beginning the first concrete form of what you intend",
+      "place": "at the threshold where what was outside is entering now",
       "provenance": {
         "signature_id": 52,
         "position_id": 10,
@@ -26,19 +27,19 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You have already named what it will become before it has arrived, and you are building the answer in advance.",
-      "ask": "Say what you think is coming, once, out loud — then do nothing about it for a day and see what stays true.",
-      "core": "You're ahead of the door. Something hasn't crossed yet and you've already named it, shaped it, planned it — deciding what the seed will mean before it's in your hand. The energy isn't the problem; the timing is. You're spending this on arrivals that haven't happened and may not look like what you've prepared for.\n\nIt isn't less care in the planning that would help. Let knowing deepen instead of closing. You can't see what's actually arriving until it's here. If what you saw coming doesn't match what shows up, that's not failure — it's information your preparation couldn't have given you. So say one thing you think is coming, once, and let the day answer it.",
-      "sheetLine": "You've already decided what it means before it's arrived.",
-      "verb": "taking a first form into the hand before anything is built on it",
-      "place": "at the moment something crosses the threshold and hasn't been absorbed yet",
+      "tense": "Something is arriving and you are already writing the ending before it gets through the door.",
+      "act": "name every feeling in it on one page, none of them crossed out",
+      "ask": "Take a page and write every feeling this arrival brings up — excited, scared, suspicious, tired — all of them, none crossed out, and then close the notebook.",
+      "core": "Good things are arriving and you keep meeting them with your teeth. A first offer, a first real piece of a plan, a hand held out — before it lands, the scenario is already run to its end, and the end is bad. The precaution feels like preparation. From the outside it looks like nothing new is allowed to actually come in.\n\nFeel all of it, every colour, before you act on any of it. Take a page and write every feeling this arrival brings up — excitement, dread, suspicion, exhaustion — and cross none of them out. Keep every one. That is what a whole reaction looks like, and it commits you to nothing. The door opens a little; what is behind it gets to be what it is.\n\nYou can be careful without closing the door.",
+      "sheetLine": "You are bracing at a door that is already open.",
+      "verb": "beginning the first concrete form of what you intend",
+      "place": "at the threshold where what was outside is entering now",
       "provenance": {
         "signature_id": 52,
         "position_id": 10,
@@ -64,41 +66,32 @@
         "partner": "Completion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You're still standing in a doorway that closed behind you, and what came through it never quite got taken in.",
-      "ask": "Pick one thing already to hand that you've been treating as not-arrived, and actually use it once today.",
-      "core": "The door is right in front of you and your hand stayed down. Something was offered, or arrived, or was within reach, and it didn't get taken up. Opportunity isn't what's short here — the grip that would make it concrete is.\n\nDon't try to reach for it out of an empty hand. Look at what's already here: the tool, the person, the thing you keep meaning to begin. Use one of them once, plainly, today. Starting from what's here is how the whole thing loosens. Then the same act gets easier — the first form is taken in, and something gets built on it instead of left standing at the door.",
-      "sheetLine": "The door is right in front of you and your hand is still down.",
-      "verb": "taking a first form into the hand before anything is built on it",
-      "place": "at the moment something crosses the threshold and hasn't been absorbed yet",
+      "tense": "Something was offered and the moment for answering has already gone by.",
+      "act": "see it whole, with nothing hidden",
+      "ask": "Take the situation you keep rehearsing and view every part of it at once — what was said, what wasn't, what it is now — until nothing more shows.",
+      "core": "You are still at one particular doorway, and the thing on the other side of it resolved one way or the other a while back. The offer was made or it wasn't, the plan was named or it wasn't. From where you are, it looks like nothing has happened yet.\n\nLook at the whole situation instead of the one face you keep turning over. Take what you rehearse and view every part — what was said, what was not said, what it actually is now — until there is nothing left in it to see. You will know you are done because the rehearsing will have nothing left to feed on. Seeing all of it takes less out of you than re-looking at one part does.\n\nThe light comes on when you step out of the doorway.",
+      "sheetLine": "It already happened. You are at the doorway.",
+      "verb": "beginning the first concrete form of what you intend",
+      "place": "at the threshold where what was outside is entering now",
       "provenance": {
         "signature_id": 52,
         "position_id": 10,
@@ -107,24 +100,24 @@
         "partner": "Clarity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -136,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You are giving first form to the thing and calling it something that just turned up.",
-      "ask": "Name one thing you started as yours, out loud, and drop the word that had you crediting luck or timing for it.",
-      "core": "You've been taking things in and giving them their first shape for a while now. The early form, the name you give it — it's yours, and you've been describing it as if it were happening to you. That's not modesty. It's the one place where saying 'I did this' would settle something.\n\nYou don't need volume to claim it. You already see it; what's left is saying it. Take one thing you started and call it that — 'I began this,' 'this one was mine from the start.' Simple, said once, to yourself first if that's where it has to land. What is here is yours to name, and saying so is how it gets to be built.",
-      "sheetLine": "You're giving things their first form and calling it luck.",
-      "verb": "taking a first form into the hand before anything is built on it",
-      "place": "at the moment something crosses the threshold and hasn't been absorbed yet",
+      "tense": "Something is beginning, and the one starting it is you, though your account says otherwise.",
+      "act": "lay every piece of it out where you can see all of it at once",
+      "ask": "Choose something you'd call just happening, and spread every part of it where you can see the whole — then look at who set the parts there.",
+      "core": "Something is beginning in your life, and by your account it has nothing to do with you. The plan, the connection, the piece of work taking shape — you describe it as something happening, not something you are doing. The starting is yours. Your name is not on it.\n\nTake one of those things and spread every part where you can see the whole — when it started, what you did first, who you called, what you stopped. Line the parts up and you will be able to see the hand that put it together, and it will look like yours. That is not flattery; it is just what the whole picture shows.\n\nThe work is real, and the one doing it is you.",
+      "sheetLine": "You are starting things and letting them look like chance.",
+      "verb": "beginning the first concrete form of what you intend",
+      "place": "at the threshold where what was outside is entering now",
       "provenance": {
         "signature_id": 52,
         "position_id": 10,
@@ -150,19 +144,19 @@
         "partner": "Clarity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -181,20 +175,20 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6418,
+      "ms": 6952,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -205,33 +199,15 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Recognition",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false,
           "status": 2
         },
         {
@@ -241,39 +217,27 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
+          "code": "vocab",
+          "detail": "3 images in one core (threshold, door, doorway) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (door, threshold, room) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -284,7 +248,13 @@
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -295,26 +265,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "the map's jargon: \"signature\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"The naming\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"lay every piece of it\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
@@ -329,26 +305,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record does not say what is actually arriving for this person — I render the seed and the timing but not its name, and any concrete noun I supply for the thing at the door would be invention. The reader could fairly say 'no — nothing is arriving that I didn't already have,' so every cell has to leave them the general truth, that the capacity to take something in and hold it is present, and only its exercise is in question. The asks all survive a wrong read: write the thing down once, clear one old thing out, let one arrival stay put, claim one thing already being done — each does work regardless of what is actually at the door. The sentence that serves me more than them is 'and that's the resource I'd say you've earned a claim on,' which follows from my read of their history and not from anything they can check."
+      "check": "The one claim the record will not support is any statement about who is arriving or what it will cost them, so the cells stay with what Definition looks like in this seat: a concrete beginning presenting itself. A reader could say 'I am not standing at any beginning' and the asks still work, because each one positions, drops, or names an arrival without requiring agreement. The sentence that serves the writer is the temptation to say the arrival is 'the one you have been waiting for', which flatters the map and says nothing checkable, so it is gone."
     },
     {
       "attempt": 2,
-      "ms": 3910,
+      "ms": 4744,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -359,21 +345,15 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false,
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -383,27 +363,45 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"back there deciding\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "\"the opening\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "five words in a row from the medicine's own acts: \"see all of it at\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -413,20 +411,26 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
@@ -443,72 +447,60 @@
           "status": 4
         }
       ],
-      "check": "The record does not say what is actually arriving for this person — I render the seed and the timing but not its name, and any concrete noun I supply for the thing at the door would be invention. The reader could fairly say 'no — nothing is arriving that I didn't already have,' so every cell has to leave them the general truth, that the capacity to take something in and give it first shape is present, and only its exercise is in question. The asks all survive a wrong read: write the thing down once, say what you think is coming and let the day answer, use one thing already to hand, name one thing you started. The sentence that serves me more than them is 'and that's the resource I'd say you've earned a claim on,' which follows from my read of their history and not from anything they can check."
+      "check": "The record will not support any claim about who or what is arriving in the person's life, so each cell stays with what Definition does in this seat: a concrete first form presenting itself, and what the person can do about it. A reader could say 'nothing is arriving' and still use every ask, because each one positions, drops, or names an arrival without requiring agreement. The sentence that serves the writer is the one making the arrival sound fated — 'the one you've been waiting for' — and it is gone."
     },
     {
       "attempt": 3,
-      "ms": 3707,
+      "ms": 3753,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -519,20 +511,20 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
@@ -549,130 +541,24 @@
           "status": 4
         }
       ],
-      "check": "The record does not say what is actually arriving for this person — I render the seed and the timing but not its name, and any concrete noun I supply for the thing at the door would be invention. The reader could fairly say 'no — nothing is arriving that I didn't already have,' so every cell has to leave them the general truth, that the capacity to take something in and give it first shape is present, and only its exercise is in question. The asks all survive a wrong read: write the thing down once, say what you think is coming and let the day answer, use one thing already to hand, name one thing you started. The sentence that serves me more than them is 'and that's the resource I'd say you've earned a claim on,' which follows from my read of their history and not from anything they can check."
+      "check": "The record will not support any claim about who or what is arriving in the person's life, so each cell stays with what Definition does in this seat: a concrete first form presenting itself, and what the person can do about it. A reader could say 'nothing is arriving' and still use every ask, because each one positions, drops, or names an arrival without requiring agreement. The sentence that serves the writer is the one making the arrival sound fated — 'the one you've been waiting for' — and it is gone."
     },
     {
       "attempt": 4,
-      "ms": 3554,
+      "ms": 3876,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say what is actually arriving for this person — I render the seed and the timing but not its name, and any concrete noun I supply for the thing at the door would be invention. The reader could fairly say 'no — nothing is arriving that I didn't already have,' so every cell has to leave them the general truth, that the capacity to take something in and give it first shape is present, and only its exercise is in question. The asks all survive a wrong read: write the thing down once, say what you think is coming and let the day answer, use one thing already to hand, name one thing you started. The sentence that serves me more than them is 'and that's the resource I'd say you've earned a claim on,' which follows from my read of their history and not from anything they can check."
-    },
-    {
-      "attempt": 5,
-      "ms": 3451,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -683,44 +569,32 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, seed) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -731,14 +605,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -755,13 +629,13 @@
           "status": 4
         }
       ],
-      "check": "The record does not say what is actually arriving for this person — I render the seed and the timing but not its name, and any concrete noun I supply for the thing at the door would be invention. The reader could fairly say 'no — nothing is arriving that I didn't already have,' so every cell has to leave them the general truth, that the capacity to take something in and give it first shape is present, and only its exercise is in question. The asks all survive a wrong read: write the thing down once, say what you think is coming and let the day answer, use one thing already to hand, name one thing you started. The sentence that serves me more than them is 'and that's the resource I'd say you've earned a claim on,' which follows from my read of their history and not from anything they can check."
+      "check": "The record will not support any claim about who or what is arriving in the person's life, so each cell stays with what Definition does in this seat: a concrete first form presenting itself, and what the person can do about it. A reader could say 'nothing is arriving' and still use every ask, because each one positions, drops, or names an arrival without requiring agreement. The sentence that serves the writer is the one making the arrival sound fated — 'the one you've been waiting for' — and it is gone."
     }
   ],
   "usage": {
-    "input": 8738,
-    "output": 6007
+    "input": 8116,
+    "output": 4856
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:42:34.527Z"
+  "date": "2026-10-02T12:18:03.287Z"
 }

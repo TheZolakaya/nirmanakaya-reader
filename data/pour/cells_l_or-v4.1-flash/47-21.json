@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are handing over something finished, and you know what it cost to make.",
-      "ask": "Offer one thing you made — a meal, a plan, a repair — and when someone moves to give back, let them. Don't wave it off, don't match it in the same breath. Take the return and let the thing be even.",
-      "core": "You're at the end of making something, and it finishes where it meets another person. Not the second you stop working — the second it lands with someone and they take it in. You know what went into it, and you're still in the room while they weigh it.\n\nWhat gets in the way is the extra step. You hand something over, then hand over more to make the first one comfortable — topping it up, sending back whatever comes, keeping one hand on it after it leaves. Open hands that are also braced. The staying power you need now sits in the receiving. Letting something be paid for is its own kind of strength.",
-      "sheetLine": "You made it, you handed it over, and you're letting them take it in.",
-      "verb": "offering what you made for what you need, and taking what is offered",
-      "place": "the moment a finished thing leaves your hands",
+      "tense": "You are at the end of making this with the pen still in your hand.",
+      "act": "set the finished thing down in a form that keeps",
+      "ask": "Before this goes out, look once at what you gave and what came back over the whole of it, and if the shape holds, set it down where it stays good without you holding it.",
+      "core": "You've brought something to its end, and the exchange in it has worked. What you put out came back, what you needed you asked for, and the close of it doesn't owe anyone. A finished thing doesn't have to be held open any more, and this one has people in it — you kept the two sides level while it got made, and that levelness is why the last step is clean.\nYou're closing this. Give the account one honest look before it leaves: what went out against what returned, both sides, over the whole of it. If the shape holds, the books close themselves and you're free to set the finished thing down where it stays good without you. If a side sits short, that's worth one sentence said plainly. Then it goes.",
+      "sheetLine": "The books are even. You can set this down.",
+      "verb": "making a fair exchange",
+      "place": "where what you've made with someone is being finished and let go",
       "provenance": {
         "signature_id": 47,
         "position_id": 21,
@@ -26,46 +27,37 @@
         "partner": "Preservation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're already paying for things tomorrow, and no one has held out a hand yet.",
-      "ask": "Pick one thing you were about to give, and don't give it yet. Wait until someone actually asks or offers. Let the day pass with it ungiven.",
-      "core": "A hand goes out and a hand comes back at about the same pace. You offer, they take, something returns, and neither person holds the whole thing up alone. There's a bottom to what you put in and a bottom to what comes back.\n\nWhat's happening instead is that you've moved the exchange ahead of the clock. Someone might need something, so you've already decided what you'll hand over, already felt the cost, already written how they'll answer. You're holding out things nobody reached for. There's an edge of bracing to it — not free, but fortified against a future where you come up short. What's needed here is strength that holds still rather than reaches. A shoulder that bears weight without grabbing the load. Let the other hand open first.",
-      "sheetLine": "You're settling accounts that haven't been opened.",
-      "verb": "offering what you made for what you need, and taking what is offered",
-      "place": "the moment a finished thing leaves your hands",
+      "tense": "You will have handed this over while the totals of it are still running.",
+      "act": "carry your own share, all of it",
+      "ask": "For one week, carry only your own side of this and add nothing to either column. Let the finished part be finished without you going back to count it.",
+      "core": "You're handing this off with the totals still open. What you gave, what came back, who came up short — the counting is still going while the goodbye happens, and some of it has no place to land now. Nobody was shorted on purpose. The thing is being kept alive past its finish because you're afraid a gap will show if you stop watching.\nTake your own share, all of it, the full weight, and put it down where it belongs. Then step back and leave the rest to stand or fall without you going back in. For one week, add nothing to either column. If something genuinely goes unfed, the week ends and you'll see it without having gone looking.",
+      "sheetLine": "Keep handing it off. Stop checking what returned.",
+      "verb": "making a fair exchange",
+      "place": "where what you've made with someone is being finished and let go",
       "provenance": {
         "signature_id": 47,
         "position_id": 21,
@@ -74,41 +66,27 @@
         "partner": "Steadfastness",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped putting things into the shared stream a while back, and you can still see the spot.",
-      "ask": "Take one small skill you have — measuring, listening, fixing — and use it on something that isn't yours. Your neighbor's gate, a friend's essay, the office plant.",
-      "core": "You're holding what you made close, and not much is moving between you and anyone. You know the give-and-take is supposed to work, but you're standing off the road watching traffic go by without you in it. This is where something gets finished and let out into the open — yours is closing inward.\n\nThe muscle that's gone is attention. You can still notice what's fair and what isn't, you're just not aiming that noticing at anything shared. Practice that stays home sharpens you and walls you in at the same time. Point the eye at something outside your own head and handing things over starts to feel less like risk and more like ordinary traffic.",
-      "sheetLine": "You've gone quiet at the exact point where things are supposed to move.",
-      "verb": "offering what you made for what you need, and taking what is offered",
-      "place": "the moment a finished thing leaves your hands",
+      "tense": "You were finishing this with people, and you left before the exchange was paid.",
+      "act": "sort what matters from what does not, carefully",
+      "ask": "Take one finished thing still turning in your head. Write two lines — what you put in, what came back — and strike the one that isn't true.",
+      "core": "This sits behind you and the account was left open. You gave, and the return didn't arrive anywhere you could feel it, so you stopped asking, and now it's hard to say what you carried and what came back. The end happened. You weren't present for the closing of it.\nGo back to the record and sort, carefully, what you gave from what returned. Two lines on one page, one of each, then strike the line that isn't true and keep the strike. That's the distinction you didn't get to make at the time, and making it puts you back inside the exchange you were already part of. What you learn stays with you. It doesn't go to them.",
+      "sheetLine": "You gave. Put down what actually returned.",
+      "verb": "making a fair exchange",
+      "place": "where what you've made with someone is being finished and let go",
       "provenance": {
         "signature_id": 47,
         "position_id": 21,
@@ -117,36 +95,37 @@
         "partner": "Honing",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (road, wall) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're already keeping the exchange even on both sides, and you file it under being reasonable.",
-      "ask": "Catch yourself doing one thing that keeps an exchange even — waiting your turn, paying back, splitting the check — and say out loud, at least to yourself, 'I did that on purpose.'",
-      "core": "There's a fairness running through how you handle what sits between you and other people. You notice when someone's shorted, you adjust without announcing it, you hand back what came to you. That's reciprocal, and it isn't automatic — it's you doing it. You'd call it practical. Just being reasonable. The accounting gets done and gets filed under nothing special.\n\nThat's the part that belongs to you and hasn't been claimed. The steady back-and-forth isn't a background condition of life; it's something you're running. No need to announce it to the people around you. The work is to stop letting it count as background.",
-      "sheetLine": "You've been keeping things even and calling it 'nothing much.'",
-      "verb": "offering what you made for what you need, and taking what is offered",
-      "place": "the moment a finished thing leaves your hands",
+      "tense": "You are evening this up between people and calling it how the room is.",
+      "act": "hold two true things without declaring either",
+      "ask": "The next time you square something quietly between people, name both sides for yourself before you move — no verdict — then move, or don't.",
+      "core": "At the close of this, the fairness is being kept by hand, here and there, and if asked you'd say it settles itself. Who gets what, what can wait, which side goes short so the whole thing finishes level — those moves are being made. The hand making them is yours. You're describing it as how the room is, and from where you stand it looks like that.\nBefore the next quiet squaring, bring both sides into view at once — theirs and yours — and hold them without calling either the answer. It's a stop inside one second, and then move or don't move. Deciding isn't the point. Stepping in on purpose, where you were already stepping in, is. The room does settle. Knowing your hand is in it is the whole of the difference.",
+      "sheetLine": "You square it by hand. That hand is yours.",
+      "verb": "making a fair exchange",
+      "place": "where what you've made with someone is being finished and let go",
       "provenance": {
         "signature_id": 47,
         "position_id": 21,
@@ -155,14 +134,19 @@
         "partner": "Reflection",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -171,8 +155,8 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -181,21 +165,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5911,
+      "ms": 11075,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 1
         },
         {
@@ -205,34 +183,22 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
           "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "detail": "five words in a row from an exemplar or a rule: \"the fairness is what makes\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "scope",
@@ -241,69 +207,75 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"The giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\", and let the finished\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the settling\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"the next time you quietly\"",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -313,39 +285,26 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: 'the sorting is doing quiet work every day you don't notice it' — the record gives no evidence of unnoticed ongoing activity. A reader could say 'I'm not sure I'm choosing anything.' The asks survive even if the read is wrong: offering a piece of something you made, or leaving one thing uncounted, are harmless and useful regardless. The sentence that serves the writer is 'What you hand over arrives shaped by you' — nice-sounding but empty; it's cut."
+      "check": "The unsupported claim: that this person has a finishable thing — reading it as a shared one is true of the card, but the seat doesn't say it's shared, so the cells keep the account 'between you and the thing' and use 'you and whoever's in it' only where giving happens. The reader's likely objection: 'I'm not bookkeeping, I'm busy' — the ask survives that, because sorting stays useful even where the count is wrong, it just gives them less. The line that serves me: the closing 'what goes back out decides what gets made next' — I keep it because it's the seat's own motion, but I don't lean on it twice."
     },
     {
       "attempt": 2,
-      "ms": 4740,
+      "ms": 7095,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -353,9 +312,9 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 1
         },
         {
@@ -365,69 +324,57 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The giving\" — a verb turned into a mystical noun",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the next time you quietly\"",
           "hard": true,
-          "status": 2
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You have to\"",
-          "hard": true,
           "status": 4
         },
         {
@@ -437,33 +384,21 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The flagged claims are fixed: no verb-turned-noun, no universal about the person's life, no imperative, no house refrain. The one remaining reach is 'you know what you made and you're letting it be weighed' — the record shows balanced exchange, not that the person is comfortable being evaluated. A reader could say 'actually I hand things over and immediately look away.' The asks survive that: giving one thing and receiving the return, or holding one thing back until asked, are useful either way. The sentence that serves me is 'the exchange stays fair only if you stop paying in advance' — it sounds like wisdom and says nothing checkable; it stays cut."
+      "check": "The unsupported claim: that the thing being finished is shared with specific people — the seat says integration and completion, not co-authorship, so each cell keeps the account between the person and the thing and lets other people in only where the card's exchange actually happens. The reader's likely objection: 'nothing is finishing, this is just my week' — the ask survives that; sorting two lines still returns something even if the ledger was imagined, it just returns less. The sentence that serves me too well: the status-4 line about the hand that settles it — I keep it because the seat's completion runs through it, and I use it once and set it down."
     },
     {
       "attempt": 3,
-      "ms": 3953,
+      "ms": 5491,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -471,68 +406,56 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -543,33 +466,21 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The flagged items are fixed: no verb-turned-noun, no imperative, no universal, no house refrain. The remaining reach is 'you can feel it in how bracing the generosity is' in Too Much — the record names bracing as the Too Much posture, but I'm asserting what the person feels. A reader could say 'I don't feel bracing, I feel generous.' The ask survives: holding one thing back until asked is useful regardless of what they feel. The sentence that serves me is 'wait for the hand before you fill it' — it's tidy and does the work of the ask twice; it stays cut to keep the close plain."
+      "check": "The unsupported claim: that the thing being finished is shared with specific people — the seat says integration and completion, not co-authorship, so each cell keeps the account between the person and the thing and lets other people in only where the card's exchange actually happens. The reader's likely objection: 'nothing is finishing, this is just my week' — the ask survives that; sorting two lines still returns something even if the ledger was imagined, it just returns less. The sentence that serves me too well: the status-4 line about the hand that squares it — I keep it once and set it down."
     },
     {
       "attempt": 4,
-      "ms": 3838,
+      "ms": 5635,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -577,80 +488,56 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this runs well, a hand goes out…\"",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"When this runs well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -661,33 +548,21 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The one reach left is 'you know what it cost to make' in Balanced — the record shows exchange running, not that the person is tracking cost. A reader could say 'I don't keep score like that.' The ask survives: offering something and receiving the return is useful whether or not the person is counting. The sentence that serves me is 'that's a rarer spot than it sounds' — it flatters without locating anything; it stays cut. The Too Much core is rebuilt past 120 words by naming what balanced exchange looks like here — a hand out and a hand back at the same pace — before naming where the person's has gotten ahead of it."
+      "check": "The unsupported claim: that the thing being finished is shared with specific people — the seat says integration and completion, not co-authorship, so each cell keeps the account between the person and the thing and lets other people in only where the card's exchange actually happens. The reader's likely objection: 'nothing is finishing, this is just my week' — the ask survives that; sorting two lines still returns something even if the ledger was imagined, it just returns less. The sentence that serves me too well: the status-4 line about the hand that squares it — I keep it once and set it down."
     },
     {
       "attempt": 5,
-      "ms": 3389,
+      "ms": 5330,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -695,62 +570,50 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -761,19 +624,19 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The remaining reach is 'you know what it cost to make' in Balanced — the record shows exchange running, not that the person tracks cost. A reader could say 'I don't keep score.' The ask survives: offering something and receiving the return is useful whether or not they count. The sentence that serves me is 'that's a rarer spot than it sounds' — flattery without location; it stays cut. Too Much is rebuilt past 120 words by naming the even exchange first in plain words, without the house refrain."
+      "check": "The unsupported claim: that a specific shared thing is being finished — the seat says integration and completion, not co-authorship, so each cell keeps the account between the person and the exchange and lets other people in only where the card's exchange actually happens. The reader's likely objection: 'nothing is finishing, this is just my week' — the ask survives that; sorting two lines still returns something even if the ledger was imagined, it just returns less. The sentence that serves me too well: the status-4 line about the hand that squares it — I keep it once and set it down."
     }
   ],
   "usage": {
-    "input": 5278,
-    "output": 5746
+    "input": 9309,
+    "output": 6087
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:38:42.945Z"
+  "date": "2026-10-02T12:12:56.575Z"
 }

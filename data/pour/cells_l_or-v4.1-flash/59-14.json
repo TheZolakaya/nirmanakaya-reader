@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The adjustment is happening now, and the hand making it is yours.",
-      "ask": "When the practice wobbles today, name the adjustment out loud and make it — the small one you've been circling. Nothing more.",
-      "core": "You're past the point of learning this by accident. The adjustments are small and they're constant — a little more here, a little less there — and you make them while the thing is running, not after. What you're building gets deeper because you stayed with it long enough to find the finer settings.\n\nThat's the balance to keep. The tuning serves the work and not the other way around: it keeps you in contact with the people you build for, and it doesn't turn into fretting. When the practice shows you a wobble, name it and make the small change in the moment, where you can watch it land. Keeping this level takes upkeep, and you're already paying it — today, just say the amount.",
-      "sheetLine": "You make the small adjustments while the work is running.",
-      "verb": "deepening by staying at the bench",
-      "place": "a practice you keep adjusting while it runs",
+      "tense": "The practice is flowing without force, and the refinement is serving growth rather than worry.",
+      "act": "sharpen the one skill by repeating its hardest part",
+      "ask": "Name the skill this rests on, then spend one sitting on its hardest part only, the pass you normally skip, and stop when that part runs cleaner than before.",
+      "core": "Building something deep means adjusting while it's still moving, and right now you can feel the work without forcing it. You add, you subtract, you blend — and the thing stays alive under your hands. Deep work like this earns skill by going back over the same ground until it gives more each time, and that's happening here without strain.\n\nHere's a way to feed it. Take the skill this whole thing rests on and go straight at its hardest part, the pass you usually skip. One sitting, nothing else. If that part comes out cleaner, you'll know the adjustment is still doing what it should. If it doesn't, you lost an hour and found where the edge is — which is also the work.",
+      "sheetLine": "You're adjusting it as it moves, and it's holding.",
+      "verb": "deepening a craft past the point where it starts to hold",
+      "place": "where you keep adjusting the mix while the work is still moving",
       "provenance": {
         "signature_id": 59,
         "position_id": 14,
@@ -26,7 +27,7 @@
         "partner": "Honing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -35,33 +36,10 @@
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
-        }
-      ]
-    },
-    {
-      "status": 2,
-      "tense": "The perfect version is somewhere ahead, and you are bracing to reach it before it arrives.",
-      "ask": "Pick one thing that is finished enough and hand it over as it is today. No last pass.",
-      "core": "You're tuning ahead of the work. Most of what you adjust right now is a version that doesn't exist yet — the next draft, the next season, the one that finally runs clean. It looks like care, and some of it is care, but the steadying has jumped in front of the thing it's steadying.\n\nSo the tuning lands on nothing you can hold. The fix is not more precision. Take one piece you've been holding back until it's right and put it in front of someone in its current form, today, without the last pass. The point is the exchange, not the polish. What comes back will tell you more than another hour of fiddling, and the adjustment you thought you owed the work was one you owed the room.",
-      "sheetLine": "You're tuning the next version instead of finishing this one.",
-      "verb": "deepening by staying at the bench",
-      "place": "a practice you keep adjusting while it runs",
-      "provenance": {
-        "signature_id": 59,
-        "position_id": 14,
-        "status": 2,
-        "partner_id": 44,
-        "partner": "Celebration",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
+        },
         {
-          "code": "vocab",
-          "detail": "two images in one core (current, room) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -72,13 +50,48 @@
       ]
     },
     {
+      "status": 2,
+      "tense": "Already bracing for a version of the finished thing that hasn't been built yet, the hands keep forcing the pace.",
+      "act": "celebrate with the others, not after them",
+      "ask": "Next time a piece of this lands, tell someone about it while it's still rough, before you clean it up. Don't wait for it to be worth announcing.",
+      "core": "Somewhere in this, the building has started running ahead of itself — reaching for a stage that isn't here yet, forcing passes that would come on their own if you let them. When the work starts getting pushed like that, it stops being craft and turns into a race with no finish line anyone agreed to.\n\nWhat breaks that grip isn't more discipline. When a piece of it lands, say so out loud, while it's still rough. Not the polished announcement, not after you've tidied it up. Marking the good thing with the people it's for isn't the reward for finished work — it's what keeps the work connected to anyone besides you, and yours is starting to grow in a room by itself.",
+      "sheetLine": "You're forcing the pace on something that isn't finished yet.",
+      "verb": "deepening a craft past the point where it starts to hold",
+      "place": "where you keep adjusting the mix while the work is still moving",
+      "provenance": {
+        "signature_id": 59,
+        "position_id": 14,
+        "status": 2,
+        "partner_id": 44,
+        "partner": "Celebration",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        }
+      ]
+    },
+    {
       "status": 3,
-      "tense": "A door closed behind you unremarked, and you are still standing where it used to be.",
-      "ask": "Put one piece of the practice on the table where someone else can see it, and say plainly what it does.",
-      "core": "The adjusting stopped. Somewhere along the way the small corrections you used to make while the work ran turned into waiting — for steadier ground, a clearer sign, a better moment to pick it back up. The practice is still there. You're not at the bench.\n\nWhat's empty isn't skill; it's the next step, unclaimed. Start by putting one piece of the work where another person can see it, and say what it does and where it goes next. That's not a pitch, it's a hand on the wheel — the practice gets its direction back from you saying it out loud. You don't need to feel ready. You need one concrete claim about what you're building, made in front of someone.",
-      "sheetLine": "You've stopped adjusting and started waiting for a sign.",
-      "verb": "deepening by staying at the bench",
-      "place": "a practice you keep adjusting while it runs",
+      "tense": "The hands have gone still, and the practice that used to deepen the work waits outside a door already behind you.",
+      "act": "declare the shape of it outward, plainly",
+      "ask": "Start saying what you're building and the order it goes in, out loud, as you go this week — to whoever's there, without asking what they think of it.",
+      "core": "The work of getting good at this has gone quiet. Where you used to adjust as you went, now nothing is added or moved — and that stillness isn't rest. The knack for going deep is still yours. Here, it's holding off.\n\nWhat gets it going again isn't more feeling about the work. Say what you're building and the order it goes in, plainly, out loud, to whoever happens to be there — no status update, no asking for a verdict, just the frame on the table while it's still live. Repeating it out loud is how it turns solid for you, and mid-sentence you'll catch which part you actually believe.",
+      "sheetLine": "You stopped building and started standing outside it.",
+      "verb": "deepening a craft past the point where it starts to hold",
+      "place": "where you keep adjusting the mix while the work is still moving",
       "provenance": {
         "signature_id": 59,
         "position_id": 14,
@@ -87,36 +100,52 @@
         "partner": "Assertion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
         {
           "code": "wound",
           "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (bench, wheel) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"declare the shape of it outward plainly\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The pen is down, but the page in front of you is already written in your hand.",
-      "ask": "Name one adjustment you made this week as your own call, and say why you made it that way.",
-      "core": "You are already keeping this thing in tune. The small corrections are happening — the timing you choose, the pieces you add, the ones you hold back — and you talk about them as if the work decided by itself. You'll say the project needed it, or that's just how it goes, while the call was yours each time.\n\nNothing is missing from the practice. What's missing is your name on it. Pick one adjustment from this week that you'd normally file under practical necessity, and in your own words own it — what you changed, and why you did it that way. The habit is already running. The claim is what's late, and saying it once is enough to start quieting the part of you that keeps offering the credit to the work.",
-      "sheetLine": "The hand on the wheel is yours. You keep calling it the work's doing.",
-      "verb": "deepening by staying at the bench",
-      "place": "a practice you keep adjusting while it runs",
+      "tense": "The adjusting continues, and by the account given, the hand making it belongs to someone else.",
+      "act": "move at the pace your feeling can sustain",
+      "ask": "Pick a speed you could carry for a month without strain, and keep to it across the next few days. No surging when inspiration hits, no stalling when it doesn't.",
+      "core": "You keep the work level in ways you don't count as your own — a tweak here, a pass skipped there — and if someone asked, you'd say it runs itself. It doesn't. There's a hand at the bench, adjusting while the thing is still hot, and that hand doesn't get credited in the story you tell about how any of this happens.\n\nHere's something small. Choose the speed you could carry for a month, then hold it for a few days — no burst when it comes easy, no stall when it doesn't. Riding at the pace your feeling can carry keeps direction and desire in the same lane, and the running argument between what you're doing and what you want gets quieter.",
+      "sheetLine": "Uncredited, the hand keeps it level anyway.",
+      "verb": "deepening a craft past the point where it starts to hold",
+      "place": "where you keep adjusting the mix while the work is still moving",
       "provenance": {
         "signature_id": 59,
         "position_id": 14,
@@ -125,14 +154,19 @@
         "partner": "Alignment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move at the pace your feeling can sustain\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -146,107 +180,154 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4753,
+      "ms": 5861,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"anxiety\"",
           "hard": true,
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (current, room) — one at most, usually none",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"the care is real\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the claiming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (thread, bench, wheel) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"signature\"",
-          "hard": true,
-          "status": 4
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "glass",
           "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (door, bench, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
           "hard": true,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the will and the wanting go the same way\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports a capacity for long, patient building and for the constant small adjustments that keep a practice on course; it does not support claims about the person's feelings, history, or what any adjustment is for. A reader could reasonably say the practice being described was never theirs or was forced on them, so every cell keeps the capacity as theirs without asserting why it started. The asks survive that objection because each one is doable even if the context is wrong, and the sentence that serves the writer is any line that admires the steadiness instead of handing the person the next move."
+      "check": "The draft's riskiest claim is that the person's fine-tuning has gone unconscious (Unacknowledged); the record supports only that the capacity is operating without deliberate authorship, not that they have forgotten it or deny it — a reader could reasonably say they calibrate on purpose and always have. The asks survive a wrong read: each is a small act the person can do or skip without the diagnosis being true, and none of them makes anything conditional on the read landing. The sentence that serves me more than them would be any line that congratulates the person for how sensitively they read a room — flattering the calibration rather than handing it back."
     },
     {
       "attempt": 2,
-      "ms": 2873,
+      "ms": 4183,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -258,22 +339,34 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (current, room) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "wound",
@@ -283,8 +376,8 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (bench, wheel) — one at most, usually none",
-          "hard": false,
+          "detail": "3 images in one core (room, bench, shape) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 3
         },
         {
@@ -295,28 +388,45 @@
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the will and the wanting go the same way\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports a capacity for long patient building and for the constant small adjustments that keep a practice on course; it does not support claims about the person's feelings, history, or why any adjustment is being made. A reader could reasonably say the practice was never theirs or was forced on them, so each cell keeps the capacity as theirs without asserting where it came from. The asks survive that objection because each is doable even if the context is wrong, and the sentence that serves the writer is any line that admires the steadiness instead of handing the person the next move."
+      "check": "The riskiest claim is that the person is running their fine-tuning without authorship (Unacknowledged); the record supports only that the capacity operates uncredited, not that they deny it or have forgotten it — a reader could fairly say they calibrate deliberately and always have. The asks survive a wrong read: each is a small move the person can do or skip, and none makes anything hinge on the diagnosis being true. The sentence that serves me more than them would be any line that praises how sensitively they read a room — crediting the calibration as a gift rather than handing it back."
     },
     {
       "attempt": 3,
-      "ms": 2669,
+      "ms": 3625,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -328,26 +438,38 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (current, room) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (bench, wheel) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -358,8 +480,242 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"declare the shape of it outward plainly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"Say it to someone\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the will and the wanting go the same way\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The riskiest claim is that the person's fine-tuning runs uncredited (Unacknowledged); the record supports only that the capacity operates without deliberate authorship, not that they deny or have forgotten it — a reader could fairly say they calibrate on purpose and always have. The asks survive a wrong read: each is a small move the person can do or drop, and none makes anything hinge on the diagnosis being true. The sentence that serves me more than them would be any line that praises how sensitively they read a room — crediting the calibration as a gift rather than handing it back."
+    },
+    {
+      "attempt": 4,
+      "ms": 3920,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"let the gladness go out\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"declare the shape of it outward plainly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"keep for a month not\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The riskiest claim is that the person's fine-tuning runs uncredited (Unacknowledged); the record supports only that the capacity operates without deliberate authorship, not that they deny or have forgotten it — a reader could fairly say they calibrate on purpose and always have. The asks survive a wrong read: each is a small move the person can do or drop, and none makes anything hinge on the diagnosis being true. The sentence that serves me more than them would be any line that praises how sensitively they read a room — crediting the calibration as a gift rather than handing it back."
+    },
+    {
+      "attempt": 5,
+      "ms": 3909,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"declare the shape of it outward plainly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move at the pace your feeling can sustain\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -370,13 +726,13 @@
           "status": 4
         }
       ],
-      "check": "The record supports a capacity for long patient building and for the constant small adjustments that keep a practice on course; it does not support claims about the person's feelings, history, or why any adjustment is being made. A reader could reasonably say the practice was never theirs or was forced on them, so each cell keeps the capacity as theirs without asserting where it came from. The asks survive that objection because each is doable even if the context is wrong, and the sentence that serves the writer is any line that admires the steadiness instead of handing the person the next move."
+      "check": "The riskiest claim is that the person's fine-tuning runs uncredited (Unacknowledged); the record supports only that the capacity operates without deliberate authorship, not that they deny or have forgotten it — a reader could fairly say they calibrate on purpose and always have. The asks survive a wrong read: each is a small move the person can do or drop, and none makes anything hinge on the diagnosis being true. The sentence that serves me more than them would be any line that praises how sensitively they read a room — crediting the calibration as a gift rather than handing it back."
     }
   ],
   "usage": {
-    "input": 2833,
-    "output": 3363
+    "input": 9267,
+    "output": 5943
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:19:28.172Z"
+  "date": "2026-10-02T12:25:17.913Z"
 }

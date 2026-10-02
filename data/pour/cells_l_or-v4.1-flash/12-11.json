@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Body",
+  "group": "library",
   "signature_id": 12,
   "position_id": 11,
   "signature": "Faith",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are letting go because the thing is done, not because you lost",
-      "ask": "Pick the one thing that finished last week and clear it out today — one box, one tab, one phone call — then leave the space it opened empty for three days. Feel which one you stopped missing first.",
-      "core": "The load lifts only once the work is finished, and you're letting it. Nothing crashed and nothing was surrendered under pressure; the thing had run its course, so the grip came off and the space underneath it is the point. That's the whole move, and people watch you make it without a fight.\nNow the part that's usually missed. Letting go this cleanly leaves room behind it, and room invites somebody to hand you the next load early. Keep close to how much of a stretch that can be, because the same fair hand that releases is the hand that gets handed more. Spend a little attention on what's growing in the gap you just cleared, and give it nothing but time.",
-      "sheetLine": "Done means it's done — you let go without calling it a loss.",
-      "verb": "Release what has finished, and let the clearing set things level",
-      "place": "Where what you put in and what you get back get weighed against each other",
+      "tense": "You are setting something down because it is finished, and you have the pen.",
+      "act": "give it what it needs today, not what it is scheduled for",
+      "ask": "Choose something you're tending. Give it what it actually needs today, not what you had planned for it — and if that's nothing, give it nothing.",
+      "core": "Something is done, and your hand is already off it. What's left is caring for what's still growing here — the part that comes after, when the cleared space gets filled with something tended rather than something gripped. That's the part people skip. You're not skipping it.\n\nTending, done right, doesn't exhaust you. It asks what the thing needs now, then it stops asking. So give one thing what it actually needs today, not what you scheduled. Maybe that's less than the plan. Maybe it's nothing. Care that doesn't clutch looks like that, and you can tell by how you feel at the end — emptied out, or still full.",
+      "sheetLine": "What's finished is finished. Tend what's left.",
+      "verb": "Setting down what's finished, on purpose",
+      "place": "The table where things get weighed and brought back level",
       "provenance": {
         "signature_id": 12,
         "position_id": 11,
@@ -26,19 +27,24 @@
         "partner": "Nurturing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -50,22 +56,18 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will hand it over before it's finished, and you're already steeling for the thanks",
-      "ask": "Take the thing you'd have stepped back from this week and stay in it through one more week of plain work on it — write the finish line down somewhere you'll see it, and do one hour during that week. Notice what the first hour costs you.",
-      "core": "Somewhere ahead the story is already written: you gave it all up, everybody saw, and it was noble. So you're rehearsing the exit while the work is still mid-sentence, paying costs nobody asked for yet. Clearing space before it's empty isn't release, it's risk management, and it leaves the other side holding your unfinished half.\nThe pull forward runs strong. Stay close to that pull, then do the small nightly thing anyway — practice is just the wattage that keeps your hands on something without straining. Let it settle you instead of sharpening the exit. That's the shape of this in a room where somebody's waiting on you to finish.",
-      "sheetLine": "You keep sacrificing before you finish, and calling it generosity.",
-      "verb": "Release what has finished, and let the clearing set things level",
-      "place": "Where what you put in and what you get back get weighed against each other",
+      "tense": "You will hand it over early to prove you are not clinging, and nobody asked.",
+      "act": "do the small practice again, alone, today",
+      "ask": "Repeat the one plain practice, by yourself, even if it feels pointless. One run of it, no plan on top, no refining.",
+      "core": "Here the release runs out past the thing. You're handing over what isn't finished, and from where others stand it can look like discipline — refusing first so it can't be refused to you, giving up before anyone can ask. That's not release. It's bracing, and it hollows out the same table it was meant to keep level.\n\nWhat steadies it is smaller than what you've been doing. Repeat the plain practice, by yourself, and make the repetition the whole point. No refinement to show, no plan built on top, just the session done the same way it was done yesterday. Solitude like that connects. It doesn't isolate, and it doesn't need anyone watching to count.",
+      "sheetLine": "You're giving things up before they're done.",
+      "verb": "Setting down what's finished, on purpose",
+      "place": "The table where things get weighed and brought back level",
       "provenance": {
         "signature_id": 12,
         "position_id": 11,
@@ -74,51 +76,32 @@
         "partner": "Discipline",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that closed behind you some time back",
-      "ask": "Take something on your shelf you won't use again, hand it to someone who wants it today, and stay for the thank-you without deflecting it. Do the next one tomorrow; let the shelf show the gap for a week.",
-      "core": "The grip is still closed on things that ended, and standing at that door costs you. It doesn't look dramatic from the outside — it looks like letting nobody else pick up the bill, like staying under every load longer than you had to. The tiredness comes from staying there, not from the work.\nTake it from the steady side. What's needed now isn't a tighter grip, it's learning to stay under weight without squeezing. A small thing done daily, no audience — that's how the bearing gets stronger. Then the release happens by itself, because there's enough under you to open your hands.",
-      "sheetLine": "You're worn out from holding on to things that already ended.",
-      "verb": "Release what has finished, and let the clearing set things level",
-      "place": "Where what you put in and what you get back get weighed against each other",
+      "tense": "You were still holding it long after it had already ended, and you knew.",
+      "act": "carry it without tightening around it",
+      "ask": "Hold it the way you'd hold something you didn't have to grip — same weight, looser hand — and see how much lighter it sits.",
+      "core": "You've held this a long time, and holding it has become the thing itself. The grip is tight enough that you can't tell any more which parts are the load and which are your hands. It's exhausting in a way that doesn't show, and the balance here has been off for a while.\n\nYou don't have to put it down today to get somewhere. Keep bearing the weight, but stop squeezing it. Same weight, looser hand — that's the whole act, and it's enough for one day. Strength that's healthy contains what it holds. It doesn't crush the thing, and it doesn't crush you.",
+      "sheetLine": "You're holding it so tight you can't feel your hands.",
+      "verb": "Setting down what's finished, on purpose",
+      "place": "The table where things get weighed and brought back level",
       "provenance": {
         "signature_id": 12,
         "position_id": 11,
@@ -127,51 +110,37 @@
         "partner": "Fortitude",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 103 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The pen is down in a room you have already been writing in",
-      "ask": "Name one thing you let go of in the last month and say out loud who moved it — then call that one yours next time you tell the story. Keep the story the same; keep the actor honest.",
-      "core": "Somewhere in the last stretch you let something go and haven't reported it, not to anyone and not to yourself. You tell the story as if the situation resolved itself, or as if you're still holding it, and the two accounts are still switched in your mouth. The release already happened, or the grip is still on and you haven't looked at which.\nFairness in this matter starts with the one telling the story. Care here means the plain, unglamorous kind — no audience, no credit. Ask what's actually finished and call your own part in it. That's the acknowledgment, and the whole thing was already operating without it.",
-      "sheetLine": "You already released it — the telling hasn't caught up.",
-      "verb": "Release what has finished, and let the clearing set things level",
-      "place": "Where what you put in and what you get back get weighed against each other",
+      "tense": "The surrender has already happened and you are still writing it as something you might do.",
+      "act": "make room for it without steering it",
+      "ask": "Make room for something that's growing without steering it. Give it the space, then leave it alone and don't check on it.",
+      "core": "Some release already happened here, quietly, without a decision you can point to. You'd probably describe it as still pending. The hand that set it down was yours, and the account in your head doesn't list it, so the credit for the clearing has gone unclaimed. When it goes well, you notice room where there used to be strain — a thing that gets to grow because nobody is hovering over it.\n\nCaring for what's growing works better than managing it. Make room for one thing, then leave it be — no steering, no checking on it before the day is out. That's tending without clutching, and it's the shape of what you already did. You just haven't put your name on it yet.",
+      "sheetLine": "You already let it go. You're still calling it pending.",
+      "verb": "Setting down what's finished, on purpose",
+      "place": "The table where things get weighed and brought back level",
       "provenance": {
         "signature_id": 12,
         "position_id": 11,
@@ -180,29 +149,29 @@
         "partner": "Nurturing",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false
-        },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "refrain",
+          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -211,21 +180,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5636,
+      "ms": 6435,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the letting go\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -241,228 +210,44 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "ask 44 words (≤40)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"the letting go\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"do the small practice again\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "length",
           "detail": "core 108 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"you just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record has the seat as an inner calibration of proportion that shows up in outer exchange; a reader could reasonably say that what's out of kilter is somebody else's behaviour, not their own fairness — and for Too Little, the reader could object that they're not holding on, the other side simply won't let go. The asks survive a wrong read: each one acts on the person's next move and needs nothing from the other party. The sentence that served me more than them was any version of 'balance is already inside you' — the map doesn't support a claim about their inner life, only about what the action in this seat does."
-    },
-    {
-      "attempt": 2,
-      "ms": 4060,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"Capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
@@ -474,8 +259,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -486,19 +271,13 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -509,36 +288,64 @@
           "status": 4
         },
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record has this seat as an inner calibration of proportion that shows up in outer exchange; a reader could reasonably say that what's out of kilter is somebody else's behaviour, not their own fairness — and for Too Little, the reader could object that they're not holding on, the other side simply won't let go. The asks survive a wrong read: each one acts on the person's next move and needs nothing from the other party. The sentence that served me more than them was any version of 'balance is already inside you' — the map doesn't support a claim about their inner life, only about what the action in this seat does."
+      "check": "The claim the record doesn't support is any account of what was let go of or held onto and for how long, so all four cores stay in the present of the grip and say nothing about history, people, or what it cost. A reader could reasonably say the release was long ago and already grieving, or that the holding is somebody else's weight; the asks survive both because each is one small act done today and teaches something about the person's own hand on it even if the read is wrong. The line that serves me more than them is 'surrender as fulfillment, not defeat' — it flatters the card's own language, so it stays out of the glass."
     },
     {
-      "attempt": 3,
-      "ms": 3090,
+      "attempt": 2,
+      "ms": 3883,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -555,33 +362,15 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -591,8 +380,207 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 100 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What helps is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The claim the record doesn't support is any account of what was let go of, held, or how long — the cores stay in the present of the grip and say nothing about history or people. A reader could reasonably say the release was long ago and already grieved, or that the weight belongs to someone else; the asks survive both because each is one small act done today and teaches something about the person's own hand on it even if the read is wrong. The line that serves me more than them is 'surrender as fulfillment, not defeat' — it flatters the card's own language, so it stays out of the glass."
+    },
+    {
+      "attempt": 3,
+      "ms": 3485,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the repetition\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 101 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"carry it without tightening around\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The claim the record doesn't support is any account of what was let go of, held, or for how long — the cores stay in the present of the grip and say nothing about history or people. A reader could reasonably say the release was long ago and already grieved, or that the weight belongs to someone else; the asks survive both because each is one small act done today and teaches something about the person's own hand on it even if the read is wrong. The line that serves me more than them is 'surrender as fulfillment, not defeat' — it flatters the card's own language, so it stays out of the glass."
+    },
+    {
+      "attempt": 4,
+      "ms": 3502,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
@@ -603,20 +591,8 @@
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -625,165 +601,11 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record has this seat as an inner calibration of proportion that shows up in outer exchange; a reader could reasonably say that what's out of kilter is somebody else's behaviour, not their own fairness — and for Too Little, the reader could object that they're not holding on, the other side simply won't let go. The asks survive a wrong read: each one acts on the person's next move and needs nothing from the other party. The sentence that served me more than them was any version of 'balance is already inside you' — the map doesn't support a claim about their inner life, only about what the action in this seat does."
-    },
-    {
-      "attempt": 4,
-      "ms": 3218,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "length",
           "detail": "core 109 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
           "status": 4
         },
         {
@@ -793,36 +615,47 @@
           "status": 4
         },
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record has this seat as an inner calibration of proportion that shows up in outer exchange; a reader could reasonably say that what's out of kilter is somebody else's behaviour, not their own fairness — and for Too Little, the reader could object that they're not holding on, the other side simply won't let go. The asks survive a wrong read: each one acts on the person's next move and needs nothing from the other party. The sentence that served me more than them was any version of 'balance is already inside you' — the map doesn't support a claim about their inner life, only about what the action in this seat does."
+      "check": "The claim the record doesn't support is any account of what was let go of, held, or for how long — the cores stay in the present of the grip and say nothing about history or people. A reader could reasonably say the release was long ago and already grieved, or that the weight belongs to someone else; the asks survive both because each is one small act done today and teaches something about the person's own hand on it even if the read is wrong. The line that serves me more than them is 'surrender as fulfillment, not defeat' — it flatters the card's own language, so it stays out of the glass."
     },
     {
       "attempt": 5,
-      "ms": 3208,
+      "ms": 3670,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -839,32 +672,8 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "ask 46 words (≤40)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it generosity\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
@@ -875,26 +684,14 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 103 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry it without tightening around it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -903,24 +700,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
@@ -929,25 +708,31 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "refrain",
+          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record has this seat as calibration of proportion that shows up in outer exchange; a reader could reasonably say what's out of kilter is the other person's conduct, not their own fairness — and for Too Little, that they aren't gripping anything, the other side simply won't let go. The asks survive a wrong read: each acts on the person's next move and needs nothing from anyone else. The sentence that served me more than them was any phrasing like 'the balance is already inside you' — the map doesn't support a claim about their inner life, only about what the action in this seat does."
+      "check": "The claim the record doesn't support is any account of what was let go of, held, or for how long — the cores stay in the present of the grip and say nothing about history or people. A reader could reasonably say the release was long ago and already grieved, or that the weight belongs to someone else; the asks survive both because each teaches something about the person's own hand on the thing even if the read is wrong. The line that serves me more than them is 'surrender as fulfillment, not defeat' — it flatters the card's own language, so it stays out of the glass."
     }
   ],
   "usage": {
-    "input": 7926,
-    "output": 5807
+    "input": 5531,
+    "output": 5733
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:40:12.951Z"
+  "hardOpen": 1,
+  "date": "2026-10-02T13:25:46.854Z"
 }

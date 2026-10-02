@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the work, and the careful thinking is holding steady.",
-      "ask": "Finish one decision you've been circling and act on it today — a call, a yes, a no — because the pieces have already said what they have to say.",
-      "core": "You're in the middle of a private read on something that's going well. Nothing's being rushed and nothing's being skipped — you keep turning it over until the parts that matter separate from the noise, and then you move. That habit runs on release, and release is what you're doing: the thing you put down stops taking up room, and you can see what's left standing. It looks like a quiet stretch because most of this happens where nobody sees it. The work only lands when the last step happens — the putting down. One more decision finished and off your hands is what the strength is for. It doesn't stay without that. The attention stays clean by being used on something real, and there's a decision in front of you right now that's finished except for the part where you act on it.",
-      "sheetLine": "You sort it out, then you set it down. That's the strength.",
-      "verb": "sorting what matters from what doesn't until the distinction is sharp enough to act on",
-      "place": "at the point where you decide what to set down and what to keep carrying",
+      "tense": "You are at the bench right now, with a hand free to weigh one thing.",
+      "act": "return to the work daily until it is profound",
+      "ask": "Pick the question you keep circling, sit with it twenty minutes today, and again tomorrow.",
+      "core": "You can hold a question long enough to watch its parts come apart. Instead of grabbing the first verdict, you stay until the false ones drop and what remains is solid under you. That is the discipline, and it is quiet, done alone. What it has not yet asked is an ending. Distinctions get made and stay open, still turned over. Some of what you already decided is finished and does not need another pass.\n\nTake one question you have been carrying and stop carrying it. Say what you decided, then do today's part of it. Not the whole path. The piece that is due now. Come back again tomorrow and do the next piece. A decision only becomes something by being used. Letting a question close is not the same as abandoning it.",
+      "sheetLine": "You can decide something and then set it down.",
+      "verb": "separating what holds from what does not",
+      "place": "where release is being practised",
       "provenance": {
         "signature_id": 36,
         "position_id": 12,
@@ -26,14 +27,19 @@
         "partner": "Commitment",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living past a decision that hasn't been made yet.",
-      "ask": "Say out loud where one decision actually stands right now, before the next round of checking. Just where it is, not where it's going.",
-      "core": "You're checking and re-checking something that's already been checked, and the checking has a life of its own now. Every angle gets worked one more time because you're bracing for how it'll be judged, for the part you might have missed — so the work that was private has started needing an audience that isn't here yet. This kind of careful reading is a good thing until it starts running on its own, and somewhere in there it stopped being about the question and started being about not getting caught out. Everything gets tested against a verdict nobody has given. The sharpness is still there. What's gone is the last step it needs, the one where you decide it's done and put the question down. Until that happens the checking has no finish line.",
-      "sheetLine": "You're not sorting anymore. You're bracing.",
-      "verb": "sorting what matters from what doesn't until the distinction is sharp enough to act on",
-      "place": "at the point where you decide what to set down and what to keep carrying",
+      "tense": "You will have taken apart what has not yet had a chance to hold.",
+      "act": "accept the acknowledgment when it comes",
+      "ask": "When someone notices the quiet work, take the thanks once without waving it off or explaining.",
+      "core": "The examining has moved past the thing being examined. You hunt for the flaw before the build has had time to stand, and the hunting wears at what you care about. From inside, it is diligence. From across the table, it looks like a question that is not permitted to finish.\n\nWhat brings you back is not another round. Let one finished thing be seen by the person it was for. Show it as it stands, or name what it cost, with no framing. If thanks come, take them. Release arrives when something is complete enough to be shown, not when it is polished enough that nobody could object. Show the one finished thing. Take the thanks. Then rest.",
+      "sheetLine": "The examining has moved past the thing being examined.",
+      "verb": "separating what holds from what does not",
+      "place": "where release is being practised",
       "provenance": {
         "signature_id": 36,
         "position_id": 12,
@@ -59,14 +66,34 @@
         "partner": "Honor",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -78,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You made a decision once and you're still standing at the point where it was made.",
-      "ask": "Open the thing you decided once and check one fact you'd know if you trusted yourself. Just look, say what's there.",
-      "core": "Something got decided, and you haven't exactly gone back on it, but you haven't moved past the moment either. The reasoning was good enough and then it stopped — like the putting down didn't finish, so you're standing at the edge with your hands still full. You're still turning that over when it comes up, checking whether the ground holds before you step. The old reading still works, technically. It just isn't doing anything anymore, and it doesn't feel finished because it isn't. The step from sorted to released hasn't happened, and more looking doesn't get you there. What gets you there is different air on it — a fresh set of eyes, someone who can tell you what they see without needing your version first.",
-      "sheetLine": "You decided, but you haven't put it down yet.",
-      "verb": "sorting what matters from what doesn't until the distinction is sharp enough to act on",
-      "place": "at the point where you decide what to set down and what to keep carrying",
+      "tense": "You were still at the threshold after you had already crossed it.",
+      "act": "let the exchange with someone run both ways",
+      "ask": "Choose one person. Give a view you hold and take theirs back this week.",
+      "core": "You still see what matters, but the sight does not turn into anything you say or do, and the conclusions you reach stay where you found them. What you know stops at the edge of you, and the edge has been getting harder to cross.\n\nWhat restores it is contact that moves in both directions. This is not scorekeeping. Let one exchange with one person run past the point where you usually stop it. State an opinion you actually hold. Let them state theirs. Do a small thing and accept the small thing back. The two-way part is the part that turns the current on. You do not have to feel ready. One honest back-and-forth at its actual size, and then leave it.",
+      "sheetLine": "You stopped saying what you had decided.",
+      "verb": "separating what holds from what does not",
+      "place": "where release is being practised",
       "provenance": {
         "signature_id": 36,
         "position_id": 12,
@@ -92,11 +120,26 @@
         "partner": "Reciprocity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the exchange with someone run both ways\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -106,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already letting things go, and you'd tell it as just trimming what's practical.",
-      "ask": "Pick one thing you've stopped doing and say plainly that you chose to stop. One sentence, to yourself, naming it as a choice.",
-      "core": "You've been making the call on what stays and what goes for longer than you'd say out loud. Some old version of this got dropped — the part where you did it differently — and you've moved on without marking the moment: you'd call the change just what the situation required. The calls keep happening anyway. They shape what you pick up, what you let pass, what you don't bother showing anyone because there's no need. The call was made. The saying-so didn't happen. That's the piece still hanging — you keep choosing from a decision you haven't admitted making, and until you call it yours the choice keeps getting filed under circumstances. Call one of those calls yours, out loud or on paper, and the rest of it lines up.",
-      "sheetLine": "You let it go already. You still call it trimming.",
-      "verb": "sorting what matters from what doesn't until the distinction is sharp enough to act on",
-      "place": "at the point where you decide what to set down and what to keep carrying",
+      "tense": "You are writing, pen down, in a room you have worked in for a long time.",
+      "act": "let the satisfaction of a finished thing land",
+      "ask": "Take one settled thing, use it as it stands for an afternoon, and stop there.",
+      "core": "You keep refining what counts, and you put it down to instinct or to getting on. The refinements are real. What is not accounted for is that you were the one making them. The choices get filed under circumstance, the work under routine, and the solitary hours start to read as distance rather than as a place you chose to think from.\n\nAn earlier version of this is simpler. Vision comes from having lived something through, not from stepping back further. So take one finished thing — a call already made, a piece of work already done, a meal already cooked — and use it just as it is. Do not reach past it toward a better version. The satisfaction is the point, and it is already earned. Let it land where you can feel it.",
+      "sheetLine": "Use what you finished. Stop reaching past it.",
+      "verb": "separating what holds from what does not",
+      "place": "where release is being practised",
       "provenance": {
         "signature_id": 36,
         "position_id": 12,
@@ -120,11 +164,36 @@
         "partner": "Fulfillment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -136,87 +205,29 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6085,
+      "ms": 6651,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "vocab",
           "detail": "\"The sorting\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't say the person has a habit of holding on, so the Balanced cell locates release only in moments they could recognise, not in a pattern. A reader could reasonably say the sorting they do is just worrying, which is why the Too Much cell keeps the mechanism to checking a call before it's made. The asks stay doable if the read is wrong — one decision finished, one thing put down — because each asks for an act, not a verdict. The sentence that serves me is any line about setting something down; it sounds wise and tells them nothing, so it's gone."
-    },
-    {
-      "attempt": 2,
-      "ms": 4120,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "code": "vocab",
+          "detail": "3 images in one core (shape, path, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -224,27 +235,111 @@
           "status": 1
         },
         {
+          "code": "said",
+          "detail": "7 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "hunch",
+          "detail": "\"to be safe\" — a motive the cell cannot know",
+          "hard": true,
           "status": 2
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (room, door, ledger, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Reciprocity does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let them do\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 3
         },
         {
@@ -254,8 +349,26 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and don't improve it let\"",
           "hard": true,
           "status": 4
         },
@@ -264,20 +377,213 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say the person has a habit of holding on, so each cell locates the release in one recognisable moment, not in a pattern. A reader could reasonably say the careful thinking is just ordinary worry, which is why the Too Much cell keeps the mechanism to checking one call past when it's done. The asks survive a wrong read — finish one decision, say where one thing stands, look at one fact, name one choice — because each asks for an act, not a verdict. The sentence that serves me is any line about setting something down; it sounds wise and tells them nothing, so it's gone."
+      "check": "The draft leans on the idea that the person's private sifting is already quietly serving something they care about — the record supports the capacity, not that claim. A reader could reasonably say the distinctions are only anxiety or only habit, not craft, and the ask still works because naming one thing and holding it is useful either way. The sentence that serves the writer more than the person is any line that flatters the private work into a calling before the person has said it is one."
+    },
+    {
+      "attempt": 2,
+      "ms": 5552,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the reaching\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (room, door, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the exchange with someone run both ways\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The draft still leans on a claim the record does not carry: that this person's private sorting is already serving something they care about, or that they 'keep at a question until the false parts fall away.' The record supports the capacity to distinguish; it does not support what the practice is for or how long it has been running. A reader could say the sifting is just worry, or just habit, and the asks survive that, because each one asks for a single visible act rather than a verdict about what the sorting means. The sentence that serves the writer more than the person is any line that makes the private work sound like a calling the person has not yet named as one."
     },
     {
       "attempt": 3,
-      "ms": 3612,
+      "ms": 4538,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -288,8 +594,26 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -298,6 +622,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (room, door, map, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the exchange with someone run both ways\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -306,30 +660,66 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The letting go\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it sit\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say the person has a habit of holding on, so each cell locates the release in one recognisable moment, not in a pattern. A reader could reasonably say the careful thinking is just ordinary worry, which is why the Too Much cell keeps the mechanism to checking one call past when it's done. The asks survive a wrong read — finish one decision, say where one thing stands, look at one fact, name one choice — because each asks for an act, not a verdict. The sentence that serves me is any line about setting something down; it sounds wise and tells them nothing, so it's gone."
+      "check": "The draft leans on private work that is already serving something cared about — the record carries the capacity to distinguish, not what the practice is for. A reader could say the sifting is only worry or habit, and each ask still works because it names one visible act rather than a verdict about what it means. The line that serves the writer more than the person is any phrase that turns the solitary hours into a vocation the person has not claimed."
     },
     {
       "attempt": 4,
-      "ms": 3875,
+      "ms": 3717,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -340,8 +730,26 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -350,6 +758,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (door, map, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the exchange with someone run both ways\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -358,19 +790,179 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it sit\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say the person has a habit of holding on, so each cell locates the release in one recognisable moment, not in a pattern. A reader could reasonably say the careful thinking is just ordinary worry, which is why the Too Much cell keeps the mechanism to checking one call past when it's done. The asks survive a wrong read — finish one decision, say where one thing stands, look at one fact, name one choice — because each asks for an act, not a verdict. The sentence that serves me is any line about setting something down; it sounds wise and tells them nothing, so it's gone."
+      "check": "The draft leans on a claim the record does not carry — that the private distinguishing is already serving something the person cares about. The record supports the capacity, not what the practice is for or how long it has run. A reader could say the sifting is only worry, or only habit, and the asks survive that because each names one visible act rather than a verdict about what it means. The sentence that serves the writer more than the person is any line that turns the solitary hours into a vocation the person has not claimed."
+    },
+    {
+      "attempt": 5,
+      "ms": 3443,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept the acknowledgment when it comes\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the exchange with someone run both ways\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft still leans on a claim the record does not carry — that the private distinguishing is already serving something the person cares about. The record supports the capacity to tell what holds from what does not; it does not say what the practice is for. A reader could say the sifting is only worry or only habit, and the asks survive that because each names one visible act rather than a verdict about what it means. The sentence that serves the writer more than the person is any line that turns the solitary hours into a vocation the person has not claimed."
     }
   ],
   "usage": {
-    "input": 4151,
-    "output": 4556
+    "input": 9283,
+    "output": 5650
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:28:21.157Z"
+  "date": "2026-10-02T11:59:50.578Z"
 }

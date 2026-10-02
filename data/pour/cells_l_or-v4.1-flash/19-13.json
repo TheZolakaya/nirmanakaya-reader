@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here, and what is ending is ending at the pace it actually takes.",
-      "ask": "Lay out the one thing you are actually keeping, next to what is going out, and name where each goes.",
-      "core": "You know who you are in this, and it's not a performance for the room. Something is finishing around you — a way of being needed, a shape of a day, an arrangement you've been the one holding — and you are letting it finish without rushing or dragging it out. That's the whole of it. You don't have to prove you're fine with it. You're just not pretending it isn't happening.\nPeople can feel that from you. They come to a room where something is being put down and nobody is being blamed for putting it down. The part to watch is that this reads easily as a gift and you can start giving it away. Keep one place where it's just yours. Let the ending land as its own thing, not as a lesson anybody around you is getting.",
-      "sheetLine": "Something is ending and you're letting it end without making it a speech.",
-      "verb": "Becoming what you already are",
-      "place": "Where what has ended is being let end",
+      "tense": "You are here, in the finished thing, with the pen still in your hand.",
+      "act": "draw the shape of it without the details",
+      "ask": "Take the last few times something in your life ended and draw the shape they share — no names, no story, just the line that runs through all of them.",
+      "core": "What's finishing now is finishing cleanly. Some part of your life is ending, and you're not dragging it out or pretending it isn't happening — the clearing is going on and you're in it, awake. That's why there's no noise around it. You can be in something that's over without it being a loss, and that's no small thing. It's the work of this hour.\n\nWhat carries you is seeing the pattern under the endings. Not this ending, the shape of them — what keeps arriving when one thing closes. Take the last few times something in your life ended and draw the shape they share, no names, no story, just the line that runs through all of them. Then let the clearing keep going. You'll know the next thing by its shape before it even arrives.",
+      "sheetLine": "Something's ending cleanly, and you're awake for it.",
+      "verb": "become what you are",
+      "place": "at the finish, clearing for what comes next",
       "provenance": {
         "signature_id": 19,
         "position_id": 13,
@@ -26,14 +27,14 @@
         "partner": "Abstraction",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -47,20 +48,21 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already living past the ending, in a version of it that has not happened yet.",
-      "ask": "Pick one thing that has not finished yet and leave it alone for a full day, on purpose.",
-      "core": "You are pushing the new shape before the old one has finished. Somewhere ahead of you is the version where this is clean, settled, already the story you'd tell — and you're living there, so present mess reads as something to hurry. The hurry is what's costing you. What's actually ending can't be speed-run. It ends when it's ended. You know you're fine with it, and you want the people around you to know it too, and that wanting puts a performance on top of the ending instead of a door.\nNobody can move through a performance of being finished. Let the light come off whatever comes next rather than off your grip on the present. The clearing does its own work.",
-      "sheetLine": "You are rushing an ending so it will look finished.",
-      "verb": "Becoming what you already are",
-      "place": "Where what has ended is being let end",
+      "tense": "Tomorrow's clearing is already done in your head, and today is a waiting room.",
+      "act": "leave it undecided a while longer",
+      "ask": "Leave the next thing undecided for one more day. Don't pick the ending, don't pick the replacement — let both sit open until tomorrow's version of this shows up.",
+      "core": "You're shining ahead of where you stand. Something is finishing, and you've already got the next chapter cast, produced, and lit — you're selling tickets to a room nobody's built yet. That's the shine outrunning the thing it's shining for, and it's why the ones beside you squint. What you are isn't something to launch. It's something to become, and becoming waits for the room it's in.\n\nSo leave the next thing undecided for one more day. Don't pick the ending, don't pick the replacement. Let both sit open until tomorrow's version of this shows up — because it will, and it won't look anything like today's. Meet this moment as a stranger, not as a launch. The light lands on what's actually here instead of on the distance, and the squinting stops. The ending will still be there tomorrow. Your version of it probably won't.",
+      "sheetLine": "You've lit the next room before this one is cleared.",
+      "verb": "become what you are",
+      "place": "at the finish, clearing for what comes next",
       "provenance": {
         "signature_id": 19,
         "position_id": 13,
@@ -69,19 +71,14 @@
         "partner": "Potential",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -95,20 +92,21 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You keep standing at something that has already closed behind you, waiting for the room to open again.",
-      "ask": "Put a date on one thing you're still tending, and check whether it's carried you or you're carrying it.",
-      "core": "Something ended and you kept it going by shrinking. Not dramatic — small. Turning down the light, keeping quiet about what you can do, calling it being modest. You took what was yours to be and shrank it so nobody would have to adjust. That was a way of being kind to a situation that needed it, and it worked, and it is still running.\nThe problem isn't that the ending was wrong. It's that you're past the door and still holding it open for somebody who isn't coming. Nothing here needs you to make yourself smaller. The next shape doesn't start where the old one stopped working; it starts where you choose something with both hands. Pick one thing, say yes to it plainly, and let the yes be enough.",
-      "sheetLine": "You turned your own light down to make an ending easier.",
-      "verb": "Becoming what you already are",
-      "place": "Where what has ended is being let end",
+      "tense": "You are still standing at a door that closed behind you some time back.",
+      "act": "choose this, not that, and mean it",
+      "ask": "Choose between two things in the clearing — keep this, let that go — and don't soften either side. One sentence, written down is fine.",
+      "core": "Something in you finished, and you haven't let that count. You know how it looked when it was on — and you've been standing sideways to it, saying it was nothing, that you had help, that it wasn't as much as it seemed. The light didn't go out. You turned away from it, and the clearing has stalled while you do.\n\nSo choose between two things in the clearing, this and not that, and don't soften either side. One sentence, written down is fine. You don't have to get the ending right or justify it. You just have to point at one of them and mean it — the same way you once pointed at what you were making and meant it. That's how a light that's been turned down comes back up: a choice gets made, and the making is yours.",
+      "sheetLine": "You finished something real, and you've been calling it nothing.",
+      "verb": "become what you are",
+      "place": "at the finish, clearing for what comes next",
       "provenance": {
         "signature_id": 19,
         "position_id": 13,
@@ -117,46 +115,47 @@
         "partner": "Will",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "hunch",
-          "detail": "\"calling it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already the one letting this end, and you keep talking like the ending is something that happened to you.",
-      "ask": "Say out loud one thing you ended on purpose, and call it your decision when you say it.",
-      "core": "You've already started it. Something is being cleared — a habit, a role, a way you used to spend a day — and you're the one doing the clearing. You stopped, or you didn't answer, or you walked out of the noise. But you tell it like it happened on its own. Things ended, circumstances changed, the timing was just off.\nWhat's in front of you now, this hour, is something you get to meet, not something to be managed. You don't have to announce it or have a theory about it. Just notice that the person making the call was in the room the whole time, and stop saying otherwise. Whatever comes next is entering on your watch. Let it land as yours.",
-      "sheetLine": "The ending is yours. You've been calling it circumstances.",
-      "verb": "Becoming what you already are",
-      "place": "Where what has ended is being let end",
+      "tense": "You are in a room you're already writing, with the pen set down.",
+      "act": "meet what is arriving as it arrives",
+      "ask": "Whatever arrives today — a message, a mood, a knock — meet it as this moment's entry, not as more of yesterday. Nothing to brace against. Just the thing as it comes.",
+      "core": "Something is ending and something is arriving in the same breath, and you're meeting it without noticing that's what you're doing. You keep calling it getting through the day. What's actually happening is a turning — old ground clearing, new ground landing — and it turns around where you stand. The shine is going out of you into whatever you touch, and you haven't claimed it as yours yet.\n\nWhatever arrives today, meet it as this moment's entry, not as more of yesterday. Nothing to brace against. A message, a mood, a knock at the door — take it as it comes, on time, not early and not late. This is already what you do. Naming it changes nothing except that it becomes yours to do on purpose — and a turning you're steering beats a turning you're surviving.",
+      "sheetLine": "You're the turning, not the person it happens to.",
+      "verb": "become what you are",
+      "place": "at the finish, clearing for what comes next",
       "provenance": {
         "signature_id": 19,
         "position_id": 13,
@@ -165,14 +164,14 @@
         "partner": "Source",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         }
       ]
@@ -181,14 +180,144 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6568,
+      "ms": 6262,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        }
+      ],
+      "check": "The record doesn't support saying the person is actually ending something or clearing it — only that endings and clearing are the seat the card landed in, so I can describe the capacity, not the person's actual situation. A reader could say 'I have nothing to end' — the asks survive that because every ask is the medicine's own act (trace a pattern, meet what's arriving, choose this not that, leave it undecided) and needs no ending to be done. The sentence that serves me more than them would be any line promising radiance or a new beginning; that's the writer's arc, not a tool they can use, so it stays out."
+    },
+    {
+      "attempt": 2,
+      "ms": 3861,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -205,26 +334,14 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "imperative",
-          "detail": "\"you must\"",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "3 images in one core (shape, lamp, door) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 2
         },
@@ -241,202 +358,72 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "vocab",
           "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person is mid-shedding, clearing, or ending anything — the record only says the card landed in Transformation, not what they are leaving. Reader's likely objection: 'I'm not ending anything, I'm just tired of a few things' — so every cell locates the mechanism in a moment they can put down, never in a story about what must end. The ask survives being wrong because each one is a small act with a day on it, not a verdict about their life; if the read misses, they still have a thing they can do or not do. The sentence that serves the writer more than the person: any version of 'you are shining and don't know it' said as praise — flattery about radiance is the writer preening, so that line is kept out or aimed somewhere a camera could see."
-    },
-    {
-      "attempt": 2,
-      "ms": 4325,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
-          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"calling it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person is mid-shedding, clearing, or ending anything — the record only says the card landed in Transformation, not what they are leaving. Reader's likely objection: 'I'm not ending anything, I'm just tired of a few things' — so every cell locates the mechanism in a moment they can put down, never in a story about what must end. The ask survives being wrong because each one is a small act with a day on it; if the read misses, they still have something to do or not do. The sentence that serves the writer more than the person: any version of 'you are shining and don't know it' said as praise — flattery about radiance is the writer preening, so that line stays out or is aimed where a camera could see it."
+      "check": "The record doesn't support saying the person is actually ending something or clearing it — only that endings and clearing are the seat the card landed in, so I can describe the capacity, not the person's actual situation. A reader could say 'I have nothing to end' — the asks survive that because every ask is the medicine's own act (trace a pattern, meet what's arriving, choose this not that, leave it undecided) and needs no ending to be done. The sentence that serves me more than them would be any line promising radiance or a new beginning; that's the writer's arc, not a tool they can use, so it stays out."
     },
     {
       "attempt": 3,
-      "ms": 3643,
+      "ms": 4023,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -447,26 +434,26 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 2
         },
@@ -483,55 +470,243 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"calling it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports only that endings-and-clearing is the seat the card landed in, not that the person is actually mid-ending — so every cell describes the capacity and where it sits, never their actual situation. A reader could say 'nothing in my life is ending,' and the asks survive that because each one is the medicine's own act (trace a pattern, leave it undecided, choose and mean it, meet what arrives) and needs no ending to be done. The line that would serve me more than them is any promise of a new beginning waiting on the other side; that's the writer's arc, not a tool, so it stays out."
+    },
+    {
+      "attempt": 4,
+      "ms": 5691,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person is mid-shedding, clearing, or ending anything — the record only says the card landed in Transformation, not what they are leaving. Reader's likely objection: 'I'm not ending anything, I'm just tired of a few things' — so every cell locates the mechanism in a moment they can put down, never in a story about what must end. The ask survives being wrong because each one is a small act with a day on it; if the read misses, they still have something to do or not do. The sentence that serves the writer more than the person: any version of 'you are shining and don't know it' said as praise — flattery about radiance is the writer preening, so that line stays out or is aimed where a camera could see it."
+      "check": "The record supports only that endings-and-clearing is the seat the card landed in, not that the person is actually mid-ending — so every cell describes the capacity and where it sits, never their actual situation. A reader could say 'nothing in my life is ending,' and the asks survive that because each one is the medicine's own act (draw the shape, leave it undecided, choose and mean it, meet what arrives) and needs no ending to be done. The line that would serve me more than them is any promise of a new beginning waiting on the other side; that's the writer's arc, not a tool, so it stays out."
+    },
+    {
+      "attempt": 5,
+      "ms": 3746,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports only that endings-and-clearing is the seat the card landed in, not that the person is actually mid-ending — so every cell describes the capacity and where it sits, never their actual situation. A reader could say 'nothing in my life is ending,' and the asks survive that because each one is the medicine's own act (draw the shape, leave it undecided, choose and mean it, meet what arrives) and needs no ending to be done. The line that would serve me more than them is any promise of a new beginning waiting on the other side; that's the writer's arc, not a tool, so it stays out."
     }
   ],
   "usage": {
-    "input": 2944,
-    "output": 3582
+    "input": 9131,
+    "output": 6539
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:12:31.145Z"
+  "date": "2026-10-02T12:55:30.934Z"
 }

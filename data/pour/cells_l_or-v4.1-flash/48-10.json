@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Emotion",
+  "group": "library",
   "signature_id": 48,
   "position_id": 10,
   "signature": "Allure",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing where a great deal of feeling is arriving at once, and you can tell it apart.",
-      "ask": "Say out loud which one pull is yours today and let the rest stay on the table. Then give the chosen one an hour before you decide anything else.",
-      "core": "A lot is arriving at once right now — faces, offers, possibilities, the whole spread of what could be felt. And you're reading it, not drowning in it. You can name what's pulling you, why it pulls, and hold that without needing to settle on it yet. Nothing is lost by waiting a beat on it.\n\nWhat keeps this steady is that you're looking at the pattern instead of obeying the first strong pull. You feel the pull, you see the shape it makes, and you move from there. That's the balance, and it isn't holding back. Keep reading what's in front of you, name the one that's yours, and pick from what you can actually see.",
-      "sheetLine": "A lot is pulling. You're reading the pattern, not obeying it.",
-      "verb": "gathering what this moment might hold into the pull of what could be felt",
-      "place": "the threshold where what's outside is just now arriving",
+      "tense": "Right now many possible feelings are showing themselves at once, and you are holding the door open for each of them.",
+      "act": "work the pattern through to its logic",
+      "ask": "Follow the feeling you keep circling through to its logic — where it actually lands if you take it seriously — and do that before anything else.",
+      "core": "You gather well. When several feelings about the same situation arrive together — the pull toward one person, the pull toward another way of living, the ache and the want both — you don't shut the door on any of them. You let each arrive and you hold it.\n\nThe pattern inside them is not confusion, and it has a real shape you can read if the mind works on it instead of standing in the feeling. Follow the one you keep circling, step by step, to where it actually lands — not where you wish it landed. What you find will be smaller and truer than the cloud. Choosing gets simpler once the counting is done once, and the counting is work you can do.",
+      "sheetLine": "You hold every feeling open and let each arrive.",
+      "verb": "gathering the feelings that might be possible",
+      "place": "where what is arriving outside comes in",
       "provenance": {
         "signature_id": 48,
         "position_id": 10,
@@ -26,24 +27,24 @@
         "partner": "Calculation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living in a future where one of these pulls has to win, and it hasn't happened yet.",
-      "ask": "Name the two pulls you keep comparing, pick one for this week, and write down what you'll leave alone until the week is out.",
-      "core": "Before anything's decided, you're bracing — sizing up which pull will win, what it'll cost, who gets left out. That pressing is costing you contact with what's actually here. Held well, the pulls sit side by side for a while, each one felt and named, none of them sorted yet. Not indecision — the whole harvest arriving at once before anything narrows it.\n\nWhat you're doing instead is spending on a decision that's still forming. All that watching for the outcome is a tax you're paying early, and it's coming out of the thing you're trying to choose between. Pick one for this week and let the others keep their place. What you leave alone isn't gone. It's real, it's waiting, and it's still yours to come back to.",
-      "sheetLine": "You're paying for a choice you haven't made yet.",
-      "verb": "gathering what this moment might hold into the pull of what could be felt",
-      "place": "the threshold where what's outside is just now arriving",
+      "tense": "In the coming weeks you will be bracing for an arrival that hasn't happened yet, and picking among feelings before any of them land.",
+      "act": "keep what the change produced from drifting",
+      "ask": "Return this week to something a recent ending already settled, and keep it where it landed — steady under your hand, not slipping.",
+      "core": "The feelings are coming faster than they can settle, and you are leaning into the next possible feeling before the last one has finished arriving. You are bracing for a future you cannot write in yet, and the bracing is doing the pulling for you.\n\nSomething in your life has already finished changing. An ending happened, and a new shape is here, and the way through is to keep that finished thing from drifting. Return to it — the new routine, the way you talk to someone now, the room that got rearranged — and hold it as it is. One steady thing under your hand quiets the pull more than planning the next arrival will.",
+      "sheetLine": "You're choosing among feelings that haven't arrived yet.",
+      "verb": "gathering the feelings that might be possible",
+      "place": "where what is arriving outside comes in",
       "provenance": {
         "signature_id": 48,
         "position_id": 10,
@@ -69,14 +71,24 @@
         "partner": "Preservation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -88,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You were standing at a threshold when the pull stopped reaching you the way it used to.",
-      "ask": "Pick one thing in front of you this week and stay near it for ten minutes — just notice what it puts in you, no verdict and no decision after.",
-      "core": "Pull isn't arriving the way it used to. Plenty of things out there could move you, but they land flat, and you can tell by comparison — you remember a warmer response in yourself than the one you're having now. Nothing here needs an explanation from you. That's only the temperature.\n\nHeld well, something small gets met and moves you a little, and you let it, without insisting it mean anything. What's absent isn't the pull. It's the meeting — letting one thing reach you before you know what you'll do with it. One thing this week, ten minutes near it, and nothing decided afterward. That's the whole ask.",
-      "sheetLine": "The pull still shows up. It's the meeting it isn't getting.",
-      "verb": "gathering what this moment might hold into the pull of what could be felt",
-      "place": "the threshold where what's outside is just now arriving",
+      "tense": "You are anchored at a door that has already closed behind you, and nothing new has been allowed in.",
+      "act": "rest in the balance you already have",
+      "ask": "Take one hour this week to rest in whatever balance you already have — no solving, no sorting, nothing to fix.",
+      "core": "There were possibilities at this door and you did not go through, and you are anchored there still. Not moving toward what is here, not moving back. The feelings that arrived have gone quiet on the shelf, and what is entering now is entering past you.\n\nNothing needs to be forced through that opening. What is missing is the receiving itself, and pushing feeling into a space with nothing in it will not fill it. Rest instead. Rest in the balance you already have, whichever piece of it is within reach, and set the whole question down. A mind that stops calibrating itself settles. What is arriving will arrive without you posted at the door.",
+      "sheetLine": "You're anchored at a door that already closed behind you.",
+      "verb": "gathering the feelings that might be possible",
+      "place": "where what is arriving outside comes in",
       "provenance": {
         "signature_id": 48,
         "position_id": 10,
@@ -102,14 +115,14 @@
         "partner": "Repose",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
@@ -126,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already the one gathering what people feel, and you talk about it like it's happening on its own.",
-      "ask": "Catch one thing you notice about a person today, say it out loud to them, and when it lands, mark that you chose to say it. Do the same once more before the week ends.",
-      "core": "You walk into a room and things shift — you feel what's in the air, who needs what, what could be said. And you call it the room, or the mood, or just reading people. It isn't that. You're doing it, and you've been doing it so long it stopped having your name on it.\n\nHeld well, it's deliberate: you see something, you say it, and you know the call was yours. Being discreet is fine — what slid out of place isn't the act, it's who it belongs to. Say one thing to one person, and the marker goes back where it goes. You don't have to claim a temperament. Claim the one move.",
-      "sheetLine": "The gathering is yours. You've been calling it the room.",
-      "verb": "gathering what this moment might hold into the pull of what could be felt",
-      "place": "the threshold where what's outside is just now arriving",
+      "tense": "Right now you pull people toward you and gather their feelings, and by your own account that's just how you are made.",
+      "act": "cut through the story to what actually follows",
+      "ask": "Cut past the story of one attraction to what actually follows if you go — the plain next step, not the glow around it.",
+      "core": "You draw people in. The pull is real — feelings collect around you and you collect them — and you would say it is simply your nature. But you have been the one arranging it, choosing which feelings to hold open and which to let pass, and you describe it as something that arrives without you.\n\nThe logic underneath is what's missing. Cut underneath the story of one attraction — the story of what it means, of what it says about you — to what actually follows if you go. Not the glow. The next step, and the step after that. Before you were the one being pulled, you were the one counting. Take the counting back up.",
+      "sheetLine": "The drawing-in is something you do, not something that happens to you.",
+      "verb": "gathering the feelings that might be possible",
+      "place": "where what is arriving outside comes in",
       "provenance": {
         "signature_id": 48,
         "position_id": 10,
@@ -140,14 +154,24 @@
         "partner": "Calculation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -161,21 +185,27 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5931,
+      "ms": 12638,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
@@ -185,9 +215,21 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\" and let them all\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"take one of the things\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -195,22 +237,22 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "3 images in one core (door, shape, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -222,20 +264,20 @@
         },
         {
           "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
@@ -245,20 +287,50 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"mind rest instead of working\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you speak about it as\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -267,20 +339,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say the person actually pulled away from feeling or that anything went badly where they stopped; the Too Little cell must locate that distance without inventing an event or who was involved. A reader could reasonably say 'I'm not avoiding anything, the pull just isn't loud right now.' The ask survives being wrong because noticing what pulls today is doable whether or not my read lands. The sentence that serves the writer rather than the person is 'the door is behind you' — vivid for me, a verdict for them; I'll fix it so the past stays theirs to say and drop the summary lines that flatter the page."
+      "check": "The unsupported claim in my Too Little draft is that the person has been refusing or avoiding the door; the record only says the seat is starved and the tense is past-anchored, so I keep the description to the stance (still standing where the choice already passed) and not to a motive. The reader could reasonably say 'I'm not hiding from anything, I just haven't chosen,' and the ask (a rest, not a decision) still works because it aims at the empty seat, not at the arrival. The sentence that serves me more than them would be any version of 'you're afraid of what's coming' — cut. In the Unacknowledged cell, the risk is praising my own method or sounding like a diagnosis of self-deception; I've kept it as describing the mechanism (the pulling is happening, no hand on it) rather than a verdict on their character."
     },
     {
       "attempt": 2,
-      "ms": 4312,
+      "ms": 9541,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -291,93 +379,81 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "length",
           "detail": "core 115 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is your work and you'd\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -385,20 +461,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say anything about a door, a past event, or what the person felt then; the Too Little cell has to locate the distance without inventing a scene or who was involved, and I am cutting the line that certifies what the person knows. The reader's likely objection is 'I'm not avoiding anything, the pull is just quiet right now' — the Too Little ask survives that because staying near one thing for ten minutes is useful whether or not my read lands. The sentences that serve me more than the person are 'a part of you is still back there' and 'the door' — vivid for me, a verdict for them; both are gone now."
+      "check": "The unsupported claim in the Too Little draft was 'you are still standing at a door that has already closed' — the record says the seat is starved and the tense is past-anchored, which describes a stance, not a stance at a specific closed door; I have kept it to the capacity not arriving in what is entering, without claiming a missed choice or a reason. The reader could reasonably say 'I'm not stuck, I'm just not excited right now,' and the ask survives because it aims at the empty seat (rest) rather than at correcting the person's account of themselves. The sentence serving me more than them was any version of 'you let the moment pass' — removed, along with its cousins 'you might have' or 'you didn't step through.' The Too Much cell had accumulated three images (door, shape, room) and was reading as a parable; I have kept one image through and dropped the others."
     },
     {
       "attempt": 3,
-      "ms": 3439,
+      "ms": 5321,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -409,12 +501,6 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -422,13 +508,19 @@
         },
         {
           "code": "length",
-          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
+          "detail": "core 114 words (120–160)",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -440,7 +532,13 @@
         },
         {
           "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
@@ -458,7 +556,25 @@
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is your work and you'd\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -469,18 +585,24 @@
           "status": 4
         }
       ],
-      "check": "The record gives no event behind the Too Little distance and no cause for it, so that cell must stay at where the person stands now, never why; I've cut the threshold and the not-landing. The reader's likely objection is 'I'm not avoiding anything, the pull is just quiet now,' and the Too Little ask survives that because sitting with one thing is useful whether or not my read lands. The sentences that serve me over the person are any line that certifies what they feel or know, so those are gone."
+      "check": "The unsupported claim left in the Too Little draft is that the person is 'fixed at a door that has already closed' — the record says the seat is starved and the tense is past-anchored, which is a stance, not a specific missed door; I keep it to what is entering arriving past them, with no claim about a choice they failed to make. The reader could reasonably say 'I'm not fixed anywhere, I just haven't felt much lately,' and the ask survives because it aims at the starved seat (rest) rather than correcting their account of themselves. Sentences that served me more than them — 'the moment passed,' 'you did not go through,' any verdict on what they did — are gone. The quartet still had four 'one thing' asks; each ask now opens on a different verb (follow, return, take, cut) and only one is a single bounded object."
     },
     {
       "attempt": 4,
-      "ms": 3752,
+      "ms": 4551,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -491,20 +613,26 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -516,89 +644,7 @@
         },
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record names no event behind the Too Little distance, so that cell stays at where the person stands now and never why — no threshold, no not-landing, nothing certified about what they feel or know. The reader's likely objection is 'I'm not avoiding anything, the pull is just quiet now,' and the Too Little ask survives that because staying ten minutes near one thing is useful whether or not my read lands. The lines that serve me over the person are any that put a verdict in their mouth, so those are gone."
-    },
-    {
-      "attempt": 5,
-      "ms": 3293,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -616,7 +662,19 @@
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -627,13 +685,13 @@
           "status": 4
         }
       ],
-      "check": "The record names no event behind the Too Little distance and no cause for it, so that cell stays at where the person stands now and never why — no threshold, no not-landing, nothing certified about what they feel or know. The reader's likely objection is 'I'm not avoiding anything, the pull is just quiet now,' and the Too Little ask survives that because staying ten minutes near one thing is useful whether or not my read lands. The lines that serve me over the person are any that put a verdict in their mouth, so those are gone."
+      "check": "The remaining unsupported claim is that the person is anchored at a door that has already closed — the record says the seat is starved and past-anchored, a stance, not a specific missed choice; I've kept it to what is entering arriving past them, with no verdict on what they did or didn't do. The reader could reasonably say 'I'm not anchored anywhere, I just haven't felt much,' and the ask survives because it aims at the starved capacity (rest) rather than correcting their story about themselves. The sentence serving me more than them — 'The pull is your work and you'd say' — is cut, along with any map idiom ('empty place,' 'the seat')."
     }
   ],
   "usage": {
-    "input": 8360,
-    "output": 5649
+    "input": 8309,
+    "output": 4892
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:39:31.687Z"
+  "date": "2026-10-02T12:13:41.022Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are in the middle of the test, with the pen, and you know it.",
-      "ask": "Before the week ends, name which approach is already working and let one that is not go — once, out loud or on paper.",
-      "core": "The commitment you're carrying gets sorted by use. You try an approach, meet resistance, and adjust; the friction does that work rather than your worry. What remains afterward is what you actually mean. There's no performance in it, and you don't need one, so the effort stays clean and the care you give it doesn't drain the rest of your day. You hold it open-handed, letting it grow at its own pace.\n\nSomething has already come of that tending. Effort paid off somewhere and left you room you didn't have before, and what you do with that room is yours. Keep the test pointed at what shows itself; when friction stops telling you anything, that's the sign you've moved from testing into proving. You'll know the difference by whether your grip has tightened.",
-      "sheetLine": "You're testing what you're committed to, and the friction is showing you.",
-      "verb": "testing a commitment by engaging with it until friction shows what is real",
-      "place": "what is arriving now, at the threshold where the outside meets the inside",
+      "tense": "Something is arriving now that you have tended, and the next move is yours to make.",
+      "act": "enjoy what careful tending produced",
+      "ask": "When something you keep going reaches a result, pause and take it in for a minute. No improving it, then move on.",
+      "core": "Something is crossing into your life and you are already at work on it. You have kept the effort steady without hoarding it, and now it is returning more than you put in. That is what growth looks like when nobody is forcing it. Nothing here is free: staying this way means letting a finished thing be seen as finished. What is arriving is what you have already built, asking to be taken in.\n\nLet yourself enjoy what you have made. Take a thing you have kept going that is clearly working and spend a minute on it without doing anything more — no next steps, no adjustments. This is the act of a full person, not a lazy one. Feel the ground under your own work, because the next arrival will ask you to commit again.",
+      "sheetLine": "What you tended is arriving as a result, and that result is yours.",
+      "verb": "meeting what arrives by testing what you are still willing to give",
+      "place": "the threshold where something outside is becoming part of your life",
       "provenance": {
         "signature_id": 26,
         "position_id": 10,
@@ -26,31 +27,42 @@
         "partner": "Flourishing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Part of you is already at the verdict, bracing for how the test will end.",
-      "ask": "Take one piece of what you're committed to and finish only that today — when it's done, stop and let stopping count as the end.",
-      "core": "You're leaning into a future that can't be written in yet. The outcome of this challenge has been rehearsed so many times that the present keeps getting cut short — attempts are judged before they finish, and half-steps get treated as proof. The pressure isn't wrong in itself; it's pointed at something you can't deliver yet, and that grip costs you the very engagement that would tell you anything. A held breath is not the same as holding space.\n\nPractice can flow without forcing. Pick one small, finishable part and let it actually be finished, then stop. That does two things at once: it returns the test to a rhythm you can follow, and it shows you that stopping is not failing. What you're braced against is not a cliff edge. It's a room you're standing in right now.",
-      "sheetLine": "You're bracing for a verdict that isn't in yet.",
-      "verb": "testing a commitment by engaging with it until friction shows what is real",
-      "place": "what is arriving now, at the threshold where the outside meets the inside",
+      "tense": "You will be ready for what is arriving long before it has arrived.",
+      "act": "give directions plainly, once, and let them walk",
+      "ask": "If someone near you is stuck, say the way once — plain, no follow-up — then go quiet while they take the trip.",
+      "core": "What is entering now is being met before it gets here. You have rehearsed the commitment, guarded the outcome, and the guarding has become the work. The bracing feels like care: if you can see the whole route, nothing can go wrong. But most of your energy went into the planning instead of the arrival, and what is actually entering has no room to be what it is.\n\nThe discipline that works here is showing someone else the passage. When a person near you is stuck, give the directions once — plain, direct — then stop talking. If they take a different way, that is not a failure of your instruction. The practice is doing this without needing the credit, and you will be far less braced when the next arrival comes.",
+      "sheetLine": "You are pre-solving a crossing that has not opened yet.",
+      "verb": "meeting what arrives by testing what you are still willing to give",
+      "place": "the threshold where something outside is becoming part of your life",
       "provenance": {
         "signature_id": 26,
         "position_id": 10,
@@ -59,11 +71,16 @@
         "partner": "Guidance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -73,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You had a foot in the doorway once, and you are still back where it closed.",
-      "ask": "Give one person one concrete task tied to what now needs doing, and let them carry it through without your hand on it.",
-      "core": "The willingness to be tested is there, but it's been sitting behind glass a while. Some attempt didn't go as it needed to, and the response wasn't to change the approach — it was to stop engaging. What looks like patience, or waiting for the right moment, is closer to not arriving. Commitments you can name out loud stay abstract, because trying them means a result that isn't yours to control.\n\nNothing has to be pushed into the tired part of you. Strength you might lend to someone else — a specific job, one you let them own — flows into the same channel and reaches this room without your hand on it. Watching someone else carry something through to the end shows you what staying engaged looks like from a distance, and then you can bring that back into the room yourself.",
-      "sheetLine": "You stopped showing up to the test and called it waiting.",
-      "verb": "testing a commitment by engaging with it until friction shows what is real",
-      "place": "what is arriving now, at the threshold where the outside meets the inside",
+      "tense": "The arrival already happened and you are still standing at the old door.",
+      "act": "give a concrete piece of help and finish it",
+      "ask": "Pick a real task someone near you needs done — a ride, a repair, a hand — carry it to done, then stop there.",
+      "core": "Something entered and you have not taken it up. You are at the position before commitment, waiting for a readiness that already passed, and the station feels safer than it is. From here, what is entering looks like a test you have not studied for, so you study instead. Meanwhile the strength you would need for this arrival is being spent on holding patterns that do not see themselves through to done.\n\nShare some of what you have where it is needed. Pick a real thing a person near you needs help with — not a vague presence, a concrete task — finish it completely, and then stop. Done is the whole instruction. The point is to feel what it is like when your strength leaves your hands and lands in the world.",
+      "sheetLine": "You are still at the door because you left before the arrival.",
+      "verb": "meeting what arrives by testing what you are still willing to give",
+      "place": "the threshold where something outside is becoming part of your life",
       "provenance": {
         "signature_id": 26,
         "position_id": 10,
@@ -87,14 +105,14 @@
         "partner": "Support",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"called it waiting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -103,8 +121,8 @@
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -116,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already letting go of what has run its course, though you'd say you're just being sensible.",
-      "ask": "Name one thing you've dropped this year as a decision you made, not something that happened to you — and say what you're keeping instead.",
-      "core": "You've been making a real move — releasing what was past its time, cutting down to what deserves the effort — and you keep describing it as practical housekeeping. It isn't only that. It's the same release that lets a test mean anything, and you're the one doing it. Dropping what's finished leaves room for what's growing. That's happening already, and you haven't claimed it as yours.\n\nLook at what's around you and growing: something is doing well because you tended it and were willing to let the wrong parts go. Say that once, out loud, without turning it into a list of what you gave up. Calling it a choice doesn't make it boastful. It makes it accurate to the effort you put in.",
-      "sheetLine": "You're letting go on purpose and calling it coincidence.",
-      "verb": "testing a commitment by engaging with it until friction shows what is real",
-      "place": "what is arriving now, at the threshold where the outside meets the inside",
+      "tense": "The growing is happening and you keep filing it under something else.",
+      "act": "let the abundance be seen and used",
+      "ask": "Show a thing you made to someone, no disclaimers, and give it to them to use however they need.",
+      "core": "You are growing what is crossing into your life, and the growing works — things are thriving, results are holding, the floor is steady. What is missing is your name on it. You write it off as timing, as help you had, as the moment being right. None of that is false, but the part you played is real and no one has been told. What is entering now is your own abundance, looking for the one who made it.\n\nLet one result be seen without a story about how it does not count. Show it to someone and hand it over to be put to work, without explaining away your hand in it. That is not vanity; it is accuracy. The growing is already happening without forcing, and the piece that has not been owned is small enough to hand over in an afternoon.",
+      "sheetLine": "What grew is yours, and you have been filing it under luck.",
+      "verb": "meeting what arrives by testing what you are still willing to give",
+      "place": "the threshold where something outside is becoming part of your life",
       "provenance": {
         "signature_id": 26,
         "position_id": 10,
@@ -130,14 +149,24 @@
         "partner": "Flourishing",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the abundance be seen and used\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -151,75 +180,159 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7116,
+      "ms": 7027,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "glass",
-          "detail": "\"empty spot\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"called it waiting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
+          "code": "vocab",
+          "detail": "3 images in one core (shape, map, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\" and let them try\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"The proof is in\" — certifies the person; the record cannot know it",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"signature\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"your tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you have been calling it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -227,39 +340,62 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The draft risks locating the person in a private test — behind closed doors — which the record does not support as biography; the reader could reasonably say the testing is not private at all but happening in plain view. The ask survives even if my read is wrong, because trying one thing for a fixed two weeks and seeing what actually holds teaches something regardless of whether the friction was internal or external. The sentence that serves the writer more than them: 'Dedication is being pressure-tested behind closed doors' — it sounds like knowledge of their life and should not appear in any core. I also need the Too Much and Too Little cells to read as two directions of one capacity: gripping at what has not arrived, and refusing to arrive."
+      "check": "My draft names what is entering as a private test of commitment; the record does not say the person has misjudged this arriving thing's content, only its timing-position, so any sentence that claims what the arrival is would be unsupported. A reader could reasonably say the arrival is not a dedication being tested at all but simply something new, and I would rather narrow to the test-shape the record does support. The ask still works if that read is off: the acts are small, concrete, and useful even if the arrival turns out to be nothing. The sentence that serves me more than them is any line about what the arrival is for — cut from all four."
     },
     {
       "attempt": 2,
-      "ms": 5316,
+      "ms": 4454,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let them walk\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -269,8 +405,8 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"called it waiting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -281,14 +417,44 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it all the way through\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
+          "code": "vocab",
+          "detail": "\"your tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\", and let them use\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -299,32 +465,162 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim I keep making is that this person is running a private test behind closed doors — the record says the crossing is internal, not that they have a room, a secret, or a history of friction. A reader could reasonably say the challenge is happening in front of everyone they know, so no core may locate the test in private. The asks survive being wrong because each one asks for a small visible act — naming what works, finishing a part, handing off a task, claiming a choice — which teaches something regardless of where the friction actually sits. The sentence that serves me more than them was any phrasing of 'you're being pressure-tested behind closed doors'; it sounds like knowledge of their life and is now removed from all four cores. On rewrite I also dropped a refrain ('the way back'), a map idiom ('empty spot'), and any claim that certifies the person's result."
+      "check": "My draft names what is entering as a private test of commitment; the record does not say the person has misjudged this arriving thing's content, only its timing-position, so any sentence that claims what the arrival is would be unsupported. A reader could reasonably say the arrival is not a dedication being tested at all but simply something new, and I would rather narrow to the test-shape the record does support. The ask still works if that read is off: the acts are small, concrete, and useful even if the arrival turns out to be nothing. The sentence that serves me more than them is any line about what the arrival is for — cut from all four."
     },
     {
       "attempt": 3,
-      "ms": 4138,
+      "ms": 4216,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let them make\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let them put\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "My draft names what is entering as a private test of commitment; the record does not say the person has misjudged this arriving thing's content, only its timing-position, so any sentence that claims what the arrival is would be unsupported. A reader could reasonably say the arrival is not a dedication being tested at all but simply something new, and I would rather narrow to the test-shape the record does support. The ask still works if that read is off: the acts are small, concrete, and useful even if the arrival turns out to be nothing. The sentence that serves me more than them is any line about what the arrival is for — cut from all four."
+    },
+    {
+      "attempt": 4,
+      "ms": 7292,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it the balance has a\"",
           "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "seat",
@@ -333,8 +629,8 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"called it waiting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -345,8 +641,8 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -357,8 +653,20 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the abundance be seen and used\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -369,26 +677,44 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim this time was a private, unwatched test — 'nobody is watching' — which the record says is internal, not that they are alone or unobserved in it. A reader could reasonably say the challenge is being faced in front of people, so no core may assume an audience or its absence. The asks survive if I am wrong, because each asks for one small act — naming what works, finishing a part, handing off a task, claiming a choice — and those teach something wherever the friction sits. The line serving me more than them was any phrasing of 'nobody is watching'; it sounds like knowledge of their life and is gone. I also dropped the noun 'the choosing' and the refrain 'still standing'."
+      "check": "The record does not say what is arriving, only that something is at the threshold and that commitment here gets tested privately; any sentence naming what the arrival is would be unsupported, so all four cores stay with the shape of meeting rather than the content. A reader could reasonably say the arrival is not about dedication at all, just something new, and the asks survive that: each is a small concrete act of the partner's own medicine that is useful even if the read is wrong. The sentence that serves me more than them is any line implying the arrival is a test they should already have passed — cut."
     },
     {
-      "attempt": 4,
-      "ms": 3803,
+      "attempt": 5,
+      "ms": 3917,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give directions plainly once and let them walk\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -397,8 +723,8 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"called it waiting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -409,8 +735,8 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give a concrete piece of help and finish it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -421,8 +747,20 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the abundance be seen and used\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -433,13 +771,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim I keep circling is that the friction is private or unwatched — the record says the crossing is internal, not that they are alone in it, so no core may assume an audience or its absence. A reader could reasonably say the challenge is being faced in front of people, and the asks survive that, because each asks for one small visible act — naming what works, finishing a part, handing off a job, claiming a choice — which teaches something wherever the friction sits. The line serving me more than them was any phrasing of 'nobody is watching'; it sounds like knowledge of their life and is gone. I also removed the noun 'the sorting' and the refrain 'still standing'."
+      "check": "The record does not say what is arriving, only that something is at the threshold and that commitment here gets tested privately; any sentence naming what the arrival is would be unsupported, so all four cores stay with the shape of meeting rather than the content. A reader could reasonably say the arrival is not about dedication at all, just something new, and the asks survive that: each is a small concrete act of the partner's own medicine that is useful even if the read is wrong. The sentence that serves me more than them is any line implying the arrival is a test they should already have passed — cut."
     }
   ],
   "usage": {
-    "input": 4229,
-    "output": 4971
+    "input": 9512,
+    "output": 6130
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:18:50.111Z"
+  "date": "2026-10-02T11:48:53.576Z"
 }

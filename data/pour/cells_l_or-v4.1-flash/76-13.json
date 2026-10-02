@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here in the middle of deciding what stays and what goes.",
-      "ask": "Pick one object at home you keep mainly to avoid a conversation. Move it out this week, or say the sentence you've been avoiding.",
-      "core": "Deciding what stays and what goes is steady work, and it's yours right now. You can look at a thing and see whether it has given what it had or still has something left, and the answer holds up the next morning.\n\nFairness runs through it quietly. You can tell what is owed to each person here, and to yourself, without doing arithmetic about it. There's a plain invitation in that: one thing around you is finished, and you can pick it out. Letting it go isn't a loss to be managed. It's what makes room, and the room is what the next thing uses. You don't need to feel certain first. Acting on the one you can see is enough, and the ground under the rest firms up after.",
-      "sheetLine": "You can see what's finished. Clearing it is the work now.",
-      "verb": "releasing what's finished and turning it into ground for what's next",
-      "place": "at the completion that allows a new beginning — what was has to fully end for what will be to emerge",
+      "tense": "You are here with the pen, and the endings are being written as they come.",
+      "act": "judge the hurt fairly after it has finished",
+      "ask": "Take a hurt that's over. Sit with it once, decide what it cost and what it owed, then set the verdict down and don't re-open it.",
+      "core": "You can tell what's finished, and where feeling runs through structure a fair account gets kept — what was owed, what was paid — without the ledger being checked twice. That steadiness is the work doing itself in the present.\nWhen something has ended in feeling — a falling-out, a season, an old way of being with someone — the fair call comes now rather than later. Take a hurt that's over. Sit with it once: what did it cost, what did it owe. Decide it, set the verdict down, don't re-open it. Some real cost may go unaccounted and the call still stands. That's what fairness does with what's already past — the account closes, and the ground is clear for whatever comes next.",
+      "sheetLine": "You let what's finished be finished.",
+      "verb": "letting what's finished end so the ground can grow something again",
+      "place": "at the close of a season, clearing what the next one needs cleared",
       "provenance": {
         "signature_id": 76,
         "position_id": 13,
@@ -26,14 +27,14 @@
         "partner": "Executor of Resonance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
@@ -42,20 +43,21 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for an ending that hasn't happened yet.",
-      "ask": "Choose one thing you've decided to release and don't plan its replacement for a week. Let the gap stay unfilled.",
-      "core": "You're clearing ahead of the ending. Somewhere in your head the finished version already exists — the emptied room, the settled decision — and you're living in that instead of the week you're actually in. So you end things before they've ended, to get out in front of a finish you can't see yet.\n\nThe cost lands on whoever is still inside it. You're arranging the outcome for them before they've had their own ending, and care arrives looking like a plan. The urge to close it all out now is real. It just isn't the same as what's finished. Some of it still has to be lived first, and that part doesn't compress without someone getting left in it.",
-      "sheetLine": "You're ending things before they've actually ended.",
-      "verb": "releasing what's finished and turning it into ground for what's next",
-      "place": "at the completion that allows a new beginning — what was has to fully end for what will be to emerge",
+      "tense": "You are bracing for endings not yet due, and the clearing is running ahead of the actual close.",
+      "act": "hold space for what someone feels without fixing it",
+      "ask": "When someone is in the middle of something hard, stay a full minute without one word that fixes, corrects or moves it along. Let the silence be awkward.",
+      "core": "You know what to keep and what to release, and that instinct has started moving ahead of schedule — endings get made ready before the thing has actually ended. The clearing happens in advance so nothing catches you off guard. Seen from the far side, the close looks already decided while the feeling is still live.\nWhat returns the balance is staying with feeling beyond where sorting would normally begin. When someone is in the middle of something hard, stay a full minute without one word that fixes, corrects or moves it along. The silence will be awkward and that's the work. Endings land cleanly when they're made at the close, not before it.",
+      "sheetLine": "You clear the ground before the season has ended.",
+      "verb": "letting what's finished end so the ground can grow something again",
+      "place": "at the close of a season, clearing what the next one needs cleared",
       "provenance": {
         "signature_id": 76,
         "position_id": 13,
@@ -64,19 +66,24 @@
         "partner": "Steward of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -86,19 +93,25 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are at a door that has already closed behind you.",
-      "ask": "Do one small thing this week you had been putting off. Something you actually want, not something on a list.",
-      "core": "There's something you haven't let end. A role, a way of being needed, a place you no longer go — it finished, and you're still arranging your days as if it's current. The clearing didn't happen, so the next thing has nowhere to stand.\n\nWhat's gone quiet isn't the ability to close things. It's the pull to start moving again. So forcing the ending isn't the move; wanting something small and going to get it is. Motion first, and the ground clears behind you. You don't have to feel ready for whatever comes next. You only have to want one thing enough to walk toward it this week.",
-      "sheetLine": "Something ended. You're still at the doorway.",
-      "verb": "releasing what's finished and turning it into ground for what's next",
-      "place": "at the completion that allows a new beginning — what was has to fully end for what will be to emerge",
+      "tense": "You are still at a door that has already shut, and the clearing hasn't happened.",
+      "act": "keep the motivation warm with steady care",
+      "ask": "Give ten unhurried minutes this week to something you'd like to move toward. Stop at ten even if it's going well.",
+      "core": "Where feeling runs through structure, endings are not being made. What finished is still here: a way of being with someone, a season, a version of a day that no longer fits. What's present is steady and familiar, and the ground that needed clearing is still occupied.\nCharging at the ending directly doesn't work from this spot — the current comes through movement, not force. Give ten unhurried minutes this week to something you'd like to move toward, and stop at ten even if it's going well. Kept warm and unhurried, the direction starts carrying weight. What needs to end tends to end once something else is already in motion.",
+      "sheetLine": "You're still at a door that already shut.",
+      "verb": "letting what's finished end so the ground can grow something again",
+      "place": "at the close of a season, clearing what the next one needs cleared",
       "provenance": {
         "signature_id": 76,
         "position_id": 13,
@@ -107,7 +120,61 @@
         "partner": "Steward of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the motivation warm with steady care\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 4,
+      "tense": "The clearing is happening right now — you're the one doing it, and if asked you'd say it did itself.",
+      "act": "set a boundary and hold it",
+      "ask": "Take a line you've been keeping and hold it through its next test — one refusal, made plainly, no explanation owed.",
+      "core": "Endings are being made around you — a habit dropped, a situation let go, a line quietly drawn — and the account says timing, luck, someone else's decision. The transformations are real and they're yours. What's missing is your name on them.\nTake a line you've already been keeping and stand on it through the next time it gets tested: one refusal, made plainly, no explanation owed. That's the whole act. Work that goes unnamed keeps you at a distance from your own hand. Holding one line where it can be seen brings the hand into view, and the clearing carries on — except now you know who's doing it.",
+      "sheetLine": "You're clearing the way. You file it as timing.",
+      "verb": "letting what's finished end so the ground can grow something again",
+      "place": "at the close of a season, clearing what the next one needs cleared",
+      "provenance": {
+        "signature_id": 76,
+        "position_id": 13,
+        "status": 4,
+        "partner_id": 63,
+        "partner": "Catalyst of Intent",
+        "mechanism": "reduction",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -118,56 +185,18 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        }
-      ]
-    },
-    {
-      "status": 4,
-      "tense": "You are already clearing the ground and not calling it clearing.",
-      "ask": "Tell one person about something you released this year — what you kept and what went — in your own words, once.",
-      "core": "You've been ending things and not counting it. The job you stopped doing, the role you set down, the version of yourself you no longer maintain — those were decisions, and you made them. You talk about them as things that happened to you.\n\nThe clearing is already working. It's why certain rooms feel lighter, why some people are easier to be near now. You did that. Saying it out loud, once, to one person, is what turns a thing that happened into something you chose — and you were the one choosing the whole time. Nothing changes about what you did. Only about who gets to know it was yours.",
-      "sheetLine": "You've been clearing the ground and not taking the credit.",
-      "verb": "releasing what's finished and turning it into ground for what's next",
-      "place": "at the completion that allows a new beginning — what was has to fully end for what will be to emerge",
-      "provenance": {
-        "signature_id": 76,
-        "position_id": 13,
-        "status": 4,
-        "partner_id": 63,
-        "partner": "Catalyst of Intent",
-        "mechanism": "reduction",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -176,198 +205,104 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5703,
+      "ms": 7529,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"your keeping\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're the one deciding what\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person has actually ended anything, so every cell must describe a capacity for release, not an inventory of what was let go. A reader could reasonably say the packing and sorting was mostly practical, not emotional — which is why each cell offers a small visible act and never diagnoses the feeling underneath it. The asks survive being wrong: naming one kept thing, letting one item go, acting on one small want, saying out loud what was actually done all teach something about where release lives even if my read is off. The sentence that serves me more than them would be any line implying they are already skilled at letting go — cut everywhere it tried to appear."
-    },
-    {
-      "attempt": 2,
-      "ms": 4743,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty space\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
         {
           "code": "length",
           "detail": "core 109 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"People around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"past the point where you'd\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the motivation warm with steady care\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -384,8 +319,14 @@
           "status": 3
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -396,9 +337,27 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "vocab",
+          "detail": "the map's jargon: \"Unacknowledged\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"boundary\" — clinic-adjacent",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 4
         },
         {
@@ -406,44 +365,91 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives the card as a capacity for releasing and composting what's finished, not as knowledge of what the person has already let go — so every cell must describe the behavior as it can be seen, never certify a private knowing or record a history. A reader could reasonably say the tidying and handing-on was practical logistics rather than anything emotional, which is why each cell works from one visible act and never names a feeling underneath it. The asks survive being wrong: naming one kept thing, holding a space open, moving toward one small want, and saying what was actually released all teach something about where release lives even if my read misses. The sentence that would serve me more than them was any line implying they already run this well — cut where it tried to appear."
+      "check": "The draft wants to say the person is holding other people's endings for them, and the record only supports that the releasing works through structure — not who is being released. The reader could rightly answer that the endings in question are their own choices, not anyone else's feelings. The asks survive being wrong: each one is a finite act the person can do or skip whether or not the read is theirs. The sentence that serves me more than them is 'you carry the endings nobody else will name' — it flatters the position instead of describing the work, and it comes out. The Too Much core also drifts toward explaining why the endings haven't been made; that clause is cut and the mechanism is described instead."
     },
     {
-      "attempt": 3,
-      "ms": 3493,
+      "attempt": 2,
+      "ms": 4340,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
           "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it finish\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -455,13 +461,19 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -472,26 +484,179 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the motivation warm with steady care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports releasing through structure, not whose endings these are — the Too Much core could read as a claim about how the person treats other people's feelings, which the draw doesn't license; I keep it on the mechanism (clearing running ahead of the actual close). The reader could say the endings were theirs and were made on time — the asks survive that: each is one finite act, done or skipped, and none needs the read to be right. The sentence serving me more than them was 'people around you can feel that nothing gets carried past its date,' which flatters the position; it comes out. Nothing in the core says what a person near them feels."
+    },
+    {
+      "attempt": 3,
+      "ms": 3800,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "length",
           "detail": "core 109 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the motivation warm with steady care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -500,15 +665,145 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record gives the card as a behaving capacity — releasing what's finished and composting it into ground — not as knowledge of what the person has already let go, so nothing here may certify a private knowing or recite a history. A reader could reasonably say the tidying and handing-on was practical logistics rather than anything emotional, which is why each cell works from one visible act and never names a feeling underneath it. The asks hold even if my read is wrong: naming one kept thing, leaving a replacement unplanned, moving toward one small want, and saying aloud what was released all teach something about where release lives. The sentence that would serve me more than them was any line implying they already run this well — cut where it tried to appear."
+      "check": "The record supports releasing through structure, not whose endings these are — the Too Much core stays on the mechanism (clearing running ahead of the actual close) rather than claiming how the person treats other people's feelings. A reader could say the endings were theirs and were made exactly on time; the asks survive that, since each is a finite act done or skipped and none needs the read to be right. The sentence that served me more than them was 'people around you can feel that nothing gets carried past its date' — it flatters the position; it is gone. The quartet's four asks also varied: one verdict held, one span of silence, one timed practice, one line kept under test — no two are the same shape."
+    },
+    {
+      "attempt": 4,
+      "ms": 3614,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the motivation warm with steady care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports releasing through structure, not whose endings these are — the Too Much core stays on the mechanism (clearing running ahead of the actual close) rather than claiming how the person treats anyone's feelings. A reader could say the endings were theirs and were made exactly on time; the asks survive that, since each is a finite act done or skipped and none needs the read to be right. The sentence that served me more than them was 'people around you can feel that nothing gets carried past its date' — it flatters the position; it is gone. The only other fix was the word 'capacity' in status 1, replaced with plain speech. Five faces of ask kept distinct: a verdict held, a span of silence, a timed practice, a line kept under test."
     }
   ],
   "usage": {
-    "input": 2702,
-    "output": 3262
+    "input": 7988,
+    "output": 4719
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:03:40.697Z"
+  "date": "2026-10-02T12:42:12.784Z"
 }

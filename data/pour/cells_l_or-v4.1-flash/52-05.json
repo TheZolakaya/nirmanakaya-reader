@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You have something in your hands right now, and you already know it is worth carrying.",
-      "ask": "Pick the one piece of the shared thing you would hand someone first, and give it to them this week — in your own words, not the form you inherited.",
-      "core": "You have hold of something worth keeping, and you are not gripping it too hard. A practice, a way of explaining, a story that came down to you — you carry it in a way that leaves room for the people you are passing it to. That is why it keeps living: you hold the shape without closing your hand around it. The room you share with others is a little steadier where you stand.\n\nThe thing to watch is that holding can turn into hoarding without a sound. A shared thing grows on being handed over. So this week, offer one piece of it to a person who would use it — plainly, in the words you would actually say, in a way they can take and put down. What you keep after you have given it is the proof it was yours to give.",
-      "sheetLine": "You carry something worth keeping, and your hands stay open.",
-      "verb": "holding the first handful of something not yet planted",
-      "place": "where what a group hands down gets carried forward",
+      "tense": "Right now the strength you carry is already moving toward the people who need it.",
+      "act": "hold someone else up with what you have",
+      "ask": "Somebody in your circle is carrying something heavy without help. Hold them up with something concrete you have — a few hours, a tool, a spare room — and see it through before the week closes.",
+      "core": "You're good at standing next to somebody while they wobble, and handing them something solid — a seat, a tool, a few hours — and letting that be the whole gesture. It goes well when the hand is already in yours and the person across from you stops being careful about it. Then you feed the next thing: someone notices they can take what you offer without paying for it later.\n\nThat's the version where the strength moves. Where it's quieter, the offer goes out and gets held back a beat — you watch to see whether it's welcome before you let it land. The help stays yours; it doesn't reach a life. Handing one thing over, and letting it finish, shows you what the strength does when it's not being weighed first. It'll tell you more than the watching does.",
+      "sheetLine": "You put your strength in people's hands.",
+      "verb": "start something with your hands that carries inside it the way a thing has always been done",
+      "place": "where the old stories you grew up on are passed hand to hand",
       "provenance": {
         "signature_id": 52,
         "position_id": 5,
@@ -26,19 +27,19 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -50,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already bracing to defend the thing in your hands before anyone has come for it.",
-      "ask": "Once today, let a question about the thing you are carrying land without answering it in the same breath. Sit with what they said. The point is to let their version stand beside yours for a minute, not to give anything up.",
-      "core": "You are guarding something you have not planted yet. There is a version of this shared thing that is already fully preserved and agreed-upon, and you are pushing toward it — explaining, insisting, making sure the people around you hold it the way you do. The certainty is spending the very thing it is protecting: conversation you were part of turns into a case you are making, and the shared part of it slips away.\n\nEase off the grip and something real can come back: the thing is not a fortress. It lives because people can feel their way into it. So let one question stand unanswered for a while, without a correction riding in behind it. This is not loosening what matters. It is letting it breathe long enough to hold other people again.",
-      "sheetLine": "You are defending the thing you have not planted yet.",
-      "verb": "holding the first handful of something not yet planted",
-      "place": "where what a group hands down gets carried forward",
+      "tense": "Soon you'll be holding everyone's load at once, before anyone has asked you to.",
+      "act": "let the felt connection be complete",
+      "ask": "Pick a relationship where you've been holding the whole weight. Sit at the kitchen table once, ten minutes, and feel all of what you're holding for them — no trimming, no fixing — then get up and go on.",
+      "core": "You know how to keep a thing going with your own hands. Where you pass on what you grew up with, you're already standing under several loads that aren't yours, holding them so nothing drops — and you're bracing for the next one before it's been handed over. That pace feels like care. From outside, it looks like finishing other people's sentences.\n\nNothing here is broken. But the weight is yours alone, and it's being done in advance. Take one relationship, sit with the whole of what you're holding for the other person, and feel all of it — no plan, ten minutes. Not for good. A week of the truth is enough for the pair of you to see whether the weight could be divided at all. Feel it first; the share can be decided after.",
+      "sheetLine": "You carry the load before anyone hands it to you.",
+      "verb": "start something with your hands that carries inside it the way a thing has always been done",
+      "place": "where the old stories you grew up on are passed hand to hand",
       "provenance": {
         "signature_id": 52,
         "position_id": 5,
@@ -64,19 +66,19 @@
         "partner": "Completion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the felt connection be complete\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -88,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You keep the thing you carry close and private, and you have not put any of it into another person's hands.",
-      "ask": "Choose one practice or piece of what you carry and teach it to one person, from scratch, as if you were both new to it. Ten minutes, no audience, no standard to meet. You are only showing someone the rope.",
-      "core": "The thing itself is intact. You still know it, and it still moves you when you are alone with it. What has gone quiet is handing any of it to another person. You keep it close, and you keep it private, and the two have started to look the same. Where you go, it goes, but it does not reach anyone else.\n\nThat is loneliness you probably call being practical. So give yourself a beginning you cannot fail at: teach a small piece to someone who has no reason to judge it, in your own words, and let the first version be rough. The aim is not the lesson. The aim is to find out whether the thing still wants to move through you, and to let one other person be in the room when it does.",
-      "sheetLine": "The thing is still yours. What is missing is passing it on.",
-      "verb": "holding the first handful of something not yet planted",
-      "place": "where what a group hands down gets carried forward",
+      "tense": "The door this walked through is behind you, and you're still standing at it.",
+      "act": "lay every piece of it out where you can see all of it at once",
+      "ask": "Write three or four things you were told matter — quick, no polishing — and lay them side by side on the table. Sit with them until the pile stops shifting. Change nothing on the page.",
+      "core": "There was a way of doing things that got handed down to you, and for a while you carried it. Then the walking stopped. The old stories don't come up at the table like they used to; what you were told matters sits somewhere you don't reach for, and you've stopped bringing it out where anyone can hear it. The strength isn't gone. It's waiting at a threshold you already crossed.\n\nDon't try to haul the strength back. Put one story on a table — what you were told to keep, what you were told to be — spread out so you can see all of it at once. Stay with it until nothing's left to see. That's the whole job. The strength comes back once you've seen the whole of it.",
+      "sheetLine": "The old stories stopped coming out of your mouth.",
+      "verb": "start something with your hands that carries inside it the way a thing has always been done",
+      "place": "where the old stories you grew up on are passed hand to hand",
       "provenance": {
         "signature_id": 52,
         "position_id": 5,
@@ -102,19 +105,14 @@
         "partner": "Clarity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -126,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already the one deciding what gets passed on around you, and you keep calling it just how things are.",
-      "ask": "Name one thing you have shaped about what your group or family carries — the way something is done, said, or explained — and say plainly that you are the one who made it that way. Just to yourself, or to the person next to you.",
-      "core": "The way something is done where you are did not arrive by itself. Someone decided the wording, the order, the version worth repeating — and that someone has been you, more often than you have admitted. People around you already take the shape you give this shared thing; it is shaping what they think is normal.\n\nWhat you have not done is say so. Not to claim credit — credit is the wrong frame. Owning it is what makes it available for care: you can only tend a thing you admit you made. So name it once, simply, without improving the story. The older, plainer version of this — before it turned into a pattern — is where you pick the line back up, pen in your own hand.",
-      "sheetLine": "You have been writing this already. Say that it is yours.",
-      "verb": "holding the first handful of something not yet planted",
-      "place": "where what a group hands down gets carried forward",
+      "tense": "Each time, the stories you've been keeping alive were yours to keep, and you've said nothing.",
+      "act": "see it whole, with nothing hidden",
+      "ask": "Take one old habit you do without deciding to — a greeting, a dish, a saying. Write three lines about it: what you do, where it came from, who it's for now. Keep the paper.",
+      "core": "You keep a thing going — a phrase, a habit, a way of greeting whoever comes through your door — and it's been done so long it looks like it just happens. If someone asked why, you'd say it's how it's done. This maintaining is real, and it's gone on without a name on it. The old stories live through your hands and you've filed them under nothing much.\n\nThere's a smaller way to look, not a large claim. Pick one of those habits, write three plain lines about it — what you do, where it came from, who it's for now — and keep the paper. That's seeing the whole of it and stopping there. Nobody else has to hear it. You just get to know what you've been keeping alive. The warmth in it comes back wearing your name.",
+      "sheetLine": "The old stories live through your hands, unnamed.",
+      "verb": "start something with your hands that carries inside it the way a thing has always been done",
+      "place": "where the old stories you grew up on are passed hand to hand",
       "provenance": {
         "signature_id": 52,
         "position_id": 5,
@@ -140,19 +139,24 @@
         "partner": "Clarity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "ask 44 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -161,21 +165,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6090,
+      "ms": 6645,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -183,22 +187,22 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -209,20 +213,14 @@
           "status": 2
         },
         {
-          "code": "history",
-          "detail": "\"years ago\" — a cell knows no one's past",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"Some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"years ago\" — a duration the person never gave",
+          "detail": "\"Some time ago\" — a duration the person never gave",
           "hard": true,
           "status": 3
         },
@@ -233,9 +231,219 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"All along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the seed-of-form capacity and the four mechanisms, but not that this person has a named practice or a group with a shared story — the cells say 'something you carry' and 'the ones who taught you' rather than asserting a craft or a lineage. A reader could reasonably say that holding people steady in a story that was never theirs is not strength at all but habit; the asks still teach the same lesson either way, so they survive. The sentence that serves me is the seeded opening of the Balanced ask, 'Here's where the strength is meant to move' — it presumes I know where it is meant to move, and I don't."
+    },
+    {
+      "attempt": 2,
+      "ms": 4081,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the felt connection be complete\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the seed-of-form capacity and the four mechanisms, but not that this person has a named practice or a group with a shared story — the cells say 'something you carry' and 'what you grew up with' as general inheritance rather than asserting a craft or lineage. A reader could reasonably say that holding people steady in a story that was never theirs is not strength at all but habit; the asks still teach the same lesson either way, so they survive. The sentence that serves me is the seeded opening of the Balanced ask, 'Here's where the strength is meant to move' — it presumes I know where it goes, and I don't."
+    },
+    {
+      "attempt": 3,
+      "ms": 4074,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the end of the week\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the felt connection be complete\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -251,36 +459,42 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "ask 44 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the seed being carried is in fact the person's own rather than something inherited and repeated — the record says authorship is misattributed only at status four, not that the carrying itself is borrowed. A reader could reasonably say the thing in their hands is a duty handed down, not a resource they chose, so at Balance I have kept the choosing but left the origin unstated. The asks survive a wrong read: each is a small act in the shared room the seat names, useful even if the capacity is fine or the person disagrees. The sentence that serves me more than them would be any line telling them what the seed means; dropped."
+      "check": "The record supports the seed-of-form capacity and the four mechanisms, but not that this person has a named practice or a group with a shared story — the cells say 'what you were told matters' as general inheritance rather than asserting a craft or lineage. A reader could reasonably say that holding people steady in a story that was never theirs is not strength at all but habit; the asks still teach the same lesson either way, so they survive. The sentence that serves me is the seeded opener of the Balanced cell, 'Right now the strength you carry is already flowing' — it presumes I know where it flows, and I don't."
     },
     {
-      "attempt": 2,
-      "ms": 3618,
+      "attempt": 4,
+      "ms": 3795,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -291,32 +505,26 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the felt connection be complete\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -327,25 +535,31 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "ask 44 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the seed in the person's hands is theirs by choosing rather than by inheritance — the record puts misattribution only at status four, so at Balance the origin stays unspoken. A reader could say the shared thing is a duty they never picked up, not a resource they hold; Balanced keeps the holding and the handing on, leaves where it came from alone. Each ask is a small act inside the shared room the seat names, still doable and still useful if my read of the capacity is wrong. The sentence that serves me more than them would be any line telling them what the thing means or where it came from — dropped."
+      "check": "The record supports the seed-of-form capacity and the four mechanisms, but not that this person belongs to a named tradition or practices a specific craft — the cells say 'what you were told matters' as general inheritance rather than asserting a lineage. A reader could reasonably say that holding other people steady in a story is not strength at all but simply fatigue wearing a familiar shape; the asks still teach the same lesson either way, so they survive. The sentence that serves me is the seeded opener of the Balanced cell, 'the strength you carry is already moving toward the people who need it' — it presumes I know where it moves, and I don't."
     }
   ],
   "usage": {
-    "input": 1543,
-    "output": 2492
+    "input": 4790,
+    "output": 5341
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:18:24.651Z"
+  "date": "2026-10-02T13:11:24.029Z"
 }

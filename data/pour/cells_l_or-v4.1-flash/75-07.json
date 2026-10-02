@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The push is here and you are the one holding the pen.",
-      "ask": "Take the next concrete step on the thing you keep circling, before it feels ready.",
-      "core": "The work you're pushing is real work, and you're doing it on purpose. Slow doesn't bother you the way it bothers other people — you keep at the thing until it moves, and it moves because you stayed.\n\nWhat keeps this clean is that the effort isn't in a fight with you. You're not proving anything to yourself by grinding; you're building, one load-bearing piece at a time, and when you stop for the day you can stop. Time alone on this doesn't make you strange to people — it feeds what you bring back to them, and the bringing-back is the point of the whole thing.\n\nStay here by keeping the rigor from turning into penance: if the discipline starts serving worry instead of the work, that's the signal, not the schedule.",
-      "sheetLine": "You push the work, and the pushing leaves you intact.",
-      "verb": "Forcing a structure that won't budge until it does",
-      "place": "In the part of life where energy runs toward a goal",
+      "tense": "The push you carry is going somewhere that holds, and you can feel it.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Set a project's facts down in sequence — what happened, then what — no feeling words, and glance at the page before you begin tomorrow.",
+      "core": "The momentum you feel toward a goal isn't aggression. It's steady motion, aimed somewhere, holding its line. You see what's worth changing and you push at it with a slow weight that doesn't stop. Something you're building has a shape now, and a reason it has lasted this far.\n\nLet the method carry the heat for a week. Set a project's facts down in sequence — what happened, then what — without feeling words, and glance at the page before you begin tomorrow. The paper doesn't need polish, only honest order. When the steps sit there in sequence, the next right move is easy to name, and the momentum spends itself on that rather than on proving it belongs. You don't have to slow down. You only have to look before you lean.",
+      "sheetLine": "Your push is landing. Put the steps in sequence first.",
+      "verb": "turn a slow, unstoppable push into a structure that holds in the world",
+      "place": "in the directed momentum toward goals, where energy runs toward a destination",
       "provenance": {
         "signature_id": 75,
         "position_id": 7,
@@ -26,14 +27,14 @@
         "partner": "Executor of Cognition",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -43,19 +44,20 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already in a future where it works, bracing for a version that hasn't arrived.",
-      "ask": "Stop one project mid-push for a week, and tell someone what it actually means to you — not what it will be worth when it lands.",
-      "core": "You're living a few rooms ahead of the work. Every push right now is aimed at a version where it's already done — and because the finished thing is the only one that counts, the unfinished one gets shoved harder, earlier, before it's had a chance to settle.\n\nThat's the tell. The urgency has stopped coming from the build and started coming from the gap between the build and the picture. You push to close it, and the pushing makes the gap louder. This isn't wrongness about you; it's the same thing you have, running ahead of its own supply.\n\nThe move back is to get a living thing into the work that you can't force — a person, a conversation, something that responds. What you're building only holds if the ground under it is real, and the ground is people, not deadlines. Let meaning set the pace for once.",
-      "sheetLine": "The push is aimed at a finished thing that isn't there yet.",
-      "verb": "Forcing a structure that won't budge until it does",
-      "place": "In the part of life where energy runs toward a goal",
+      "tense": "You're already living past the end of something you haven't finished building.",
+      "act": "make a ritual of the shared thing",
+      "ask": "Take one effort you share with people and, when it comes round, do it their way — their order, their pace — and watch without correcting anything.",
+      "core": "Where you're going, the push has stopped listening for anything coming back at it. You know what should change before it happens, and the tempo has run past the people who have to live inside it. What you're building looks, from where they sit, like something they'll be informed of rather than asked about.\n\nMake a ritual of the shared thing. When a shared effort comes round, take it and do it their way — their order, their pace — and watch without correcting anything. Nothing needs fixing after; the point is to be inside it, not above it. Meaning carried together moves at a speed people can walk, and that's still quicker than a thing raised over their heads. After that, the next leap is one they'll take alongside you.",
+      "sheetLine": "You're clearing ground past where the others stand.",
+      "verb": "turn a slow, unstoppable push into a structure that holds in the world",
+      "place": "in the directed momentum toward goals, where energy runs toward a destination",
       "provenance": {
         "signature_id": 75,
         "position_id": 7,
@@ -64,31 +66,37 @@
         "partner": "Catalyst of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make a ritual of the shared thing\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The hand is off the push, and the next step is the one not being taken.",
-      "ask": "Pick the smallest real object on your list and finish it alone today — one thing, closed, before you check anyone's reaction.",
-      "core": "The push isn't running. There's a version of the work you can picture clearly, and you keep not starting — so the aim stays folded up. This is where you stand: the momentum isn't gone, it's spent in small ways that don't get counted, the list you maintain instead of the task, the plan you redraw instead of the first step.\n\nFrom the outside it looks like caution. From where you sit it might feel like there's no floor under the next move. What's short isn't resolve. It's the clean line that makes the next step obvious, the boundary around what this actually is.\n\nSet one edge and push against it — small, unannounced, finished today. The finish is what tells the whole operation it's still alive.",
-      "sheetLine": "The push stopped, and the next step is the one not being taken.",
-      "verb": "Forcing a structure that won't budge until it does",
-      "place": "In the part of life where energy runs toward a goal",
+      "tense": "The push stopped, and the reason you stopped is still at the door.",
+      "act": "charge forward on the decision you made",
+      "ask": "Do the first physical step of a decision you already made. No new plan — one step on the one you have, this week.",
+      "core": "Holding the reins went quiet a while back. The outline of what you'd build is folded and tucked away, and a date went past where it should have started moving. Not laziness — the pull stopped landing, and waiting felt like a place to stand.\n\nWhat you already decided is the place to begin. Take one you made and stopped acting on, and do the first physical step it needs this week. No new plan, no waiting for the charge to come back before you move; the charge follows the step, and the step is small. This is how the old break in motion gets healed — settle on one thing and move inside it before you know how it ends. Your own follow-through writes the next section.",
+      "sheetLine": "You already decided. Do the first step of it.",
+      "verb": "turn a slow, unstoppable push into a structure that holds in the world",
+      "place": "in the directed momentum toward goals, where energy runs toward a destination",
       "provenance": {
         "signature_id": 75,
         "position_id": 7,
@@ -97,19 +105,14 @@
         "partner": "Catalyst of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "diagnosis",
-          "detail": "\"boundary\" — clinic-adjacent",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -121,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are steering a thing you talk about as if it runs without you.",
-      "ask": "Name the goal you're already moving toward, say out loud that you're the one moving it, then ask one person already inside it how it's landing for them.",
-      "core": "You're already going somewhere with this. The direction is real, the pace is real, and you keep talking about it like it's the work's own momentum — the project moving, the deadline coming, the thing needing to get done. But you're the one choosing it, day after day, usually before you've said so to yourself.\n\nWhat you call the pressure of it is often your own aim, unclaimed. That doesn't make you wrong. It just means the thing most likely to steady the whole operation is the sentence you haven't said yet: this is mine to move.\n\nStart with feeling, not a framework — the goal you're actually willing to carry rather than the one you've been carrying because you picked it up. The mount is easier when the pulse is yours, and that's the fuel that lasts.",
-      "sheetLine": "You're already moving toward something, and you haven't claimed it.",
-      "verb": "Forcing a structure that won't budge until it does",
-      "place": "In the part of life where energy runs toward a goal",
+      "tense": "Uphill work is happening through your hands, and your name isn't on it.",
+      "act": "tend the fire without burning out",
+      "ask": "Name what actually keeps you moving — the walk, the call, the first hour — and give that thing its minutes before anything else, then check what carried.",
+      "core": "The change keeps getting made, and to hear you say it, whatever moves just moves — timing, other people, a habit running quiet. Something in you built the day a while back and keeps it warm without asking for credit. The small unit is what matters here: not the whole transformation, but the hand that tends it.\n\nTend the fire where it actually burns. Name what really keeps you going rather than what should, and give that thing its minutes before anything else — then the same the day after, and watch what carries. Naming the day is how the fire gets a keeper. Say it's yours, quietly, and it holds everything that comes next.",
+      "sheetLine": "The change runs on fuel you supply unnamed.",
+      "verb": "turn a slow, unstoppable push into a structure that holds in the world",
+      "place": "in the directed momentum toward goals, where energy runs toward a destination",
       "provenance": {
         "signature_id": 75,
         "position_id": 7,
@@ -135,14 +139,29 @@
         "partner": "Steward of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the fire without burning out\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -151,14 +170,38 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5577,
+      "ms": 6124,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "missing",
+          "detail": "no sheetLine",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and read the page back\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -169,38 +212,56 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "missing",
+          "detail": "no sheetLine",
           "hard": true,
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"boundary\" — clinic-adjacent",
-          "hard": false,
+          "code": "missing",
+          "detail": "no sheetLine",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"The map\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
@@ -212,8 +273,14 @@
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 3
         },
         {
@@ -223,30 +290,65 @@
           "status": 3
         },
         {
+          "code": "missing",
+          "detail": "no sheetLine",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feed the drive a little at a time\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and to hear you tell\"",
           "hard": true,
           "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives the medicine's balanced face ('practice flows without force'), but not that this person has a practice, so the core must describe the regularity without claiming one exists. A reader could reasonably say the momentum is just ordinary ambition, not 'breakthrough' — the cell leans on what the person can recognise in a week, not on the card's vocabulary. The ask survives being wrong: it is still a clean way to find whether the push is theirs, and the sheet line could be said back by someone the read missed. The sentence that would serve me more than them is any line about 'slow but unstoppable' — cut it, it flatters the card."
+      "check": "The core of my Balanced draft needs the aliveness in the method to be visible, and the record gives only the partner's face ('practice flows without force') plus the signature — not a claim that what they build right now is already well-founded. A reader could fairly say the momentum here isn't the patient kind and nothing is calm in it, so I phrase the condition instead of stating it as fact. The ask survives being wrong: writing facts down in order is useful whether the pace is patient or forced, so it needs no progress to stand on. The sentence that serves me more than them is any line about slow and unstoppable destiny — cut."
     },
     {
       "attempt": 2,
-      "ms": 3260,
+      "ms": 5089,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"in order what happened then\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -257,10 +359,22 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make a ritual of the shared thing\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -269,119 +383,332 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"boundary\" — clinic-adjacent",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"got expensive\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "\"The opening\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the fire without burning out\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record gives the medicine's balanced face ('practice flows without force'), but not that this person has a practice, so the core describes the regularity without claiming it exists — and the status 3 rewrite must locate the person without naming any cause. A reader could reasonably say the momentum is just ordinary ambition rather than 'breakthrough'; the cells lean on what the person can recognise this week. The asks survive being wrong: each is still a clean test, not conditional on the read. The sentence that would serve me more than them is any line about 'slow but unstoppable' — cut, it flatters the card."
+      "check": "The Balanced core leans on the idea that what the person is building is currently well-founded, which the record does not say — the kernel only gives the partner's face and the signature, so I name the condition the method can meet rather than assert the outcome. A reader could fairly say the pace isn't patient and nothing about it feels calm, so I put the method in as something to use, not a fact about how they work. The ask survives being wrong: putting one project's steps in order on paper is useful whether the momentum is steady or forced, so it needs no progress to stand on. The sentence that serves me more than them is any line about slow and unstoppable destiny — cut. I varied the ask shapes so not all four are one bounded task: status 2 is a noticing, status 4 is a small repeated practice rather than a single item."
     },
     {
       "attempt": 3,
-      "ms": 3134,
+      "ms": 4809,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"boundary\" — clinic-adjacent",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make a ritual of the shared thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the fire without burning out\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"choose\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The Balanced core still risks implying the person's current building is well-founded, which the record does not state — it gives only the signature and the partner's face, so I keep the method as something to pick up rather than a fact about their work. A reader could say the pace isn't patient and the calm isn't there, so I name no outcome and promise no result. The ask survives being wrong: writing a project's facts in sequence helps whether the momentum is steady or forced. The sentence serving me over them is any 'slow and unstoppable' destiny line — cut. I varied ask shapes — status 1 is one bounded task, status 2 is a repeated watching practice, status 3 is a stop-and-choose, status 4 is an ongoing tending — and left clocks off status 2 and status 4."
+    },
+    {
+      "attempt": 4,
+      "ms": 3938,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make a ritual of the shared thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the fire without burning out\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The Balanced core still risks implying the person's current building is well-founded, which the record does not state — it gives only the signature and the partner's face, so I keep the method as something to pick up rather than a fact about their work. A reader could say the pace isn't patient and the calm isn't there, so I name no outcome and promise no result. The ask survives being wrong: setting a project's facts down in sequence helps whether the momentum is steady or forced. The sentence serving me over them is any 'slow and unstoppable' destiny line — cut. Ask shapes varied: status 1 opens on 'set', one bounded task with a glance before starting; status 2 opens on 'take' with a repeated watching practice and no clock; status 3 opens on 'do' with a single step this week; status 4 opens on 'name' as an ongoing tending with no clock."
+    },
+    {
+      "attempt": 5,
+      "ms": 3521,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make a ritual of the shared thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the fire without burning out\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not state that a practice or discipline already exists in this person's life, so the balanced core describes the regularity without asserting one, and the status 3 rewrite must place the person without naming any cause for the stall. A reader could reasonably call the momentum ordinary ambition rather than 'breakthrough'; the cells stay in what the person can recognize this week. Each ask survives being wrong — it is still a clean test, not conditional on the read. The line that serves the writer more than them is anything built on 'slow but unstoppable'; it flatters the card, so it is cut."
+      "check": "The Balanced core still risks implying the person's current building is well-founded, which the record does not state — it gives only the signature and the partner's face, so I keep the method as something to pick up rather than a fact about their work. A reader could say the pace isn't patient and the calm isn't there, so I name no outcome and promise no result. The ask survives being wrong: setting a project's facts down in sequence helps whether the momentum is steady or forced. The sentence serving me over them is any 'slow and unstoppable' destiny line — cut. Clock count fixed: only status 3 has a clock ('this week'); statuses 1, 2 and 4 carry none. Four asks open on four verbs — set, take, do, name."
     }
   ],
   "usage": {
-    "input": 2813,
-    "output": 3635
+    "input": 9504,
+    "output": 5982
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:21:41.263Z"
+  "date": "2026-10-02T12:41:05.947Z"
 }

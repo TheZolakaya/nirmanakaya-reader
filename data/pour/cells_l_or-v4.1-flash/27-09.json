@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Someone has seen what your daily work costs and said so out loud.",
-      "ask": "Pick one thing you'd keep doing with no thanks at all, and give it an hour this week before any praise arrives.",
-      "core": "The effort you put in day after day has been noticed, and it lands because the work underneath it is real. You keep a small light burning by attention rather than flash, and people can feel that difference. What's being honored isn't applause you angled for; it's the plain result of something steady getting seen.\n\nWhat this balance wants next is tending — keep feeding what grew, without gripping it now that it's visible. The invitation is optional by design, so nothing about it has to keep earning its keep. The cost of holding this is quiet. The days nobody claps still need the same hour, and attention drifts toward the payoff if you let it. Choose the repetition again this week for what it is, and let the visibility arrive or not.",
-      "sheetLine": "What you gave up is seen, and the work is still yours.",
-      "verb": "being seen for what was given up",
-      "place": "where practice gets repeated until it's yours",
+      "tense": "The repetition at your bench is wide, and the wide part is the giving-credit.",
+      "act": "tend the resource with responsible care",
+      "ask": "Pick the practice that matters most this season and give it your careful hours; the others can wait a week without apology.",
+      "core": "You're at your bench, and what you practice is being named by people who saw you give something up for it. The quiet hours and the public word are both true right now. A practice can run unnoticed and then be spoken of; you're in the spoken-of stretch, and you're holding it without turning it into a show.\n\nStewardship says tend what's growing without clutching it. This week, choose one practice among the several you're carrying and give it the careful hours the others are asking for. Something else goes untended until next week. You'll lose a little speed on the ones you set down, and that's the cost of tending one thing well. The practice you choose will show you what steady care looks like when it isn't spread thin.",
+      "sheetLine": "You can be seen and keep tending the work.",
+      "verb": "have what you gave up finally seen and named",
+      "place": "at the small bench where your practice repeats",
       "provenance": {
         "signature_id": 27,
         "position_id": 9,
@@ -26,7 +27,7 @@
         "partner": "Stewardship",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -37,30 +38,26 @@
           "hard": false
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're bracing toward a future where all this finally gets the recognition it's earned.",
-      "ask": "Do one round of practice this week with the door shut and no plan to mention it to anyone.",
-      "core": "Ahead of you is the version where the effort pays off and people see it, and you're already living there. The practice has started bending toward the outcome, so each repetition carries a little more checking — is it good enough yet, will this be the one that counts. Pushing the work further than it needs to go is eating the quiet it used to run on.\n\nThe move that's missing is telling what matters from what doesn't. A practice tuned for a payoff is a different practice from one tuned to its own repetition, and the difference shows up in the hands. Coming back costs you the future receipt for a while. The work gets less impressive when nobody's waiting for it, and that's the point. Do one round with no one to tell, and let that be the whole of it.",
-      "sheetLine": "You're refining toward a room you haven't reached yet.",
-      "verb": "being seen for what was given up",
-      "place": "where practice gets repeated until it's yours",
+      "tense": "The work is being refined toward a day it hasn't reached yet.",
+      "act": "sharpen the one skill by repeating its hardest part",
+      "ask": "Take the part of the practice you still rush and repeat only that, slower each time, stopping when it stops being careful.",
+      "core": "The repetition has an audience in it that isn't there yet — a day, a result, someone noticing — and the practice is braced for it. Every session is run as if the proof were arriving soon. The work gets sharper, and the sharpening has started to feel like watching instead of doing. Rest isn't in the picture until the future's verdict is in, and the verdict keeps moving.\n\nHoning says the aim is the distinction, not the strain. Take the hardest part of the practice and repeat that alone this week, slower each time, and stop the session when the care leaves it. You'll lose the feeling of moving forward on everything at once, and you'll know precisely which part was rushed. That knowing is the practice coming back.",
+      "sheetLine": "You're refining toward a verdict that keeps moving.",
+      "verb": "have what you gave up finally seen and named",
+      "place": "at the small bench where your practice repeats",
       "provenance": {
         "signature_id": 27,
         "position_id": 9,
@@ -69,20 +66,32 @@
         "partner": "Honing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        }
+      ]
     },
     {
       "status": 3,
-      "tense": "The routine stopped at some point and the days have kept going without it.",
-      "ask": "Do ten minutes of the plain old version today, not an improved one, and leave it there.",
-      "core": "The repetition isn't running. The small steady work that used to be there has thinned out, and the days pass without it. The ability is still in you — what dropped out is the doing, and the part of your life that used to get seen for its effort went quiet alongside it.\n\nWhat's starved here needs weight under it, not more pushing. You don't force feeling into a stopped practice; you put something plain beneath it and let it hold. That's the ordinary kind of strength — carrying a thing through a day that doesn't want to hand you the time. Ten minutes will feel pointless and you do it anyway. That's the entire ask. Start that small and let the rest return on its own.",
-      "sheetLine": "The practice got set down. You can pick it up small.",
-      "verb": "being seen for what was given up",
-      "place": "where practice gets repeated until it's yours",
+      "tense": "The practice was given up, and what it was for is standing outside the room now.",
+      "act": "persist on your own reserves through the pressure",
+      "ask": "Return to one session you stopped and keep it through the pressure on your own reserves, with nothing announced.",
+      "core": "The practice isn't running. Sessions ended, or were cut short when the pressure got heavy, and what you were doing them for hasn't been named since. The body remembers the repetition. Nobody has asked it to do it. The bench is still where you left it.\n\nSteadfastness says hold without forcing. Go back to one session — the same time, the same length, on your own — and keep it through the pressure of the next weeks. You'll want proof by the second week that it's working; the proof is that the session happened. What you gave up doesn't need to be announced to count. It needs to be done, on your own reserves, once, then again.",
+      "sheetLine": "You stopped showing up for it, and the bench is still yours.",
+      "verb": "have what you gave up finally seen and named",
+      "place": "at the small bench where your practice repeats",
       "provenance": {
         "signature_id": 27,
         "position_id": 9,
@@ -91,11 +100,21 @@
         "partner": "Steadfastness",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -105,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You keep at the daily work and file it under ordinary, so what it costs stays unnamed.",
-      "ask": "Tell one person plainly what the routine asks of you, without softening it or explaining it away.",
-      "core": "There's a practice you keep, and it has already shaped how you hold things. But you call it just what you do, as though it ran itself. The repetition is real and the choice behind it doesn't get claimed. You'd have to stop and admit you picked this, and kept picking it, for it to count as yours.\n\nWhat's asked is the simpler form of tending: working with your own hands, not narrating it as today's logistics. It doesn't have to become a story or a sacrifice. Just let it be yours. The cost is small and awkward — saying something you've been calling normal, and hearing it sound like more. One sentence to one person, and leave it standing.",
-      "sheetLine": "You keep the practice and call it nothing. It's yours.",
-      "verb": "being seen for what was given up",
-      "place": "where practice gets repeated until it's yours",
+      "tense": "The practice is happening, and the reasons are being filed under habit.",
+      "act": "look after what grows with a steady hand",
+      "ask": "Before each session this week, name in plain words to yourself what you're doing it for, then practice.",
+      "core": "The sessions are running. They run themselves, and asked what holds them you'd say the routine, the streak, the way it goes. The care is doing the work; your part in it is missing from the account. What's growing here is growing because you're at the bench, not because the bench is there.\n\nStewardship says tend without clutching. Before each session this week, take one minute and name, in plain words to yourself, what you're doing it for. Then practice, unchanged. The minute isn't a plan or a promise; it's just you standing where the work happens. What you name will be yours to keep, and the practice gets to be something you're doing instead of something that's happening.",
+      "sheetLine": "The practice is yours, and the routine is only its shape.",
+      "verb": "have what you gave up finally seen and named",
+      "place": "at the small bench where your practice repeats",
       "provenance": {
         "signature_id": 27,
         "position_id": 9,
@@ -119,7 +139,7 @@
         "partner": "Stewardship",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -130,23 +150,13 @@
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -155,20 +165,166 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6781,
+      "ms": 6910,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "history",
+          "detail": "\"for years\" — a cell knows no one's past",
           "hard": true,
           "status": 1
         },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"for years\" — a duration the person never gave",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the others\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"anxiety\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (door, current, room, bench) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record doesn't say the person's quiet work is being witnessed now or has been ignored — only that Honor's cycle completes when sacrifice is publicly honored, so I can describe the mechanism but not their actual recognition. A reader could say 'I don't care whether anyone sees it' and I'd have to let that stand; the reading still names where the candle is burning. The asks survive being wrong because they do something in the practice itself — refine one distinction, keep the record, tend the next thing — not because the read was right. The sentence that serves me more than them is any version of 'you are finally being seen'; I've cut it everywhere."
+    },
+    {
+      "attempt": 2,
+      "ms": 5042,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the other\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -179,56 +335,20 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"for an audience\" — a motive the cell cannot know",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Honing does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"for its own sake the\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
           "status": 3
         },
@@ -239,168 +359,10 @@
           "status": 3
         },
         {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Steadfastness does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Stewardship does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's practice is 'quiet' or 'unseen' — the record says honor is external and visible, but not that this person's support is absent; I don't know their situation. A reader could reasonably say 'I get all the recognition I need' or 'mine comes from a team I can name,' and the reading would still hold only if it stays on what they're doing with the acknowledgment rather than claiming they have none. The asks survive being wrong: each one is a small act they can do or decline without the read being confirmed, and each asks them to notice what they already know rather than to change a condition I can't see. The sentence that serves me more than them is any line implying they've been overlooked — it flatters the card's drama and puts words about their life I haven't earned, so I'll keep the witness inside the practice and let the honor be whatever they name."
-    },
-    {
-      "attempt": 2,
-      "ms": 5031,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Recognition",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is still that their practice goes unseen — the record says honor is external and visible, not that this person lacks it, so every cell has to sit on what they do with what they get rather than on who does or doesn't notice. A reader could say 'I get plenty of thanks' or 'my work is private and I like it that way,' and the reading only holds if the ask is something they can do or decline without me being right about their situation. The asks survive being wrong because each one turns on a small act they control, not on a condition I can't see. The line that serves me more than them is any hint that they've been overlooked; I kept the witness inside the repetition and let the acknowledgment be whatever they name."
-    },
-    {
-      "attempt": 3,
-      "ms": 3916,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "seat",
@@ -415,14 +377,14 @@
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -433,19 +395,105 @@
           "status": 4
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record doesn't say the person's quiet work is or isn't seen by anyone right now — only that Honor's cycle completes when sacrifice is publicly honored, so I can describe what the practice is doing but not their actual recognition, and the ask can't promise any. A reader could say 'nobody needs to see this' and the reading still holds, because it names where the candle is burning, not who is watching. The asks survive a wrong read because they change the practice itself — one distinction refined, one thing set down, one session kept, one reason named — not because the read was right. The sentence that serves me more than them is any version of 'you are finally being seen'; I've cut it everywhere."
+    },
+    {
+      "attempt": 3,
+      "ms": 3491,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is still that the person's effort goes unseen — the record says honor is external and visible, not that this one lacks it, so each cell has to sit on what they do with what they get rather than on who does or doesn't notice. A reader could say 'I get plenty of thanks' or 'my work is private and I like it that way,' and the reading only holds if the ask is something they can do or decline without me being right about their situation. The asks survive being wrong because each turns on a small act they control, not a condition I can't see. The line that serves me more than them is any hint that they've been overlooked; I kept the witness inside the repetition and left the acknowledgment as whatever they name."
+      "check": "The record does not say whether the person's practice is currently being noticed or ignored — only that this signature's cycle completes when sacrifice is publicly honored, so I can name what the practice is doing without claiming anyone sees it. A reader could reasonably say 'nobody needs to see this,' and that objection stands; the reading still points at where the candle burns, not who is watching. The asks survive a wrong read because each one changes the practice itself — tend one thing, refine one distinction, keep one session, name one reason — not because the read was right. The sentence that serves me more than them is any version of 'you are finally being seen,' and I've cut it."
     }
   ],
   "usage": {
-    "input": 2997,
-    "output": 3585
+    "input": 6693,
+    "output": 3630
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:19:53.510Z"
+  "date": "2026-10-02T11:49:54.337Z"
 }

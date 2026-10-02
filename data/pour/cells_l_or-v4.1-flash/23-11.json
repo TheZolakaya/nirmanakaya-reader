@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You're moving toward a light you picked, and the weighing sits level in your hands.",
-      "ask": "Tell one person what you're aiming at, then ask what would make it fair between you. Weigh what they say and let it change the split.",
-      "core": "You're moving toward something you picked, and you know how to weigh things fairly. Fairness here isn't a rule you follow. It's something you keep doing — noticing what's out of proportion, adjusting it, letting the adjustment stand even when it costs you. That's the work, and you're in it.\n\nThe direction you're facing and your sense of what people are owed run the same way for you, which is rarer than it sounds. What it costs to keep: calibrating runs on attention, and attention runs down, so there's a plain limit to how much you can spend without getting thin. Let part of the weight land on someone else instead of balancing it all yourself. One way: say what you're aiming at and let them have a say in what's fair.",
-      "sheetLine": "The weighing stays level because you keep at it.",
-      "verb": "Picking the light to move toward and going that way",
-      "place": "Where things get weighed and set level between people",
+      "tense": "Right now you can hold a direction and still let the scales settle around it.",
+      "act": "share your strength where it is needed",
+      "ask": "Think of someone close to you who is carrying a heavy week. Hand them something concrete you can finish — an hour, a lift, a call made for them, a form filled in — and then consider the matter closed.",
+      "core": "Where two people's needs are out of kilter, you can feel the pull toward one direction and still want both sides to sit level. You don't have to choose between the calling and the fairness. Both can be held while the proportions get sorted.\n\nSomeone close to you is carrying more than the week allows. Hand them something concrete — an hour, a lift, a call you make for them — and see it through to the end. That is what steering by a chosen light looks like when it has to survive contact with another person's weight, and you'll learn from it whether the course you've picked has room in it for anyone but you.",
+      "sheetLine": "Steer by what you'd hand to someone else.",
+      "verb": "choosing which light to steer by, and letting that choice set the course",
+      "place": "where what's out of proportion gets recalibrated until things sit level again",
       "provenance": {
         "signature_id": 23,
         "position_id": 11,
@@ -26,31 +27,37 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You'll have the fairness settled before anyone in the room has asked.",
-      "ask": "Pick one disagreement about what's fair and leave it alone for a day. Ask what they noticed and write down the first thing that lands.",
-      "core": "You're bracing toward a fairness that hasn't happened yet. The splitting gets done ahead of time, scores settled before anything's gone wrong, and the weighing gets checked so often nobody can move near it.\n\nWhat you're aiming at is real: things should come out fair. That direction is yours. The bracing is what costs you — defending a call you haven't made. Choosing which way to go and running ahead to make sure nobody can shift the frame are two different moves.\n\nWhen you stop settling things ahead of the moment, your read on what's off still lands on its own. Before you adjust what's out of proportion, let one thing stay crooked for a day. You'll still see it. You'll just see it from here.",
-      "sheetLine": "You're settling fairness before the situation is here.",
-      "verb": "Picking the light to move toward and going that way",
-      "place": "Where things get weighed and set level between people",
+      "tense": "You are already braced for a direction that hasn't been decided yet.",
+      "act": "list the pulls on you and mark which are yours",
+      "ask": "Name every pull on you this week — open doors, others' expectations, the shoulds. Beside each, one word for whose it is. Then take a step on the one marked yours.",
+      "core": "Where things between people need leveling, the scales are watched before they've had room to move. You're committed already to a course nobody has chosen, and the verdict arrives while the situation is still forming. The aim is right — the timing is early, and that tightness lands on whoever is standing nearby.\n\nSlow it down by naming what tugs at you. Put each pull in writing, and one word for whose it is. Then move on the one that's actually yours. Holding several honest readings at the same time and acting on a single one isn't a betrayal of the rest. It's just the point where the debate inside you becomes something another person can stand next to.",
+      "sheetLine": "You're steering a course that hasn't been chosen.",
+      "verb": "choosing which light to steer by, and letting that choice set the course",
+      "place": "where what's out of proportion gets recalibrated until things sit level again",
       "provenance": {
         "signature_id": 23,
         "position_id": 11,
@@ -59,11 +66,26 @@
         "partner": "Discernment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
@@ -78,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You stood at that door and did not say which way you were going.",
-      "ask": "Say out loud to one person which way you were heading before things went quiet, and that you're still heading there.",
-      "core": "There's a direction you were moving toward, and after something behind you made it hard to say out loud, you stopped saying it. The aim didn't leave. You just stopped standing behind it. When a room works out what's fair now, you're not really in the weighing.\n\nThat's not a missing sense of what's right. It's a scale you set down, and the eye for it went quiet with it. So it looks like not knowing what you're for. It's closer to not having said it in a while.\n\nThings you used to tend can go well with less strain than you remember. Let some of your energy go there instead of straight back at the scale. Tell one person which way you were heading, and notice that the direction was yours the whole time.",
-      "sheetLine": "You put the scale down and the weighing stopped.",
-      "verb": "Picking the light to move toward and going that way",
-      "place": "Where things get weighed and set level between people",
+      "tense": "You are still at a door you already walked through, deciding.",
+      "act": "enjoy what careful tending produced",
+      "ask": "Choose something you built or grew that still works, and give it ten unhurried minutes — use it, read it, stand in it — letting the fact that it turned out be true.",
+      "core": "The direction was set. Where you're standing, it reads as unfinished, and the scales between things got watched so long that nothing feels settled enough to count. Yet there's a grown thing behind you — work, a relationship, a skill — that has been doing fine without anyone looking at it.\n\nLet yourself stand inside the result of your own tending. Choose something you built that still works, and give it ten minutes — use it, read it, stand in it, listen to it. Nobody is asking you to feel proud. The ask is to let the fact that it turned out be true, so the course you set gets its fair weight back.",
+      "sheetLine": "The course was set. The grown thing is standing.",
+      "verb": "choosing which light to steer by, and letting that choice set the course",
+      "place": "where what's out of proportion gets recalibrated until things sit level again",
       "provenance": {
         "signature_id": 23,
         "position_id": 11,
@@ -92,14 +115,19 @@
         "partner": "Flourishing",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -108,13 +136,8 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -126,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "You're setting things level between people and calling it the situation.",
-      "ask": "Name one adjustment you made for someone as your call, out loud. If it was doing their work, stop making it.",
-      "core": "The scale gets leveled between people around you and you'd say it leveled on its own. Your hand is on it — in what you let pass, what you rebalance without announcing, which way the room ends up facing. It works. You don't say so.\n\nWhat runs underneath is steady and shared: strength that holds people up without pressing them down, and your part in it goes unnamed. You just call it nothing, or the way things are. That leaves the same work running where nobody asked whether it should.\n\nThe simpler move: part of what you rebalance is your call, not a requirement. Name one of those adjustments as yours. If the other person is carrying their own weight fine, put it down.",
-      "sheetLine": "You're leveling the scale and calling it the room.",
-      "verb": "Picking the light to move toward and going that way",
-      "place": "Where things get weighed and set level between people",
+      "tense": "You are already steering by something, and you are telling it as drift.",
+      "act": "hold someone else up with what you have",
+      "ask": "To someone who quietly leans on you, describe out loud the support you give them — plainly, without calling it nothing — and then carry on as before.",
+      "core": "A direction is being held among your people, and the one holding it describes themselves as off to the side. That steadiness others feel didn't assemble itself. It was decided, by you, and kept in other people's footing rather than in your own account.\n\nSay the support you're giving, once, to the person it holds up. Not a speech — just the plain description of what you've taken on for them, out loud, without calling it nothing. Keeping it private doesn't make it lighter. Naming it makes the direction visible, and once it's visible it can be held deliberately, adjusted, or set down when it's done.",
+      "sheetLine": "The direction is held. Say who's holding it.",
+      "verb": "choosing which light to steer by, and letting that choice set the course",
+      "place": "where what's out of proportion gets recalibrated until things sit level again",
       "provenance": {
         "signature_id": 23,
         "position_id": 11,
@@ -140,24 +164,29 @@
         "partner": "Support",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -166,50 +195,74 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6886,
+      "ms": 6459,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Support does\") — the act in plain words, the name once at most",
-          "hard": true,
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every imbalance\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "five words in a row from an exemplar or a rule: \"when something between people is\"",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 2
         },
         {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Discernment does\") — the act in plain words, the name once at most",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people around it\"",
           "hard": true,
           "status": 2
         },
@@ -226,32 +279,26 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"The scales\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -263,14 +310,20 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -281,109 +334,27 @@
         },
         {
           "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "detail": "\"not luck\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
-        }
-      ],
-      "check": "The record does not support saying the person compares their life to anyone else's, so that claim is out. A reader could reasonably say they weigh things carefully on purpose and enjoy it, which every core lets them say — a core that only accuses is a core that fails. The ask lands after the read and stays useful if the read is wrong: each puts something concrete in front of one person and lets it be answered. The sentence that serves me most is any line about 'the scale' — the noun for the seat's mechanism that the person never used — so it stays in my own description of what the act is, not in their mouth."
-    },
-    {
-      "attempt": 2,
-      "ms": 4734,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
@@ -392,32 +363,79 @@
           "status": 4
         },
         {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"between the people near you\"",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record does not support saying other people are the ones tilting things, so that claim is out, and the four cores now describe only this one capacity in a moment, not the person's life as a whole. A reader could reasonably say they hold things level on purpose and like doing it, which every core lets them say because none of them assigns a motive. Each ask stands on its own if the read is wrong: it puts one concrete act in front of one person and leaves the answer theirs to keep. The sentence that serves me most is any line treating the level as something the person owns rather than something they're already doing, so the ownership stays in my description of the act and never in their mouth."
+      "check": "The record supports the signature, the seat, and each status's mechanism, but not any claim about a specific calling, person, or decision in the reader's life — so all four cells stay with the mechanism and the ask, never a concrete star. The likely objection is 'this is too general to be about me'; each cell names a moment the person can recognise and leaves the ask usable even if the read is wrong. The sentence that would serve me more than them is any line telling them which direction to choose — that is theirs, and it is not in the cells."
     },
     {
-      "attempt": 3,
-      "ms": 3780,
+      "attempt": 2,
+      "ms": 4277,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"true things at once and\"",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "tense",
@@ -432,8 +450,14 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -445,13 +469,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -462,8 +486,20 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -474,19 +510,130 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the signature, the seat, and each status's mechanism, but not any claim about a specific calling, person, or decision in the reader's life, nor any duration they never gave. The likely objection is that this is too general to be about them; each cell names a moment the person can recognise and leaves the ask usable even if the read is wrong. The sentence that would serve me more than them is any line telling them which direction to choose — that is theirs, and it is not in the cells."
+    },
+    {
+      "attempt": 3,
+      "ms": 3704,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"betrayal\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what careful tending produced\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not support saying other people tilt things or that the person enjoys the weighing, so every core now keeps to this one capacity in a moment a person could recognise. A reader could reasonably say they hold things level on purpose, and each core leaves room for that by never assigning a motive. The asks stand alone if the read is wrong: each puts one visible act in front of one person and leaves the answer theirs. The line that serves me most is any phrasing that treats the level as the person's to name, so the naming stays in my description of the act and never in their mouth."
+      "check": "The record supports the signature, the seat, and each status's mechanism, but not any claim about a specific calling, person, or decision in the reader's life, nor any duration they never gave. The likely objection is that this is too general to be about them; each cell names a moment the person can recognise and leaves the ask usable even if the read is wrong. The sentence that would serve me more than them is any line telling them which direction to choose — that is theirs, and it is not in the cells."
     }
   ],
   "usage": {
-    "input": 3027,
-    "output": 3485
+    "input": 6575,
+    "output": 3508
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:16:05.798Z"
+  "date": "2026-10-02T11:45:29.255Z"
 }

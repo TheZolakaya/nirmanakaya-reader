@@ -1,14 +1,2091 @@
 {
   "set": "l",
   "author": "or-v4.1-flash",
-  "cut": "2026-10-02T03:31:53.338Z",
-  "cells": 6864,
+  "cut": "2026-10-02T13:35:04.412Z",
+  "cells": 6510,
   "expected": 6864,
-  "missing": 0,
-  "refused": 0,
+  "missing": 354,
+  "refused": 346,
   "stale": 0,
-  "holes": [],
+  "holes": [
+    {
+      "sig": 0,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 0,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 0,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 0,
+      "pos": 10,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 0,
+      "pos": 12,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 0,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 1,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 1,
+      "pos": 8,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 1,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 1,
+      "pos": 20,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 1,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 5,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 5,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 18,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 18,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 2,
+      "pos": 18,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 0,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 1,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 10,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 11,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 11,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 19,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 19,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 20,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 20,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 20,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 3,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 4,
+      "pos": 20,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 5,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 5,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 5,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 6,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 9,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 9,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 15,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 15,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 9,
+      "pos": 18,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 10,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 10,
+      "pos": 11,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 10,
+      "pos": 11,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 10,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 11,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 11,
+      "pos": 12,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 12,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 12,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 5,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 5,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 5,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 5,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 13,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 13,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 15,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 15,
+      "pos": 13,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 15,
+      "pos": 15,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 16,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 16,
+      "pos": 2,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 16,
+      "pos": 15,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 16,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 16,
+      "pos": 21,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 17,
+      "pos": 6,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 17,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 9,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 9,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 9,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 9,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 18,
+      "pos": 20,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 19,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 19,
+      "pos": 8,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 20,
+      "pos": 3,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 21,
+      "pos": 12,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 21,
+      "pos": 13,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 21,
+      "pos": 15,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 21,
+      "pos": 16,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 22,
+      "pos": 5,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 22,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 22,
+      "pos": 15,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 23,
+      "pos": 2,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 23,
+      "pos": 2,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 23,
+      "pos": 13,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 23,
+      "pos": 20,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 23,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 25,
+      "pos": 3,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 26,
+      "pos": 21,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 27,
+      "pos": 3,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 27,
+      "pos": 6,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 27,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 27,
+      "pos": 16,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 27,
+      "pos": 19,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 29,
+      "pos": 7,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 30,
+      "pos": 5,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 30,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 30,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 30,
+      "pos": 21,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 30,
+      "pos": 21,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 31,
+      "pos": 11,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 11,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 32,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 33,
+      "pos": 2,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 33,
+      "pos": 2,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 33,
+      "pos": 7,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 33,
+      "pos": 7,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 33,
+      "pos": 14,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 34,
+      "pos": 7,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 35,
+      "pos": 7,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 36,
+      "pos": 6,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 36,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 37,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 37,
+      "pos": 8,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 37,
+      "pos": 8,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 37,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 37,
+      "pos": 19,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 39,
+      "pos": 21,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 40,
+      "pos": 2,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 40,
+      "pos": 15,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 41,
+      "pos": 12,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 41,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 41,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 41,
+      "pos": 21,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 42,
+      "pos": 15,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 42,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 42,
+      "pos": 17,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 42,
+      "pos": 19,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 2,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 3,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 3,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 7,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 7,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 7,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 7,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 10,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 10,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 10,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 11,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 44,
+      "pos": 19,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 45,
+      "pos": 14,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 45,
+      "pos": 18,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 45,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 5,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 7,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 9,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 9,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 15,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 17,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 17,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 17,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 46,
+      "pos": 21,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 0,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 3,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 4,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 4,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 5,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 8,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 12,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 13,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 13,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 14,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 15,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 16,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 20,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 47,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 4,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 6,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 6,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 9,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 13,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 48,
+      "pos": 15,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 14,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 14,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 15,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 49,
+      "pos": 19,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 2,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 2,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 5,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 16,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 50,
+      "pos": 21,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 51,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 51,
+      "pos": 4,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 51,
+      "pos": 12,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 51,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 51,
+      "pos": 15,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 0,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 1,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 3,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 52,
+      "pos": 14,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 53,
+      "pos": 16,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 3,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 3,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 3,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 3,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 9,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 54,
+      "pos": 18,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 55,
+      "pos": 4,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 55,
+      "pos": 9,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 55,
+      "pos": 9,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 55,
+      "pos": 13,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 2,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 5,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 15,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 17,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 19,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 56,
+      "pos": 19,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 57,
+      "pos": 2,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 57,
+      "pos": 9,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 57,
+      "pos": 9,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 57,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 57,
+      "pos": 20,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 1,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 1,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 4,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 4,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 6,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 58,
+      "pos": 16,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 59,
+      "pos": 1,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 59,
+      "pos": 8,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 59,
+      "pos": 10,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 59,
+      "pos": 11,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 59,
+      "pos": 16,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 60,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 60,
+      "pos": 1,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 60,
+      "pos": 4,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 60,
+      "pos": 8,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 60,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 61,
+      "pos": 10,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 61,
+      "pos": 13,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 61,
+      "pos": 13,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 61,
+      "pos": 21,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 63,
+      "pos": 4,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 63,
+      "pos": 4,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 63,
+      "pos": 12,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 63,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 63,
+      "pos": 18,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 4,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 6,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 7,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 7,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 64,
+      "pos": 18,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 65,
+      "pos": 0,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 65,
+      "pos": 2,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 65,
+      "pos": 4,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 65,
+      "pos": 19,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 66,
+      "pos": 5,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 66,
+      "pos": 10,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 66,
+      "pos": 19,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 1,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 3,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 8,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 10,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 11,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 67,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 68,
+      "pos": 15,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 69,
+      "pos": 5,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 69,
+      "pos": 7,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 69,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 70,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 70,
+      "pos": 15,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 3,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 16,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 16,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 71,
+      "pos": 17,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 72,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 72,
+      "pos": 9,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 72,
+      "pos": 11,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 72,
+      "pos": 13,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 72,
+      "pos": 13,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 0,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 0,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 1,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 4,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 4,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 6,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 12,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 16,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 18,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 18,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 19,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 20,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 20,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 20,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 73,
+      "pos": 20,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 0,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 0,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 6,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 8,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 8,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 12,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 74,
+      "pos": 14,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 75,
+      "pos": 5,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 75,
+      "pos": 8,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 75,
+      "pos": 9,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 75,
+      "pos": 16,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 75,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 2,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 3,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 8,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 12,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 16,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 16,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 76,
+      "pos": 18,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 3,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 4,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 13,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 17,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 17,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 17,
+      "status": 4,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 18,
+      "status": 1,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 18,
+      "status": 2,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 18,
+      "status": 3,
+      "why": "hard lint open"
+    },
+    {
+      "sig": 77,
+      "pos": 18,
+      "status": 4,
+      "why": "hard lint open"
+    }
+  ],
   "prompts": [
-    "pour-author-2026-10-02-l"
+    "pour-author-2026-10-03-s"
   ]
 }

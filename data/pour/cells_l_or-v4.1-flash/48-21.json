@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Emotion",
+  "group": "library",
   "signature_id": 48,
   "position_id": 21,
   "signature": "Allure",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding many possible feelings at once and you know how to bring them together.",
-      "ask": "Write down the three feelings you're pulled toward, not to decide anything, just to see them side by side.",
-      "core": "You're carrying a lot of possible feeling, and it isn't noise. You can feel the pull toward several things and you're sorting them while you move — that sorting is the work of bringing something together. When you act, it isn't a guess. It's the one that already has weight in a room full of might-bes, and the rest fall away because you kept track of them.\n\nThe balance holds as long as the options get somewhere you can see them. Writing them down, even the ones you'd rather not admit to, gives the pattern a place to land. Nothing here is owed. You can leave it. But when you name what you're drawn to before it names you, the pick gets cleaner and the release after it gets easier.",
-      "sheetLine": "You gather what might be felt, and you bring it together on purpose.",
-      "verb": "gathering the feelings that might be possible",
-      "place": "where what has been gathered is brought together and let go",
+      "tense": "The many possible feelings are all still present, and you are the one holding them open.",
+      "act": "work the pattern through to its logic",
+      "ask": "Take one situation you've been holding open and follow it, on your own, to where it actually ends — then let the rest of today move on, no decision needed yet.",
+      "core": "The many ways a thing between you could still go are all here at once, and you can sit with them without the room feeling crowded. Nothing has to be declared yet. You keep them all live, and you do it well — the choices stay warm instead of going stale, and the ones near you get a fuller field than they would alone.\n\nYour own way through is quieter: the pattern stops being a hundred open questions the moment you follow one of them all the way to its end. Behind this unclosed question is your own head, not the crowd of them. Take one of the situations you've been holding open and follow it, alone, to where it actually finishes — then let the day carry on. Nothing gets declared. You just stop being the room they all wait in.",
+      "sheetLine": "All the ways it could go are still open, because you keep them open.",
+      "verb": "gathering the feelings that might yet be, before any is chosen",
+      "place": "the place where what has been gathered gets finished and let go",
       "provenance": {
         "signature_id": 48,
         "position_id": 21,
@@ -26,11 +27,21 @@
         "partner": "Calculation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, field) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are reaching ahead of the moment, holding feelings before any of them have actually arrived.",
-      "ask": "Name the one feeling that's already here, right now, and set the rest down for an hour.",
-      "core": "You're pulling feelings toward you before they've landed. Every tone, every reaction, every way this could go — gathered early, and you're bracing against all of it. That's not openness anymore. That's holding a net under a sky that hasn't rained. Gathering is supposed to end in a choice, and the choice can't arrive while you're still collecting.\n\nWhat's asked is to let form hold what's already real. Not to feel less, but to stop reaching for what isn't here yet. The structure you need is a line between what you're actually in and what you're rehearsing. Name the one feeling that's present and set the others down, and the taking-of-shape can finish. What you've gathered can become something you stand on instead of something you carry ahead of yourself.",
-      "sheetLine": "You're holding feelings before they happen. Put down what hasn't arrived.",
-      "verb": "gathering the feelings that might be possible",
-      "place": "where what has been gathered is brought together and let go",
+      "tense": "You are bracing for every way the feeling could land before any of it has actually arrived.",
+      "act": "hold the new form steady",
+      "ask": "Take one thing that recently took shape between you and somebody — after an ending, mostly — and hold it steady this week: keep the call, keep the standing plan, let it stay finished. Nothing new added.",
+      "core": "Every way this could turn is running ahead of you. You've met the feeling before it happens — rehearsing the hurt, the cooling, the next version of it — and the pull of all those possible feelings has you living in them early. The room is still here. You're bracing in a room that hasn't happened yet.\n\nWhat steadies it sits in your hands, not in more feeling. You've ended things without decorating the ending, and trusted what came after anyway; that practice is still available. Take one thing that recently took shape between you and somebody, after an ending, mostly, and hold it steady this week: keep the call, keep the standing plan, let it stay finished. No new version of it. The bracing quiets when something is held instead of predicted.",
+      "sheetLine": "You're feeling every possible version before any of them arrives.",
+      "verb": "gathering the feelings that might yet be, before any is chosen",
+      "place": "the place where what has been gathered gets finished and let go",
       "provenance": {
         "signature_id": 48,
         "position_id": 21,
@@ -54,26 +66,37 @@
         "partner": "Preservation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped reaching for the feelings that might be possible, and you are still standing where you stopped.",
-      "ask": "Let one feeling you've kept quiet sit with you for five minutes without doing anything about it.",
-      "core": "At some point the gathering stopped. Not because the feelings weren't there — they were — but because reaching for them stopped being worth it, or stopped being safe. You learned to hold still instead of pull. The ability to feel what might be possible hasn't left. It just isn't being asked to move.\n\nPushing yourself into more feeling won't get it back. What gets it back is letting the mind come to rest, calibrating without effort. Sit with one quiet feeling and don't fix it or use it. The calm itself will start to hold the complexity you've been steering around, and stillness turns out to be the room where feeling can safely start again. Keep it small. Keep it yours.",
-      "sheetLine": "You stopped reaching toward what might be felt, and the stillness is still yours.",
-      "verb": "gathering the feelings that might be possible",
-      "place": "where what has been gathered is brought together and let go",
+      "tense": "You are still standing at a door that the room already walked through without you.",
+      "act": "put the problem down and take a walk with nothing to solve",
+      "ask": "Take a walk with no decision riding on it — nothing to weigh, nothing to choose between, and if anything from the pile comes up, let it pass without an answer.",
+      "core": "Most of what could be felt here has already gone quiet, and you're not in the middle of it. The possibilities that were open are behind you somewhere, and the place where they get finished runs cold. Not from failure — you're just not in the moment where they're still live.\n\nWhat refills this isn't more feeling, and it isn't deciding anything. It's rest, done on purpose: your mind settles by settling, not by effort. Take a walk with nothing riding on it — nothing to weigh, nothing to choose — and if the pile comes up, let it pass unanswered. The stillness isn't avoidance. It's how the current comes back, and any choice that comes later gets easier from there.",
+      "sheetLine": "The many feelings have gone quiet, and you with them.",
+      "verb": "gathering the feelings that might yet be, before any is chosen",
+      "place": "the place where what has been gathered gets finished and let go",
       "provenance": {
         "signature_id": 48,
         "position_id": 21,
@@ -82,11 +105,21 @@
         "partner": "Repose",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -96,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already gathering the feelings and shaping what they become, but you talk as if it were just happening to you.",
-      "ask": "Look at one feeling you gathered this week and say out loud, this one is mine.",
-      "core": "You're drawing feelings together, deciding which ones get your attention, letting some pass. It's happening now. But you describe it as something the room is doing, or as being sensitive, or as whatever comes up coming up. The gathering is yours. Your name isn't on it yet.\n\nName one piece of it. Not the whole pattern, just one. When you say out loud that this pull, this choice, this feeling is yours, the pen moves back into your hand. And from there, seeing the pattern stops being analysis for its own sake. It frees you to let go of what you've gathered without wondering who really picked it.",
-      "sheetLine": "You're already gathering this. Your name isn't on it yet.",
-      "verb": "gathering the feelings that might be possible",
-      "place": "where what has been gathered is brought together and let go",
+      "tense": "You are already gathering what people might feel, without noticing you are the one doing it.",
+      "act": "cut through the story to what actually follows",
+      "ask": "Take something you've told yourself about how this goes and cut to what actually follows — no story, just the next two steps, written down before you decide anything.",
+      "core": "You read people fast — the pull of what they might feel, the way the room will lean next — and your account of it is that you were only listening. Your name isn't on it. The gathering happens, the warmth lands, and it registers as nothing you did.\n\nUnder that reading sits your own harder gift: you can see what a pattern actually produces, stripped of the story around it. Cut to that on something you're holding. Take what you've told yourself about how this goes and write the next two steps as they actually follow — no story, no feelings, just the order. You'll have your own hand in your own handwriting, and the one doing the reading becomes the one who wrote it.",
+      "sheetLine": "You read the room already, and you say you're only listening.",
+      "verb": "gathering the feelings that might yet be, before any is chosen",
+      "place": "the place where what has been gathered gets finished and let go",
       "provenance": {
         "signature_id": 48,
         "position_id": 21,
@@ -110,14 +144,19 @@
         "partner": "Calculation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -126,154 +165,244 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5954,
+      "ms": 8267,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, field) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports Allure as gathering many emotional possibilities and the felt pull of them, but nothing about the person's history, what they have or haven't chosen, or what any of it costs; the four drafts keep to the capacity in a moment rather than a past. A reasonable reader in the Too Little seat might say 'I'm not behind anything, I simply don't want the whole cloud' — which the cell survives, since the ask is rest, not more feeling. Asks all work on the listed acts and stay small, unbought; the sentence that served me most and got cut was a clean line about a menu being a meal, and the seat lines still reach a little more than a person's own words would, held to a clause."
+    },
+    {
+      "attempt": 2,
+      "ms": 5013,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (room, field) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
           "hard": true,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"boundary\" — clinic-adjacent",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back is simpler\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"this you just haven't said\"",
-          "hard": true,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that I can name what this capacity is doing in a recognizable moment; the record provides mechanism, not the person's circumstance. The reader could reasonably object that gathering emotional possibilities may be ordinary openness rather than a specific capacity in a specific part of life. The ask I plan — writing down the emotional options already gathered — survives being wrong because even if the diagnosis misses, the act still produces something they can see. The sentence that serves me more than them is any line that turns the gathered feeling into a flattering description of sensitivity; I will keep the mechanism plain and let them recognize it or not."
-    },
-    {
-      "attempt": 2,
-      "ms": 3858,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "\"the letting go\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"this you just haven't said\"",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that I can name what this capacity is doing in a recognizable moment; the record gives the mechanism, not the person's circumstance. A reader could reasonably say that gathering emotional possibilities is just ordinary openness, not a capacity running in one part of life. The ask survives being wrong because even if the read misses, writing the pulls side by side still shows the person something they can use. The sentence that serves me more than them is any line that turns the gathered feeling into a flattering portrait of sensitivity; I keep the mechanism plain and let them take it or leave it."
+      "check": "The record supports Allure as gathering many emotional possibilities and the felt pull of them, but nothing about the person's history, what they have or haven't chosen, or what any of it costs; the four drafts keep to the capacity in a moment rather than a past. A reasonable reader in the Too Little seat might say 'I'm not behind anything, I simply don't want the whole cloud' — which the cell survives, since the ask is rest, not more feeling. Asks all work on the listed acts and stay small, unbought; the sentences that served me most and got cut were clean lines about a menu being a meal, and the four drafts still reach a little past a person's own words, held to a clause."
     },
     {
       "attempt": 3,
-      "ms": 3147,
+      "ms": 4195,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, field) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -281,47 +410,37 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that I can name what this capacity is doing in a recognizable moment; the record gives the mechanism, not the person's circumstance. A reader could reasonably say that gathering emotional possibilities is just ordinary openness, not a capacity running in one part of life. The ask survives being wrong because even if the read misses, writing the pulls side by side still shows the person something they can use. The sentence that serves me more than them is any line that turns the gathered feeling into a flattering portrait of sensitivity; I keep the mechanism plain and let them take it or leave it."
-    },
-    {
-      "attempt": 4,
-      "ms": 3110,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "seat",
@@ -330,19 +449,25 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that I can name what this capacity is doing in a recognisable moment; the record gives the mechanism, not the person's circumstance. A reader could reasonably say that gathering emotional possibilities is just ordinary openness, not a capacity running in one part of life. The ask survives being wrong because even if the read misses, writing the pulls side by side still shows the person something they can use. The sentence that serves me more than them is any line that turns the gathered feeling into a flattering portrait of sensitivity; I keep the mechanism plain and let them take it or leave it."
+      "check": "The record supports Allure as gathering many emotional possibilities and the felt pull of them, but nothing about the person's history, what they have or haven't chosen, or what any of it costs; the four drafts keep to the capacity in a moment rather than a past. A reasonable reader in the Too Little seat might say 'I'm not behind anything, I simply don't want the whole cloud' — which the cell survives, since the ask is rest, not more feeling. Asks all work on the listed acts and stay small, unbought; the lines that served me most and got cut were clean ones about a menu being a meal, and the four drafts still reach a little past a person's own words, held to a clause."
     }
   ],
   "usage": {
-    "input": 7079,
-    "output": 4549
+    "input": 6723,
+    "output": 3873
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:18:28.104Z"
+  "date": "2026-10-02T12:14:13.096Z"
 }

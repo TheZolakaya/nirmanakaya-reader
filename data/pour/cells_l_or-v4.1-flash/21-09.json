@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You know when a stretch of practice has done its work, and you let it end there.",
-      "ask": "Name one thing your practice has finished — say it plainly to someone today, then let the next hour be minutes and no work.",
-      "core": "The work gets put down clean. You can tell when hours of the same thing have come to what they were for, and saying so doesn't feel like quitting. You finish, and the finishing is not the end of you. That is rare — most people either stop too early or can't stop at all.\n\nThe sign it's working: a run of practice lands, you call it done, and you stay easy about what comes next. The bend now is that closing a thing can feel like a door shutting, so you hold it a little shut yourself. Let one finished thing stand as finished, out loud, and the ease you already have gets to stay in the room.",
-      "sheetLine": "You can put finished work down and stay open.",
-      "verb": "bring a stretch of practice through to its finish",
-      "place": "working alone at the same small light, over and over",
+      "tense": "You are here at the point where the practising closes and hands something back.",
+      "act": "let this moment be a fresh entry, not a continuation",
+      "ask": "Begin tomorrow's practice as if you had just discovered it — one pause of ten seconds before the hands move, nothing more.",
+      "core": "You know the point in practice when something has been built and it stands: you stop adding, and what you made holds. Not because all of it is finished, but because this part is, and you can feel that in your hands. You don't cling past the close and you don't hurry to the next to escape the quiet.\n\nThe room you practise in is small and the light is steady, and coming back day after day has made you able to do things you couldn't explain to anyone who hadn't done the hours. Let what is arriving be new. Begin tomorrow's practice as if you had just discovered it — a ten-second pause before your hands move, nothing more. You are the turning; what enters now has not entered like this.",
+      "sheetLine": "You know when a thing is done, and you can start again.",
+      "verb": "closing a thing fully so the next one can start",
+      "place": "the quiet room where the same small thing gets practised again",
       "provenance": {
         "signature_id": 21,
         "position_id": 9,
@@ -26,19 +27,19 @@
         "partner": "Source",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -47,30 +48,31 @@
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let this moment be a fresh entry not a continuatio\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have this whole practice finished before the last stretch of it is even here.",
-      "ask": "Pick the one run you're living in now — write down what it still asks of you, not the finished picture — and do only that today.",
-      "core": "'Done' is already on the board in your head, and the last stretch hasn't happened yet. The next version, the settled one, is where you're living — so the practicing is really rehearsing the finish, and the finish keeps moving as you practice. A run that isn't over can't be declared over; that's not a lack of will.\n\nThe sign it's working: the finish stays in its future, the hour in front of you gets the attention, and you stop announcing ends. The bend is that arriving early feels safer than the slow middle. Let the one unfinished run you're in keep its middle, and the practice does the thing you're trying to do to it.",
-      "sheetLine": "You keep calling practice done to skip the middle.",
-      "verb": "bring a stretch of practice through to its finish",
-      "place": "working alone at the same small light, over and over",
+      "tense": "You are calling it finished out ahead of the work that would finish it.",
+      "act": "receive the thing that is coming instead of bracing for it",
+      "ask": "Pick a piece of work you have quietly decided is done. Go a week without announcing that outcome, and let each day of the actual work land as it comes.",
+      "core": "Out here the whole arc gets claimed early. Before the hours are in, you know how it ends, and a declared result is more comfortable than standing inside a half-formed practice. What was patience has started bracing, and you are braced for an outcome you cannot write in yet.\n\nReceive what is actually here instead. Pick a piece of work you have quietly decided is done, and go a week without announcing that outcome. Keep at the real work and let each day of it land as it comes, rather than from where you would rather be standing. The unfinished part is what is arriving; meet it here, not from the ending you sent ahead.",
+      "sheetLine": "You announce the ending before the middle has finished.",
+      "verb": "closing a thing fully so the next one can start",
+      "place": "the quiet room where the same small thing gets practised again",
       "provenance": {
         "signature_id": 21,
         "position_id": 9,
@@ -79,7 +81,7 @@
         "partner": "Source",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -90,20 +92,31 @@
           "hard": false
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive the thing that is coming instead of bracin\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You kept the practice open past the point where it had already finished.",
-      "ask": "Take the smallest piece of your practice and do it all the way through — count it finished and leave it that way for the day.",
-      "core": "Nothing gets to be over. There's one more round, one more refinement, one more thing to learn before it counts as finished — so the same run keeps restarting, and the doing doesn't land. What's absent here isn't effort. It's the point where a person lets a thing be complete.\n\nThe sign it's working: a small round gets run to its end, and you call it done without adding a lap. The bend is that letting something finish means letting it go, and that felt like too much to risk. Take the smallest piece and run it all the way through rather than around; one finished thing brings the practice back to your hands.",
-      "sheetLine": "You keep restarting so nothing has to be over.",
-      "verb": "bring a stretch of practice through to its finish",
-      "place": "working alone at the same small light, over and over",
+      "tense": "You are still standing at a door the practice already carried you through.",
+      "act": "open the door to the next thing on time, not early",
+      "ask": "Let the practice end when it ends this week — tools down, and out of the room — and don't reach for the next step until it actually shows up.",
+      "core": "Here the cycles do not close. Something gets practised to the point where it is working, and then it is folded back into more practice, or started again from a different angle, or kept open as a question. The seeking is real, and the habit is real. What you can do is steady; what you cannot do is let a thing be finished, because finished looks like a door with nothing behind it.\n\nSomething lighter works. Let the practice end when it ends this week — tools down, out of the room — and don't reach for the next step until it actually shows up. Opening the door on time is not the same as opening it early, and the next thing keeps its own appointment.",
+      "sheetLine": "Nothing in your practice gets to finish, so nothing new arrives.",
+      "verb": "closing a thing fully so the next one can start",
+      "place": "the quiet room where the same small thing gets practised again",
       "provenance": {
         "signature_id": 21,
         "position_id": 9,
@@ -112,36 +125,52 @@
         "partner": "Source",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "Your practice is already closing a cycle you keep describing as still open.",
-      "ask": "Say out loud what you're no longer learning from one practice, and where that leaves you today.",
-      "core": "The skill is already built and it holds without you tending it. When a run of work is done, the hands know, and the next thing arrives clean. A practice that has folded into you doesn't need announcing — it shows in how easily you do it, and you step out the way a job finishes itself.\n\nThe bend is that you keep filing this one under still-arriving. What you call more study is the same work walking in place. The closer isn't the doer in your story. Say out loud that this stretch is done and see where that leaves you standing.",
-      "sheetLine": "One practice is finished and you haven't noticed.",
-      "verb": "bring a stretch of practice through to its finish",
-      "place": "working alone at the same small light, over and over",
+      "tense": "You are writing in a room you have already written in and calling it blank.",
+      "act": "let go of the thing you are gripping",
+      "ask": "Take what you still carry as unfinished, set it down where you can see it, and go a few days without reaching for it.",
+      "core": "Some cycles closed and you are still practising as if they had not. The hours are in, the skill is there, and you talk about the work as though it were still ahead of you — or as though none of it counted, which comes to the same thing. What you have been carrying as unfinished has in fact finished, and you have not noticed, and so you keep gripping what is already yours.\n\nRelease is the way back. Take what you still carry as unfinished, set it down where you can see it, and go a few days without reaching for it. The grip can loosen before the next arrival, and the next arrival is not waiting on the grip.",
+      "sheetLine": "You have finished things you are still carrying as unfinished.",
+      "verb": "closing a thing fully so the next one can start",
+      "place": "the quiet room where the same small thing gets practised again",
       "provenance": {
         "signature_id": 21,
         "position_id": 9,
@@ -150,19 +179,29 @@
         "partner": "Faith",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -171,20 +210,20 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4319,
+      "ms": 5793,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
@@ -195,15 +234,197 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it as if it were\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive the thing that is coming instead of bracin\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open the door to the next thing on time not early\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"its own time and it\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"for a week and let\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the seat's solitude: the record calls Discipline 'solitary cultivation', and I read that as the person choosing repetition alone, when it could just be how the skill happens to be practised. A reader could reasonably say their discipline is shared or public and none of this is theirs. The asks survive being wrong because each is one small act of receiving, done alone, which teaches something even if solitude is not their issue. The sentence that serves the writer more than them is likely the Unacknowledged shadow about steering without awareness — cut it down to what is visible."
+    },
+    {
+      "attempt": 2,
+      "ms": 3766,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let this moment be a fresh entry not a continuatio\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that is the whole of\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -219,38 +440,150 @@
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"What helps is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive the thing that is coming instead of bracin\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"and leave your hands empty\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is the seat's solitude: the record calls Discipline 'solitary cultivation,' and I read that as a life fact; it may only be how the skill is practised. A reader could say their practice is shared and none of this is theirs — the asks still teach one small act of receiving done alone. The line that serves the writer more than them is the Unacknowledged shadow about steering unaware; cut to the visible grip. Status 3's ask leaned on the card's 'finish' rather than the medicine's 'open the door'; rewritten to the listed act."
+    },
+    {
+      "attempt": 3,
+      "ms": 3332,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let this moment be a fresh entry not a continuatio\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "length",
           "detail": "core 114 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive the thing that is coming instead of bracin\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -261,21 +594,15 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 4
         },
         {
@@ -283,220 +610,37 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The weakest claim is 'without finality': a reader mid-project, still proud of the work and the streak, could reasonably say the cycle hasn't closed at all and nothing here feels finished. The ask survives that — one plain account of what's finished so far, given out loud, is useful even if nothing is complete yet. The sentence that serves the writer is 'You know when a stretch of practice has done its work' — it's a claim about quiet knowing that no one can verify, and I'd cut it toward what the person actually did."
-    },
-    {
-      "attempt": 2,
-      "ms": 2896,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The weakest claim is still 'without finality' — a reader mid-project, still proud of the work and the streak, could reasonably say nothing here feels finished. The ask survives that: one plain account of what's actually done, said out loud, is useful whether or not anything has closed. The sentence that serves the writer is the status-1 line about knowing when a stretch has done its work — it flatters the reader, and I cut it back to what the person did."
-    },
-    {
-      "attempt": 3,
-      "ms": 2628,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The weakest claim is still 'without finality' — a reader mid-project, still proud of the work and the streak, could reasonably say nothing here feels finished. The ask survives that: one plain account of what's actually done, said out loud, is useful whether or not anything has closed. The sentence that serves the writer is the status-1 line about knowing when a stretch has done its work — it flatters the reader, and I cut it back to what the person did."
+      "check": "The unsupported claim is still the seat's solitude: 'solitary cultivation' may describe how the skill happens to be practised rather than a fact about their life. A reader could say their practice is shared and none of this is theirs — the asks still teach one small receiving done alone, so they survive being wrong. The line that serves the writer more than them is the Unacknowledged shadow about not noticing; kept only to what is visible in the grip."
     },
     {
       "attempt": 4,
-      "ms": 2410,
+      "ms": 3189,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -507,20 +651,20 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let this moment be a fresh entry not a continuatio\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
@@ -531,114 +675,44 @@
           "status": 2
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"receive the thing that is coming instead of bracin\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The weakest claim is 'without finality' — a reader mid-project, still proud of the work and the streak, could reasonably say nothing here feels finished. The ask survives that: one plain account of what's actually done, said out loud, is useful whether or not anything has closed. The sentence that serves the writer is the status-1 line about knowing when a stretch has done its work — it flatters the reader, and I cut it back to what the person did."
-    },
-    {
-      "attempt": 5,
-      "ms": 3392,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "vocab",
           "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
-          "status": 1
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -649,25 +723,43 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let go of the thing you are gripping\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The weakest claim is 'without finality' — a reader mid-project, still proud of the work and the streak, could reasonably say nothing here feels finished. The ask survives that: one plain account of what's actually done, said out loud, is useful whether or not anything has closed. The sentence that serves the writer is the status-1 line about knowing when a stretch has done its work — it flatters the reader, and I cut it back to what the person did."
+      "check": "The unsupported claim is still the seat's solitude: 'solitary cultivation' may describe how the skill happens to be practised rather than a fact about their life. A reader could say their practice is shared and none of this is theirs — the asks still teach a small act of receiving done alone, so they survive being wrong. The line that serves the writer more than them is the Unacknowledged shadow about not noticing; kept to what is visible in the grip. The quartet's four asks now open on four different verbs: begin, pick, let, take."
     }
   ],
   "usage": {
-    "input": 4962,
-    "output": 5114
+    "input": 4582,
+    "output": 4730
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:13:53.705Z"
+  "date": "2026-10-02T13:27:47.497Z"
 }

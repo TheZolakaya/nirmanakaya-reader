@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You're feeling with this person right now and you still know where your own feet are.",
-      "ask": "Pick one thing you're already carrying for someone. Tell them you're choosing to carry it this week.",
-      "core": "You feel with people and you stay yourself while you do it. That sounds ordinary until you watch how often it isn't there — people either go hard and lose contact, or they go soft and vanish into whoever is standing in front of them. You do neither. You can stand beside someone in something difficult and still know where you end.\n\nSo the care you give actually lands. It doesn't arrive as rescue and it doesn't arrive as a bill they'll owe later. The person across from you can take it and keep their own footing. What this can hold next is staying power — you can keep holding someone's hard week without going rigid about it. Pick one thing you're carrying and say out loud that you chose it. Saying it is what keeps it yours.",
-      "sheetLine": "You feel with people without disappearing into them.",
-      "verb": "feeling with someone without losing the line between you",
-      "place": "in the choosing of where your attention and effort go",
+      "tense": "Here, right now, you are steering this, and someone else's state is part of what you're reading.",
+      "act": "hold your shape under the weight",
+      "ask": "Take a load you're already carrying for someone and keep it at its true size this week — don't shrink it to make them comfortable.",
+      "core": "When you choose where a day goes, another person's state is real information, and you can take it in without becoming it. You feel where they end and you begin, and that line holds even up close. Direction stays yours while their mood is nearby.\n\nThe push toward something is easier when the thing you carry is the thing you meant to carry. Take one load this week — a plan, a worry, a favour — and keep it at its original size instead of compressing it smaller for other people's comfort. Nothing about them has to change. The shape that stays standing is the shape you chose, and it holds better when you stop adjusting it.",
+      "sheetLine": "You can hold the weight and keep your own line.",
+      "verb": "Feeling with another person, without either of you disappearing into the other",
+      "place": "A place where you decide what to do next and in which direction",
       "provenance": {
         "signature_id": 6,
         "position_id": 1,
@@ -26,20 +27,42 @@
         "partner": "Fortitude",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
+        }
+      ]
     },
     {
       "status": 2,
-      "tense": "You're bracing for how this will land before the person in front of you has said a word.",
-      "ask": "Before you answer anyone today, wait one beat and ask whose feeling this is to act on.",
-      "core": "You're ahead of people. You take on what they might need before they've said it, and it's already yours to fix by the time the conversation starts. The caring is real. But nothing on either side is being sorted anymore — a mood across the table lands in you as your job, and you answer it before it's even asked.\n\nYou'd call that being thoughtful. Part of it is. The part where you decide where your effort goes has gone quiet though, and it's other people's days that are running your week. What ends here isn't the caring. It's the automatic yes that fires off before you've had a second to check whose feeling this actually is.",
-      "sheetLine": "You take on other people's days before they arrive.",
-      "verb": "feeling with someone without losing the line between you",
-      "place": "in the choosing of where your attention and effort go",
+      "tense": "Ahead of you, a feeling that hasn't arrived is already being read off someone's face, and you are choosing from inside it.",
+      "act": "let the thing end that is already over",
+      "ask": "There's an open loop with someone — close it with a single call or message, then leave it closed.",
+      "core": "What's coming next has already been rehearsed on someone else's face. You choose direction from underneath another person's mood — anticipating a sigh, a silence, a shift — and the line between your day and theirs thins each time. Committing to a plan when you can't tell which feeling is whose is like reaching for tools in the dark.\n\nWhat's over with this person is over. A conversation, a version of the relationship, a way you've been arranging your week around them — it can be closed by one plain act, no announcement. When you close it, the direction you pick next is yours again. That's the whole move: stop holding the loop open.",
+      "sheetLine": "The feeling you're bracing for isn't the one you'll have.",
+      "verb": "Feeling with another person, without either of you disappearing into the other",
+      "place": "A place where you decide what to do next and in which direction",
       "provenance": {
         "signature_id": 6,
         "position_id": 1,
@@ -48,19 +71,24 @@
         "partner": "Transformation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call that being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -72,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You stood at a closed door a long time ago and never quite came back through it.",
-      "ask": "Tell one person one true small thing about your day, with no purpose behind it.",
-      "core": "You've gone flat, and it's steady. Feeling with people became something you turned down, and turning it down worked well enough that you kept doing it. The relationships you have are real, but they stay shallow, and nobody gets closer than arm's length.\n\nWarmth isn't the thing that's gone. Don't try to manufacture feeling or force yourself open. What's empty is the part of you that decides where to lean — the small directional move, the one that says 'this person, today.' So don't push the feeling. Do one deliberate thing with someone. Tell them one true small thing about your day, unprompted, no agenda in it. That tiny decision is the muscle, and it comes back one call at a time.",
-      "sheetLine": "The relationships are real but they stay at the surface.",
-      "verb": "feeling with someone without losing the line between you",
-      "place": "in the choosing of where your attention and effort go",
+      "tense": "You've been standing at a door that already shut, and the direction keeps getting set from there.",
+      "act": "add a little or take a little away, and sense the difference",
+      "ask": "Put one real question into a conversation — something you actually want the answer to — and then wait, without filling the gap.",
+      "core": "You steer from a place that lost some warmth, and the compass still points back to it. Days get met from behind a screen — fine, functional, thin. Connection with people hasn't stopped; it stays on the surface because the deeper channel would take weight you haven't been offering. What gets built from here is built at arm's length, and that distance is what makes the choices feel so effortful.\n\nOne dial is all that's turning. In a single conversation, add a real question — not a check-in, something you actually want to know — and then wait, without filling the gap. You'll feel where the adjustment lands, and that feeling is you coming back on.",
+      "sheetLine": "The surface is a setting, and it can be adjusted.",
+      "verb": "Feeling with another person, without either of you disappearing into the other",
+      "place": "A place where you decide what to do next and in which direction",
       "provenance": {
         "signature_id": 6,
         "position_id": 1,
@@ -86,24 +115,24 @@
         "partner": "Tune",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -115,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "The care is running right now in how you show up, and you keep calling it being practical.",
-      "ask": "Name one thing you did today because you cared, and say so plainly when someone asks.",
-      "core": "People come to you and leave steadier. You know that, and you file it under being useful. What's happening underneath is that you feel with them — it's why you notice, why you show up, why you arrange the thing before anyone has to ask. The caring is doing the work while you tell yourself it's just efficiency.\n\nHere's the part you keep leaving out: you can feel that you feel for these people. When the subject comes up, that much is legible to you. You've been letting it read as indifference because saying it would put something of yours on the table. It's already on the table. Saying it is what would move it back into your hands.",
-      "sheetLine": "It's care, and it's yours. You've just been filing it as practical.",
-      "verb": "feeling with someone without losing the line between you",
-      "place": "in the choosing of where your attention and effort go",
+      "tense": "The steering happens and nobody signs for it — days move, and no feeling of your own gets counted in.",
+      "act": "trace the pattern across the last few times",
+      "ask": "Recall the last few times you rearranged a day for someone, note each in three words on paper, and add nothing to it.",
+      "core": "You'd say you aren't a person who feels much. But look at how the week is arranged — the calls you make, the harder thing you take so someone else doesn't have to, the small tilts that keep others steady. Anyone watching would call that care. To you it's just what got done.\n\nThe direction you set has a shape, and the shape repeats. Look at the last few times and mark what you actually did — a line each, no feelings required. Seeing a pattern doesn't ask you to feel it or claim it. It only puts you where you can see the direction you keep choosing, which is a direction you can then pick on purpose.",
+      "sheetLine": "The care is in the pattern. You don't have to feel it.",
+      "verb": "Feeling with another person, without either of you disappearing into the other",
+      "place": "A place where you decide what to do next and in which direction",
       "provenance": {
         "signature_id": 6,
         "position_id": 1,
@@ -129,14 +159,19 @@
         "partner": "Abstraction",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -150,44 +185,44 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7351,
+      "ms": 7100,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "names",
+          "detail": "another card's name on glass: Alignment",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (thread, room, shape) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
         },
         {
           "code": "vocab",
           "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -198,33 +233,39 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the shape of what they\"",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "glass",
-          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, compas) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
@@ -235,20 +276,20 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"we're\" — a cell has no I; the Reader may add one live",
+          "hard": true,
           "status": 3
         },
         {
@@ -256,17 +297,303 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "label",
+          "detail": "tense line opens with a label: \"Now, the steering happens and \"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person is feeling something now in the Unacknowledged cell — the record says others feel the compassion while the person feels nothing, so the core keeps to the fact that others lean on them and they don't count it. The reader's likely objection: 'I'm not fused with anyone, I just care about people' — which is why the Too Much cell stays with the body's anticipation and the shrinking of the gap, not with a diagnosis of fusion. The ask survives being wrong because each act only asks for one small, visible move (a pause, a date, a dial, a looking-back) that teaches the person something even if the status doesn't fit. The sentence that serves the writer more than them would be any line telling the person what they really feel underneath — cut."
+    },
+    {
+      "attempt": 2,
+      "ms": 6367,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the answer\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"we're\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person feels nothing in the Unacknowledged cell; the record says others feel the compassion while the person feels little, so the core stays with the visible pattern of care the person discounts, not with an inner state. The reader's likely objection: 'I do feel close to people, I'm just private' — which is why the Too Much cell stays with the body's bracing and the shrinking line, not a diagnosis of fusion. Each ask survives being wrong because it only asks for one small visible move — a pause, a closing, a small real question, one recollection — that teaches something even if the status doesn't fit. The sentence that serves the writer more than them would be any line telling the person what they really feel underneath — cut."
+    },
+    {
+      "attempt": 3,
+      "ms": 3758,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "length",
           "detail": "core 114 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -274,32 +601,61 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that a reader can reliably feel another's warmth as choice rather than accident while believing none of it is theirs — the record only supports authorship running while the claim on it hasn't been made, not how the other person experiences it. A reader could reasonably say the real issue is schedule or plain fatigue, not the capacity being spent ahead of time. The asks survive being wrong: they are small acts that teach something regardless of the diagnosis. The sentence serving the writer more than them is 'The care is already moving — you've just been calling it logistics.' It is the kind of line that fits the archive well; I am replacing it with a plainer version under the Unacknowledged cell so the person is not flattered into a costume."
+      "check": "The unsupported claim is that the person feels little or nothing in the Unacknowledged cell; the record says others feel the compassion while the person discounts it, so the core stays with the visible pattern of care they wave off, never with an inner state. The reader's likely objection: 'I'm not fused with anyone — I just notice people' — which is why the Too Much cell stays with the body's bracing and the thinning line, not a diagnosis. Each ask survives being wrong because it is one small visible move — keeping a load its size, closing a loop, adding a real question, a look back — that teaches something even if the status misses. The sentence that serves the writer more than them would be any line naming what the person secretly feels; cut, it never appears."
     },
     {
-      "attempt": 2,
-      "ms": 5353,
+      "attempt": 4,
+      "ms": 3689,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "3 images in one core (thread, room, shape) — a parable, not a sentence to a person",
-          "hard": true,
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call that being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "vocab",
+          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -308,6 +664,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
@@ -316,14 +678,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -340,148 +696,8 @@
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"every time the subject comes\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that a reader can reliably feel another's warmth as choice rather than accident while believing none of it is theirs — the record only supports the line between self and other still being intact, not how the other person experiences the giving. A reader could reasonably say the real issue is plain fatigue or a busy week, not the capacity being spent ahead of time. The asks survive being wrong: each is a small, visible act that teaches something whether or not the read is right. The sentence that serves me more than them was the flattering closer in the Unacknowledged cell; it is cut so nobody is handed a costume."
-    },
-    {
-      "attempt": 3,
-      "ms": 4075,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the reader can feel warmth as a choice they are making while still believing none of it belongs to them — the record backs only that the line between self and other is intact, not how the giving lands on the other person. A reader could reasonably say the real issue is a busy season or plain tiredness, not effort spent ahead of the moment. The asks survive being wrong: each is a small visible act that teaches something either way. The line that served me more than them was the flattering close on the Unacknowledged cell; it is cut so nobody is handed a costume."
-    },
-    {
-      "attempt": 4,
-      "ms": 4628,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -492,13 +708,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that a reader can feel warmth as a choice they are making while still believing none of it belongs to them — the record backs only that the line between self and other is intact, not how the giving lands on the other person. A reader could reasonably say the real issue is a busy season or plain tiredness, not effort spent ahead of the moment. The asks survive being wrong: each is a small visible act that teaches something either way. The line that served me more than them was the flattering close on the Unacknowledged cell; it is cut so nobody is handed a costume."
+      "check": "The unsupported claim is that the person feels little in the Unacknowledged cell; the record says others feel the compassion while the person discounts it, so the core stays with the visible pattern of care they wave off, never an inner state. The reader's likely objection: 'I'm not fused with anyone — I just notice people' — which is why the Too Much cell stays with the body's bracing and the thinning line, not a diagnosis. Each ask survives being wrong because it is one small visible move that teaches something even if the status misses. The sentence that serves the writer more than them would be any line naming what the person secretly feels; cut."
     }
   ],
   "usage": {
-    "input": 4149,
-    "output": 4408
+    "input": 7683,
+    "output": 4873
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:59:35.865Z"
+  "date": "2026-10-02T12:47:58.196Z"
 }

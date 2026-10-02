@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The practice is lit right now and the person is at the desk with it.",
-      "ask": "Before the next session, write down one feeling that keeps arriving and one you keep setting aside, then treat both the same for a week.",
-      "core": "The practice is burning steady and you are at the desk with it. Most days it is one person, one feeling at a time, and you keep it honest. You feel the whole of a thing and then set it down level, and that is rare. What you have built holds up under weight, and the proof is that it doesn't need an audience.\n\nWhat is free to grow from here is the part that lets go. You know how to keep a practice. You are less practiced at letting a season of it end and starting the next one without ceremony. Feed the endings. Let one old routine go by choice, out loud to yourself, and let the next thing be small. Fairness inside you stays clear when you let it turn over. The next step is a release, not another thing to hold.",
-      "sheetLine": "You keep the practice fair and steady. Now let one part of it end.",
-      "verb": "weighing what is fair in feeling and standing by the read",
-      "place": "at the small lit desk where the practice is kept",
+      "tense": "You are at this hour at the bench, your rule in hand, nothing pending.",
+      "act": "release what is done and keep what serves",
+      "ask": "Take one routine in your practice that used to grow you and now just repeats. Say what it still gives. If that's finished, drop it and keep the rest.",
+      "core": "In the repeated work where you build a skill alone, your read on feelings has steadied. A hard thing comes, you sit through its whole length, and the call you make at the end is clean — no thumb on the scale, no rush. Your judgment has weight and it doesn't need to press.\n\nThat same clear eye can land on the practice itself. Take one routine you keep out of habit and say plainly what it still does for you. If it has stopped earning its slot, let it end and keep the part that feeds the work. What you drop, you drop on purpose, and the skill under it gets lighter. The ending is the next step in the same discipline, not a break from it.",
+      "sheetLine": "You can end a routine without ending the work.",
+      "verb": "Weighing what's fair in a feeling and letting the call land after it.",
+      "place": "In the small repeated work where skill is built alone, by attention.",
       "provenance": {
         "signature_id": 73,
         "position_id": 9,
@@ -26,14 +27,19 @@
         "partner": "Steward of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "The mind is already at the next session before this one has finished.",
-      "ask": "Pick the one practice that matters most this week and do it exactly as written, same length, same steps, no additions.",
-      "core": "You are already inside the next session while this one is still going. Somewhere ahead there is a version where it is finally fair, finally right, and you are rehearsing for it. The practice becomes a courthouse. Every feeling gets weighed, compared, sentenced. You feel the case building before the feeling has even landed.\n\nWhat that costs is the plain thing the practice was for. Fairness turns into arithmetic. You check the ledger so often the exchange stops flowing. The way back is not more precision. It is holding what you have without squeezing it. Let one rule stand for a week and do not revise it. The strength here is what contains rather than what presses. You are closer than the rehearsal makes you feel.",
-      "sheetLine": "You are rehearsing the next session instead of sitting in this one.",
-      "verb": "weighing what is fair in feeling and standing by the read",
-      "place": "at the small lit desk where the practice is kept",
+      "tense": "You are already bracing for a next call that hasn't been made yet, shoulders set.",
+      "act": "hold the weight as a builder holds stone",
+      "ask": "Next time something in your practice stings and you want to rule on it now, carry it untouched for a day. No verdict. Decide tomorrow, and see what's left.",
+      "core": "In the work you do alone to refine yourself, you're calling it before the feeling has finished arriving. Something lands — a doubt about your progress, an old ache about where you are — and the ruling is already out: fair, unfair, earned, not earned. A mind that rules this fast starts standing over its own shoulder, and the practice becomes a room where one person both sits and is judged.\n\nStrength here isn't a tighter grip; it's a longer hold. Let the doubt run its whole course before you decide anything about it. The call comes out simpler for the wait, and it's still yours to make. Nothing has to be settled to be felt.",
+      "sheetLine": "You're ruling on feelings before they finish arriving.",
+      "verb": "Weighing what's fair in a feeling and letting the call land after it.",
+      "place": "In the small repeated work where skill is built alone, by attention.",
       "provenance": {
         "signature_id": 73,
         "position_id": 9,
@@ -59,31 +66,47 @@
         "partner": "Executor of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The practice has gone quiet and the person is still standing behind it.",
-      "ask": "Set a timer for ten minutes and do the smallest version of the practice, then write one honest sentence about what you noticed.",
-      "core": "The desk is there and the practice has gone quiet. Not abandoned, just not entered. The room got heavy and you stopped coming in, and at the time that made sense. Now the practice waits, and you circle it, and the circling is the habit. The feeling you used to weigh is still arriving. You are just not at the desk when it does.\n\nWhat is missing is not fairness. It is the small repeated act that used to make fairness possible. Ten minutes, one honest sentence, that is enough to start. Inquiry does not demand feeling first. It just asks you to look, and looking is its own warmth. Start smaller than feels worth it. The point is not the practice. The point is that you show up where it happens.",
-      "sheetLine": "The practice is quiet and you are standing outside it.",
-      "verb": "weighing what is fair in feeling and standing by the read",
-      "place": "at the small lit desk where the practice is kept",
+      "tense": "You left this practice at a door that closed behind you, and you are still facing it.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Take one thing in your practice you keep chewing on and write what happened, in order, just events, no feeling words. Read the page back once.",
+      "core": "The work of refining a skill alone has gone quiet. Not stopped — the slots are still in the calendar — but the part of you that used to step up and call what's fair has stepped back. When something in the practice isn't right, you see it and say nothing. The imbalance sits there, the hours keep passing, and whoever could fix it is facing a closed door.\n\nNerve isn't needed for this next part. Get one real situation out of your head and onto paper in order — what happened, what next — with no describing how it felt. The page will show you the shape of what's actually there. You don't have to feel ready. Writing it down is a method, and the method works when the mood doesn't.",
+      "sheetLine": "You can see what's off and you've gone silent about it.",
+      "verb": "Weighing what's fair in a feeling and letting the call land after it.",
+      "place": "In the small repeated work where skill is built alone, by attention.",
       "provenance": {
         "signature_id": 73,
         "position_id": 9,
@@ -92,31 +115,37 @@
         "partner": "Executor of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The judgment is already running and it is being described as just being sensible.",
-      "ask": "Next time you call a feeling unreasonable, say out loud that you are the one making that call.",
-      "core": "You are already weighing what is fair. It runs through your days. You can tell when something is disproportionate before you name it, and you can tell what is owed and what is not. Yet the call gets described as if the situation itself made it. The judgment is running. Nobody has signed it.\n\nUnder it is a simpler thing, one you already have: the ability to notice without deciding. That is the younger version of the same line, and it is the one to return to. Not a new skill, not more practice. Just watching a feeling arrive before you rule on it. Building the ability is not the work. The work is to stop handing it to the room.",
-      "sheetLine": "You are already judging what is fair. You keep calling it the situation.",
-      "verb": "weighing what is fair in feeling and standing by the read",
-      "place": "at the small lit desk where the practice is kept",
+      "tense": "You are making the calls in this practice right now, and you would tell anyone it's just how you work.",
+      "act": "perceive it with fresh eyes before judging",
+      "ask": "Before your next verdict on a moment in your practice, look at it once with no call at all — what it's made of, not whether you did it well. Then decide.",
+      "core": "In the steady work you do alone, the balance gets kept — a correction here, a dropped exercise there — and if someone asked, you'd shrug and say you were only showing up. But the calls are yours. The one keeping the practice level while telling that story is the one deciding what stays. The people near your work have likely stopped needing the story anyway.\n\nTry the student's move instead. The next moment you're ready to grade something in your practice, look at it first with no verdict — just what it is, the way you'd study a thing you're learning. You'll catch the part you usually skip. Nothing has to change from that. Seeing it once from there is enough to make the call yours again.",
+      "sheetLine": "You keep this practice level while saying you don't.",
+      "verb": "Weighing what's fair in a feeling and letting the call land after it.",
+      "place": "In the small repeated work where skill is built alone, by attention.",
       "provenance": {
         "signature_id": 73,
         "position_id": 9,
@@ -125,19 +154,19 @@
         "partner": "Initiate of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -151,14 +180,20 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6237,
+      "ms": 9283,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -169,75 +204,99 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a full day with no\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the stopping\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 4
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and you've stopped calling it\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd say you hadn't noticed\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -247,18 +306,30 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is governing anyone else's emotional life; the record shows fair emotional judgment in a private practice, not authority over a shared field. A reader could say: this is just my own steady work, no one else is affected, so 'equity' is a grand word for a quiet habit. The asks survive a wrong read because each one asks for a small, observable act inside the person's own practice, not a change in anyone else. The sentence that serves the writer more than the person is any line suggesting the practice has already earned outward authority in a community; I will keep the authority inside the room-count."
+      "check": "The draft's riskiest claim is that the person rules on feeling before it finishes in the discipline seat itself — the record supports governance of feeling but not a private courtroom. A reader could reasonably say the refining is the feeling's channel, not its target. The ask (carry a judgment a full day) survives even if my read is wrong: it still teaches proportion. The sentence that serves the writer is 'feelings are being judged before they've finished happening' — keep it as a stance, not a verdict on them."
     },
     {
       "attempt": 2,
-      "ms": 4161,
+      "ms": 6641,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -269,63 +340,75 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You have to\"",
-          "hard": true,
-          "status": 4
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "five words in a row from an exemplar or a rule: \"and the one who could\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd say you were only\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
-          "hard": true,
           "status": 4
         },
         {
@@ -335,18 +418,24 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is already weighing what is fair all day with accuracy — the record shows the capacity operating, but not its frequency or reliability in their life, and I should not assert a running ledger I cannot see. A reader could say: I don't do this constantly, and I don't always get it right; the read flatters a habit I only sometimes have. The asks survive a wrong read because each is a small act inside the person's own practice — write down two feelings, do one session as written, set a timer, name one call — none requires anyone else to change. The sentence that serves the writer more than the person is any claim that the read 'lands fast and accurate'; I will keep the accuracy as something they can confirm or deny without the cell hinging on it."
+      "check": "The draft claims the person sits as judge over their own practice feelings; the record gives governance of feeling through Resonance, not a private courtroom in the discipline seat. A reader could reasonably say the refining is where the fairness shows, not a place feelings get ruled on. The ask survives a wrong read — holding a call a day teaches proportion regardless. The sentence that serves the writer is 'the call has a gavel in it' — cut, it flatters the metaphor over the person."
     },
     {
       "attempt": 3,
-      "ms": 3615,
+      "ms": 4047,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -357,44 +446,68 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You have to\"",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"next time you're about to\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -405,18 +518,24 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's fair judgment runs constantly and lands accurately; the record shows the capacity operating, not its frequency or reliability in their life. A reader could say: this is not all day, and I do not always get it right — the read flatters a habit I only sometimes have. Each ask survives a wrong read because it is a small act inside the person's own practice — two feelings written down, one session done as written, a timer and a sentence, one call named out loud — none requires anyone else to change. The sentence that serves the writer more than the person is any claim that the read lands fast and accurate; accuracy stays something they can confirm or deny without the cell depending on it."
+      "check": "The draft's riskiest move is putting a courtroom inside the discipline seat; the record gives fair emotional judgment through Resonance, not private self-trial. A reader could say the refining is where the fairness lands, not a place feelings get ruled on. The ask survives a wrong read — carrying a call for a day teaches proportion anyway. The sentence serving the writer is 'one person both sits and is judged' — cut, it likes its own sound more than it serves anyone."
     },
     {
       "attempt": 4,
-      "ms": 3461,
+      "ms": 3589,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -427,38 +546,68 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the one who could\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -469,13 +618,107 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's fair judgment runs constantly and lands accurately; the record shows the capacity operating, not its frequency or reliability in their life. A reader could say: this is not all day, and I do not always get it right — the read flatters a habit I only sometimes have. Each ask survives a wrong read because it is a small act inside the person's own practice — two feelings written down, one session done as written, a timer and a sentence, one call named out loud — none requires anyone else to change. The sentence that serves the writer more than the person is any claim that the read lands fast and accurate; accuracy stays something they can confirm or deny without the cell depending on it."
+      "check": "The draft still risks placing a courtroom inside the discipline seat; the record gives fair emotional judgment through Resonance, not private self-trial. A reader could reasonably say the refining is where fairness shows, not a place feelings get ruled on. The ask survives a wrong read — carrying a call for a day teaches proportion anyway. The sentence serving the writer is 'one person both sits and is judged' — cut, it likes its own sound more than it serves anyone."
+    },
+    {
+      "attempt": 5,
+      "ms": 3005,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it before\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"perceive it with fresh eyes before judging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft still risks placing a courtroom inside the discipline seat; the record gives fair emotional judgment through Resonance, not private self-trial. A reader could reasonably say the refining is where fairness shows, not a place feelings get ruled on. The ask survives a wrong read — carrying a call for a day teaches proportion anyway. The sentence serving the writer is 'one person both sits and is judged' — cut, it likes its own sound more than it serves anyone."
     }
   ],
   "usage": {
-    "input": 7306,
-    "output": 4645
+    "input": 5647,
+    "output": 6052
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:00:45.113Z"
+  "date": "2026-10-02T13:18:58.949Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the pen, tending what grows, and you can see it take.",
-      "ask": "Show one person what you have grown and how it turned out, plainly, without explaining your method.",
-      "core": "You are in the room where the work happens, and you can feel how much is going right. Things you have cared for are coming through — enough that you can stop steering and let the outcome happen.\n\nThe way back now is completion. You get to let go when the work is done, and let that be the good part. So show someone the thing you've grown. Not the process, not a defense, just what's there now. It will be more legible to them than you expect, and that is what lets this balance keep feeding the next thing instead of guarding this one.",
-      "sheetLine": "What you grew is here, let it stand.",
-      "verb": "tending what is growing until it stands on its own",
-      "place": "the work bench where you care for what is growing",
+      "tense": "What was tended is bearing fruit, and the pen is in your hand now.",
+      "act": "engage the hard part on purpose and see what holds",
+      "ask": "Take the part of this that asks the most of you and stay with it a while, on purpose. Not the easy piece you already handle. Stay long enough to find out what holds when it gets hard. Nothing to fix after.",
+      "core": "The garden is bearing, and the care that got it here is still yours to give, at the same patient pace. What you grew is showing itself, and you are letting it show instead of turning to the next thing before this one has been enjoyed.\n\nThe part that has grown hard is not a sign to step away. It is where your commitment is being tested, and you can go at it deliberately. Stay close to the piece you would rather avoid long enough to learn what it is made of. If it holds, you keep going. If it comes apart, the work was still real, and you will have found where the true weight sits. Either way the week tells you something.",
+      "sheetLine": "The fruit is yours. Stay with the part that's hard.",
+      "verb": "tending what is growing and letting it come to abundance",
+      "place": "in the care of what is still growing, before the fruit",
       "provenance": {
         "signature_id": 60,
         "position_id": 3,
@@ -26,24 +27,19 @@
         "partner": "Dedication",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "ask 42 words (≤40)",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -55,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living in a harvest that hasn't arrived, and your hands are moving ahead of it.",
-      "ask": "Pick one thing you're growing and leave it alone until it can be handled without your hand in it.",
-      "core": "There is a future version of this where the harvest is in and the people around you finally understand what you were growing. You are standing there now, and it makes you push the thing in front of you harder than it can take.\n\nThe pressure has become the care. You count the buds, water them again, check whether the outcome is ready to be seen. Care that clutches stops being care. There is a you that can dream from what's actually here instead of what hasn't come in yet — a vision that has already digested the real. Let one thing grow without your hand on it for a while. It will still be there when you look.",
-      "sheetLine": "You are forcing next season's harvest into this one.",
-      "verb": "tending what is growing until it stands on its own",
-      "place": "the work bench where you care for what is growing",
+      "tense": "You can already see the finished garden, and you are racing toward a season that has not arrived.",
+      "act": "choose one connection and flow with it",
+      "ask": "Pick one person who is in this with you and move at their pace for a while. Let the others wait. Don't set the tempo — go where the two of you go when nobody is steering.",
+      "core": "You are pulled toward what this is going to be — the full harvest, the finished thing — and you are pushing the growing toward a season it has not reached. Care at that speed stops being care. What you are tending can feel the hurry even when you mean none.\n\nWhat is thin is not more tending. It is company: moving with one person at their pace instead of ahead of them, letting the two of you become one motion rather than two schedules crossing. Choose one who is in this with you and go where the two of you go, without steering the end. The vision will keep. The harvest is not here yet, and it is still being grown.",
+      "sheetLine": "You're pulling the garden toward a season away.",
+      "verb": "tending what is growing and letting it come to abundance",
+      "place": "in the care of what is still growing, before the fruit",
       "provenance": {
         "signature_id": 60,
         "position_id": 3,
@@ -69,31 +66,37 @@
         "partner": "Merge",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at the gate of a garden you walked out of, asking whether it's okay to tend again.",
-      "ask": "Choose one thing growing near you and give it ten minutes of attention today — no outcome required.",
-      "core": "The caring stopped, not the ability. Something back there told you that tending would drain you or wouldn't be wanted, and you have been standing at that door since, deciding it's still real.\n\nWhat is empty is the direction, not the soil. You don't get out of this by caring harder where you are now. You get out by picking one thing that is actually growing and giving it your time. That could be a plant, a person's project, your own health. Ten minutes of attention, no promise attached. The ability to see where it's going comes back from that, not before.",
-      "sheetLine": "The caring stopped, not the ability to care.",
-      "verb": "tending what is growing until it stands on its own",
-      "place": "the work bench where you care for what is growing",
+      "tense": "Something you grew is already over, and you are paused at the garden gate with your hands full.",
+      "act": "choose which star to steer by and steer",
+      "ask": "Give the spot the finished thing has held to whatever you actually want to grow next. Show up to it once this week, without a plan for the rest.",
+      "core": "What you cared for through its season is finished, and you are paused where it stood, tending what is no longer growing. The care itself is not gone. It is pointed at something that has stopped, so nothing you give comes back, and the bench stays empty.\n\nTake the thing you genuinely want and give it the space the finished one has been holding. Not the thing you think you are supposed to want — the one that pulls when you picture it. Put it where the old spot was and show up once. That is how a season ends where it should, and the next one starts in ground you have worked before.",
+      "sheetLine": "It's finished. Your hands are at the gate.",
+      "verb": "tending what is growing and letting it come to abundance",
+      "place": "in the care of what is still growing, before the fruit",
       "provenance": {
         "signature_id": 60,
         "position_id": 3,
@@ -102,41 +105,47 @@
         "partner": "Orientation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "the closing sentence poses: \"The ability to see where it's going comes back from that, no\" — end on the plain thing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, soil) — one at most, usually none",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already tending a room you have not put your name on.",
-      "ask": "Tell someone what you are growing and that you meant to grow it.",
-      "core": "You are already doing the caring. Things around you are growing because of attention you have been giving quietly, and you file it under 'it just happened' or 'that's what you do.' The care is running. Your name isn't on it.\n\nWhen you only count what is finished, the work itself stays invisible — even to you. This is simpler, not harder. Say what you are growing, and say that you meant to. Not a report on the method. Just what is alive because of you, owned out loud. That is the release that lets you recognize what you were up to, and it is the same act that lets the work reach completion instead of dropping off the edge of your account.",
-      "sheetLine": "You are growing it, say it is yours.",
-      "verb": "tending what is growing until it stands on its own",
-      "place": "the work bench where you care for what is growing",
+      "tense": "The care in this is yours, and you would call it what the ground gave.",
+      "act": "drop the wrong approach and keep the commitment",
+      "ask": "Catch the moment your hand quietly adjusts how you are tending this — moving what needed shade, waiting past where others would step in — and notice that your hand did that. Then drop the method that isn't working and keep tending.",
+      "core": "Someone has been reading the growing and changing how things are done — moving what needed shade, waiting past the point where others would have stepped in — and the person doing it does not count it as theirs. Ask and you would say the ground was good. The ground was good. It also had a gardener in it.\n\nCatch yourself in the middle of the act. When you change your approach because something is not taking, pause long enough to notice that your hand made the change, then change it or don't. Keep the commitment; only the method goes. A gardener who knows their own hands can drop a failing way without dropping the plot, and that is the difference between losing the work and steadying it.",
+      "sheetLine": "This care is yours. The ground had your hands on it.",
+      "verb": "tending what is growing and letting it come to abundance",
+      "place": "in the care of what is still growing, before the fruit",
       "provenance": {
         "signature_id": 60,
         "position_id": 3,
@@ -145,14 +154,24 @@
         "partner": "Dedication",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -161,17 +180,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4359,
+      "ms": 6304,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "label",
           "detail": "a semicolon in the sheet line — two beats stitched; carry one",
@@ -179,86 +192,68 @@
           "status": 1
         },
         {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
           "detail": "\"the tending\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
+          "code": "imperative",
+          "detail": "\"you should\"",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "the closing sentence poses: \"The ability to see where it's going comes back from that, no\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, soil) — one at most, usually none",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -269,60 +264,100 @@
           "status": 3
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
+          "detail": "five words in a row from an exemplar or a rule: \"the act the next time\"",
           "hard": true,
           "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim: that the person can reliably tell which pulls belong to them by whether they 'land' — the record does not establish that capacity in this seat from a single draw. A reader could say 'I've never known what I tend, I just do it.' The ask survives being wrong: one deliberate tending act with a witness still teaches where pressure was coming from, even if my read is off. The sentence that serves me, not them: 'You are the one deciding what gets passed on, and you know it.' — that is an admiring claim, and I am cutting it."
+      "check": "The unsupported claim is that the person has abundant growth and a harvest to enjoy at Too Much and Unacknowledged — the record states the signature, not the outward proof. A reader could reasonably say 'you don't know how much I actually have.' The ask survives being wrong because it is one small act the person does, not a verdict about their life. The sentence that serves the writer more than them is any line that praises the harvest the record did not show."
     },
     {
       "attempt": 2,
-      "ms": 2644,
+      "ms": 4427,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "ask 42 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -333,32 +368,38 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you ought to\"",
+          "hard": true,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "the closing sentence poses: \"The ability to see where it's going comes back from that, no\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, soil) — one at most, usually none",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -369,19 +410,373 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "said",
-          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the next time you quietly\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim: that the person can reliably tell which pulls belong to them by whether they 'land' — the record does not establish that capacity from a single draw. A reader could say 'I've never known what I tend, I just do it.' The ask survives being wrong: one deliberate act of tending with a witness still teaches where the pressure was coming from, even if my read is off. The sentence that serves me, not them: 'You are the one deciding what gets passed on, and you know it.' — that is an admiring claim, and I am cutting it."
+      "check": "The unsupported claim is that the person has reached abundance and harvest at Too Much and Unacknowledged; the record states the signature, not the outward proof. A reader could reasonably say 'you don't know what I actually have.' The asks survive being wrong because each is one small act the person does, not a verdict about their life. The sentence that serves the writer more than them is any line that praises a harvest the record never showed."
+    },
+    {
+      "attempt": 3,
+      "ms": 4087,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it register\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person has reached abundance and harvest at Too Much and Unacknowledged; the record states the signature, not the outward proof. A reader could reasonably say 'you don't know what I actually have.' The asks survive being wrong because each is one small act the person does, not a verdict about their life. The sentence that serves the writer more than them is any line that praises a harvest the record never showed."
+    },
+    {
+      "attempt": 4,
+      "ms": 3419,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person has reached abundance and harvest at Too Much and Unacknowledged; the record states the signature, not the outward proof. A reader could reasonably say 'you don't know what I actually have.' The asks survive being wrong because each is one small act the person does, not a verdict about their life. The sentence that serves the writer more than them is any line that praises a harvest the record never showed."
+    },
+    {
+      "attempt": 5,
+      "ms": 2918,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person has reached abundance and harvest at Too Much and Unacknowledged; the record states the signature, not the outward proof. A reader could reasonably say 'you don't know what I actually have.' The asks survive being wrong because each is one small act the person does, not a verdict about their life. The sentence that serves the writer more than them is any line that praises a harvest the record never showed."
     }
   ],
   "usage": {
-    "input": 1384,
-    "output": 2036
+    "input": 9334,
+    "output": 5855
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:19:33.157Z"
+  "date": "2026-10-02T12:25:51.113Z"
 }

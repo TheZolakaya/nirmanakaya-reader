@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are tending what is growing, and you can see it clearly while you do.",
-      "ask": "Pick one thing you're growing and write down the single next step it needs. Then leave it alone for a week and let it take that step.",
-      "core": "You're watching something grow and your read on it is accurate — what it is now, what it needs next, what comes after that. That kind of read usually arrives with an urge to hurry things, and yours doesn't. You keep your hands where they belong and let the thing do its own work.\n\nThat's the balance worth keeping. You see clearly and you're not running the schedule; understanding one stage doesn't make you reach for the next. What holds this steady is treating what you see as yours to carry, not a lever for pulling. Keep it that way, and the thing in front of you arrives on its own clock — and so do you.",
-      "sheetLine": "You can see it whole and still let it grow at its own speed.",
-      "verb": "seeing a thing through to its end",
-      "place": "where something small is being brought along",
+      "tense": "Here, you see clearly, and the care around it stays patient with what is slow.",
+      "act": "cut through the story to what actually follows",
+      "ask": "Name the next step that follows from what the thing you're raising is today, and do just that step. Leave the rest for later.",
+      "core": "You can look at a growing thing and see it plainly, without rounding it up to what you hope or down to how it started. You keep showing up with water and time and no demand, so it grows at its own pace instead of yours. What it needs, you read, and reading it doesn't wear you out.\n\nKeep that. This week, take what you're raising and set down one move that follows from what it already is — the next hour of work, the next call, the small plain thing. Do that one and leave the rest where it stands. You don't need to plan the whole season to stay clear. A single honest step, taken, shows you more than a full sketch.",
+      "sheetLine": "Step from what you can see, and leave the rest be.",
+      "verb": "Seeing something growing exactly as it stands",
+      "place": "At the beds, tending what is still coming up",
       "provenance": {
         "signature_id": 41,
         "position_id": 3,
@@ -26,19 +27,14 @@
         "partner": "Calculation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -50,12 +46,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a result that hasn't arrived, and your hands are already on the thing you're growing.",
-      "ask": "Pick one thing you're growing and do nothing to it for three days — no checking, no adjusting, no measuring. Let it be where it is.",
-      "core": "You can already picture where this ends, and the ending is so complete you're living inside it. Every small stage on the way reads as behind schedule, and you measure the sprout against a harvest that hasn't come. Care turns into adjusting things that don't need adjusting, and the thing gets handled more than it gets tended.\n\nDone well this looks like watering what's dry today, moving the pot when it's shaded, then stepping back — the picture informing the care instead of driving it. Here the picture drives. Loosen your grip on the outcome and let one stage be exactly what it is. You get to be here while it happens, instead of arriving early to a place it hasn't reached.",
-      "sheetLine": "You can see the ending, and you keep treating today as late.",
-      "verb": "seeing a thing through to its end",
-      "place": "where something small is being brought along",
+      "tense": "By the time this comes up, you'll have the whole thing already sketched, and the sketch will be waiting.",
+      "act": "let the impulse start without a plan",
+      "ask": "Set down the schedule for something you're raising, this week, and water it only when the soil is dry. Nothing forecast ahead.",
+      "core": "You care about what's growing, and you're getting ahead of it. You can already see how it should turn out, so the shape got decided early, and now the plant has to fit that. Certainty like this looks like a gift from a distance. Up close, it's a little close. What you're tending can feel the edges of the shape you picked.\n\nFor one week, start something small with nothing decided about where it goes. Let it begin without knowing what it's for. And take something you'd already sketched out and simply water it when the soil is dry — nothing scheduled, nothing forecast. Starting fresh isn't the same as being careless. You can still look closely. This time, look before deciding.",
+      "sheetLine": "You've planned the whole season before anything's grown.",
+      "verb": "Seeing something growing exactly as it stands",
+      "place": "At the beds, tending what is still coming up",
       "provenance": {
         "signature_id": 41,
         "position_id": 3,
@@ -64,11 +61,31 @@
         "partner": "Activation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, soil) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the impulse start without a plan\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -78,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "Something closed the door on seeing things through, and you are still standing there.",
-      "ask": "Pick one small thing you take care of and make one decision for it today — small, made by you, without asking anyone.",
-      "core": "You're tending something, and you've stopped trusting your read on it. Now you wait for someone else to say what's true, or for the thing to announce what it needs. The care is still running. The sight that used to guide it isn't.\n\nCare without sight drifts. You keep the thing alive but you don't steer it, and the not-knowing wears on you more than any hard call would. What's missing here isn't more information about the thing — it's your own read counting for something. Make one small call and stand behind it. You don't need more certainty to choose; choosing is what's been sitting at that closed door.",
-      "sheetLine": "You're still taking care. You've just stopped trusting what you see.",
-      "verb": "seeing a thing through to its end",
-      "place": "where something small is being brought along",
+      "tense": "You once saw it clearly, and then the beds went quiet, and you're still standing near the door.",
+      "act": "decide what this is for before you spend it",
+      "ask": "Write one line saying what the thing you've been raising is for. Not more than a line. Hold it before you spend anything else on it.",
+      "core": "You can still catch what a growing thing is. But the work around it has gone thin — some of it watered out of habit, some only when something forces your hand. What you look at, you read, and that goes nowhere. From far off it reads as patience. Up close it reads as a door left closed.\n\nStart by picking what you've been tending longest and putting one line on what it's for, in your own words. Then hold that line before you give it more time or money. The line is small on purpose — one thing, defined, so what you see has somewhere to land. Say what it's for. Let that decide the next move.",
+      "sheetLine": "You still see it clearly. The beds have gone quiet.",
+      "verb": "Seeing something growing exactly as it stands",
+      "place": "At the beds, tending what is still coming up",
       "provenance": {
         "signature_id": 41,
         "position_id": 3,
@@ -92,31 +110,37 @@
         "partner": "Definition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already reading what is growing in front of you, and you talk about it as though the reading were the thing's own doing.",
-      "ask": "The next time you notice something about what you're growing, say out loud where it came from — \"I can see that\" — plain, to no one in particular.",
-      "core": "You're the one who sees the turn first — the leaf that's off, the day the thing needs less water, the moment it's ready. You act on it before anyone asks. Then you say the plant told you, or it was obvious, or anyone would have seen it. Anybody wouldn't.\n\nThat read is yours, and calling it the thing's own voice keeps your part invisible — including to you. Your care is real, and so is the eye behind it. Say once, out loud or in your own head, that what you see is yours. Nothing about the work changes. You just stop being the one person in the room who doesn't get credited for it.",
-      "sheetLine": "You notice first. Start saying what you notice is yours.",
-      "verb": "seeing a thing through to its end",
-      "place": "where something small is being brought along",
+      "tense": "The hand is already at the beds, and the story in your head says the season did it.",
+      "act": "meet what is arriving as it arrives",
+      "ask": "When something you tend starts to change, stop a breath before you touch it and take in what's actually there before you respond.",
+      "core": "You're reading what's growing and doing something about it, and by your own account you were just standing nearby while it came up. What you do lands when it matters, and the credit goes to luck or timing. The plant gets what it needs. You say you happened to be there.\n\nTry this. Next time something in your care shifts, when you catch it, wait one breath. Let what you're seeing be yours before your hand moves. Then do whatever comes. Nothing else has to change — the care can stay just as it is. The only difference is that the moment arrives fresh instead of showing up as the next turn of a routine you say you're not running.",
+      "sheetLine": "Your hand already knows. Your account calls it the season.",
+      "verb": "Seeing something growing exactly as it stands",
+      "place": "At the beds, tending what is still coming up",
       "provenance": {
         "signature_id": 41,
         "position_id": 3,
@@ -125,19 +149,24 @@
         "partner": "Source",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"meet what is arriving as it arrives\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -146,23 +175,268 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6481,
+      "ms": 7415,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is right now and do\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that certainty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "vocab",
           "detail": "\"The seeing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (room, door, seed) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide what this is for before you spend it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The noticing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the noticing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The draft's shakiest move is telling the person what the thing they tend wants; the seat and the card support 'letting it emerge', but not any claim about its inner preference. A reader could fairly say the reading has decided what things are like around them without ever having met them. The asks survive being wrong because each is small, plain, and theirs to run either way. The sentence that serves me more than them is the one that leans on the completion-of-seeing material, which flatters the card and never did anything for the person."
+    },
+    {
+      "attempt": 2,
+      "ms": 4487,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
           "status": 1
         },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, soil) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the impulse start without a plan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"at the right moment and\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The draft keeps drifting toward telling the person what the things they tend are like or want, which the seat and card do not license. A reader could fairly say the reading has decided how their care works without having met them. The asks survive being wrong because each is small and theirs to run or drop. The line that serves me more than them is the one that flatters the card's completion material instead of doing anything for the person."
+    },
+    {
+      "attempt": 3,
+      "ms": 3809,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -176,15 +450,27 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"living in it so every\"",
-          "hard": true,
+          "code": "vocab",
+          "detail": "two images in one core (shape, soil) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the impulse start without a plan\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -192,92 +478,62 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"meet what is arriving as it arrives\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's seeing is complete — the draw says the clearing has finished, but a person can be in Fruition of one understanding while other things remain unseen, and the cell should describe the capacity rather than certify their whole view. A reader could reasonably say 'the seeing is total' overstates it, so each status keeps the mechanism local and specific. The asks survive being wrong: each is one concrete act of care that teaches something regardless of whether the read lands, and none makes progress conditional on accepting the cell. The sentence that would serve me more than them is 'nothing is hidden from you' as blanket praise — cut from every version. Two more phrases died for the same reason: 'the seed knows its season' and 'your light is not the light' — the first was poetry, the second an image the card did not lend."
+      "check": "The draft keeps leaning on what the things being tended are like or want, which the seat and card do not license. A reader could fairly say the reading has decided how their care works before meeting them. The asks survive being wrong because each is small and theirs to run or drop. The line that serves me more than them is the one that flatters the card's completion material instead of doing anything for the person."
     },
     {
-      "attempt": 2,
-      "ms": 4224,
+      "attempt": 4,
+      "ms": 4119,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -286,99 +542,41 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, soil) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the impulse start without a plan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "length",
           "detail": "core 116 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's seeing has reached completion — the draw names the end of one line of understanding, not the totality of their view, so each cell keeps the mechanism local to the thing being tended. A reader could reasonably object that 'you can see it whole' overstates what anyone sees, so every cell narrows the claim to what this capacity is doing in one moment they could recognize. The asks survive being wrong: each is one concrete act of care with a finish, teachable regardless of whether the read lands. The sentence that serves me more than them was 'nothing is hidden from you' as blanket praise — cut. Also cut: 'the seed knows its season' and 'your light is not the light,' the first poetry, the second borrowed."
-    },
-    {
-      "attempt": 3,
-      "ms": 3871,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this runs right, you can pictur…\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this runs right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
           "status": 3
         },
         {
@@ -388,153 +586,37 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's seeing has reached completion — the draw names the end of one line of understanding, not the totality of their view, so each cell keeps the mechanism local to the thing being tended. A reader could reasonably object that 'you can see it whole' overstates what anyone sees, so every cell narrows the claim to what this capacity is doing in one moment they could recognize. The asks survive being wrong: each is one concrete act of care with a finish, teachable regardless of whether the read lands. The sentence that serves me more than them was 'nothing is hidden from you' as blanket praise — cut. Also cut: 'the seed knows its season' and 'your light is not the light,' the first poetry, the second borrowed."
-    },
-    {
-      "attempt": 4,
-      "ms": 3439,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"meet what is arriving as it arrives\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's seeing has reached completion — the draw names the end of one line of understanding, not the totality of their view, so each cell keeps the mechanism local to the thing being tended. A reader could reasonably object that 'you can see it whole' overstates what anyone sees, so every cell narrows the claim to what this capacity is doing in one moment they could recognize. The asks survive being wrong: each is one concrete act of care with a finish, teachable regardless of whether the read lands. The sentence that serves me more than them was 'nothing is hidden from you' as blanket praise — cut. Also cut: 'the seed knows its season' and 'your light is not the light,' the first poetry, the second borrowed. The Too Much cell now carries the going-well picture inside its own second paragraph rather than opening on a standing frame."
-    },
-    {
-      "attempt": 5,
-      "ms": 3381,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's seeing has reached completion — the draw names the end of one line of understanding, not the totality of their view, so each cell keeps the mechanism local to the thing being tended. A reader could reasonably object that 'you can see it whole' overstates what anyone sees, so every cell narrows the claim to what this capacity is doing in one moment they could recognize. The asks survive being wrong: each is one concrete act of care with a finish, teachable regardless of whether the read lands. The sentence that serves me more than them was 'nothing is hidden from you' as blanket praise — cut. Also cut: 'the seed knows its season' and 'your light is not the light,' the first poetry, the second borrowed. The Too Much cell now carries the contrast without a standing frame phrase, and no cell opens on a time-setter."
+      "check": "The draft leans on claims about what the things being tended are like or want, which the seat and card do not license. A reader could fairly say the reading has decided how their care works without having met them. The asks survive being wrong because each is small and theirs to run or drop. The line that serves me more than them is the one that flatters the card's completion material instead of doing anything for the person."
     }
   ],
   "usage": {
-    "input": 8534,
-    "output": 5847
+    "input": 8112,
+    "output": 4663
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:32:41.272Z"
+  "date": "2026-10-02T12:05:08.213Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding steady right now, and the pattern underneath is clear to you.",
-      "ask": "Pick one plan you are still hoping for and take the next small concrete step on it today, once, and let that be enough.",
-      "core": "Your strength shows up when conditions get worse, not better, and nobody has to see you doing it. You can keep going under pressure and still see the shape of what's happening while you do. That combination is the thing — the pattern stays in view and you keep moving. On a plain day it looks like this: you do the work, you understand the situation, you don't need an audience. What's feeding you now isn't crisis. It's the hope underneath the effort, the thing you're still aiming at. So this balance is an invitation. Stay with what matters even when it isn't moving yet. You're free to keep feeding it, and it isn't a burden — it's what your strength is for next.",
-      "sheetLine": "You can hold steady and still see the pattern.",
-      "verb": "holding steady while the material facts stay hard",
-      "place": "where the pattern under the surface is plainly visible",
+      "tense": "Right now you are carrying the weight of real things without forcing, and it holds.",
+      "act": "carry on with the version you chose through another week of doubt",
+      "ask": "Take the version you settled on in a doubtful hour and keep it one more week — the next plain step each day, with nothing confirming you are right.",
+      "core": "You can hold a real weight without crushing it. That is the shape here: pressing on through material things with what you already have, not what you are handed, and the abstract seat lets the mechanism show its bare bones — what persists is not the pressure but the choice inside it.\n\nThe next phase has already started. Keep following what you set out on through another week of doubt, doing the small material acts as they come. What you get is a persistence that grows because you keep feeding it hope. Nothing here needs proving to anyone, and no sign is owed you. The kept choice is itself the thing, and it keeps without confirmation.",
+      "sheetLine": "The weight holds because you keep choosing it.",
+      "verb": "holding steady through the weight of real things",
+      "place": "in the abstract pattern where the mechanism shows its bare shape",
       "provenance": {
         "signature_id": 56,
         "position_id": 15,
@@ -26,11 +27,31 @@
         "partner": "Resilience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +61,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a hard future that you can already feel arriving.",
-      "ask": "Do one fair trade today: accept something you didn't earn from someone who offered it, and let it stand without repaying.",
-      "core": "You're holding on so hard it has turned into pushing. The strength is real, but it's running ahead of the moment — you're already solving a version of the future that hasn't happened yet, and the pattern you can see is being used to map every way this could break. That's the bend. The load gets bigger because you're carrying it alone, and exchange is what's missing. Keeping hold without forcing is the shape to aim for. The way back is material and simple: give something, receive something, let one thing be fair. That's the opposite of bracing. You can do it today.",
-      "sheetLine": "You're bracing for a future you can't fix by holding tighter.",
-      "verb": "holding steady while the material facts stay hard",
-      "place": "where the pattern under the surface is plainly visible",
+      "tense": "You are bracing for a future weight that has not arrived, gripping a problem you cannot write yet.",
+      "act": "let the exchange with someone run both ways",
+      "ask": "Choose one person and let the exchange with them run both ways — if you carry something for them, let them carry something back.",
+      "core": "Your grip has gone hard for what the moment asks, and the abstract seat shows the pattern cleanly: endurance stretched into bracing, moving on a future weight that has not landed. The steady strength has become something forced rather than something that carries you forward.\n\nExchange is what loosens it. Choose one person and let the exchange with them run both ways — carry something for them, and let them carry something back. Fairness returns without a ledger, and the strength keeps its lift. Strength that gives and receives stays light; strength that only carries goes tight. One exchange, run both ways.",
+      "sheetLine": "Your grip is outrunning the weight.",
+      "verb": "holding steady through the weight of real things",
+      "place": "in the abstract pattern where the mechanism shows its bare shape",
       "provenance": {
         "signature_id": 56,
         "position_id": 15,
@@ -54,46 +76,42 @@
         "partner": "Reciprocity",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "detail": "core 101 words (120–160)",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
+          "detail": "\" and let the exchange\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that closed behind you and stayed closed.",
-      "ask": "Tell one person about something hard you got through, and let them say it mattered.",
-      "core": "The strength to hold through hard conditions is in you, but it isn't active right now — it sits back where something happened, and you haven't fully left that place. You can still see the pattern clearly, but seeing it isn't moving you into the present. That isn't failure. The part of you that knows how to hold has gone quiet, and that spot doesn't need more effort pushed into it. Pushing effort or feeling there won't work. What it needs is recognition. Something you gave up went unacknowledged, and that gap is the missing piece. The way back is through someone else's eyes, not yours.",
-      "sheetLine": "Your strength went quiet back there, and it needs to be seen.",
-      "verb": "holding steady while the material facts stay hard",
-      "place": "where the pattern under the surface is plainly visible",
+      "tense": "You are still standing at a door you already carried something through, and it stays shut.",
+      "act": "stand where the giving can be witnessed",
+      "ask": "Do what you carry someplace it can be seen — the room, the table, the doorway — and keep doing it there. No speech, no explaining.",
+      "core": "The endurance is real, and it has left you outside the room. In the abstract seat this shows plainly: the strength itself is intact, but it runs on old material, and what you have spent has no witness. You arrive at the weight and none of the trip returns to you.\n\nWhat is thin is visibility, not strength. Do what you carry someplace it can be seen — the room, the table, the doorway — and keep doing it there. No speech, no explaining. That is enough to return some charge to the place that has gone empty. What follows is release, completion with nothing owing, and it can be had in full.",
+      "sheetLine": "The strength is real and no one has seen its weight.",
+      "verb": "holding steady through the weight of real things",
+      "place": "in the abstract pattern where the mechanism shows its bare shape",
       "provenance": {
         "signature_id": 56,
         "position_id": 15,
@@ -102,19 +120,24 @@
         "partner": "Honor",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"The way back is through someone else's eyes, not yours.\" — end on the plain thing",
+          "code": "vocab",
+          "detail": "two images in one core (room, doorway) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -123,30 +146,36 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already holding the line, and you're calling it something other than your own.",
-      "ask": "Say out loud, once, that the thing you keep doing anyway is yours, and keep doing it.",
-      "core": "You're steady where it counts. You keep going under pressure, you see the pattern, you do what needs doing — but you describe it as if the situation is doing the work and you're just there while it happens. That's the only thing missing. The strength is there and you haven't signed it. It should look like someone who knows their own steadiness and doesn't hand the credit to circumstance. Nothing in what you do has to change. What changes is that you stop calling your own persistence luck or necessity. That's not a small thing. Naming it is what lets it keep feeding you instead of running on nothing.",
-      "sheetLine": "You keep the line and don't put your name on it.",
-      "verb": "holding steady while the material facts stay hard",
-      "place": "where the pattern under the surface is plainly visible",
+      "tense": "The strength in this has a hand on it, and the hand is going undated.",
+      "act": "go on toward it without needing a sign",
+      "ask": "Notice once, the next time you hold through something heavy, that you are the one doing it. Then go on — one step, no sign.",
+      "core": "On this stretch the strength is real and private: pressing through material pressure with no one watching, and the keeper of it has no name attached. Ask and you would say it simply runs. What you are doing is there in plain sight, and the one doing it is filed under the circumstances.\n\nThe move is small and belongs to you alone. Notice once, the next time you hold through something heavy, that you are the one doing it — then go on, one step, no sign. You are still following what you chose, and that is the steady part; the only thing missing is standing beside the act instead of outside it. The same strength follows.",
+      "sheetLine": "This strength is yours. You have been filing it under circumstances.",
+      "verb": "holding steady through the weight of real things",
+      "place": "in the abstract pattern where the mechanism shows its bare shape",
       "provenance": {
         "signature_id": 56,
         "position_id": 15,
@@ -155,24 +184,39 @@
         "partner": "Resilience",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -181,29 +225,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 13253,
+      "ms": 5994,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "shape",
-          "detail": "no cells array",
-          "hard": true
-        }
-      ]
-    },
-    {
-      "attempt": 2,
-      "ms": 4460,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
         {
-          "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -213,14 +249,26 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -231,51 +279,27 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"The way back is through someone else's eyes, not yours.\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a duration the person never gave",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"your carrying\" — a verb turned into a mystical noun",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -286,13 +310,154 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "five words in a row from the medicine's own acts: \"in front of the person\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"name it as yours\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the endurance is 'private' and misattributed as automatic — the record names the number as Inner/Personal and the shadow as steering without awareness, so I render it as unseen steadiness, no motive or history implied. The reader could reasonably say the persist-through-material-pressure framing misreads their actual situation, so the ask is a visible act they can do regardless of my read. The sentence that serves me more than them would be any line about what the pressure has cost or where it came from — dropped. The Too Much ask uses the listed Reciprocity act in a form that may involve another person, allowed since the medicine is about people, not required."
+    },
+    {
+      "attempt": 2,
+      "ms": 4354,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the person it is for\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
@@ -304,20 +469,8 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
           "status": 4
         },
         {
@@ -327,15 +480,15 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"When this is right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -343,68 +496,79 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that anything is currently being carried or tested — the record says only that this is the private, inner face of body strength, and the person may be perfectly steady with nothing pressing on them. A reader could fairly say 'nothing is heavy right now,' and the ask survives that: choosing one plan and paying its real cost today either confirms the strength or installs the habit either way. The sentence that serves me rather than them is 'the strength found in what you carry' — that is the card's poetry, and it tells the person nothing about their own day."
+      "check": "The unsupported claim was that the person is carrying 'the weight of real things' as a settled fact; the seat is Abstraction, so I can render the pattern of endurance without asserting their material situation. The reader could say no such pressure is present, and the asks still stand as visible acts done regardless of my read. The line that served me more than them was any sentence certifying their private strength ('you already know how to feel without counting') — dropped, along with 'ahead of the,' the semicolon, and the verb-nouns 'the carrying' and 'the holding.' The Too Much ask uses the listed Reciprocity act and allows a second person, which the medicine's own scope permits; it does not require one."
     },
     {
       "attempt": 3,
-      "ms": 3165,
+      "ms": 3540,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (map, shape) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "said",
-          "detail": "the closing sentence poses: \"The way back is through someone else's eyes, not yours.\" — end on the plain thing",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -416,13 +580,7 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
@@ -439,21 +597,15 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -461,17 +613,52 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that anything is currently being carried or tested — the record says only that this is the private, inner face of body strength, and the person may be perfectly steady with nothing pressing on them. A reader could fairly say 'nothing is heavy right now,' and the ask survives that: taking one next step on a plan you still hope for either confirms the strength or installs the habit either way. The sentence that serves me rather than them is 'the strength found in what you carry' — that is the card's poetry, and it tells the person nothing about their own day."
+      "check": "The unsupported claim is that material pressure is present and is being carried privately; the seat is Abstraction, so I render the bare pattern of endurance without asserting the person's situation. A reader could say no such weight exists for them, and every ask still stands as a visible act done regardless of my read. The lines that served me more than them were any certifying their strength or naming what it cost — dropped, along with 'the steadiness' and 'the holding.' The four asks now take four shapes: a week-long keep, a single two-way exchange, a practice done in the open, and a noticing left alone."
     },
     {
       "attempt": 4,
-      "ms": 3082,
+      "ms": 3154,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -480,26 +667,14 @@
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\" and let the exchange\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -509,14 +684,32 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"The way back is through someone else's eyes, not yours.\" — end on the plain thing",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, doorway) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -527,14 +720,20 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "five words in a row from the medicine's own acts: \"do the next piece of\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
@@ -546,20 +745,26 @@
         },
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already holding\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -567,17 +772,52 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that anything is currently being carried or tested — the record says only that this is the private, inner face of body strength, and the person may be perfectly steady with nothing pressing on them. A reader could fairly say 'nothing is heavy right now,' and the ask survives that: taking one next step on a plan you still hope for either confirms the strength or installs the habit either way. The sentence that serves me rather than them is 'strength found in what you carry' — that is the card's poetry, and it tells the person nothing about their own day."
+      "check": "The unsupported claim is that material pressure is present and being carried privately; the seat is Abstraction, so I render the bare pattern of endurance without asserting the person's situation. A reader could say no such weight exists for them, and every ask still stands as a visible act done regardless of my read. The lines that served me more than them were any certifying their strength or naming what it cost. The four asks now take four shapes: a week-long keep, a single two-way exchange closed on the week, a practice done in the open with no end date, and a noticing left alone."
     },
     {
       "attempt": 5,
-      "ms": 3083,
+      "ms": 3039,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -586,26 +826,14 @@
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "detail": "core 101 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\" and let the exchange\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -615,14 +843,26 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"The way back is through someone else's eyes, not yours.\" — end on the plain thing",
+          "code": "vocab",
+          "detail": "two images in one core (room, doorway) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -633,32 +873,50 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -667,15 +925,26 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that anything is currently being carried or tested — the record says only that this is the private, inner face of body strength, and the person may be perfectly steady with nothing pressing on them. A reader could fairly say 'nothing is heavy right now,' and the ask survives that: taking one next step on a plan you still hope for either confirms the strength or installs the habit either way. The sentence that serves me rather than them is 'strength found in what you carry' — that is the card's poetry, and it tells the person nothing about their own day."
+      "check": "The unsupported claim is that material pressure is present and being carried privately; the seat is Abstraction, so I render the bare shape of endurance without asserting the person's circumstances. A reader could say no such weight exists for them, and each ask still stands as a visible act done regardless of my read. The lines that served me more than them were any certifying their strength or naming what it cost. The four asks now take four shapes: a week-long keep, an open exchange with no end date, a standing practice, and a noticing left alone."
     }
   ],
   "usage": {
-    "input": 6894,
-    "output": 7162
+    "input": 5622,
+    "output": 5682
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:45:26.329Z"
+  "hardOpen": 2,
+  "date": "2026-10-02T13:12:54.139Z"
 }

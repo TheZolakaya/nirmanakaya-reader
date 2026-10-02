@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here at the table with the pen, past the part where you had to prove the thing could grow.",
-      "ask": "Name what you've made. Say it out loud in the room where you made it, once, and then let the next hour belong to something else.",
-      "core": "You've been tending something and it's grown. Not perfectly, but enough that you can see the shape of it now — the way the work has settled into a form that holds. You're not forcing it anymore. The care isn't wearing you down the way it did early on, when you had to check on it every few hours to believe it was still alive.\n\nWhat's left isn't more tending. It's naming what's here. The next thing will come from that naming — not from you deciding what it should be, but from the finished thing making its own case. You've been holding it open a little longer than it needs. Not because it's unfinished, but because letting it be done feels like losing it.",
-      "sheetLine": "You've grown the thing. You can put it down and still have it.",
-      "verb": "learning how things grow by tending them",
-      "place": "the threshold where work is finished and becomes something else",
+      "tense": "The work in front of you is nearly finished and you are still here with it.",
+      "act": "release what is done and keep what is not",
+      "ask": "Pick one piece you have already finished and are still being careful with. This week, hand it over, send it, or set it down where it stands.",
+      "core": "You know how to grow something by staying close to it — when it needs more, when it needs nothing, when it is done. That care is steady, and right now it is aimed at a thing that has already arrived. The bend is here: finishing can feel like losing your place in the work, so a finished piece stays in your hands one beat too long.\n\nLetting go from this spot is not quitting. It is the same care turned around: what is done stays done, and what is not gets your attention next. Keep tending the live piece while you set the finished one down. The difference between the two is small and exact, and standing where you stand you can see it.",
+      "sheetLine": "The finished thing is asking for your hand off it.",
+      "verb": "tending a thing through its growing and knowing when it is finished",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 74,
         "position_id": 21,
@@ -26,7 +27,7 @@
         "partner": "Executor of Intent",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -35,17 +36,28 @@
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already living in tomorrow's version of this, where it finally works, and you're bracing for the proof.",
-      "ask": "Pick one thing you're growing and let it be what it is today. Don't adjust it. Notice what's still alive in it without your hands on it.",
-      "core": "You're ahead of where this actually is. Somewhere in your head there's a finished version — the thing grown, the point proven, the people in your life seeing what you knew it could be — and you're spending your days rushing toward that picture. Each choice gets read against whether it's getting you there.\n\nSo the work has turned into forcing. You're pushing the thing to grow faster than it's ready to, and pushing when nobody asked. You're at it more than it needs, which means you can't see what it actually needs from where you're standing — three months out, waiting for it to catch up. You haven't stopped caring. You've started gripping.",
-      "sheetLine": "You're pushing it to grow toward a picture it hasn't drawn yet.",
-      "verb": "learning how things grow by tending them",
-      "place": "the threshold where work is finished and becomes something else",
+      "tense": "You are already at the end of the next three things before any of them exists.",
+      "act": "envision it freshly and feel toward it",
+      "ask": "Take the thing you are most braced about. Sit five minutes and picture it going well, then write a line about that picture.",
+      "core": "The care that grows things is being spent ahead of time. You finish the project in your head, find where it fails, and start repairing something that has not been built. Where a thing is completed and let go, that speed skips the middle — the part where form is still deciding what it will be.\n\nHere is the small correction: before you manage tomorrow, picture tomorrow. See it the way you would want it, not the way you fear it, and give that picture a moment of real attention. It is not idleness. What you sense ahead of time only helps when it is aimed at what you want, and when it has grown out of work you have already lived through.",
+      "sheetLine": "You are finishing things that have not started.",
+      "verb": "tending a thing through its growing and knowing when it is finished",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 74,
         "position_id": 21,
@@ -54,7 +66,41 @@
         "partner": "Initiate of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "You are still standing at a door that shut behind you.",
+      "act": "start something for the spark of starting",
+      "ask": "Start a fresh thing this week and stop while it is still rough — a page, a row of seeds, a first try, unfinished on purpose.",
+      "core": "This place is for finishing and letting go, and you have not been in it. Something you were growing has ended, and the slot where it lived is still kept, still watered, still spoken of as open. You can still tend a thing well; your hands are pointed at what is over.\n\nWhat brings you back is beginning. Not beginning well, not beginning with a plan — just being at the start of something and letting the start be enough. A first attempt made for its own sake pulls you out of the old spot and into the one taking shape. Your care will find its object once you are moving again.",
+      "sheetLine": "Your hands are still in the old thing.",
+      "verb": "tending a thing through its growing and knowing when it is finished",
+      "place": "where a thing is finished and let go",
+      "provenance": {
+        "signature_id": 74,
+        "position_id": 21,
+        "status": 3,
+        "partner_id": 62,
+        "partner": "Initiate of Intent",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -65,56 +111,8 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 3,
-      "tense": "You are standing at a door that closed behind you, still not walking through it.",
-      "ask": "Do one small physical thing with what you've made this week — put it somewhere it can be seen, tell one person it exists, open the file and read it once.",
-      "core": "Something got finished, or nearly finished, and instead of turning toward what came next you stepped away and haven't stepped back. You can still see the shape of what you made from where you're standing, but it's behind glass. You describe it like something you used to do.\n\nYou know how to grow things. That part didn't leave. What's quiet is the warmth that used to come from working on something — and the less you do it, the quieter it gets. It doesn't come back by deciding to feel it. It comes back by doing one small piece of the work, badly, today, and letting the feeling catch up later if it wants to.",
-      "sheetLine": "You stopped showing up to the work and the warmth went quiet.",
-      "verb": "learning how things grow by tending them",
-      "place": "the threshold where work is finished and becomes something else",
-      "provenance": {
-        "signature_id": 74,
-        "position_id": 21,
-        "status": 3,
-        "partner_id": 62,
-        "partner": "Initiate of Intent",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false
-        },
-        {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
           "hard": false
         },
         {
@@ -126,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already in the room where the thing gets released, moving pen across paper you haven't acknowledged writing.",
-      "ask": "Pick one thing you finished and say, out loud or in writing, 'I made this.' Then pick one thing still in your hands and say 'this isn't mine to carry.'",
-      "core": "You are already doing the work that comes after finishing — handing things off, moving the finished thing from the workbench to the shelf, turning toward what's next. But your stuff, your workload, the things you've built, your part in them, all get described as if someone else were keeping the operation running. You really are passing things along. What you're not doing is putting your name on it.\n\nWhat you've been calling the situation is you, in the middle of a pass you've done many times before. You know how to finish things. You know the moment when pushing is done and handing off is the next move. What hasn't been said out loud is that this is what you do — which is why it keeps feeling like a problem you're managing instead of a thing you're choosing.",
-      "sheetLine": "You're already passing things along. Say it's you doing it.",
-      "verb": "learning how things grow by tending them",
-      "place": "the threshold where work is finished and becomes something else",
+      "tense": "The hand that lets things go around here is yours, though you would not claim it.",
+      "act": "drop one condition you set and take the step",
+      "ask": "Name one bar you have been holding a finished thing to, drop it, and take the next step as taken.",
+      "core": "Things get finished and released around you, and the one deciding it is finished is you — but you would say it just worked out that way. The care is yours. The timing is yours. You do not count it as your doing, so you keep waiting for a permission only you can give.\n\nOne condition, dropped, shows you the pen. You set it earlier — a bar the thing had to clear before you would call it done — and clearing it was not actually required. Drop it. Call the thing done, or call the next step, and notice that the call was yours the whole time. That is the whole move, and it stays yours whether or not anyone agrees.",
+      "sheetLine": "The ending is yours, and it worked out.",
+      "verb": "tending a thing through its growing and knowing when it is finished",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 74,
         "position_id": 21,
@@ -140,17 +139,33 @@
         "partner": "Executor of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        }
+      ]
     }
   ],
   "attempts": [
     {
       "attempt": 1,
-      "ms": 12462,
+      "ms": 5271,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -162,127 +177,21 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't support what the growth medicine aspect is doing in the balance — it's an invitation for what's next, not a present description of the capacity. A reader could reasonably say 'I'm not mid-release, I'm just tending something.' The ask survives being wrong because tending — the actual work — is still the instruction even if my read of the stage is off. The sentence that serves me more than them is what I'd write about release as fulfillment; it's beautiful and it isn't theirs yet."
-    },
-    {
-      "attempt": 2,
-      "ms": 5616,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 2
         },
         {
@@ -292,27 +201,39 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "detail": "\"The tending\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (room, map, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -323,8 +244,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -332,6 +253,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "vocab",
@@ -340,17 +267,157 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "code": "glass",
+          "detail": "\"this house\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the naming\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"is yours your word for\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say the medicine is already operating at Balanced — it's an invitation forward, so I shouldn't write as if release is happening. A reader could say 'I'm still in it, not finished.' The ask survives being wrong because naming the made thing is useful whether or not completion has landed. The sentence that serves me more than them would be anything about release being fulfillment — that's the medicine's lyric, not their present."
+      "check": "The unsupported claim is 'learning by tending' in the Too Little cell — the record says the seat is past-anchored and the person is not yet arriving; this does not tell us what they are keeping, so the core must stay with the slot and the job and leave the object unnamed. The reader could object that tending and letting go are two different cards, so each core keeps the growing-and-releasing tension in plain verbs rather than naming the mechanism. The asks survive being wrong because each one is small and useful even if the read misses: release a finished piece, tend one live piece, make something fresh with no brief, and stop tending one piece that is done. The sentence that serves the writer is any line about being 'an apprentice' — it flatters the map, so it is cut."
+    },
+    {
+      "attempt": 2,
+      "ms": 3971,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim was that the Too Little person is keeping a specific dead practice alive — the record says past-anchored and not arriving, not what they are holding, so the core now stays with the slot and the habit of tending and leaves the object unnamed. The reader could object that tending and releasing are two different cards, so each core keeps the growing-and-releasing tension in plain verbs rather than naming the mechanism. The asks survive being wrong because each is small and useful on its own: release a finished piece, picture one thing going right, start something with no plan, drop one condition and call a step taken. The sentence that serves the writer is any line about being 'an apprentice' — it flatters the map, so it is cut."
     },
     {
       "attempt": 3,
-      "ms": 9622,
+      "ms": 3013,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -362,8 +429,20 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -374,27 +453,9 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 108 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 3
         },
         {
@@ -404,9 +465,15 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
           "status": 3
         },
         {
@@ -416,17 +483,29 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The letting go\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say release is already underway at Balanced — the growth medicine is an offer forward, so I shouldn't write as if the letting-go has happened. A reader could say 'I'm still in the middle of it, nothing's finished.' The ask survives being wrong because naming what's been made is useful whether or not completion has landed. The sentence that serves me more than them would be anything about surrender as fulfillment — that's the medicine's lyric, not their present."
+      "check": "The unsupported claim is that the Too Little person is keeping a specific dead practice alive — the record says past-anchored and not arriving, not what they are holding, so the core stays with the habit of tending something over and leaves the object unnamed. The reader could object that tending and releasing are two different cards, so each core keeps the growing-and-releasing pull in plain verbs rather than naming the mechanism. The asks survive being wrong because each is useful on its own: release a finished piece, picture one thing going well, begin something with no plan, drop one condition and call a step taken. The sentence that serves the writer is any line about being 'an apprentice' — it flatters the map, so it is cut."
     },
     {
       "attempt": 4,
-      "ms": 4397,
+      "ms": 3734,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -438,8 +517,20 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -450,20 +541,14 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -475,7 +560,88 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\" and let it begin\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the Too Little person is keeping a specific dead practice alive — the record says past-anchored and not arriving, not what they are holding, so the core stays with the habit of tending something over and leaves the object unnamed. The reader could object that tending and releasing are two different cards, so each core keeps the growing-and-releasing pull in plain verbs rather than naming the mechanism. The asks survive being wrong because each is useful on its own: release a finished piece, picture one thing going well, begin something with no plan, drop one condition and call a step taken. The sentence that serves the writer is any line about being 'an apprentice' — it flatters the map, so it is cut. For Too Little the ask must come from the medicine's own acts, not from the card's, so it now starts a thing for the spark of it, before the map is drawn."
+    },
+    {
+      "attempt": 5,
+      "ms": 3468,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"envision it freshly and feel toward it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -484,15 +650,33 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record doesn't say release is already underway at Balanced — the growth medicine is an offer forward, so I shouldn't write as if letting-go has happened. A reader could say 'I'm still in the middle of it, nothing's finished.' The ask survives being wrong because naming what's been made is useful whether or not completion has landed. The sentence that serves me more than them would be anything about surrender as fulfillment — that's the medicine's lyric, not their present."
+      "check": "The unsupported claim is that the Too Little person keeps tending a particular finished thing — the record says past-anchored and not arriving, not what the hands are on, so that core stays with the habit and leaves the object unnamed. A reader could object that tending and releasing are two cards, so each core keeps the growing-and-letting-go pull in plain verbs and never names a mechanism. The asks hold even if the read is wrong: each is small and does something on its own. The line that serves the writer is any 'apprentice' flourish, so it is cut. Too Little's ask now comes from the medicine's listed acts, and the four asks take four different shapes — a hand-off, a timed picture, an open finish, a dropped bar."
     }
   ],
   "usage": {
-    "input": 4155,
-    "output": 4655
+    "input": 5488,
+    "output": 5635
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:31:51.796Z"
+  "date": "2026-10-02T13:19:49.846Z"
 }

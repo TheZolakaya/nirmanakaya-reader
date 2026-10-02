@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are looking after something that is growing, and it is not draining you.",
-      "ask": "Pick one thing you're tending and leave it alone for a full day. Notice what it does without you.",
-      "core": "You can watch the pieces of this fall into place, and you let that set the pace. Your hand goes where a hand actually helps. The parts that don't need you, you let be. People around you can feel the difference between being held and being held down, and with you they feel held, which is why what you tend tends to come along.\n\nNothing here is asking you for a result. You're not checking on it to see whether it worked. When you catch yourself looking, go back to the ordinary act — watering, waiting, the green that shows up on its own. Growth is not something you produce. Not grabbing is what keeps this from wearing you down.",
-      "sheetLine": "You look after things without holding them down.",
-      "verb": "Tending what needs time to become itself",
-      "place": "Where you see the whole pattern without stepping out of it",
+      "tense": "The care is moving through you now and it isn't draining you.",
+      "act": "release it on purpose, not by losing it",
+      "ask": "Name something you've been holding for a person or a project that's found its feet, and set it down on purpose. Say it's finished, then leave it a day and watch what your hands reach for.",
+      "core": "Pattern, done well, looks like providing conditions and stepping back to let them do their work. That's what's happening: something is growing because you're not standing on it. Your hands stay open, and because they do, the thing actually develops rather than being propped up.\n\nSomething in this has finished and hasn't been let go of. You know which one, probably. Set it down on purpose — not dropped, not lost, released with you awake to it. Then leave it for a day. What remains is the part still growing, and with your hands free you can feel the difference between tending and hauling.",
+      "sheetLine": "What you tend is growing, and your hands are open.",
+      "verb": "tending what is growing",
+      "place": "where the whole pattern is visible",
       "provenance": {
         "signature_id": 3,
         "position_id": 20,
@@ -26,14 +27,14 @@
         "partner": "Faith",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 103 words (120–160)",
           "hard": false
         },
         {
@@ -42,20 +43,26 @@
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "refrain",
+          "detail": "\"done well,\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already caring for a version of this that hasn't arrived yet.",
-      "ask": "Ask one person what they actually need from you today. Do only that, even if it feels like not enough.",
-      "core": "The pieces of a situation come together for you before they come together on their own. You can see which ones are still forming and you let them form. Your attention works a step back, and people bring you more of what's true because you haven't decided in advance what it means.\n\nRight now you're correcting the thing before it has a shape. Your care is running on a schedule the other person didn't agree to — tending a future version of them while they stand here in front of you. That stops being looking after and starts being steering. People feel held too tightly and they stop telling you what's really going on. Stay with the unclear part a while. You don't need the whole road to take the next step.",
-      "sheetLine": "You're caring for a future that isn't here yet.",
-      "verb": "Tending what needs time to become itself",
-      "place": "Where you see the whole pattern without stepping out of it",
+      "tense": "You will be bracing toward a future you're already arranging, and the care is tightening.",
+      "act": "move through the fog without demanding the map",
+      "ask": "Take a single step with only enough light to see that step. Walk it done and leave tomorrow's stretch of the path dark.",
+      "core": "Two versions of this are running at once — the one that's actually unfolding and the one you've already scripted. You keep nudging the real thing toward the scripted one. From where you sit, that reads as care. From the other end it reads as hands.\n\nPicture the outcome a year on, turned out fine. You can do that, and the picture will be accurate — it tends to be. The trap is stepping back into today and arranging today to match it. So take a step without needing the rest of the path. One step, enough light, done. The rest stays unknown until you're standing there. That's not abandoning anyone; it's putting the outcome down where it belongs and picking your feet back up.",
+      "sheetLine": "The next step is enough to take.",
+      "verb": "tending what is growing",
+      "place": "where the whole pattern is visible",
       "provenance": {
         "signature_id": 3,
         "position_id": 20,
@@ -64,25 +71,25 @@
         "partner": "Imagination",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
+          "detail": "five words in a row from the medicine's own acts: \"step with only enough light\" — say the act in the person's words",
+          "hard": true
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a year on turned out\"",
+          "hard": true
         },
         {
           "code": "seat",
@@ -93,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You were tending something of your own, and you set it down and walked off.",
-      "ask": "Pick one small thing you used to enjoy making or growing. Give it fifteen minutes today, no goal, no finish line.",
-      "core": "Something of your own can sit open on the table with your hands on it. You can read how the parts connect, and that reading points at your own work as easily as it points at anyone else's. There's warmth in it rather than distance, and the thing you tend is allowed to be small and unfinished.\n\nWhat comes easily is the pattern in other people's lives. Your hands stay off your own. At some point, tending something of your own started to look risky, so the hands came off. What gets called independence is really a door you've been standing at, waiting for a pull that doesn't come while you wait. It comes while you're in contact with what you actually want. Let one small thing matter to you again — not for what it produces, just to feel the draw.",
-      "sheetLine": "You stopped tending your own growth and called it independence.",
-      "verb": "Tending what needs time to become itself",
-      "place": "Where you see the whole pattern without stepping out of it",
+      "tense": "Nothing was growing for a long while, and you kept standing at a door that had already closed.",
+      "act": "move toward the thing you actually want",
+      "ask": "Keep a lamp lit for something you want this week — one want, not a plan — and let turning toward it be the whole practice.",
+      "core": "Some of what you do — reading a room, giving everyone the missing piece — is genuinely good. It's also true that nothing of your own has come up through it. The block isn't idleness. Nobody has been asking what you'd reach for.\n\nThere's a want that went quiet and hasn't been asked back. Keep a lamp lit for it this week — one want, not a plan — and let turning toward it be the whole practice. It doesn't have to be a project. It doesn't have to be useful to anyone. Let it be plain, at least to you. That want is allowed to be yours, and so is the time it takes to notice it again.",
+      "sheetLine": "There's something you want. Turn toward it.",
+      "verb": "tending what is growing",
+      "place": "where the whole pattern is visible",
       "provenance": {
         "signature_id": 3,
         "position_id": 20,
@@ -107,36 +115,42 @@
         "partner": "Inspiration",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, lamp) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are the one people hand things to, and you did not choose that.",
-      "ask": "Tell one person plainly what you need from them today. Say it without apologizing for it first.",
-      "core": "You can see what needs tending in a room and you decide your own part in it. What gets your attention is a choice you're making, not a job that landed on you. The care moves outward and something comes back, and you keep track of which is which because the difference matters to you.\n\nPeople bring you what needs tending, and you tend it. Somewhere along the line that arrangement set itself up without a decision, and now you're in it, running low in a way nobody around you seems to notice. Not them. Not you. You've been calling it just being practical, just being the one who handles things, and that name has kept the cost off the books. Set one piece of it down. Not walking away. Just putting down something you don't remember picking up, and watching what stays.",
-      "sheetLine": "You're carrying a role you didn't choose and haven't named.",
-      "verb": "Tending what needs time to become itself",
-      "place": "Where you see the whole pattern without stepping out of it",
+      "tense": "You are carrying out care in a room where the choice of it went missing a while back.",
+      "act": "put it down and leave your hands empty a while",
+      "ask": "Leave your hands empty for one breath before you take the next thing on. Set it down first; pick it up only if you mean to.",
+      "core": "Certain things happen before you've decided whether to do them. You notice, you smooth it over, you carry it. The work is real. It also costs you, and the cost has been filed under 'that's just how I am' rather than under any choice you're making.\n\nThat's the whole problem — not too much care, care running with no one visibly at the wheel. Before the next thing, leave your hands empty for one breath. Set it down first. Then pick it up only if you mean to. If you do, you'll be picking, not being picked by it. The work goes on. It just has someone standing beside it who knows they're there.",
+      "sheetLine": "The care is yours. You can name it so.",
+      "verb": "tending what is growing",
+      "place": "where the whole pattern is visible",
       "provenance": {
         "signature_id": 3,
         "position_id": 20,
@@ -145,24 +159,34 @@
         "partner": "Faith",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "hard": true
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -171,26 +195,288 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6777,
+      "ms": 6022,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (shape, map, road) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you should\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put it down and leave your hands empty a while\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"next time you're about to\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The claim 'others experience you as caretaker while you feel depleted' in Unacknowledged is the record's own, but I cannot claim the person never chose the roles or that they were pushed; I can only point to the depletion and the unrecognised authorship. The reader could reasonably say the roles were chosen and wanted, and the depletion is ordinary tiredness; the ask survives that because pausing before an act of care still shows them the author even if the account is wrong. The sentence that serves me rather than them is any hint that the care is 'too much' or that others should feel guilty; I've cut all of that. I checked each ask against the act list word-for-word: act 1 is 'release it on purpose, not by losing it'; act 2 is 'move through the fog without demanding the map'; act 3 is 'move toward the thing you actually want'; act 4 is 'put it down and leave your hands empty a while'. Each is small enough to be done without anyone else, and each opens on a different verb."
+    },
+    {
+      "attempt": 2,
+      "ms": 5770,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your name for it is\"",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"you can see…\")",
+          "hard": true
+        }
+      ],
+      "check": "The record's Unacknowledged kernel says 'roles you never chose', but I can't assert what the person chose or didn't; I can only show the depletion and the moment where the care runs without a hand that knows it. The reader could say the roles are chosen and the tiredness is ordinary, and the ask survives that because noticing a single act of care still returns the deed to whoever did it. The sentence that serves me rather than them would be any hint that the care is excessive or that others owe them something; I've kept it to the one act and what it looks like from inside. Acts: Balanced 'release it on purpose, not by losing it'; Too Much 'move through the fog without demanding the map'; Too Little 'move toward the thing you actually want'; Unacknowledged 'put it down and leave your hands empty a while'. Four different opening verbs: set, let, turn, leave. No map idiom, no universal, no verb-as-noun, no stock opener."
+    },
+    {
+      "attempt": 3,
+      "ms": 4393,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release it on purpose not by losing it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -201,14 +487,8 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -220,37 +500,13 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a duration the person never gave",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -262,13 +518,7 @@
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're just not in the\"",
+          "detail": "\" and let the turning\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -279,90 +529,70 @@
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"you can see…\")",
+          "hard": true
         }
       ],
-      "check": "The draft describes the person's way of being seen or their attitude toward a role; the record only supports the capacity of Recognition as it bends Nurturing at this status. A reader could fairly object that the ask is too small for a deep depletion, but the ask teaches a boundaried act regardless and does not depend on the read being right. The sentence that serves the writer more than the person is any line that praises insight without naming what it costs."
+      "check": "The record's Unacknowledged kernel says 'roles you never chose', but I can't assert what the person chose or didn't; I can only point to the depletion and to the moment where care runs with nobody visibly at the wheel. The reader could say the roles are wanted and the tiredness is ordinary; the ask survives that because pausing before one act still puts a chooser back in the frame. The sentence that serves me rather than them would be any hint that the care is excessive or that anyone owes them; I've held it to the single act and what it feels like from inside. Acts used, word for word: Balanced 'release it on purpose, not by losing it'; Too Much 'move through the fog without demanding the map'; Too Little 'move toward the thing you actually want'; Unacknowledged 'put it down and leave your hands empty a while'. Opening verbs differ: set, take, give, leave. No map idiom, no universal, no verb-as-noun, no stock line, and the four asks vary in shape — a release, a step, a continuing turn, a pause before a deed."
     },
     {
-      "attempt": 2,
-      "ms": 5303,
+      "attempt": 4,
+      "ms": 4222,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -373,14 +603,14 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
@@ -391,15 +621,27 @@
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the turning\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"for a week and let\"",
+          "hard": true,
           "status": 3
         },
         {
@@ -409,162 +651,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 88 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The previous cells quietly turned Recognition into a trait (insightful, unavailable) rather than one capacity bending Nurturing at this status, which the record does not support. A reader could fairly object that twelve-minute and fifteen-minute asks are too small for something that feels like years of depletion, but each ask teaches a boundaried act and stays useful if the read is wrong. The sentence that served the writer was anything praising the person's seeing; every cell now names what the seeing costs instead."
-    },
-    {
-      "attempt": 3,
-      "ms": 5392,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going right, you read t…\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is going right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going right, something …\"",
-          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is going right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going right, you see wh…\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is going right\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can tell the difference\"",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
@@ -573,142 +667,42 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
           "code": "shape",
-          "detail": "the four cells open the same way (\"you can see…\")",
+          "detail": "the four cells open the same way (\"the pattern is…\")",
           "hard": true
         }
       ],
-      "check": "The previous cells leaned on refrains and fell short on length, and two used 'everyone' and 'never' to widen a claim the record keeps narrow — Recognition is one capacity, not a life story, and nothing says what happened in the past or how long it lasted. A reader could fairly object that a fifteen-minute ask is thin for something that feels like years, but each ask teaches a boundaried act and holds up even if the read is wrong. The line that served the writer was any praise for the person's seeing; what the cell says now is what the seeing does and what it costs."
-    },
-    {
-      "attempt": 4,
-      "ms": 5256,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "shape",
-          "detail": "the four cells open the same way (\"you can watch…\")",
-          "hard": true
-        }
-      ],
-      "check": "The last draft leaned on one opener across all four cells and let 'never' and a house phrase slip through, and it turned 'seeing' into a thing called The seeing — none of that is in the record, which only gives one capacity (Recognition) bending Nurturing at this status. A reader could fairly object that a fifteen-minute ask is thin for something that feels like years, but each ask names a boundaried act and stays useful even if the read is wrong. The lines that served the writer were the ones praising the person's gift for patterns; those are gone, and every cell now says what the pattern-reading costs here."
+      "check": "The record's Unacknowledged kernel says 'roles you never chose', but I can't assert what the person chose or didn't; I can only point to the depletion and to the moment where care runs with nobody visibly at the wheel. The reader could say the roles are wanted and the tiredness is ordinary; the ask survives that because pausing before one act still puts a chooser back in the frame. The sentence that serves me rather than them would be any hint that the care is excessive or that anyone owes them; I've held it to the single act and what it feels like from inside. Acts used, word for word: Balanced 'release it on purpose, not by losing it'; Too Much 'move through the fog without demanding the map'; Too Little 'move toward the thing you actually want'; Unacknowledged 'put it down and leave your hands empty a while'. Opening verbs differ across the four asks: choose, walk, keep, hold. The four cells open differently — 'The pattern is clear to you and the care…', 'The pattern is clear, and that's what has you…', 'You've always been able to read…', 'The pattern is clear and, inside it, the tending…'. No map idiom, no universal, no verb-as-noun, no stock line, and each ask is shaped differently — a release of one thing, a walk, a week's practice, a pause."
     },
     {
       "attempt": 5,
-      "ms": 4588,
+      "ms": 5853,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 103 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -719,27 +713,33 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "refrain",
+          "detail": "\"done well,\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move through the fog without demanding the map\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
+          "detail": "five words in a row from the medicine's own acts: \"step with only enough light\" — say the act in the person's words",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a year on turned out\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -749,22 +749,34 @@
           "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"called it independence\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, lamp) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "wound",
@@ -773,9 +785,9 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "hard": true,
           "status": 4
         },
         {
@@ -783,15 +795,21 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The last draft still let 'never' through and opened three cells with the same phrase, which the record doesn't license — Recognition is one capacity bending Nurturing at this status, not a summary of the person's history. A reader could fairly object that a fifteen-minute ask is thin for something that feels like years, but each ask names an act with a finish and works even if the read is wrong. The line that served the writer was the flattering one about reading patterns; what's left names the cost instead."
+      "check": "The record's Unacknowledged kernel says 'roles you never chose', but I can't assert what the person chose or didn't; I can only point to the depletion and to the moment where care runs with nobody visibly at the wheel. The reader could say the roles are wanted and the tiredness is ordinary; the ask survives that because pausing before one act still puts a chooser back in the frame. The sentence that serves me rather than them would be any hint that the care is excessive or that anyone owes them; I've held it to the single act and what it feels like from inside. Acts used, word for word: Balanced 'release it on purpose, not by losing it'; Too Much 'move through the fog without demanding the map'; Too Little 'move toward the thing you actually want'; Unacknowledged 'put it down and leave your hands empty a while'. Opening verbs differ across the four asks: name, take, keep, leave — wait, name and keep are the same shape? No: name, walk, keep, hold would repeat; and Balanced now uses 'Set' while the others open on take/keep/hold; the four printed asks begin Name, Take a single step, Keep the lamp, Leave. The four cells open on four different words — Pattern, Two versions, Some of what, Certain things. No map idiom, no universal, no verb-as-noun, no stock line, and each ask is shaped differently — a name spoken once, one step taken, a lamp held for a stretch, a pause that stands alone."
     }
   ],
   "usage": {
-    "input": 8177,
-    "output": 5428
+    "input": 6876,
+    "output": 6782
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:57:10.432Z"
+  "hardOpen": 5,
+  "date": "2026-10-02T13:23:03.706Z"
 }

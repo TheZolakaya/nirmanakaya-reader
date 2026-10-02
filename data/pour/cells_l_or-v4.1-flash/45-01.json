@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are settled enough to let a direction rise from what you already feel.",
-      "ask": "Say one sentence out loud about where you're pointed, then act on it before the day turns.",
-      "core": "You're in the middle of your own feeling without needing it to hurry. Something in you has already sorted what matters from what doesn't, and when you pick a direction it comes from that quiet place instead of from noise. Nothing here is pushed. You can sit with what you know, and the sitting is where the next move gets decided. That's rarer than it sounds, and it's working.\\n\\nThe next thing this can hold is depth. When you take one direction seriously enough to follow it past the surface, you find the pattern underneath — and patterns that hold feel freeing instead of heavy. You don't have to explain the pattern to anyone. Let one thing stay unanswered while you go deeper. If the deeper look unsettles you, whatever you already picked is still yours to keep.",
-      "sheetLine": "You choose from what you feel, and it holds.",
-      "verb": "Sitting with what the heart knows before choosing a direction.",
-      "place": "The place inside where you decide this, not that, and mean it.",
+      "tense": "The quiet feeling has settled into its own weight and is here at the desk with you now.",
+      "act": "stay in the depth of it instead of surfacing",
+      "ask": "On a decision you're facing, stay with what you already sense past the first clean answer — no choosing from it, no announcing it. Sit there a while. The murky part is yours, and it's the part that holds.",
+      "core": "Quiet feeling sits in you with its own weight — not churning, not waiting to be fixed. It's the kind you can reach for when a decision is on the table, and it doesn't need working up first. From it you can say this, not that, and mean it, which is what direction asks of you.\n\nWhat this balance is free to feed next is depth. Take a decision and go further into what you already sense about it than is comfortable — past the first clean answer, into the part that's murky and yours alone. You don't have to act from what you find. You only have to stay in it rather than surfacing early. Picking gets easier when the feeling underneath has been heard all the way down.",
+      "sheetLine": "Let the quiet feeling finish before you pick a direction.",
+      "verb": "sitting with what the heart already knows before choosing where to go",
+      "place": "the bridge between feeling and direction, where one stance gets picked and walked",
       "provenance": {
         "signature_id": 45,
         "position_id": 1,
@@ -26,21 +27,11 @@
         "partner": "Immersion",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -50,12 +41,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already braced for how the feeling will land before it has arrived.",
-      "ask": "Pick one outcome you're waiting on and leave it alone for the rest of the day.",
-      "core": "You're ahead of the feeling. Some part of you is rehearsing how the connection will go, what it will mean, whether it will hold — and the rehearsal is standing in for the thing itself. What settles in you when you're quiet is still there. You're just talking over it.\\n\\nDirection needs the quiet part. When you can't let a choice sit, you keep reselecting it, and the reselecting looks like progress while nothing moves. Feeling less isn't the point; letting one thing finish before you pick it up again is. Let an ending be an ending. Then the next choice can come from what's actually here, not from what you're bracing for. If you leave it alone and nothing blooms, you've lost nothing but the waiting.",
-      "sheetLine": "You're ahead of the feeling, and you've lost the quiet.",
-      "verb": "Sitting with what the heart knows before choosing a direction.",
-      "place": "The place inside where you decide this, not that, and mean it.",
+      "tense": "You will be bracing for a decision the heart has not finished feeling, and the bracing is already underway.",
+      "act": "gather what the change grew",
+      "ask": "Take an ending you're still guarding against, and name what it already gave you — a line, written down. Don't reopen it. Pick up the fruit of it, and let what comes next stand on that.",
+      "core": "When this runs hot, direction gets forced past the feeling it should rest on. A decision looms, and the whole future gets organized around it before the quiet underneath has had its say. The bracing looks like preparation. The feeling keeps not being arrived at, since nothing in the plan leaves room for it.\n\nWhat's already finished has already given something. Set the next decision aside for now and gather from an ending you lived through — something that changed — and name what it left you. One written line. You don't have to feel good about it, and you don't have to reopen it. Then when you choose, you choose holding what it grew instead of bracing for a loss.",
+      "sheetLine": "You're deciding futures faster than you can feel them.",
+      "verb": "sitting with what the heart already knows before choosing where to go",
+      "place": "the bridge between feeling and direction, where one stance gets picked and walked",
       "provenance": {
         "signature_id": 45,
         "position_id": 1,
@@ -64,11 +56,31 @@
         "partner": "Harvest",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (loom, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -78,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You are not in the direction you used to feel sure of, and you're near the door.",
-      "ask": "Write down one choice you keep circling, and commit to it on paper today.",
-      "core": "There's a direction you used to feel clearly, and you're not in it now. You can still choose. You just don't trust that a decision will stick, so you don't reach for one. The door is behind you and you're near it, waiting to be sure the floor will take your weight.\\n\\nWhat you can do instead of pushing feeling back into the place it left is gather the pieces. One choice you keep circling, written down, settles itself. That's not a feeling and it doesn't need one. When the thinking is gathered, the rest of you can stop carrying it. You don't have to be sure before the pen moves. One page, one direction, and the day can go on without that particular weight.",
-      "sheetLine": "You can still choose. You've stopped trusting that it holds.",
-      "verb": "Sitting with what the heart knows before choosing a direction.",
-      "place": "The place inside where you decide this, not that, and mean it.",
+      "tense": "You were standing at a door that has already closed behind you, still facing it.",
+      "act": "reconcile what you know with what you feel about it",
+      "ask": "Bring something you know into one sentence with how you feel about it — plain, even if it squeaks. No decision needed. Just the two sides in one line, laid side by side.",
+      "core": "Here the quiet feeling is present and the direction isn't. A feeling can be held without turning into a choice, and out here that holding has gone stale — you're facing something already behind you, waiting to feel settled before you move. Nothing gets pointed anywhere. Saying this, not that is in you. It just isn't being used.\n\nWhen the direction is starved, thought is what reconnects it — not more feeling, not more pushing. Find what you know and what you feel about it, and put both in a single sentence, plain. The two don't have to agree. They only have to stand in one line. Doing that once turns you to face forward, and forward is where direction lives.",
+      "sheetLine": "You're still facing a door that closed behind you.",
+      "verb": "sitting with what the heart already knows before choosing where to go",
+      "place": "the bridge between feeling and direction, where one stance gets picked and walked",
       "provenance": {
         "signature_id": 45,
         "position_id": 1,
@@ -92,19 +105,19 @@
         "partner": "Reconciliation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, floor) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -121,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are choosing from what you feel, and you're calling it circumstance.",
-      "ask": "Name one direction you're actually taking and say it was your call.",
-      "core": "You're steering. The direction you're taking comes from something settled in you, and you keep describing it as the situation, the timing, the way things worked out. The hand on the wheel is real. The credit isn't claimed.\\n\\nUnderneath that, there's depth you haven't looked at directly. When you go past the surface of what you want, you find the pattern it comes from — and seeing the pattern is what makes it yours instead of something that happened to you. You don't need to announce it to anyone else. You just need to stop calling your own decision a coincidence. Say it once, plainly, about one thing. The rest can stay where it is.",
-      "sheetLine": "You're steering. You keep calling it the situation.",
-      "verb": "Sitting with what the heart knows before choosing a direction.",
-      "place": "The place inside where you decide this, not that, and mean it.",
+      "tense": "The direction is already being chosen in you while the pen sits untouched on the desk.",
+      "act": "follow the thought past where it is comfortable",
+      "ask": "Pick a want you've treated as obvious, and trace it back — where it started, before it became the obvious thing. Go one step past where it gets uncomfortable. Put where you land on paper, for nobody.",
+      "core": "You've been setting direction without counting it as setting — the feeling is read, the way forward is set, and your account of it says it just happened. Those close to you get someone who knows where things are going. What they don't get, and what you don't either, is the moment the setting happened. It's been happening to you rather than by you.\n\nTake a want you've treated as too obvious to examine and walk it back to where it started, before it became settled. Go one step further than feels comfortable, and stop there. Nothing has to change because of what you find. You put the line on paper for no one. Before the direction was a fact about you, it was something you picked — and the picking is still yours to hold.",
+      "sheetLine": "The direction is yours — you've just stopped counting it.",
+      "verb": "sitting with what the heart already knows before choosing where to go",
+      "place": "the bridge between feeling and direction, where one stance gets picked and walked",
       "provenance": {
         "signature_id": 45,
         "position_id": 1,
@@ -135,21 +149,11 @@
         "partner": "Immersion",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -161,45 +165,51 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5660,
+      "ms": 7902,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (3 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "detail": "3 images in one core (loom, room, door) — a parable, not a sentence to a person",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -209,26 +219,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the stopping\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
@@ -239,26 +243,26 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already choosing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"People around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -267,40 +271,57 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person actually feels settled or unsettled with their own direction; the record supports only what the capacity is doing here, not the person's account of it. The reader could reasonably say they feel no such peace or unrest, and the ask still works because it asks for one acted sentence, not a feeling. The sentence that serves the writer more than the person is the tidy one about 'the heart knowing the way' — cut it everywhere."
+      "check": "The draft keeps claiming that the feeling 'already knows' things, which the record does not support — it names stable feeling at rest, not knowledge or truth-telling, so a reader could fairly say the reading is romanticizing stillness. The asks survive being wrong: each is one bounded act that teaches something whether or not the read lands (sit a day before deciding; name the fruit of one finished thing; put two positions in one line; trace one want to its source), so nobody loses by trying it. The sentence that serves me rather than them is the one that flatters stillness as wisdom — I have cut it and left the capacity as a place they steer from, not a gift they have. What remains describes a mechanism a person can check against a real moment: quiet feeling, direction chosen from it or not."
     },
     {
       "attempt": 2,
-      "ms": 3583,
+      "ms": 4829,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (loom, room, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the next\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"of it and let the\"",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
@@ -309,20 +330,20 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, floor) — one at most, usually none",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -334,7 +355,7 @@
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -345,20 +366,8 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -367,40 +376,45 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person feels settled or unsettled with their own direction; the record supports only what the capacity is doing here, not the person's feelings about it. A reader could reasonably say they feel none of this, and the ask still works because it asks for one acted sentence, not a feeling. The sentence that serves the writer more than the person is any line that explains why they are like this — cut those; Too Little says where they stand, never why."
+      "check": "The draft's weakest claims are that quiet feeling 'knows' things and that the person is 'still facing a door that closed' — the record names stable feeling at rest, not knowledge, and locates nothing behind them beyond the status name. A reader could fairly say the reading is romanticizing stillness and inventing a history. The asks survive being wrong: each is one bounded act that teaches something whether or not the read lands. The sentence that serves me rather than them was the one flattering stillness as wisdom — cut. What remains describes one capacity a person can check against a real moment."
     },
     {
       "attempt": 3,
-      "ms": 3310,
+      "ms": 5284,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (loom, room, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -409,14 +423,20 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, floor) — one at most, usually none",
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -433,50 +453,50 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person feels anything in particular about their direction; the record supports only what the capacity is doing here, not their feelings about it. A reader could reasonably say they feel none of this, and the ask still works because it asks for one acted sentence, not a feeling. The sentence that serves the writer more than the person is any line that explains why they are like this — cut those; Too Little says where they stand, never why."
+      "check": "The unsupported claims are that the quiet feeling 'knows' things and that the person is 'still facing a door that closed' — the record names stable feeling at rest, not knowledge, and locates nothing behind them beyond the status name; a reader could fairly say the reading romanticizes stillness and invents a history. The asks survive being wrong: each is a small act that teaches something whether or not the read lands. The sentence that served me rather than them was the one flattering stillness as wisdom — cut. What remains describes one capacity anyone can check against a real moment."
     },
     {
       "attempt": 4,
-      "ms": 3203,
+      "ms": 3838,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (loom, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -485,14 +505,14 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, floor) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -509,31 +529,19 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person feels anything in particular about their direction; the record supports only what the capacity is doing in this seat, not their feelings about it. A reader could reasonably say they feel none of this, and the ask still works because it asks for one acted move, not a feeling. The sentence that serves the writer more than the person is any line that explains why they are like this — Too Little says where they stand, never why."
+      "check": "The unsupported claims are that quiet feeling 'knows' things and that the person is 'still facing a door that closed' — the record names stable feeling at rest, not knowledge, and locates nothing behind them beyond the status name; a reader could fairly say the reading romanticizes stillness and invents a history. The asks survive being wrong: each is a small act that teaches something whether or not the read lands. The sentence that served me rather than them was the one flattering stillness as wisdom — cut. What remains describes one capacity anyone can check against a real moment."
     }
   ],
   "usage": {
-    "input": 3921,
-    "output": 4325
+    "input": 8527,
+    "output": 5144
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:36:01.783Z"
+  "date": "2026-10-02T12:09:36.503Z"
 }

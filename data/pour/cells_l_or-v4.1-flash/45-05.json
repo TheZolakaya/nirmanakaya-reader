@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one who is gone into what a feeling is while it is still here.",
-      "ask": "At one gathering this week, tell the story behind one thing you all do, not just the practice. What the telling gives back is yours to keep.",
-      "core": "Whatever you're feeling, you're in it — all the way, while it's still happening. Not deciding whether it belongs or what it's for. You let the song, the food, the light at that table sit in you until they've gone quiet on their own.\n\nThat depth is why people bring their hard news to you. They feel you receiving it, and not taking it over. There's more under this than showing up the same way each time. When you've really sat with something and know its shape, hand one piece into the line you're part of — one story, one practice. Someone else can carry it too, and that's what keeps it alive.",
-      "sheetLine": "You feel it all the way down, while it's still here.",
-      "verb": "Be gone into what a feeling is while it is still here",
-      "place": "The table where the old songs get sung and the same stories get told",
+      "tense": "Right now, with the pen, a shared thing is being felt from inside the way it breathes.",
+      "act": "read the hardest page of it twice, slowly, before you stop",
+      "ask": "Read the hardest part of a shared thing you belong to twice, slowly, before you change a word — first for what it carried for the people who made it, then for what it carries in this room.",
+      "core": "Here, a shared thing — the ritual your people keep, the words said the way they have been said — can be entered and left as it is. When something in it shifts, no announcement or defense is needed. What was carrying the weight and what was only habit around it become visible by themselves.\n\nRead the hardest part twice, slowly, before you change a word — first for what it carried for the people who made it, then for what it carries in this room. Nothing has to be decided. This is what the quiet of this draw is for — letting a meaning finish before you touch it. The shared thing goes on being shared while you do it, and you come out knowing which threads still hold and which have gone slack.",
+      "sheetLine": "Let the tradition read you back before you change it.",
+      "verb": "sitting with what the heart knows before it moves",
+      "place": "the shared thing a group keeps alive and hands on",
       "provenance": {
         "signature_id": 45,
         "position_id": 5,
@@ -26,36 +27,27 @@
         "partner": "Immersion",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will be coiling against how the next quieter season will feel before it has started.",
-      "ask": "Say one true hard thing about the last change out loud, then leave the ending alone for a week. What you've gathered is yours to keep either way.",
-      "core": "You're already bracing for the quiet after the gathering — for a time when the table won't feel the same, before anything has actually changed. So you hold onto the feeling, replay it, try to keep the good part from moving at all.\n\nIt doesn't work. Holding on that hard turns the warmth into a countdown, and you end up grieving a loss that hasn't landed. Good gatherings end. That's not a failure of the gathering — it's what makes them worth having had. Let the last one close, and the next one will have somewhere to arrive. What you're calling care for them right now is keeping you out of the room.",
-      "sheetLine": "You're holding on so hard the good part turns into a countdown.",
-      "verb": "Be gone into what a feeling is while it is still here",
-      "place": "The table where the old songs get sung and the same stories get told",
+      "tense": "You are bracing to redraw a shared thing before it has finished arriving.",
+      "act": "gather what the change grew",
+      "ask": "Before any redrawing, harvest what the change has already grown — a phrase, a practice, a new way the group holds something — and take it in as the crop ripening in the field.",
+      "core": "The old shape is thinning under your hands, and your grip has already moved to the next version — who says what, which part stays, how it should look once you're done. Nobody else has been asked to go there yet, and most of the pressure is in your own head. The bracing blocks your view of what is already yours.\n\nBefore any redrawing, harvest what the change has already grown — a phrase, a practice, a new way the group holds something — and take it in as the crop ripening in the field. The redraw can come after the gathering. Waiting here isn't idle; the crop is made of it, and the others in this shared thing are living through the same season you are.",
+      "sheetLine": "You're rewriting a shared thing before it's said its piece.",
+      "verb": "sitting with what the heart knows before it moves",
+      "place": "the shared thing a group keeps alive and hands on",
       "provenance": {
         "signature_id": 45,
         "position_id": 5,
@@ -64,36 +56,42 @@
         "partner": "Harvest",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (shape, field) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You sat with what you felt while it was still warm, and you have not returned to that sitting.",
-      "ask": "Name one thing you felt at the last gathering, plainly, to one person who was there. Just saying it — nothing else has to follow.",
-      "core": "You're at the table, and a song comes up, and you reach for your phone. The warmth is there; you're just not going in with it. This is how it runs now, and it costs you the middle of the evening.\n\nIt's not that you don't feel. You ask about someone's week, you do your part, and none of it arrives in you while it's happening. That's a numbness you built on purpose. Start smaller than you think. One word for one thing you felt, said to someone who was in the room, puts the current back where it belongs — after the fact, which is still fine.",
-      "sheetLine": "You stopped going into what you felt, and you're still carrying the habit.",
-      "verb": "Be gone into what a feeling is while it is still here",
-      "place": "The table where the old songs get sung and the same stories get told",
+      "tense": "You are still at the door of a shared thing that already closed behind you.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Put what a shared thing meant to you into a single sentence, the truest you can find, and set it down where you will come across it again.",
+      "core": "A shared thing has ended or gone quiet, and you are still where it used to be — the words held in your mouth, the slot kept open, the chair reserved for people who moved on. The quiet here is not indifference; it is what a room feels like after company has gone, and you're in it.\n\nPut what it meant to you into a single sentence, the truest you can find, and set it down where you will come across it again. Don't wait for the right words to be handed over; put your own down. The line is small and it belongs to you, and the waiting can end where the line begins. Something written down can be picked up later, and that is what is being offered here.",
+      "sheetLine": "The shared thing ended. You're still at the door.",
+      "verb": "sitting with what the heart knows before it moves",
+      "place": "the shared thing a group keeps alive and hands on",
       "provenance": {
         "signature_id": 45,
         "position_id": 5,
@@ -102,41 +100,37 @@
         "partner": "Reconciliation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "Reverie is at work in how you stand in the shared history, without your knowing you are the one holding it.",
-      "ask": "Say out loud that one thing people bring you their hard news for is your doing. Watch what shifts this week when you keep it.",
-      "core": "Something in the way you are with feeling is already shaping the common life around you — the long pauses, the lost look before you answer — and you treat it like it happens to you. But you're the one who stands in it long enough to find the questions that hold people together.\n\nThat's yours. Not the song, not the table — you. Stand five seconds longer in the pause and then ask the one question that opens things. The stillness you call your nature is the line running the room; the pen is in your hand whether or not you've said so.",
-      "sheetLine": "The room's depth is your doing, and you haven't said so.",
-      "verb": "Be gone into what a feeling is while it is still here",
-      "place": "The table where the old songs get sung and the same stories get told",
+      "tense": "You are carrying a shared thing forward through your own continuance, without signing for it.",
+      "act": "follow the thought past where it is comfortable",
+      "ask": "Follow what you actually believe the shared thing is for — past the respectable version and the polite one — until you land on the plain answer, flattering or not.",
+      "core": "The shared thing continues because you continue it — the tone, the way the words get said, the small practices nobody has asked about in years. Ask what you think it's for and you'd give the respectable answer; the real one is doing the work underneath, and you have not put your name to it. This continuance has an author, and the author's story is that the thing simply happens.\n\nFollow what you actually believe the shared thing is for — past the respectable version and the polite one — until you land on the plain answer, flattering or not. Nothing has to change yet. The one who kept it level can look at what was kept, and this becomes a decision instead of a habit.",
+      "sheetLine": "The shared thing has a keeper, and the keeper isn't signed.",
+      "verb": "sitting with what the heart knows before it moves",
+      "place": "the shared thing a group keeps alive and hands on",
       "provenance": {
         "signature_id": 45,
         "position_id": 5,
@@ -145,14 +139,14 @@
         "partner": "Immersion",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -161,8 +155,8 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -171,15 +165,150 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6305,
+      "ms": 7954,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a way of meeting a\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The strongest unsupported claim in my draft is that a shared meaning or tradition has settled into the person's own feeling life and is being kept alive by their presence — the record gives resonance and stillness at the seed, but it cannot say the person is the keeper of any particular tradition, nor that others notice it. A reader could reasonably say the still thing is not a tradition at all but a relationship or a private calm, and the reading would land differently. My asks survive being wrong because each is the person's own medicine returned to themselves — counting what an ending grew, reading one hard page slowly, putting two thoughts into one line, sorting pieces into a shape — all useful whether or not a shared meaning is what the card is holding. The sentence that serves the writer more than the person is the one that claims others can feel the weight you keep steady; I kept it thin here, drawn from the card's own tradition transmissibility, and left it out of the asks, where another person would only adorn the act."
+    },
+    {
+      "attempt": 2,
+      "ms": 5999,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 1
         },
         {
@@ -189,38 +318,38 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (shape, thread) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you can tell which part\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
@@ -231,150 +360,38 @@
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "3 images in one core (shape, room, seed) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't say this person is moved by the old songs or that any particular gathering exists, so I'm positing a table, a song, a day — thin fiction, not a claim about their life. A reader could say a reverie-drawn person needs no table to be moved; if so, the ask still teaches where the warmth is felt while it's happening, which the record plainly supports. The sentence serving me more than them is any line about 'the room not being built yet' — it flatters the diagnosis; I've cut it from every cell and hit the plain version instead."
-    },
-    {
-      "attempt": 2,
-      "ms": 3537,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "history",
-          "detail": "\"for years\" — a cell knows no one's past",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "detail": "\"The carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
@@ -385,90 +402,94 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"shared\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say this person is moved by old songs or that any particular gathering exists, so the table and the singing are thin fiction, not a claim about their life. A reader could say a reverie-drawn person needs no table to feel anything; if so, the ask still teaches where the warmth goes while it's happening, which the record plainly supports. The sentence serving me more than them is the closing line in the balanced cell — it admires the reading, and I've swapped it for the plain one."
+      "check": "The strongest unsupported claim is still that a shared meaning or tradition is what carries the person's feeling life and that others can feel the weight of it — the record gives resonance and stillness at the seed, not the keeper of any named tradition, and not anyone else's notice. A reader could reasonably say the still thing is a relationship or a private calm rather than a group practice, and much of the reading would survive that shift because each ask is the person's own medicine turned on their own material. That said, the asks hold even if the seat is wrong: reading a hard page slowly, counting what a change already grew, sorting scattered pieces into one line, and following a thought past its comfortable stop are useful whatever the material actually is. The sentence that serves the writer more than the person is the one that claims the keeping is felt by others around the table; I have left it out and kept the noticing with the person themselves."
     },
     {
       "attempt": 3,
-      "ms": 3278,
+      "ms": 5361,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, field) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people around the\"",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -479,90 +500,83 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"shared\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say this person is moved by old songs or that any particular gathering exists, so the table and the singing are thin fiction, not a claim about their life. A reader could say a reverie-drawn person needs no table to feel anything; if so, the ask still teaches where the warmth goes while it's happening, which the record plainly supports. The sentence serving me more than them is the closing line in the balanced cell — it admires the reading, and I've swapped it for the plain one."
+      "check": "The strongest unsupported claim is still that a shared meaning or tradition is what holds the person's feeling life and that others can register the weight of it — the record gives resonance and stillness at the seed, not a keeper of any named tradition, and not anyone else's notice. A reader could reasonably say the quiet thing is a relationship or a private calm rather than a group practice, and most of the reading would survive that shift because every ask is the person's own medicine turned on their own material. The asks hold even if the seat is wrong: going slowly through a hard page, taking in what a change already grew, sorting scattered pieces into one line, and following a thought past its comfortable stop are useful whatever the material actually is. The sentence that serves the writer more than the person is the one claiming the continuance is felt by others around a table; I have left that out and kept the noticing inside the person."
     },
     {
       "attempt": 4,
-      "ms": 3541,
+      "ms": 4190,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (shape, field) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -573,84 +587,72 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say this person is moved by old songs or that any particular gathering exists, so the table and the singing are thin fiction, not a claim about their life. A reader could say a reverie-drawn person needs no table to feel anything; if so, the ask still teaches where the warmth goes while it's happening, which the record plainly supports. The sentence serving me more than them is the closing line in the balanced cell — it admires the reading, and I've swapped it for the plain one."
+      "check": "The strongest unsupported claim is that a shared meaning or tradition is what holds this person's feeling life and that others can register the weight of it — the record gives resonance and stillness at the seed, not a keeper of any named tradition, and not anyone else's notice. A reader could reasonably say the quiet thing is a relationship or a private calm rather than a group practice, and most of the reading survives that shift because every ask is the person's own medicine turned on their own material. The asks hold even if the seat is wrong: going slowly through a hard page, taking in what a change already grew, sorting scattered pieces into one line, and following a thought past its comfortable stop are useful whatever the material actually is. The sentence that serves the writer more than the person is the one claiming the continuance is felt by others around a table; I left that out and kept the noticing inside the person."
     },
     {
       "attempt": 5,
-      "ms": 3045,
+      "ms": 3791,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (shape, field) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -661,19 +663,19 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say this person is moved by old songs or that any particular gathering exists, so the table and the singing are thin fiction, not a claim about their life. A reader could say a reverie-drawn person needs no table to feel anything; if so, the ask still teaches where the warmth goes while it's happening, which the record plainly supports. The sentence serving me more than them is the closing line in the balanced cell — it admires the reading, and I've swapped it for the plain one."
+      "check": "The strongest unsupported claim is that a shared meaning or tradition is what holds this person's feeling life and that others can register the weight of it — the record gives resonance and stillness at the seed, not a keeper of any named tradition, and not anyone else's notice. A reader could reasonably say the quiet thing is a relationship or a private calm rather than a group practice, and most of the reading survives that shift because every ask is the person's own medicine turned on their own material. The asks hold even if the seat is wrong: going slowly through a hard page, taking in what a change already grew, sorting scattered pieces into one line, and following a thought past its comfortable stop are useful whatever the material actually is. The sentence that serves the writer more than the person is the one claiming the continuance is felt by others around a table; I left that out and kept the noticing inside the person."
     }
   ],
   "usage": {
-    "input": 4994,
-    "output": 5427
+    "input": 10272,
+    "output": 6665
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:36:11.912Z"
+  "date": "2026-10-02T12:09:48.363Z"
 }

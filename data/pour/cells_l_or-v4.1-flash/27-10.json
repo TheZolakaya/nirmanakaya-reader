@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The acknowledgment is here now, and you are standing in it with the pen.",
-      "ask": "Name one finished thing you carried, say out loud that it's done, and let the day move on.",
-      "core": "You're the one completing what you carried. Not performing it for a crowd and not burying it either — you pick what's worth finishing and you see it through, and the finishing is part of the work. It doesn't need applause to be real. It needs you to notice it's over. The quiet, steady part of this — the part nobody photographs — is doing real work while you don't stop to count it.\n\nYou hold what you're growing without squeezing the life out of it. The care stays steady because it ends; you let things finish and you let yourself stop. Waiting for someone to hand you a stamp is the move that would sour it, because then what you tend turns into a shift with no closing time. So give yourself the moment. Then be done with it. That's not laziness. It's the same care, turned once toward yourself.",
-      "sheetLine": "You finish what you carried, and you let it stay finished.",
-      "verb": "letting what was given up be seen and valued by others",
-      "place": "the turning point where what was outside enters and you meet what is arriving",
+      "tense": "What you quietly kept going arrives at the point where it can be seen, here with the pen in your hand.",
+      "act": "steward it without clutching",
+      "ask": "Keep tending what you've already got growing — the project, the person, the routine — holding it steady this week without checking whether anyone notices or calling it done.",
+      "core": "Something you gave up for is showing up now — the work done when nobody was keeping score, reaching the moment where it could count. That's what's entering, not a reward you chased. The care shows in the hands, not the parade: you kept the thing alive, steady, without needing it thanked.\n\nThe bend here is small — the reach to check if it landed. Let it land without standing over it. Keep tending what you've already got growing, holding it steady without checking whether anyone notices or calling it done. Keep the water moving. The staying is the work, and it doesn't need a watcher to count.",
+      "sheetLine": "What you kept going is arriving where it can be seen.",
+      "verb": "attending the work so it can be seen through",
+      "place": "the threshold where what's coming in gets met",
       "provenance": {
         "signature_id": 27,
         "position_id": 10,
@@ -26,14 +27,34 @@
         "partner": "Stewardship",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +66,13 @@
     },
     {
       "status": 2,
-      "tense": "You'll have decided how it ends long before anyone has seen it begin.",
-      "ask": "Pick one thing you've been polishing toward a verdict and leave it unfinished today, on purpose.",
-      "core": "You're reading every sign before it's been written, and the reading has become the doing. You've worked out who will notice and what they'll think, so the small things you actually finish get reworked past the point where anyone could see them. The wanted acknowledgment has turned into a forecast about it — hold the moment to the light long enough and the moment stops being a moment. What was meant to land as an event is being rehearsed instead.\n\nThe steadier move is to let something arrive unfinished. Finish one small thing before it's perfect, and let it be seen that way rather than preparing a version worthy of a parade. The habit was supposed to make your effort easier to hand over, not give it more to sit through. Stay with one thing long enough to see which part of it actually matters. Your effort was real before anyone watched, and it will still be real after.",
-      "sheetLine": "You're scripting the acknowledgment instead of letting it land.",
-      "verb": "letting what was given up be seen and valued by others",
-      "place": "the turning point where what was outside enters and you meet what is arriving",
+      "tense": "You're leaning into a moment that hasn't come yet, bracing for it to land and for someone to notice it did.",
+      "act": "refine one distinction by close attention",
+      "ask": "Go narrow on the work you're waiting to have seen: take one step in it and study that step until you can say plainly what it's for. Only that step.",
+      "core": "What's arriving is the finish line where the quietly given-up thing gets its name said — so of course you're already at the stage door, rehearsing the handshake. That pressure is the work out ahead of its own moment. Nothing is at the podium yet.\n\nThe counterweight is close rather than far. Take one step in the work and study it until you can say plainly what it's for — a single distinction made by attention, not by nerves. No one else is coming to judge it, so what you refine has to serve the thing itself. Going narrow on this step serves the work; going narrow on all of it serves only the bracing.",
+      "sheetLine": "The finish line is coming toward you and you're already past it.",
+      "verb": "attending the work so it can be seen through",
+      "place": "the threshold where what's coming in gets met",
       "provenance": {
         "signature_id": 27,
         "position_id": 10,
@@ -59,19 +81,19 @@
         "partner": "Honing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -83,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You handed over what you handed over and you're still standing back in the doorway.",
-      "ask": "Finish one small unfinished thing today and tell exactly one person you did it.",
-      "core": "Something got completed, and you've stayed outside the room where it happened. Pushing effort into what's already done doesn't work — the way back is in what you still care for and the stamina to keep at it. The release that should have come with the finish didn't get collected, so each new thing starts a little further behind. The sacrifice was real. What's missing is letting it count, and quietly expecting it not to has become the shape you stand in.\n\nYou have the strength to explain less and carry more; use a little of it on a plain, real thing in front of you. One small finish today, and one person told, is enough to start the completion you already paid for. The lack isn't in what you gave. It's in letting it land. That part isn't closed by wanting it closed — only by doing a plain thing and letting it be seen as real.",
-      "sheetLine": "You have the strength to stay. What's missing is letting it count.",
-      "verb": "letting what was given up be seen and valued by others",
-      "place": "the turning point where what was outside enters and you meet what is arriving",
+      "tense": "The completion you sacrificed for is already behind you, and you're still standing at the door waiting for it to open.",
+      "act": "stand firm in the material hardship",
+      "ask": "Put down a finished load you're still hauling, and stand where you are without going back to check whether anyone saw. Stay with the ground under you.",
+      "core": "What you gave up for is already done — done quietly, which is how you did it — and the acknowledgment that was going to come after didn't arrive, because the thing completed before the door opened. That's where you stand: at the threshold, past the finish, in the flat after. The withdrawal isn't a verdict on the work. It's the body still holding a weight whose hour has passed.\n\nSteadfastness, done small: put down a finished load you're still hauling. Stand where you are and don't go back to check. Your own ground, kept for a week, carries more than the waiting did.",
+      "sheetLine": "The completion is behind you and the door won't open.",
+      "verb": "attending the work so it can be seen through",
+      "place": "the threshold where what's coming in gets met",
       "provenance": {
         "signature_id": 27,
         "position_id": 10,
@@ -97,19 +120,19 @@
         "partner": "Steadfastness",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (door, threshold) — one at most, usually none",
           "hard": false
         },
         {
@@ -118,30 +141,26 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're already gathering what's coming without noticing that the gathering is yours.",
-      "ask": "Look at what's arriving right now and take direct ownership of the conditions it needs.",
-      "core": "Something is already being carried for the people around you, and the carry gets discussed as if it happened on its own. You're keeping what arrived — noticing, sorting, holding it steady — and the credit for that drifts off somewhere no one can reach. You notice and you claim nothing. The quiet work is yours, and it stays yours until someone names it. What's absent isn't a feeling. It's the plain recognition that this is something you do and could choose differently.\n\nBring it back to the simple thing it was. You can look at what's taking shape and give it what it actually needs, today, in ordinary form. Name that work once as yours and it stops being automatic. The end of this stops needing to be discovered — you were the one doing it, which means you can also be the one who finishes it on purpose.",
-      "sheetLine": "You already carry what's arriving. Say that it's yours.",
-      "verb": "letting what was given up be seen and valued by others",
-      "place": "the turning point where what was outside enters and you meet what is arriving",
+      "tense": "You're steering the whole thing without seeing that this is the moment something arrives to be met.",
+      "act": "tend the resource with responsible care",
+      "ask": "Name one living thing you're already keeping going without calling it yours, and look after it this week with care you'd plan — a plant, a person, a habit.",
+      "core": "There's a keeper in this scene, and by your own telling it isn't you — which is what operating without awareness does: the hands are moving, the story says they're not. What's entering is the finish, and someone is still at the door holding a schedule, so the arrival has nothing to meet.\n\nStewardship, called back to its earlier shape: look after something you're already keeping going, with care you'd actually plan — a plant, a person, a habit. Not more effort. Care with a hand behind it. The hand that does this kind of work is the one that gets to know it's doing it, and that isn't a reward. It's the work turning toward itself.",
+      "sheetLine": "The work is entering and you call yourself the officer.",
+      "verb": "attending the work so it can be seen through",
+      "place": "the threshold where what's coming in gets met",
       "provenance": {
         "signature_id": 27,
         "position_id": 10,
@@ -150,42 +169,51 @@
         "partner": "Stewardship",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
     }
   ],
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7155,
+      "ms": 7537,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 169 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"The keeping\" — a verb turned into a mystical noun",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
@@ -197,8 +225,14 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"and you know it not\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
@@ -209,32 +243,50 @@
         },
         {
           "code": "length",
-          "detail": "core 165 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"anxiety\"",
           "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
           "status": 2
         },
         {
@@ -242,6 +294,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "label",
@@ -250,12 +308,6 @@
           "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
@@ -269,13 +321,7 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (door, threshold) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -287,14 +333,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"One thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -304,8 +344,8 @@
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"disowned present\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 4
         },
@@ -317,24 +357,52 @@
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it as if it were\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The cells below lean on the steadying, patient shape of tending what grows — what gets lost is the card itself. The record calls Honor the moment sacrifice is seen and valued, and it carries Faith's other face: release as fulfillment. If that standing-back and quiet endurance are exactly what the sacrifice was made for, the person may reasonably say the honor already happened, or that mine was private, and the reading makes it only a duty. The asks still work if the read is wrong — the first is tending one small real thing, the rest are lean moves anyone can make today. The sentence serving the writer is 'you wait for the stamp instead of tending what you already hold,' because it is one clean beat and not the whole truth."
+      "check": "The kernel says acknowledgment is external and shared — the record doesn't support my framing it as something the person wants or felt, so I describe only what's arriving, not their inner state. A reader could say the validation isn't there at all, which is a perfect fit for Too Little and fine for the others; the asks don't depend on the acknowledgment being present, only on the attending act. The sentence that serves me is any line about 'being seen' — it's flattering — so I keep it out and stick to tending."
     },
     {
       "attempt": 2,
-      "ms": 4765,
+      "ms": 3609,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
@@ -344,6 +412,12 @@
           "status": 1
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
@@ -351,26 +425,38 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"work every day you don't\"",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
           "status": 2
         },
         {
@@ -380,8 +466,8 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -393,13 +479,7 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (door, threshold) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -410,57 +490,62 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"all along\" — a motive the cell cannot know",
-          "hard": true,
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that this person is withholding or chasing recognition; the record only says the capacity for letting sacrifice be honored is seated in what is entering now. A reader could reasonably say the honoring already happened in private, or that they simply haven't thought about it. The asks survive being wrong — naming a finished thing, leaving one unfinished, telling one person, taking direct ownership are all moves anyone can make today. The sentence that serves the writer is 'you wait for the credit instead of letting the work be done,' because it is a clean beat and not the whole truth."
+      "check": "The kernel says acknowledgment is external and shared — the record doesn't support my framing it as something the person wants or feels, so I describe only what's arriving, not their inner state. A reader could say the validation isn't there at all, which is a perfect fit for Too Little and fine for the others; the asks don't depend on the acknowledgment being present, only on the tending act. The sentence that serves me is any line about 'being seen' — it's flattering — so I keep it out and stay with the work."
     },
     {
       "attempt": 3,
-      "ms": 4152,
+      "ms": 4018,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -468,20 +553,32 @@
           "status": 1
         },
         {
+          "code": "hunch",
+          "detail": "\"calling it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -492,20 +589,14 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (door, threshold) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -516,113 +607,49 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that this person is withholding or chasing recognition; the record only says the capacity for letting sacrifice be honored is seated in what is entering now. A reader could reasonably say the honoring already happened in private, or that they simply haven't thought about it. The asks survive being wrong — naming a finished thing, leaving one unfinished, telling one person, taking ownership of what arrives are all moves anyone can make today. The sentence that serves the writer is 'you wait for the credit instead of letting the work be done,' because it is a clean beat and not the whole truth."
-    },
-    {
-      "attempt": 4,
-      "ms": 3527,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        }
-      ],
-      "check": "The unsupported claim is that this person is withholding or chasing recognition; the record only says the capacity for letting sacrifice be honored is seated in what is entering now. A reader could reasonably say the honoring already happened in private, or that they simply haven't thought about it. The asks survive being wrong — naming a finished thing, leaving one unfinished, telling one person, taking ownership of what arrives are all moves anyone can make today. The sentence that serves the writer is 'you wait for the credit instead of letting the work be done,' because it is a clean beat and not the whole truth."
+      "check": "The kernel says acknowledgment is external and shared; the record doesn't support framing it as something the person wants or feels, so I keep to what's arriving and to the work, not inner state. A reader could say the acknowledgment never comes at all — fine for Too Little, harmless for the rest, since each ask stands on the tending act rather than on being noticed. The sentence that serves me is any line about being seen; it flatters, so it stays out."
     }
   ],
   "usage": {
-    "input": 7697,
-    "output": 4935
+    "input": 6695,
+    "output": 3518
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:19:56.743Z"
+  "date": "2026-10-02T11:49:59.216Z"
 }

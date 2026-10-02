@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are at the bench right now, and the pace is honest.",
-      "ask": "Set ten minutes where you let the work sit unfinished and don't touch it — no checking, no improving. Notice what that costs you.",
-      "core": "You're tending something that isn't finished yet, and you're not forcing it. That's harder than it sounds. You've found the pace where the work gets your attention and not your grip — new structure going up under your hands, and it holds.\n\nThe quiet part is what you do when it stalls. There's a version of you that leans in harder. That one isn't at the bench today. What is here comes from knowing the next small piece is the whole task, and that spending yourself on it doesn't count as lost time. The practice doesn't run on effort pulled from somewhere else. When you give the work somewhere to go and let it arrive on its own schedule, the growth you're after shows up in it and in you.",
-      "sheetLine": "You tend it at a pace that doesn't burn you out.",
-      "verb": "Building something new and holding its shape while it takes",
-      "place": "Around what is growing, before it can stand on its own",
+      "tense": "You are here, with a rough frame half-raised and the pen still in your hand.",
+      "act": "show someone the way you found",
+      "ask": "With the person you're helping build something, walk them through the route you took, then stop at the showing. Tell it once, plainly, and stop there.",
+      "core": "Something new is taking shape in your care, and you're good at the part that can't be faked: putting one piece on another until it stands. Around anything growing, that instinct shows up as scaffolding — a first rough frame a young thing can lean on while it decides what it is. Not a finished house. Enough to grow against.\\n\\nThat's the balance: you raise the frame and then you step back. The habit that holds it is showing someone the route you took and stopping at the showing — not walking it for them. Tell it once, plainly, and leave the next step theirs. What that gives the growing thing is a direction it can hold. The trick is that it stays theirs to walk.",
+      "sheetLine": "You raise the frame and the growing thing leans on it.",
+      "verb": "raising the frame around what is growing",
+      "place": "where you keep something growing that hasn't found its shape yet",
       "provenance": {
         "signature_id": 54,
         "position_id": 3,
@@ -26,31 +27,37 @@
         "partner": "Guidance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have moved on to the next version before this one has had its chance.",
-      "ask": "Leave one thing you're tending alone for a week — no additions, no reworking. Notice what arrives. If you can, let someone else hold a piece of it for a day.",
-      "core": "The work isn't in danger. You're treating it as if it is. You've already seen the version where it's finished and right, and you're spending your days trying to get it there early.\n\nBracing for a future you can't write in doesn't speed anything up. It just adds weight to a thing that was doing fine. When you build for what you're afraid of instead of what's actually in front of you, the structure you raise is only as solid as the fear that raised it. What you're missing isn't effort or insight. It's the willingness to let the thing under your hands be unfinished today.",
-      "sheetLine": "You're fixing problems the work hasn't grown yet.",
-      "verb": "Building something new and holding its shape while it takes",
-      "place": "Around what is growing, before it can stand on its own",
+      "tense": "By the time it is finished you already know how it will have to hold.",
+      "act": "leave the hollow ritual for the living one",
+      "ask": "Pick a step you keep in the care of something growing only out of habit — drop just that one — and then stay with what the dropping frees.",
+      "core": "The building runs past the thing that's growing. Around anything developing, you're adding the next beam before the last one has set — planning the pace, the next stage, the form it becomes, while it hasn't yet grown into the ground beneath it. It reads as care. From where the young thing stands, nothing gets to decide its own form.\\n\\nWhat loosens it is leaving one dead step behind. Pick a piece of the routine you keep going only because it's habit, and drop that single step. Then stay with what the space does. Don't fill it and don't replace it. The person growing something beside you may notice the gap before you do, and that's fine — what you're after is what the dropping frees.",
+      "sheetLine": "You build the roof before the walls have set.",
+      "verb": "raising the frame around what is growing",
+      "place": "where you keep something growing that hasn't found its shape yet",
       "provenance": {
         "signature_id": 54,
         "position_id": 3,
@@ -59,31 +66,37 @@
         "partner": "Passage",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing outside the work now, at a distance you already chose.",
-      "ask": "Make one decision about the work this week and say it out loud to someone — even a small one, even imperfectly. Let it be seen.",
-      "core": "You're not tending anything right now. You're watching it from a step back, and the watching has become your whole relationship to it. The finished thing got more of your attention than the growing thing.\n\nIt isn't feeling that's absent. It's the willingness to aim your attention back at something and stay with it. The distance doesn't ask you to feel ready. It asks you to choose a direction and move in it — to get back inside the thing you care about instead of hovering where you can see it. That's the way in, and it's not the same work anymore.",
-      "sheetLine": "You stopped tending it and started hovering outside.",
-      "verb": "Building something new and holding its shape while it takes",
-      "place": "Around what is growing, before it can stand on its own",
+      "tense": "The frame you started is still standing back there where you left it.",
+      "act": "decide it and act the same day, without explaining",
+      "ask": "Whatever the growing thing needs next — water, a shelf, a yes — settle it and do it the same day, and explain nothing to anyone.",
+      "core": "Around what's growing, no frame is going up. Things are kept going, kept safe, kept as they were — and the building that needs a first rough shape sits unfinished behind you. The knack for making structure out of something raw is in you. Here, it's standing down.\\n\\nNursing the gap won't bring it back. A decision moved will. Take whatever the growing thing actually needs and do it the same day you settle it, without telling anyone why. Then let it be done — no review, no justifying the call. That's not the finished frame; it's the first beam, and the first beam is what gets the rest moving. Something that stands gets built from a decision, not from a mood.",
+      "sheetLine": "You keep it safe, and nothing that grows gets a floor.",
+      "verb": "raising the frame around what is growing",
+      "place": "where you keep something growing that hasn't found its shape yet",
       "provenance": {
         "signature_id": 54,
         "position_id": 3,
@@ -92,36 +105,37 @@
         "partner": "Command",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 101 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're already shaping what's growing while telling yourself it happens on its own.",
-      "ask": "Name one thing you're building and say it's yours — not something that grew by itself. Say it in front of the mirror or to one person.",
-      "core": "What you're tending looks like it just came out that way. It didn't. You made the conditions, you held the pace, you decided what to build and what to let fall. The building is happening and you're calling it natural.\n\nWhat you're doing matters, and it isn't something the work is doing to you. When you don't claim it, the next decision has no ground to stand on — the thing keeps running and you keep watching it run. The shaping is already yours. The only thing left to gather is the saying so, out loud, once. That's not a claim to prove. It's the part of the work that lets you stand behind it.",
-      "sheetLine": "You're steering it while calling it the thing steering you.",
-      "verb": "Building something new and holding its shape while it takes",
-      "place": "Around what is growing, before it can stand on its own",
+      "tense": "You are already building it, and by your own account it happened on its own.",
+      "act": "defend the direction you chose against the next push",
+      "ask": "Next time someone leans on the shape you're giving what you tend, hold it once — say what you decided and keep going.",
+      "core": "There is a frame going up around something you tend, and it is standing. The load-bearing calls were yours — the pacing, the order, the small refusals — and asked about it, you'd file that under keeping things from collapsing. The building is real. The name on it is missing.\\n\\nTo claim it, defend the direction you already chose. Next time someone leans on the shape you're giving this, hold it once — say what you decided, keep going, and meet the pressure as a settled thing. You don't have to prove it was yours. The frame holds whether or not you claim it, and holding your ground is how the claim gets made. What gets built stays yours either way.",
+      "sheetLine": "The frame holds, and the name on it is missing.",
+      "verb": "raising the frame around what is growing",
+      "place": "where you keep something growing that hasn't found its shape yet",
       "provenance": {
         "signature_id": 54,
         "position_id": 3,
@@ -130,29 +144,29 @@
         "partner": "Resolve",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -161,379 +175,508 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5749,
+      "ms": 7205,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Nurturing",
+          "code": "refrain",
+          "detail": "\", and let them take\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"where you tend what's growing\"",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (wall, floor, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"One small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"where you tend what's growing\"",
           "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Nurturing",
+          "detail": "\", and let the push\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd say you were only\"",
+          "hard": true,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives the card's full structure but not one word about this person's work, age, or history, so every cell stays on the mechanism and lets them confirm or refuse it. The likely objection: 'I'm not building anything, I'm just keeping things alive' — the cells locate the capacity in the tending itself, not in an outcome, so a no still leaves something usable. The ask survives being wrong at every status because it acts on the capacity, not on a diagnosis, and none of it fixes the answer. The sentence that serves the writer is the Too Much picture of a thing that is already fine being doctored into a project — cut it to the bracing, not the person."
+      "check": "Unsupported claim: that the person is doing skilled building at all — the record only says the capacity for it is present and this is where it runs; several cores lean on 'you are building something' as if it were established. Reader's objection: that a failing formation is just disorganisation, or that nurturing and structure don't meet — answered by keeping every core on the one move (raising the frame the growing thing will need) and naming no other. Ask survives being wrong: each ask is a small visible act in the care of something growing, useful whether or not the read lands. Sentence that serves the writer: the shadows 'no one calls it yours' — cut to 'nothing that grows there gets a floor' so the person keeps their own account."
     },
     {
       "attempt": 2,
-      "ms": 3431,
+      "ms": 4858,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "\" and let the growing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "detail": "3 images in one core (wall, shape, floor) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\", and let the pressure\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives the card's structure but nothing about this person's work, age, or history, so every cell stays on the mechanism and lets them confirm or refuse it. The likely objection: 'I'm not building anything, I'm just keeping things alive' — the cells locate the capacity in the tending itself, not in an outcome, so a no still leaves something usable. The ask survives being wrong at every status because it acts on the capacity, not on a diagnosis, and none of it fixes the answer. The sentence that serves the writer is the Too Much picture of a thing already fine being doctored into a project — cut it to the bracing, not the person."
+      "check": "Unsupported claim: that a frame is actually going up — the record says the capacity for skilled building is present and this is where it runs, not that construction is underway; every core now stays on the one move (making the first rough shape a growing thing can lean on) rather than asserting a finished structure. Reader's objection: that this is just tidiness, or that structure and nurturing don't belong together — answered by keeping the frame rough and provisional in each cell and naming no second move. Ask survives being wrong: each is a small visible act in the care of something growing, useful whether or not the read lands, and none of them makes progress conditional. Sentence that serves the writer: the shadows 'nothing that grows there is filed under you' — cut so the person keeps their own account of the work rather than being handed a verdict on their invisibility."
     },
     {
       "attempt": 3,
-      "ms": 3596,
+      "ms": 4142,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (door, bench, room) — a parable, not a sentence to a person",
+          "detail": "two images in one core (wall, floor) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\", and let the pressure\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives the card's structure but nothing about this person's work, age, or history, so every cell stays on the mechanism and lets them confirm or refuse it. The likely objection: 'I'm not building anything, I'm just keeping things alive' — the cells locate the capacity in the tending itself, not in an outcome, so a no still leaves something usable. The ask survives being wrong at every status because it acts on the capacity, not on a diagnosis, and none of it fixes the answer. The sentence that serves the writer is the Too Much picture of a thing already fine being doctored into a project — cut it to the bracing, not the person."
+      "check": "Unsupported claim: that a structure is actually being raised — the record says the capacity for skilled building is present and running here or not, not that anything stands. Every core now stays on one move (settling one thing about what's growing and acting on it) so the read survives being wrong. Reader's objection: that this is just tidiness, or that structure has no place in care — answered by keeping the frame rough and provisional and naming no second move. Ask survives being wrong: each is small, needs no money, no audience, no safe person, and none makes progress conditional on obeying. Sentence that serves the writer: the shadow line 'the name on it is missing' — softened so the person keeps their own account of what they've done rather than being handed a verdict."
     },
     {
       "attempt": 4,
-      "ms": 3092,
+      "ms": 3963,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives the card's structure but nothing about this person's work, age, or history, so every cell stays on the mechanism and lets them confirm or refuse it. The likely objection: 'I'm not building anything, I'm just keeping things alive' — the cells locate the capacity in the tending itself, not in an outcome, so a no still leaves something usable. The ask survives being wrong at every status because it acts on the capacity, not on a diagnosis, and none of it fixes the answer. The sentence that serves the writer is the Too Much picture of a thing already fine being doctored into a project — cut it to the bracing, not the person."
+      "check": "Unsupported claim: that a structure is actually being raised — the record says the capacity for skilled building is present and running here or not, not that anything stands. Every core now stays on one move (setting one thing about what's growing and acting on it) so the read survives being wrong. Reader's objection: that this is just tidiness, or that structure has no place in care — answered by keeping the frame rough and provisional and naming no second move. Ask survives being wrong: each is small, needs no money, no audience, no safe person, and none makes progress conditional on obeying. Sentence that serves the writer: the shadow line 'the name on it is missing' — softened so the person keeps their own account of what they've done rather than being handed a verdict."
+    },
+    {
+      "attempt": 5,
+      "ms": 4032,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"leave the hollow ritual for the living one\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported claim: that a structure is actually standing — the record gives the capacity for skilled building as present and running here or not, not as anything raised. Every core now stays on one move (setting one thing in the care of what's growing and acting on it) so the read survives being wrong. Reader's objection: that this is only tidiness, or that structure has no place in care — answered by keeping the frame rough and provisional and naming no second move. Ask survives being wrong: each is small, needs no money, no audience, no safe person, and none makes progress conditional on obeying. Sentence that serves the writer: the shadow line 'the name on it is missing' — softened so the person keeps their own account of what they've done rather than being handed a verdict."
     }
   ],
   "usage": {
-    "input": 4060,
-    "output": 4426
+    "input": 5912,
+    "output": 6018
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:43:06.253Z"
+  "hardOpen": 4,
+  "date": "2026-10-02T13:12:04.597Z"
 }

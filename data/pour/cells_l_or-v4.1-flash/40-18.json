@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding many true things at once right now, and it is not confusing you.",
-      "ask": "Take the next step that has already shown itself, and when someone asks why, give the plain reason instead of the whole map of it.",
-      "core": "You're holding a lot of true things at once, and it isn't confusing you. Nothing in you is demanding they all fit together before you move, which is the whole trick — most people can't do it. When something matters, you tend to say so, and what you say turns out to have weight behind it.\n\nWhat's working is that not-knowing doesn't stop you. You get enough light for the next step, and you take it, and the step doesn't feel like a guess. There's a cost to carrying this much: the plain reason tends to go missing when you explain yourself. Tell one person the short version, the one that doesn't need the whole picture behind it.",
-      "sheetLine": "You move without waiting to see the whole road.",
-      "verb": "holding many true things at once without forcing them into one",
-      "place": "in the place where the way ahead isn't clear yet",
+      "tense": "The pen is in your hand right now on this half-lit stretch.",
+      "act": "put the frame on the table before anyone asks",
+      "ask": "When a jumble is live among others and you already see its shape, say that shape plainly, once, out loud, before anyone has to ask.",
+      "core": "You can hold several true things at the same time, and out here the way only ever shows the next step. That combination is not a flaw to fix. It is what lets you walk when the whole route is not visible, and it lets the people beside you walk too.\n\nWhat wants feeding is the stating. When a jumble is live among others and you already see its shape, say the shape plainly once, before anyone has had to ask. Then let it stand. You do not owe a defense of that frame afterward. The ones with you get something clear to think with instead of fog. Say it first, once, and the next step shows itself.",
+      "sheetLine": "Say the shape of it once, before anyone asks.",
+      "verb": "holding many truths at once",
+      "place": "where the road shows only the next step",
       "provenance": {
         "signature_id": 40,
         "position_id": 18,
@@ -26,41 +27,57 @@
         "partner": "Assertion",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have sorted all of this out by the time it arrives, and you are living in that version now.",
-      "ask": "Pick one of the possibilities you're holding and act on that alone for a day, letting the others wait.",
-      "core": "The working version of this is a wide view that still lets you move: several readings in hand, one step taken, and the step lands because it came from more than one angle at once. That's what carrying many things is for. Right now you're out ahead of the moment instead, settling it before it arrives — every angle weighed and compared, and none of them quite landing, because you're standing in a version where they've already been sorted.\n\nWeighing and deciding may have swapped jobs, and that much inspection doesn't stay still long enough to become direction. Pick one possibility and act on it alone, for a day. Let the others wait their turn.",
-      "sheetLine": "You're settling everything ahead of time, and it's keeping you ahead.",
-      "verb": "holding many true things at once without forcing them into one",
-      "place": "in the place where the way ahead isn't clear yet",
+      "tense": "You are bracing at a road you can't write in yet.",
+      "act": "face one way for three days",
+      "ask": "Name a muddle you keep turning over, choose the way you'd have it go, and hold that heading three days without re-surveying.",
+      "core": "Out here, you are carrying what feels like every truth at once, and the mind keeps bracing for a future it cannot write. So many sides are visible that no heading gets chosen, and the not-choosing starts to feel like the only safe place. It is not safe. It is just tiring, and the way stays dark because nothing is being steered.\n\nWhat you want is one direction, even a small one. Take something you keep turning over, name how you want it to go, and hold that heading three days without checking everything again. You do not have to be right. You only have to stop surveying long enough for the next step to show. The direction may look silly. Hold it anyway. Radiance comes back through moving one way, not through seeing all ways.",
+      "sheetLine": "Stop surveying. Hold one heading for three days.",
+      "verb": "holding many truths at once",
+      "place": "where the road shows only the next step",
       "provenance": {
         "signature_id": 40,
         "position_id": 18,
@@ -69,14 +86,14 @@
         "partner": "Orientation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -88,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped trusting what you saw in the middle of a situation you were already in.",
-      "ask": "Say one thing you're unsure about to another person and let them sit with it, before you've worked it out.",
-      "core": "You can see a lot from where you stand, and you've stopped saying any of it out loud. Going second has become the way you move in a room — you watch, you let someone else name it first, and what you see stays where no one can check it. That seeing didn't go anywhere. Your hands are in your pockets.\n\nInsight isn't the shortage here; you have plenty. What's off is putting any of it on the table before it's confirmed, and that gets rebuilt in front of someone. Put one uncertain thing in front of another person, before it's worked out. Let the working out happen where someone else can see it, and let that be enough for today.",
-      "sheetLine": "You know plenty and you've stopped putting it on the table.",
-      "verb": "holding many true things at once without forcing them into one",
-      "place": "in the place where the way ahead isn't clear yet",
+      "tense": "You are still standing at a door that is already behind you.",
+      "act": "join someone in the work so the two streams run as one",
+      "ask": "Ask someone to work on a real thing alongside you this week, and do it together rather than alone.",
+      "core": "You are looking at the muddle from behind, still measuring what it would have shown. Several sides come clear to you at once, but none of them is landing on anything new, because you are not quite present to the work at hand. From outside it reads as patience. From your chair it is more like waiting at a door that is already shut behind you.\n\nThe way through is not forcing yourself to be comfortable with not-knowing. That rarely works. It is joining someone in actual work, so the two of you run as one flow for a while. Then what you perceive comes out of the doing, not out of trying to see it. Choose one real thing, ask someone to do it with you, and go. What comes next shows itself once you are moving with another, not before.",
+      "sheetLine": "Join someone in real work and go with them.",
+      "verb": "holding many truths at once",
+      "place": "where the road shows only the next step",
       "provenance": {
         "signature_id": 40,
         "position_id": 18,
@@ -102,11 +120,26 @@
         "partner": "Merge",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"What comes next shows itself once you are moving with anothe\" — end on the plain thing",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -116,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already choosing among the versions, and you're calling the choosing something else.",
-      "ask": "Name the choice that's already being made — to yourself, out loud, once — instead of letting it look like more study.",
-      "core": "You're sifting through several readings of this, and the picking is already underway — when someone else takes a side, you can hear your own lean answer it. You call this keeping options open. The choice is further along than that, and the things you say are fair still get weighed as if they were all tied.\n\nThat's not something to fix, only something unclaimed. You'd know what's fair here if you looked at it plainly, and it stays unnamed because looking feels bigger than the moment warrants. Say it once, to yourself, in your own voice: this is the one being picked. The options can stay on the table. You don't have to keep them all even.",
-      "sheetLine": "You've already picked. You're still calling it open.",
-      "verb": "holding many true things at once without forcing them into one",
-      "place": "in the place where the way ahead isn't clear yet",
+      "tense": "You are holding more truth than you know you are holding.",
+      "act": "do the fair thing where no one will see",
+      "ask": "Find a fair move nobody would check, decide it by your own sense of what's right, and do it this week without telling a soul.",
+      "core": "You keep handling the muddle with people better than you give yourself credit for. Several sides come clear to you at once — that is your way — and quietly you have been trading on it, weighing things, sorting what is fair, and calling it the cost of being present. The muddle clears around you and you say it just happened.\n\nThat weighing is yours. The move is small. Do one fair thing this week where no one is watching — one little case, decided by your own sense of what is right, not by any reckoning. Return what you owe before anyone asks. Not for credit, not to be seen. That is what your conscience does when you let it, and you are already doing it. Do one on purpose, and the one doing it shows up.",
+      "sheetLine": "Do one fair thing this week where no one will see.",
+      "verb": "holding many truths at once",
+      "place": "where the road shows only the next step",
       "provenance": {
         "signature_id": 40,
         "position_id": 18,
@@ -130,19 +164,29 @@
         "partner": "Conscience",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -156,144 +200,38 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6024,
+      "ms": 7037,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
         {
           "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
           "hard": true,
-          "status": 4
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
-          "hard": true,
-          "status": 4
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're still calling it undecided\"",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says this capacity is 'abundant knowing' — I can describe how it is working in a moment, but I cannot say what the person actually knows or that their knowing is deep. A reader could say the naming is off: what I call the fullness arriving before it is needed might be ordinary worry, not this. The asks survive the read being wrong — each is a small visible act, and nothing depends on the person agreeing with the diagnosis. The sentence that serves me more than them is the one that sounds like an oracle about the multitudes they carry; I have cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 4169,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
         },
@@ -302,22 +240,28 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 2
         },
         {
+          "code": "vocab",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -326,17 +270,53 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"The road under your feet shows the next step once you are mo\" — end on the plain thing",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The looking\" — a verb turned into a mystical noun",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (road, door, stream) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the road\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 3
         },
         {
@@ -346,21 +326,45 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
+          "code": "vocab",
+          "detail": "3 images in one core (room, road, ledger) — a parable, not a sentence to a person",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -368,32 +372,202 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says this capacity is abundant knowing, and I can describe how it moves in a moment without saying what the person actually knows or calling it deep. A reader could say the naming is off — that what I'm pointing at is ordinary indecision, not this capacity. Each ask is a small visible act that still teaches something if my read is wrong, so none of them collapse. The sentence that serves me more than them is the one that makes it sound like they carry multitudes; I've kept it out."
+      "check": "The draft's shakiest claim is that the person who holds many truths simultaneously is the one still standing at a door that is already behind them, since the record says only past-anchored and withdrawn, not why. A reader could say the many-truths perceiving looks more like deep understanding than a stuck door. The ask survives being wrong because merging with someone in work does something useful either way, and the sentence that serves the writer rather than the person is any line about the door being behind them rather than the eye still measuring it."
+    },
+    {
+      "attempt": 2,
+      "ms": 5355,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the next\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"The way forward shows itself once you are moving on it with \" — end on the plain thing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The shakiest claim is that holding many truths at once sits behind a door already closed, since the record says only past-anchored and withdrawn, not what happened there. A reader could say this looks more like patient depth than a stuck stance. The asks survive being wrong because framing, heading-holding, shared work, and quiet fairness all do something useful regardless of my read. The sentence that serves me rather than them is any line pinning their history to the door."
     },
     {
       "attempt": 3,
-      "ms": 3534,
+      "ms": 4263,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
         },
@@ -404,34 +578,46 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going well, it looks li…\"",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"What comes next shows itself once you are moving with anothe\" — end on the plain thing",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "seat",
@@ -440,14 +626,26 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -458,49 +656,61 @@
           "status": 4
         }
       ],
-      "check": "The record says this capacity holds many true things at once, and I can describe how that moves in a moment without saying what the person knows or calling their knowing deep. A reader could say the naming is off — that what I'm pointing at is ordinary indecision. Each ask is a small visible act that still teaches something if my read is wrong, so none collapse. The sentence that serves me more than them is the one that makes them sound like they carry multitudes; I've kept it out."
+      "check": "The shakiest claim is that holding many truths at once reads as standing at a shut door, since the record says only past-anchored and withdrawn, not what happened there. A reader could say this looks more like patient depth than a stuck stance. The asks survive being wrong because framing, holding a heading, shared work, and quiet fairness all do something useful regardless of my read. The sentence that serves me rather than them is any line pinning their history to the door."
     },
     {
       "attempt": 4,
-      "ms": 3276,
+      "ms": 3971,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"at its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 2
         },
         {
@@ -508,6 +718,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"What comes next shows itself once you are moving with anothe\" — end on the plain thing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -516,14 +744,26 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -534,83 +774,13 @@
           "status": 4
         }
       ],
-      "check": "The record says this capacity holds many true things at once; I can describe how that moves without saying what the person knows or calling their knowing deep. A reader could say the naming is off — that what I'm pointing at is ordinary indecision, not this. Each ask is a small visible act that still teaches something if my read is wrong, so none collapse. The sentence that serves me more than them is the one that makes them sound like they carry multitudes; I've kept it out."
-    },
-    {
-      "attempt": 5,
-      "ms": 3492,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says this capacity is abundant knowing — the fullness of perception — and I can describe how it is working in a moment without saying what the person knows or calling their knowing deep. A reader could object that what I'm pointing at is ordinary indecision, not this capacity; if that's so, each ask is still a small visible act that teaches something on its own. The sentence that serves me more than them is the one that makes them sound like they carry multitudes; I've kept it out."
+      "check": "The shakiest claim is that holding many truths at once reads as standing at a shut door, since the record says only past-anchored and withdrawn, not what happened there. A reader could say this looks more like patient depth than a stuck stance. The asks survive being wrong because framing, holding a heading, shared work, and quiet fairness all do something useful regardless of my read. The sentence that serves me rather than them is any line pinning their history to the door."
     }
   ],
   "usage": {
-    "input": 5408,
-    "output": 5374
+    "input": 8006,
+    "output": 4719
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:32:20.815Z"
+  "date": "2026-10-02T13:05:30.370Z"
 }

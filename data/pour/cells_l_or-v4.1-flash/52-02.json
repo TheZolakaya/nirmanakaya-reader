@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing at the beginning of something concrete now, and you know it.",
-      "ask": "Name one resource already in your hand, and say aloud the first small use you would give it.",
-      "core": "You can tell what matters before the reasons arrive. A room, a page, a conversation — the thing that counts shows itself to you early, and you have learned to trust that. It does not announce itself. It just keeps being the one you return to. That is what is holding this beginning steady.\n\nSomething concrete is ready to start. A resource, a chance, a commitment you could make today. Paying close attention keeps narrowing the field until the start is small enough to survive the week. There is strength from outside available too, once you show someone where it should go. Say the first use out loud — to a person or a page — and treat the saying as the beginning, not the finish.",
-      "sheetLine": "You see what counts before you can explain it.",
-      "verb": "recognizing what matters before explaining why, toward what is ready to be made",
-      "place": "before the counting starts, where what matters is already recognized",
+      "tense": "A beginning is in your hands and you have enough in you to steady it.",
+      "act": "share your strength where it is needed",
+      "ask": "Notice where someone in the thing you're starting is short-handed this week, and put your weight there once — one real, finished piece. Then leave it.",
+      "core": "You can feel what a beginning needs before anyone can explain it. So when something concrete finally lands in your hands — a first draft, a yes, a piece of work with edges — you can give it one form today and stop there. Nothing has to prove itself yet.\nYour strength is worth putting where it's actually short this week, not where it's easiest. Spot the person in it who is carrying more than their share, and finish one real piece for them — done, not promised. What the thing needs next shows itself while your hands are in it. It stays a seed, and it stays yours.",
+      "sheetLine": "You know what it needs. Give it one form today.",
+      "verb": "Starting something and giving it its first solid form",
+      "place": "In the quiet where you know what matters before you can say why",
       "provenance": {
         "signature_id": 52,
         "position_id": 2,
@@ -26,36 +27,42 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will know the right thing when it finally arrives, so nothing here quite qualifies yet.",
-      "ask": "Name one thing already in front of you, of whatever size, and take the first step on it before the day ends.",
-      "core": "You keep checking that you are seeing the right thing. Somewhere ahead is a version of this decision that will be obviously correct, and you measure everything against that version instead of against what is actually here. Each look confirms something and confirms nothing.\n\nWhat would go well: focused looking at the thing on the table, attention that reaches the end of it rather than circling. What is happening instead is a mind scanning ahead for the arrival that would make looking unnecessary. The beginning is already sitting in front of you. Pick one item, weigh it by what it actually is, and make the small first move on it now. Things come clear after you choose, not before.",
-      "sheetLine": "You're waiting for certainty before you begin.",
-      "verb": "recognizing what matters before explaining why, toward what is ready to be made",
-      "place": "before the counting starts, where what matters is already recognized",
+      "tense": "You are bracing for a future that hasn't arrived, and the beginning in front of you is being asked to prove itself early.",
+      "act": "take in the whole rainbow of what you feel",
+      "ask": "Before you decide the next move on it, sit ten minutes with what you actually feel about it — the mixed, unfinished, unsorted part. Don't tidy it. Then act.",
+      "core": "You can see what something wants to become, and that comes fast. So when a beginning is in your hands, you're three moves past it, and the small thing gets buried under the shape you're building for it. It looks like pressure from outside. Nothing gets to be early-stage in peace.\nSit with what you actually feel about it first — the mixed, unfinished, not-yet-sorted part — and give all of that weight before you commit to a form. Not so you'll decide better. So you're back where the thing is still growing, choosing from what you want rather than from what might go wrong.",
+      "sheetLine": "Its future is written early. Let it be early instead.",
+      "verb": "Starting something and giving it its first solid form",
+      "place": "In the quiet where you know what matters before you can say why",
       "provenance": {
         "signature_id": 52,
         "position_id": 2,
@@ -64,31 +71,32 @@
         "partner": "Completion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 103 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Things come clear after you choose, not before.\" — end on the plain thing",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stood at the edge of this once, and you are still answering from where that landed.",
-      "ask": "Describe one thing you can see clearly right now to someone, and use exactly the words you would use to yourself.",
-      "core": "There was a place where you saw something clearly, and taking it seriously did not go well. Since then you have kept seeing the same way but stopped acting on it, and you treat that caution as just how you are. You still attend the same way. It simply has not been spent on a beginning lately, and the hesitation has hardened into waiting.\n\nWhat is waiting is a clear look at what is here, said in plain words — not a final answer, just the next thing in view. Say one observation to someone whose hearing is neutral, and let the saying carry the weight instead of a decision. Starting goes easier where you have spoken out loud first.",
-      "sheetLine": "You still see clearly. You stopped acting on it.",
-      "verb": "recognizing what matters before explaining why, toward what is ready to be made",
-      "place": "before the counting starts, where what matters is already recognized",
+      "tense": "Something concrete was ready to begin, and you are still on the near side of it.",
+      "act": "lay every piece of it out where you can see all of it at once",
+      "ask": "Put every piece of the thing you keep circling on one page — facts, wants, worries — until you can look at the whole pile together.",
+      "core": "Something concrete was ready to begin, and it's still sitting where you left it. You can feel it there. Instead of a first move, you go looking for more information, or you wait for it to feel clearer, and the thing you've known about since the start stays unstarted. More looking was not what was missing.\nTry seeing it whole instead. Put every piece on one page — what you know, what you want, what worries you — until nothing is hidden and there's nothing left to uncover. The page is finished, and the next move after that is small and obvious. A clearer view isn't what's missing; the pile is already big enough.",
+      "sheetLine": "You see it. Lay it out and pick it up.",
+      "verb": "Starting something and giving it its first solid form",
+      "place": "In the quiet where you know what matters before you can say why",
       "provenance": {
         "signature_id": 52,
         "position_id": 2,
@@ -97,36 +105,37 @@
         "partner": "Clarity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "core 112 words (120–160)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already deciding what to give your attention to, and you are calling that attention just what happens.",
-      "ask": "Write down what you are attending to this week and mark which items you chose to include.",
-      "core": "You are already choosing what gets attended to. Rooms, conversations, problems — you have been picking among them for a while now, and the picks keep turning out to matter. It gets talked about as though circumstances did the picking.\n\nWhat would go well: knowing you are the one at the front of the lens, bringing some things close and letting others wait. What happens instead is the selecting runs in the background, credited to fate, mood, or other people's demands. None of that is false, and all of it hides the hand that was doing it. You are the one who picks. Put that back where you can watch it and it will settle the start for you.",
-      "sheetLine": "You are already choosing where your attention goes.",
-      "verb": "recognizing what matters before explaining why, toward what is ready to be made",
-      "place": "before the counting starts, where what matters is already recognized",
+      "tense": "You are already deciding what counts, and you describe it as the situation being that way.",
+      "act": "see it whole, with nothing hidden",
+      "ask": "Look at a call this week that felt forced on you. Take in the whole of it — what you wanted, what you left out — as a call you made.",
+      "core": "You know what counts before you can explain why, and that has been steering. Somewhere this week you made a call — what to attend to, what to let slide, what counted — and your account of it is that circumstances left no other option. The decision was yours already.\nLook at one of those whole: what you wanted, what you refused to see, what you were protecting. See it as something you chose rather than something the room did to you. You get your judgment back in your hands, and you can keep it or change it on purpose. Then the next call you make is one you can sign.",
+      "sheetLine": "What looks obvious, you have been choosing all week.",
+      "verb": "Starting something and giving it its first solid form",
+      "place": "In the quiet where you know what matters before you can say why",
       "provenance": {
         "signature_id": 52,
         "position_id": 2,
@@ -135,19 +144,14 @@
         "partner": "Clarity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
@@ -156,8 +160,8 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -166,107 +170,7 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6217,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"Your knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Support does\") — the act in plain words, the name once at most",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"your noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The border between Knowledge and Wisdom cannot be verified from outside. A person could reasonably answer that they have never felt any difference between weighing things and knowing them — that everything they trust, they checked. In that case the ask survives: it describes an act toward a presumption the record's own reading fails to prove, and the person can perform that act without accepting the reading at all. The sentence that serves me more than them is any that implies deep knowing is necessarily effortless — better to say fewer things, quietly, than to have the map validated in the person's ears."
-    },
-    {
-      "attempt": 2,
-      "ms": 3913,
+      "ms": 7429,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -279,14 +183,8 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
+          "detail": "\"your steadiness\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
-          "hard": false,
           "status": 1
         },
         {
@@ -296,20 +194,80 @@
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "the partner's name used as a common noun (\"what Support does\") — the act in plain words, the name once at most",
+          "code": "refrain",
+          "detail": "\", and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Things will come clear after you choose, not before.\" — end on the plain thing",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (seed, shape, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"feel the whole of it\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
@@ -317,6 +275,24 @@
           "code": "length",
           "detail": "core 116 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you need to\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 3
         },
         {
@@ -326,33 +302,51 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"what matters before you can\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -362,173 +356,114 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The border between weighing things and simply knowing what matters cannot be verified from outside, and a person could reasonably say they have never felt the difference — everything they trust, they checked first. The ask survives that objection: it describes an act toward a small beginning the reading itself may not prove, and it can be done without accepting any of the framing. The sentence that serves me more than them is any that implies seeing clearly is effortless — better to spend fewer words and let the acts carry the weight."
+      "check": "The unsupported claim is that the person can already tell a seed from a finished thing — the record gives the capacity for deep knowing, not proof it is currently accurate. A reader could reasonably say they know exactly what matters and have simply not acted; the reading still holds because the ask is about attending, not about certainty. The ask survives being wrong: giving one person your steadiness costs nothing if the read misses. The sentence that serves the writer more than the person is the Balanced cell's 'nobody has to carry it alone' — it flatters the reading rather than the person's week, so it is cut. The line 'something concrete is ready to begin' is never said; the person's own week has to supply it."
     },
     {
-      "attempt": 3,
-      "ms": 4587,
+      "attempt": 2,
+      "ms": 5641,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Things come clear after you choose, not before.\" — end on the plain thing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\" and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Whether a person can reliably tell what matters before they can explain why is not something the record establishes from outside, and someone could reasonably say that everything they trust they arrived at by checking, not by direct sight. The ask holds even if that is true: it points at one small beginning and names a first use, which can be done without accepting any of the framing. The sentence that serves me rather than them is any that implies seeing plainly is effortless — better to keep the words few and let the acts stand on their own."
-    },
-    {
-      "attempt": 4,
-      "ms": 3926,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Things come clear after you choose, not before.\" — end on the plain thing",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "length",
           "detail": "core 116 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you need to\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "the map's jargon: \"authorship\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -538,60 +473,83 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Whether a person can reliably tell what matters before they can explain why is not something the record establishes from outside, and someone could reasonably say that everything they trust they arrived at by checking, not by direct sight. The ask holds even if that is true: it points at one small beginning and names a first use, which can be done without accepting any of the framing. The sentence that serves me rather than them is any that implies seeing plainly is effortless — better to keep the words few and let the acts stand on their own."
+      "check": "The unsupported claim is that the person's sense of what matters is currently accurate or borrowed — the record gives a capacity for deep knowing, not a report on this week. A reader could reasonably say they know exactly what counts and have simply not acted; the reading still holds because each ask is about attending, not certainty. Every ask survives a wrong read: noticing one call costs nothing if the read misses. The sentence that serves the writer more than the person was the Balanced cell's old closing flourish; it is gone."
     },
     {
-      "attempt": 5,
-      "ms": 3847,
+      "attempt": 3,
+      "ms": 4354,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (room, field) — one at most, usually none",
+          "detail": "two images in one core (room, seed) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold someone else up with what you have\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Things come clear after you choose, not before.\" — end on the plain thing",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -602,14 +560,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -620,19 +578,106 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's sense of what matters is currently accurate or borrowed — the record gives a capacity for deep knowing, not a report on this week. A reader could reasonably say they know exactly what counts and have simply not acted; the reading still holds because each ask is about attending, not certainty. Every ask survives a wrong read: noticing one call costs nothing if the read misses. The sentence that serves the writer more than the person was the Balanced cell's old flourish about not carrying it alone; it is gone."
+    },
+    {
+      "attempt": 4,
+      "ms": 4148,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Whether a person can reliably tell what matters before they can explain why is not something the record establishes from outside, and someone could reasonably say that everything they trust they arrived at by checking, not by direct sight. The ask holds even if that is true: it points at one small beginning and names a first use, which can be done without accepting any of the framing. The sentence that serves me rather than them is any that implies seeing plainly is effortless — better to keep the words few and let the acts stand on their own."
+      "check": "The unsupported claim is that the person's read on what matters is currently accurate or borrowed — the record gives a capacity for deep knowing, not a report on this week. A reader could reasonably say they know exactly what counts and have simply not acted; the reading holds because each ask is about attending, not certainty. Every ask survives a wrong read: noticing a call or a person's load costs nothing if the read misses. The writer-serving sentence was the Balanced cell's old 'you don't have to steady it alone' flourish; it is gone."
     }
   ],
   "usage": {
-    "input": 5051,
-    "output": 5198
+    "input": 8169,
+    "output": 4638
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:30:04.788Z"
+  "date": "2026-10-02T12:17:39.286Z"
 }

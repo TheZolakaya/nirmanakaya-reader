@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you are the one gathering people into meaning, and you know it.",
-      "ask": "Before the day ends, start one thing for no reason but the people in it — and let it stay unplanned. Notice what the room does without your managing it.",
-      "core": "You can hold joy with people without losing your footing. The meaning gets made in the middle of the room, not managed from its edge, and you're in the middle of it. There's a grip in you that would rather keep things tidy than let them get warm. Right now it gives way, and the release is the good part.\n\nBecause of that, what you put into the room comes back multiplied. You're not forcing cheer and you're not waiting to be carried; you're contributing what only you have and letting the rest arrive on its own. This is the balance at its steadiest: you know what's worth keeping and what's worth setting down, and you move between those without making it a thing. It cost something to get here — you gave up the version where you were sure first. Keep paying that: it's cheaper than the alternative, and it leaves a room warmer than you found it.",
-      "sheetLine": "You can put joy in a room without gripping it.",
-      "verb": "making joy and meaning together with people",
-      "place": "where the grip is being let go",
+      "tense": "The pen is in the hand and the page is open now.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Take the jumble about a gathering you want — what to bring, when, for whom — and put it as a single sentence. Not a schedule. Carry that sentence a day or two and add nothing to it.",
+      "core": "When the ones who gather with you are in the middle of it, the joy does not need you to hold it up. It runs on what was put in together, so you can stand inside it, and the shoulders come down a little when it lands. Turning feeling into work is not the price of it.\n\nGathering the jumble about a gathering you want — what to bring, when, for whom — into a single sentence, no schedule, is the smaller version of the same move. Belonging does the load-bearing, not shrinking to fit. Carry that sentence a day or two, add nothing to it, and the raw wish behind it gets simpler. That simpler wish is still yours to keep.",
+      "sheetLine": "You can stand inside the joy without holding it up.",
+      "verb": "Celebration — the gathering of feeling toward things.",
+      "place": "In the room of released grip, where what is held gets set down.",
       "provenance": {
         "signature_id": 44,
         "position_id": 12,
@@ -26,14 +27,19 @@
         "partner": "Reconciliation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are pushing for a good moment that has not arrived, and you are living ahead of it.",
-      "ask": "Pick one thing you're trying to make go right and let it be ordinary tonight. Say nothing to steer it, and see if it holds.",
-      "core": "You can feel the gathering before it happens, and your hands are on it early. There's a version ahead where the room finally gets it and feels it together, and you're working toward that version in rooms that are still sitting here. The effort you're spending to make the moment good is using up the moment it was for.\n\nWhat's underneath is real warmth; it's just running ahead of what's actually happening. You plan the toast before anyone's laughed, you line up the memory before it's been made. Nothing that lives in a shared room survives that much direction — joy especially, which arrives late and doesn't take instructions. The release here isn't feeling less. It's letting something fall that needed to fall, and standing in what's here instead of what you were building toward. What you're reaching for is already available, just smaller and messier than the version you're rehearsing.",
-      "sheetLine": "You're working so hard at the moment that you're missing it.",
-      "verb": "making joy and meaning together with people",
-      "place": "where the grip is being let go",
+      "tense": "The pen is hovering above the page that has not been written yet.",
+      "act": "keep building the thing with sustained craft",
+      "ask": "This week, carry the fire the gathering is meant to be. One message a day to one person — not to arrange it, just to move it forward — and drive the week's heat toward that single night.",
+      "core": "Something is being arranged ahead of itself. Each plan gets carried past where it actually stands, each coming-together pushed beyond the moment it is happening in, and the sense carried forward is that there has to be a group for this to count. Pleasure already given has already been passed over. Waiting to be met has replaced being met.\n\nSending one message a day to one person — not to arrange it, just to move it forward — drives the week's heat toward that single night. Not so it can be certain to go well. So the warmth stays in today and reaches the ones who come. Then take the gathering already made.",
+      "sheetLine": "You keep tomorrow's fire and stand outside today's.",
+      "verb": "Celebration — the gathering of feeling toward things.",
+      "place": "In the room of released grip, where what is held gets set down.",
       "provenance": {
         "signature_id": 44,
         "position_id": 12,
@@ -59,11 +66,31 @@
         "partner": "Commitment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep building the thing with sustained craft\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -73,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "Your grip has closed around something, and you are still standing at a door that is already behind you.",
-      "ask": "Choose one thing you've been holding onto — a plan, a keepsake, a small grudge — and put it somewhere it isn't yours to carry for an evening.",
-      "core": "The offering has stopped. Something that used to go out toward people isn't going out now, and the grip is holding more than it used to. The joy is still in you; it's just not moving toward a room, and the quiet can pass for a preference when nothing's testing it.\n\nThe part that's thin isn't the ability to feel good with people. It's the picking-up-and-putting-down — you don't have to know how that got thin before you test whether it's still thin. Your hands know how to release things; that's older than any of this. So rest your effort where it isn't invited, and let the grip loosen by itself. One small thing set down tonight tells you more than any amount of thinking about whether you still can. It doesn't need to be impressive. It just needs to leave your hands.",
-      "sheetLine": "You have joy to share and you've stopped sharing it.",
-      "verb": "making joy and meaning together with people",
-      "place": "where the grip is being let go",
+      "tense": "The pen is down and the page is behind you, and the gathering moved on without your catching it.",
+      "act": "follow the thought past where it is comfortable",
+      "ask": "Pick a gathering you were part of and walk it back slowly, past the boring stretch, further than feels natural. Read it a second time and name whatever surfaces. Then leave it there.",
+      "core": "There is a gathering you were in, and the feeling was already moving when you arrived. You touched it lightly and stepped back out. Not because it was too much — because touching shared feeling asks a weight you did not want to carry. So you held the edges instead, and news of the good ones comes to you secondhand.\n\nWalking a gathering back slowly — past the boring stretch, further than feels natural — and reading it a second time is how that reopens. Name whatever surfaces, then leave it there. Not an explanation and not a feeling. Belonging was there for you, and it returns this way first — not by wanting to feel it, but by looking at it.",
+      "sheetLine": "The shared feeling went by and you held the edges.",
+      "verb": "Celebration — the gathering of feeling toward things.",
+      "place": "In the room of released grip, where what is held gets set down.",
       "provenance": {
         "signature_id": 44,
         "position_id": 12,
@@ -87,14 +115,14 @@
         "partner": "Immersion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
@@ -106,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already making joy with people, and you are talking about it as if it were happening around you.",
-      "ask": "Name one good moment you were part of today and claim your part in it out loud, once, to someone who was there.",
-      "core": "You're already the source of good moments in the rooms you walk into. People relax when you arrive, they follow your lead into the joke, and you'd describe all of that as the room's doing. But the room didn't do it — you did, and you've been crediting the air.\n\nThe reason this is hard to see is that it works better when you don't look at it. The unclaimed version is easy and generous-feeling, and it also means the one doing it gets no credit from themselves. That's the cost. When you gather your thoughts enough to notice what you're actually authoring, the credit comes back to where it belongs, and you can do it on purpose instead of by accident. The joy doesn't change. The ownership does. Claim one thing you did and see if the room feels different when you're standing in it.",
-      "sheetLine": "The joy in the room is yours. You call it the room's.",
-      "verb": "making joy and meaning together with people",
-      "place": "where the grip is being let go",
+      "tense": "The pen is moving and the hand has lost track of whose hand it is.",
+      "act": "reconcile what you know with what you feel about it",
+      "ask": "Set two sentences side by side about a gathering you want: one for how you know it should go, one for what you actually want from it. Bring them together. No plan, no telling.",
+      "core": "You are the one who brings the left-out ones inside the circle. You spot who is standing at the edge and you walk them in. You would call it being decent, or good hosting, and file it under getting along. The steering is happening. You are not the one keeping the record.\n\nSetting two sentences side by side about a gathering you want — one for how you know it should go, one for what you actually want from it — brought together, no plan and no telling, shows your hand in the host in you. That hand has been doing the steering. Putting it on paper changes how the role reads.",
+      "sheetLine": "You bring people in and call it getting along.",
+      "verb": "Celebration — the gathering of feeling toward things.",
+      "place": "In the room of released grip, where what is held gets set down.",
       "provenance": {
         "signature_id": 44,
         "position_id": 12,
@@ -120,19 +149,24 @@
         "partner": "Reconciliation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -146,21 +180,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6761,
+      "ms": 6561,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the letting go\" — a verb turned into a mystical noun",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -170,127 +222,228 @@
           "status": 1
         },
         {
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"us\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"where you'd normally turn away\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "Too Much says the celebration is arranged ahead of time so the sharing never starts, which leans on the record's 'anxiety and pushing ahead of timing' — a reader could answer that they enjoy the arranging and the people in it do too. The ask survives being wrong: even a wrong read of that person is answered by taking one gathering further than the room looks ready for, since that is the shape of carrying an intuition past the point of certainty. The sentence that serves the writer more than the person is the one starting 'Because it has to keep going for her' in the Too Much core — that much motive is not in the record. Fixed: the Too Much core no longer claims anyone's reasons, and the Unacknowledged core locates the grip but does not say what caused it."
+    },
+    {
+      "attempt": 2,
+      "ms": 4658,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "scope",
           "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"to pass on and you've\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The one unsupported claim is that someone in a guarded season has stopped offering joy because a room once went badly — Too Little may locate the person behind the present but not narrate what happened there, so the card must carry that weight and the ask must sit on the body today. The reader could reasonably say the quiet is temperament or a chosen pause, or that their grip is on something they still need; the fix is to name the grip and the letting go as observable, never to name a cause. The ask still works if the read is wrong: putting down one held thing for an evening is useful whether or not anyone is holding the pen. The sentence that serves the writer is the tidy line about a closed room; it flatters the pattern instead of the person, so it comes out."
-    },
-    {
-      "attempt": 2,
-      "ms": 4652,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "detail": "the map's jargon: \"Bound\"",
           "hard": true,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"you're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\" and let the whole\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep building the thing with sustained craft\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -300,14 +453,14 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"to pass on and you've\"",
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
           "hard": true,
           "status": 3
         },
@@ -318,14 +471,44 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "the map's jargon: \"Bound\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -334,20 +517,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person has closed a grip and is not handing anything outward — the card can locate a hold on the body today, but it cannot say a past room stopped the offering. The reader could reasonably say the quiet is a chosen pause or a temperament; the fix is to describe the present hold and the present release, never a cause. The ask survives either way: setting one held thing down for an evening is useful whether or not the read lands. The sentence that serves the writer is the tidy line about the closed door; it flatters the pattern instead of the person, so it comes out."
+      "check": "The Too Much cell says the person is arranging the gathering instead of being in it, which leans on the record's over-expressing and pushing past timing — a reader could answer that the arranging is itself the pleasure. The ask survives being wrong: taking one gathering further than the room looks ready for is the act of carrying an intuition past certainty, useful regardless. The sentence that serves the writer more than the person was the old 'the wanting stays in today' — cut; the Too Much core now describes what is seen in a moment, not a motive. Unacknowledged locates the grip on the host role but does not say what caused it."
     },
     {
       "attempt": 3,
-      "ms": 3688,
+      "ms": 4782,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -356,6 +562,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep building the thing with sustained craft\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -364,9 +594,15 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
           "status": 3
         },
         {
@@ -376,14 +612,26 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "names",
+          "detail": "another card's name on glass: Faith",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -394,13 +642,107 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person has a closed grip and is not sending warmth outward — the card can locate a hold observable today, but it cannot say a past room stopped the offering; Too Little names where they stand, never why. The reader could reasonably say the quiet is a chosen pause or a temperament; the fix is to describe the present hold and the present release, never a cause. The ask survives either way: setting one held thing down for an evening is useful whether or not the read lands. The sentence that serves the writer is the tidy line about the closed door; it flatters the pattern instead of the person, so it comes out."
+      "check": "The Too Much cell says the gathering is being arranged ahead of itself rather than lived in, which leans on the record's over-expressing and pushing past timing — a reader could answer that the arranging is itself the pleasure. The ask survives being wrong: carrying the fire toward one night by messaging one person a day is the act of persisting at something through a week of not being sure, and it teaches something either way. The sentence that serves the writer more than the person was the old 'the warmth stays in today and reaches the ones who come' — cut; the Too Much core now describes what is seen in a moment, not a motive. Unacknowledged locates the grip on the host role but does not say what caused it."
+    },
+    {
+      "attempt": 4,
+      "ms": 4500,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep building the thing with sustained craft\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reconcile what you know with what you feel about i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The Too Much cell says the gathering is being arranged ahead of itself rather than lived in, which leans on the record's over-expressing and pushing past timing — a reader could answer that the arranging is itself the pleasure. The ask survives being wrong: carrying the fire toward one night by messaging one person a day is the act of persisting at something through a week of not being sure, and it teaches something either way. The sentence that serves the writer more than the person was the old 'the warmth stays in today and reaches the ones who come' — cut; the Too Much core now describes what is seen in a moment, not a motive. Unacknowledged locates the grip on the host role but does not say what caused it."
     }
   ],
   "usage": {
-    "input": 2977,
-    "output": 3890
+    "input": 8362,
+    "output": 4880
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:35:29.802Z"
+  "date": "2026-10-02T12:09:01.495Z"
 }

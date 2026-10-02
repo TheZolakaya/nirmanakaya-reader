@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now the sense of what's fair is steady, and you know it.",
-      "ask": "Say one line you hold to one person this week — once, plain, without softening it afterward.",
-      "core": "Something in you registers what's fair before any argument starts. It isn't a rule you looked up. It's a pull that arrives whole, the way a room feels wrong before anyone says why. When someone gets talked over, you feel it land in your body first. That read is steady right now, steady enough that you stop hearing it work.\n\nBeing steady isn't the same as being finished. It's only ever been as good as what happens in the room where you felt it. There's a habit you keep, or one your people keep, that hasn't been said out loud in a while. Say it where it counts. What you do after you feel the thing is what keeps the feeling sharp.",
-      "sheetLine": "You feel what's fair before you can argue it.",
-      "verb": "feeling what's fair before it becomes an argument",
-      "place": "the shared standard people keep by doing things the same way",
+      "tense": "Right now the felt sense of what is fair sits steady in the body.",
+      "act": "collect the fruit of the patient wait",
+      "ask": "Gather what this table already grew in you — a phrase, a habit of honesty, a way of holding your ground — and set it where you pass it daily. No next step.",
+      "core": "Your sense of what is fair is working well, and it comes from the body before it comes from an argument. You can tell what is owed here and what is not, and that arrives before the words for it. That is why you can stand inside a shared tradition and still notice whose story is being kept and whose is being skipped.\n\nWhat this balance is free to feed next is a harvest: the fruit of a long patience. Gather what this table already grew in you — a phrase, a habit of honesty, a way of holding your ground — and set it where you pass it daily. Not a case you build; just the gathered thing, kept where it can be seen. The patience was real, and the yield is here now. Take it in slowly, and leave it without a next step attached.",
+      "sheetLine": "You can tell what is owed here, and you are right.",
+      "verb": "weighing what is fair against what is owed",
+      "place": "at the table where a shared story gets kept or changed",
       "provenance": {
         "signature_id": 46,
         "position_id": 5,
@@ -26,11 +27,16 @@
         "partner": "Harvest",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -38,29 +44,30 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"collect the fruit of the patient wait\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You keep re-running what already happened, checking whether it came out even.",
-      "ask": "Pick one thing you did unevenly and tell one person, then leave it alone for a day.",
-      "core": "You're bracing for the next unfairness before it gets here. A choice gets weighed before you make it, then weighed again after — did that land, did someone lose by it. The read itself is fine. It's the timing that's off: you're holding today up against a day that hasn't arrived. Nothing you do comes out clean enough, because the scale in your head keeps moving.\n\nFairness doesn't need a live audit. It runs on a body that remembers the room and moves from there. When you let one uneven thing stand, you find out the scale does fine without you. The habit stays alive in a room, not in a review. Let one person see something unfinished from you.",
-      "sheetLine": "You audit yesterday instead of letting today even out.",
-      "verb": "feeling what's fair before it becomes an argument",
-      "place": "the shared standard people keep by doing things the same way",
+      "tense": "Tomorrow's fairness is being argued tonight, and none of it can be said plainly yet.",
+      "act": "give a concrete piece of help and finish it",
+      "ask": "Give one small concrete piece of help with the story you all keep — one message, one task — and finish it without checking whether it was received fairly.",
+      "core": "Inside something shared, your sense of fairness has become a calculation running faster than the room. The next debt is already figured, along with who will undercount it and what will need correcting before anyone speaks. The compass is accurate. It is also running the whole conversation in advance, and the ones sitting with you are getting a verdict before they have opened their mouths.\n\nFairness returns when some of it moves outward as a gift rather than a reckoning. Give one small concrete piece of help with the story you all keep — one message, one task — and finish it. Then leave the receiving alone; no tally of whether it landed fairly. The calculation loses a little of its hold each time strength goes out that way, and what is left of it will know what it is for.",
+      "sheetLine": "You are grading a conversation that has not happened yet.",
+      "verb": "weighing what is fair against what is owed",
+      "place": "at the table where a shared story gets kept or changed",
       "provenance": {
         "signature_id": 46,
         "position_id": 5,
@@ -69,19 +76,19 @@
         "partner": "Support",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -90,20 +97,21 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing in the doorway of a room where you would have to speak.",
-      "ask": "Name one thing you owe, or one thing owed to you, and say it to the person it belongs to.",
-      "core": "The read is still there. You just stopped reaching for it. It shows as distance — watching a shared habit carry on without you, or going along while what you actually think stays quiet. Saying what felt fair stopped somewhere. You can still feel where it's uneven. You just don't put it in the room.\n\nNothing is wrong with the read. What's off is its size. It comes back in smaller moves — one line to one person, one word for what you actually think. The habit holds that word better than an argument would. Mention what you owe, or what someone owes you, where it can be heard.",
-      "sheetLine": "You still feel where it's uneven, and you're not saying so.",
-      "verb": "feeling what's fair before it becomes an argument",
-      "place": "the shared standard people keep by doing things the same way",
+      "tense": "The last door closed already, and you are still standing where it used to be.",
+      "act": "point to the passage you can see",
+      "ask": "Point one person toward the way through at this table — the thing that once helped you get your footing — out loud, once. Nothing owed after that.",
+      "core": "Something shared was tested, and your sense of what was fair came back quieter than you expected. The table is still set, the story is still being kept by someone, and you have stopped deciding anything about it. Not because the compass is broken — because nothing in you will mark an answer and stand behind it. From the outside this looks like peace. From where you sit, it is under-expressing: a door you cannot quite step back through.\n\nThere is a way back that does not ask for a verdict. Point one person toward the way through at this table — the thing that once helped you get your footing here. Just the direction, spoken once, with nothing owed after it. Nothing is collected for it either. Showing the way does not require the compass to decide first; it only asks you to remember where you got in.",
+      "sheetLine": "The table is still set, and you are not sitting down at it.",
+      "verb": "weighing what is fair against what is owed",
+      "place": "at the table where a shared story gets kept or changed",
       "provenance": {
         "signature_id": 46,
         "position_id": 5,
@@ -112,14 +120,24 @@
         "partner": "Guidance",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (compas, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -128,20 +146,26 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The read is steering the room while you describe the room as if it steered itself.",
-      "ask": "Name one practice you call the way things are done as yours, out loud, once — then leave it standing.",
-      "core": "Your read of what's fair is already in the habit. It shows in what you let pass, what you call out, the standard you hold a room to without calling it yours. You say that's how it's done here, and that's true. It just leaves you out of the sentence. The calls that hold the thing together don't get credited to the one making them.\n\nThe read isn't only the room's. It came to you first, and the room repeated it back until it fit the group. Say it once, plainly, in your own name. The standard doesn't get weaker when one person owns it.",
-      "sheetLine": "The standard is yours, and you call it how it's done.",
-      "verb": "feeling what's fair before it becomes an argument",
-      "place": "the shared standard people keep by doing things the same way",
+      "tense": "Your hand is at the pen, and you have not noticed the page is already yours.",
+      "act": "list the pulls on you and mark which are yours",
+      "ask": "For a month, keep a running list of the pulls on you at this table — what family, faith, or friend expects — and mark the ones you chose. No verdicts.",
+      "core": "You have been the one seeing what is fair in this shared story, and you talk like you are only reporting it. The calls about what to keep and what to drop carry your judgment inside them; you speak as if the tradition settled it by itself. What you are doing is private and accurate, and the account you give people leaves your hand out of it.\n\nThere is a simpler thing underneath the account. For a month, keep a running list of the pulls on you at this table — what family, faith, or friend expects — and mark the ones you chose. No verdicts, just marks. What is marked is you; what is unmarked was not weighing on you the way it sounded, and either way you can see the whole set on one page instead of hearing it all argue.",
+      "sheetLine": "You are deciding what is fair here and calling it the times.",
+      "verb": "weighing what is fair against what is owed",
+      "place": "at the table where a shared story gets kept or changed",
       "provenance": {
         "signature_id": 46,
         "position_id": 5,
@@ -150,24 +174,19 @@
         "partner": "Discernment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -176,20 +195,14 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6793,
+      "ms": 6813,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
@@ -200,121 +213,21 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"collect the fruit of the patient wait\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Equity",
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every choice\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says this capacity's working face is a clear sense of what's right that arrives without argument — it does not say the person's pull is accurate, consistent, or acted on, and each cell hedges that by calling the pull theirs and current, not correct. A reader could object that this seat is about shared customs, not private knowing — the cells answer by seating the pull in the room with other people, in the habit and the shared standard. The ask survives a wrong read: a check-in, a line said, one word to a person, or looking up one rule is useful even if the diagnosis misses. The sentence that serves the writing more than the person: any line that makes the compass sound trustworthy, or the group's standard sound like the person's own — both were cut."
-    },
-    {
-      "attempt": 2,
-      "ms": 4242,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
           "status": 1
         },
         {
@@ -325,20 +238,209 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the opening\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (room, compas, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let them walk\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"once and let them walk\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record does not say what happened when fairness was last tested, so every cell keeps to the internal weighing itself and never names an event. A reader could reasonably object that a felt sense of fairness is not a countable ledger — but the weighing language follows the signature's own account of loss measured internally, and the asks survive a wrong read because each one teaches the person something about how their sense of what is right meets other people's. The sentence that serves the writer more than the person is any line that would make the private compass sound like a virtue rather than a load; those are cut."
+    },
+    {
+      "attempt": 2,
+      "ms": 4243,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let them hold\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"collect the fruit of the patient wait\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (3 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -348,14 +450,32 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "vocab",
+          "detail": "\"the opening\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (compas, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -366,41 +486,47 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\" and let them take\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says this capacity registers fairness privately, before it becomes an argument; it does not say the person's read is correct, consistent, or spoken, and each cell keeps the claim on the registering rather than on the verdict. A reader could object that Culture is about shared customs, not private moral sense — the cells answer by seating the read in the room and the habit rather than in the head alone. The ask survives a wrong read: naming a line, admitting an uneven thing, checking a habit, or claiming one practice is useful even if the diagnosis misses. The sentence that served the writer more than the person — any line that made the read sound trustworthy, or made the group's habit sound like the person's own — has been cut."
+      "check": "The record does not say what happened when fairness was last tested, so every cell keeps to the internal weighing itself and never names an event. A reader could reasonably object that a felt sense of fairness is not a countable ledger — but the weighing language follows the signature's own account of loss measured internally, and the asks survive a wrong read because each one teaches the person something about how their sense of what is right meets other people's. The sentence that serves the writer more than the person is any line that would make the private compass sound like a virtue rather than a load; those are cut."
     },
     {
       "attempt": 3,
-      "ms": 3351,
+      "ms": 4323,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -412,32 +538,26 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -448,14 +568,26 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (compas, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -466,45 +598,56 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\" and let them take\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says this capacity registers fairness privately, before it becomes an argument; it does not say the person's read is correct, consistent, or spoken, and each cell keeps the claim on the registering rather than on the verdict. A reader could object that Culture is about shared customs, not private moral sense — the cells answer by seating the read in the room and the habit rather than in the head alone. The ask survives a wrong read: naming a line, admitting an uneven thing, saying what is owed, or claiming one practice as yours is useful even if the diagnosis misses. The sentence that served the writer more than the person — any line that made the read sound trustworthy, or made the group's habit sound like the person's own — has been cut."
+      "check": "The record does not say what happened when fairness was last tested, so every cell keeps to the internal weighing itself and never names an event. A reader could reasonably object that a felt sense of fairness is not a countable ledger — but the weighing language follows the signature's own account of loss measured internally, and the asks survive a wrong read because each one teaches the person something about how their sense of what is right meets other people. The sentence that serves the writer more than the person is any line that would make the private compass sound like a virtue rather than a load; those are cut. The status 1 ask is the Harvest act itself — a visible gathering — not a speech act, since the medicine is not about people."
     },
     {
       "attempt": 4,
-      "ms": 3256,
+      "ms": 4611,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -513,31 +656,31 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\", and let it sit\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"collect the fruit of the patient wait\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -548,14 +691,26 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (compas, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -566,37 +721,154 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record does not say what happened when fairness was last tested, so every cell keeps to the internal weighing itself and never names an event. A reader could reasonably object that a felt sense of fairness is not a countable ledger — but the weighing language follows the signature's own account of loss measured internally, and the asks survive a wrong read because each one teaches the person something about how their sense of what is right meets other people. The sentence that serves the writer more than the person is any line that would make the private compass sound like a virtue rather than a load; those are cut. The four asks are deliberately different shapes: a gathering left on a shelf, a bounded piece of help, an open-ended showing, and an ongoing practice with no finish."
+    },
+    {
+      "attempt": 5,
+      "ms": 4050,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"collect the fruit of the patient wait\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, compas) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
           "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (compas, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says this capacity registers fairness privately, before it becomes an argument; it does not say the person's read is correct, consistent, or spoken, and each cell keeps the claim on the registering rather than on the verdict. A reader could object that Culture is about shared customs, not private moral sense — the cells answer by seating the read in the room and the habit rather than in the head alone. The ask survives a wrong read: naming a line, admitting an uneven thing, saying what is owed, or claiming one practice as yours is useful even if the diagnosis misses. The sentence that served the writer more than the person — any line that made the read sound trustworthy, or made the group's habit sound like the person's own — has been cut."
+      "check": "The record does not say what happened when fairness was last tested, so every cell keeps to the internal weighing itself and never names an event. A reader could reasonably object that a felt sense of fairness is not a countable ledger — but the weighing language follows the signature's own account of loss measured internally, and the asks survive a wrong read because each one teaches the person something about how their sense of what is right meets what is shared. The sentence that serves the writer more than the person is any line that would make the private compass sound like a virtue rather than a load; those are cut. The four asks are deliberately different shapes: a gathering with no finish, a bounded piece of help, a spoken direction with nothing owed, and a standing practice with no end date."
     }
   ],
   "usage": {
-    "input": 3727,
-    "output": 4256
+    "input": 6435,
+    "output": 6453
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:37:05.853Z"
+  "hardOpen": 1,
+  "date": "2026-10-02T13:08:32.577Z"
 }

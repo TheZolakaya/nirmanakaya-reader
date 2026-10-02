@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing inside what careful tending has already produced, and you can see its shape.",
-      "ask": "Name one real cost of this abundance to one person today, plainly.",
-      "core": "You can see how the parts of this fit together — the effort, the timing, the people who showed up, all of it. That kind of seeing doesn't come from standing outside. It comes from having worked the thing long enough that it holds a shape now, and you're inside that shape while you see it.\n\nWhat's free to feed next isn't the next project. It's the next question. You've proved a method; what's open is what you're testing with it. Answer that once, honestly, and you learn more than a season of checking. What you built is real. Growing it is the part you keep, long after the abundance has been spent.",
-      "sheetLine": "You see the whole garden because you grew it.",
-      "verb": "Tending what grew until the abundance shows its fruit.",
-      "place": "The vantage that sees the whole pattern at once.",
+      "tense": "What was tended over a long season is standing in the open now.",
+      "act": "engage the hard part on purpose and see what holds",
+      "ask": "Go at the hardest piece of this on purpose for twenty minutes — not to repair it. Watch what holds when you press.",
+      "core": "Standing a step back comes naturally to you. From there you can see how the parts of a piece of work carry each other — which beam holds the load, which one was decoration. Most people have to squint for that. You just look.\n\nSomething you tended a long while is bearing fruit where you can see it. There's a section of it you've been stepping around, and that's the one worth your twenty minutes — press on it and watch what stays standing. What you're after is a plain fact about the thing, not a compliment about you. The rest can stay unmeasured a while yet; you'll know soon enough.",
+      "sheetLine": "You can see how the parts of a thing are holding.",
+      "verb": "reaping what patient tending came to",
+      "place": "one step back, seeing how all of it fits",
       "provenance": {
         "signature_id": 60,
         "position_id": 20,
@@ -26,24 +27,19 @@
         "partner": "Dedication",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -55,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are braced against a lean season that has not arrived and may not.",
-      "ask": "Choose one thing to finish before starting anything else, and finish it today.",
-      "core": "There's more growing than you can point to, and you're bracing for what it will demand next. The abundance got real, so now you're ahead of it — planning the next yield, guarding against a shortfall that isn't on the calendar. Your attention arrives before the thing does, and it keeps arriving early.\n\nThe thing that matters most in the next stretch is usually right in front of you, and bracing skips past it to the thing after. You can see that it's all connected, and it is — but connection isn't urgency. Pick one thing and finish it before you start another. Let the rest stay possible. Then watch how much of the pressure was the crop's at all.",
-      "sheetLine": "You're harvesting a season you haven't grown yet.",
-      "verb": "Tending what grew until the abundance shows its fruit.",
-      "place": "The vantage that sees the whole pattern at once.",
+      "tense": "You are already bracing for a harvest that has not been planted yet.",
+      "act": "meet someone in the middle and go on together",
+      "ask": "Take a walk with the person who's been in this with you. Say what you see working, hear what they see, and keep walking from there.",
+      "core": "You look at what you've built and your eye goes straight to next season — what it could be, what would make it hold. That's a good eye. Right now it's running past the ground it's standing on, and the garden under your feet shrinks each time it does. Saying what already works would cost you nothing, but it feels like settling for less.\n\nOne person has been in this with you, closer than the rest. Say what you see working — no plan attached — then hear what they see, and go on from there. What you want is to be looking at one garden together instead of two versions of it.",
+      "sheetLine": "You're guarding a harvest that's already growing.",
+      "verb": "reaping what patient tending came to",
+      "place": "one step back, seeing how all of it fits",
       "provenance": {
         "signature_id": 60,
         "position_id": 20,
@@ -69,19 +66,24 @@
         "partner": "Merge",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"meet someone in the middle and go on together\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -93,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "The growing is behind you and you are still standing at the gate.",
-      "ask": "Return to one thing that grew under your care and stay with it ten minutes.",
-      "core": "You put things in the ground, and you may not have stayed to see what came up. There's plenty alive around you — taken care of, kept going, showing for it — and you're not in the room where it grows. Catching a whole pattern at once takes time in the same place, and you've been somewhere else, or waiting for a season that already came.\n\nThe pattern doesn't hold if you don't stand inside it long enough to receive it. Go back to one thing that grew under your care and sit with it. Not to fix it — to watch. Eventually you can tell the story of how it happened, in order. More energy isn't the missing piece. Look at something you actually grew and let it count.",
-      "sheetLine": "The garden kept growing. You stopped watching it.",
-      "verb": "Tending what grew until the abundance shows its fruit.",
-      "place": "The vantage that sees the whole pattern at once.",
+      "tense": "You are still standing at the far side of a door you already walked through.",
+      "act": "face one way for three days",
+      "ask": "Face one direction for three days. No survey, no backup plan — just the heading you want, kept steady.",
+      "core": "The eye works — you can see how a thing fits together across all its layers. Lately it's been turned toward what already happened, or what's missing, and there's not much left over for the field you're actually in. From where you stand the ground looks thin. Much of it has been growing anyway; you haven't been looking at it.\n\nStand in that field and face one direction for three days — the one you want, chosen by pull rather than argument. No surveying, no backup plan, just the heading. What you want is to find out which light you're actually following once you stop checking. If it fades, you'll know it was the argument talking.",
+      "sheetLine": "The eye works. Lately it's turned toward what's already over.",
+      "verb": "reaping what patient tending came to",
+      "place": "one step back, seeing how all of it fits",
       "provenance": {
         "signature_id": 60,
         "position_id": 20,
@@ -107,14 +110,14 @@
         "partner": "Orientation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
@@ -131,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already seeing how the parts connect, and you call it something else.",
-      "ask": "Say once, in your own words, that the thread between these results was yours to tend.",
-      "core": "You're the one who noticed the connection between the parts — the timing, the missing piece, the way the pieces fit. You've done it so fluently it stopped registering as something you do. It sounds like describing the work, not like anything of yours at all.\n\nTracing a thread runs whether you claim it or not. What doesn't run is everything that follows from owning it: the right to be asked, the next thing you'd say yes to. That's the gap — not the tracing, the owning. Say once, plainly, that the thread between these results was yours to tend. Not loudly. Once is enough. It's the truth catching up with what's already happening.",
-      "sheetLine": "The pattern is yours. You call it the situation.",
-      "verb": "Tending what grew until the abundance shows its fruit.",
-      "place": "The vantage that sees the whole pattern at once.",
+      "tense": "You are reading the pattern while telling yourself the pattern read itself.",
+      "act": "release the method, not the purpose",
+      "ask": "Keep the effort you'd do unwatched this week. Let go of one other that only exists because someone sees it.",
+      "core": "You see a shape across things most people miss, and you've been calling it staying practical. You're reading it right — you're just not signing it. From outside, the sense arrives before the name does. Ask how it got there and you'd point to circumstances, the people, the luck. All real, none of them enough.\n\nReturn to what you actually mean to do. Keep the effort you'd do even unwatched, and keep it this week. Let go of one other that only exists because someone sees it. Commitments you no longer notice making are still yours, and this is one way to find out which ones those are.",
+      "sheetLine": "You read the pattern and file it under circumstance.",
+      "verb": "reaping what patient tending came to",
+      "place": "one step back, seeing how all of it fits",
       "provenance": {
         "signature_id": 60,
         "position_id": 20,
@@ -145,14 +149,29 @@
         "partner": "Dedication",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 107 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -166,56 +185,50 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5543,
+      "ms": 6344,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"horizon\"",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 2
         },
@@ -224,12 +237,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "refrain",
@@ -238,15 +245,51 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "detail": "\"The noticing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -254,32 +297,129 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The one claim the record doesn't make is that the person is enjoying the flourish itself; it only says they have one to enjoy, so the reading names the tending and the abundance without their stance toward it. A reader could reasonably say the recognition isn't theirs at all, that the pattern-caught is only workload — but the record says authorship is misattributed, so that very refusal is the scene, not a refutation of it. The asks survive a wrong read: pouring effort at one horizon, sitting long enough to track a pattern, naming one thread, and taking the abundance back from the work each land on recognisable ground regardless of whose reading of the day is right. The line that serves the writer more than the person is any sentence where the whole pattern is already known to them and merely needs saying — cut."
+      "check": "The record doesn't say the person's abundance came from their own cultivation — for all I know the garden grew while nobody watched; the cells on the Too Much, Too Little and Unacknowledged faces especially need to offer the recognising rather than tell the person what they did. A reader could reasonably say that seeing what holds across a life isn't the same as seeing it whole, and that plenty isn't always on the far side of strain. The asks all survive being wrong: each one is the medicine's own act, done visibly, needing no safe person and no money, and each teaches something even if my read of the balance misses. The sentence that mostly serves me is in the Balanced core — the one about nothing having been wasted — it's a lovely thing to say and I haven't earned it; I've cut the warmth out of it and left the fact."
     },
     {
       "attempt": 2,
-      "ms": 4113,
+      "ms": 4327,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "five words in a row from an exemplar or a rule: \"the end of the week\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"name\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The record doesn't say the person's abundance came from their own cultivation — for all I know the garden grew while nobody watched; the Too Much, Too Little and Unacknowledged cells need to offer the recognising rather than tell the person what they did. A reader could reasonably say that seeing what holds across a life isn't the same as seeing it whole, and that plenty isn't always on the far side of strain. The asks all survive being wrong: each is the medicine's own act, done visibly, needing no safe person and no money, and each teaches something even if my read of the balance misses. The sentence that mostly serves me is the line about the sense being there before the name — I can't know the person's part in it; I've kept the fact and dropped the flattery."
+    },
+    {
+      "attempt": 3,
+      "ms": 4167,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -291,19 +431,13 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -314,14 +448,8 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -344,15 +472,21 @@
           "status": 4
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -360,156 +494,61 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says abundance was reached through sustained care but never says the person is enjoying it or standing inside it, so the reading should not place them in a stance the record does not give. A reader could say the pattern they see is just a workload read from above, not recognition — but the record holds authorship is unowned, so that refusal is the scene, not a disproof. The asks land on visible ground even if the read is wrong: naming one real cost, choosing one thing to finish, returning to something that grew, and saying once that a connecting thread was theirs. The sentence serving the writer more than the person is any line where the whole pattern is treated as already known and merely needing announcement; struck."
+      "check": "The record doesn't say the person's abundance came from their own cultivation — for all I know the garden grew while nobody watched; the Too Much, Too Little and Unacknowledged cells need to offer the recognising rather than tell the person what they did. A reader could reasonably say that seeing what holds across a life isn't the same as seeing it whole, and that plenty isn't always on the far side of strain. The asks all survive being wrong: each is the medicine's own act, done visibly, needing no safe person and no money, and each teaches something even if my read of the balance misses. The sentence that mostly serves me is the line about the sense being there before the name — I can't know the person's part in it; I've kept the fact and dropped the flattery."
     },
     {
-      "attempt": 3,
-      "ms": 3192,
+      "attempt": 4,
+      "ms": 4035,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "length",
           "detail": "core 110 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says the abundance was reached through sustained care but never places the person in any stance toward it, so the reading names the tending and the result without claiming what they feel about it. A reader could say the pattern they catch is just a workload seen from above rather than recognition — but the record holds authorship is unowned, so that refusal is the scene, not a disproof. The asks land on visible ground even if the read is wrong: naming one real cost, finishing one thing before starting another, returning to something that grew, and saying once that a connecting thread was theirs. The line that serves the writer more than the person is any sentence where the whole pattern is treated as already known and merely needs announcing; struck."
-    },
-    {
-      "attempt": 4,
-      "ms": 4218,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -527,14 +566,26 @@
         },
         {
           "code": "length",
-          "detail": "core 111 words (120–160)",
+          "detail": "core 107 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the claiming\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"drop the wrong approach and keep the commitment\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -542,32 +593,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says sustained care produced abundance but never places the person in any stance toward it, so the reading names the tending and the result without claiming what they feel. A reader could say the pattern they catch is only a workload seen from above rather than recognition — but the record holds authorship is unowned, so that refusal is the scene, not a disproof. The asks land on visible ground even if the read is wrong: naming one real cost, finishing one thing before starting another, returning to something that grew, and saying once that a connecting thread was theirs. The line serving the writer more than the person is any sentence where the whole pattern is treated as already known and merely needing announcement; struck."
+      "check": "The record doesn't say the person's abundance came from their own cultivation — for all I know the garden grew while nobody watched; the Too Much, Too Little and Unacknowledged cells need to offer the recognising rather than tell the person what they did. A reader could reasonably say that seeing what holds across a life isn't the same as seeing it whole, and that plenty isn't always on the far side of strain. The asks survive being wrong: each is the medicine's own act, done visibly, needing no safe person and no money, and each teaches something even if my read of the balance misses. The sentence that mostly serves me is the line about the sense being there before the name — I can't know the person's part in it; I've kept the fact and dropped the flattery. The four asks are shaped differently — a timed press, an afternoon with someone, a sustained heading, a keep-and-release — so they don't read as one bounded thing four times."
     },
     {
       "attempt": 5,
-      "ms": 3098,
+      "ms": 3482,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -579,13 +629,19 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"meet someone in the middle and go on together\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -596,8 +652,8 @@
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -615,7 +671,25 @@
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release the method not the purpose\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -626,13 +700,13 @@
           "status": 4
         }
       ],
-      "check": "The record says sustained care produced abundance but never places the person in any stance toward it, so the reading names the tending and the result without claiming what they feel. A reader could say the pattern they catch is only a workload seen from above rather than recognition — but the record holds authorship is unowned, so that refusal is the scene, not a disproof. The asks land on visible ground even if the read is wrong: naming one real cost, finishing one thing before starting another, returning to something that grew, and saying once that a connecting thread was theirs. The line serving the writer more than the person is any sentence where the whole pattern is treated as already known and merely needing announcement; struck."
+      "check": "The record doesn't say the person's abundance came from their own cultivation — for all I know the garden grew while nobody watched; the Too Much, Too Little and Unacknowledged cells need to offer the recognising rather than tell the person what they did. A reader could reasonably say that seeing what holds across a life isn't the same as seeing it whole, and that plenty isn't always on the far side of strain. The asks survive being wrong: each is the medicine's own act, done visibly, needing no safe person and no money, and each teaches something even if my read of the balance misses. The sentence that mostly serves me is the line about the sense arriving before the name — I can't know the person's part in it; I've kept the fact and dropped the flattery. The four asks are shaped differently — a timed press, a shared walk with another, a sustained heading, a keep-and-release — so they don't read as one bounded thing four times."
     }
   ],
   "usage": {
-    "input": 5101,
-    "output": 5431
+    "input": 8928,
+    "output": 5731
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:49:19.688Z"
+  "date": "2026-10-02T12:26:40.188Z"
 }

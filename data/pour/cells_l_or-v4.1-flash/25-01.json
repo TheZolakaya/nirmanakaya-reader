@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the pen, and the direction you chose is still moving through you.",
-      "ask": "Say the next step out loud before you take it, then let it happen without a push. It moves on its own.",
-      "core": "Where you're headed and what you want are in step right now. A direction shows up and the pull toward it arrives with it, so you don't have to talk yourself into moving or argue yourself out of it either.\n\nThat part isn't the calm before doubt shows up. It's what it looks like when the two things stop pulling against each other. The pull is clean because it's got somewhere to land, and it lands because the pull is real. Effort feels like something you're doing rather than something being done to you. Keep one direction held and let the others wait; that's what this runs on. What it costs to keep: stopping while it still feels good, instead of chasing the edge past the point where it's good.",
-      "sheetLine": "You chose a direction and your feeling is already walking in it.",
-      "verb": "Moving feeling and will in the same direction until the doing carries its own momentum",
-      "place": "In the driver's seat, where direction is chosen and held",
+      "tense": "You are here right now with the pen, and the direction you picked is steady under your hand.",
+      "act": "savour the realised thing without reaching past it",
+      "ask": "Take something you finished and stopped improving. Sit with it for an afternoon and don't add one line to it. Let the itch to fix it pass by waiting.",
+      "core": "This is the part of you that aims your energy at what you pick. Right now it runs quiet: you say yes to this and no to the rest, and mean it, and nothing has to be forced to make it hold. There was a stretch where you had to push, and what's different now is that the push and the pull are going the same way. The work feels like yours rather than like something you're propping up.\nWhen you say yes to one thing, you're putting the rest down on purpose. Try this: take something you finished and stopped improving, and sit with it for a whole afternoon without adding one line to it. The itch to fix it will come. Let it pass by waiting. The finished thing gets to be finished for an afternoon, in your hands, without you reaching past it.",
+      "sheetLine": "What you chose is holding without being held up.",
+      "verb": "pointing the force of feeling at one chosen thing",
+      "place": "the moment a person says yes to this and no to the rest",
       "provenance": {
         "signature_id": 25,
         "position_id": 1,
@@ -26,26 +27,47 @@
         "partner": "Fulfillment",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"savour the realised thing without reaching past it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have made it happen before the feeling catches up with you.",
-      "ask": "Pick one thing you're bracing for and do it now, feel it later. Push the feeling to the back of the line.",
-      "core": "You're pushing toward a version of this that hasn't arrived, and you're already living in it. In your head the direction is set, the goal is handled, and everything between now and then is just resistance to shove through. So you shove. You plan past the point where planning helps and treat the distance between here and there as something to close by force.\n\nForce is the one thing momentum won't take. The speed feels like progress, but it's you outrunning your own feeling. When the direction comes from wanting to move instead of dreading where you'll be if you don't, the whole thing loosens. Ask whether you're moving toward the thing or away from standing still. From inside the push those look the same. From the other side they don't.",
-      "sheetLine": "You're driving the car ahead of the thing you're driving toward.",
-      "verb": "Moving feeling and will in the same direction until the doing carries its own momentum",
-      "place": "In the driver's seat, where direction is chosen and held",
+      "tense": "You are already braced for a future where the call you haven't made will need defending.",
+      "act": "bring the two sides of your thinking into one plan",
+      "ask": "Two thoughts are pulling you apart about something you want. Write them both into one plan you can act on. One page, no verdict. Then leave it alone until tomorrow.",
+      "core": "Aiming your energy at what you choose is turned up past the moment. You're living in the aftermath of a decision before any decision has landed — defending a call that isn't made yet, so the strain sits in the bracing rather than in the pick. You can still feel how it goes when the direction comes out of the feeling instead of ahead of it. What's missing is the landing.\nThe way in is not less wanting. Two thoughts are pulling you apart about something you want. Write both of them into one plan you can act on. One page. No verdict. The plan doesn't have to be right — it has to hold what you already feel, so the pick has somewhere to land instead of being rehearsed in the air. Then leave it alone until tomorrow.",
+      "sheetLine": "The call is made at the table, not in the waiting.",
+      "verb": "pointing the force of feeling at one chosen thing",
+      "place": "the moment a person says yes to this and no to the rest",
       "provenance": {
         "signature_id": 25,
         "position_id": 1,
@@ -54,26 +76,42 @@
         "partner": "Reconciliation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "hunch",
+          "detail": "\"call that isn\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stood at the fork once, and you have not put your hand on a direction since.",
-      "ask": "Finish one small thing you started and stopped. Let the finish be the point, not the thing.",
-      "core": "There was a moment when you picked a direction and you haven't picked one since. That went quiet; moving didn't. You still get up and still handle what's in front of you, but you're steering by the road instead of by a destination, and the road has started choosing for you.\n\nWhat stopped wasn't your drive. It was the part that says this, not that, and means it. So the days fill up and the direction doesn't, and effort goes into maintenance instead of movement. That's why everything takes more energy than it should and nothing feels like yours. You're not stuck; you're unaimed. The way back is small and finished: not a new five-year plan, just one thing that ends when you say it ends.",
-      "sheetLine": "You stopped choosing a direction and started taking what the day handed you.",
-      "verb": "Moving feeling and will in the same direction until the doing carries its own momentum",
-      "place": "In the driver's seat, where direction is chosen and held",
+      "tense": "You are still standing at the opening of a direction that has already closed behind you.",
+      "act": "gather what the change grew",
+      "ask": "Look at something that changed and ended. Gather three things it grew that you still carry. Write them down. Don't map the next move yet.",
+      "core": "The part of you that picks a direction is running on empty. A door is behind you and you're treating it as though it were ahead — waiting for the feeling to come back so the pick can start. Nothing in you is broken. What's gone quiet is the fuel the pick runs on, because the thing that ended is still getting paid for out of hours that could go somewhere else.\nThe way up is not to push harder into picking. Look at something that changed and ended, and gather three things it grew that you still carry. Paper, not memory. You are not deciding what happens next. You are letting the yield of the ending sit where you can see it, because that is what gives the pick something to move on when its time comes.",
+      "sheetLine": "It ended, and it grew something you're not counting.",
+      "verb": "pointing the force of feeling at one chosen thing",
+      "place": "the moment a person says yes to this and no to the rest",
       "provenance": {
         "signature_id": 25,
         "position_id": 1,
@@ -82,41 +120,37 @@
         "partner": "Harvest",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already moving in a direction you have never claimed as your own.",
-      "ask": "Name the direction you've been walking in and say it's yours. Then keep walking it on purpose.",
-      "core": "Look at the last year and where your energy actually went, not where you'd say you want it to go. The two don't match, and the second one is the story you tell. You're already pointed somewhere, already spending your days on a particular thing, and you talk about it like it just happened — the schedule did that, the calendar did that.\n\nBut you picked it. Quietly, maybe without noticing. You picking it was real; saying so out loud hasn't caught up. That gap is why it feels like drift when it isn't. Say it's yours and the same motion changes character: same road and same days, but now you're walking it instead of being carried. The direction is probably right. What's missing is the part where you admit to it.",
-      "sheetLine": "You're already going somewhere. You haven't said so.",
-      "verb": "Moving feeling and will in the same direction until the doing carries its own momentum",
-      "place": "In the driver's seat, where direction is chosen and held",
+      "tense": "Your direction is being kept right now, and your own account of it says you are not the one keeping it.",
+      "act": "keep building the thing with sustained craft",
+      "ask": "Somewhere you are building something over time. Keep building it today, just today's part, and stop. No reasons, no credit, no explaining to yourself why.",
+      "core": "You are aiming energy at chosen ends, and the aiming is not being claimed. Ask how the day got its shape and you'd say it just went that way — and that shape is a direction, a few calls quietly made and quietly kept. The one making them is working. The story is that of someone standing outside the work, braced for a future that keeps arriving exactly the way it was built.\nBring one small piece back under your hand. Somewhere you are building something over time. Keep building it today, just today's part, and stop — no reasons, no credit, no explaining to yourself why. Only today's piece gets done. Nothing else changes, and that is how the deeper thing gets made: by the person who is already making it, on a day that has their hand in it.",
+      "sheetLine": "The direction is being kept, one day at a time, by you.",
+      "verb": "pointing the force of feeling at one chosen thing",
+      "place": "the moment a person says yes to this and no to the rest",
       "provenance": {
         "signature_id": 25,
         "position_id": 1,
@@ -125,14 +159,39 @@
         "partner": "Commitment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -141,128 +200,258 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5943,
+      "ms": 8018,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"savour the realised thing without reaching past it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witness\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person cannot feel direction without strain or cannot act when feeling has not finished — the record gives the mechanism, not the person's history, so I stay on what the capacity is doing in a moment. The reader could fairly say that some of this is just how they move — the reading must still be useful if they say 'that isn't what's happening', so each ask is a small act they can do whether or not the read fits. The sentence that serves me more than them is any line that tells them their direction is already peaceful or already broken; I'm cutting that and leaving what's in their hand."
+    },
+    {
+      "attempt": 2,
+      "ms": 5129,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": null
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": null
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": null
-        },
-        {
-          "code": "glass",
-          "detail": "\"back in balance\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": null
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": null
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": null
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": null
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": null
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"savour the realised thing without reaching past it\") — read it: is it that act made small?",
           "hard": false,
-          "status": null
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": null
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": null
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the arriving\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": null
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, road) — one at most, usually none",
-          "hard": false,
-          "status": null
+          "status": 2
         },
         {
           "code": "hunch",
-          "detail": "\"Call it yours\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call that isn\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": null
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
-          "status": null
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
-          "status": null
-        }
-      ],
-      "check": "The unsupported claim: 'the harder you push, the further the goal moves' — the record only says excess is anxiety and control pushing ahead of timing, not that pushing causes failure. A reader could say 'it still works, it just costs me.' The ask, saying the one next step out loud before doing it, survives being wrong: it costs nothing, teaches something either way. The sentence serving me more than them is 'You're not lazy; you just live downstream of your own decision' — it flatters my read."
-    },
-    {
-      "attempt": 2,
-      "ms": 3951,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "seat",
@@ -271,33 +460,33 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
           "status": 3
         },
         {
@@ -307,44 +496,103 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the claiming\" — a verb turned into a mystical noun",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim: 'the harder you push, the further the goal moves' — the record only says excess is anxiety and control pushing ahead of timing, not that pushing causes failure. A reader could say 'it still works, it just costs me.' The ask, saying the next step out loud before doing it, survives being wrong: it costs nothing and teaches something either way. The sentence serving me more than them is the one that sorts them into a type instead of a moment they'd recognize."
+      "check": "The unsupported claim is any statement about how this person has lived — that effort used to be forced, that a door closed, that they never take credit. The record only says what this capacity does and how it bends under each status, so I stay on the recognizable moment and let the person correct me. Each ask is one small undoable-wrong act with a camera-visible shape, so it still teaches something if my read misses. The line that serves me more than them is any sentence that praises the bend as a hard-won stillness or names their inner weather as fact; those are cut."
     },
     {
       "attempt": 3,
-      "ms": 3755,
+      "ms": 6149,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 1
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"savour the realised thing without reaching past it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that isn\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
@@ -353,21 +601,21 @@
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 3
         },
         {
@@ -377,26 +625,86 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim: 'force is the one thing momentum won't take' — the record says excess pushes ahead of timing and is anxious and controlling, not that force blocks momentum. A reader could say 'I push and it works, it just leaves me spent.' The ask — say the next step out loud when you catch yourself bracing, or finish the small thing — survives being wrong: it costs nothing and teaches something either way. The sentence serving me more than them is anything that sorts them into a type ('you're unaimed') rather than a moment they'd recognize."
+      "check": "The unsupported claim is any statement about how this person has lived — that effort used to be forced, that a door closed, that they never take credit. The record gives the mechanism and how it bends at each status, so I stay on the recognizable moment and let the person correct me. Each ask is one small act with a camera-visible shape, so it still teaches something if my read is wrong. The line that serves me more than them is any sentence that praises the bend as a hard-won stillness or names their inner weather as fact; those are cut."
     },
     {
       "attempt": 4,
-      "ms": 3281,
+      "ms": 3501,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"savour the realised thing without reaching past it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that isn\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -405,20 +713,20 @@
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -429,19 +737,55 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim: 'force is the one thing momentum won't take' — the record says excess pushes ahead of timing and is anxious and controlling, not that pushing blocks momentum. A reader could say 'I push and it works, it just leaves me spent.' The ask — say the next step out loud before taking it, or finish the small thing — survives being wrong: it costs nothing and teaches something either way. The sentence serving me more than them is any line that sorts them into a type ('you're unaimed') instead of a moment they'd recognize."
+      "check": "The unsupported claim is any statement about how this person has lived — that effort used to be forced, that a door closed, that they never take credit. The record gives the mechanism and how it bends at each status, so I stay on the recognizable moment and let the person correct me. Each ask is one small act with a camera-visible shape, so it still teaches something if my read is wrong. The line that serves me more than them is any sentence that praises the bend as a hard-won stillness or names their inner weather as fact; those are cut."
     }
   ],
   "usage": {
-    "input": 4109,
-    "output": 4609
+    "input": 8535,
+    "output": 5054
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:17:30.473Z"
+  "date": "2026-10-02T12:58:03.112Z"
 }

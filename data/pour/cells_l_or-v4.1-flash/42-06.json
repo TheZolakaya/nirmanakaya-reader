@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are open to what another person is feeling, and you are still standing in your own shoes while it moves through you.",
-      "ask": "Tell one person what you noticed they were feeling, then stop there and let them correct you.",
-      "core": "Someone tells you something hard and you take it in before you decide what to do with it. That's the whole thing — the heart is open, nothing has been poured in yet, and you're content to let it stay open like that for a minute. Most people rush past this part. They hear the first sentence and start framing a reply, and the reply is about them.\n\nYou can sit with the not-knowing longer than that. What's moving in the other person doesn't become yours to carry, and not-carrying it is the skill. So one thing to try this week. Say out loud what you picked up from someone, then let them tell you if you got it wrong. That won't cost you the connection. It keeps the two of you separate enough to actually meet.",
-      "sheetLine": "You can feel what someone's feeling and stay in your own shoes.",
-      "verb": "opening to what someone else is feeling before anything is asked of you",
-      "place": "the space between two people where their shared ground and their difference both stay real",
+      "tense": "You are here, at the open edge of feeling, pen in hand.",
+      "act": "let yourself be drawn before you choose",
+      "ask": "When someone's mood comes near, follow the pull toward them for a beat before you decide anything about it.",
+      "core": "You can stand near someone's feeling and take it in, and stay yourself while you do. Nothing has to be settled yet. What's there gets into you before you sort it into what it means about you or about them, and people can tell you're with them without being swallowed. That's why they tell you things.\n\nSo follow that pull instead of managing it. When someone's mood comes near you, go toward it for a beat before you do anything with it — no fixing, no deciding what it says about the two of you. Let the draw happen first. Moving closer will sometimes mean a night that doesn't settle, and that's part of it. You'll know the difference between moving in and disappearing.",
+      "sheetLine": "You can feel what's there without losing yourself in it.",
+      "verb": "feeling the first stir of what's there, before it has a name",
+      "place": "where another person's weather reaches you and you stay your own",
       "provenance": {
         "signature_id": 42,
         "position_id": 6,
@@ -26,24 +27,24 @@
         "partner": "Allure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let yourself be drawn before you choose\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already bracing for what someone will need from you, and none of it has happened yet.",
-      "ask": "Pick one thing you have been pre-solving for someone and leave it alone for a day, undone.",
-      "core": "You feel the shape of a person's need before they've said a word. Someone's tired, someone's worried, and you're already arranging yourself around it — softening the news, taking on the errand, making the plan that will keep them steady. It's real feeling, and it's running a lap ahead of anything that actually happened.\n\nWhat should just receive keeps reaching forward and handling. You do the heavy lifting before the weight exists, and the other person doesn't get to find out what they'd have asked for on their own. So pick one thing you've been pre-solving and leave it undone for a day. Not forever — a day. Let them come to you, or not come at all. What's left standing when you stop is what was actually yours to hold.",
-      "sheetLine": "You're answering questions that haven't been asked yet.",
-      "verb": "opening to what someone else is feeling before anything is asked of you",
-      "place": "the space between two people where their shared ground and their difference both stay real",
+      "tense": "You will have already braced for how it lands before it lands.",
+      "act": "establish the thing that lasts",
+      "ask": "Give one ongoing thing with someone a shape that stands this week — a set time, a written arrangement they can keep.",
+      "core": "Where other people's feeling comes in, you reach the ending before you begin. You read the room's temperature and start aiming it — toward steady, toward settled, toward whatever keeps the ground from moving. What you call care is you steering, and the person next to you gets managed instead of met. Being open and being in charge of the openness are different things.\n\nSo give the connection a shape you don't maintain. Take one ongoing thing between you and someone else and set it in something that won't need you holding it — a standing time, a written arrangement they can keep without you. Stay in it as a person, not as its keeper. It will feel plain, maybe too formal. That plainness is what the two of you can stand on.",
+      "sheetLine": "You read the room and start steering it before you've been met.",
+      "verb": "feeling the first stir of what's there, before it has a name",
+      "place": "where another person's weather reaches you and you stay your own",
       "provenance": {
         "signature_id": 42,
         "position_id": 6,
@@ -69,11 +71,21 @@
         "partner": "Achievement",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -83,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped opening to certain people a long time ago, and that door is still behind you.",
-      "ask": "Sit with one person for ten minutes and say nothing except what you actually notice.",
-      "core": "At some point feeling what other people felt became a door you kept shut, and you've kept moving since. The shutting got quiet enough that it stopped looking like a choice. Now you can be kind, you can be useful, you can handle the logistics — and some part of you is absent from the table. This isn't a heart that's gone cold. It's a door left closed long enough that walking through it stopped being a habit.\n\nSo don't try to feel more. Start smaller than that. Sit with someone for ten minutes and offer only what you actually register — what you see, what you hear, what they said. Nothing performed. What comes back in the quiet is what sense you get of the person, and that's enough to begin again.",
-      "sheetLine": "You shut the door, and it stayed shut.",
-      "verb": "opening to what someone else is feeling before anything is asked of you",
-      "place": "the space between two people where their shared ground and their difference both stay real",
+      "tense": "You were standing at that open door, and it is behind you now.",
+      "act": "let what was only possible stand finished",
+      "ask": "Take what you keep circling and haven't made real — a call, a plan, a small start — and bring it all the way to done.",
+      "core": "Where someone else's feeling comes toward you, the door is shut before you notice. You answer from a distance — quick word, quick change of subject, some sound that keeps things moving — and the first stir of feeling doesn't get in. The contact is still happening. Almost none of it lands.\n\nLook at what you keep almost doing. There's a call you mean to make, a plan you keep warm, something you circle without starting. Bring one of them all the way to done, small enough that you can't say you ran out of time. Finishing it is how the door comes back, because a person who has finished something is standing somewhere. The first try may not take. You'll still have finished it.",
+      "sheetLine": "You keep the door shut, and almost nothing lands.",
+      "verb": "feeling the first stir of what's there, before it has a name",
+      "place": "where another person's weather reaches you and you stay your own",
       "provenance": {
         "signature_id": 42,
         "position_id": 6,
@@ -97,7 +110,7 @@
         "partner": "Realization",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -105,6 +118,11 @@
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -116,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already meeting how other people feel and calling it nothing in particular.",
-      "ask": "Name one thing you do because you picked up on someone's mood and stop calling it just good sense.",
-      "core": "You notice what people in the room are feeling — you shift your pace, you leave the question unasked, you set down what someone can't lift today. That's happening all the time, and you'd say you're just being practical, just reading the room. Honest enough. But reading a room isn't neutral. It's a real skill, and it shapes what happens around you whether or not you own it.\n\nNone of this asks you to announce anything grand about yourself. Pick one thing you already do because you caught what someone felt and say so plainly — to them, or just to yourself. That's the give-and-take starting up in the open. You've already caught it. Put your name on it.",
-      "sheetLine": "You read the room constantly and call it nothing in particular.",
-      "verb": "opening to what someone else is feeling before anything is asked of you",
-      "place": "the space between two people where their shared ground and their difference both stay real",
+      "tense": "You are giving and receiving all day while telling yourself you're just being polite.",
+      "act": "accept what is offered for what you gave",
+      "ask": "When a thank you comes, or a favor returned — take it. Say yes once, without waving it off.",
+      "core": "You feel with people so easily that your part in it doesn't get counted. You match someone's mood, you adjust what you say, you make it easier for them to say the hard thing — and if asked, you'd say that's just how you are. The joining is happening. It isn't filed anywhere as yours.\n\nTry the other direction once. When a thank you comes, a favor back, their turn to carry it — take it. Say yes and stop there. It costs you the shrug, nothing else. The point isn't the favor. It's that a warm line between two people runs both ways, and your half of it is real too.",
+      "sheetLine": "The joining is happening, and you file it as just being polite.",
+      "verb": "feeling the first stir of what's there, before it has a name",
+      "place": "where another person's weather reaches you and you stay your own",
       "provenance": {
         "signature_id": 42,
         "position_id": 6,
@@ -130,24 +149,24 @@
         "partner": "Reciprocity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -161,44 +180,56 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6024,
+      "ms": 6506,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it land\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"The opening\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a form that holds when\"",
           "hard": true,
           "status": 2
         },
@@ -207,24 +238,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
@@ -234,8 +247,14 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -245,21 +264,33 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"next time someone offers you\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -267,32 +298,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that I can locate what happened at the door behind the Too Little reader, or what the Unacknowledged reader is already doing — the record only gives mechanism, not biography, so I describe the capacity's motion and never where it started. A reader could object that they do feel with people daily, and in a crowded room they would be right, so each cell names one relationship or one moment rather than a life. The asks survive a wrong read because they are acts anyone could do this week regardless of whether the status fits, and no ask fixes feelings in a starved seat. The sentence serving me is any line that would sound wise on a poster — I cut those and left the plain one."
+      "check": "The draft keeps drifting into telling the person what they already feel about people, which the record cannot support — it shows readiness to receive, not an inventory of their relationships. A reader could reasonably say the seat's 'connection without fusion' sounds like a verdict on how close they get to others, so every cell stays on what they notice and choose, not on what their ties are like. The Reduced ask survives being wrong: accepting one offered thing is useful to anyone and reveals rather than assumes. The sentence that serves me more than them was a closing line about the exchange continuing on its own — cut, because it told them what the act would produce."
     },
     {
       "attempt": 2,
-      "ms": 3784,
+      "ms": 3825,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\" and let it arrive\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let yourself be drawn before you choose\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -304,8 +346,20 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -322,8 +376,14 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"with anyone while you do\"",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -333,15 +393,27 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"someone offers you something for\"",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -349,32 +421,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that I can locate what happened at the door behind the Too Little reader, or what the Unacknowledged reader is already doing — the record gives mechanism, not biography, so I describe the capacity's motion and never where it started. A reader could object that they do feel with people daily, and in a crowded room they would be right, so each cell names one relationship or one moment rather than a life. The asks survive a wrong read because they are acts anyone could do this week regardless of whether the status fits, and no ask fixes feelings in a starved seat. The sentence serving me is any line that would sound wise on a poster — I cut those and left the plain one."
+      "check": "The draft keeps implying I know what the person feels toward others, which the record can't support — it shows a readiness to receive, not a report on their relationships. A reader could reasonably say the seat's 'connection without fusion' reads like a verdict on their closeness, so every cell stays on what they notice and pick, not on what their ties are like. The Reduced ask survives being wrong: taking one offered thing is useful to anyone and reveals rather than assumes. The sentence that served me more than them was a closing line about the exchange running on its own — cut, because it told them what the act would produce."
     },
     {
       "attempt": 3,
-      "ms": 3614,
+      "ms": 3801,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\" and let it reach\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let yourself be drawn before you choose\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -383,6 +466,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -397,9 +498,9 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"to keep going and it\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -410,19 +511,31 @@
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"is how you find out\"",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -433,30 +546,30 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that I can say what happened behind the Too Little reader's closed door — the record gives mechanism, not biography, so I name where the person stands and never why. A reader could object that they feel with people all day, and in some rooms they would be right, so each cell points at one relationship or one hour rather than a whole life. The asks survive a wrong read because any of them can be done this week whether or not the status fits, and none of them asks the person to manufacture feeling. The sentence that serves me is the one that sounds wise on a poster; I cut those and kept the plain line."
+      "check": "The draft risks implying I know what the person feels toward others, which the record can't support — it shows a readiness to receive, not a report on their relationships. A reader could reasonably say the seat's 'connection without fusion' reads like a verdict on their closeness, so every cell stays on what they notice and pick, not on what their ties are like. The Reduced ask survives being wrong: taking one offered thing is useful to anyone and reveals rather than assumes. The sentence that served me more than them was a closing line about the line running both ways — kept it thin, because it told them what the act would produce."
     },
     {
       "attempt": 4,
-      "ms": 3291,
+      "ms": 3888,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let yourself be drawn before you choose\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -465,6 +578,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -479,6 +604,12 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -486,19 +617,25 @@
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -509,13 +646,107 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that I can say what happened behind the Too Little reader's closed door — the record gives mechanism, not biography, so I name where the person stands and never why. A reader could object that they feel with people all day, and in some rooms they would be right, so each cell points at one relationship or one hour rather than a whole life. The asks survive a wrong read because any of them can be done this week whether or not the status fits, and none of them asks the person to manufacture feeling. The sentence that serves me is the one that sounds wise on a poster; I cut those and kept the plain line."
+      "check": "The draft risks implying I know how close the person lets others get, which the record can't support — it shows a readiness to receive feeling, not a report on their ties. A reader could say the seat's 'connection without fusion' reads like a verdict on their relationships, so every cell stays on what they notice and choose in a moment, not on what their bonds are like. The Reduced ask survives being wrong: taking one offered thing is useful to anyone and reveals rather than assumes. The sentence that served me more than them was the closing line about the line running both ways — trimmed to a breath, since it told them what the act would produce."
+    },
+    {
+      "attempt": 5,
+      "ms": 3961,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let yourself be drawn before you choose\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"establish the thing that lasts\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let what was only possible stand finished\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft risks implying I know how close the person lets others get, which the record can't support — it shows a readiness to receive feeling, not a report on their ties. A reader could say the seat's 'connection without fusion' reads like a verdict on their relationships, so every cell stays on what they notice and choose in a moment, not on what their bonds are like. The Reduced ask survives being wrong: taking one offered thing is useful to anyone and reveals rather than assumes. The sentence that served me more than them was the closing line about the line running both ways — trimmed to a breath, since it told them what the act would produce."
     }
   ],
   "usage": {
-    "input": 4223,
-    "output": 4650
+    "input": 9034,
+    "output": 5713
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:33:39.966Z"
+  "date": "2026-10-02T12:06:29.414Z"
 }

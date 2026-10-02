@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are reading the emotional shape of a room and keeping it steady right now.",
-      "ask": "When the room feels tense today, say out loud once that you've noticed it, then let it be.",
-      "core": "You can walk into a charged room and feel the shape of what's in it — who's off, what's not being said, where the weight sits — and you do it without turning it into a problem to solve. That's the thing you do well, and you do it so smoothly that nobody notices it's a skill. Reading the pattern is the easy half. The harder half is doing it without taking the weight on board.\n\nYou know how to hold a feeling that isn't yours without going under with it. That's why this reads as steady rather than soft. The invitation is small: the balance you have works because you can see the shape and stay standing. Handing someone the fact that you noticed is the next thing, and it doesn't require the room to change.",
-      "sheetLine": "You read the shape of a room and stay standing in it.",
-      "verb": "reading the shape of a room's feeling and holding it steady without going under",
-      "place": "seeing how a thing works after the content has been peeled away",
+      "tense": "You are here, pen in hand, tending the emotional truth of what is in front of you.",
+      "act": "build the thing that endures",
+      "ask": "Choose a relationship or group you tend and build into it a small structure — a standing time, a way to check in — that keeps going after you step back.",
+      "core": "From where you sit, you can see the pattern of how people hold each other, and at the moment the care is working. You notice when a room is carrying something unspoken, and you stay with it without losing your own footing. The people near you get met rather than managed, and the connection has weight to it.\n\nGive that care a form that stands by itself. Choose a relationship or group you tend and build into it a small structure — a standing time, a clear way to check in, a small habit that keeps going after you step back. Nothing grand. Just make the care visible in a shape, so it doesn't live only in your attention. What you make this week keeps holding after you leave. The strength is in the making, not the managing.",
+      "sheetLine": "Give what you hold one form that stands without you.",
+      "verb": "holding the emotional shape of a room and tending what lives there",
+      "place": "where pattern is stripped of content and you see the mechanism underneath",
       "provenance": {
         "signature_id": 72,
         "position_id": 15,
@@ -26,16 +27,11 @@
         "partner": "Executor of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
         {
           "code": "vocab",
           "detail": "two images in one core (room, shape) — one at most, usually none",
@@ -45,17 +41,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will be bracing for a room that hasn't seen you yet and may already be turning.",
-      "ask": "Before the next hard conversation, write down what you want to come out of it, and hold only that outcome.",
-      "core": "You're already tensing for a moment that hasn't arrived. Some version of this room where the talk goes wrong is playing out ahead of you, so you walk in prepared for an argument nobody has started. The reading of the room is real. The bracing is what's costing you — you're holding space for something that hasn't landed, and that leaves less room for what is actually here.\n\nThe pattern you read is accurate often enough to trust. What it can't do is tell you the shape of a room that exists only in your head. Pulling back one layer is enough: decide what you actually want from the moment before you read the tone, and let the tone come second.",
-      "sheetLine": "You're bracing for a room that hasn't arrived yet.",
-      "verb": "reading the shape of a room's feeling and holding it steady without going under",
-      "place": "seeing how a thing works after the content has been peeled away",
+      "tense": "You are bracing against a future where the connection you tend might fall apart without you.",
+      "act": "release what is done and keep what serves",
+      "ask": "Pick something you keep tending that has already served its purpose and close it out this week — stop it, wind it down, let the slot go quiet.",
+      "core": "You're tending connections with an eye on a future you can't write yet, and the grip is tightening. Every gathering, every check-in, every unspoken feeling becomes something to hold before it slips. That's not care anymore — it's control wearing care's clothes, and the people near you can feel the force of it even when they can't name it.\n\nWhat's needed is a letting go based on what you actually feel, not what you fear. Pick something you keep tending that has already served its purpose and close it out this week. You'll know which one by the tiredness it brings. Ending it isn't abandoning anyone; it's trusting that what's alive will renew itself without your hand on it. Then you can keep what still serves, and you'll be able to tell the difference.",
+      "sheetLine": "Let one thing end so the rest can breathe.",
+      "verb": "holding the emotional shape of a room and tending what lives there",
+      "place": "where pattern is stripped of content and you see the mechanism underneath",
       "provenance": {
         "signature_id": 72,
         "position_id": 15,
@@ -64,31 +66,37 @@
         "partner": "Steward of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped reading the room a while back and you're still standing outside it.",
-      "ask": "In the next real conversation, ask one question before you answer, and let the answer land first.",
-      "core": "Somewhere along the way, reading a room stopped being safe, so you quit doing it. You can still see the pattern — that part didn't go anywhere — but you hold back from tracking what's moving between people, staying outside the room rather than in it. It costs you less to be distant, and it costs the connections you used to tend.\n\nThe skill isn't gone. What's missing is the willingness to step back in. One question, asked before you answer, is a small way back into the room you're already standing in. Staying with what's actually being said is how you find the floor again — not by feeling your way, but by knowing.",
-      "sheetLine": "You stopped reading the room and you're still outside it.",
-      "verb": "reading the shape of a room's feeling and holding it steady without going under",
-      "place": "seeing how a thing works after the content has been peeled away",
+      "tense": "You are still standing at a door that closed behind you, holding a place nobody is in.",
+      "act": "calibrate what you say to what can be heard",
+      "ask": "Before you tell someone a true thing this week, pause and ask what they can take in — then say that much and no more.",
+      "core": "You used to be the one who held the emotional shape of things, and now you watch it from a distance. There's a door you haven't walked through, and the people on the other side have kept going. You see how connections work, but you're not inside them. Seeing the pattern has turned into a way of not arriving.\n\nTo come back, don't push feeling into the blank spot. Work with one person instead and say only what they can hear. Before you tell someone a true thing this week, pause and ask what they can take in — then say that much and no more. It's a small adjustment, but it pulls you back into the conversation. You'll feel it when your words land instead of pass over. Connection returns through precision, not force.",
+      "sheetLine": "Say one true thing to someone, sized to what they can hear.",
+      "verb": "holding the emotional shape of a room and tending what lives there",
+      "place": "where pattern is stripped of content and you see the mechanism underneath",
       "provenance": {
         "signature_id": 72,
         "position_id": 15,
@@ -97,41 +105,57 @@
         "partner": "Steward of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are reading the room and holding it steady while calling it something else.",
-      "ask": "Tell one person what you noticed about the room today, and let that be a contribution you own.",
-      "core": "You're doing the work of holding a room steady right now — tracking who's off, adjusting your tone, keeping the feeling from tipping — and you're describing it as just being normal in a conversation. You read the pattern precisely enough to act on it, and you call the result luck or personality instead of something you're doing.\n\nWhat you see maps onto how a room actually moves, which is why it holds. The pattern you're reading is yours to see and yours to say. Naming one thing you noticed today is a small way of owning the work, and it doesn't require anyone to agree with the read.",
-      "sheetLine": "You hold the room steady and call it nothing.",
-      "verb": "reading the shape of a room's feeling and holding it steady without going under",
-      "place": "seeing how a thing works after the content has been peeled away",
+      "tense": "You are holding the emotional pattern of the room, pen down, calling it just something you noticed.",
+      "act": "cut to the logic and act on it",
+      "ask": "Next time you see the pattern underneath what's happening with people, put it in one sentence to whoever's there, then do the simplest thing that follows.",
+      "core": "You see how the emotional mechanics of a situation work, often before anyone else does, and you're already acting on that read — adjusting, stepping in, holding back — without calling it a choice. The writing is real and it's disowned. Ask and the answer would be that you were just being practical.\n\nTo bring it back, cut through with one straight sentence. Next time you see the pattern underneath what's happening with people, put it in one sentence to whoever's there, then do the simplest thing that follows. Saying it is the reclaiming. Not a speech, not a diagnosis: one clear line that says what you see. That's the pure logic of your own perception, returned to your hand. The action follows naturally after, and you'll know it's yours because you said it first.",
+      "sheetLine": "Say the pattern you see, once, then act on it.",
+      "verb": "holding the emotional shape of a room and tending what lives there",
+      "place": "where pattern is stripped of content and you see the mechanism underneath",
       "provenance": {
         "signature_id": 72,
         "position_id": 15,
@@ -140,24 +164,14 @@
         "partner": "Catalyst of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -166,8 +180,8 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -176,21 +190,33 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5317,
+      "ms": 7444,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the next step is to\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -200,8 +226,14 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -212,103 +244,150 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Clarity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"empty space\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The noticing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (shape, door, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has become a way of\"",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
           "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"ask you and you'd say\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person can read the pattern of a room in real time without being told what anyone feels — that's an inference from the card and seat, not something the record states, and a reader could reasonably say they are often the last to know what the room is feeling. The ask survives being wrong: stepping in when the moment is actually live still adds something even if my read of the mechanism is off. The sentence that serves me more than them is any line implying this capacity is effortless — the record shows it costs, and I cut the ones that flattered."
+      "check": "The drafts risk claiming the reader names the emotional pattern of a room when they may only be seeing it without tending it — the record says compassion-as-behavior, not insight. A reader could object that they don't actually hold space for anyone, that they just see the shape of things and move on. The asks survive: each is a small act of strength, letting go, calibration or reasoning that works even if the read is wrong about their emotional role. The sentence serving the writer was 'You're holding space for everyone else,' which flatters the reader into a role they may not occupy."
     },
     {
       "attempt": 2,
-      "ms": 3368,
+      "ms": 4977,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\"right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that holds when you're not\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -318,8 +397,14 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -330,21 +415,51 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has become a way of\"",
+          "hard": true,
           "status": 3
         },
         {
@@ -354,66 +469,83 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"you're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The naming\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and you'd say you were\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person reads the emotional shape of a room in real time without being told — that's an inference from the card and seat, not something the record states, and a reader could reasonably say they are often the last to know what a room is feeling. The ask survives being wrong: saying the room feels tense when it doesn't still hands someone a way to check rather than carry it silently. The sentence that serves me more than them is any line implying this happens without effort — the record shows it costs, so I cut the lines that flattered."
+      "check": "The drafts claim the reader tends the emotional life of a room when the record only says compassion shows up as behavior — the seat could mean they see the pattern and never act on it. A reader could object that they don't hold space for anyone; they read situations and step back. Each ask survives being wrong: building one structure, ending one spent thing, sizing one sentence, naming one pattern and acting — all useful even if the read misses. The line serving the writer was 'you're tending that pattern well,' which hands the reader a role the record doesn't guarantee."
     },
     {
       "attempt": 3,
-      "ms": 2942,
+      "ms": 4341,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
+          "detail": "\" and let it end\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -424,27 +556,45 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has become a way of\"",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
-          "hard": false,
           "status": 3
         },
         {
@@ -454,67 +604,78 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're already holding\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"and you'd say you were\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person reads the emotional shape of a room in real time without being told — that's an inference from the card and seat, not something the record states, and a reader could reasonably say they are often the last to know what a room is feeling. The ask survives being wrong: saying the room feels tense when it doesn't still hands someone a way to check rather than carry it silently. The sentence that serves me more than them is any line implying this happens without effort — the record shows it costs, so I cut the lines that flattered."
+      "check": "The drafts claim the reader tends the emotional life of a room when the record only says compassion shows up as behavior — the seat could mean they see the pattern and never act on it. A reader could object that they don't hold space for anyone; they read situations and step back. Each ask survives being wrong: building one structure, ending one spent thing, sizing one sentence, naming one pattern and acting — all useful even if the read misses. The line serving the writer was 'you're tending that pattern well,' which hands the reader a role the record doesn't guarantee."
     },
     {
       "attempt": 4,
-      "ms": 3151,
+      "ms": 4411,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"it set it down let\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -524,20 +685,38 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -548,20 +727,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, map) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -572,19 +745,125 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person reads the emotional shape of a room in real time without being told — that's an inference from the card and seat, not something the record states, and a reader could reasonably say they are often the last to know what a room is feeling. The ask survives being wrong: saying the room feels tense when it doesn't still hands someone a way to check rather than carry it silently. The sentence that serves me more than them is any line implying this happens without effort — the record shows it costs, so I cut the lines that flattered."
+      "check": "The drafts claim the reader tends the emotional life of a room when the record only says compassion shows up as behavior — the seat could mean they see the pattern and never act on it. A reader could object that they don't hold space for anyone; they read situations and step back. Each ask survives being wrong: building one structure, releasing a spent habit, sizing a sentence to a listener, naming a pattern and acting — all useful even if the read misses. The line serving the writer was 'you're tending that pattern well,' which hands the reader a role the record doesn't guarantee."
+    },
+    {
+      "attempt": 5,
+      "ms": 4079,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "the closing sentence poses: \"Connection returns through precision, not force.\" — end on the plain thing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"calibrate what you say to what can be heard\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"cut to the logic and act on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The drafts may claim the reader tends the emotional life of a room when the record only shows compassion as behavior — the seat could mean they see the pattern and never act on it. A reader could object that they don't hold space for anyone; they read situations and step back. Each ask survives being wrong: building one structure, releasing a spent habit, sizing a sentence to a listener, acting on a seen pattern — all useful even if the read misses. The line serving the writer was 'you're tending that pattern well,' which hands the reader a role the record doesn't guarantee."
     }
   ],
   "usage": {
-    "input": 3874,
-    "output": 4297
+    "input": 9825,
+    "output": 6334
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:00:05.055Z"
+  "date": "2026-10-02T12:38:14.088Z"
 }

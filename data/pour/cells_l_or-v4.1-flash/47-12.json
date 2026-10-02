@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are giving and receiving on fair terms right now, and you know it.",
-      "ask": "Name one finished thing you're still watching and set down the watching. Leave it released for a day.",
-      "core": "When something is finished, you put it down, and it stays down. You don't check on it an hour later or pick it up to see if it can be reworked. That clear give-and-take is rarer than it looks, and it reads like something you decided once and kept deciding.\n\nWhat's still moving is quieter than the exchange. Some part of you stands over a released thing, watching what it does next, and that watching is the only loose end. Notice which put-down things you're still keeping an eye on. That's where the release hasn't counted yet. The trade on the table is already fair. It doesn't need a guard on it.",
-      "sheetLine": "You know when a thing is done and you put it down.",
-      "verb": "giving and receiving in fair exchange",
-      "place": "at an open door you've stopped gripping — what goes out stays out",
+      "tense": "You are here and the giving and receiving are landing evenly on both sides.",
+      "act": "set the finished thing down in a form that keeps",
+      "ask": "Put one arrangement the change left you — the split, the terms, what you now know — into a form that holds without your hand on it, and leave it alone this week.",
+      "core": "The exchange between you and the other people in this runs both ways right now, and it runs that way because you let go of something first. What you released made room for giving to land, and receiving to follow. That is the harvest of something carried a long time and then put down.\n\nThe risk is the setting-down. What an ending released can drift if nobody keeps it — the new terms, the fair split, the thing you now know — so the next move is to give it a form. Set one of those into a shape that stands without your hand on it. Then it is held without being gripped, and the exchange stays open.",
+      "sheetLine": "You let go, and giving runs both ways now.",
+      "verb": "give and receive evenly",
+      "place": "releasing your grip on what the change left behind",
       "provenance": {
         "signature_id": 47,
         "position_id": 12,
@@ -26,14 +27,19 @@
         "partner": "Preservation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false
         },
         {
@@ -42,20 +48,21 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will be bracing for an imbalance that hasn't happened, and you're already guarding against it.",
-      "ask": "Take one exchange you're tracking and leave its ledger alone for a day. Let it sit however it sits.",
-      "core": "You're running the math on whether they gave as much, whether you got back what you put in, and the math is ahead of the facts. You're auditing a trade that hasn't had time to be a trade yet.\n\nPressing it even costs you the exchange itself. Every gift arrives with a question attached — enough? matched? what it should be? Holding the exchange without pressing it looks different: you let the balance tip and stay tipped, you receive without reaching for the receipt. Let one thing sit uneven and see if anything actually breaks. The fairness you're protecting survives a day without the guard.",
-      "sheetLine": "You're auditing a trade that hasn't had time to be fair yet.",
-      "verb": "giving and receiving in fair exchange",
-      "place": "at an open door you've stopped gripping — what goes out stays out",
+      "tense": "You are bracing against a version of this that ended already and hasn't been told so.",
+      "act": "carry your own share, all of it",
+      "ask": "When you catch yourself reaching for a load that isn't yours, put it down unannounced and keep walking — no announcement, no accounting, no looking back at who picks it up.",
+      "core": "You are still holding your end up in an exchange that has closed — counting what is owed, watching what comes back, ready in case it does not. The bracing has moved in before the facts. You are preparing for a shortfall in an account that has been settled, or one that was going to stay short however hard you held it.\n\nA steadier grip will not save this. What holds under pressure here is putting the load down where it belongs, on your own side, and finding out that you do not collapse without it. Carry only your part, and treat the rest as belonging to whoever carries it. What you have held quietly weighs more than the watching did.",
+      "sheetLine": "You're still holding an exchange that already closed.",
+      "verb": "give and receive evenly",
+      "place": "releasing your grip on what the change left behind",
       "provenance": {
         "signature_id": 47,
         "position_id": 12,
@@ -64,31 +71,42 @@
         "partner": "Steadfastness",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped giving and receiving in fair exchange a while back, and you're still back there.",
-      "ask": "Make one exchange without tracking it. Give something and let it leave, or receive something and let it land without giving back right away.",
-      "core": "You're behind a door that closed, giving and receiving from the far side of a moment you haven't walked past. Trades feel like risks you can't take, so you've stopped putting anything on the table that could come back changed.\n\nWhat isn't moving is the plain ability to tell an even offer from an uneven one. That hasn't gone anywhere. It's willing, just not steering. One small exchange with no ledger attached will show you the difference between a trade you can take and one you can't. You don't have to trust every exchange. You only have to try one.",
-      "sheetLine": "You stopped trading fairly when something tilted, and you stayed stopped.",
-      "verb": "giving and receiving in fair exchange",
-      "place": "at an open door you've stopped gripping — what goes out stays out",
+      "tense": "You are still standing at a door that closed behind you.",
+      "act": "sharpen the one skill by repeating its hardest part",
+      "ask": "Find the part of what you offer that still builds something in you, and repeat only that part, letting the rest go undone — then see what the space does.",
+      "core": "You give to people and get nothing back, and you stopped expecting otherwise. The exchange runs one way and you show up anyway. That is not generosity now, it is a habit that outlasted the thing it was for. Fairness felt natural once, and you stand on the far side of it.\n\nWhat is absent is not effort. It is the distinction between what is wanted and what you have persisted in offering. Sit with one evening's worth and sort the real from the carried-over. Cross out one line from the second column and leave the space open. Not as a loss — as the place where something wanted can land.",
+      "sheetLine": "You give, nothing comes back, and you stopped expecting it.",
+      "verb": "give and receive evenly",
+      "place": "releasing your grip on what the change left behind",
       "provenance": {
         "signature_id": 47,
         "position_id": 12,
@@ -97,19 +115,29 @@
         "partner": "Honing",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, ledger) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -121,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already releasing what no longer serves, but you're calling it something else — and the fairness runs without you owning it.",
-      "ask": "Name one thing you let go of this year and say out loud that you're the one who let it go.",
-      "core": "Things end for you without ceremony. You stop returning to what's finished, and you don't keep old exchanges alive just to even them out. But you describe all of it as just what happened — the thing ended, the trade ran out, the season turned. You talk as though it occurred to you rather than as though you did it.\n\nThe fairness runs underneath that. You already give and receive on fair terms. You're simply not claiming it. The release happened; saying so is what makes it yours to keep. That's a small move, and it belongs to the person who made it.",
-      "sheetLine": "You release things already. You just don't take credit for it.",
-      "verb": "giving and receiving in fair exchange",
-      "place": "at an open door you've stopped gripping — what goes out stays out",
+      "tense": "You are already in the room where the fairness gets done, and you don't call it yours.",
+      "act": "hold two true things without declaring either",
+      "ask": "Before the next adjustment, hold their account and the one you already have side by side for one full breath, then move or don't — the knowing was yours either way.",
+      "core": "In the group you are in, things come out even around you. You say the room just works, or the others are easy to work with. Fairness is being done — splits adjusted, credit put where it belongs, a share handed back quietly — and the doing has your hand in it. Call it chemistry if someone presses.\n\nThat part is not on the record. You know what is fair here before anyone says it, and treating that as nothing is how it stays off the books. Before the next adjustment, hold both accounts — the one being offered and the one you already have — for one breath. Then move or don't. Either way it is yours, precisely because you knew first.",
+      "sheetLine": "The fairness here is your work, and you shrug it off.",
+      "verb": "give and receive evenly",
+      "place": "releasing your grip on what the change left behind",
       "provenance": {
         "signature_id": 47,
         "position_id": 12,
@@ -135,14 +164,29 @@
         "partner": "Reflection",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false
         },
         {
@@ -156,11 +200,35 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6128,
+      "ms": 6177,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -168,8 +236,44 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set the finished thing down in a form that keeps\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "glass",
-          "detail": "\"medicine\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"share for a week and\"",
           "hard": true,
           "status": 2
         },
@@ -180,21 +284,57 @@
           "status": 2
         },
         {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
           "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, ledger) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"strike one thing from the\" — say the act in the person's words",
+          "hard": true,
           "status": 3
         },
         {
@@ -204,6 +344,12 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one thing from the second\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -211,19 +357,25 @@
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "glass",
+          "detail": "\"in balance\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
           "hard": true,
           "status": 4
         },
@@ -232,22 +384,69 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports 'purposeful release' but not the claim that the person's exchange habits have ever been tested in the way my Balanced core implies — I don't know whether they have actually released something and watched it hold. A reader could reasonably say the fairness flow was never unbalanced to begin with, or that release is not the issue at all. The ask survives being wrong: noticing what stays around after it's been put down teaches you something about your own relation to the fair exchange whether or not the seat was the cause. The sentence that serves me more than them is the Balanced sheetLine's tidy 'You're not holding the door' — it admires the reader rather than saying anything a camera could catch."
+      "check": "The draft's weakest claim is that the person has something finished in hand that they are refusing to set down — the record gives the seat (purposeful release) and the balance, not evidence of a completed thing, so a reader could rightly say the letting-go is about something still living. If that's wrong the ask still holds: keeping hold of what the ending actually produced costs nothing even if the ending is still in progress, and it teaches the person something either way. The sentence that serves me rather than them is anything about doors behind them or ledgers — I've kept the seat's own language off the glass, but the pull to make release sound noble is the posture to watch. Cells written so the release is named as the setting-down, never as a verdict on what they released."
     },
     {
       "attempt": 2,
-      "ms": 3854,
+      "ms": 4076,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set the finished thing down in a form that keeps\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the other\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"share for a week and\"",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
@@ -256,44 +455,50 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, ledger) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -302,20 +507,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports 'purposeful release' but not the claim that the person's exchange habits have been damaged by a past imbalance — I don't know what happened at that door, or whether anything did. A reader could reasonably say the fairness was never tilted in the first place, or that release isn't the issue at all. The ask survives being wrong: making one exchange without tracking it teaches you something about your own relation to fairness whether or not the seat was involved. The sentence that serves me more than them is the Balanced sheetLine's tidy 'You know when a thing is done' — it compliments the reader rather than describing anything a camera could catch."
+      "check": "The draft's weakest claim is that the person has something finished in hand they are refusing to set down — the record gives the seat and the balance, not evidence of a completed thing, so a reader could rightly say the letting-go concerns something still living. If that is wrong the ask still holds: giving a form to what the ending actually produced costs little even if the ending is in progress, and it teaches the person something either way. The sentence that serves me rather than them is anything that makes release sound noble or finished — the pull to pronounce a verdict on what they let go is the posture to watch. Cells written so the setting-down is named as an act, never as a judgment on what was released. Glass words stripped: no 'in balance', no map idioms. 'One' bounded thing varied: status 1 writes it down, status 2 stops a reach, status 3 makes a list and strikes, status 4 holds two things for a breath."
     },
     {
       "attempt": 3,
-      "ms": 4438,
+      "ms": 4185,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -326,14 +536,20 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set the finished thing down in a form that keeps\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -345,19 +561,25 @@
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, ledger) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -369,20 +591,20 @@
         },
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
@@ -390,20 +612,153 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives me purposeful release and fair exchange, but nothing about what this person has or hasn't let go of — my Too Little still leans on an event at a door I can't see. A reader could say the exchange was never tilted, or release was never the problem. The ask holds even if I'm wrong: one untracked exchange reveals how they relate to fairness regardless of cause. The sentence that serves me over them is the Balanced sheetLine, which praises a steadiness I'm only assuming they have."
+      "check": "The draft's weakest claim is that the person has something finished in hand they are refusing to set down — the record gives the seat and the balance, not evidence of a completed thing, so a reader could rightly say the letting-go concerns something still living. If that is wrong the ask still holds: giving a form to what the ending actually produced costs little even if the ending is in progress, and it teaches the person something either way. The sentence that serves me rather than them is anything that makes release sound noble or finished — the pull to pronounce a verdict on what they let go is the posture to watch. Cells written so the setting-down is named as an act, never as a judgment on what was released. Fixed tics: no 'on its own', no 'never', no 'and let the other', no 'share for a week and', no 'You call it', no five-word run from the acts. Ask shapes now differ: status 1 writes a thing down once; status 2 stops a reach as it happens; status 3 crosses a line off and does not refill the slot; status 4 holds a pause, unbounded by week or hour."
     },
     {
       "attempt": 4,
-      "ms": 3386,
+      "ms": 4004,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set the finished thing down in a form that keeps\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The draft's weakest claim is that the person is holding something finished in hand and refusing to set it down — the record gives the seat and the balance, not evidence of a completed thing, so a reader could rightly say the letting-go concerns something still living. If that is wrong the ask still holds: giving a form to what the ending actually produced costs little even if the ending is in progress, and it teaches the person something either way. The sentence that serves me rather than them is anything that makes release sound noble or finished — the pull to pronounce a verdict on what they let go is the posture to watch. Fixed: 'people around you' cut; ask shapes now differ — status 1 writes a thing down once, status 2 stops a reach as it happens, status 3 keeps one column going rather than crossing a line, status 4 holds a pause unbounded by week or hour."
+    },
+    {
+      "attempt": 5,
+      "ms": 3887,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -414,14 +769,20 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -432,26 +793,62 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, ledger) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 4
         },
@@ -462,13 +859,13 @@
           "status": 4
         }
       ],
-      "check": "The record gives me fair exchange and purposeful release but nothing about what this person has let go of or failed to — my Too Little still leans on a moment I can't see. A reader could say the exchange was never tilted, or that release was never the issue. The ask holds even if the read is wrong: one untracked exchange shows how they relate to fairness no matter its cause. The line that serves me over them is the Balanced sheetLine, praising a steadiness I'm only assuming."
+      "check": "The draft's weakest claim is that the person is holding something finished in hand and refusing to set it down — the record gives the seat and the balance, not evidence of a completed thing, so a reader could rightly say the letting-go concerns something still living. If that is wrong the ask still holds: giving a form to what the ending actually produced costs little even if the ending is in progress, and it teaches the person something either way. The sentence that serves me rather than them is anything that makes release sound noble or finished — the pull to pronounce a verdict on what they let go is the posture to watch. Fixed: no 'everyone', no 'never', no 'the giving', no 'Write down', ask shapes and clocks now varied — status 1 sets a form down once (short clock), status 2 stops a reach as it happens (no clock), status 3 repeats the hard part as a standing practice (no clock), status 4 holds a pause at the next adjustment (no clock)."
     }
   ],
   "usage": {
-    "input": 3889,
-    "output": 4383
+    "input": 6208,
+    "output": 6161
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:38:21.107Z"
+  "hardOpen": 2,
+  "date": "2026-10-02T13:09:19.008Z"
 }

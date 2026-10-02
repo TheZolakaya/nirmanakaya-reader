@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here, and what the heart knows is steady enough to use.",
-      "ask": "Pick the one account you keep that runs against you, and settle it today — yours to yours.",
-      "core": "You sit with what you know before you act, and the sitting is doing work, not stalling. What you know is quiet and doesn't need to win an argument — you weigh what's in front of you and the balance comes back on its own. People feel that evenness and stand a little steadier next to it.\n\nThis is one part of your life, not all of it, and in this part the ear is still open. The calm is worth keeping, and keeping it costs something: something gets put down. Find the account still running against you — the favor you didn't call in, the apology you're owed, the debt you stopped counting — and close it today, on your own terms. Then see what that frees.",
-      "sheetLine": "You sit with what you know, and it steadies the room.",
+      "tense": "The water in you is still, and the accounting underneath it is honest now.",
+      "act": "read the hardest page of it twice, slowly, before you stop",
+      "ask": "Take the thing you already understand and read the hardest part of it again, slow, no deciding. Once is enough, then stop. If it stays flat, that is what it is; if it opens, you will see which way.",
+      "core": "There is a steadiness in you that people can stand near without having to brace, and right now it is fair — the feeling is deep enough to think from and the reckoning underneath it is honest. You are not choosing between possibilities yet. You are letting the calm be full, and that is the work at this stage, not a pause before it.\n\nTake the thing you already understand and read the hardest part of it again. Once, slow, without deciding anything. Nothing needs a verdict this week. What you know, you know the way water knows the shore. Going one layer deeper into it is how the pattern underneath shows itself, and you will feel whether it wants to be seen.",
+      "sheetLine": "You are not deciding yet, and you are not behind.",
       "verb": "sitting with what the heart knows before moving",
-      "place": "where things get evened out and set right",
+      "place": "where right relationship gets recalibrated",
       "provenance": {
         "signature_id": 45,
         "position_id": 11,
@@ -26,26 +27,42 @@
         "partner": "Immersion",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a settlement that hasn't arrived and may not need to.",
-      "ask": "Name the outcome you're waiting for, and pick one part of it you'll stop tracking today.",
-      "core": "You're already living past the ending. The fairness hasn't landed yet, so you rehearse it — what you'll say, what they'll finally understand, where the scales will tip. Each talk becomes a chance to bring it forward. The bracing is tiring and it hasn't moved the day closer.\n\nWhat's been lost is the ability to let something be finished without a verdict. So declare one piece of it closed, even if the rest stays open. Say what you're waiting for out loud, pick the part you'll stop tracking, and let the waiting happen without you holding the pen. What you've already gathered from all this is yours whether or not the score is ever settled.",
-      "sheetLine": "You're living past a verdict that hasn't come.",
+      "tense": "You are bracing for an ending that has not happened, and the bracing has started to cost you.",
+      "act": "count what the ending gave you",
+      "ask": "Name something already finished or already changed, and gather in writing what it gave you — three things, no more. Nothing to fix. Just count it, and stop there.",
+      "core": "A calm that used to sit easy is running ahead of itself now. You are keeping the feeling level by getting ready for what comes next, and the getting-ready has taken over the room. What was steady has become guarded, and the present shrinks because you are standing one step in front of it.\n\nName something already finished or already changed, and gather what it gave you — three things, in writing, no more than three. Not what you learned about yourself, just what it left in your hands. Harvesting is the thing your bracing keeps skipping: something did in fact come out of it. Let yourself receive that before you brace for the next one.",
+      "sheetLine": "You are braced for an ending that has not arrived.",
       "verb": "sitting with what the heart knows before moving",
-      "place": "where things get evened out and set right",
+      "place": "where right relationship gets recalibrated",
       "provenance": {
         "signature_id": 45,
         "position_id": 11,
@@ -54,14 +71,19 @@
         "partner": "Harvest",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
@@ -70,25 +92,31 @@
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that already closed behind you.",
-      "ask": "Write down the three thoughts you keep circling, one sentence each, then read them to someone you trust.",
-      "core": "When this part of you is working, you hear what's off and you say so — a small correction, made early, before the gap widens. You do it without heat. You notice what someone carried and you name it in front of them, and the two of you even it out between you. It's ordinary and it keeps things clean.\n\nLately the weighing happens at a distance, if it happens. You talk about it like it belongs to someone else. What steadies you here isn't more feeling — don't force that. It's getting the scattered pieces into one line you can hold. Write down the three thoughts you keep circling, one sentence each. Then read them to someone who'll take them seriously. Whatever comes back does the evening out you can't do alone right now.",
-      "sheetLine": "The scales went still and you stepped away from them.",
+      "tense": "A door is behind you already, and you are still standing in front of it.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Put the scattered pieces of what you are deciding onto one page, then write one line that gathers them. Reading it once is the end of the exercise; no acting on it this week.",
+      "core": "Where you feel the calm, the feeling has thinned and you are still waiting at something that closed. The present does not feel like a place you can stand, so your mind is spread across several unfinished rooms at once, and none of them gets a full person. Nothing is arriving in you because most of you is somewhere behind.\n\nPut the pieces onto one page, then write a single line that gathers them. Sort them into a shape, not a plan. You are not deciding anything this week; you are bringing the scattered thinking into one place so it stops being several places. Your sense of what is fair to whom gets lost when the thinking is spread thin. One line gives it back some weight.",
+      "sheetLine": "Your mind is spread across several rooms at once.",
       "verb": "sitting with what the heart knows before moving",
-      "place": "where things get evened out and set right",
+      "place": "where right relationship gets recalibrated",
       "provenance": {
         "signature_id": 45,
         "position_id": 11,
@@ -97,14 +125,19 @@
         "partner": "Reconciliation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -116,22 +149,18 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already evening things out, and you call it just how you are.",
-      "ask": "Tell one person about a time you quietly made something right, without calling it anything.",
-      "core": "You're already the one adjusting the proportions. You notice what's out of balance and nudge it — a word here, a piece of the check there, a silence you let stand so someone else can speak. It works, and you'd say it's nothing, just being decent.\n\nBut the adjusting costs you, and nobody's covering it, least of all you. So take one of those moments and name it to a person you trust — not as a virtue, just as a fact of how you spend yourself. Say what you did and what it cost. That's how the depths stay open, and how you stop being the only one who doesn't know what you're carrying.",
-      "sheetLine": "You're already evening things out. You call it nothing.",
+      "tense": "You are keeping things level with other people, and you are the one who does not count it as yours.",
+      "act": "follow the thought past where it is comfortable",
+      "ask": "When the thought next runs toward other people, follow it one step further than feels polite, and keep the sentence it lands on. Do not act on it, do not read it to anyone.",
+      "core": "You hold other people's weight fairly — you can put the true thing plainly and stay standing — and you do not name that as a strength you have. It gets called just being reasonable. Underneath, there is real thinking going on about distance and closeness and how much anybody should ask of anyone, and you leave it unattributed, so it circulates without an owner.\n\nWhen the thought next runs toward other people, follow it one step further than feels polite, and keep the sentence it lands on. Hold it somewhere private. Authorship is what this is about: the thinking is already yours, and one sentence kept in your own hand is how you stop lending it to the room.",
+      "sheetLine": "The thinking is yours already and you have not signed it.",
       "verb": "sitting with what the heart knows before moving",
-      "place": "where things get evened out and set right",
+      "place": "where right relationship gets recalibrated",
       "provenance": {
         "signature_id": 45,
         "position_id": 11,
@@ -140,24 +169,29 @@
         "partner": "Immersion",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -166,27 +200,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5624,
+      "ms": 6917,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 1
-        },
-        {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -196,8 +224,14 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -208,21 +242,15 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\", and let the count\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"every conversation becomes a chance\"",
-          "hard": true,
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
           "status": 2
         },
         {
@@ -232,32 +260,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time ago\" — a duration the person never gave",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -268,55 +284,73 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say it to\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports the seat, stage, and mechanisms, but it does not say the person is in a body-relationship, a fair-dealing situation, or that any concrete imbalance exists — the core must stay inside the capacity and the moment. A reader could reasonably say this is not about fairness at all but about tiredness or a specific person; the ask still works if the read is wrong because it is one concrete act of evening, not a diagnosis. The sentence that serves the writer more than the person in an early draft was 'the heart already knows what's fair' — it sounds true and gives them nothing to hold, so it is gone."
+      "check": "The unsupported claim is that the person's steadiness is felt by others as a floor — the record gives the capacity and its bend but not who stands on it. The reader could reasonably say no one is leaning on them, or that the wave-off is just manners, not a disowned word; still true that something they hold level is being made smaller than it is. The ask survives being wrong: counting what an ending gave you is useful whether or not the calm is doing more than they say. The sentence that serves me more than them: 'the people who lean on it haven't' — that is the exemplar's move, not this person's, and it gets cut."
     },
     {
       "attempt": 2,
-      "ms": 3628,
+      "ms": 3982,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -326,8 +360,20 @@
           "status": 1
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -338,8 +384,14 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -350,20 +402,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -381,36 +433,60 @@
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"tell someone\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports the seat, stage, and mechanisms, but it does not say the person is in a body-relationship, a fair-dealing situation, or that any concrete imbalance exists — the core must stay inside the capacity and the moment. A reader could reasonably say this is not about fairness at all but about tiredness or a specific person; the ask still works if the read is wrong because it is one concrete act of evening, not a diagnosis. The sentence that serves the writer more than the person in an early draft was 'the heart already knows what's fair' — it sounds true and gives them nothing to hold, so it is gone."
+      "check": "The unsupported claim is that other people lean on this person's steadiness — the record gives the capacity and its bend but not who stands on it. The reader could reasonably say nobody is leaning on them, or that keeping things civil is just manners rather than a disowned word for something real. The ask survives being wrong: following a thought one step further is worth doing whether or not the calm is doing more than they admit. The sentence that serves me more than them: 'you can feel the difference' in the Too Much core — that tells the person how they feel instead of describing the mechanism, and it stays cut. Fixed from the refusal: the library tic in status 2 is reworded, the sheet line in status 4 carries one beat, 'write down' and 'say it to' are gone from status 4, and every ask stays an act the person does alone."
     },
     {
       "attempt": 3,
-      "ms": 3250,
+      "ms": 3992,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -418,186 +494,22 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"didn't come back\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports the seat, stage, and mechanisms, but it does not say the person is in a body-relationship, a fair-dealing situation, or that any concrete imbalance exists — the core stays inside the capacity and the moment. A reader could reasonably say this isn't about fairness at all but about tiredness or a specific person; the ask survives because it's one concrete act of evening out, not a diagnosis. The sentence that served the writer more than the person was 'the heart already knows what's fair' — it sounds true and gives nothing to hold, so it's gone."
-    },
-    {
-      "attempt": 4,
-      "ms": 3536,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 94 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "weave",
           "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports the card, the seat, and the mechanisms, but it does not establish any specific situation of fairness in the person's life, so the cores stay inside the one capacity and the present moment. A reader could say this is really about tiredness or one particular person; the ask survives because it is a single act of evening that teaches something either way. 'The heart already knows what's fair' is the sentence that flattered the writer — plausible and useless, so it is out. One more risk: the core must not explain why the too-little state arose, only where the person stands now."
-    },
-    {
-      "attempt": 5,
-      "ms": 3233,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -608,8 +520,8 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -620,8 +532,20 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "vocab",
-          "detail": "\"The scales\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -638,37 +562,37 @@
           "status": 3
         },
         {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "weave",
           "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports the card, the seat, and the mechanisms, but it does not establish any specific situation of fairness in the person's life, so the cores stay inside the one capacity and the present moment. A reader could say this is really about tiredness or one particular person; the ask survives because it is a single act of evening that teaches something either way. 'The heart already knows what's fair' is the sentence that flattered the writer — plausible and useless, so it is out. Too Little locates where the person stands and says nothing about why, and status 3 now carries what the capacity looks like when it is going well before naming the fault."
+      "check": "The unsupported claim is that other people lean on this person's steadiness — the record gives the capacity and its bend, not who stands on it. The reader could reasonably say nobody is leaning on them, or that keeping things civil is just manners rather than a disowned word for something real. The ask survives being wrong: following a thought one step further is worth doing whether or not the calm is doing more than they admit. The sentence that serves me more than them: 'you can feel the difference' in the Too Much core — that tells the person how they feel instead of describing the mechanism, so it stays cut. Fixed from the refusals: status 2's closing tic is reworded, status 4's sheet line carries one beat with no semicolon, and status 4 no longer uses 'write down', 'say it to', or 'tell someone' — the medicine there is not about people, so no speech act remains."
     }
   ],
   "usage": {
-    "input": 5036,
-    "output": 5341
+    "input": 6377,
+    "output": 3643
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:36:26.968Z"
+  "date": "2026-10-02T12:09:52.470Z"
 }

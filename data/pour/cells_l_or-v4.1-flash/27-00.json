@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "What you set down a while back is being named out loud now, and you are standing in it.",
-      "ask": "Pick one thing you made or gave that nobody has named, say out loud that you did it, and leave it at that.",
-      "core": "What you gave up earlier got seen and valued by the people around you, and you didn't have to campaign for it. That's the whole thing working. You're not owed anything here and you're not owed nothing — it closed, and you get to stand in that instead of re-checking it.\n\nThe open moment you're in isn't naivety. It's the stretch of your life before anything has settled into a shape yet, and it is still open. That's a good place to be when something you carried is already landing. Growth is happening here without being forced — the care is there and it isn't draining you. Feed the next thing the same way: don't clutch the credit, and don't start performing for it either. That's the balance.",
-      "sheetLine": "What you carried is being named, and you don't have to push it.",
-      "verb": "having what you gave up quietly finally named out loud by the people around you",
-      "place": "the open moment before anything has settled into a shape",
+      "tense": "The acknowledgment is arriving, and you are here with the pen while it does.",
+      "act": "tend the resource with responsible care",
+      "ask": "Give steady, plain care to something already growing on your watch, at the size it is. No forcing, no clutching. You will know it by how little it asks back.",
+      "core": "You gave something up for this, and it is being seen. The acknowledgment is not a reward laid on top — it is what completion looks like from the outside, the moment the release you already made becomes visible. Here, before anything has been split into outcomes or roles, the recognition lands cleanly, because nothing was traded away to earn it.\n\nThe care you are showing is not strain. It holds space without gripping, and that is the balance to keep — not the applause. So keep tending what is already growing, with your own hands, at its real size, and let being seen be a consequence rather than a target.",
+      "sheetLine": "What was given up is being seen, and you are still here.",
+      "verb": "carrying what was given up until others can see what it was for",
+      "place": "at the seed state, everything still possible, nothing chosen",
       "provenance": {
         "signature_id": 27,
         "position_id": 0,
@@ -26,14 +27,34 @@
         "partner": "Stewardship",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -45,12 +66,13 @@
     },
     {
       "status": 2,
-      "tense": "You're bracing for a verdict that hasn't arrived yet, and you're writing it yourself.",
-      "ask": "Name the thing you most want credit for, then do one small piece of it in private without checking who noticed.",
-      "core": "You're living ahead of the room. Out there somewhere, the moment when what you gave up finally gets named is being rehearsed in your head over and over, and every quiet day starts looking like evidence it won't come. The bracing does the damage, not the wish to be seen.\n\nThe open moment you're standing in hasn't resolved yet, and bracing closes it early. The refining you're actually good at is available here — sorting what matters from what doesn't, in the work itself, not in the scorecard. Practice runs without force when you let it: time alone connects instead of cutting you off. Release then comes from finishing something, not from being rescued, and surrender stops being a defeat and becomes just the ending. You don't have to arrange the ending.",
-      "sheetLine": "You're bracing for a verdict that hasn't been written yet.",
-      "verb": "having what you gave up quietly finally named out loud by the people around you",
-      "place": "the open moment before anything has settled into a shape",
+      "tense": "You will have built the honor before it is ready, and you are already braced for a witness who hasn't come.",
+      "act": "strike one thing from the list that does not serve",
+      "ask": "Cross off whatever you are managing only so the acknowledgment lands a certain way. Do the rest plainly. Nothing else has to change.",
+      "core": "You are writing the ending before the seed has broken ground. The honoring is real and it matters to you, so you are reaching past the present, arranging outcomes, checking whether the sacrifice is being read the way you meant it. That reaching is the excess — a want for the visible completion pulling you out of the part that only grows in its own time.\n\nWhat follows a finished thing is release, and release cannot be scheduled. So drop the item that exists to shape the reception rather than to serve the growing thing. The distinction you make when you strike it is the whole practice: the result is not the seed, and the seed does not need you to rush the season.",
+      "sheetLine": "The honor is not late. You are ahead of it.",
+      "verb": "carrying what was given up until others can see what it was for",
+      "place": "at the seed state, everything still possible, nothing chosen",
       "provenance": {
         "signature_id": 27,
         "position_id": 0,
@@ -59,26 +81,47 @@
         "partner": "Honing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (seed, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"strike one thing from the list that does not serve\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped expecting any of it to be seen, and that has been true for longer than you count.",
-      "ask": "Tell one person the bare fact of something you gave up that nobody named — the fact, not the story — and stop there.",
-      "core": "You give, and you've stopped counting on anyone noticing. That's the shape you're in: still steady, still holding, no longer looking up when something lands. Being seen isn't part of how you picture this anymore.\n\nThe open moment you are in is still open. You haven't closed it, and the part of you that keeps standing through material pressure is still there, holding without forcing — lean on that, not on old hope. You're allowed to say the plain fact of what you do out loud to someone, once. Saying it doesn't obligate anyone to respond, and it doesn't make what you carry heavier. One person hearing it is enough to move the current again.",
-      "sheetLine": "You stopped expecting it to be seen, and kept giving anyway.",
-      "verb": "having what you gave up quietly finally named out loud by the people around you",
-      "place": "the open moment before anything has settled into a shape",
+      "tense": "The acknowledgment came apart before it finished, and you are parked at the threshold of what you gave up.",
+      "act": "persist on your own reserves through the pressure",
+      "ask": "Take up something small that carried you through what you gave up, and keep at it on your own — no report, no audience, no result checked, no end date. Just carry it.",
+      "core": "The thing you sacrificed for did not close, and nobody named it. So the cycle sits open behind you, and you have stopped arriving where the seeds are — present in the day but not at the seed. The absence is not laziness. It is a release that did not complete, which is why nothing in you feels finished even when you work.\n\nEndurance comes back through the material, not through feeling. Pick one small practice that held you before and keep it on your own reserves, without looking for anyone to confirm it. You are not rebuilding the whole thing; you are holding one spot long enough for the ground to remember your weight.",
+      "sheetLine": "The door closed. You are parked at it.",
+      "verb": "carrying what was given up until others can see what it was for",
+      "place": "at the seed state, everything still possible, nothing chosen",
       "provenance": {
         "signature_id": 27,
         "position_id": 0,
@@ -87,7 +130,7 @@
         "partner": "Steadfastness",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -98,13 +141,23 @@
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -116,12 +169,13 @@
     },
     {
       "status": 4,
-      "tense": "You're already shaping what people around you get to keep, and telling it as if it happened by itself.",
-      "ask": "Point at one thing you keep going for someone else, say out loud that you're the one keeping it going, then go on keeping it.",
-      "core": "This is happening right now. What you gave up keeps getting received by someone, keeps getting built on, keeps landing — and you keep describing it as just how the situation is. It keeps running, and the person running it goes unnamed, including by you.\n\nYou're in the open moment before anything has settled into a shape, and you're talking about it as if it were already built and belonged to no one. That's the backward part. Care that doesn't exhaust is available to you here: hold without clutching, keep going without keeping score. The simpler move is to return to the earlier form of the same act — say that you're the one doing it. You don't have to wait for the parade to have a title.",
-      "sheetLine": "You're the one keeping it going. Nobody has heard you say so.",
-      "verb": "having what you gave up quietly finally named out loud by the people around you",
-      "place": "the open moment before anything has settled into a shape",
+      "tense": "The giving is still happening through your hands while you call it something else entirely.",
+      "act": "look after what grows with a steady hand",
+      "ask": "Tend a young thing — a person, a project, a patch of ground — and as you do, let yourself know the hand is yours. Then keep tending. That counts as the whole ask.",
+      "core": "There is a keeper here, and you would say you are just being practical. The sacrifice is still being made in plain upkeep — you cover the gap, you steady the thing, you keep the tender part alive — and the author of it does not put a name to the work. That is not vanity. It is the acknowledgment that has to start somewhere, and here it has to start with you.\n\nWhat this care was before it grew elaborate is a hand on a living thing, not a plan for what it will owe. So each time you tend it, pause and let yourself know the hand is yours. Then keep going. Nothing changes in the work; only the one doing it comes into view.",
+      "sheetLine": "The hand that keeps it growing is yours. Sign it.",
+      "verb": "carrying what was given up until others can see what it was for",
+      "place": "at the seed state, everything still possible, nothing chosen",
       "provenance": {
         "signature_id": 27,
         "position_id": 0,
@@ -130,11 +184,21 @@
         "partner": "Stewardship",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -146,7 +210,7 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 12897,
+      "ms": 5847,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -158,6 +222,18 @@
           "status": 1
         },
         {
+          "code": "said",
+          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -165,7 +241,19 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (seed, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -176,27 +264,51 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The giving\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (seed, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (door, room, current) — a parable, not a sentence to a person",
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -207,38 +319,38 @@
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "the map's jargon: \"signature\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "glass",
-          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"The earlier, simpler form of this\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the authorship is running the\"",
+          "detail": "five words in a row from an exemplar or a rule: \"pause long enough to know\"",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -246,17 +358,39 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record doesn't support how long the unrewarded work has gone on or who was in the room where the offering landed badly — Too Little locates 'behind you' but I can't say what happened there, in any wording. A reader could reasonably say the wanting-to-be-seen reading overreaches for Unacknowledged, since the card is about recognition arriving as a consequence, not a craving; and 'keep one thing unrewarded for a week' could land as self-punishment if read wrong. The ask survives being wrong because it works on its own: pointing at one thing and saying you made it is useful whether or not anyone has named the making. The sentence that serves me more than them would be 'you're more powerful than you know' — it flatters the reader's stance, not the person's, so it's out."
+      "check": "The unsupported claim is that the honor has actually arrived or been witnessed — I render it as the recognition being near or underway, not proven. The reader may say no one is honoring anything right now, or that the recognition is for a different sacrifice than I assume; the ask survives because tending the growing thing does not depend on the witness. The sentence that serves the writer more than the person is the one that would make the recognition sound earned by my read rather than by their life."
     },
     {
       "attempt": 2,
-      "ms": 5032,
+      "ms": 3762,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -264,6 +398,12 @@
           "status": 1
         },
         {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -271,32 +411,68 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (seed, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"strike one thing from the list that does not serve\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -306,27 +482,27 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
+          "code": "vocab",
+          "detail": "the map's jargon: \"signature\"",
+          "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -334,20 +510,49 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say what was given up, who witnessed it, or how long ago it went unnamed — Too Little may point to where the person is standing but I can't name a cause, a person, or a duration. A reader could say the Unacknowledged cell invents a craving for credit that the card doesn't carry, since the card is recognition arriving as consequence, not as hunger; and the Too Much ask could read as punishment for wanting anything. The asks survive being wrong because each one works on its own — naming one thing you did is useful whether or not anyone else ever names it. The sentence that serves me rather than the person would be 'your sacrifice is finally paying off' — it promises a payoff the record doesn't guarantee, so it's out."
+      "check": "The unsupported claim is that the honor has actually arrived or been witnessed — I render it as recognition being near or underway, not proven. The reader may say nothing is being honored right now, or that any recognition is for a different sacrifice than I assume; the ask survives because tending what grows does not depend on the witness. The sentence that serves the writer more than the person is the one making the recognition sound earned by my read rather than by their life."
     },
     {
       "attempt": 3,
-      "ms": 3980,
+      "ms": 3596,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -359,13 +564,31 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (seed, shape) — one at most, usually none",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"strike one thing from the list that does not serve\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 2
         },
@@ -376,14 +599,32 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -394,15 +635,15 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -412,85 +653,33 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't say what was given up, who witnessed it, or how long it has gone unnamed — Too Little may point to where the person stands but I can't name a cause, a person or a duration. A reader could say the Unacknowledged cell invents a hunger for credit the card doesn't carry, since the card is recognition arriving as consequence; and the Too Much ask could read as punishment for wanting anything. The asks survive being wrong because each one works on its own — naming one thing you did is useful whether or not anyone else ever names it. The sentence that serves me rather than the person would be 'your sacrifice is finally paying off' — it promises a payoff the record doesn't guarantee, so it's out."
+      "check": "The unsupported claim is that the honor has actually arrived or been witnessed — I render recognition as near or underway, not proven. The reader may say nothing is being honored right now, or that any recognition is for a different sacrifice than I assume; the ask survives because tending what grows does not depend on the witness. The sentence that serves the writer more than the person is the one making the recognition sound earned by my read rather than by their life."
     },
     {
       "attempt": 4,
-      "ms": 3857,
+      "ms": 3178,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 4
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't say what was given up, who witnessed it, or how long it has gone unnamed — Too Little may point to where the person stands but I can't name a cause, a person or a duration. A reader could say the Unacknowledged cell invents a hunger for credit the card doesn't carry, since the card is recognition arriving as consequence; and the Too Much ask could read as punishment for wanting anything. The asks survive being wrong because each one works on its own — naming one thing you did is useful whether or not anyone else ever names it. The sentence that serves me rather than the person would be 'your sacrifice is finally paying off' — it promises a payoff the record doesn't guarantee, so it's out."
-    },
-    {
-      "attempt": 5,
-      "ms": 3665,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -498,14 +687,44 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (seed, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"strike one thing from the list that does not serve\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 2
         },
@@ -516,14 +735,26 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -532,6 +763,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -540,13 +783,13 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't say what was given up, who witnessed it, or how long it has gone unnamed — Too Little may point to where the person stands but I can't name a cause, a person or a duration. A reader could say the Unacknowledged cell invents a hunger for credit the card doesn't carry, since the card is recognition arriving as consequence; and the Too Much ask could read as punishment for wanting anything. The asks survive being wrong because each one works on its own — naming one thing you did is useful whether or not anyone else ever names it. The sentence that serves me rather than the person would be 'your sacrifice is finally paying off' — it promises a payoff the record doesn't guarantee, so it's out."
+      "check": "The unsupported claim is that the honor has actually arrived or been witnessed — I render recognition as near or underway, not proven. The reader may say nothing is being honored right now, or that any recognition belongs to a different sacrifice than I assume; the ask survives because tending what grows does not depend on the witness. The sentence that serves the writer more than the person is the one making the recognition sound earned by my read rather than by their life."
     }
   ],
   "usage": {
-    "input": 5664,
-    "output": 6025
+    "input": 4396,
+    "output": 4649
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:19:30.981Z"
+  "date": "2026-10-02T13:28:51.095Z"
 }

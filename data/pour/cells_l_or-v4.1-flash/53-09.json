@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "sweep",
+  "group": "library",
   "signature_id": 53,
   "position_id": 9,
   "signature": "Stewardship",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are at the bench with the pen in your hand, holding both demands without forcing either one.",
-      "ask": "Before the next round, say out loud what this practice holds steady in you, so the care you spend gets seen.",
-      "core": "You have two things that need you and you are not choosing between them. You keep both going, at a load you can actually carry. What makes that possible is mostly invisible — the same round repeated, the small light kept lit, nothing dramatic about it.\n\nWhat this balance is free to feed next is being honored. Not more effort, but being seen for the effort: when someone names the hours you put in, or notices what your showing-up makes possible, it does something for you. You don't have to earn it, and you don't have to wait to need it before you say it out loud.",
-      "sheetLine": "You keep two things going, at a cost you can bear.",
-      "verb": "Tending what grows through steady, repeated form",
-      "place": "In the practice you return to alone, where skill is built by repetition",
+      "tense": "The pen is in your hand now, and the small routine at the bench is running well.",
+      "act": "do the giving in the open this time, where it was always done unseen",
+      "ask": "Keep the door open next time you sit down to the practice. Let someone nearby watch you do it, and when they say something, don't wave it off. Then go back to work.",
+      "core": "Two things get carried in the same routine, and it doesn't tear: the thing that needs a little attention most days, and the thing that needs a lot right now. You go to the bench and do the small motion, and the bigger demand gets held too, because the small one is steady. You'd probably call it nothing.\n\nSo none of it gets seen. Not modesty exactly — the routine feels like housekeeping, too plain to bring up. Still, you can do one piece of it where someone nearby can watch. Keep the door open when you sit down. If they say something, don't wave it off; let the sentence finish. Then go back to work. The routine doesn't get heavier for being seen. It gets something under it.",
+      "sheetLine": "The small routine carries two things, and carries them well.",
+      "verb": "tending what is growing with steady hands, a little at a time",
+      "place": "alone at the bench with the same small routine, repeating it",
       "provenance": {
         "signature_id": 53,
         "position_id": 9,
@@ -26,26 +27,42 @@
         "partner": "Honor",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (bench, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are braced at the day the results will finally show, working for a future you cannot write in.",
-      "ask": "Stop one round early tonight and leave the last stretch undone. Then do the same thing tomorrow at the same time.",
-      "core": "You are working past the point of use. Every repetition is a rehearsal for some future where the care shows its return, and that future stays out of reach — so you push harder at a thing that isn't asking for it. The pushing is spending the care that made you good at this.\n\nWhat's underneath is real: you want to see what you're building arrive. But you're waiting on the arrival instead of letting the thing be complete where it stands. When one round finishes and you stop, you find the practice was not only a means to the next stage.",
-      "sheetLine": "You're working for a future instead of letting this one finish.",
-      "verb": "Tending what grows through steady, repeated form",
-      "place": "In the practice you return to alone, where skill is built by repetition",
+      "tense": "You are already braced for a future where this practice has to be sharper than it is.",
+      "act": "use the finished thing for an hour instead of improving it",
+      "ask": "Take the piece you've already made well — the one that keeps getting tweaked instead of used — and put it to use for an hour without touching it. No refinements. Just the use.",
+      "core": "The practice is running ahead of where it stands. Something is good enough to use, and it keeps getting improved instead, because a finished thing reads as a risk that isn't handled yet. One more pass, then one more, and each pass is smaller and the grip is tighter. This isn't care pretending to be care. It's care that has stopped letting the thing be done.\n\nTake the piece you've already made well — the one that keeps getting tweaked instead of used — and put it to use for an hour without touching it. No refinements. Just the use. The hour will feel wrong at first, then it won't. What you're testing is whether a finished thing can sit there finished. If something in you says nothing is finished yet, that's worth noticing without acting.",
+      "sheetLine": "You keep polishing past the point where it was done.",
+      "verb": "tending what is growing with steady hands, a little at a time",
+      "place": "alone at the bench with the same small routine, repeating it",
       "provenance": {
         "signature_id": 53,
         "position_id": 9,
@@ -54,31 +71,32 @@
         "partner": "Fulfillment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing at a door that closed behind you, and you have not walked through the one in front.",
-      "ask": "Set one thing down today, tell the person it's theirs now, then sit with the bare table for five minutes before you pick anything up.",
-      "core": "Going well, this looks like a small thing you return to: same time, same hands, a little better each week. You finish a round and put it down, and the attention is given without asking anything back. That is how skill gets made here.\n\nWhat's happening instead is that the practice has gone quiet. The worry that the next thing might need you is doing the work the practice used to do, and not starting is meant to protect you from that. You don't need a bigger life to pick it back up. Give five minutes of attention to something small and alive, and the rest tends to follow.",
-      "sheetLine": "You stopped showing up, and you call it being careful.",
-      "verb": "Tending what grows through steady, repeated form",
-      "place": "In the practice you return to alone, where skill is built by repetition",
+      "tense": "You are still at the threshold of a practice you already set down and left there.",
+      "act": "keep following the star after everything that has happened",
+      "ask": "Choose one small motion of the practice — five minutes, the version you first learned — and do it this week just as it was, with no plan for what it becomes. One motion, once.",
+      "core": "The practice has gone quiet. You can picture the bench, you know how the small daily motion feels in your hands, and none of it is happening. That's the position: not lost, not ruined, just unmoving. Whatever made you want it hasn't gone. It's harder to reach, that's all.\n\nChoose one small motion of the practice — five minutes, the version you first learned — and do it this week just as it was, with no plan for what it becomes. One motion, once. That may be the whole shape of it for now: a single repetition, no arc, no rebuilding. Repetition is how this was built the first time, and the first time wasn't impressive either. A small thing can be lit and stay small.",
+      "sheetLine": "The practice is quiet, and you're still at the threshold.",
+      "verb": "tending what is growing with steady hands, a little at a time",
+      "place": "alone at the bench with the same small routine, repeating it",
       "provenance": {
         "signature_id": 53,
         "position_id": 9,
@@ -87,19 +105,14 @@
         "partner": "Resilience",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "vocab",
+          "detail": "two images in one core (bench, shape) — one at most, usually none",
           "hard": false
         },
         {
@@ -108,20 +121,26 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The pen is down on the table and you are speaking as if the page wrote itself.",
-      "ask": "Tell one witness exactly what you have refused to abandon, and let their reaction be part of the story without editing it.",
-      "core": "Going well, this looks like a small form you keep returning to: same time, same hands, a little better each week. You finish a round and let it be done, and the care is given without asking anything back.\n\nWhat's happening instead is that you show up for something consistently — some person, some work, some small daily form — and you describe it as if it just happens around you. You make choices about it every week, and you have not once called that devotion yours. The showing-up runs; the saying-so is missing. Naming what it costs you, out loud, to someone who can hear it, is the simplest way to give the care its name.",
-      "sheetLine": "You've been tending this a while, and calling it nothing.",
-      "verb": "Tending what grows through steady, repeated form",
-      "place": "In the practice you return to alone, where skill is built by repetition",
+      "tense": "You are at the bench already, calling the daily work ordinary while it is not.",
+      "act": "let what you gave up be seen by the people it was for, without a word about it",
+      "ask": "Next time the practice is what's holding something up, let whoever it's for sit with you while you do it for a few minutes, and say nothing about why. Then carry on.",
+      "core": "The daily work holds up more than your own skill. Whatever you've built at the bench is carrying something for someone, maybe a few people, and your account of it is that you just do your little thing. From where you sit it reads like a hobby. From where they sit it's load-bearing.\n\nNext time the practice is what's holding something up, let whoever it's for sit with you while you do it for a few minutes, and say nothing about why. Then carry on. Nothing has to be explained, then or later. What changes is only that the time you gave up is no longer invisible to the person it was for. The work stays the same size. Someone just gets to see it.",
+      "sheetLine": "Your small ordinary practice is carrying more than you'd say.",
+      "verb": "tending what is growing with steady hands, a little at a time",
+      "place": "alone at the bench with the same small routine, repeating it",
       "provenance": {
         "signature_id": 53,
         "position_id": 9,
@@ -130,19 +149,19 @@
         "partner": "Honor",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -151,56 +170,80 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4857,
+      "ms": 6828,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "scope",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"your steadiness\" — a verb turned into a mystical noun",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (bench, floor) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it land\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"it which is why it\"",
+          "detail": "\"witnessed\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"The care is real\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 2
         },
@@ -211,10 +254,10 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "glass",
@@ -223,9 +266,9 @@
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -235,34 +278,22 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"all along\" — a motive the cell cannot know",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
@@ -271,61 +302,73 @@
           "status": 4
         },
         {
+          "code": "vocab",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
+          "detail": "\"witness\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person has a tending routine or anything about a history with one; I am reading the Stewardship/Discipline status alone. A reader could reasonably say 'I do more than I can keep up with' about the Too Much cell, or that the stray animals and dying houseplants were never a pattern for them. The ask survives being wrong because each one is about one small, tended thing today, not a verdict about their life. The sentence that serves the writer rather than them is any version of 'You were made to tend' — a claim about their nature and history the record never made."
+      "check": "The record does not say what the person's solitary practice is for or who benefits from it; the reader could say 'no one is waiting on this, it's just my own skill,' and the Too Much and Too Little asks still work because both are small acts inside the practice itself. The deeper risk is the Too Little cell quietly implying a stall — an empty chair, a door behind — but the record only shows the discipline going quiet, not why it stopped. The sentence serving the writer more than the person: 'keeping the small light lit' — brisk, a little pretty; replaced with plain words in every cell."
     },
     {
       "attempt": 2,
-      "ms": 3763,
+      "ms": 5733,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (bench, door) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"it which is why it\"",
+          "detail": "five words in a row from an exemplar or a rule: \"that's the whole of it\"",
           "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 2
         },
         {
@@ -335,21 +378,21 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going well, there is a …\"",
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
           "status": 3
         },
         {
@@ -359,22 +402,16 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 94 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -384,31 +421,48 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record supports only that Stewardship seated in Discipline is operating at each status now; it says nothing about the person having a practice, a routine, or a history with one, and nothing about animals, plants, or who they tend. A reader could reasonably say they keep no daily practice at all, or that the thing they carry is not a craft. The asks survive being wrong because each one is a single visible act about one tended thing today, not a claim about their life. The sentence serving the writer more than them would be any line implying they were made to tend, or that this is who they have always been."
+      "check": "The record doesn't say who, if anyone, benefits from this solitary practice, so the Unacknowledged cell risks asserting a beneficiary the map hasn't named; the reader could rightly say 'no one's waiting on this but me.' Both Too Much and Too Little asks survive being wrong because each is a small act inside the practice itself, not a claim about its audience. The Too Little cell came closest to inventing a reason for the quiet — a door, a walked-away discipline — when the record only shows the practice unmoving. The sentence that served the writer over the person was 'the small light doesn't need to flare to be lit' — pretty, and gone."
     },
     {
       "attempt": 3,
-      "ms": 2929,
+      "ms": 3827,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (bench, door) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it nothing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
@@ -417,14 +471,14 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "vocab",
+          "detail": "two images in one core (bench, shape) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -435,31 +489,37 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record says Stewardship seated in Discipline is operating at each status now; it says nothing about whether the person keeps a practice, what they tend, or how long they have carried it. A reader could reasonably say they have no routine at all, or that the thing they hold is not a craft. The asks survive being wrong because each is one visible act, doable today, about a single tended thing. The sentence serving the writer rather than them would be any line implying they were made to tend or have always been this way."
+      "check": "The record never names who benefits from this solitary practice, so the Unacknowledged cell keeps the beneficiary at arm's length — 'whoever it's for,' not a named person — and the Too Little cell states only that the practice has gone quiet, not when or why. A reader could still say the Unacknowledged cell assumes someone is being carried by the routine; the ask survives that because it is just an invitation to let one person watch, and nothing bad happens if they decline or if no one comes. The sentence serving the writer over the person was 'the small light doesn't need to flare to be lit' — pretty, and cut."
     }
   ],
   "usage": {
-    "input": 2911,
-    "output": 3122
+    "input": 6961,
+    "output": 3950
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:29:58.403Z"
+  "date": "2026-10-02T12:18:57.106Z"
 }

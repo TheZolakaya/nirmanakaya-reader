@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing in the middle of what got made, and the people it was made alongside are still there with you.",
-      "ask": "Pick one person tied into this and tell them one true thing about how it went, out loud, today.",
-      "core": "You know what this is, because you're in it — the thing that started out as maybe became something you can stand on, and you're still holding it while it's real. That's not a phase you're passing through. It is a completion, and it came out of choices you made when nothing was decided yet. The weight isn't the problem.\n\nThe thing most people get wrong is thinking the weight is theirs alone to carry. You don't feel it by yourself — you feel it with whoever was part of getting it made. That's where it stays real: in the contact, not in the grip. What you have built is heavy because it's finished. What keeps it finished is saying so to the people inside it. Stay in the contact, not just the load.",
-      "sheetLine": "The finished thing stays real in the contact, not the grip.",
-      "verb": "carrying what was only possible until it became real, and keeping it real",
-      "place": "the part of life where you stay in contact with the people you built something alongside",
+      "tense": "Right now the full weight of what you made sits in your hands and you can feel it.",
+      "act": "turn toward the one direction and stop surveying",
+      "ask": "Choose one direction you actually want and hold it for three days. Let the other roads stay unvisited. Each morning, say the heading to yourself — not the plan, just which way you're facing.",
+      "core": "You built something and it's real, and somehow you're still warm in it. That's the shape here: a finished thing sitting in your hands without the usual proving. When someone near you is mid-beginning, half-built and unsure, you don't hand them your answer. You stay beside them while their own thing comes, and they tell the difference.\n\nThe pull right now is to keep surveying, to check every other road before you commit, and that pull reads as prudence. It isn't. Settle on one direction you actually want, and hold it for three days. Three days won't cost you the others. Wait, and the restlessness that looks like carefulness makes the choice for you.",
+      "sheetLine": "The finished thing is real, and it rests in your hands.",
+      "verb": "carrying what was possible until it became real",
+      "place": "where you feel alongside people rather than only about them",
       "provenance": {
         "signature_id": 31,
         "position_id": 6,
@@ -26,14 +27,24 @@
         "partner": "Orientation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living past the end of it, bracing for how it will have gone when you stop carrying it.",
-      "ask": "Ask one person who was there what they saw, and let the answer sit without you correcting it.",
-      "core": "The thing you carried to the end is here and you don't trust it. Somewhere ahead is the day it all collapses, and you're already in that day, doing maintenance that hasn't been asked for. A conversation gets checked; a quiet stretch gets filled with contingencies.\n\nBut the thing is here, and it holds. You keep treating it like a wall that might fall, when it's something you made and have to keep making. That's a different job. The urgency is what you're bringing, not what is happening in the room. You already made it real; you don't have to prove that again every morning. The people involved can see it too, and they are the ones you can ask things of. Put the future down and be in the room with them.",
-      "sheetLine": "You're bracing against a loss that hasn't happened, in a room that's still here.",
-      "verb": "carrying what was only possible until it became real, and keeping it real",
-      "place": "the part of life where you stay in contact with the people you built something alongside",
+      "tense": "Ahead of you the ending is already written and you are bracing for the next one before this one is finished.",
+      "act": "look before you interpret",
+      "ask": "Once today, take someone in before you decide what their face means or what they need. Let the conclusion wait a minute. Do it once, then stop — nothing to report back.",
+      "core": "This is where feeling alongside someone turns into pre-empting them. You've started reading a look, a silence, a breath, and handing it back already interpreted, before their feeling has finished arriving. The rush isn't cruelty. You want it handled before it touches them. It arrives ahead of them all the same.\n\nThere's also a part of you watching every ending come at once — the next project, the next leaving — and hurrying the one you're in to get ahead of it. So once today, take the person in before you decide what it means. Let the conclusion wait. You get plain sight back, and they get to arrive beside you at their own speed.",
+      "sheetLine": "You decide what someone's feeling before they finish feeling it.",
+      "verb": "carrying what was possible until it became real",
+      "place": "where you feel alongside people rather than only about them",
       "provenance": {
         "signature_id": 31,
         "position_id": 6,
@@ -59,41 +71,37 @@
         "partner": "Perception",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look before you interpret\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are at the edge of what finished, with the people who were part of it gone quiet around you.",
-      "ask": "Let one person who was there tell you what they saw you build, and don't reach for the next thing until they're done.",
-      "core": "Something finished, and you're not in it. The completion happened, the thing you carried arrived, and you're at the edge of it, not sitting with it. The people who were part of it are harder to be near than they used to be — nearer them is nearer to being someone who finished something, and it's easier to stay before that.\n\nThat's an emptied seat, not a character flaw: there isn't enough left in you to sit with what you made, because being with people has been costing energy you don't have. Don't force yourself into it with effort. Let someone come toward you — one person, one real exchange where they tell you what they saw, and you stay in it after it stops feeling easy. The weight doesn't go anywhere. You just don't have to hold it by yourself.",
-      "sheetLine": "The thing you made requires you to be somewhere in it, and you aren't.",
-      "verb": "carrying what was only possible until it became real, and keeping it real",
-      "place": "the part of life where you stay in contact with the people you built something alongside",
+      "tense": "You felt alongside people once, and the stopping came, and the stopping held.",
+      "act": "open before anything has arrived",
+      "ask": "Sit with someone once, phone down, no plan for where the talk goes. Let whatever shows up show up, and don't reach for what it means. Twenty minutes is enough. You don't have to feel anything.",
+      "core": "Something you finished, or someone you were close to, is behind a door you're living as though it were open. Feeling alongside people goes quiet like this — the receiving side goes unused, and then it reads as not mattering. That's the fault, not the absence of a heart.\n\nWhat this looks like running well is plain: you sit with someone and let their news land on you before you decide anything about it. Feelings reach you while they're still warm. Don't try to manufacture that. Sit with someone once, phone down, no plan for the talk. Let whatever comes come, and don't hurry to decide what it means. It will be small and maybe awkward. That's fine. Feeling joins late, after the sitting — often not during it at all.",
+      "sheetLine": "You stopped feeling alongside people and stayed at the closed door.",
+      "verb": "carrying what was possible until it became real",
+      "place": "where you feel alongside people rather than only about them",
       "provenance": {
         "signature_id": 31,
         "position_id": 6,
@@ -102,7 +110,7 @@
         "partner": "Receptivity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -116,17 +124,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already doing it, and you are handing the credit to the people around you.",
-      "ask": "Tell one person who was there that you were the one holding it, and let them hear you say it.",
-      "core": "You are in contact with the people you built this with — not standing apart, not managing them, actually in it. It shows in how you talk about the work, what you take on, what you hand back. You'd say that's just being useful. It isn't; it's the connection running.\n\nThere's a thing you did, or made, or held together, and you give the credit to what happened, or to the room. You were the one holding it. The contact you keep wanting is already here — it came from the work you did with them. The credit isn't the point; the unclaimed say-so is. Say it once, to one person. Not to prove anything — to stop handing over what was yours to name. The thing is as much yours as theirs.",
-      "sheetLine": "You already did it. You keep handing the credit to the room.",
-      "verb": "carrying what was only possible until it became real, and keeping it real",
-      "place": "the part of life where you stay in contact with the people you built something alongside",
+      "tense": "The carrying, the finishing, the move toward others is all there, but the one who chose any of it goes unnamed.",
+      "act": "let the vision be shared with one other",
+      "ask": "Bring one person the picture of what you're carrying and what you still want it to become — not a summary, the real thing. One telling, one person. Let them hold the picture beside you.",
+      "core": "You hold what you finished, and you also hold the people near you steady, and if someone asked you'd say it more or less runs itself. It doesn't. You are the one who moves toward them. That move isn't seen as yours, least of all by you.\n\nSo bring one person the picture of what you're carrying and what you still want it to become. Not a summary — the real thing, told once. It hands the picture back to whoever actually made it, and it makes the load light enough to hold beside someone. Drop the part where you insist it doesn't count.",
+      "sheetLine": "You hold the people steady, and you say it runs itself.",
+      "verb": "carrying what was possible until it became real",
+      "place": "where you feel alongside people rather than only about them",
       "provenance": {
         "signature_id": 31,
         "position_id": 6,
@@ -135,29 +149,34 @@
         "partner": "Merge",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 103 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -166,181 +185,252 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6371,
+      "ms": 7103,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "label",
-          "detail": "\"Offer:\" printed",
+          "code": "diagnosis",
+          "detail": "\"anxiety\"",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"turn toward the one direction and stop surveying\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"where you feel with people\"",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "glass",
-          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"you call it '\" — words put in the person's mouth",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"you built it by\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person feels with others rather than only about them (status 1) — the record names the seat, but a reader could rightly say 'my people are fine; the weight is just something I carry alone.' The ask survives being wrong: going one round in a hard conversation is useful whether or not the diagnosis is right, because it's the person's own move and it ends with a real exchange, not a feeling. The sentence that serves the writer is 'the carrying is the connection' — it sounds finishable and clever; I have cut it and kept only what the person can check against their own week."
-    },
-    {
-      "attempt": 2,
-      "ms": 4187,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"There was a time\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The opening\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"with nothing in your hands\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 102 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim: this seat reads as if the person can be met, yet all four records keep the seat's own acts offstage — every ask drawn is the medicine's, so no cell may ask for closeness, and none does. The reader could say that a pile of people kept peaceably doesn't prove anyone felt with anyone; the asks survive that, because each one teaches the person something alone, another person only optionally. The sentence that serves the writer more than the person: 'what began as possibility is finished in your hands' — anywhere the core sounds satisfied by an ending, that is the writer's bloom, not theirs."
+    },
+    {
+      "attempt": 2,
+      "ms": 5353,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you can feel it in\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look before you interpret\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 100 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"at some point you\" — a cell knows no one's past",
+          "hard": true,
           "status": 3
         },
         {
@@ -350,73 +440,91 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "hunch",
-          "detail": "\"you call it '\" — words put in the person's mouth",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"you built it by\" — certifies the person; the record cannot know it",
+          "code": "vocab",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is comparable to the last: that the person feels with others rather than only about them — the record names the seat, but a reader could rightly say 'my people are fine; the weight is mine to carry.' The ask survives being wrong: telling one person tied into the finished thing how it went is a concrete act that ends with a real exchange regardless of whether the seat reads true. The sentence that serves the writer is 'the weight is the proof' — it sounds like wisdom; I have cut it and kept only what the person can check against their own week."
+      "check": "The unsupported claim: the seat is about feeling with people, but every medicine act the record permits is done alone or nearly so, so no cell can ask for closeness and none does — the seat shows in how the person is with others, not in what they're told to do with them. The reader could object that keeping people level isn't the same as feeling alongside them, and the asks survive that: each teaches something usable even if the read is wrong, and another person is optional in each. The sentence that serves the writer more than the person: anything that sounds pleased the finished thing is finished — that is the writer's bloom, not the person's life."
     },
     {
       "attempt": 3,
-      "ms": 3866,
+      "ms": 4442,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look before you interpret\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -426,10 +534,10 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
+          "code": "length",
+          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "tense",
@@ -444,32 +552,32 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "length",
+          "detail": "core 101 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "detail": "\"The reaching\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -478,56 +586,62 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person stays in contact with the people they built the finished thing alongside — the seat names that capacity, but a reader could rightly say the weight is mine alone and my people are fine. The ask survives being wrong: saying one true thing out loud to a person who was there is a concrete exchange that has value whether or not the seat reads true. The sentence that serves the writer is the finished thing stays real in the contact — it sounds like a slogan; I have cut it down to what the person can check against their own week."
+      "check": "The unsupported claim: this seat is about feeling with people, but every act the medicine permits is done alone or nearly so, so no cell asks for closeness, and the seat shows only in how the person holds what they've made. The reader could object that a finished thing leaves no room for anyone; the asks survive that, because each one is usable whether the read lands or misses, and another person is optional in each. The sentence that serves the writer more than the person: anything pleased that the finished thing is finished — the ending is the card's, not the person's feeling about it."
     },
     {
       "attempt": 4,
-      "ms": 3486,
+      "ms": 4446,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look before you interpret\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
@@ -544,119 +658,49 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
-        {
-          "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person stays in contact with the people they built the finished thing alongside — the seat names that capacity, but a reader could rightly say the weight is mine alone and my people are fine. The ask survives being wrong: saying one true thing out loud to a person who was there is a concrete exchange that has value whether or not the seat reads true. The sentence that serves the writer is the finished thing stays real in the contact — it sounds like a slogan, and I have cut it down to what the person can check against their own week."
-    },
-    {
-      "attempt": 5,
-      "ms": 3553,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 1
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 4
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the Unacknowledged closer \"say it once… to one person\" — right medicine, same sentence; vary it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person stays in contact with the people they built the finished thing alongside — the seat names that capacity, but a reader could rightly say the weight is mine alone and my people are fine. The ask survives being wrong: saying one true thing out loud to a person who was there is a concrete exchange that has value whether or not the seat reads true. The sentence that serves the writer is the thing is standing — it sounds reassuring and clever; I have cut it and kept the observation the person can check against their own week."
+      "check": "The unsupported claim: the seat is about feeling alongside people, but every act the medicine allows is done alone or nearly so, so no cell asks for closeness, and the seat can only show in how the person carries what they made. The reader could object that a finished thing leaves no room for anyone else; the asks survive that, because each is usable whether the read lands or misses, and another person is optional in each. The sentence that serves the writer more than the person: anything pleased that the story is over — the ending is the card's, not their feeling about it."
     }
   ],
   "usage": {
-    "input": 5719,
-    "output": 6144
+    "input": 8196,
+    "output": 4846
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:23:42.343Z"
+  "date": "2026-10-02T11:54:14.156Z"
 }

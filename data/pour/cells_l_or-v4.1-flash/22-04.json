@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Something is starting in you and you are right here while it starts.",
-      "ask": "Write down the one rule the new thing will run on, and let one person see it today. Watching it hold is what feeds you next.",
-      "core": "Something is starting in you, and you're not ahead of it or behind it — you're in it while it's still taking shape. You give it bones: a rule here, an order there, a way of doing it that can survive contact with other people. That's not machinery for its own sake. It's what lets a live thing keep living once it stops being only yours.\n\nThe good version of this looks like a structure that holds without squeezing — you build the container and the thing inside keeps changing. It's costing you some of the pleasure of the open beginning, and you're paying it, because pattern is what lets the spark travel. Keep feeding this. What you build next gets built out of what you finish now.",
-      "sheetLine": "The structure is holding, and you're the one holding it.",
-      "verb": "catching fire before the shape has been chosen",
-      "place": "where the framework gets made, the bones that hold a thing together",
+      "tense": "The pen is in your hand and you are writing the pattern now.",
+      "act": "carry on with the version you chose through another week of doubt",
+      "ask": "Keep one structure you have chosen going this week, through the days you doubt it. Note the doubt as it comes and carry on without redeciding.",
+      "core": "Something in you has caught, and it works best right where the shape isn't settled yet. You can hold a pattern loose while it forms — a standing thing, a way the week runs — and still be present to what arrives. That is the open, available state: ready without gripping. The pressure starts when that readiness begins defending itself, and the same hold turns into a lid.\nYou won't learn what this is by protecting it. You'll learn it by keeping a chosen structure going when doubt shows up and not treating the doubt as a verdict. Stay easy in it and keep returning to what you started after the first shine has worn off — that's how what you began reaches its own completion.",
+      "sheetLine": "Hold the pattern loose while it takes its shape.",
+      "verb": "striking a spark that has not found its shape",
+      "place": "where the pattern is being set",
       "provenance": {
         "signature_id": 22,
         "position_id": 4,
@@ -26,31 +27,42 @@
         "partner": "Resilience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are building the whole frame before anything inside it has been allowed to start.",
-      "ask": "Pick one plan you've already made for this and do nothing with it today. Notice what it's for if it goes unused this week.",
-      "core": "You're bracing. The thing hasn't begun and already there's a structure around it — schedules, rules, a design for how it will go. From a distance that looks like authority. Up close it's you getting ready for a future you can't write in advance, and the building has replaced the starting.\n\nBeing present is simpler than this: the moment in front of you is fresh, and what it needs shows up once you're not already committed to three moves ahead. The frame you're carrying is loaded with plans that haven't been in contact with anything real. A design made before that contact is mostly a guess. Let one of them go quiet and see what's still there, and what of the original spark was doing the asking.",
-      "sheetLine": "You're drawing the frame before anything has asked for one.",
-      "verb": "catching fire before the shape has been chosen",
-      "place": "where the framework gets made, the bones that hold a thing together",
+      "tense": "The whole shape is being fixed into place before it has shown what it is for.",
+      "act": "lay every piece of it out where you can see all of it at once",
+      "ask": "Get one plan down in full, every step and assumption, on a single page. Read it once and change nothing for five minutes — no rearranging, no deciding again.",
+      "core": "The spark is barely lit and already there is a whole architecture around it: the sequence for the month, the rules, the version of how this goes. Locking it early doesn't feel like control from inside — it feels like being ready. The people near it feel something fixed before it has been tried. A spark can't catch when there's no opening left for it to catch in.\nTake in the whole thing plainly, all of it at once, and treat that as done rather than another round of arranging. When nothing is hidden from you, nothing needs defending. You can't be present to what is actually here while you are bracing against what hasn't happened. Staying open while nothing is decided yet is not carelessness; it's what the spark needs.",
+      "sheetLine": "You've mapped the whole road the spark was going to show you.",
+      "verb": "striking a spark that has not found its shape",
+      "place": "where the pattern is being set",
       "provenance": {
         "signature_id": 22,
         "position_id": 4,
@@ -59,36 +71,37 @@
         "partner": "Clarity",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You knew how to give this shape and you have not gone back near it.",
-      "ask": "Draw the simplest version of the structure — one line, on paper — and put it where you'll see it tomorrow. Then start from that.",
-      "core": "You knew how to give things bones, and you're not doing that here. The workbench is where you left it. Everything since has been carried without a frame, and here you are at a point you've already passed.\n\nOpen and available is how this goes when it's working: nothing held back, nothing pre-decided, whatever arrives met as it is. From where you are it looks like nothing is starting, and things drift because nothing holds them, and that gets read as something wrong with you. It isn't.\n\nWhat's missing is contact — with one other person, with what you actually feel about any of it. You don't push yourself through. You let one person's real response land, and that is where the beginning comes back.",
-      "sheetLine": "You've got the skill to shape this and you're not going back to it.",
-      "verb": "catching fire before the shape has been chosen",
-      "place": "where the framework gets made, the bones that hold a thing together",
+      "tense": "You stand at a threshold that has already been crossed and did not move.",
+      "act": "name every feeling in it on one page, none of them crossed out",
+      "ask": "Put down whatever you actually feel about this beginning — each feeling on the page, none of them struck out, none of them argued with. Then leave it alone.",
+      "core": "The impulse to give this a shape is there, and nothing gets started. You keep standing at the spot where the choice was made, waiting for the ground to feel solid enough to stand on. Perhaps the pattern was set somewhere and left; perhaps the place where it waits was entered. The threshold is behind you, and you're still turned towards it.\nThis isn't the moment to force structure. It's the moment to feel what's in it. Sit once and let everything you feel around this beginning arrive on a single page, without correcting any of it. Nothing gets crossed out. Feelings don't need to be tidy; they need to be felt before they move. Once they've been given their whole colour, the ground under you is where you're standing.",
+      "sheetLine": "The threshold is behind you. You're still facing it.",
+      "verb": "striking a spark that has not found its shape",
+      "place": "where the pattern is being set",
       "provenance": {
         "signature_id": 22,
         "position_id": 4,
@@ -97,14 +110,19 @@
         "partner": "Completion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "vocab",
+          "detail": "two images in one core (shape, threshold) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -113,20 +131,21 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already setting the structure here and talking about it as if it were happening on its own.",
-      "ask": "Name one order you've already put in place this month and say out loud that you put it there. Just once, to one person.",
-      "core": "Look at what's already arranged around you — the timing, the sequence, the way things run. You're the one who set that up. It gets described as the situation demanding it, as if anyone would have done the same, and the arranging keeps happening under that cover.\n\nThe whole version of this is simple: the vision is solid because the experience behind it has been fully worked through, so it holds weight without needing to be asserted. That footing isn't fully there yet. A piece of what's already been lived — the imagining, the read on how it could go — hasn't been claimed, so the structure runs without its author's name on it.\n\nName the small true piece and the larger vision gets its ground back.",
-      "sheetLine": "The structure is already yours. You keep calling it the situation.",
-      "verb": "catching fire before the shape has been chosen",
-      "place": "where the framework gets made, the bones that hold a thing together",
+      "tense": "You have been setting the pattern for this while saying it started on its own.",
+      "act": "let the satisfaction of a finished thing land",
+      "ask": "Take something you already built, and for a few minutes treat it as finished. Not fix it, not improve it — stand there and receive the satisfaction of it.",
+      "core": "Something here has taken shape, and it took its shape because you kept returning to it. You talk about it as though it simply happened to you, as though the pattern arranged itself while you were off doing something else. The first spark you had around this — the one before there was anything to manage — doesn't make it into the account. So the satisfaction doesn't stay: there's the next version to make, something still to finish.\nStand in front of what already exists and call it done. Not the plan, not the next round. The satisfaction that follows a completed thing is not a reward for finishing; it is what finishing feels like when it is allowed to stay. Give it the length of a coffee. What you imagined is already here.",
+      "sheetLine": "You built this. You speak as if it started itself.",
+      "verb": "striking a spark that has not found its shape",
+      "place": "where the pattern is being set",
       "provenance": {
         "signature_id": 22,
         "position_id": 4,
@@ -135,7 +154,7 @@
         "partner": "Fulfillment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -146,13 +165,18 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -161,68 +185,104 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5153,
+      "ms": 7289,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the pattern\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"When this runs well\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let the seeing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"where you can see all\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"weeks since\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "detail": "3 images in one core (shape, room, door) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"When this is right\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -239,202 +299,50 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't say what the spark is actually for, so any line that names a specific project, plan, or shape the fire is reaching toward is mine, not the map's. A reader could say: this is just a person with an idea and some momentum, why give it four faces at all — and if I'm wrong about the ignition, the asks still stand, because noticing whether the shape is chosen or inherited costs nothing. The sentence that serves the writer more than the person is 'the whole self igniting before it knows what for' — it's lovely and it puts a picture in the mouth; I've kept the mechanism and dropped the lyric."
-    },
-    {
-      "attempt": 2,
-      "ms": 3333,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record doesn't fix what the spark is for, so any named project or plan is mine, not the map's — I've kept the mechanism and dropped the specificity. A reader could say the whole thing is just momentum described four ways; the asks survive that, because noticing whether your own rules were chosen or absorbed costs nothing either way. The line that serves the writer more than the person is any sentence that makes the frame sound noble — the fix is to let the cost show instead."
-    },
-    {
-      "attempt": 3,
-      "ms": 2548,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
+          "detail": "\"for months\" — a cell knows no one's past",
           "hard": true,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for months\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"of it and let the\"",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -443,38 +351,61 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record doesn't fix what the spark is for, so any named project or plan is mine, not the map's — the mechanism is kept and the specificity dropped. A reader could say the whole thing is momentum described four ways; the asks survive that, because noticing whether your own rules were chosen or absorbed costs nothing either way. The line that serves the writer more than the person is any sentence that makes the frame sound noble — the fix is to let the cost show instead."
+      "check": "The unsupported claim is that too-little means something ended earlier behind a shut door — the record only holds that the capacity is starved and the person is past-anchored, so I have kept it to conditions and not to any event.\nA reader could reasonably say the spark is not lit yet rather than unlit — the ask survives either way: drawing one line about what is actually here gives a next step from emptiness or from cold start.\nThe sentence that serves me more than them is any that names the shape beginning as if they should already know what it is for, and I have cut each of those."
     },
     {
-      "attempt": 4,
-      "ms": 2866,
+      "attempt": 2,
+      "ms": 4749,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -483,6 +414,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (shape, room, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "tense",
@@ -497,8 +452,119 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that too-little involves a decision already made and a threshold crossed — the record only holds that the capacity is starved and the person is anchored behind, so I have kept it to the impulse being present and nothing starting.\nA reader could reasonably say the spark is not lit yet rather than unlit — the ask survives either way: writing what is actually felt gives a next step from emptiness or from a cold start.\nThe sentence that serves me more than them is any that names the shape as already begun and waiting, and I have cut each of those."
+    },
+    {
+      "attempt": 3,
+      "ms": 4201,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, threshold) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
         },
@@ -510,7 +576,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -519,15 +591,237 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"write\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record doesn't fix what the spark is for, so any named project or plan is mine, not the map's — the mechanism is kept and the specificity dropped. A reader could say the whole thing is momentum described four ways; the asks survive that, because noticing whether your own rules were chosen or absorbed costs nothing either way. The line that serves the writer more than the person is any sentence that makes the frame sound noble — the fix is to let the cost show instead."
+      "check": "The unsupported claim is that too-little involves a decision already made and a threshold crossed — the record only holds that the capacity is starved and the person is anchored behind, so I have kept it to the impulse being present and nothing starting.\nA reader could reasonably say the spark is not lit yet rather than unlit — the ask survives either way: writing what is actually felt gives a next step from emptiness or from a cold start.\nThe sentence that serves me more than them is any that names the shape as already begun and waiting for them, and I have cut each of those."
+    },
+    {
+      "attempt": 4,
+      "ms": 6192,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, threshold) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the satisfaction\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that too-little involves a decision already made and a threshold crossed — the record only holds that the capacity is starved and the person is anchored behind, so I have kept it to the impulse being present and nothing getting started.\nA reader could reasonably say the spark is not lit yet rather than unlit, and the ask survives either way: naming what is actually felt gives a next step from emptiness or from a cold start.\nThe sentence that serves me more than them is any that names the shape as already begun and waiting for them, and I have cut each of those."
+    },
+    {
+      "attempt": 5,
+      "ms": 3969,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay every piece of it out where you can see all of\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, threshold) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that too-little involves a decision already made and a threshold crossed — the record only holds that the capacity is starved and the person is anchored behind, so I have kept it to the impulse being present and nothing getting started.\nA reader could reasonably say the spark is not lit yet rather than unlit, and the ask survives either way: naming what is actually felt gives a next step from emptiness or from a cold start.\nThe sentence that serves me more than them is any that names the shape as already begun and waiting for them, and I have cut each of those."
     }
   ],
   "usage": {
-    "input": 4149,
-    "output": 4553
+    "input": 9681,
+    "output": 6030
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:14:53.978Z"
+  "date": "2026-10-02T12:56:49.368Z"
 }

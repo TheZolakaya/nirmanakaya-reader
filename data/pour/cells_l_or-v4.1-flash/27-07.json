@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The effort is finished and someone has already said out loud that it mattered.",
-      "ask": "Name one thing you gave up to get here, tell one person who was in it with you, and leave the rest for next time.",
-      "core": "You can keep moving while the cost of the moving is seen, and the two haven't turned on each other. The work got acknowledged, and the acknowledgment didn't stall the work — it fed it. You picked the thing, you paid for it, and the people it was for know what it took. That's a rarer spot than it sounds.\n\nWhat keeps it is care with a steady hand, not more pushing. The same steadiness that carried you through the resistance now goes to the parts that still need looking after — the pace you set, the people who held the line with you, the next thing you'll spend on. Growth here doesn't need a wrench. Tend what's already growing, and don't wear yourself out doing it.",
-      "sheetLine": "The effort is visible and the momentum is still yours to keep.",
-      "verb": "to have the cost of the work seen and valued by the people it was done for",
-      "place": "in the part of a life where momentum toward a goal is kept up against resistance",
+      "tense": "The effort has held, and the cost of it is now being seen for what it is.",
+      "act": "tend the resource with responsible care",
+      "ask": "Before the visible work takes its turn, give the foundation under your carried goal a small share of the week — the tool, the contact, the postponed part.",
+      "core": "You keep a goal going through resistance without letting it eat you, and the cost of it has become visible. That's the cycle completing — the quiet part valued where it can be seen, the sacrifice acknowledged for what it was. Let it stand. No shrug needed, no rushing past the moment where it might mean something.\n\nWhile it stands, tend what the goal runs on. Give the foundation beneath it a small, steady share of your week — the part that doesn't show, that's easy to keep putting off while the loud work takes all the hours. Care like that doesn't exhaust you, because it's feeding something growing rather than gripping what it should become. The goal stays yours, and it stays fed.",
+      "sheetLine": "What you gave up is being seen. Let it stand.",
+      "verb": "honor what was sacrificed for",
+      "place": "where drive is aimed at a goal",
       "provenance": {
         "signature_id": 27,
         "position_id": 7,
@@ -26,7 +27,7 @@
         "partner": "Stewardship",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -37,13 +38,13 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already arranging the moment the work will be honored and the goal is still out of reach.",
-      "ask": "Pick one piece you've already finished, stop improving it today, and show it to someone before it is perfect.",
-      "core": "The approval is somewhere ahead and you keep moving the finish line to meet it. You won't call a thing done until the right people have seen it, and since that keeps not happening, the effort keeps going past what was needed. From the outside it looks like drive. From in here it's waiting you can't put down, paid for in the hours you weren't asked for and the rest you kept skipping.\n\nWhat ends the wait isn't more proof of the work. It's letting one thing be finished before anyone claps. The practice that steadies this isn't a bigger push; it's a smaller, sharper look at the thing on the table, deciding whether it's actually done, and letting that be enough for now.",
-      "sheetLine": "You're still upgrading the work while waiting for someone to notice.",
-      "verb": "to have the cost of the work seen and valued by the people it was done for",
-      "place": "in the part of a life where momentum toward a goal is kept up against resistance",
+      "tense": "The acknowledgment hasn't come yet, and you are braced for a verdict still out past the skyline.",
+      "act": "sort what matters from what does not, carefully",
+      "ask": "Before the next push, put everything you're carrying for that goal on paper, then cut all but the one thing that would still matter if nobody ever noticed.",
+      "core": "You can hold a direction through resistance — that much is real. But you're running toward the place where work gets seen, bracing for a verdict nobody has offered, and the proof has started outrunning what it was supposed to prove. The momentum stops feeling like motion and starts feeling watched. The people close to your work are getting the tense version.\n\nWhat the goal actually needs is the raw material under it, sorted. Before the next push, put everything you're carrying for it on paper, then cut all but the one thing that would still matter if nobody noticed. What's left is the work. Everything you struck was the wait. You can drop the wait — the crossing doesn't have to be defended.",
+      "sheetLine": "The proof is outrunning what it was for.",
+      "verb": "honor what was sacrificed for",
+      "place": "where drive is aimed at a goal",
       "provenance": {
         "signature_id": 27,
         "position_id": 7,
@@ -69,26 +71,42 @@
         "partner": "Honing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "Something was given up back there and the direction that was supposed to come from it is still missing.",
-      "ask": "Take one small step toward a goal you set aside, something you can finish in a day, and do it without telling anyone yet.",
-      "core": "The work happened, and the forward motion stopped not long after. Whatever the effort was for, the momentum thinned out once the quiet part was over, and now the finish line feels further than it was. This isn't laziness or drift. It's more like the line is dry where the hard stretch happened and nothing has been routed back in.\n\nTry one small push on something you can finish the same day. Not the whole goal, one piece of it, done without an audience. You don't have to feel driven to make the move. The evidence of a finished thing, however small, is one way the momentum comes back and the direction returns.",
-      "sheetLine": "What you set aside is still waiting on the next step.",
-      "verb": "to have the cost of the work seen and valued by the people it was done for",
-      "place": "in the part of a life where momentum toward a goal is kept up against resistance",
+      "tense": "Something finished a while back, and you are still posted where it ended, waiting on a verdict that isn't coming.",
+      "act": "carry your own share, all of it",
+      "ask": "Find the goal you've stopped pushing on, choose a small piece only you can carry, and take it the whole way — no waiting for the rest to be owed back to you.",
+      "core": "Somewhere in your working life a goal went quiet, and you've stayed near it as if the next step were still owed by someone outside you. The effort stopped. The standing-around didn't. Hours that belong to something moving are being spent at a finished place.\n\nWhat pulls you back is your own weight on the road. Find the goal you've stopped pushing on, choose a small piece only you can carry, and take it through this week. You don't have to restart the whole thing or feel ready — just set one load down where it belongs. The waiting has no share in it. What's yours, you move yourself, and the direction stays where you left it.",
+      "sheetLine": "Nothing is owed to you here. Carry your own piece.",
+      "verb": "honor what was sacrificed for",
+      "place": "where drive is aimed at a goal",
       "provenance": {
         "signature_id": 27,
         "position_id": 7,
@@ -97,26 +115,42 @@
         "partner": "Steadfastness",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The recognition has already landed and the one who paid the cost is still calling it nothing.",
-      "ask": "Name one thing you're keeping going that nobody asked you to, and hand some of the care to someone else this week.",
-      "core": "People have already seen what your work cost and they're acting like it mattered to them. You're the one still saying it was no big deal, or crediting the team when the direction was yours. The effort is visible. You haven't said it's yours. What you call the situation having worked out is you keeping something growing without counting yourself as the one doing it.\n\nWhat changing that means is quiet. Call one thing yours, at least to yourself, before you're sure it's worth it. Then put part of the care in someone else's hands for a week, on purpose. Growth doesn't need to be held the whole time by the same person who carried it up.",
-      "sheetLine": "The work is seen. You're the last to say it was yours.",
-      "verb": "to have the cost of the work seen and valued by the people it was done for",
-      "place": "in the part of a life where momentum toward a goal is kept up against resistance",
+      "tense": "The goal keeps moving because you feed it, and you would say that's just how it goes.",
+      "act": "look after what grows with a steady hand",
+      "ask": "Keep something you've quietly held going this week, same steady hand, no extra push — and once, note on paper that you were the one holding it.",
+      "core": "You keep a goal alive by tending it — trimming what's wasteful, feeding what matters, showing up in the unglamorous middle — and if asked, you'd say it keeps itself going. It doesn't. The ground it stands on has a keeper, and the keeper has been calling that work nobody's doing, or luck. The people being carried by it have known for a long time.\n\nNothing needs to be announced. Keep something you've quietly held going this week exactly as you already do — same steady hand, no extra push. Then note on paper once that you were the one holding it. You don't have to show anyone. You just stop being the only person who doesn't know.",
+      "sheetLine": "You've been calling your own keeping good luck.",
+      "verb": "honor what was sacrificed for",
+      "place": "where drive is aimed at a goal",
       "provenance": {
         "signature_id": 27,
         "position_id": 7,
@@ -125,24 +159,34 @@
         "partner": "Stewardship",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -151,17 +195,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6378,
+      "ms": 6455,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
@@ -169,21 +207,27 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"right now the\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"instead of waving it off\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -191,6 +235,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -199,51 +255,63 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The giving\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"for a long time\" — a duration the person never gave",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look after what grows with a steady hand\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -251,13 +319,28 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"name\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record names the card's mechanism as external acknowledgment of sacrifice and its balanced face as release flowing from completion, but it does not say what this person was given up for or who withheld the recognition; the core stays with what the person can confirm from the outside, the visibility of the effort and what it has done to their pace, and leaves the wound behind the missing honor unlocated. A reader could say the card is about needing praise, when the record is about work that was already finished privately and never seen, so the cells describe the visible strain rather than the hunger. The ask is still useful if the read is wrong, because saying what was given up to someone who did not know is true regardless of whether acknowledgment is what was missing. The sentence that serves me more than the person is 'you gave everything and they never saw it,' which assigns a villain and a history the record does not carry."
+      "check": "The record doesn't say what was sacrificed or whether anyone ever saw it, so the cores stay inside the moment the capacity is in — honoring visible, bracing ahead of a verdict, standing past a finished thing, tending what's left. The reader could fairly say they never wanted a parade and that the work was its own reward; every ask is still doable alone and useful even if the read is wrong. The line that serves the writer most is the one about being 'a season ahead' — cut it to plain language in plain acts. All four asks are Stewardship's or Honing's own acts, made small, none needing another person on hand."
     },
     {
       "attempt": 2,
-      "ms": 4145,
+      "ms": 5173,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -269,15 +352,21 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 1
         },
         {
@@ -285,6 +374,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"horizon\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the thing it was meant\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -294,19 +413,43 @@
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -315,15 +458,261 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record names the card as sacrifice made visible and its balanced face as release flowing from completion, but it never says who failed to acknowledge the work, what was given up, or for how long; the cells stay on what the person can confirm — the effort, the pace, the visible result — and leave the wound unlocated. A reader could hear this as a card about wanting praise, when the record is about work already finished privately and never confirmed by the group, so the cells describe the strain in the pace rather than any hunger for credit. The ask still works if the read is wrong, because saying plainly what a finished thing cost is true whether or not acknowledgment is what was missing. The sentence that serves me more than the person is a line about being denied what was owed, which invents a debtor and a debt the record does not carry."
+      "check": "The record doesn't say what was sacrificed or whether anyone saw it, so the cores stay inside the moment the capacity is in — recognition landing on a goal held, bracing toward a verdict not yet given, standing past a finished thing, tending what's left. The reader could fairly say they never wanted a parade and the work was its own reward; the asks survive that, being doable alone at any pace. The sentence that serves the writer most was 'a season ahead' in the earlier draft — cut, replaced with plain description of the moment. All four asks come from Stewardship's or Honing's listed acts, made small, none needing another person on hand; only the Balanced ask keeps any clock, the other three none."
+    },
+    {
+      "attempt": 3,
+      "ms": 4225,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"horizon\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the thing it was meant\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record never says what was sacrificed or whether anyone saw it, so the cores hold to the moment the capacity is in — recognition landing on a held goal, bracing toward an unhurried verdict, standing past a finished thing, tending what's left. A reader could fairly say they never wanted a parade and the work was its own reward; every ask still works alone and needs no audience. The line that serves the writer most was the earlier 'season ahead' flourish, gone; the asks stay inside Stewardship's and Honing's listed acts, none needing another person, and I have varied whether a clock is present so not every ask is timed."
+    },
+    {
+      "attempt": 4,
+      "ms": 3720,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the resource with responsible care\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort what matters from what does not carefully\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record never says what was sacrificed or whether anyone saw it, so the cores hold to the moment the capacity is in — recognition landing on a held goal, bracing toward an ungiven verdict, standing past a finished thing, tending what's left. A reader could fairly say they never wanted a parade and the work was its own reward; every ask works alone and needs no audience. The line that serves the writer most was the earlier 'season ahead' flourish, gone; the asks stay inside Stewardship's and Honing's listed acts, none needing another person, and I have varied shape and clock so not every ask is timed or bounded."
     }
   ],
   "usage": {
-    "input": 1374,
-    "output": 2361
+    "input": 8090,
+    "output": 4828
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:19:43.927Z"
+  "date": "2026-10-02T11:49:44.048Z"
 }

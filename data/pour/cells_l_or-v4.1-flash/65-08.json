@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you can carry this and set it down when it is finished.",
-      "ask": "Offer today to hold one person's outcome, and end it the moment it's finished. Say out loud that it's over.",
-      "core": "You can carry this, and you can set it down when it's done. Holding something heavy hasn't made you stiff, and putting it down hasn't felt like losing. You know the cost of what you're holding, so when it's finished you release it. That's why people hand you weight — you're strong enough to refuse it and clear-eyed enough to let it go.\n\nBecause of that, caring for what's around you comes easily right now, and you can give it without it hollowing you out. That isn't a given; many people who hold this much either harden or stop. What's in front of you, if you take it, is to keep carrying that way. Pick one thing today that isn't finished yet, and name what would be left when it is.",
-      "sheetLine": "You can carry it, and you know when it's done.",
-      "verb": "bearing the weight of what only you can end",
-      "place": "where the strength to keep holding is carried",
+      "tense": "The load is in your hands today, and how you hold it is still being chosen.",
+      "act": "tend the small thing and learn from it",
+      "ask": "Feed something you're already keeping alive — a plant, a person, a routine — only what it asks for this week, nothing extra, and watch how it answers that.",
+      "core": "What you take on, you can take on without squeezing it. Weight lands and you carry it and you know the difference between carrying and clenching — that most of the strength here lives in what you leave alone. What's in your hands gets exactly what it needs and nothing extra, and it does fine, and you're not used up by it.\n\nThe bend is small and it's real: what's built to last can start to prefer lasting to finishing. Apprentice yourself to something you keep alive. Tend it with hands that haven't decided what it ought to become, only what it needs next. You'll learn its rate — how fast it actually grows when nothing pushes it. Care that doesn't exhaust you is the only kind that lasts, and it moves slower than you'd guess.",
+      "sheetLine": "You can carry it without clenching.",
+      "verb": "carrying what was given until it is finished or set down",
+      "place": "the strength to bear weight without breaking or going rigid",
       "provenance": {
         "signature_id": 65,
         "position_id": 8,
@@ -26,14 +27,19 @@
         "partner": "Initiate of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already carrying things that haven't happened yet, and bracing for a load no one has handed you.",
-      "ask": "Pick one burden you're holding ahead of time. Put it down today without a replacement. Write one clear line about the actual state of things, no rehearsal.",
-      "core": "You're taking on what isn't here yet. The work hasn't landed, the person hasn't asked, the problem is still a shape in the distance — and your body has already gone to meet it. You're pushing release away because releasing feels like failing, so you keep the weight on and call it being ready. That armor costs you the thing it's for. You can't get to done that way; nothing gets finished in your own hands.\n\nNothing is going to push you, and you can't force the answer into this week. If you want, do one thing: name what you're carrying ahead of time, and set it down for now without picking up anything else.",
-      "sheetLine": "You're carrying a load that hasn't arrived.",
-      "verb": "bearing the weight of what only you can end",
-      "place": "where the strength to keep holding is carried",
+      "tense": "You are already standing in next week, braced against a weight that has not arrived.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Take the thing you keep bracing over and put what you actually know about it on paper, in order, no feeling words. Once. Then leave it alone.",
+      "core": "Endurance holds what's here, and the hold has reached past the present — gripping a future you can't write into, keeping the posture of a hard thing that may not come. The body stays braced long after there's anything to brace against, and the grip has quietly become the default setting.\n\nMake the load concrete. Put what you know about the thing you're bracing over on paper, in order, without feeling words. That's the whole move — inquiry instead of endurance, so the bracing has something actual to hold. A method run once steadies more than a grip kept running. If the bracing turns out to have been right, you'll have facts; if it wasn't, you'll have your hands back, and they'll be useful either way.",
+      "sheetLine": "You're bracing for a load that hasn't arrived.",
+      "verb": "carrying what was given until it is finished or set down",
+      "place": "the strength to bear weight without breaking or going rigid",
       "provenance": {
         "signature_id": 65,
         "position_id": 8,
@@ -59,31 +66,27 @@
         "partner": "Executor of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that's already closed behind you, not picking up what's here.",
-      "ask": "One small thing in front of you — a dish, a shelf, anything close. Pick it up today, finish it, put it down yourself. Say nothing while you do it.",
-      "core": "You've stopped bearing. The strength is still underneath you, the way it was, but you've stepped back from using it — braced so long against something back there that nothing here feels worth the weight. So you let things slide or carry them without touching them at all: no stake, no release, no finish. What's left is a kind of holding that's really just holding your place. Nothing here gets moved because nothing here gets a grip.\n\nThe old task isn't the way back in. Keep returning to where your strength still gets used. Move one thing within reach, pick it up, and release it for yourself when it's done — build one small weight that has an end.",
-      "sheetLine": "Holding your place isn't the same as holding your ground.",
-      "verb": "bearing the weight of what only you can end",
-      "place": "where the strength to keep holding is carried",
+      "tense": "The weight was set down a while back, and you are where you left it.",
+      "act": "lay the one step you can see, solidly",
+      "ask": "Choose something near you that isn't finished — a shelf, a bill, a repair, a habit — and do only the part you can already see. Then set it down.",
+      "core": "Bearing weight is what makes a body strong, and lately nothing has been borne. What had heft got set down and wasn't picked back up, so there's a softness at the base — not weakness, just no load on it. From outside it reads as fine. From inside, as flat: things pass through without landing, and you watch rather than carry. Under-carrying looks like peace from across a room. Up close it's a door you're no longer at and haven't left.\n\nEffort won't bring it back; one finished step will. Find something unfinished within arm's reach and do the part you can already see, with the care of someone who builds to last. The step teaches the hands what they can take. Don't reach for the whole shelf — the whole shelf is what stopped you.",
+      "sheetLine": "You're holding nothing, and calling it calm.",
+      "verb": "carrying what was given until it is finished or set down",
+      "place": "the strength to bear weight without breaking or going rigid",
       "provenance": {
         "signature_id": 65,
         "position_id": 8,
@@ -92,24 +95,24 @@
         "partner": "Executor of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "hunch",
+          "detail": "\"calling it calm\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -121,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already in the middle of ending things, and you're talking about it as if you were just waiting for permission.",
-      "ask": "Name one ending you already set in motion, then tend it the way you'd tend something growing — give it a week of care before you decide how it ends.",
-      "core": "You've been carrying the end of something for a while now — the release already happened in how you act, even if you haven't called it that. The concessions, the absence, the way you stopped pushing. The decision is doing its work through you, quietly, and all your talk of waiting is just what you say while it happens.\n\nCalling it something growing rather than something already decided might sound like a stretch, but the two are close at this distance: a thing you tend is a thing you've accepted you're staying with, and that's what this is. Notice which ending you've already set in motion — give it a week of your care.",
-      "sheetLine": "You've already ended it. You're still calling it waiting.",
-      "verb": "bearing the weight of what only you can end",
-      "place": "where the strength to keep holding is carried",
+      "tense": "You are bearing the weight in the room and keeping your own name off the record.",
+      "act": "care for it with fresh hands and see what it needs",
+      "ask": "Take something you've been keeping going and tend it as a beginner would — ask what it needs now, not what it has needed. Notice what's in your arms.",
+      "core": "Somebody in your life is held up by your endurance, and your account of it is that you weren't really involved. You carry the load, you steady the thing, and the story you tell has somebody else under the beam. The people standing beneath it know who keeps it up. Nobody minds that you don't say. The gap is yours.\n\nTending is what restores this, not pushing. Pick something you've been carrying and look at it with hands new to the work — as though you'd been handed it this week and had to learn its needs from scratch. Care that doesn't exhaust starts with asking. You may find it needs less than you've been giving, or something different. Either way you'll know what's actually been in your arms.",
+      "sheetLine": "You're holding it up while your name stays off it.",
+      "verb": "carrying what was given until it is finished or set down",
+      "place": "the strength to bear weight without breaking or going rigid",
       "provenance": {
         "signature_id": 65,
         "position_id": 8,
@@ -135,24 +139,14 @@
         "partner": "Initiate of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -161,58 +155,76 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6130,
+      "ms": 6240,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "diagnosis",
-          "detail": "\"burn out\"",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"People around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apply the method rigorously once\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
           "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "glass",
@@ -221,103 +233,173 @@
           "status": 3
         },
         {
+          "code": "names",
+          "detail": "another card's name on glass: Fortitude",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it calm\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"step you can see solidly\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "scope",
           "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "refrain",
           "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record does not say what anyone's face did at that door, and the Too Little cell must not supply it; the reader may object that under-feeling is simply calm competence, so release is described rather than diagnosed; the asks stand if the read is wrong because each is a concrete action anyone could attempt regardless of status; the sentence that serves the writer is the one that explains the person to themselves before they say a word."
+      "check": "The unsupported claim is reading the Too Much cell's bracing as dread about a specific outcome; the record only supports the capacity running ahead of natural timing, so the draft stays with the generic brace and names no situation. A reader could reasonably say the holding has simply been pace, not foreboding, and the cell still gives something usable — the written facts and the one method applied once work whether the read is right or wrong. The sentence that serves me more than them is any clause about 'mastery energy' or earned authority; it is off the glass. Same for 'you were built to bear things' as a compliment — cut."
     },
     {
       "attempt": 2,
-      "ms": 4036,
+      "ms": 4604,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it calm\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -327,36 +409,41 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "detail": "\"What brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record does not say what happened at that door, and the Too Little cell must locate the person without supplying the story; a reader may object that under-holding is simply calm self-containment, so the cell describes release rather than diagnosing it; the asks survive a wrong read because each is a concrete action anyone could attempt today; the sentence that serves the writer is the one that explains the person to themselves before they speak."
+      "check": "The unsupported claim is still that the Too Much bracing has a specific object in view; the record only supports timing running ahead, so the cell names no situation and the written-facts ask works whether or not the read lands. A reader could reasonably say the brace has just been pace — the ask survives that, because facts on paper steady either condition. The sentence that serves me more than them was the 'mastery energy' register and the compliment 'built to bear'; both stay off the glass. Also cut: any claim about how tired they are or what people feel around them, since the record doesn't say. The quartet's asks now open on different verbs — feed, write, repair, notice — and two carry no clock."
     },
     {
       "attempt": 3,
-      "ms": 3363,
+      "ms": 3722,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -367,32 +454,101 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"call it being\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it calm\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim remains that the Too Much brace has a particular object in view; the record shows only timing running ahead, so no situation is named and the write-the-facts ask holds whether the read is right or wrong. A reader could say the brace has simply been pace, and the ask still steadies that. The clause serving me was the mastery register and the line about how tired they are — the record gives neither. The quartet's asks open on feed, write, set, tend, and two carry no clock."
+    },
+    {
+      "attempt": 4,
+      "ms": 3714,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "hunch",
+          "detail": "\"calling it calm\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -403,31 +559,19 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say what happened at that door, and the Too Little cell must locate the person without supplying the story; a reader may object that under-holding is simply calm self-containment, so the cell describes release rather than diagnosing it; the asks survive a wrong read because each is a concrete action anyone could attempt today; the sentence that serves the writer is the one that explains the person to themselves before they speak."
+      "check": "The unsupported claim is still that the Too Much brace has a particular object; the record shows only timing running ahead, so no situation is named and the write-the-facts ask steadies the condition whether the read is right or wrong. A reader could say the grip has simply been pace, and the ask survives that — facts on paper are useful either way. The clauses serving me were the mastery register and any line about how tired they are; the record gives neither. The quartet's asks open on feed, write, do, tend; two carry no clock."
     }
   ],
   "usage": {
-    "input": 2745,
-    "output": 3329
+    "input": 4715,
+    "output": 4969
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:53:13.800Z"
+  "date": "2026-10-02T13:16:07.042Z"
 }

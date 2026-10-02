@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are seeing the machinery under the thing and it satisfies you to see it.",
-      "ask": "Tell one person the shape you noticed, as if they could use it, and let that be the whole of what you wanted from saying it.",
-      "core": "You can see the pattern under something and that's enough on its own. Not the facts of it — the way it works, the joints and levers showing, the surface gone. This kind of sight usually arrives late, after wanting it has stopped being urgent. What you imagined has been felt through, so there's a fullness to it now, not a hunger.\n\nYou're not waiting to be satisfied and you're not gripping it either. This is a good place to stand, and it costs something to keep standing here: it means letting the picture stay partial and still letting it be finished. So say the shape out loud once, as a thing someone could pick up and use. Not to prove you saw it. Because a pattern spoken to another person gets clearer, and you get to find out whether it holds.",
-      "sheetLine": "You see how it works, and that's enough.",
-      "verb": "Imagining it fully and feeling every bit of it until it multiplies",
-      "place": "At the bare pattern under a thing, where the mechanism shows and the detail drops away",
+      "tense": "Right now the satisfaction is here, and the pen hasn't stopped.",
+      "act": "do the next piece at the speed you can keep for a month, not the speed you can keep for a day",
+      "ask": "Whatever you're most in the middle of, do just the next piece at a pace you could hold for a month rather than this week's push — then stop there for today.",
+      "core": "When you're working on something you imagined a while back, the satisfaction arrives before the thing is finished. You can feel it while the pen is still moving — the shape is clear, and you're no longer translating it into anything else. That's a narrow kind of clarity, and it belongs to you. What going well looks like here is effort that doesn't brace: you do a piece, notice you're steady, do the next one.\n\nThe bend is that you're moving faster than the thing wants. Seeing all of it tempts you to finish it in one go. Do the next piece this week at a pace you could keep for a month, not a day. The rhythm holds you better than the burst does, and the burst is the usual way.",
+      "sheetLine": "You can feel it finished while it's still forming.",
+      "verb": "Fulfilling what was imagined — satisfaction arriving fully felt",
+      "place": "Where pattern stands alone, freed of the literal",
       "provenance": {
         "signature_id": 50,
         "position_id": 15,
@@ -26,24 +27,14 @@
         "partner": "Alignment",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -55,12 +46,13 @@
     },
     {
       "status": 2,
-      "tense": "You are reaching for a satisfaction that is still somewhere ahead of you to arrive.",
-      "ask": "Pick one thing already in front of you and put twenty quiet minutes into it exactly as it is, then stop before you improve it.",
-      "core": "You're already imagining the finished shape and the finished feeling with it, and the version in front of you loses by comparison. So you keep reaching — a better pattern, a cleaner version, the one that will finally land right. The abundance you're chasing gets further the harder you reach, because you're measuring the present against a picture that hasn't happened.\n\nWhat helps here isn't less vision. It's tending something that already exists, at the size it actually is, without hauling it toward the future. That's the part that doesn't exhaust you, once you quit trying to arrive. Choose one real thing and give it twenty quiet minutes as it is. Then stop. Quitting there is what shows you the difference between caring for it and forcing it.",
-      "sheetLine": "You keep reaching for a satisfaction that hasn't happened yet.",
-      "verb": "Imagining it fully and feeling every bit of it until it multiplies",
-      "place": "At the bare pattern under a thing, where the mechanism shows and the detail drops away",
+      "tense": "Before the satisfaction lands, you'll already be braced for whatever comes after it.",
+      "act": "balance the competing demands and keep tending",
+      "ask": "Take what you most want to rush to done and tend it at the pace it's actually growing — a piece a day while the pull to surge shows up and passes.",
+      "core": "Where you hold something imagined and felt, you don't quite arrive in the satisfaction. You're already looking at the next version, the next improvement, the next thing the pattern could turn into. Nothing is wrong with wanting it better, and none of this is a flaw in you. But the thing you made doesn't get to be finished while you're already past it, and neither do you.\n\nTend what you most want to rush at the speed it is actually growing, a piece a day. The pull to surge will show up; it passes. Cared-for things grow at their own pace, and it rarely matches the one you'd choose. Holding this steady some days will feel like nothing is happening, and that feeling is part of the cost.",
+      "sheetLine": "You're already past the thing you're still finishing.",
+      "verb": "Fulfilling what was imagined — satisfaction arriving fully felt",
+      "place": "Where pattern stands alone, freed of the literal",
       "provenance": {
         "signature_id": 50,
         "position_id": 15,
@@ -69,14 +61,34 @@
         "partner": "Stewardship",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
@@ -88,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped saying what you could see and you are still standing in the place where you stopped.",
-      "ask": "Write one sentence about how something works, keep it a day without deciding if it's right, and read it back the next morning.",
-      "core": "You can read the pattern under a thing — the joints, the way it moves — and you've stopped putting it anywhere. Whatever put the brake on is behind you now, but the pen's still down and you're standing there. What you can see hasn't gone. The saying has.\n\nNot-knowing isn't the problem here; being at ease inside it is what lets a perception land without a fight. Start smaller than feels reasonable: one sentence about how something works, held for a day without judging it, read back the next morning. The pattern under a thing shows itself to someone willing to hold it quietly. That's a small move, and it's enough to get you writing again on the strength of what you actually know.",
-      "sheetLine": "You can see it and you've stopped saying it.",
-      "verb": "Imagining it fully and feeling every bit of it until it multiplies",
-      "place": "At the bare pattern under a thing, where the mechanism shows and the detail drops away",
+      "tense": "The satisfaction was there once, and you're still standing at a door already closed behind you.",
+      "act": "weigh what you know before it leaves you",
+      "ask": "Weigh something you keep turning over as settled — let both readings stand a while before you say anything about it, and don't settle which one wins.",
+      "core": "Where pattern is clear and the literal is gone, satisfaction stopped arriving a while back. You can still tell how things work — that hasn't left — but it doesn't reach anything you can touch. Nothing you've imagined has landed anywhere you would feel it.\n\nThis isn't a shortage of insight; you have plenty. It's that knowing has been floating loose from anything it could rest on. Weigh something you keep turning over as settled — let both readings stand before you say anything, and don't settle which one wins. Weighing is uncomfortable and it is the point. The pattern comes back down through your life when it is allowed to sit beside its opposite for a while.",
+      "sheetLine": "You can see the whole shape but you can't land in it.",
+      "verb": "Fulfilling what was imagined — satisfaction arriving fully felt",
+      "place": "Where pattern stands alone, freed of the literal",
       "provenance": {
         "signature_id": 50,
         "position_id": 15,
@@ -102,26 +115,42 @@
         "partner": "Reflection",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are reading the pattern and calling it something that simply turned up on its own.",
-      "ask": "Write one line about a pattern you caught this week, as yours, somewhere you can see it written.",
-      "core": "You're already reading the pattern under things — noticing how a situation is built, where the seams are, what makes it move. That reading is happening daily. But when you talk about it, it sounds like the insight arrived on its own, or the situation simply showed itself. Your hand is on that, and the hand isn't being counted.\n\nThe work is to take the claim back down to its smaller form: one pattern, one line, owned. That's the honest size of it, and it's the practice that keeps the reading accurate instead of restless. Pick one pattern you caught this week. Say it as yours, once, somewhere you can see it written. Not as a boast — as a fact about who actually caught it.",
-      "sheetLine": "You read the pattern. You talk like it read itself.",
-      "verb": "Imagining it fully and feeling every bit of it until it multiplies",
-      "place": "At the bare pattern under a thing, where the mechanism shows and the detail drops away",
+      "tense": "The pattern is being written right now, and the pen is in your hand.",
+      "act": "sort what matters from what does not, carefully",
+      "ask": "Take a plan or a piece of work you're in the middle of and sort what actually matters in it from what doesn't — one short pass, then sit with what you set aside.",
+      "core": "You read the pattern in things and act on it — making choices, dropping one path for another — and if someone asked how you decided, you'd say the situation decided, or it just made sense. The decisions are good ones and they're yours. The credit sits uncollected. You file it under circumstance, and the choices keep working without it.\n\nTake a plan you're in the middle of and sort what matters from what doesn't. One pass. Then sit with what you set aside and see which items you'd been carrying without noticing. The line between mattering and not is one you drew, and it's been drawn for a while. The list is probably right. That it's right is the part worth keeping.",
+      "sheetLine": "You're choosing and calling it circumstance.",
+      "verb": "Fulfilling what was imagined — satisfaction arriving fully felt",
+      "place": "Where pattern stands alone, freed of the literal",
       "provenance": {
         "signature_id": 50,
         "position_id": 15,
@@ -130,7 +159,7 @@
         "partner": "Honing",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -139,6 +168,11 @@
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
         }
       ]
     }
@@ -146,33 +180,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5907,
+      "ms": 7289,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "detail": "the map's jargon: \"outer face\"",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
           "status": 1
         },
         {
@@ -180,6 +196,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"outer face\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"That's not greed; it's care\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "refrain",
@@ -189,20 +229,14 @@
         },
         {
           "code": "vocab",
-          "detail": "\"The stopping\" — a verb turned into a mystical noun",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 2
         },
         {
@@ -212,8 +246,50 @@
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"you should\"",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"outer face\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (river, bridge, shape, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"write both sides of it\" — say the act in the person's words",
           "hard": true,
           "status": 3
         },
@@ -224,130 +300,78 @@
           "status": 3
         },
         {
-          "code": "diagnosis",
-          "detail": "\"anxious\"",
-          "hard": true,
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"your noticing\" — a verb turned into a mystical noun",
+          "detail": "the map's jargon: \"outer face\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"name on them you file\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person has been treating the abundance as still on its way — the record only gives a status, not a history. The reader could reasonably say the shortage is real and not just a delay, so the ask must stand as a plain next act and not a correction of their account. The ask does survive being wrong: writing down what is already there teaches something either way. The sentence that serves the writer is 'the abundance is already here' — cut it, because it tells the person what their own eyes are for."
+      "check": "The unsupported claim sneaking into the Too Much draft is that the person is deliberately guarding potential, or that satisfaction is being withheld on purpose — the record says only that excess at Feedback-through-Resonance bends into future-projection, not motive. A reader could reasonably say 'no, I'm not bracing, I just like keeping options open,' so the Too Much cell names what shows, not why. The Balanced ask survives being wrong because it only asks for one week at the pace feeling can hold, which teaches the person something about their own rhythm even if the read misses. The sentence serving me more than them was a line about 'satisfaction always one project ahead' — it flatters the reading, so I cut it and left the plain observation."
     },
     {
       "attempt": 2,
-      "ms": 3395,
+      "ms": 4843,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The stopping\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you should\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
+          "code": "shape",
+          "detail": "no cells array",
+          "hard": true
         }
-      ],
-      "check": "The unsupported claim is that the person has been treating the abundance as still on its way — the record gives a status, not a history. The reader could reasonably say the shortage is real and not just a delay, so the ask must stand as a plain next act and not a correction of their account. The ask survives being wrong either way, since saying what you see and tending what is in front of you teaches something regardless. The sentence that serves the writer is 'the abundance is already here' — cut it, because it tells the person what their own eyes are for."
+      ]
     },
     {
       "attempt": 3,
-      "ms": 3503,
+      "ms": 4065,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -356,6 +380,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
@@ -364,10 +394,46 @@
           "status": 2
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the pull\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -376,8 +442,8 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has been left on the\"",
           "hard": true,
           "status": 4
         },
@@ -386,32 +452,31 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person treats the abundance as still on its way — the record gives a status, not a history. The reader could fairly answer that the shortfall is real, not a delay, so the ask has to stand as a plain next act, not a correction of their account. The ask survives either way, since saying what you notice and tending what's in front of you teaches something regardless. The line that flatters the writer is 'the abundance is already here' — cut it; it tells the person what their own eyes are for."
+      "check": "The unsupported claim still creeping in is that the person is deliberately outrunning satisfaction, or that not resting is a chosen strategy — the record says only that excess at this signature bends toward a future that can't be written in, not motive. A reader could reasonably say 'no, I just move fast and I like it that way,' so every cell describes what shows in a moment, never why it shows. Each ask survives a wrong read because it is one small act that teaches the person something about their own pace whether or not the read lands; the sentence that served me more than them was a flattering line about seeing the whole pattern at once — cut, plain observation kept."
     },
     {
       "attempt": 4,
-      "ms": 3151,
+      "ms": 3196,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -420,6 +485,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
@@ -428,10 +499,40 @@
           "status": 2
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"balance the competing demands and keep tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
@@ -440,66 +541,8 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person treats the abundance as still on its way — the record gives a status, not a history. The reader could fairly answer that the shortfall is real, not a delay, so the ask has to stand as a plain next act, not a correction of their account. The ask survives either way, since saying what you notice and tending what's in front of you teaches something regardless. The line that flatters the writer is 'the abundance is already here' — cut it; it tells the person what their own eyes are for."
-    },
-    {
-      "attempt": 5,
-      "ms": 3243,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
@@ -508,15 +551,21 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person treats the abundance as still on its way — the record gives a status, not a history. The reader could fairly answer that the shortfall is real, not a delay, so the ask has to stand as a plain next act, not a correction of their account. The ask survives either way, since saying what you notice and tending what's in front of you teaches something regardless. The line that flatters the writer is 'the abundance is already here' — cut it; it tells the person what their own eyes are for."
+      "check": "The unsupported claim still creeping in is that the person is deliberately outrunning satisfaction, or that not resting is a chosen strategy — the record says only that excess at this signature bends toward a future that can't be written in, not motive. A reader could reasonably say 'no, I just move fast and I like it that way,' so every cell describes what shows in a moment, never why it shows. Each ask survives a wrong read because it is one small act that teaches the person something about their own pace whether or not the read lands; the sentence that served me more than them was a flattering line about seeing the whole pattern at once — cut, plain observation kept."
     }
   ],
   "usage": {
-    "input": 5290,
-    "output": 5753
+    "input": 4469,
+    "output": 4885
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:41:10.688Z"
+  "date": "2026-10-02T13:10:45.189Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are pointing at a direction and letting it be seen where you stand.",
-      "ask": "Offer one piece of what you carry to somebody who hasn't heard it — a story, a recipe, a way of doing a thing — and let their version differ.",
-      "core": "There's a direction you're pointed in, and it isn't private. You pick which of the things handed to you are worth keeping on, and you say so in front of people. Choosing those doesn't mean dropping the rest.\n\nWhat shows here is the difference between steering something and being steered by it, and you act on that difference. It gets tested in a room where the others already agree with you: the direction can be held there without hardening against the people holding it with you. It doesn't have to turn into the argument. Carry it the way you'd carry something heavy for somebody else — firm, and not squeezing.",
-      "sheetLine": "You know what you're pointing at, and you point at it out loud.",
-      "verb": "Choosing which way to point, and pointing",
-      "place": "In what gets passed between people and kept",
+      "tense": "You are standing inside a shared tradition, and the direction you keep is active, with the pen in your hand.",
+      "act": "share your strength where it is needed",
+      "ask": "In the group you belong to, find one place where what you carry could steady someone else, and put it there this week — one concrete thing, carried through to the end.",
+      "core": "You're in a shared tradition and the direction you keep is being written here, not defended. The practices and language around you are strong, and you're holding them without forcing anyone to stand where you stand. People can feel which way you lean, and nobody gets pushed. The pull you chose shows up as the way you carry the tradition itself.\n\nThat holding is the price: it takes strength to keep a direction warm without pressing it on anyone, and there will be a moment this week where holding stops and pushing starts. When that moment comes, the direction is still yours to offer. Keep the offer open and let someone else pick it up, or not, without you watching whether they do. The tradition stays warm either way.",
+      "sheetLine": "You hold a direction without pushing anyone to stand in it.",
+      "verb": "Choosing which direction to move toward, and letting that choice set what the group moves toward",
+      "place": "Where a shared meaning is carried forward — the practices, words, and rituals a room already lives inside",
       "provenance": {
         "signature_id": 23,
         "position_id": 5,
@@ -26,41 +27,27 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have rehearsed the direction until nobody could possibly get it wrong.",
-      "ask": "Say the direction once as a sentence that ends, then leave the room and let it travel without you.",
-      "core": "You're bracing for a time when the direction is finally straight with the people around you. So each retelling becomes a chance to make it exact, each hand-off a chance to correct it. What you carry is real. The correcting runs ahead of it.\n\nNobody receives a tradition the way it was handed over, and that clean future keeps not arriving — which leaves you managing people who aren't in the room. The thing being carried on doesn't need you defending it. It needs you to say it once, plainly, and let the answer be something other than what you said. The direction holds on its own. It doesn't need you standing over it.",
-      "sheetLine": "You keep the direction exact instead of letting it travel.",
-      "verb": "Choosing which way to point, and pointing",
-      "place": "In what gets passed between people and kept",
+      "tense": "Inside the shared tradition, you are bracing for a future that cannot be written in from where you sit.",
+      "act": "sort the kinds of pull from one another",
+      "ask": "Take one gathering — a meeting, a holiday, a set of expectations — and name the pulls on you one by one, on paper. Mark which ones are yours.",
+      "core": "In the shared tradition, the direction has multiplied. Every ritual has a version, every practice a history, and you can read most of them well enough to defend any side. That is real. It also hasn't landed anywhere, because nothing in it has had to argue with what the room might choose instead.\n\nSorting is the work now, not deciding. Take a single gathering and name each pull you feel — what you owe, what you're expected to carry, what you would actually choose. Mark the ones that belong to you. Keep the others where you can see them, without picking them up. When the room makes its own move, the part of you that can tell your direction from its direction will be the part that still has one.",
+      "sheetLine": "You know every pull in this room. Which ones are yours?",
+      "verb": "Choosing which direction to move toward, and letting that choice set what the group moves toward",
+      "place": "Where a shared meaning is carried forward — the practices, words, and rituals a room already lives inside",
       "provenance": {
         "signature_id": 23,
         "position_id": 5,
@@ -69,19 +56,14 @@
         "partner": "Discernment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the kinds of pull from one another\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -93,12 +75,13 @@
     },
     {
       "status": 3,
-      "tense": "You were pointed somewhere and you stopped pointing, and that was a long time ago.",
-      "ask": "Pick one thing you know and teach it to one person, small and unfinished, before you feel ready.",
-      "core": "There's a thing you know that's worth passing on, and you don't pass it. You stay at the edge of the room where this is concerned — near it, not in it — and the offering doesn't come out. What you know is still in you. The pointing stopped.\n\nIt might look like keeping your head down, or like not making it about you. Either way, the light you'd go by hasn't gone out; it just isn't being seen. Tending something and letting it grow on its own isn't the same as abandoning it. Care that doesn't clutch. Start smaller than feels adequate, with whoever's nearest, and let it be rough — the size of the offering isn't the point.",
-      "sheetLine": "You know a direction and you've stopped showing it to anyone.",
-      "verb": "Choosing which way to point, and pointing",
-      "place": "In what gets passed between people and kept",
+      "tense": "You were part of a shared tradition once, and you are still standing at a door that has already closed behind you.",
+      "act": "take pleasure in the grown thing",
+      "ask": "Find something your group made that took a season — a ritual, a project, a practice — and stay with it long enough to let it be finished, without asking it to be more.",
+      "core": "The shared tradition didn't fail you. The room just stopped arriving. The old directions were carried on paper but nobody is showing up to them, and choosing something new would mean walking back into a room that hasn't held you in a while. What is left is upkeep — keeping the form going without the practice inside it.\n\nBefore choosing anything forward, let something that did grow be done. Take one thing your group actually made — something that took a season, not a meeting — and stay with it plainly. The tray, the practice, the yearly gathering. Let it be finished. Enjoying a finished thing is not a backward move. It is the ground a new direction grows from, and you'll know the ground is ready when you stop needing to fix it first.",
+      "sheetLine": "You keep the form going after the practice has stopped.",
+      "verb": "Choosing which direction to move toward, and letting that choice set what the group moves toward",
+      "place": "Where a shared meaning is carried forward — the practices, words, and rituals a room already lives inside",
       "provenance": {
         "signature_id": 23,
         "position_id": 5,
@@ -107,41 +90,42 @@
         "partner": "Flourishing",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"take pleasure in the grown thing\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The steering is already happening and you keep describing it as just how the work goes.",
-      "ask": "Say out loud that one thing you keep doing was your choice — the phrase you use, the way you run it — and let it be credited to you.",
-      "core": "You're already setting the direction here — in what you pass along, what you let stand, the way a thing gets done now because you do it that way. You'd tell it as the work doing itself, or as how it's been done here. The steering is real. The ownership isn't said.\n\nThat's the quieter part: nothing's broken, and nobody's asking you to take a bow. It's that the thing carried forward came out of your hands, and you keep handing the credit to the room. That's not modesty exactly; it's a habit of standing next to your own choices. Holding this without forcing means letting it be known you set it. The direction already runs. Saying so just puts it back in your hands.",
-      "sheetLine": "You're steering this. You keep calling it the way things are done.",
-      "verb": "Choosing which way to point, and pointing",
-      "place": "In what gets passed between people and kept",
+      "tense": "You are steering something in this shared tradition already, and the pen is down in a room you are still writing.",
+      "act": "let resources flow to the person who needs them",
+      "ask": "Next time someone in the group is stuck on something you can do, hand them the actual piece that worked for you — finished, with your name still attached.",
+      "core": "The direction is being kept by hands in this room, and yours are some of them. You remember the older version of a practice, you say the thing that gets a stuck conversation moving, you know which door the new person should try. Asked, you'd say that's just how the place runs. The room would say otherwise.\n\nStart owning the smaller version: you did choose that direction once, and you're choosing it again each time you pass it on. The next person who needs what you have — hand it over as yours, with the fact of you attached. Help doesn't get smaller when you sign it. It gets easier to receive, because the person on the other end now knows who held the door open, and can find you again the next time, or ask you why.",
+      "sheetLine": "The room moves in directions you set and don't sign.",
+      "verb": "Choosing which direction to move toward, and letting that choice set what the group moves toward",
+      "place": "Where a shared meaning is carried forward — the practices, words, and rituals a room already lives inside",
       "provenance": {
         "signature_id": 23,
         "position_id": 5,
@@ -150,14 +134,19 @@
         "partner": "Support",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let resources flow to the person who needs them\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -171,75 +160,27 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6853,
+      "ms": 7095,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "glass",
           "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can tell the difference\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
           "status": 2
         },
         {
@@ -247,70 +188,52 @@
           "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"and let what comes back\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "vocab",
           "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the kinds of pull from one another\") — read it: is it that act made small?",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"call it keeping\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the star you steer by\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"take pleasure in the grown thing\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 3
         },
@@ -321,145 +244,108 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what you repeat what you\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let resources flow to the person who needs them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supports Orientation choosing a direction ('which calling to follow') but never says people will follow it, and never says it has already reached anyone else; I must keep the claim at the person's own steering and dropping, not at its effect on others. A reader could reasonably say that a shared tradition is not mine to steer alone, so the asks are about offering one piece of it rather than redirecting the whole thing. The asks stay useful if my read is wrong because each one is simply a modest handing-over the person can do anyway. The sentence that serves me more than them would be any line about 'your voice shaping what people carry' — cut."
+      "check": "The record doesn't say the person has taken part in a shared tradition before; the Too Little cell says nothing new is arriving at the shared table, not what happened there or how long ago. A reader could say the direction he followed belongs to his own judgement rather than to the culture around him — the cell names the gap between choosing and belonging, not the worth of the choice. The ask survives being wrong because noticing what carries a meaning forward and staying with it one extra moment teaches something either way. The sentence that serves me is 'radiance flows from genuine development' — I've kept it out of the glass; the person gets the plain version of choosing a star at a shared table."
     },
     {
       "attempt": 2,
-      "ms": 4309,
+      "ms": 4836,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the kinds of pull from one another\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"take pleasure in the grown thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what you repeat what you\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let resources flow to the person who needs them\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -469,114 +355,66 @@
           "status": 4
         }
       ],
-      "check": "The record supports Orientation as choosing a direction from vision, but it never says the person knows what is worth carrying forward or that they have stopped pointing for any particular reason; I must keep the cells at what the capacity is doing now, not at what it has cost. A reader could reasonably say a shared tradition is not theirs to steer alone, so every ask is a small act on their own piece of it rather than a redirection of the whole. The asks survive being wrong because each one is a modest act anyone can do regardless of the reading, and the sentence I cut was any line about their voice shaping what others carry — that flatters me, not them."
+      "check": "The record doesn't say what happened in any shared tradition the person was part of, so the Too Little cell names only the upkeep that continues after the room stops arriving, never the cause. A reader could reasonably say the direction this person keeps is their own judgement rather than the group's, so the cells locate the gap between choosing and belonging without scoring the choice. The asks survive being wrong because each one teaches something about how a shared thing is carried regardless of whether the read lands. The sentence that serves me is 'radiance flows from genuine development' — I've kept it out of the glass."
     },
     {
       "attempt": 3,
-      "ms": 3676,
+      "ms": 4148,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share your strength where it is needed\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the kinds of pull from one another\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"take pleasure in the grown thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (room, door) — one at most, usually none",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let resources flow to the person who needs them\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -587,101 +425,13 @@
           "status": 4
         }
       ],
-      "check": "The record supports Orientation as choosing a direction from vision, but it never says the person knows which of their traditions are worth carrying or that they have stopped offering them for any particular reason, so the cells stay at what the capacity is doing in a moment, not at what it has cost. A reader could reasonably say a shared tradition is not theirs to steer alone, so every ask works on their own piece of it — a small handing-over rather than a redirection of the whole. Each ask is a modest act anyone could do regardless of the reading, so it survives being wrong, and the sentence I cut is any line about their voice shaping what others carry, which flatters the writer more than it serves the person."
-    },
-    {
-      "attempt": 4,
-      "ms": 3540,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports Orientation as choosing a direction from vision, but it never says the person knows which of their traditions are worth carrying or that they stopped offering them for any particular reason, so the cells stay at what the capacity is doing now, not at what it has cost. A reader could reasonably say a shared tradition is not theirs to steer alone, so every ask works on their own piece of it — a small handing-over rather than a redirection of the whole. Each ask is a modest act anyone could do regardless of the reading, so it survives being wrong, and the sentence I cut is any line about their voice shaping what others carry, which flatters the writer more than it serves the person."
+      "check": "The record doesn't say what happened in any shared tradition the person was part of, so the Too Little cell names only the upkeep that continues after the room stops arriving, never the cause. A reader could reasonably say the direction this person keeps is their own judgement rather than the group's, so the cells locate the gap between choosing and belonging without scoring the choice. The asks survive being wrong because each one teaches something about how a shared thing is carried regardless of whether the read lands. The sentence that serves me is 'radiance flows from genuine development' — I've kept it out of the glass."
     }
   ],
   "usage": {
-    "input": 4534,
-    "output": 4474
+    "input": 6773,
+    "output": 3866
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:15:50.393Z"
+  "date": "2026-10-02T11:45:13.336Z"
 }

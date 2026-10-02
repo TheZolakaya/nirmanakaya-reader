@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding the thing that has to hold, and you know it.",
-      "ask": "Before the next turn, name one thing that matters and give it fifteen minutes while something needless waits where you can hear it.",
-      "core": "You know what deserves the effort before you can say why. That's what picks what matters in you before the day gets loud, and it's still working — you keep the part that has to hold, in your hands, on time.\n\nThe cost is quiet. Keeping it is something you do, not something you have, and the people around you see the result, not how you decided what mattered. So the next step is one past what you already carry: one thing you mean to keep, fifteen minutes, while something less worthy waits. What you're practicing isn't more holding. It's deciding on purpose what gets your hand today.",
-      "sheetLine": "You know what matters before you can say why.",
-      "verb": "Carrying what has to hold by handling it, hand after hand",
-      "place": "In the place where you know what deserves your attention before you can say how you know",
+      "tense": "Right now you're at the bench, and the bench is where you know what to attend to.",
+      "act": "ask how it feels to them and stay with the answer",
+      "ask": "Take a conversation you'd usually handle by doing something for the person, and ask how it truly feels to them. Stay with the answer without fixing anything yet.",
+      "core": "You know what to attend to here. The task in your hands gets your whole weight, and the ones close to you feel that: not a rush of concern, not fussing, just the steady attention of someone who stays. That attention is what keeps the connections whole while the work gets done.\n\nThat steadiness is the balance. The next thing it can feed is the part that feels with people, not only the part that holds them. So take a conversation you'd normally handle by doing something for the person involved, and ask how it truly feels to them. Then stay with the answer. You don't have to fix it or carry it. You just have to stay in it long enough to hear where they are. The fixing can wait; the hearing is the point.",
+      "sheetLine": "Your attention is the thing that steadies what's around you.",
+      "verb": "builds what holds",
+      "place": "where you know what to attend to before you can say why",
       "provenance": {
         "signature_id": 77,
         "position_id": 2,
@@ -26,40 +27,7 @@
         "partner": "Steward of Resonance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 2,
-      "tense": "You are bracing against a future you keep trying to build ahead of schedule.",
-      "ask": "Take one decision you've been holding open and let someone you trust make it, then live with their version for a week.",
-      "core": "You see where things are heading and you get there first — solving next month in this week's room, shoring up what hasn't started to creak. That future-push is its own kind of care. It's also deciding alone, out ahead of the people who'll have to live in whatever you build.\n\nThe grip that keeps things standing is the same grip that keeps them yours. From inside, the two feel identical, since both feel like holding on hard.\n\nPick one decision you've been circling, one with real weight, and let someone you trust make it. Then stay a full week with how they decided it. That week shows you what your hands miss, and what they were holding that wasn't theirs to hold.",
-      "sheetLine": "You're building next month in this week's room.",
-      "verb": "Carrying what has to hold by handling it, hand after hand",
-      "place": "In the place where you know what deserves your attention before you can say how you know",
-      "provenance": {
-        "signature_id": 77,
-        "position_id": 2,
-        "status": 2,
-        "partner_id": 73,
-        "partner": "Executor of Resonance",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -72,13 +40,58 @@
       ]
     },
     {
+      "status": 2,
+      "tense": "You're already braced for how this will go, and the bracing has its hands on the work.",
+      "act": "judge the hurt fairly after it has finished",
+      "ask": "Once your next argument is over, weigh it fairly. Not who started it — what it cost each of you. Give both sides their due, then let it rest.",
+      "core": "You keep arriving at the moment before it does, and the bracing is steering. You reach for the bend before the road shows one. You tighten what you're building so it can't be touched. The strength is real; it's just running past the present, and the ones near you can feel it as force rather than steadiness.\n\nFair judgment is what pulls it back into true. Once your next argument is over, weigh it fairly — not who started it, but what it cost each of you, honestly. Give both sides their due, then let it rest. You'll feel the moment the weighing stops being fair and turns into a verdict. That's when to stop. You're allowed to do this after it's finished instead of before.",
+      "sheetLine": "You're bracing, and the bracing has its hands on the work.",
+      "verb": "builds what holds",
+      "place": "where you know what to attend to before you can say why",
+      "provenance": {
+        "signature_id": 77,
+        "position_id": 2,
+        "status": 2,
+        "partner_id": 73,
+        "partner": "Executor of Resonance",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        }
+      ]
+    },
+    {
       "status": 3,
-      "tense": "You are waiting at a door that is not going to open again.",
-      "ask": "Finish one small thing this week and mark it finished out loud, to yourself or to someone: a meal, a form, a repair.",
-      "core": "You're not putting your weight on much right now. What that looks like from outside: you wait for someone else to say what matters, and end up following whichever demand is loudest. It isn't laziness. It's attention that checked out and hasn't been told to come back.\n\nThe way in isn't pushing harder at what you're avoiding. It's the other half of holding — letting something be done when it's done. So finish one small thing this week and mark it finished, out loud, to someone or to yourself. A meal, a form, a shelf, a repair. Finished things stop asking for you. That's how room comes back for knowing what to reach for next.",
-      "sheetLine": "You wait for someone else to say what matters.",
-      "verb": "Carrying what has to hold by handling it, hand after hand",
-      "place": "In the place where you know what deserves your attention before you can say how you know",
+      "tense": "You're still standing at a door that closed, and your hands are on it.",
+      "act": "release what is done and keep what is not",
+      "ask": "Let one finished task sit untouched for a full day, then move to a task that isn't finished. Nothing needs improving in between, and nobody needs a call; when the day is up, your hands can go where they're needed.",
+      "core": "Something in you is still at a door that has already closed. You showed up, you did the work, and now the work is done and you're still holding it, waiting for a sign you'll recognise. The strength that used to be in your hands sits on a door that won't move. You know what matters here. You just haven't turned from the closed thing toward the open one.\n\nLetting go is what returns it, and it doesn't need a feeling to go with it. Let one finished task sit untouched for a full day, then move to a task that isn't finished. You'll know it by how your hands want to stay. Let the finished thing be finished. The strength comes back when there's somewhere for it to go.",
+      "sheetLine": "You're standing at a door that has already closed.",
+      "verb": "builds what holds",
+      "place": "where you know what to attend to before you can say why",
       "provenance": {
         "signature_id": 77,
         "position_id": 2,
@@ -87,24 +100,19 @@
         "partner": "Executor of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false
-        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -121,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You are steering by judgment you have already made and never called your own.",
-      "ask": "Pick one choice you made today and say, in plain words, why you made it — the real reason, not the practical one.",
-      "core": "You're already picking what gets attended to. The order things get handled in, what gets kept running and what gets quietly dropped — that's your judgment in the room, working all day. You just don't talk about it like it's yours. You say it had to be done, or that's just how it goes.\n\nNothing is wrong with the work. It's the claim that's missing — your own call going unnamed while others take credit for an order they didn't set.\n\nOne choice today is enough. Say why you made it, plainly, the real reason and not the practical one, to yourself first and out loud if anyone's there. That's what the recognition runs on.",
-      "sheetLine": "The judgment is yours. You call it just how it goes.",
-      "verb": "Carrying what has to hold by handling it, hand after hand",
-      "place": "In the place where you know what deserves your attention before you can say how you know",
+      "tense": "You're deciding what matters before anyone asks, and you wouldn't call it deciding.",
+      "act": "start something for the spark of starting",
+      "ask": "Begin a fresh project this week without a plan, an outcome, or anyone told. A few minutes count. Let the beginning belong to you.",
+      "core": "You decide what matters before anyone asks, and when it's named you'd say the room was already going that way. In a group you quietly set what gets attended to, then stand back and call it the consensus. The steering is yours. That's not a flaw in how you work; it's the strongest part of it, running outside your own account.\n\nClaiming the start itself is what returns it. Begin a fresh project this week without a plan, an outcome, or anyone told. A few minutes count. You'll feel the old pull to make it useful, or to hand it to someone else so it's theirs. Let the beginning belong to you. You can decide what comes next once it exists.",
+      "sheetLine": "You're steering, and you'd say the room was already going that way.",
+      "verb": "builds what holds",
+      "place": "where you know what to attend to before you can say why",
       "provenance": {
         "signature_id": 77,
         "position_id": 2,
@@ -135,19 +144,29 @@
         "partner": "Initiate of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -156,28 +175,52 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5735,
+      "ms": 6783,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "imperative",
-          "detail": "\"You have to\"",
-          "hard": true,
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
           "status": 1
         },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the reaching\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -186,50 +229,56 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "history",
-          "detail": "\"for years\" — a cell knows no one's past",
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -238,20 +287,42 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person's attention is already carrying hard authority in the room — the record gives the card and the seat, not evidence that either is in play in their life. A reasonable objection is 'I'm not in charge of anything, I just do the work,' and the reading must survive that: the ask is a sized act of judgment about what gets attended to, useful even if my read of where it bites is wrong. The sentence that serves me more than them is any line that makes the steadiness sound like a settled identity; the strain has to stay visible."
+      "check": "The claim I can't fully support is that the person can see the moment they start steering or the moment the first thing stays. Wisdom is deep and may be working under the surface; the reader might say, 'I don't know what matters to me.' The asks still hold: they ask for a small, observable act, not a feeling. The sentence that serves me more than them is any line that treats their quiet as proof of a history I wasn't given."
     },
     {
       "attempt": 2,
-      "ms": 3690,
+      "ms": 4313,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
@@ -259,18 +330,24 @@
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 2
         },
         {
@@ -280,8 +357,14 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "ask 44 words (≤40)",
           "hard": false,
           "status": 3
         },
@@ -292,8 +375,20 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 3
         },
@@ -310,8 +405,26 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"for the spark of starting\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -320,20 +433,26 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is still that this person's knowing is already governing a room — the record gives the card and the seat, not evidence of either in their life. The likely objection is 'I don't decide anything, I just handle what's in front of me,' and the asks must stay useful if that's true: each one is a sized act, doable today, that teaches something about where attention goes regardless of whether my read of the situation is right. The sentence that serves me more than them is any line that settles the steadiness into an identity; the strain has to stay visible, and Too Little must name where they stand, not how they got there."
+      "check": "The claim I can't fully support is that the person can catch themselves steering or feel the moment the first thing stays — Wisdom runs deep and often silently, so a reader could fairly say 'I can't tell when that happens.' The asks survive that: each is a small observable act, not a report of a feeling, so it works even if my read of the moment is off. The sentence that serves me more than them is any line implying their quiet proves some history I was never given."
     },
     {
       "attempt": 3,
-      "ms": 3164,
+      "ms": 3133,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
@@ -341,17 +460,17 @@
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"what brings it back\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -362,10 +481,10 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
@@ -374,8 +493,14 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "\"what brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -392,8 +517,20 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"What brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -402,20 +539,26 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is still that this person's knowing already governs a room — the record gives the card and the seat, not evidence of either in their life. The likely objection is 'I don't decide anything, I just handle what's in front of me,' and the asks must stay useful if that's true: each is a sized act, doable today, that teaches something about where attention goes whether or not my read is right. The sentence that serves me more than them is any line that settles the steadiness into an identity; the strain stays visible, and Too Little names where they stand, not how they got there."
+      "check": "The claim I can't fully support is that the person can catch themselves steering or tell when the first thing stays — this kind of knowing often runs quietly, and a reader could fairly say they can't name the moment it happens. Each ask is a small observable act rather than a report of a feeling, so it still holds if my read of the moment is off. The line that serves me more than them is any hint that their silence proves a history I was never handed."
     },
     {
       "attempt": 4,
-      "ms": 3192,
+      "ms": 2979,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
@@ -423,7 +566,13 @@
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -432,10 +581,10 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
@@ -444,8 +593,8 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -462,8 +611,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -472,15 +627,21 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is still that this person's knowing already governs a room — the record gives the card and the seat, not evidence of either in their life. The likely objection is 'I don't decide anything, I just handle what's in front of me,' and the asks must stay useful if that's true: each is a sized act, doable today, that teaches something about where attention goes whether or not my read is right. The sentence that serves me more than them is any line that settles the steadiness into an identity; the strain stays visible, Too Little names where they stand and not how they got there, and no claim runs past one capacity."
+      "check": "The claim I can't fully support is that the person can catch themselves steering or tell when the first thing stays — this kind of knowing often runs quietly, and a reader could fairly say they can't name the moment it happens. Each ask is a small observable act rather than a report of a feeling, so it still holds if my read of the moment is off. The line that serves me more than them is any hint that their silence proves a history I was never handed."
     }
   ],
   "usage": {
-    "input": 3741,
-    "output": 4273
+    "input": 8187,
+    "output": 4914
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:04:10.778Z"
+  "date": "2026-10-02T12:42:46.094Z"
 }

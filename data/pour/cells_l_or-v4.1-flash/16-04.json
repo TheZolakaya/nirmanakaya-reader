@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Something false has come down in front of you and you are already rebuilding with what is true.",
-      "ask": "Take the smallest working container — the calendar, the daily hour, the one lineage you keep — and run it for a day exactly as it is, noticing what it carries for you and what it costs to hold.",
-      "core": "The collapse wasn't a failure. You can tell a load-bearing wall from a decoration, and what falls is what couldn't hold, so the work gets simpler instead of harder. Rebuilding from that clarity is the whole skill.\n\nWhat you build next stays alive by maintenance, not by the crash. One routine a day, a short walk in the morning, a set of rules some earlier version of you wrote — you pick it up again tomorrow and the day after, and you get to tell the difference between structure that serves what it holds and structure you're doing because it's Tuesday. Effort flows without forcing, and solitude here connects you to the work instead of keeping people out. You keep authoring what stands after the fall.",
-      "sheetLine": "What fell couldn't hold, and what you're building now can.",
-      "verb": "to clear what can't hold and build in its place",
-      "place": "where the pattern gets set",
+      "tense": "What cannot hold is already coming apart, and the person is here with the pen as it clears.",
+      "act": "refine one piece by repeating it",
+      "ask": "Take a piece of something you're building and work it over again today, the same piece as before, alone. Repetition is the point; add nothing new.",
+      "core": "When something you built on a bad premise comes apart, you don't panic and you don't race to rebuild it bigger. You let it go, and what remains is what was true from the start. The thinking is doing its job — the insight arrives, the false part falls, and the shape you keep is the one that survived being questioned. The structures around you get simpler, not louder, and people can find their way through them.\n\nThat clarity runs on practice rather than on waiting for the next insight. Take a piece of something you're building and work it over again today, the same piece as before, alone. Repetition is the point; add nothing new. It will feel smaller than you'd like, and that's it working. What you're building gets sturdier with every plain pass over it, whether or not anyone is watching.",
+      "sheetLine": "You let fall what wasn't holding, and keep the rest.",
+      "verb": "clearing what was built on what isn't true",
+      "place": "where you give the mess a shape it can be carried in",
       "provenance": {
         "signature_id": 16,
         "position_id": 4,
@@ -26,7 +27,7 @@
         "partner": "Discipline",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -37,8 +38,8 @@
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -48,19 +49,20 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already tearing down next week's wall in your head, and nothing on the table has finished standing.",
-      "ask": "Count how many setups you're rearranging or about to dismantle and write the number where you'll see it. Let one run three more days untouched, and tell the person affected how it's going.",
-      "core": "Every structure in front of you is a candidate for demolition, and nothing gets to stand long enough to prove itself. It feels like clearing. Some of it is noise. The building you call liberation keeps producing chaos, and the people living in the layout have to keep moving.\n\nTearing down is easier than teaching. Real clearing has a reason someone else could restate, and it can wait while that person catches up. The test is whether the thing you're about to dismantle has actually failed or just looks tired. One structure you can name, held three more days, will teach you the difference faster than another clean start. Say stay, mean it, and watch what stands.",
-      "sheetLine": "You keep tearing things down before they've had a chance to hold.",
-      "verb": "to clear what can't hold and build in its place",
-      "place": "where the pattern gets set",
+      "tense": "The next collapse is being rushed into before anything has had time to stand.",
+      "act": "learn how the people before you did it",
+      "ask": "Before you take apart whatever's next, find out how someone ahead of you handled the same mess — ask, read, listen — and let what they did settle before you touch anything.",
+      "core": "You're pulling things down faster than they need to come down. It feels like honesty — you've seen the false part, so the whole structure goes — but some of what you're clearing was unfinished rather than false, and it hasn't had a chance to hold. The pace does the damage. Anything around you that still needed to settle gets swept before it does, and then the clearing itself has to be organized, and you're back at the start with less to stand on.\n\nMuch of what you'd tear down outlasted the person who built it. Before you take apart whatever's next, find out how someone ahead of you handled the same mess — ask, read, listen — and let what they did settle before you touch anything. You're not looking for permission. You're looking for the sense of it, which the rush won't give you.",
+      "sheetLine": "You tear down faster than anything can be rebuilt.",
+      "verb": "clearing what was built on what isn't true",
+      "place": "where you give the mess a shape it can be carried in",
       "provenance": {
         "signature_id": 16,
         "position_id": 4,
@@ -69,31 +71,37 @@
         "partner": "Culture",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing under a structure that stopped holding and has not been let down.",
-      "ask": "Pick the arrangement that costs the most upkeep for the least it holds — the standing meeting, the weekly obligation with someone you no longer walk beside — and take one visible step toward letting it go.",
-      "core": "The arrangement is already gone and you are still carrying it. Not because you're foolish — because putting it down means the emptiness is yours, and holding it up has been the job so long that letting go feels like failure. You know how to keep the thing running. You stopped asking whether it should.\n\nThe pattern that serves what it holds will feel like repair, not rescue. Whatever you keep, keep on purpose. The one that's done, let touch the floor with someone present, or on a day you've chosen. Once it's down there'll be a room, and you'll be the one who knows how to lay the next floor. That is the skill you already have. It just goes into what still stands.",
-      "sheetLine": "You're holding up something that already stopped holding.",
-      "verb": "to clear what can't hold and build in its place",
-      "place": "where the pattern gets set",
+      "tense": "What already stopped holding is still being propped up, week after week.",
+      "act": "set one rule that makes the rest easier",
+      "ask": "Pick the arrangement you keep propping up and write a single rule it can run on — a time, a limit, one condition. Then keep to it and add nothing more.",
+      "core": "Where you organize the mess, you're holding onto what has already given way. The arrangement is there — the routines, the plans, the containers you made — and it isn't carrying anything now. You keep it upright out of habit or loyalty, and the upkeep costs more than it did to build. New things don't get a form because the old one is still occupying the room. The clearing that's coming would be a relief, and right now you can't let yourself want it.\n\nYou don't need to knock the whole thing down today. Pick the arrangement you keep propping up and write a single rule it can run on — a time, a limit, one condition. Then keep to it and add nothing more. A thing that runs without your hand holding it up finally gets to be light. You've done that before, and you know how.",
+      "sheetLine": "You're holding up what has already given way.",
+      "verb": "clearing what was built on what isn't true",
+      "place": "where you give the mess a shape it can be carried in",
       "provenance": {
         "signature_id": 16,
         "position_id": 4,
@@ -102,36 +110,32 @@
         "partner": "Authority",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (floor, room) — one at most, usually none",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You keep saying the whole arrangement is still open, but the replacement is already in your hands.",
-      "ask": "Pick one rule, calendar or version of a plan you know is finished and say out loud to the person it touches that it's finished. Say what will replace it only in outline, not the full blueprint.",
-      "core": "There's a spot on the wall where the old one was, and a new frame already leaning there. You keep talking about the wall as if the decision hasn't been made, but you've stopped arranging your days around what's still up — the way you plan, the commitments you keep, the ones you've quietly begun to miss. The replacement is being lived. It hasn't been admitted.\n\nSaying it out loud is what converts steering into building. You don't need the full plan before you tell the person who shares the wall. Name the piece you've already decided, hold the blueprint back, and see whether the room supports the version you're already running. That's where the direction gets confirmed — not from private certainty, but from what the space does when you say it.",
-      "sheetLine": "The replacement is already up. You haven't said so yet.",
-      "verb": "to clear what can't hold and build in its place",
-      "place": "where the pattern gets set",
+      "tense": "The writing is already underway and the pen has been set down without noticing.",
+      "act": "move toward the thing you want, one step, today",
+      "ask": "Notice the next direction you lean toward without having decided to. Take a single step that way before you work out whether it makes sense.",
+      "core": "You've been clearing structures and shaping those around you without putting your name on any of it. Some of what you've arranged has already let go of what it was holding, and you haven't marked that as your doing — it reads to you as the situation handling itself, or the day getting away from you. The instinct that pulled down the old shape and put the new one in place was yours. The paper trail says otherwise. It doesn't notice.\n\nYou don't have to claim the whole account today. Notice the next direction you lean toward without having decided to. Take a single step that way before you work out whether it makes sense. That pull isn't a mood. It's the same sense that has been choosing for a while, and letting it be visible to you is the start of it being yours.",
+      "sheetLine": "The clearing is yours. You've been calling it the situation.",
+      "verb": "clearing what was built on what isn't true",
+      "place": "where you give the mess a shape it can be carried in",
       "provenance": {
         "signature_id": 16,
         "position_id": 4,
@@ -140,24 +144,24 @@
         "partner": "Drive",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -166,51 +170,57 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7473,
+      "ms": 7655,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
           "hard": true,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the tense line is pasted into the core — the person reads it twice",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -220,45 +230,51 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "ask 43 words (≤40)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the smallest structure that holds it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a shape small enough to\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (floor, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
-          "hard": false,
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 4
         },
         {
@@ -266,17 +282,44 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The draft's riskiest line is that any structure the person is holding 'stopped holding' — the record cannot know which particular arrangement has gone load-bearing-false, only that the capacity to build is being spent that way, so every cell names what the building is doing, never a specific structure or a biography. A reader could reasonably say their structures are fine and the upkeep is just what they owe people they've promised; the asks survive that, because each one asks for a small, observable act that teaches them something about how they hold arrangements even if the reading is wrong about which ones. The sentence that would serve me more than them is the one I cut: 'You build the thing no one else will, and you know it' — flattering, and it would let them keep the grip."
+      "check": "The draft says Breakthrough's clearing is what the person is doing inside the structures they keep — the record supports the capacity being present and bending, not that any particular structure in their life is false. A reader could rightly say the structures they hold are working fine and the card is describing something else. The asks survive a wrong read because each is a small, plainly useful act of order or practice on its own. The sentence that serves me more than them is any line naming what is 'really' underneath, so none of those appear."
     },
     {
       "attempt": 2,
-      "ms": 4537,
+      "ms": 5243,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
@@ -284,8 +327,8 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -297,13 +340,13 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -312,17 +355,134 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give the mess a shape it can be carried in\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and set it down in\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that specific structures in the person's life are false or already falling; the record supports the capacity for clearing being present and bending, not any fact about their particular arrangements. A reader could object that what they've built is holding fine and this card is about something else, which is fair — the asks are small acts of practice, order, research, and noticing that stand on their own utility even if the read misses. The sentence that serves me more than them is any line naming what is 'really' underneath their keeping or letting go, and those stay out."
+    },
+    {
+      "attempt": 3,
+      "ms": 4544,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give the mess a shape it can be carried in\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (floor, room) — one at most, usually none",
-          "hard": false,
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (3 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
           "status": 3
         },
         {
@@ -332,31 +492,207 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The draft's riskiest claim was that a particular arrangement in the person's life has already stopped holding — the record can't know which one, so every cell now names what the building is doing in the present rather than pointing at a specific structure or its history. A reader could reasonably say their arrangements are fine and the upkeep is just what they owe the people they've promised; each ask survives that, because it asks for one small observable act that teaches them something about how they hold arrangements even if the reading is wrong about which ones. The sentence that would serve me more than them is the flattering one: 'You build the thing no one else will, and you know it' — cut, because it lets them keep the grip."
+      "check": "The unsupported claim is that particular structures in the person's life are false or already falling; the record supports the capacity for clearing being present and bending, not any fact about their arrangements. A reader could fairly say what they've built is holding fine and the card points elsewhere — the asks are small acts of practice, order, research, and noticing that stand on their own even if the read misses. The lines that serve me more than them are any that name what is 'really' underneath their keeping or letting go; those stay out."
+    },
+    {
+      "attempt": 4,
+      "ms": 4270,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that particular structures in the person's life are false or already falling; the record supports the capacity for clearing being present and bending, not any fact about their arrangements. A reader could fairly say what they've built is holding fine and the card points elsewhere — the asks are small acts of practice, order, research, and noticing that stand on their own even if the read misses. The lines that serve me more than them are any that name what is 'really' underneath their keeping or letting go; those stay out."
+    },
+    {
+      "attempt": 5,
+      "ms": 4460,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that particular structures in the person's life are false or already falling; the record supports the capacity for clearing being present and bending, not any fact about their arrangements. A reader could fairly say what they've built is holding fine and the card points elsewhere — the asks are small acts of practice, order, rule-setting, and noticing that stand on their own even if the read misses. The lines that serve me more than them are any that name what is 'really' underneath their keeping or letting go; those stay out."
     }
   ],
   "usage": {
-    "input": 1581,
-    "output": 2526
+    "input": 9070,
+    "output": 6444
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:09:20.923Z"
+  "date": "2026-10-02T11:37:30.884Z"
 }

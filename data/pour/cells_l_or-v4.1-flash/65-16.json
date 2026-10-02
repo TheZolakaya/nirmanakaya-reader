@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are setting down what is finished and staying in the open where it stood.",
-      "ask": "Name one structure that came down this year and say what it freed. Then leave one buildable thing untouched today.",
-      "core": "Something you were leaning on came down and you're letting it go without turning it into a rescue. Going well here looks like this: you name the loss, you don't rush a replacement into the gap, and when you're tempted to rebuild it at midnight you don't. What you set down stays down for now.\n\nThe finish is care. Pick one small piece of what survived and give it ordinary tending — slow, undramatic, no need to prove the clearing was worth it. That piece doesn't need coaxing. It needs you not to abandon it just because the big structure isn't there to hold you up.",
-      "sheetLine": "You let it go clean. Now tend what's left.",
-      "verb": "releasing a support that has finished its work",
-      "place": "standing in the open where a structure you leaned on came down",
+      "tense": "You are here with the pen, and release and push are both in your hand.",
+      "act": "tend the small thing and learn from it",
+      "ask": "There's a small growing thing you already keep — a plant on a sill, a pot on the step. Let its clock set the week. Water it when it wants, not when you think of it.",
+      "core": "You know when to let a thing go and when to push it, and both come out of your hands without much noise. You've stood near enough collapses to tell which structures finish themselves and which want a shoulder. That's not a theory for you; it's callus.\n\nHere, in a room where something is coming down fast, what's asked is lighter than the big gesture. Tend one small growing thing at its own pace, and find out what it actually needs by watching rather than deciding for it. Care that doesn't drain you comes from learning the thing's terms, not from holding on harder. You already lead by releasing. Let something small teach you the other half.",
+      "sheetLine": "You know what to let go of. Tend something small and learn it.",
+      "verb": "Laying your hand off the thing and letting it finish coming down",
+      "place": "A room where something that couldn't stand is coming apart quickly",
       "provenance": {
         "signature_id": 65,
         "position_id": 16,
@@ -26,14 +27,19 @@
         "partner": "Initiate of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -42,20 +48,26 @@
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are taking down supports ahead of time, touching structures nobody asked you to test.",
-      "ask": "Pick one support you're still holding and leave it alone for a week. When a question comes up about it, write it once and close the notebook.",
-      "core": "You're dismantling on schedule. Something survived the last collapse and you're already checking it for cracks, deciding what falls next, treating the release you do well as a research project. What going well would look like: you let one thing stand untested and go do something else with the evening.\n\nThe checking has become the work, and the checking is spending you. Method carries something when the point is carrying. When it turns into a way of staying ahead of every surprise, it runs on vigilance and spends you down. Put the tools away at a reasonable hour. The support you leave alone is the one that finishes looking after itself without you.",
-      "sheetLine": "You're taking down walls that don't need taking down.",
-      "verb": "releasing a support that has finished its work",
-      "place": "standing in the open where a structure you leaned on came down",
+      "tense": "You are braced already for how this comes down and what it will cost.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Take the crash you keep rehearsing — the falling-out, the loss, the ending — and write only what has actually happened so far, in order, no feeling words. Read the page back once.",
+      "core": "You govern by knowing what a thing costs before you spend it, and the spending is going into a wreck that hasn't finished arriving. Something is coming apart, and your mind is already at the far end of it, holding a moment that can't be written yet. The push is landing somewhere the situation hasn't reached.\n\nPut it on paper instead. Just what has happened, in order, stripped of how it all feels. Most of what you're bracing against won't be in the written record, and the part that is turns out to be something a person can carry rather than forecast. Rigour serves you here better than dread. You know how to hold heavy things. Hold this one at its real size.",
+      "sheetLine": "You're living past a fallout that hasn't landed. Write what's true.",
+      "verb": "Laying your hand off the thing and letting it finish coming down",
+      "place": "A room where something that couldn't stand is coming apart quickly",
       "provenance": {
         "signature_id": 65,
         "position_id": 16,
@@ -64,14 +76,14 @@
         "partner": "Executor of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
@@ -83,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still outside the open ground, waiting for one more thing to fall first.",
-      "ask": "Put one brick down this week — a plain repeatable thing kept on the days it feels pointless. Size it for your worst morning.",
-      "core": "The clearing already happened and you're still outside it, one hand up against something that isn't falling anymore. Moving in feels like walking under a beam that's still coming down, so you wait, and the waiting has settled into posture — arms crossed, weight back on the heels.\n\nSteady strength is what's absent here, not nerve. Not the loud kind — the kind that holds a small thing with weight and doesn't wobble. Choose one brick. Lay it, then lay the next one tomorrow, whether or not the day rewards it. The strength turns up after a few courses, not before. On the heavy mornings, make it one brick, not zero.",
-      "sheetLine": "Nothing's falling now. Put one brick down.",
-      "verb": "releasing a support that has finished its work",
-      "place": "standing in the open where a structure you leaned on came down",
+      "tense": "You are still standing at a door that already closed behind you.",
+      "act": "lay the one step you can see, solidly",
+      "ask": "Take the next ordinary task that is sitting there waiting — the call, the box, the form — and do that one thing slowly and completely, then set it down. Nothing beyond it.",
+      "core": "The release you carry hasn't come back yet. Where something was coming apart, you stayed at the edge of it and your heat went out with the thing that left. You're holding a doorway with nobody in it, and the part of you that finishes things has stepped away.\n\nYou get it back through your hands, not your head. Do one plain task, slowly and completely, the way a builder sets a stone and checks it sits level. Then stop. Seeing the whole structure isn't required to lay one course of it. That single course is enough to bring the energy back through what's been starved, and the rest of the sequence shows itself once you're standing on something solid.",
+      "sheetLine": "The door closed and you're still in the frame. Lay one stone.",
+      "verb": "Laying your hand off the thing and letting it finish coming down",
+      "place": "A room where something that couldn't stand is coming apart quickly",
       "provenance": {
         "signature_id": 65,
         "position_id": 16,
@@ -97,24 +110,19 @@
         "partner": "Executor of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"On the heavy mornings, make it one brick, not zero.\" — end on the plain thing",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -126,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "You are caring for what took root after the clearing and calling it nothing much.",
-      "ask": "Name one thing you kept going through this — a person, a routine, a small fix — and tell someone you did that on purpose.",
-      "core": "You don't think of yourself as the one who decided. You water what's dry, you show up where it matters, you patch things before anyone notices they're breaking — and you describe it all as if it happened nearby rather than from you. Watering is deciding. The clearing made room, and you filled it carefully, one piece at a time, on purpose even when it felt automatic.\n\nSay one of those choices out loud and it stops sitting in the background. Nobody's asking you to claim credit for the outcome or for the people involved. Just the part that was yours to make. The rest can stay private if that's how you like it.",
-      "sheetLine": "You kept it alive. That was your doing, not the season.",
-      "verb": "releasing a support that has finished its work",
-      "place": "standing in the open where a structure you leaned on came down",
+      "tense": "The letting-go is already happening and you're not counting it as yours.",
+      "act": "learn how it grows by tending it",
+      "ask": "A routine, a small system, a person's habit stays alive because you keep feeding it. Tend it once this week, then write one line: this runs because you hold it.",
+      "core": "You've been the one releasing what was done — quietly, on time, without ceremony — and if anyone asked, you'd say it happened by itself. Several things near you are lighter because somebody knew when to let go. That somebody is you, and it isn't being counted.\n\nThe way in is smaller than what you do. Tend one modest thing that stays alive because you keep it so, then put the plain fact of it on paper: this runs because you hold it. You'll feel how strange the claim sits. That strangeness is the gap. Care that doesn't exhaust begins with knowing whose hands the care is in, and yours have been the hands the whole time, working while their owner was looking elsewhere.",
+      "sheetLine": "You keep letting things go well and don't count it as yours.",
+      "verb": "Laying your hand off the thing and letting it finish coming down",
+      "place": "A room where something that couldn't stand is coming apart quickly",
       "provenance": {
         "signature_id": 65,
         "position_id": 16,
@@ -140,19 +149,14 @@
         "partner": "Initiate of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -166,93 +170,81 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4236,
+      "ms": 7059,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Discipline",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"If the wall feels too heavy some morning, make it one brick,\" — end on the plain thing",
-          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "4 images in one core (door, room, floor, wall) — a parable, not a sentence to a person",
+          "detail": "3 images in one core (doorway, room, current) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 3
         },
         {
@@ -262,26 +254,44 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The way back is smaller\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
+          "detail": "five words in a row from an exemplar or a rule: \"past the point where you'd\"",
           "hard": true,
           "status": 4
         },
@@ -290,114 +300,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that a ring has slipped lately, since the card reads as capacity, not recent event. A reader could rightly say nothing has slipped, or the clearing already happened. The asks survive a wrong read: each one is doable whether or not the loss is recent. Sentence serving the writer, fixed before writing: 'You know which ring to let go of,' which flattered the writer's ear and put knowledge in the person's mouth."
+      "check": "The unsupported claim is that these structures are 'false' — the record says only that things built on premises that couldn't hold come down fast and that this can feel like liberation, not that what is falling is wrong or deserves to fall. A reader could reasonably say the letting-go in Too Much is just exhaustion, or that the pull-back in Too Little was fear, neither of which the record supports. The asks survive being wrong: each is one act on a real thing in front of them, useful whichever way my read sits. The sentence that serves me more than the person is any line that makes the collapse sound like a verdict on what they built; it has been cut."
     },
     {
       "attempt": 2,
-      "ms": 4082,
+      "ms": 4936,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"On the mornings it's heavy, make it one brick, not zero.\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that a false structure has recently come down for this person — the seat describes the capacity for clearing, not a documented event. A reader could say nothing fell, or that what fell was wanted. The asks survive a wrong read: each is doable whether or not the clearing is recent, since each builds or releases something real regardless. Sentence that served me, fixed before writing: 'You know what to let go of,' which put knowledge in their mouth and flattered the card."
-    },
-    {
-      "attempt": 3,
-      "ms": 3337,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -408,26 +329,32 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"right now the\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 2
         },
@@ -438,20 +365,26 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "vocab",
+          "detail": "3 images in one core (room, doorway, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"On the heavy mornings, make it one brick, not zero.\" — end on the plain thing",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 3
         },
@@ -462,15 +395,114 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the structures coming down are 'false' or deserve to fall — the record says only that what couldn't hold comes apart fast, and that this can arrive as clearing rather than ruin. A reader could reasonably say the pulling-back in Too Much is just fatigue, or that in Too Little the person simply never arrived, neither of which the record supports. Every ask survives being wrong: each is one act on something real in front of them, useful whichever way my read sits. The sentence serving me more than the person was any line making the collapse a verdict on what they built; it is gone."
+    },
+    {
+      "attempt": 3,
+      "ms": 3360,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "hard": true,
           "status": 4
         },
         {
@@ -480,18 +512,24 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that something has recently come down for this person — the seat names a capacity for clearing, not a documented event. A reader could say nothing fell, or that what fell was wanted. The asks survive a wrong read: each is doable whether or not a clearing is recent, since each releases or builds something real regardless. Sentence that served me, fixed before writing: 'You know what to let go of,' which put knowledge in their mouth and flattered the card."
+      "check": "The unsupported claim is that what is coming apart is 'false' or deserves to fall — the record says only that things built on premises that couldn't hold come down fast, and that this can arrive as clearing rather than ruin. A reader could reasonably say the pulling-back in Too Much is simply fatigue, or that in Too Little the person never arrived, neither of which the record supports. Every ask survives being wrong: each is one act on something real, useful whichever way my read sits. The sentence serving me more than the person was any line making the collapse a verdict on what they built; it is gone."
     },
     {
       "attempt": 4,
-      "ms": 2564,
+      "ms": 3478,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -502,21 +540,21 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"tend the small thing and learn from it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
@@ -526,20 +564,14 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"On the heavy mornings, make it one brick, not zero.\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"lay the one step you can see solidly\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -550,14 +582,8 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -568,95 +594,13 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that something has recently come down for this person — the seat names a capacity for clearing, not a documented event. A reader could say nothing fell, or that what fell was wanted. The asks survive a wrong read: each is doable whether or not a clearing is recent, since each releases or builds something real regardless. Sentence that served me, fixed before writing: 'You know what to let go of,' which put knowledge in their mouth and flattered the card."
-    },
-    {
-      "attempt": 5,
-      "ms": 2984,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"On the heavy mornings, make it one brick, not zero.\" — end on the plain thing",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that something has recently come down for this person — the seat names a capacity for clearing, not a documented event. A reader could say nothing fell, or that what fell was wanted. The asks survive a wrong read: each is doable whether or not a clearing is recent, since each releases or builds something real regardless. Sentence that served me, fixed before writing: 'You know what to let go of,' which put knowledge in their mouth and flattered the card."
+      "check": "The unsupported claim is that what is coming apart is 'false' or deserves to fall — the record says only that things built on premises that couldn't hold come down fast, and that this can arrive as clearing rather than ruin. A reader could reasonably say the pulling-back in Too Much is simply fatigue, or that in Too Little the person never arrived, neither of which the record supports. Every ask survives being wrong: each is one act on something real, useful whichever way my read sits. The sentence serving me more than the person was any line making the collapse a verdict on what they built; it is gone."
     }
   ],
   "usage": {
-    "input": 4969,
-    "output": 4950
+    "input": 8269,
+    "output": 4857
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:20:28.617Z"
+  "date": "2026-10-02T12:31:17.650Z"
 }

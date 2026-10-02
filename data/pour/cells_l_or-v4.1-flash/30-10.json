@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing where what is arriving can be met, and you are meeting it.",
-      "ask": "Pick one thing you're already tending — a person, a habit, a piece of work — and do its next practical step today, the unglamorous one.",
-      "core": "What comes in, you meet it steadily. Not by bracing, not by forcing — by having done this enough that it isn't a question anymore. The hoping that started all this is still running, and it has settled into something you can stand on.\n\nThat strength holds weight without going stiff. It's made of all the persistence you've gathered, and it doesn't make a show of itself — it keeps the door open and stays. The risk isn't collapse. It's that staying drifts into effortful holding, and quiet persistence stops being calm and starts being tight. Keep standing without tightening your grip.",
-      "sheetLine": "You meet what arrives steadily, and it doesn't cost you your ease.",
-      "verb": "following what you chose, still at it, still standing",
-      "place": "the doorway where what's outside is about to come in",
+      "tense": "You are standing where something is arriving, and you can still see it.",
+      "act": "persist on your own reserves through the pressure",
+      "ask": "When the next load lands, meet it on what you already have — don't ask anyone to take a piece, don't wait for someone to step in. Carry your share, and say nothing about it after.",
+      "core": "You can stay with something you chose when the going is only going. That is what is arriving at this threshold. You keep walking toward what you picked without needing the walking to prove anything, and this steadiness does more work than you notice. What enters your life meets someone already carrying their own weight.\n\nThe trouble is you are the last one told about your own endurance. You have been carrying so long that it feels like the room you're in, not a choice you keep making. This week, when the next thing lands, meet it entirely on what you have. Don't hand any of it off, don't wait for someone to offer. What you'll find out is what you've been supplying the whole time.",
+      "sheetLine": "You stay with what you chose, and you do it quietly.",
+      "verb": "keeping going on what you chose to follow, long after the choosing",
+      "place": "the threshold where something outside is about to come in",
       "provenance": {
         "signature_id": 30,
         "position_id": 10,
@@ -26,14 +27,19 @@
         "partner": "Steadfastness",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,22 +51,18 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for what hasn't arrived yet, writing the outcome before it comes.",
-      "ask": "When the next thing you can't predict shows up, name it plainly to yourself before you plan a response — say what it is, once, out loud.",
-      "core": "You're pushing the endurance ahead of the moment. Something's on its way and you've already decided how it goes and what it'll take out of you — so you're carrying the weight before it's handed over. The persistence is meant for what's real. This is for what might be.\n\nHere's the bend: what should be steady becomes a grip. You're holding a shape for the future so hard that nothing arriving can match it. What helps is to know what's coming, plainly, before deciding what to do about it. That kind of knowing doesn't argue and doesn't brace. It just sees, and waits, and lets the thing arrive as itself.",
-      "sheetLine": "You're holding against a future that hasn't happened yet.",
-      "verb": "following what you chose, still at it, still standing",
-      "place": "the doorway where what's outside is about to come in",
+      "tense": "You will need to be ready for what has not arrived, so you are braced.",
+      "act": "write both sides of it on one page and close the page",
+      "ask": "Put a worry about something that hasn't happened onto one page — two columns, one hard, one not. Close the page. No planning after. When the worry returns, the page is already done.",
+      "core": "You're still walking toward what you chose, but the walking has gotten out past the road. What's coming isn't here yet, and you've got one version of it in hand, then the next, then the one after. That's endurance turned preparation, and preparation that runs past the road wears through what it was there to guard. From outside it reads as ready. From inside, nothing has happened.\n\nThere's a smaller move underneath all the bracing. Take one upcoming pressure and put it on a single page, two columns: how it looks if it goes hard, how it looks if it doesn't. Then close the page. The writing is the whole ask. Bracing is what you trade for it. What's coming will come. You've already looked.",
+      "sheetLine": "You're bracing for what hasn't happened yet, and it's tiring you.",
+      "verb": "keeping going on what you chose to follow, long after the choosing",
+      "place": "the threshold where something outside is about to come in",
       "provenance": {
         "signature_id": 30,
         "position_id": 10,
@@ -69,41 +71,21 @@
         "partner": "Reflection",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
+      "lint": []
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that has already closed behind you.",
-      "ask": "Tend one small thing that relies on you — a plant, a routine, a person's check-in — giving it the same care on a bad day as a good one.",
-      "core": "Not much is entering, because you stopped expecting anything to. The staying power that used to carry you is still there underneath, but you're not using much of it. You've been standing back from the doorway, and the hoping that once kept you at it has gone quiet.\n\nGoing well, this looks like keeping something alive without it wearing you down — care that doesn't exhaust itself, holding space without clutching. Tending like that rebuilds your strength instead of draining it. Pick something small and keep it steady. Not to prove anything — because caring for something day after day is what pulls you back into the present, and the present is where the door is.",
-      "sheetLine": "Tend one small thing until you can feel yourself back in the room.",
-      "verb": "following what you chose, still at it, still standing",
-      "place": "the doorway where what's outside is about to come in",
+      "tense": "You are standing at a threshold that closed behind you some time back.",
+      "act": "tend the resource with responsible care",
+      "ask": "Choose a skill, a tool, or a routine you used to keep up, and tend it with no goal and no one watching. Not to get anywhere. Care for something already in your hands.",
+      "core": "What's supposed to be getting through isn't. You're still turned toward what you were building earlier, and what's already finished still has your attention. The resilience is real; it's just aimed at a stage you've already passed. Whoever comes to meet you meets someone half-arrived, looking at an entrance that's no longer the one.\n\nCharging this moment directly doesn't work — you can't feel your way forward. Tend what's already here. Choose something already in your hands and keep it small, no audience, no goal. Steady care for something already yours is how this moment gets entered into from the side, not from the front.",
+      "sheetLine": "You're turned toward a threshold that's already closed.",
+      "verb": "keeping going on what you chose to follow, long after the choosing",
+      "place": "the threshold where something outside is about to come in",
       "provenance": {
         "signature_id": 30,
         "position_id": 10,
@@ -112,24 +94,24 @@
         "partner": "Stewardship",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false
         },
         {
           "code": "wound",
-          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"already\" ×5 in one core — the house voice showing",
           "hard": false
         },
         {
@@ -141,22 +123,18 @@
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already doing the steady work, and you're telling yourself it's just how things are.",
-      "ask": "Say plainly, out loud once, that you are the one holding this together — name the thing you've been calling just how it goes.",
-      "core": "You already meet what comes in with the persistence of someone who's done this a long time. It shows in how you handle the everyday. But you don't count it as yours. You talk about being steady as if it were a fact about the situation rather than something you're doing.\n\nMeanwhile the strength is working — internal and practical, the kind that holds without forcing — and you're using it all the time and calling it nothing. That deserves better than being ignored. It's yours, and the first step is saying so once, out loud, where nobody's watching. Once it has a name, you can decide where it goes instead of spending it by default.",
-      "sheetLine": "You're the one holding this together. Say it once, out loud.",
-      "verb": "following what you chose, still at it, still standing",
-      "place": "the doorway where what's outside is about to come in",
+      "tense": "You are doing the whole work, and asking whether it counts as yours.",
+      "act": "stand firm in the material hardship",
+      "ask": "A heavy thing is on you this week — a deadline, a payment, a body that needs carrying. Do what you do with it. When it's done, don't hand the credit to luck or to anyone around. Note quietly that you stood there.",
+      "core": "You keep showing up for the material weight — the bills, the appointments, the part of life that doesn't wait for how you feel. At this threshold, what's coming in is being handled by you the entire time. But you file it under 'managing,' or under 'just getting through,' and the hand doing the steadying isn't marked as yours.\n\nNext time something heavy lands, do what you already do — stand in it — and when it's over, don't route the credit to luck or to anyone else. The version of you with a hand in it is the same one you've been relying on. Naming that is the whole adjustment.",
+      "sheetLine": "You stood in it, filed under getting through.",
+      "verb": "keeping going on what you chose to follow, long after the choosing",
+      "place": "the threshold where something outside is about to come in",
       "provenance": {
         "signature_id": 30,
         "position_id": 10,
@@ -165,19 +143,29 @@
         "partner": "Steadfastness",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 108 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -191,21 +179,349 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5437,
+      "ms": 7640,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "ask 45 words (≤40)",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"not a new decision the\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "glass",
           "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're already holding\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it was meant to protect\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 46 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 56 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "another card's name on glass: Source",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "hunch",
+          "detail": "\"you call it '\" — words put in the person's mouth",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The draft's weakest claim is that the person is actively meeting what arrives at the Source — the record shows Resilience (still following the chosen star, weathered but unbroken), not whether anything new is being recognized right now, so a reader could reasonably say 'I'm not watching for anything, I'm just getting through the day.' The asks survive being wrong because each is a small, one-time act (persist on reserves, write both sides on one page, tend one resource, stand firm through the next bill) that teaches something regardless of the diagnosis. The sentence that serves the writer more than them is any line that flatters the endurance into evidence of faith — I cut that and kept the plain mechanism."
+    },
+    {
+      "attempt": 2,
+      "ms": 5854,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're already holding\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "4 images in one core (door, doorway, room, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 47 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The weakest claim is that the person is actively meeting what arrives at this threshold — the record shows Resilience as sustained following of a chosen star, weathered but unbroken, not evidence that anything new is being recognized right now. A reader could reasonably say: I'm not watching for arrivals, I'm just getting through the week. All four asks survive being wrong because each names one small visible act the person could do regardless of whether the reading fits them. The sentence that serves the writer more than them is any line that treats the endurance as proof of faith — cut, and kept the plain mechanism instead."
+    },
+    {
+      "attempt": 3,
+      "ms": 4369,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
@@ -221,211 +537,33 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "length",
           "detail": "core 104 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"for a long time\" — a duration the person never gave",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person has actually been through hardship; it says the capacity is persistence through pressure, so I must render a way of meeting what enters, not a history. A reader could reasonably say nothing hard is arriving for them, and the ask still works because tending one thing daily builds the strength whether or not pressure comes. The sentence that serves me more than them is any line implying they have already survived something; I've written around it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3441,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
+          "detail": "4 images in one core (threshold, shape, door, room) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 3
         },
         {
@@ -441,156 +579,26 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "ask 42 words (≤40)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says nothing about the person's actual history — that persistence has been tested is the card's own meaning, not a fact about them, so no cell implies they have lived through something hard. A reader could reasonably say nothing difficult is entering for them right now, and the ask still holds because tending one small thing daily builds practical strength whether or not pressure arrives. The sentence that serves me more than the person is any line that flatters the steadiness as special; I've kept it plain."
-    },
-    {
-      "attempt": 3,
-      "ms": 4232,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -601,18 +609,24 @@
           "status": 4
         }
       ],
-      "check": "The record states persistence through pressure as the card's own meaning, not a fact about the person's history, so no cell claims they have survived anything specific. A reader could reasonably say nothing hard is arriving for them now, and the ask still holds because tending one small thing daily builds practical strength whether or not pressure comes. The sentence that serves me more than the person would be any line treating the steadiness as special or earned; I've kept it plain and given them the claim rather than the praise."
+      "check": "The weakest claim is that the person is actively meeting what arrives at this threshold — the record shows Resilience as sustained following of a chosen star, weathered but unbroken, not evidence that anything new is being recognized right now. A reader could reasonably say: I'm not watching for arrivals, I'm just getting through the week. All four asks survive being wrong because each names one small visible act the person could do whether or not the reading fits. The sentence that serves the writer more than them is any line treating endurance as proof of faith — cut, and kept the plain mechanism."
     },
     {
       "attempt": 4,
-      "ms": 3818,
+      "ms": 5228,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -629,50 +643,120 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "detail": "3 images in one core (threshold, shape, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The weakest claim is that the person is actively meeting what arrives at this threshold — Resilience shows sustained following of a chosen star, weathered but unbroken, not that anything new is being recognized right now. A reader could reasonably say: I'm not watching for arrivals, I'm just getting through the week. All four asks survive being wrong because each names one small visible act doable whether or not the reading fits. The sentence serving the writer more than them is any line treating endurance as proof of faith — cut, and the plain mechanism kept."
+    },
+    {
+      "attempt": 5,
+      "ms": 3835,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"persist on your own reserves through the pressure\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×5 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
@@ -689,20 +773,26 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -713,13 +803,13 @@
           "status": 4
         }
       ],
-      "check": "The record gives persistence through pressure as the card's own meaning, not as a fact about this person's history, so nothing here claims they survived a specific hard thing. A reader could reasonably say nothing difficult is arriving right now, and the ask still holds because tending one small thing on schedule builds practical strength whether or not pressure comes. The sentence that would serve me more than them is any line that treats the steady work as special; the cells stay plain and hand them the claim."
+      "check": "The weakest claim is that the person is actively meeting what arrives at this threshold — Resilience shows sustained following of a chosen star, weathered but unbroken, not that anything new is being recognized right now. A reader could reasonably say: I'm not watching for arrivals, I'm just getting through the week. All four asks survive being wrong because each names one small visible act doable whether or not the reading fits. The sentence serving the writer more than them is any line treating endurance as proof of faith — cut, and the plain mechanism kept."
     }
   ],
   "usage": {
-    "input": 7072,
-    "output": 4268
+    "input": 9762,
+    "output": 6188
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:22:45.708Z"
+  "date": "2026-10-02T11:53:19.993Z"
 }

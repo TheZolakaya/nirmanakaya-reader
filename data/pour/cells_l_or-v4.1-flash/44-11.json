@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here, with the pen, and the joy you raise gets weighed with the same hand that splits the bill.",
-      "ask": "Pick one split you've been quietly carrying more of, and take the smaller share of it this week on purpose, before anyone asks.",
-      "core": "You're the one who can lift a room and still keep the books straight. Joy comes up around you and you pass it on, and the same eye catches whatever has drifted out of proportion — who's carrying more, who keeps getting left out of the count. Most people can do one of those. You're holding both at once and it isn't costing you anything you'd notice.\n\nWhat that looks like going well is simple enough to miss: the fun lands, and nobody quietly ends up paying for it. It bends when you start checking the scale mid-laugh — measuring whether this is fair before you've let yourself enjoy it. The balance you're keeping is real. Make it visible once, and it gets easier for the room to keep.",
-      "sheetLine": "You raise the joy and keep the split honest, both at once.",
-      "verb": "letting shared joy rise and carrying it into what gets split",
-      "place": "standing where what's out of proportion gets set right",
+      "tense": "You are at the table this hour, and the joy is already rising.",
+      "act": "reconcile what you know with what you feel about it",
+      "ask": "Set what you know about these people beside what you feel toward them, and take the single move that fits both.",
+      "core": "A shared moment is happening and the joy wants to be passed around like bread. What keeps it good is small handiwork: noticing who has gone quiet, letting someone else take the next toast, moving a chair. You do that part easily and well, and it rarely gets named.\n\nTo keep it honest, line up what you actually know about these people with what you feel toward them, and let one plain move fall out of the pairing. This isn't a plan for managing the evening. It's enough that the share doesn't go by habit to whoever is loudest or nearest. Then your hands know what to do, and the celebration runs without you carrying the whole of it.",
+      "sheetLine": "Joy passed around stays good.",
+      "verb": "Raising joy together and letting it be shared",
+      "place": "Where fair shares get measured and brought back level",
       "provenance": {
         "signature_id": 44,
         "position_id": 11,
@@ -26,11 +27,26 @@
         "partner": "Reconciliation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are out ahead of the room, bracing for a moment that hasn't arrived, and the table you set is getting heavier by the hour.",
-      "ask": "Leave one plan unfinished tonight and let someone else close it, without going back over it after they do.",
-      "core": "Somewhere ahead there's a gathering where it finally feels right — the right people, the right weight, the joy landing like it's supposed to. You're working toward that room from here, and the working is getting big. Guest lists, timing, who's owed what. You've made yourself the one holding all of it.\n\nJoy has a way of evaporating under that much arranging. The thing you're building toward is people being together, and the building has started to take the place of it. That doesn't mean stop. It means one piece of the evening can go on without your hands on it, and you can find out what it's like when it does.",
-      "sheetLine": "You're building the celebration so hard you're missing it.",
-      "verb": "letting shared joy rise and carrying it into what gets split",
-      "place": "standing where what's out of proportion gets set right",
+      "tense": "You will be bracing for a tomorrow that cannot be written in yet.",
+      "act": "return to the work daily until it is profound",
+      "ask": "Choose one shared thing that matters to you and give it ten minutes a day, no plan beyond today's part.",
+      "core": "A future is being rehearsed before it arrives. You can see the next gathering, the next year, how it ought to go, and you keep reaching ahead to set it right. The people at the table tonight get a rehearsal of you instead of you. The joy isn't gone — it's being spent on a night that hasn't happened.\n\nWhat helps is not to care less. Put your hands on the real thing and stay with it a little, daily. Pick one shared thing you care about and do today's part of it, no more, and leave tomorrow's part for tomorrow. What actually needs to fall will fall once you stop holding the future up with your arms, and the room can have the person who is here.",
+      "sheetLine": "You're setting a table for a night that hasn't happened.",
+      "verb": "Raising joy together and letting it be shared",
+      "place": "Where fair shares get measured and brought back level",
       "provenance": {
         "signature_id": 44,
         "position_id": 11,
@@ -54,14 +71,19 @@
         "partner": "Commitment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "refrain",
+          "detail": "\"What helps is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -73,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that's already behind you, and your hand hasn't left the frame.",
-      "ask": "Send one invitation, badly worded, to one person, and let whatever they answer be enough.",
-      "core": "There's a level of togetherness you can picture, and it's a long way from where you actually stand. Lately the safest move has been staying in the chair you're in — not raising anything, not asking anyone in. The joy didn't go anywhere. You just stopped asking, some while ago.\n\nThe balance you'd want here isn't something you force by going out and feeling harder. It comes back from following one thought all the way down, until you see plainly what the asking was ever for. That's how the ground returns. One honest invitation is small enough to survive being declined, and it tells you something either way.",
-      "sheetLine": "You stopped asking anyone in, and that was the whole thing.",
-      "verb": "letting shared joy rise and carrying it into what gets split",
-      "place": "standing where what's out of proportion gets set right",
+      "tense": "You were standing at a threshold of a gathering you had already left.",
+      "act": "let the mind find its own limit in the thing",
+      "ask": "Take the question you quit early on — what you actually want from these people — and keep thinking till your mind runs out.",
+      "core": "A gathering is going on and your coat is still on. The invitation came, the chair is yours, and you haven't quite arrived in it. That half-arriving isn't rudeness; it's a habit of keeping one foot back. Some ending in a shared room still has a hand on your sleeve, and tonight gets the version of you that is partly elsewhere.\n\nYou don't push yourself in. You stop at the edge and think. Take the question you have about these people — what you want from them, what you bring — and follow it further than you normally allow. Let it go until your mind hits its own limit, and remain there a moment rather than surfacing. The answer is allowed to be uncomfortable. That's where the real thing lives, and it walks you into the room without your having to perform arrival.",
+      "sheetLine": "Your coat is still on at a table that's already started.",
+      "verb": "Raising joy together and letting it be shared",
+      "place": "Where fair shares get measured and brought back level",
       "provenance": {
         "signature_id": 44,
         "position_id": 11,
@@ -87,19 +110,24 @@
         "partner": "Immersion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "\"quit\" — an act that is hard to undo, in a reading that asked for an experiment",
           "hard": false
         },
         {
@@ -111,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already at the center of what people share, and you talk about it like it happened around you.",
-      "ask": "Say out loud, once, that you're the one who set up a gathering people still talk about.",
-      "core": "You do this already. You notice who's drifting, you pull them back in, you make the room feel like a room. People leave your company lighter and you call it the crowd, the night, the mood. It runs anyway, whether or not you sign it.\n\nWhat this looks like going well is someone who knows their own hand is in it — who can enjoy the evening and still see clearly that they shaped it. The thing missing isn't more joy or more fairness. You've got both working. It's that the one doing it hasn't claimed it. Pick one thing you arranged, one that landed, and admit to yourself that it landed because you decided it would.",
-      "sheetLine": "You're already the one lifting the room. You just haven't claimed it.",
-      "verb": "letting shared joy rise and carrying it into what gets split",
-      "place": "standing where what's out of proportion gets set right",
+      "tense": "You are at the table, pen down, in a room you are already writing.",
+      "act": "sort the pieces into a shape you can act on",
+      "ask": "Before the next gathering, note what you want from it in a single line, then keep the paper closed until the evening's over.",
+      "core": "Good feeling at a gathering has a keeper. Someone clocks who hasn't had a turn, whose laugh needs to land, whether the split came out even, and adjusts without a sound. Ask and the answer is that the group just works. It doesn't; it's being worked. Somebody is doing the evening's accounting, quietly, in the middle of it.\n\nThe change isn't to stop. It's to stand beside the doing. Before the next gathering, sort what you want from it into one line — not what the room needs, what you want — then fold it away and don't unfold it until the last plate is cleared. Later, reading it, you'll see the hand that wrote the line is the hand that kept the night level.",
+      "sheetLine": "The one keeping the good feeling fair might be you.",
+      "verb": "Raising joy together and letting it be shared",
+      "place": "Where fair shares get measured and brought back level",
       "provenance": {
         "signature_id": 44,
         "position_id": 11,
@@ -125,19 +154,19 @@
         "partner": "Reconciliation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -151,20 +180,32 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5637,
+      "ms": 6850,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"bring the two sides of your thinking into one plan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the next step is to\"",
           "hard": true,
           "status": 1
         },
@@ -175,15 +216,27 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep building the thing with sustained craft\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 2
         },
         {
@@ -191,12 +244,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "glass",
@@ -205,14 +252,8 @@
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"went badly\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "\"The reaching\" — a verb turned into a mystical noun",
+          "detail": "3 images in one core (doorway, room, door) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
@@ -223,33 +264,255 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"follow the thought past where it is comfortable\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it all the way through\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 94 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         },
         {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's joy has a keeper hand — that they pace the good share without noticing — which the record implies but the person may say is just good manners. The ask (put the raw notes on the table) survives being wrong: even if the pacing is deliberate, sorting the thoughts frees the seat. The sentence that serves the writer more than the person is 'The one who keeps the good put out fairly might not be you' — cut from the core."
+    },
+    {
+      "attempt": 2,
+      "ms": 5920,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it past the point where\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person paces the good share of a gathering without counting it as their own doing — the record implies a keeper of fairness but the person may reasonably say they are simply being polite. The ask survives being wrong: even if the balancing is deliberate and named, writing one line about what they want for themselves still loosens the seat. The sentence that serves the writer more than the person was 'The hands are yours and you don't count them as yours' — cut; the cells now say only what a camera could see about the adjusting, not what it means about them."
+    },
+    {
+      "attempt": 3,
+      "ms": 4018,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "\"quit\" — an act that is hard to undo, in a reading that asked for an experiment",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -259,94 +522,136 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's joy is currently communal and shared — a reading of a Bound card can only describe the capacity, not assert who is in the room. A reader could reasonably say 'I'm not sharing anything with anyone right now.' The ask survives being wrong: taking on the smaller share of a practical split is doable whether or not the joy reading lands, and it costs nothing. The sentence that serves the writer is any phrasing that makes the card sound like a verdict on their social life rather than a description of a capacity they carry."
+      "check": "The unsupported claim is that the person quietly paces the good share of a gathering without counting it as their own doing — the record implies a keeper of fairness, but the person may reasonably say they are just being polite. The ask survives being wrong: even if the balancing is deliberate and named, standing beside the act for one evening still loosens the seat. The sentence that serves the writer more than the person was 'the hands are not being counted as anyone's' — cut; the cells now describe only what a camera could see, not what it means about them."
     },
     {
-      "attempt": 2,
+      "attempt": 4,
+      "ms": 3536,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "\"quit\" — an act that is hard to undo, in a reading that asked for an experiment",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it sit\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person quietly paces the good share of a gathering without counting it as their own doing — the record implies a keeper of fairness, but the person may reasonably say they are just being polite. The ask survives being wrong: even if the balancing is deliberate and named, standing beside the act for one evening still loosens the seat. The sentence that serves the writer more than the person was 'that somebody is not being named' — cut; the cells now describe only what a camera could see, not what it means about them."
+    },
+    {
+      "attempt": 5,
       "ms": 3382,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"What helps is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person's joy is currently communal — a Bound card describes a capacity, not who is in the room. A reader could reasonably say 'I'm not sharing anything with anyone right now.' The ask survives being wrong: taking the smaller share of a practical split is doable whether or not the joy reading lands. The sentence that serves the writer is any phrasing that turns the card into a verdict on their social life rather than a description of a capacity they carry."
-    },
-    {
-      "attempt": 3,
-      "ms": 3283,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -357,8 +662,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -369,20 +674,26 @@
           "status": 3
         },
         {
+          "code": "ask",
+          "detail": "\"quit\" — an act that is hard to undo, in a reading that asked for an experiment",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -393,13 +704,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's joy is currently communal — a Bound card describes a capacity, not who is in the room. A reader could reasonably say 'I'm not sharing anything with anyone right now.' The ask survives being wrong: taking the smaller share of a practical split is doable whether or not the joy reading lands. The sentence that serves the writer is any phrasing that turns the card into a verdict on their social life rather than a description of a capacity they carry."
+      "check": "The unsupported claim is that the person quietly paces the good share of a gathering without counting it as their own doing — the record implies a keeper of fairness, but the person may reasonably say they are just being polite. The ask survives being wrong: even if the balancing is deliberate and named, standing beside the act for one evening still loosens the seat. The sentence that serves the writer more than the person was 'that somebody is not being named' — cut; the cells now describe only what a camera could see, not what it means about them."
     }
   ],
   "usage": {
-    "input": 5778,
-    "output": 3247
+    "input": 5929,
+    "output": 5962
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:35:22.339Z"
+  "hardOpen": 1,
+  "date": "2026-10-02T13:07:49.102Z"
 }

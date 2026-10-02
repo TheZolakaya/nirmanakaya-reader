@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "There's heat in you right now and it's pointed at something.",
-      "ask": "Offer one new thing to the people you share meaning with — a song, a small ritual, a saying — and let it be theirs, keeping none of it back.",
-      "core": "Whatever's lit in you right now, it's got somewhere to go, and the people around you can feel that it isn't just talk. When you get excited about a direction, it moves the room — they pick up the energy and start moving with you. That's how a thing takes on a life beyond the one who started it.\n\nThis doesn't run on asking for permission. It runs on you saying the next piece out loud while it's still warm enough to carry. So hand one of them a piece of what you've got — a song, a small ritual, a phrase you keep using — and let it go into their hands. What they receive will get changed by them. That part isn't a loss.",
-      "sheetLine": "Hand it over while it's still warm enough to carry.",
-      "verb": "lighting a fire and pointing it where you're going",
-      "place": "where what matters gets said out loud and carried forward",
+      "tense": "The fire is alight right now, and the room can see it.",
+      "act": "think it through to its sharp point",
+      "ask": "Take a custom you keep and write a short page on what it has taught you — not its history, the point underneath, sharp enough to act on.",
+      "core": "You carry a fire into the shared life around you, and it travels. When you name a reason for something, others pick it up and do it too, and the custom grows a little younger for it. Inner knowing showing as an outward spark, and a room catching.\nWhat a lit person can miss is the lesson inside the thing they keep. So sit with a custom near you — the family meal, the yearly observance, the way your group closes a meeting — and write a short page on what it has actually taught you. Not its history. The point underneath, sharp enough to act on. That's you cutting to the logic of a habit you carry, and finding out what it was for.",
+      "sheetLine": "The fire you carry is already teaching something. Name the lesson.",
+      "verb": "lighting fires, starting things, carrying people along on confidence",
+      "place": "in the customs, stories and rituals people have handed down",
       "provenance": {
         "signature_id": 62,
         "position_id": 5,
@@ -26,31 +27,37 @@
         "partner": "Catalyst of Cognition",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're already out there with the next version before the last one has landed.",
-      "ask": "Pick one thing you're pushing on people right now and leave it alone for a week — no check-ins, no refinements, no new reasons it matters.",
-      "core": "You've got a fire and you're spending it ahead of time. Before anyone has heard the current version, you've already got the next one ready, plus the explanation for why the old one didn't work. It's coming from real excitement — you want them with you — but the push is what they hear, not the spark.\n\nThe thing loses force when it's argued for. Your energy carries best when it moves on its own, and it can't do that under a hand that keeps returning. So leave one of them alone for a week. Let it sit there without your help and watch what happens to your standing with it. The fire keeps burning while it's quiet.",
-      "sheetLine": "The push is the sound they hear, not the spark.",
-      "verb": "lighting a fire and pointing it where you're going",
-      "place": "where what matters gets said out loud and carried forward",
+      "tense": "Tomorrow's version of the group has already arrived, and today's table is braced.",
+      "act": "ask the question you do not know the answer to",
+      "ask": "At the next gathering you're part of, ask something you genuinely don't know the answer to, and wait through the silence for a real reply.",
+      "core": "Your confidence has outrun the room. You are already speaking for what this group will become, already sure how the custom should bend, and the ones beside you are being pulled ahead of where they stand. The warmth is real. It is landing on a future they haven't agreed to yet.\nA confidence looking at its own reflection only gets brighter, so radiating can't check this by itself. Curiosity can. At the next gathering you're in — the family table, the team, the yearly thing you show up for — ask a question whose answer you truly don't have. Then leave the gap open. Let the actual reply reach you before you do anything with it. That is the spark coming down to meet the people it is meant to warm.",
+      "sheetLine": "You're speaking for a group that hasn't caught up to you yet.",
+      "verb": "lighting fires, starting things, carrying people along on confidence",
+      "place": "in the customs, stories and rituals people have handed down",
       "provenance": {
         "signature_id": 62,
         "position_id": 5,
@@ -59,26 +66,47 @@
         "partner": "Initiate of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 3 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "There was a moment you had something to light and nothing got lit.",
-      "ask": "Take one small thing — a phrase, a tool, a habit — and teach it to a single person this week, slow enough that they can hold it.",
-      "core": "The energy is there and it's not coming out. You'll have an idea in a room and let it pass because someone else has the room's ear, or you wait for a better moment that doesn't arrive. The spark is still in you. It's just not reaching anyone.\n\nHolding it back longer won't do it. Tend one small thing with someone else's hands in it. Take something you know, small enough to hold, and show it to one person slowly enough that they learn it. You're not performing. You're planting. What you tend grows at its own pace, and that pace is what does the work.",
-      "sheetLine": "Not a performance this time — a planting.",
-      "verb": "lighting a fire and pointing it where you're going",
-      "place": "where what matters gets said out loud and carried forward",
+      "tense": "The fire has gone quiet, and the room keeps meeting without it.",
+      "act": "tend the small thing and learn from it",
+      "ask": "Choose a small custom in your care — a weekly meal, a call, one repeated gesture — and tend it faithfully this week, even on days it feels too small to matter.",
+      "core": "The light that used to pull people along has gone somewhere, and the shared things around you keep going without your spark in them. You show up. You know the words, the steps, the order. Nothing in you is lit while you do them, and it has been that way long enough that you've stopped expecting otherwise.\nDemanding radiance back won't work; a starved place doesn't take effort. Tend instead. Take a small practice in your care — the Tuesday call, the Sunday meal, one repeated gesture — and keep it faithfully: no audience, no announcement, nothing asked of your shine. A thing tended for its own sake builds the ground a spark can return to. Care goes first. The light comes back to what has been cared for.",
+      "sheetLine": "Your customs still run. The fire hasn't come back to them.",
+      "verb": "lighting fires, starting things, carrying people along on confidence",
+      "place": "in the customs, stories and rituals people have handed down",
       "provenance": {
         "signature_id": 62,
         "position_id": 5,
@@ -87,31 +115,42 @@
         "partner": "Initiate of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're already the one people follow and you're talking about it like it happened to you.",
-      "ask": "Name one thing you've made that others now carry — a phrase, a tradition, a way of doing things — and say out loud, once, that it started with you.",
-      "core": "People are already picking up what you give off, and some of it is sticking — a phrase that's spreading, a way your group does something, a story that gets retold. It's happening. You'd explain it as just the way that group is, or somebody else's influence, or luck.\n\nBut you're the one who brought it into the room first. The energy moved through you and out. You can build on this only by knowing you're the builder — otherwise you're holding up someone else's house. So claim one of those things plainly, to yourself or to one person. Then what you make next has a floor under it.",
-      "sheetLine": "You carried it into the room first. Say so.",
-      "verb": "lighting a fire and pointing it where you're going",
-      "place": "where what matters gets said out loud and carried forward",
+      "tense": "The spark is lit and working, and you're calling your own fire a lucky match.",
+      "act": "build the thing that endures",
+      "ask": "Name a gathering you keep alive that would fade without you, and set one line in your own notebook recording that it continues because you hold it.",
+      "core": "There is a custom near you that would have faded out without you holding it. You arrive early, you bring the supplies, you remember the words on behalf of people who forgot them. When it comes up, you say it takes a village, or that it was like that before you came, or that you only help out. What you built stands, and your account of it leaves your part out.\nWhat to do: name a gathering you keep alive — the yearly observance, the standing dinner, the ritual in a group you belong to — and set one line in your own notebook recording that it continues because you hold it. What you've built can hold being set down as yours. It has been carrying the rest of them. Let it be seen.",
+      "sheetLine": "The tradition holds because you hold it. Set that down.",
+      "verb": "lighting fires, starting things, carrying people along on confidence",
+      "place": "in the customs, stories and rituals people have handed down",
       "provenance": {
         "signature_id": 62,
         "position_id": 5,
@@ -120,29 +159,29 @@
         "partner": "Executor of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -151,21 +190,45 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4956,
+      "ms": 6553,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "\"see patterns that liberate\" is not one of Catalyst of Cognition's listed acts",
+          "hard": true,
           "status": 1
         },
         {
@@ -175,21 +238,51 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
           "status": 3
         },
         {
@@ -200,8 +293,14 @@
         },
         {
           "code": "refrain",
-          "detail": "\"the way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -211,10 +310,10 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
@@ -223,8 +322,50 @@
           "status": 4
         },
         {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "\"your keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so once\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -233,27 +374,32 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported reach is saying what the person's fire has cost them or what room they stopped offering in; only what the fire is doing now is on the record, so I'll keep the cost as a present-tense fact, not a story about what happened. A reader could reasonably answer 'it hasn't cost me the room, I just got careful' and the ask still holds, because offering one thing badly is useful either way. The sentence that serves me more than them would be anything that praises the fire as if I could see it burning — so no praise of their radiance anywhere."
+      "check": "The record supports only that this capacity is visible to others; it does not support saying the person disowns it in private, which the Unacknowledged core edges toward — I've cut that and left only the public version and the shrug. The reader on the first cell may reasonably say the light isn't theirs alone, that it started in a group, and the ask survives that because mapping what a room taught you is still a page in your own hand. The sentence that served me more than them was a line about tradition carrying the fire forward; it has been cut from all four."
     },
     {
       "attempt": 2,
-      "ms": 2962,
+      "ms": 4546,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what gets passed on and\"",
-          "hard": true,
           "status": 1
         },
         {
@@ -263,21 +409,69 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 3 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
@@ -287,20 +481,44 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"tell a person\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "\"tell a person\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the way you tell it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -309,20 +527,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported reach is naming what the fire cost them or what room they stopped offering in; only what the capacity is doing now is on the record, so I'll keep it present-tense and one-clause. A reader could answer 'it hasn't cost me a room, I just got careful' and the ask still holds, because offering one thing badly is useful either way. The sentence that serves me more than them would be praising their radiance as if I could see it burning — so no praise of their light anywhere."
+      "check": "The record supports only that this capacity is visible — that others can see the spark and follow it — and not that the person disowns it privately; the Unacknowledged cell now stays on the visible keeping and the modest account of it. A reader on the first cell could reasonably say the fire began in a group, not in them, and the ask survives that because a page about what a shared custom taught you is still written by your own hand. The line that served me rather than them was one about the tradition carrying the fire forward, and it is gone."
     },
     {
       "attempt": 3,
-      "ms": 2654,
+      "ms": 3855,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
@@ -333,55 +562,209 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 3 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write that down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported reach is naming what the fire cost them or what room they stopped offering in; only what the capacity is doing now is on the record, so I keep it present-tense and one clause. A reader could answer 'it hasn't cost me a room, I just got careful' and the ask still holds, because offering one thing badly helps either way. The sentence that serves me more than them would praise their radiance as if I could see it burning, so no praise of their light anywhere."
+      "check": "The record supports that this spark is visible in shared settings and that others follow it; it does not support the person disowning it privately, and the Unacknowledged cell now stays on the public keeping and the modest account of it. A reader on the first cell could say the fire began in the group and not in them, and the ask survives that because the page is written by their own hand about what the shared thing taught them. The line that served me rather than them was one about the tradition carrying the fire forward, and it is gone."
+    },
+    {
+      "attempt": 4,
+      "ms": 3565,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 3 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the thing that endures\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports only that this spark is visible in shared settings and that others pick it up; it does not support the person disowning it privately, and the Unacknowledged cell stays on the public keeping and the modest account of it. A reader on the first cell could reasonably say the fire began in the group rather than in them, and the ask survives that because the page is written by their own hand about what the shared thing taught them. The line that served me rather than them was one about the tradition carrying the fire forward, and it is gone."
     }
   ],
   "usage": {
-    "input": 2634,
-    "output": 3313
+    "input": 8241,
+    "output": 4841
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:19:56.582Z"
+  "date": "2026-10-02T12:27:56.174Z"
 }

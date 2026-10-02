@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here, holding several threads at once, and it is working.",
-      "ask": "Pick one piece of what your people share and say aloud what it is for. Simple words. No need to get it right.",
-      "core": "You can hold several threads at once without dropping any, and you gather them into one course on purpose. It comes out as knowing what your group meant, what you've kept, why it still matters. Around a table or in a group thread the words land, and they land because you did the putting-together first.\n\nWhat you have for the next step is fairness as a plain habit rather than a tally — you can give more than your half without turning it into a debt, and take what's handed to you without an apology. That is the part worth feeding. Keep the cost in view: this kind of balance doesn't stay put, and each exchange asks for the same choice again.",
-      "sheetLine": "You gather what the group means, and you can say it plainly.",
-      "verb": "turning scattered thoughts into one course and steering by it",
-      "place": "among the old sayings and the shared meanings a community keeps",
+      "tense": "Right now you are holding several lines of thought and bringing them into one shape.",
+      "act": "do the fair thing where no one will see",
+      "ask": "Inside the tradition you belong to, settle one small debt this week with nobody watching — the borrowed thing returned, the promise kept, your share of the practice held up — and keep it off the record.",
+      "core": "You carry a living sense of what is owed, and among the traditions you belong to, that sense is at work. You gather the scattered lines — what the group expects, what you promised, what you quietly keep — and they line up into one shape. Fairness runs without a lot of calculation, which is why belonging feels like exchange rather than accounting. The alignment has a place it wants to land: a debt paid back where nobody is counting. In shared meaning, the small things returned are how trust stays real, and being watched is not what keeps it honest. Pick one small claim on you inside this tradition — some help you owe a person in it, some task you agreed to — and pay it without announcing it. The compass reads the case before you name it, and this is where the alignment stops being thought and becomes practice.",
+      "sheetLine": "What is owed in this tradition, you can still pay unobserved.",
+      "verb": "gathering thoughts into alignment",
+      "place": "among the shared meanings and traditions you belong to",
       "provenance": {
         "signature_id": 38,
         "position_id": 5,
@@ -26,14 +27,53 @@
         "partner": "Conscience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "two images in one core (shape, compas) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 2,
+      "tense": "Your mind is racing ahead, gathering a tradition into shape before the people in it can move.",
+      "act": "do the next piece at the speed you can keep for a month, not the speed you can keep for a day",
+      "ask": "Pick the next piece of work in your tradition and do it at a steady month-long pace rather than a single bright surge, and set it down when that pace is spent.",
+      "core": "Thoughts about how this tradition should work are gathering faster than the people in it can move. You are bracing ahead — planning what the community will be, what the practice should become, how its members ought to hold it — and the planning has stopped listening to them. What was meant to align now compels, and the tradition you love is being carried at a speed the people in it cannot walk. The gathering has run past the harvest, and you are alone with the plan. Less direction is not the answer; a steadier pace is. Take the next piece of work here — the meeting, the teaching, the practice someone counted on — at a rhythm you could hold for a month. One month of the same step is the test, not one fired-up day; when the pace is spent, stop. A steady hand keeps the shape better than a surge, and the group may walk with you rather than behind you.",
+      "sheetLine": "You are carrying this tradition faster than its people can walk.",
+      "verb": "gathering thoughts into alignment",
+      "place": "among the shared meanings and traditions you belong to",
+      "provenance": {
+        "signature_id": 38,
+        "position_id": 5,
+        "status": 2,
+        "partner_id": 25,
+        "partner": "Alignment",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -44,46 +84,14 @@
       ]
     },
     {
-      "status": 2,
-      "tense": "You are ahead of them in your head, building the finished thing before any of it is here.",
-      "ask": "Write the current draft of the shared plan in three lines. Show it to one person. Change the lines only if they do.",
-      "core": "You are running the gathering ahead of itself, rehearsing how the next one will go, what your group should decide, the exact words this will settle on. Several strands get woven into one plan in your head, and none of it is checked against the actual conversation. The collecting is aimed at a moment that hasn't happened.\n\nThat plan usually came from wanting to be close to these people, and that want is fine. But when it runs ahead of them, the direction stops coming from the actual conversation. Bring one collection back to the present. Only what the people in front of you actually say can adjust the course — not your picture of them.",
-      "sheetLine": "You've already decided what they'll agree to.",
-      "verb": "turning scattered thoughts into one course and steering by it",
-      "place": "among the old sayings and the shared meanings a community keeps",
-      "provenance": {
-        "signature_id": 38,
-        "position_id": 5,
-        "status": 2,
-        "partner_id": 25,
-        "partner": "Alignment",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
-        }
-      ]
-    },
-    {
       "status": 3,
-      "tense": "You stopped adding to what your people share a while back, and you are still standing where that stopped.",
-      "ask": "Add one line or one story to something your people are keeping. Say it badly. It counts as soon as they hear it.",
-      "core": "You are part of something passed down, and lately you've been leaving the adding to the others. The threads it takes to make one shared thing are sitting loose, and you don't reach for them. The offering stopped, and the standing still is where you are now. What you know didn't go anywhere; the joining in did.\n\nWhat is missing is not input and not another plan — it is the feeling of your own footing settling, being near these people without disappearing into them. That settles in one shared act, theirs with you. Let their move reach you first, then add your line to what's kept.",
-      "sheetLine": "You know what your people mean. You're not adding to it.",
-      "verb": "turning scattered thoughts into one course and steering by it",
-      "place": "among the old sayings and the shared meanings a community keeps",
+      "tense": "You belong to something and know its meanings, and none of them are being gathered into a life now.",
+      "act": "sit with what the heart already knows",
+      "ask": "Sit with a song, a phrase, or a small practice from the tradition you grew up in and stay ten minutes without deciding anything about it.",
+      "core": "The gathering has stopped. You still know the words, the songs, the ways of the community you came from, and none of it is being assembled into a life anymore. What was shared meaning has become a shelf of old things, kept but not lived in. The belonging does not reach forward into today. More effort in the starved place will only widen it; let the older, quieter part of you back in first. Take a prayer, a recipe, a phrase an elder used — something you once knew by heart — and sit with it for ten minutes with no task attached. Not to rejoin anything, not to settle what you believe now; just let the feeling sink into the depth it already has. Do it once and the ground moves an inch. Small stays, kept, are how the current comes back through.",
+      "sheetLine": "You still know the words. Let one of them sit with you.",
+      "verb": "gathering thoughts into alignment",
+      "place": "among the shared meanings and traditions you belong to",
       "provenance": {
         "signature_id": 38,
         "position_id": 5,
@@ -92,19 +100,14 @@
         "partner": "Reverie",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -116,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already sorting the shared thoughts into one story, and you talk about it as if the story sorted itself.",
-      "ask": "Tell one person 'this one's mine': the phrase your family picked up, or the thing you got the group to start doing.",
-      "core": "You are already one of the people who decides what gets kept and what quietly stops. You keep multiples in order, decide what the group means, put it back out in words others repeat. And you describe it as just the way things work. It happens continuously; the saying-so doesn't.\n\nThe older thing sitting under this is plain joy when a group is in it together, loyalty underneath. Enough to claim the smallest part. One word to one person, in your own voice, naming what you decided: that is the acting from the original, not from a report of it.",
-      "sheetLine": "You're already deciding what this group means. You call it the way things go.",
-      "verb": "turning scattered thoughts into one course and steering by it",
-      "place": "among the old sayings and the shared meanings a community keeps",
+      "tense": "You are already keeping the tradition alive for other people, and you would say it runs itself.",
+      "act": "mark the good thing together, out loud",
+      "ask": "With the people who share this tradition, mark one good thing out loud — a birthday, a finished job, someone who showed up — and say the gladness while they are still there to hear it.",
+      "core": "What you carry goes out through other people and comes back to you as scenery. You hold the calendar, you keep the custom going, you say what the group should do next — and when anyone asks, the tradition is just what people do. The table is lit because someone tends it, and by your account nobody did. The road back goes to something simpler than stewardship: shared joy, said aloud, with the people it belongs to. Before you were the one holding the forms, you were someone glad to be here. Pick one good thing this group has coming — a birthday, an anniversary, a job finished — and mark it with them, saying the gladness before the moment passes rather than to yourself afterward. The custom stays alive because somebody names the good thing while it is here. Name it, and your part in holding it shows.",
+      "sheetLine": "The table is lit because you tend it. Say so, out loud.",
+      "verb": "gathering thoughts into alignment",
+      "place": "among the shared meanings and traditions you belong to",
       "provenance": {
         "signature_id": 38,
         "position_id": 5,
@@ -130,19 +134,14 @@
         "partner": "Celebration",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
@@ -156,81 +155,129 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5790,
+      "ms": 10150,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (shape, compas) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 166 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"keep for a month not\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, room, floor) — a parable, not a sentence to a person",
+          "code": "wound",
+          "detail": "\"There was a time\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"some time ago\" — a duration the person never gave",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (door, current) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
           "status": 3
         },
         {
@@ -240,20 +287,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (room, road) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -262,108 +321,59 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"tradition\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record is silent on how this person's culture actually treats them, so I cannot claim they are heard or unheard in their community; the reader could rightly say the people around them are fine and it is one setting that grates. The ask survives being wrong: it is a small spoken act, useful when the read is off. The sentence that serves me rather than them is 'You're the one deciding what gets carried — you just never called it that,' because it makes the stance sound settled when I do not know their standing at all."
+      "check": "The record gives a private felt-sense of fairness (Conscience) as the Balanced medicine, which is not something held up or shown off; my draft risks claiming it already runs without calculation, which the record only calls the balanced face, not this person's evidential state. A reader could reasonably say that the fair thing where no one sees is already their habit and the card is telling them nothing — but the ask still teaches something if wrong, because keeping one honest count in a shared practice is useful even to someone whose compass already runs clean. The sentence that serves the writer more than the person is any line about fairness running naturally; I cut it down to a specific count that can be returned without a witness."
     },
     {
       "attempt": 2,
-      "ms": 3424,
+      "ms": 6605,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "3 images in one core (shape, room, floor) — a parable, not a sentence to a person",
+          "detail": "two images in one core (shape, compas) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "history",
+          "detail": "\"for weeks\" — a cell knows no one's past",
           "hard": true,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record is silent on how this person's culture actually treats them, so I cannot claim they are heard or unheard in their community; the reader could rightly say the people around them are fine and it is one setting that grates. The ask survives being wrong: it is a small spoken act, useful when the read is off. The sentence that serves me rather than them is 'You're the one deciding what gets carried — you just never called it that,' because it makes the stance sound settled when I do not know their standing at all."
-    },
-    {
-      "attempt": 3,
-      "ms": 3297,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "\"for weeks\" — a duration the person never gave",
           "hard": false,
           "status": 2
         },
@@ -374,20 +384,50 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -398,14 +438,14 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -414,50 +454,73 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record is silent on how this person's culture actually treats them, so I cannot claim they are heard or unheard in their community; the reader could rightly say the people around them are fine and it is one setting that grates. The ask survives being wrong: it is a small spoken act, useful when the read is off. The sentence that serves me rather than them is 'You're the one deciding what gets carried — you just never called it that,' because it makes the stance sound settled when I do not know their standing at all."
+      "check": "The record gives a private felt-sense of fairness (Conscience) as the Balanced medicine; my draft slid into certifying the person's state — 'you already know' — which the record cannot support. A reader could reasonably say the fair thing where no one sees is already their habit and the card tells them nothing; the ask survives that, because keeping one honest count in a shared practice teaches something to someone whose compass already runs clean. The sentence that serves the writer more than the person is any line promising fairness runs naturally; I cut it to a concrete debt that can be paid without a witness."
     },
     {
-      "attempt": 4,
-      "ms": 3025,
+      "attempt": 3,
+      "ms": 5653,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "vocab",
+          "detail": "two images in one core (shape, compas) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 162 words (120–160)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "said",
-          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -468,14 +531,8 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -486,13 +543,77 @@
           "status": 4
         }
       ],
-      "check": "The record is silent on how this person's culture actually treats them, so I cannot claim they are heard or unheard in their community; the reader could rightly say the people around them are fine and it is one setting that grates. The ask survives being wrong: it is a small spoken act, useful when the read is off. The sentence that serves me rather than them is 'You're the one deciding what gets carried — you just never called it that,' because it makes the stance sound settled when I do not know their standing at all."
+      "check": "The record gives Conscience — a private felt-sense of fairness — as the Balanced medicine, and my drafts keep certifying the person's state ('you know how to pay,' 'weeks') which the record cannot support. A reader could say the fair thing where no one sees is already their habit, and the card tells them nothing; the asks survive that, because each is a concrete act that teaches something even to someone whose compass already runs clean. The line that serves the writer more than the person is any promise that fairness runs naturally, or any duration they never gave; I cut both."
+    },
+    {
+      "attempt": 4,
+      "ms": 4880,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, compas) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"do the fair thing where no one will see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record gives Conscience — a private felt-sense of fairness — as the Balanced medicine, and my drafts keep certifying the person's state ('you can still pay unobserved') which the record cannot support. A reader could say the fair thing where no one sees is already their habit and the card tells them nothing; the asks survive that, because each is a concrete act that teaches something even to someone whose compass already runs clean. The line that serves the writer more than the person is any promise that fairness runs naturally or any duration they never gave; I cut both."
     }
   ],
   "usage": {
-    "input": 6788,
-    "output": 4231
+    "input": 8514,
+    "output": 5282
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:29:49.435Z"
+  "date": "2026-10-02T12:01:40.066Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are at the bench, and you are getting this right.",
-      "ask": "With the work that has a clear enough finish, stop at the point you planned instead of past it. Say out loud that it is done, once, so you hear it end.",
-      "core": "You're at the bench, and you're getting this right. You know what you're carrying and what you've laid down, and you decide that on purpose, not because your back gave out. People can feel the difference. Under your hands, what started as intention is becoming skill, and you trust it enough to stop when it's done rather than when you drop. That's not grand. It's hard to fake.\n\nKeep it fed. Let a small practice keep growing without you forcing it, and let the load stay at the size you actually have arms for. The thing to watch is the drop. What would it look like to stop while there's still warmth in it? You don't have to trick yourself into rest. You can just be at the end of something and say so.",
-      "sheetLine": "You carry it and lay it down on purpose.",
-      "verb": "carrying out what you chose, and laying down what you can't",
-      "place": "a small practice bench kept lit by attention",
+      "tense": "You can right now carry a practice through to its completion and put it down clean.",
+      "act": "learn how it grows by tending it",
+      "ask": "Pick one skill you're building and tend it like a grower — steady sessions, what it wants changing your method — and notice what it's actually asking for.",
+      "core": "With a practice you're building, you can push and hold and then close at the right finish — a set done, a form ended, a session over — without dragging it out. The close is what makes the work whole, and the work reads as whole because of it.\n\nFeed this rather than test it. Tend the thing like a grower, not a commander: keep the same small appointment with it, learn how it grows, and let what it needs change your method. Nothing has to be forced here, and nothing has to be proven. You'll know the difference by how much you have left after.",
+      "sheetLine": "You can finish a practice cleanly and call it done.",
+      "verb": "carry out the thing through to its end",
+      "place": "in the small daily work where a skill is built one repetition at a time",
       "provenance": {
         "signature_id": 65,
         "position_id": 9,
@@ -26,31 +27,42 @@
         "partner": "Initiate of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 104 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are standing over the day after tomorrow, trying to write it in ink.",
-      "ask": "Before you touch the bench, say out loud which part of this is already finished. If none of it is, do one set and stop while it's still going well.",
-      "core": "You're standing over the day after tomorrow, trying to write it in ink before it's here. The bench is where you go to settle down, but the practice has turned into one more thing you're bracing against. More hours, a cleaner run, a tighter plan, and somewhere in your body the message lands: that if you stop, the whole thing comes apart. It's the exact opposite of laying a load down. You've started carrying what hasn't happened yet.\n\nLet your practice run without forcing it, and check it with a plain method instead of dread. The two of you are on the same side. The practice teaches you, it isn't a whip. You can end a session while it's still going well. Nothing breaks when you do.",
-      "sheetLine": "You keep trying to finish tomorrow's work on today's bench.",
-      "verb": "carrying out what you chose, and laying down what you can't",
-      "place": "a small practice bench kept lit by attention",
+      "tense": "A practice is being pushed before the next step can be earned and the push is running the room.",
+      "act": "judge it by the discipline, not the mood",
+      "ask": "At the end of a session, set down what you actually did — sets, minutes, what held — and score the session by that page, not by how the mood felt walking in.",
+      "core": "You hold a practice with high command, and lately the command arrives before the work. There's the named drill, done, and then there's a week already plotted, a standard set above what the drill has earned, an outcome braced for before anything has been built to carry it. It feels like rigor from the inside. Beside you it reads as tension tightening a thing that was still growing.\n\nSo put the push on paper instead. At the end of a session, set down what actually happened — sets, minutes, what held — and score the session by that page, not by how it felt walking in. That's the discipline answering, not the mood. What's left when the bracing drops is the practice itself, and it does know its own next step.",
+      "sheetLine": "You're forcing the practice before it has earned the next step.",
+      "verb": "carry out the thing through to its end",
+      "place": "in the small daily work where a skill is built one repetition at a time",
       "provenance": {
         "signature_id": 65,
         "position_id": 9,
@@ -59,26 +71,32 @@
         "partner": "Executor of Cognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The bench is there, and you walked past it, and you're still walking.",
-      "ask": "Put one small shallow dish of something that grows on a surface where you'll see it. Water it with a single pass of your hand when it looks like it needs it, and no more.",
-      "core": "The bench sits where it sat. The practice that used to be yours has gone quiet in your hands. Not abandoned, exactly. More like you don't pick it up because you're not sure you'd keep it up, so the days go by and the surface stays clear. Meanwhile the duty you hold for the people close to you keeps its shape while your own work sits idle.\n\nPut one small, unglamorous thing under your care where you'll see it, something that grows if you show up and goes on without you if you miss. Water it when it looks like it needs it. You're not being asked to force effort back into the bench.",
-      "sheetLine": "Your duty to others keeps its shape while your practice sits idle.",
-      "verb": "carrying out what you chose, and laying down what you can't",
-      "place": "a small practice bench kept lit by attention",
+      "tense": "A practice has gone quiet and the one who stopped attending it is still standing at the door.",
+      "act": "lay the one step you can see, solidly",
+      "ask": "Lay out the smallest next step in the practice, in a place you'll actually meet it. Do it once this week, solidly, and no more.",
+      "core": "The place where a skill gets built by repetition has gone quiet. There's no argument with it and no claim about it, just a thin patch where attention used to be, and it's been some time now. What's sat down at the door is the person who was going to use it.\n\nThis stretch of your life doesn't want great effort or grand feeling — that's the trap here. Lay one visible step, the smallest you can see, and set it where you'll actually meet it. Take that step once this week, solidly, and treat it as the whole job. A low seat comes back through strength, not through being pushed to feel. One step, done, is what gets the current through.",
+      "sheetLine": "It's gone quiet. Lay the smallest next step and take it once.",
+      "verb": "carry out the thing through to its end",
+      "place": "in the small daily work where a skill is built one repetition at a time",
       "provenance": {
         "signature_id": 65,
         "position_id": 9,
@@ -87,31 +105,42 @@
         "partner": "Executor of Structure",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (door, current) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (bench, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "Your hands are already at the bench, and they have been for a while.",
-      "ask": "Tonight, look at one thing you finished today. Say out loud, plainly, that you did it. Then go to bed instead of picking up the next thing.",
-      "core": "Your hands are already at the bench. The light's been on a while, and you describe it as just what you do. The steady practice, the small daily work, the promise you keep to yourself without announcing it. All of it running. None of it claimed. You call it ordinary, or someone else's instruction, when it's your own hands that showed up again today.\n\nLay it down differently tonight. Look at one thing you finished and say, in your own voice, that you did it. Then go to bed instead of reaching for the next thing. That's not a reward. It's the rule you're already living by, finally said out loud. The pen can be down for the night.",
-      "sheetLine": "The practice is already yours and you keep calling it ordinary.",
-      "verb": "carrying out what you chose, and laying down what you can't",
-      "place": "a small practice bench kept lit by attention",
+      "tense": "A practice is being kept going by a hand that won't write its own name under the work.",
+      "act": "apprentice yourself to the material thing",
+      "ask": "Take one small part of the practice and learn it the way a beginner would — fresh hands, no credit — and let what you find arrive as new work, claimed by you.",
+      "core": "The practice still runs. The daily repetitions still get made, and the showing up is steady. What has slipped off is the account: what gets built there is carried as the thing that happens, not as something the person in that chair authors. The practice has a keeper, and the keeper is not counting itself in.\n\nSo go back to the early form of it. Take one piece of the practice — a single part, one part only — and learn it like an apprentice: fresh hands, no credit, no seniority. Do the small tending of it, watch what it asks for, and welcome what you find as new. What the hands already know gets claimed that way, from the bottom, and the name comes back onto the page.",
+      "sheetLine": "The practice runs, and you've left your name off it.",
+      "verb": "carry out the thing through to its end",
+      "place": "in the small daily work where a skill is built one repetition at a time",
       "provenance": {
         "signature_id": 65,
         "position_id": 9,
@@ -120,29 +149,19 @@
         "partner": "Initiate of Structure",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -151,314 +170,178 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6140,
+      "ms": 6198,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The stopping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"the next step is to\"",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"right now the\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
           "status": 3
         },
         {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"punish\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"empty spot\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The carrying\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (door, current) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, bench) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (bench, ledger, room) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the learning\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "\"himself\" — no he/she for the partner or anyone",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that a recent door made surrender specifically about finishing; the record names the capacity, not the event. If the read is wrong, the asks stand alone as one repeatable act, so the risk is low. The sentence that serves the writer is the one about a door already behind -- cut it; nothing in the record says when the stop happened. Also cut any echo of the record's own words."
+      "check": "The unsupported claim in my draft is that the person has 'stopped' their practice and is keeping an old form alive in its place — the record says the seat is running on empty, not that a specific habit died; a reader could reasonably say nothing has ended, the capacity is simply thin. The ask (lay one step visibly) survives being wrong because it does not depend on a death-diagnosis, just on an empty seat; it is useful either way. The sentence that serves me more than the person is anything about 'the old light' or 'what you used to do' — it is my image, not their record, and I cut it."
     },
     {
       "attempt": 2,
-      "ms": 3807,
+      "ms": 3946,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, bench) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (bench, room) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that a recent door made surrender specifically about finishing; the record names the capacity, not the event. If the read is wrong, each ask still stands alone as one repeatable act, so little is lost. The sentence that serves the writer is the one about the door already behind — cut it; nothing in the record says when the stop happened. Also cut any echo of the record's own words."
-    },
-    {
-      "attempt": 3,
-      "ms": 3808,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (bench, shape) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the practice has gone specifically quiet, or that a door was walked past; the record names the capacity, not the events. If the read is wrong, each ask still stands alone as one repeatable act, so little is lost. The sentence that serves the writer is the one about the door behind you — cut it. Also cut the wince about trust and the ledger line."
-    },
-    {
-      "attempt": 4,
-      "ms": 3629,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
@@ -469,113 +352,219 @@
           "status": 3
         },
         {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (bench, shape) — one at most, usually none",
+          "detail": "two images in one core (door, current) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the practice has gone quiet or that a door was walked past; the record names the capacity, not the events. If the read is wrong, each ask still stands alone as one repeatable act, so little is lost. The sentence that serves the writer is the one about duty for everyone else — cut the universal and keep the claim about one capacity. Never shown to the person."
+      "check": "The unsupported claim in my draft is that the practice has 'gone quiet' and that a specific habit died — the record says the seat is running on empty, not that something ended; a reader could reasonably say nothing stopped, the capacity is just thin. The ask (lay the smallest visible step) survives being wrong because it does not depend on a death-diagnosis, only on the seat being low; it is useful either way. The sentence that serves me more than the person is anything about 'the door' or 'what used to be' — it is my image, not their record, and I cut it."
     },
     {
-      "attempt": 5,
-      "ms": 3341,
+      "attempt": 3,
+      "ms": 3667,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "core 104 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (bench, shape) — one at most, usually none",
+          "detail": "two images in one core (door, current) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the practice has gone quiet in the person's hands; the record names the capacity, not the events. If the read is wrong, each ask still stands alone as one repeatable act, so little is lost. The sentence that serves the writer is the one about tending something alive feeding the empty bench — cut it, it explains the mechanism instead of offering an act. Also cut the frequent-time word in the Too Little ask."
+      "check": "The unsupported claim in my draft is that the practice has 'gone quiet' and that a specific habit died — the record says the seat is running on empty, not that something ended; a reader could reasonably say nothing stopped, the capacity is just thin. The ask (lay the smallest visible step) survives being wrong because it does not depend on a death-diagnosis, only on the seat being low; it is useful either way. The sentence that serves me more than the person is anything about 'the door' or 'what used to be' — it is my image, not their record, and I cut it."
+    },
+    {
+      "attempt": 4,
+      "ms": 3849,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how it grows by tending it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, current) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"apprentice yourself to the material thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim in my draft is that the practice has 'gone quiet' and that a specific habit died — the record says the seat is running on empty, not that something ended; a reader could reasonably say nothing stopped, the capacity is just thin. The ask (lay the smallest visible step) survives being wrong because it does not depend on a death-diagnosis, only on the seat being low; it is useful either way. The sentence that serves me more than the person is anything about 'the door' or 'what used to be' — it is my image, not their record, and I cut it. I've also replaced 'capacity' on glass, varied the asks so only two carry a clock, and opened them on four different verbs."
     }
   ],
   "usage": {
-    "input": 5539,
-    "output": 5717
+    "input": 8124,
+    "output": 4914
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:53:27.694Z"
+  "date": "2026-10-02T12:30:55.656Z"
 }

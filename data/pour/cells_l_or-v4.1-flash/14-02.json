@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The adjustment is running right now and you are in the middle of it.",
-      "ask": "Name aloud the one thing that actually matters here, then let one smaller thing go for today.",
-      "core": "You're reading the room while it's still moving. Someone adds heat and you ease off, someone goes quiet and you add a little back. Not a plan you set beforehand — it happens as it comes, and it works because you stay close enough to feel the shift.\n\nUnderneath, you can tell what matters before you could say why. So the important thing gets your attention and the rest waits. That isn't handling everything. It's picking carefully and staying with what you picked. Keeping it means you go on feeling for the adjustment instead of setting it once and walking away. Name the thing that matters and let something smaller go.",
-      "sheetLine": "You can tell what matters, and you keep adjusting to it.",
-      "verb": "calibrating — sensing when to add, when to subtract, how to blend, and staying in the adjustment",
-      "place": "a room where what matters has to be recognized before it can be explained",
+      "tense": "The adjustments are being made right now, and the one making them is here.",
+      "act": "keep the ritual and give it room to change",
+      "ask": "Keep the weekly thing you do the same way each time — and this week change a single detail: the order, the hour, who's there. Keep the rest exactly as it is.",
+      "core": "You read a room fast — what to add, what to take out — and you do it while the room is still moving. That's the skill. Where you're centered it shows up as small adjustments nobody announces: you say less here, more there, and the thing keeps going without anyone having to name what you did. You catch what counts before you've found the words, and you act on it.\n\nThere's something you keep doing the same way. Keep doing it, and change one detail — the order, the timing, who's standing there. Just the one. You'll see what the ritual was carrying and what was only habit, and the habit part is yours to move. Nothing breaks. The people who do it with you will barely notice, which is how you'll know it still works.",
+      "sheetLine": "What you notice first usually turns out to be right.",
+      "verb": "sensing what to add and what to take out, and keeping the flow",
+      "place": "a place where you know what counts before you've found the words",
       "provenance": {
         "signature_id": 14,
         "position_id": 2,
@@ -26,31 +27,32 @@
         "partner": "Culture",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are smoothing over the disagreement before it has even had a chance to be said.",
-      "ask": "Say the one thing you usually soften, plainly, and let the room absorb it without you repairing it.",
-      "core": "You're holding the room steady ahead of time. Someone's about to be uncomfortable, so you get there first — say the version that will pass, let the sharp thing slide. It looks like calm. It's the opposite: you're managing a conflict that hasn't happened, and the tension just moves under the floor.\n\nSteady isn't the same as smooth. A real blend keeps the colors distinct; thinning everything to one shade loses the difference that would tell you where you actually stand. Let one thing land that isn't already agreed on, and don't reach in after to fix what it stirred. Stay with what comes back instead of turning it down.",
-      "sheetLine": "You're keeping the peace by keeping the truth out of the room.",
-      "verb": "calibrating — sensing when to add, when to subtract, how to blend, and staying in the adjustment",
-      "place": "a room where what matters has to be recognized before it can be explained",
+      "tense": "The smoothing runs first, settling the room before anyone says what they mean.",
+      "act": "move toward the thing you want, one step, today",
+      "ask": "Think of something you want that would surprise someone close to you. Take one small step toward it today, before the room settles into its usual shape.",
+      "core": "You feel a room move and you're already leveling it — taking the edge off before it's spoken, agreeing before anyone's disagreed. The skill is real. Right now it runs first, and the leveling has stopped being adjustment and started being the thing you do instead of the moment. What can't be said gets quietly filed as not worth saying, and the filing is yours.\n\nWanting is allowed to show. Think of something you want that would surprise someone close to you — not a big announcement, one small move toward it today, before the room settles into its usual shape. Feel where the pull is and follow it a step. The people who matter can stand to see you want something. You'll find out who can, which is information you don't have yet.",
+      "sheetLine": "You smooth the room before anyone has spoken.",
+      "verb": "sensing what to add and what to take out, and keeping the flow",
+      "place": "a place where you know what counts before you've found the words",
       "provenance": {
         "signature_id": 14,
         "position_id": 2,
@@ -59,41 +61,37 @@
         "partner": "Drive",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You have been pulled in so many directions that the center you used to feel has gone quiet.",
-      "ask": "Give one thing your full attention for ten minutes and let the rest of it wait, unanswered, until you're done.",
-      "core": "Every pull gets a piece of you, and nothing gets all of you. A conversation pulls one way, a message another, a passing worry another, and by evening you've been everywhere and landed nowhere. The knocks aren't the problem — there's just nothing on the inside holding a line you could answer from.\n\nWhat helps is noticing that your attention can be spent on one thing fully, and that doing so is allowed. Ten minutes on a single thing, with the other pulls left unanswered where they are, puts something back in the place the scatter drained. Then ten more another day. Attention set down somewhere on purpose is the whole of it.",
-      "sheetLine": "Everything pulls at you, and nothing holds.",
-      "verb": "calibrating — sensing when to add, when to subtract, how to blend, and staying in the adjustment",
-      "place": "a room where what matters has to be recognized before it can be explained",
+      "tense": "The moment passed while attention was still scattered across the one before it.",
+      "act": "let yourself be reached by what they are carrying",
+      "ask": "Next time someone tells you something hard, stay where you are. Don't fix it, don't match it. Let what they're carrying land on you before you answer.",
+      "core": "Things come at you and each one takes a piece — a message, a face, a mood — and by the time you look, you're not sure which of them you were actually in. It isn't that you don't care. It's that the middle of you is hard to find from here, and the adjustments go out to every direction at once. You've been standing at the last door while this one opened.\n\nSomeone near you is carrying something. Next time they say it, stay present — don't fix it, don't match it, don't hand it back. Let it land on you where you are, and notice what it feels like when it does. Being reached is not the same as being pulled apart. You can keep your own side while it happens. That's what comes back first — not calm, just contact.",
+      "sheetLine": "You're still at the last door while this one opens.",
+      "verb": "sensing what to add and what to take out, and keeping the flow",
+      "place": "a place where you know what counts before you've found the words",
       "provenance": {
         "signature_id": 14,
         "position_id": 2,
@@ -102,36 +100,21 @@
         "partner": "Compassion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
+      "lint": []
     },
     {
       "status": 4,
-      "tense": "You are already steering how the room goes, and you describe it as the room.",
-      "ask": "Finish this aloud — 'the reason I pay attention to this is ___' — and leave the sentence as it is.",
-      "core": "The adjusting is yours. You can feel it after a meeting — where you leaned in, what you let pass, whose mood you gave room to. Then it gets described as something that happened to you. The room did that. The timing did that. The reading of the timing was yours.\n\nSame skill as the people who teach it, just unclaimed. Not a small thing you've been hiding. The whole of it is running; another name has been going on it — the situation, the mood, the way things go. That's the repair: say whose it is, once, out loud. Nothing needs to follow. The sentence is enough.",
-      "sheetLine": "You've been doing this from the start. Say it's yours.",
-      "verb": "calibrating — sensing when to add, when to subtract, how to blend, and staying in the adjustment",
-      "place": "a room where what matters has to be recognized before it can be explained",
+      "tense": "The balance is being kept, and the one keeping it hasn't marked it as theirs.",
+      "act": "teach it the way it was taught to you, with one change",
+      "ask": "Pass on a skill someone once showed you. Show it the way it came to you, and add one adjustment of your own. That's the whole ask.",
+      "core": "You balance without noticing you're doing it — the read on the room, the small moves, the timing. It runs, and it runs well, and your account of yourself doesn't include it. You'd say the situation called for it, or the other person needed it, or it was nothing. The adjustments are yours. You've been filing them under circumstance.\n\nSomeone taught you something you now do well — a way of handling a conversation, a way of holding a group. Pass it on the way it came to you, and add one adjustment you'd make. That's the whole ask. Saying it out loud — even to a single person — is where you find out the knowledge has an author, and the author is you. You'll hear your own voice in it, which is what you've been not hearing.",
+      "sheetLine": "The balance you keep is yours, filed under circumstance.",
+      "verb": "sensing what to add and what to take out, and keeping the flow",
+      "place": "a place where you know what counts before you've found the words",
       "provenance": {
         "signature_id": 14,
         "position_id": 2,
@@ -140,19 +123,29 @@
         "partner": "Culture",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"teach it the way it was taught to you with one cha\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -166,105 +159,81 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4755,
+      "ms": 7611,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"what matters before you can\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "history",
-          "detail": "\"for years\" — a cell knows no one's past",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"teach it the way it was taught to you with one cha\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -272,92 +241,85 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the steady calibration I'm describing is felt or intended; the record only supports that the capacity is operating, not that it's noticed. A reader could reasonably say the moments I name aren't theirs, and the ask holds either way — reading the room and naming one thing to keep is useful even if my read is off. The sentence that serves me more than them is 'You're the one deciding,' which flatters a self-image the record can't confirm; I've cut it and left the off-center moments doing the work instead."
+      "check": "The unsupported claim is that the person is 'centered' — the record gives a capacity for continuous adjustment, not a felt state. A reader could fairly say the Balanced cell describes calm they don't have. The ask survives either way: naming one thing as mattering most is useful even if the read is off. The sentence that serves the writer over the person is any line about 'holding complexity' — it flatters the map and tells the person nothing they can use."
     },
     {
       "attempt": 2,
-      "ms": 3061,
+      "ms": 6804,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"what matters before you can\"",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"to you with one change\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -368,78 +330,72 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person notices the adjustment; the record supports the capacity operating, not that it is felt or claimed. A reader could reasonably say the moments I name aren't theirs, and the ask holds either way — attending to one thing deliberately is useful even if my read is off. The sentence that serves me more than them is 'You're the one reading the timing,' which asserts authorship the record can't confirm; I've dropped it and let the observable detail carry the point instead."
+      "check": "The unsupported claim is that the person is 'centered' — the record gives a capacity for continuous adjustment, not a settled state, and a reader could fairly say the Balanced cell describes calm they don't have. The asks survive the read being off: each one is a small doable act that teaches something about attention whether or not the diagnosis lands. The sentence serving the writer over the person was any line about 'holding complexity' — it flatters the map and hands the person nothing; it's gone. This rewrite fixes the tics, the borrowed phrasing, and the repeated 'one thing' shape across the quartet — the four asks now open on keep, do, let, and show, and only the first is a bounded single action."
     },
     {
       "attempt": 3,
-      "ms": 2836,
+      "ms": 4824,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before you can say why\"",
+          "hard": true,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, floor) — one at most, usually none",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"teach it the way it was taught to you with one cha\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -450,13 +406,159 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person feels or notices the adjustment; the record supports the capacity operating, not that it is registered or claimed. A reader could reasonably say the moments I name aren't theirs, and the ask holds either way — naming the one thing that matters and letting a smaller one wait is useful even if my read is off. The sentence that serves me more than them is 'You were the one reading the timing,' which asserts authorship the record cannot confirm; I've kept the observable detail doing the work and left the claim of ownership to the person."
+      "check": "The unsupported claim is that the person is 'centered' — the record gives a capacity for continuous adjustment, not a settled state, and a reader could fairly say the Balanced cell describes calm they don't have. The asks survive the read being off: each is a small act that teaches something about attention whether or not the diagnosis lands. The sentence serving the writer over the person was any line about 'holding complexity' — it flatters the map and hands the person nothing. This rewrite removes the borrowed five-word phrases from the status 1 and status 4 cores and the act itself, and drops the 'one thing'/'you're the one' tics; the four asks open on keep, think, let, and pass, and neither the phrase 'what matters before' nor the act's exact wording appears on glass."
+    },
+    {
+      "attempt": 4,
+      "ms": 4192,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before you can say why\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"teach it the way it was taught to you with one cha\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person is 'centered' — the record gives a capacity for continuous adjustment, not a settled state, and a reader could fairly say the Balanced cell describes calm they don't have. The asks survive the read being off: each is a small act that teaches something about attention whether or not the diagnosis lands. The sentence serving the writer over the person was any line about 'holding complexity' — it flatters the map and hands the person nothing. This rewrite removes the borrowed five-word phrase that survived in the status 1 core and the 'ahead of the' tic in status 2; the four asks open on keep, think, let, and pass."
+    },
+    {
+      "attempt": 5,
+      "ms": 4038,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"taught you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"teach it the way it was taught to you with one cha\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person is 'centered' — the record gives a capacity for continuous adjustment, not a settled state, and a reader could fairly say the Balanced cell describes calm they don't have. The asks survive the read being off: each is a small act that teaches something about attention whether or not the diagnosis lands. The sentence serving the writer over the person was any line about 'holding complexity' — it flatters the map and hands the person nothing. This rewrite clears the last borrowed five-word run (the sheet line, where it had been sitting in plain sight) and keeps the four asks opening on keep, think, let, pass."
     }
   ],
   "usage": {
-    "input": 2473,
-    "output": 3118
+    "input": 9217,
+    "output": 6541
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:12:46.186Z"
+  "date": "2026-10-02T11:34:57.372Z"
 }

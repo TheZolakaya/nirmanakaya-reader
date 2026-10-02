@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The spark has caught and you are standing right where it wants finishing.",
-      "ask": "Finish one thing that's nearly done and hand it off this week. Then begin the next small thing from whatever the ending left open.",
-      "core": "Something in you has already lit, and it is not waiting on a plan. The spark caught, and you are the one holding it at the point where it becomes an actual thing. Not the biggest fire in the room — the one that knows how to finish and let go.\n\nWhat you make tends to land because you do not cling to it. You carry each thing forward by ending it well, and that is the only way anything becomes the next thing. It is rarer than it looks, and it is doing quiet work. The ending is the work, not the reward for it.",
-      "sheetLine": "You catch the spark, finish it, and hand it on.",
-      "verb": "catching fire before there is anywhere to point it",
-      "place": "where a thing is finished and then let go",
+      "tense": "You are here with it now, and the thing is being carried in the open.",
+      "act": "keep following the star after everything that has happened",
+      "ask": "When doubt shows up, keep going with what you already chose — no new proof, no better version — just continue with it in the shape it has.",
+      "core": "The beginning is real, and nobody has made it point anywhere yet. That is not a defect of the thing; it is the thing. Ideas come when they come, and the work is not to force them into a plan before a shape is there. When someone asks what it is, the honest answer is that you're still finding out, and that answer holds.\n\nWhat carries this stretch is a particular kind of persistence. Not hunting for signs, and not trading hope in when it gets expensive. Take the one thing that caught fire and stay with it through a month that tests it. If it fades, that's information, not failure. You'll know whether it still pulls by whether you keep with it, not by whether you can explain it yet.",
+      "sheetLine": "The beginning is real, and the shape is still coming.",
+      "verb": "to begin before the shape is known",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 22,
         "position_id": 21,
@@ -26,24 +27,24 @@
         "partner": "Resilience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are pushing toward the finished version before it has had room to arrive.",
-      "ask": "Pick the one thing you most want to rush and let it sit unfinished for a day. Write down what you actually see in it before you touch it again.",
-      "core": "You can see the finished shape and you push everything toward it ahead of its own timing. Projects get hurried to the end because the final picture is already clear, and the hurry is eating the thing it wanted to protect. The next beginning gets no room to breathe.\n\nWanting the light to prove itself is the pressure you carry. Under the push sits the suspicion that it will not arrive unless you force it, and that bracing is what tires you out. The fire itself is fine. Let one thing stay incomplete and see that it survives the delay.",
-      "sheetLine": "You're racing a finish line that hasn't arrived.",
-      "verb": "catching fire before there is anywhere to point it",
-      "place": "where a thing is finished and then let go",
+      "tense": "You are bracing for what this beginning will turn out to be, before it has arrived.",
+      "act": "lay every piece of it out where you can see all of it at once",
+      "ask": "Spread the whole thing across one page — every piece, every doubt, every version — and take in the whole picture before you decide a thing.",
+      "core": "A beginning has no shape yet, and you're already building the whole structure around it. The plans arrive before the thing does. You can feel yourself pushing the timing, naming the outcome, knowing how it ends before it starts. The pressure is coming from somewhere real, and the fix isn't to stop caring. But bracing for a future you can't write means the present can't show you anything.\n\nWhat's needed is to take in the whole of it rather than early. Spread every piece across one page, layouts and doubts together, and let yourself look at all of it before you move. Nothing stays hidden that way, including your own wish to have it done already. What's left once you've looked is the actual thing, the one that hasn't decided what it is yet.",
+      "sheetLine": "You're building the ending before the beginning has spoken.",
+      "verb": "to begin before the shape is known",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 22,
         "position_id": 21,
@@ -69,46 +71,37 @@
         "partner": "Clarity",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You started something and you are still standing at that first door.",
-      "ask": "Say one unfinished thing out loud to someone who can hear it without fixing it, and let the telling be enough for today.",
-      "core": "A beginning that is going well here gets to be spoken while it is still rough. The spark is allowed out in front of people before it has a name, and the not-knowing is shared instead of hidden. That is how beginnings get their footing — out loud, imperfect, unfinished in the room.\n\nWhat is happening now is that the spark stays private and the door stays shut. The energy is there and it isn't reaching anyone, so the thing stays a beginning and doesn't find out what it could be. Nothing has to be figured out first. Let one person be with you in the unfinished part, and don't ask them to complete it for you.",
-      "sheetLine": "The spark is still there. You've stopped bringing it out.",
-      "verb": "catching fire before there is anywhere to point it",
-      "place": "where a thing is finished and then let go",
+      "tense": "You already left the doorway behind you, and part of you has not caught up to that.",
+      "act": "feel the whole of it, all the colours at once",
+      "ask": "Name every feeling the thing brings up, all of them on one page, nothing crossed out — and don't act on any of it.",
+      "core": "The beginning already happened, and nothing in you has caught up to that. You're still at the edge of where the thing might have gone, half in, half out, with the fire that started it somewhere out of view. Others assume you've moved past it. You haven't — not because you're refusing, but because something in the feeling of it got left behind and you've been carrying it in the wrong place.\n\nWhat pulls this forward is feeling it through, not pushing harder. Name every feeling the thing brings up, all of them on one page, none crossed out, and don't act on any of it. Let everything you feel sit together in one place, seen rather than managed. Once it's all named, moving on stops being an obligation and becomes simply what happens next.",
+      "sheetLine": "The doorway is behind you, and you're still in it.",
+      "verb": "to begin before the shape is known",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 22,
         "position_id": 21,
@@ -117,46 +110,42 @@
         "partner": "Completion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false
-        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are finishing things all day and saying it was just the list getting done.",
-      "ask": "Name one finished thing out loud and say plainly that you made it. Then say out loud what you want to imagine next.",
-      "core": "You land things — the handoff, the launch, the piece that finally came together — and you talk about it like it assembled itself. The making runs fine. The credit for it is the part you keep skipping, and the finished work gets described as still in progress.\n\nThe satisfaction is real, sitting just under the habit of shrugging it off. That work is yours, and so is the picture of what comes next. Saying so once, to one person, does not make you a boaster. It gives the credit to the one person who built it and has been quietly taking none.",
-      "sheetLine": "You finished it. You keep calling it just the work.",
-      "verb": "catching fire before there is anywhere to point it",
-      "place": "where a thing is finished and then let go",
+      "tense": "You are finishing the thing before you, and calling it a state rather than a work.",
+      "act": "let the satisfaction of a finished thing land",
+      "ask": "When a thing is genuinely done, stop for five minutes — hand off the pen, don't improve it, and take it as complete where it sits.",
+      "core": "There's a finished thing on the table, and the story of how it got there leaves your own hand out. It isn't modesty; it's a habit of describing what you made as something that happened around you. The work is real, and so is the satisfaction waiting just past the description. Nobody needs you to announce anything. But the version where it simply occurred costs you something real — the plain fact that you did it.\n\nWhat brings that back is smaller than a celebration. When a thing is genuinely finished, stop there for five minutes. Not a ritual, not a speech. Just enough time to notice that the pen was in your hand, and that stopping is part of the completion, not a failure to keep going.",
+      "sheetLine": "The finished thing is yours, and your account leaves you out.",
+      "verb": "to begin before the shape is known",
+      "place": "where a thing is finished and let go",
       "provenance": {
         "signature_id": 22,
         "position_id": 21,
@@ -165,19 +154,24 @@
         "partner": "Fulfillment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -186,27 +180,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5631,
+      "ms": 8661,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The opening\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -216,38 +222,32 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is costing you the thing\"",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"all of it at once\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -258,26 +258,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "detail": "two images in one core (door, current) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -289,13 +271,19 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"People around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -306,32 +294,20 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "hunch",
+          "detail": "\"That's not pride; it's information\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -342,36 +318,51 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"week\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim in my draft is that the person's spark is still unshaped rather than merely unspoken — the record gives a threshold state, not a history of what happened there, so Too Little must stay at the door and not narrate the room behind it. A reader could fairly say the finishing is going fine and what's actually missing is direction, which the ask has to leave room for. The ask survives being wrong because it produces a real finished thing either way; the sentence that serves the writer is a clean line about potential igniting, which is why the core keeps the picture plain and lets the undirected spark be the person's, not mine, to name."
+      "check": "The record does not say the person is holding a thing open, so the unacknowledged cell's claim that work is being called a state will read as a motive I invented; the reader could reasonably say nothing is being held. The asks survive a wrong read — each is a small act with a clock or none, checkable, and teaches even if the read misses. The sentence that serves the pose rather than the person is 'It's still going' — I'm using it because I drafted it to sound like the card, not because the record supports it."
     },
     {
       "attempt": 2,
-      "ms": 4274,
+      "ms": 4858,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -380,65 +371,41 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the core opens on a standing opener: \"When this is going well, the unfinis…\"",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (shape, room, threshold) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (door, current) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
@@ -448,14 +415,14 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -466,9 +433,15 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -476,32 +449,43 @@
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim in this draft is that the spark is still unshaped rather than merely unspoken — the record gives a threshold condition, not a history, so Too Little has to stay at the door and never say what happened in the room behind it. A reader could fairly answer that the finishing is going fine and what's actually thin is direction, so the asks must leave room for that reading. Each ask still produces a real finished or named thing even if my read is wrong, which is what keeps it useful; the sentence that serves the writer is the clean line about potential catching fire, so the cores keep that picture plain and let the undirected spark be the person's to name."
+      "check": "The record says nothing about a finished thing already on the table, so the Unacknowledged cell's 'what you made described as what happened to you' is the claim most likely to draw a no from the person; if they say no, the ask still stands, because noticing a completion and letting satisfaction land teaches something regardless of whether the read was right. The sentence that serves me more than them was the closing 'you built it' — I've rebuilt it so the person's account isn't overruled and the act is theirs to do or not. The card does not say the person is holding anything open; I've kept the reads on the mechanism rather than the motive."
     },
     {
       "attempt": 3,
-      "ms": 3590,
+      "ms": 4481,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -512,20 +496,14 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
@@ -536,21 +514,9 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
+          "detail": "3 images in one core (door, threshold, current) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 3
         },
         {
@@ -560,8 +526,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -572,9 +538,15 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -584,13 +556,195 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the spark is still unshaped rather than merely unspoken; the record gives a threshold condition, not a history, so Too Little stays at the door and never narrates the room behind it. A reader could fairly answer that the finishing is going fine and what is thin is direction, so the asks leave room for that reading. Every ask still produces a real finished or named thing if my read is wrong, which keeps it useful; the sentence that serves the writer is the clean line about potential catching fire, so the cores keep that picture plain and let the undirected spark be the person's to name."
+      "check": "The record says nothing about a finished thing already on the table, so the Unacknowledged cell's claim that the person describes work as something that happened around them is the most likely to draw a no; if they say no, the ask still stands, because pausing on a completion teaches something whether or not the read was right. The sentence that serves me more than them was the closing line about the pen being in their hand — I've folded it into the mechanism rather than making it a verdict on their account. The card does not say the person is holding anything open, so I've kept every read on what the capacity is doing and left their own account intact."
+    },
+    {
+      "attempt": 4,
+      "ms": 4058,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record says nothing about a finished thing already being on the table, so the Unacknowledged cell's claim that the person's account of their own making leaves their hand out is the read most likely to draw a no; the ask survives that, because pausing once on a completion teaches something whether or not the read lands. The sentence that served me more than them was the closing verdict about the pen, which I've traded for a plain description of what completion is doing in the moment. The card doesn't say the person is holding anything open, so every read stays on what the capacity is doing, not on motive."
+    },
+    {
+      "attempt": 5,
+      "ms": 3816,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"feel the whole of it all the colours at once\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record says nothing about a finished thing already on the table, so the Unacknowledged cell's claim that the person's account of their own making leaves their hand out is the read most likely to draw a no; the ask survives that, because pausing once on a completion teaches something whether or not the read lands. The sentence that served me more than them was the closing verdict about the pen, and I've traded it for a plain description of what completion is doing in the moment. The card doesn't say the person is holding anything open, so every read stays on what the capacity is doing, never on motive."
     }
   ],
   "usage": {
-    "input": 2679,
-    "output": 3032
+    "input": 9739,
+    "output": 6260
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:15:32.010Z"
+  "date": "2026-10-02T12:57:05.674Z"
 }

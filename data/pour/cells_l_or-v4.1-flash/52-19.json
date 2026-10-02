@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "There's a first thing in your hands right now and you're handling it carefully.",
-      "ask": "Show one piece of it to somebody this week and take in what they notice, without changing anything yet.",
-      "core": "There's a first thing that's yours, and you're holding it lightly — enough to keep it intact, not so hard that it stops being yours. You haven't rushed it into a shape yet, and you haven't shown it before it's ready.\n\nThis is the balance: you're starting to give form to something, and you're not asking it to be finished. When it slips, it slips on the other side — the grip tightens, or you tell someone what it is before it knows what it is. Getting back doesn't take softer hands or firmer ones.\n\nIt takes letting someone else's strength sit under the work for a while, and that costs you the privacy of it. Show one piece this week. Their attention isn't a verdict. It just holds the thing up while you keep going.",
-      "sheetLine": "You're holding the first of it — started, but not shaped yet.",
-      "verb": "starting to give form to the first thing that's yours",
-      "place": "the ground where what you are becomes visible in what you make",
+      "tense": "A start is here with a shape on it, and you are close to it with the pen still moving in the open.",
+      "act": "give a concrete piece of help and finish it",
+      "ask": "The beginning under your hands is quietly asking for one concrete piece of help, done in a single sitting, finished, no invoice, no thanks needed. Give it, then leave the rest alone.",
+      "core": "Something at the start is holding its shape, and you are the one who put shape on it. The people in it with you can feel it too — the direction is clear, and no one has to be talked into it. The good hour is when what you are and what you are doing are the same thing, and this is one of those.\n\nAfter that, protect the seed. One plain, complete act of help is what the beginning needs: one concrete thing, done in one sitting, no invoice, no thanks required. Give it, then leave the rest alone. Give it without conditions and it stays a real gift. That is the whole act — support with nothing pretending.",
+      "sheetLine": "The start is holding its shape while you hold it.",
+      "verb": "Starting the thing in its first form and giving it a shape someone else can hold.",
+      "place": "The room where what you already are is becoming visible and nothing is being added to make it true.",
       "provenance": {
         "signature_id": 52,
         "position_id": 19,
@@ -26,11 +27,31 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, seed) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +61,13 @@
     },
     {
       "status": 2,
-      "tense": "You're already at the finished version in your head, and the work is somewhere behind you.",
-      "ask": "Pick one part and bring it all the way to done, in its small form, before you plan the next.",
-      "core": "You can see what this becomes and you're already living out there — the finished shape, the reaction, what it adds up to. So the part in front of you keeps getting measured against a version that doesn't exist yet, and it loses that comparison. The bracing is costing you the making.\n\nThis is the balance: your direction is doing the work. You choose what to do next from what you can see, not from what you're afraid of. At the moment the picturing runs far ahead of the doing.\n\nBring one part all the way to done in its small form. Not the best version, not the whole. When it's finished and it's still smaller than what you pictured, that isn't the answer getting handed down. Stay with it and let the next piece come from what's actually in front of you.",
-      "sheetLine": "You're building the finished version and living in it.",
-      "verb": "starting to give form to the first thing that's yours",
-      "place": "the ground where what you are becomes visible in what you make",
+      "tense": "You will have to know how the whole thing lands before it is anywhere near landed.",
+      "act": "know the feeling fully before you move on",
+      "ask": "About the start you are carrying: sit down once and let yourself know what you actually feel about it — all of it, unedited — before you decide anything. Nothing to fix. Just know it fully first.",
+      "core": "The start has barely begun and you are already standing at its ending. Something feels unfinished, so you reach for the next thing to settle it — another plan, another push, another version. Meanwhile the start is still a start, and the ones near it are still meeting that start, not the one you are bracing for. From the far side it reads as fixing what nobody asked to have fixed.\n\nSo take one sitting, one page, and let yourself know what you actually feel about the beginning under your hands — the whole of it, every shade, unedited. Then decide if you want to. That is where the real knowing waits, and it is the only thing that makes what comes next yours instead of from the shoulder. Nothing to prove, either. Just know it, and then you can move on.",
+      "sheetLine": "You are bracing for an ending the start hasn't begun.",
+      "verb": "Starting the thing in its first form and giving it a shape someone else can hold.",
+      "place": "The room where what you already are is becoming visible and nothing is being added to make it true.",
       "provenance": {
         "signature_id": 52,
         "position_id": 19,
@@ -54,36 +76,27 @@
         "partner": "Completion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "There's something that hasn't been given a shape, and it's been that way for a while now.",
-      "ask": "Say out loud to one person what you're making, in plain words, today — no showing, no explaining.",
-      "core": "The thing you make stays unmarked, and nobody's seen it — including you, most days. Asking what it is feels like it might come back worse than not asking. Starting got set down at some point, and you've been standing on the other side of that since.\n\nThis is the balance: what you are becomes visible in what you make, without you having to announce it. At the moment the making is quiet and the shape stays vague.\n\nThe current comes back by turning toward what's clear, not by pushing harder into the making. Say to one person what you're making, in plain words. Not a pitch, not a defence. Hearing yourself name it does the work, and the plainness of it is the point. You don't have to make anything of it.",
-      "sheetLine": "You're making it and not letting anyone know it exists.",
-      "verb": "starting to give form to the first thing that's yours",
-      "place": "the ground where what you are becomes visible in what you make",
+      "tense": "You had the beginning of something in your hands once and you are still standing at the door after it.",
+      "act": "see it whole, with nothing hidden",
+      "ask": "The start you have not picked back up: lay it all out once — what it is, what is still unresolved, what you are avoiding — and look until nothing is left unseen. Then that is done, and the thing can be, too.",
+      "core": "A start came and its shape was clear, and you put it down. Not out of failure — it just went quiet. Since then the door you were standing at has closed, but you are still at it, and the energy is going into standing there. What is in your hands now is smaller than what you actually carry. The beginning is yours and it is still unstarted.\n\nSo make one full look. Gather the whole of the old start onto one page or table — what it was, what is still tangled in it, what you keep not looking at — and look until there is nothing left unseen. No verdict, no restart required. When nothing is hidden, this ends, and the thing can end with it. Then, and only then, note the piece of it that still wants to be done.",
+      "sheetLine": "You left the start and stayed at the door.",
+      "verb": "Starting the thing in its first form and giving it a shape someone else can hold.",
+      "place": "The room where what you already are is becoming visible and nothing is being added to make it true.",
       "provenance": {
         "signature_id": 52,
         "position_id": 19,
@@ -92,41 +105,42 @@
         "partner": "Clarity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're shaping what's around you and you're calling it the situation doing it.",
-      "ask": "Name one call you already made this week — out loud, to yourself — as yours, and leave it that way.",
-      "core": "The form is taking shape, and you're in the middle of it — deciding what stays, what gets said, which way this tilts. You talk about it like you're reading a report of something happening elsewhere. The making is going on by itself; the part where it's yours has gone quiet.\n\nThis is the balance: what you are shows in what you make, and you don't have to announce it. It bends when your hand in it goes missing — when the thing shapes itself and you're the one standing nearby.\n\nGo back to the simpler form: one call this week, said as yours, no explanation attached. You don't have to call it a calling or mean anything by it. Just stop handing it to the situation, and notice that you can.",
-      "sheetLine": "You're shaping this and you say it's the situation shaping you.",
-      "verb": "starting to give form to the first thing that's yours",
-      "place": "the ground where what you are becomes visible in what you make",
+      "tense": "The shaping is in your hands now, and your own account says it happened on its own.",
+      "act": "look at the whole of it until nothing is left to see",
+      "ask": "The thing quietly taking form through you: lay all of it out at once, the way you would spread papers across a table — what you have been doing, and what it adds up to — until you have seen it without adding or taking away.",
+      "core": "Somewhere in this beginning, the shaping is yours. The order is being kept, the words are being placed, the timing is being held — and the account you carry says it just came together, nothing much to notice. The start is being written. You, asked, would say it wrote itself.\n\nCatch it once. At whatever moment you are quietly doing the shaping, stop long enough to see what you are actually doing — and then keep going. Nothing has to be announced. Seeing the whole of it for one second is enough to put your name back on it, and the work is the same either way; it just stops belonging to a stranger.",
+      "sheetLine": "The plan is being written by your hand. You say it wrote itself.",
+      "verb": "Starting the thing in its first form and giving it a shape someone else can hold.",
+      "place": "The room where what you already are is becoming visible and nothing is being added to make it true.",
       "provenance": {
         "signature_id": 52,
         "position_id": 19,
@@ -135,11 +149,36 @@
         "partner": "Clarity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "length",
+          "detail": "ask 44 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look at the whole of it until nothing is left to s\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -151,69 +190,69 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4768,
+      "ms": 7487,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (shape, seed) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and nobody has to be\"",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people around it\"",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
           "status": 3
         },
         {
@@ -224,50 +263,56 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from the medicine's own acts: \"look at the whole of\" — say the act in the person's words",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
+          "detail": "five words in a row from an exemplar or a rule: \"is being authored the author\"",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -277,15 +322,45 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't say the person has anything begun and abandoned; Too Little must locate them at a stopped offering without naming what happened behind them. The reader could fairly say they've simply never started and nothing is behind them — the ask still works, because describing one thing to one other person is useful either way. The sentence that would serve the writer more than the person is any line making them out as sitting on a talent, so I've kept the radiance out of the draft entirely."
+      "check": "The unsupported claim is that a concrete beginning is sitting in front of the person right now — a resource held in the hand, an opportunity presenting itself — when the record says only that this is what the signature is when it appears, and a person with this balance could reasonably say nothing is presenting itself, this is just how I live. The asks survive being wrong: each is one small act a camera could see, teaching something even to someone whose life is not about a beginning at all. The sentence that serves me more than them is any version of 'the seed already holds the whole tree' — cut it, it is a poster, not a thing on a table."
     },
     {
       "attempt": 2,
-      "ms": 3348,
+      "ms": 4601,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, seed) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -293,75 +368,69 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"every piece of it out\" — say the act in the person's words",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"has a hand on it\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -371,15 +440,39 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't say anything was begun and then abandoned, so Too Little has to stand the person at a stopped offering without naming what happened behind them. A reader could fairly say they've simply never started and there's nothing behind them — the ask still works, since describing one thing to one other person helps either way. The line that would serve the writer more than the person is any version that makes them out as sitting on a talent, so the radiance stays out of the draft."
+      "check": "The unsupported claim is that a concrete beginning is sitting in front of the person right now — a resource held in the hand, an opportunity presenting itself — when the record says only that this is what the signature is when it appears, and a person with this balance could reasonably say nothing is presenting itself, this is just how I live. The asks survive being wrong: each is one small act a camera could see, teaching something even to someone whose life is not about a beginning at all. The sentence that serves me more than them is any version of 'the seed already holds the whole tree' — cut it, it is a poster, not a thing on a table."
     },
     {
       "attempt": 3,
-      "ms": 3135,
+      "ms": 4154,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, seed) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -387,46 +480,64 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 112 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 44 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"look at the whole of it until nothing is left to s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -435,13 +546,13 @@
           "status": 4
         }
       ],
-      "check": "The record doesn't say anything was begun and then abandoned, so Too Little has to stand the person at a stopped offering without naming what happened behind them. A reader could fairly say they've simply never started and there's nothing behind them — the ask still works, since describing one thing to one other person helps either way. The line that would serve the writer more than the person is any version that makes them out as sitting on a talent, so the radiance stays out of the draft."
+      "check": "The unsupported claim is that a concrete beginning is sitting in front of the person right now — a resource held in the hand, an opportunity presenting itself — when the record says only that this is what the signature is when it appears, and a person with this balance could reasonably say nothing is presenting itself, this is just how I live. The asks survive being wrong: each is one small act a camera could see, teaching something even to someone whose life is not about a beginning at all. The sentence that serves me more than them is any version of 'the seed already holds the whole tree' — cut it, it is a poster, not a thing on a table."
     }
   ],
   "usage": {
-    "input": 2954,
-    "output": 3460
+    "input": 6807,
+    "output": 3961
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:18:31.496Z"
+  "date": "2026-10-02T12:18:24.936Z"
 }

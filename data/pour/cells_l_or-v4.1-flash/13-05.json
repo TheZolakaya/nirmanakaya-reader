@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You can sense when something in this shared life has run its course, and you let it end.",
-      "ask": "Name one practice the group keeps out of habit, say plainly it has finished, and give the next gathering one thing worth carrying instead — said out loud, in the room, this week.",
-      "core": "There's a gap between something that has finished and something that only got hard to keep up, and you act on it. People lean on that judgment. When a ritual has stopped carrying meaning, you can set it down in the open rather than letting it fade with apologies. When something still has life in it, you hold through the awkward stretch because you trust what it's doing.\n\nEndings in shared life go wrong in two directions: announced too early, or announced far too late while they quietly drain people. You sit on the right side of both. That's rarer than it sounds. The cost is that this kind of care only shows up when something falls apart without you there — when it goes smoothly, it leaves no trace.\n\nWhat you can do is put one thing out loud. Say it once, in a room, where it can be heard and answered.",
-      "sheetLine": "You can end what's finished and keep what still carries.",
-      "verb": "Letting what has finished really finish, so the next thing has room",
-      "place": "Where a group's meaning is kept alive and handed on — what gets said again, what gets practiced, what gets carried forward",
+      "tense": "You are here at the table, and what needs to end can end.",
+      "act": "trade one thing for one thing, and keep no score",
+      "ask": "Before the others in a shared practice, lay out what you'd keep and what you'd release, hear the same from them, and settle one swap neither side tallies afterward.",
+      "core": "When a practice you share has run its course, you can let it finish without making a case for it. The words stop being said, the date passes unmarked, and the people who were in it with you find the ending already agreed to. Nobody had to be talked into it, and nothing had to be broken to end it.\n\nWhat you carry gets lighter for what you set down. Try trading rather than deciding: lay out something you would keep and something you would release before the others in a shared practice, hear what they would hold and what they would give up, and settle on a fair swap. Whoever it touched owns the ending, and no tally is kept once it's done.",
+      "sheetLine": "A shared thing can end without breaking what it carried.",
+      "verb": "let a shared thing end when it is finished",
+      "place": "in the customs people pass down and keep doing side by side",
       "provenance": {
         "signature_id": 13,
         "position_id": 5,
@@ -26,25 +27,25 @@
         "partner": "Equity",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"trade one thing for one thing and keep no score\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
+          "detail": "five words in a row from an exemplar or a rule: \"end without breaking what it\"",
+          "hard": true
         },
         {
           "code": "seat",
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You will be clearing things before they have had room to be lived in.",
-      "ask": "Pick the one thing you were about to end this week, leave it standing seven more days, and tell someone what you'd be giving up if it went.",
-      "core": "You know in your bones that things need to end, and it has made you quick. There's a version ahead where it's already handled — dead weight gone, story clean, nobody still dragging the old way around. You can feel how that would land. So you move early. A practice gets awkward and you're ready to call it. A tradition stops fitting smoothly and you're already redrawing it.\n\nNone of that is carelessness; it's urgency. But the clearing has gotten ahead of the finishing, and the two are not the same. Things have to be lived all the way to the end before they can be let go cleanly. What's underneath the rush is harder to name and quieter: not wanting to sit in something that has stopped being comfortable.\n\nEase off one thing for a week and let people miss it if they're going to.",
-      "sheetLine": "You're ending things that haven't had their full life yet.",
-      "verb": "Letting what has finished really finish, so the next thing has room",
-      "place": "Where a group's meaning is kept alive and handed on — what gets said again, what gets practiced, what gets carried forward",
+      "tense": "Something you share is being cleared before it has had a chance to mean anything.",
+      "act": "sit with someone in it without fixing it",
+      "ask": "Pick a shared practice you'd rather finish, sit through it whole beside the people it still gathers, and stay with them instead of tidying it away.",
+      "core": "Things are being ended among you before they have had a chance to mean anything. Each one looks worn out, and from your side it is; you stand a season further on than the others round the table. What feels to you like clearing space reads to them as nothing being granted time enough to matter. They no longer bother showing you what they hope to hold onto.\n\nWhat is thin here is not restraint — it is contact. Being inside the shared practice while it is alive, next to those it gathers. Pick one you would rather finish, and stay through it whole beside the people it still matters to, rather than fixing or sorting it. Feel what it is holding for someone who is not you. The endings you make after will be fewer, and right.",
+      "sheetLine": "You're clearing the table before anyone has eaten.",
+      "verb": "let a shared thing end when it is finished",
+      "place": "in the customs people pass down and keep doing side by side",
       "provenance": {
         "signature_id": 13,
         "position_id": 5,
@@ -69,41 +71,32 @@
         "partner": "Compassion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
+          "detail": "five words in a row from an exemplar or a rule: \"you the endings you make\"",
+          "hard": true
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You kept it going past the point where it was carrying anything, and you were still standing at the door.",
-      "ask": "Take the thing you've been calling your responsibility and write down its last useful day, then do one small thing that belongs to what comes after it.",
-      "core": "There's something in your shared life that stopped being alive a while back, and you're the one keeping it upright. You may have been standing in that doorway a long time now. It gets described in terms that sound like virtue — holding on, not giving up, staying for the people who need it. But tradition cut off from anything alive gets heavy fast, and most of what you're carrying is upkeep.\n\nThe fear underneath is not really about the end; it's that nothing would stand up and take its place. That's not a small worry, and it hasn't been tested because the space after it has been kept closed. Meanwhile the meaning you actually want to pass on is waiting behind the thing you're guarding — you can't move it while both arms are holding the door.\n\nSet the thing down and see what's on the other side of it, one piece at a time.",
-      "sheetLine": "You're keeping alive what already stopped living, and it's heavy.",
-      "verb": "Letting what has finished really finish, so the next thing has room",
-      "place": "Where a group's meaning is kept alive and handed on — what gets said again, what gets practiced, what gets carried forward",
+      "tense": "A shared practice is over, and the calendar still keeps its slot.",
+      "act": "go where the feeling is already pulling",
+      "ask": "Move toward whatever draws you, into the hour the finished practice still holds — a walk, a lesson, some work — and turn up there instead.",
+      "core": "A practice you kept up alongside other people is finished and you are still giving it its slot. The hour is reserved, the words still get spoken, the practice stopped and you went on. What holds it in place looks like loyalty from where you sit, and it costs hours something alive could be using.\n\nDo not kill the old thing; replace it. Find the slot the finished practice occupies and move toward whatever draws you into that hour — some work, a walk, something you have been meaning to learn — and go there instead, at the time, without announcing the switch. The old thing ends by being emptied, not by being declared over, and nobody has to be told. Movement takes the slot back.",
+      "sheetLine": "It finished. You are still showing up for it.",
+      "verb": "let a shared thing end when it is finished",
+      "place": "in the customs people pass down and keep doing side by side",
       "provenance": {
         "signature_id": 13,
         "position_id": 5,
@@ -112,20 +105,20 @@
         "partner": "Drive",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go where the feeling is already pulling\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
+          "detail": "five words in a row from an exemplar or a rule: \"been meaning to learn and\"",
+          "hard": true
         },
         {
           "code": "seat",
@@ -136,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "Something in what you hold in common is already ending, and you have not been the one saying so.",
-      "ask": "Take one practice you keep because it's just how things are done, decide whether it stays or goes, and tell someone what you decided.",
-      "core": "There's a change running through your shared life right now, and it is moving on its own — some way of doing things getting looser, some meaning that used to be obvious going quiet. The story around it has it as the times, or as other people drifting. It isn't drifting. It's a turning, and you're inside it, closer to it than almost anyone around you.\n\nWhat holds it back from being yours is that you haven't said what you actually want to keep. Your say-so counts for something here, and every good clear-out needs one person to say where the line goes. You're the kind of person who makes things come together into a workable shape. That part is available to you the whole time.\n\nYou're not watching this happen. You're the one holding the pen, and it is already moving.",
-      "sheetLine": "Something in your shared life is already ending and you haven't said so.",
-      "verb": "Letting what has finished really finish, so the next thing has room",
-      "place": "Where a group's meaning is kept alive and handed on — what gets said again, what gets practiced, what gets carried forward",
+      "tense": "A shared way of meeting is thinning now, and the one carrying it forward is you.",
+      "act": "put a date, a place, a container on it",
+      "ask": "Mark on your calendar the last time you'll keep the old way alive — private, not a speech — and hold to that day.",
+      "core": "A way of meeting is already loosening — the story the group tells about itself, the shape of the gatherings — and the one letting it go quietly is you, by not renewing it. Asked directly, you would say you had not noticed. The ending is being written. It is not signed.\n\nGive it a date. Mark the last time you keep the old way alive, keeping it off the shared calendar — not as an announcement, just a date — and hold it. What others can already feel as thinning becomes an ending with a day on it, and the day is in your hand. If someone asks, you have something to give them, which is more than a thinning has.",
+      "sheetLine": "Something shared is ending, by your hand, unsigned.",
+      "verb": "let a shared thing end when it is finished",
+      "place": "in the customs people pass down and keep doing side by side",
       "provenance": {
         "signature_id": 13,
         "position_id": 5,
@@ -150,19 +144,49 @@
         "partner": "Authority",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put a date a place a container on it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the last time you'll keep\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -171,23 +195,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7499,
+      "ms": 5881,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
@@ -195,69 +207,57 @@
           "status": 1
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can tell the difference\"",
+          "detail": "five words in a row from an exemplar or a rule: \"with the people in one\"",
           "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"end and sit through it\"",
+          "hard": true,
           "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "diagnosis",
           "detail": "\"dead\" — the seat may allow it; the phone doesn't",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the opening\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"something you actually want into\"",
+          "hard": true,
           "status": 3
         },
         {
@@ -267,55 +267,66 @@
           "status": 3
         },
         {
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"put a date in your\"",
           "hard": true,
           "status": 4
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"put\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person has a felt sense of what has run its course; the record only gives the capacity and the seat, not their history, so every cell stays at the level of how that capacity is working now. A reader could reasonably say nothing in their life is actually ending, and the ask still holds, because writing down one thing and one alternative asks for an act, not a belief. The sentence that serves me more than them would be anything about loyalty being secret stagnation, which sounds wise and puts a thumb on the scale, so it is gone."
+      "check": "The unsupported claim is that a specific ending is already underway and authored by the person in the Unacknowledged cell — the record says 'not knowing what's dying,' which permits that the ending exists unnoticed, but I cannot say it has begun in the shared thing they hold. A reader could reasonably say nothing is dying yet. The ask (a date in a private calendar) still works if I am wrong: it produces either a real ending or a clear decision to keep the thing, and both are usable. The sentence that serves me more than the person is any image of 'a bridge burning behind them' in the Too Much core; I have replaced it with plain description of what the others at the table can feel."
     },
     {
       "attempt": 2,
-      "ms": 4084,
+      "ms": 4204,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"trade one thing for one thing and keep no score\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "five words in a row from an exemplar or a rule: \"and leave with a single\"",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
           "status": 1
         },
         {
@@ -323,54 +334,84 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the people it still holds\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go where the feeling is already pulling\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you shared with people is\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 2
+          "status": 4
         },
         {
-          "code": "diagnosis",
-          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "five words in a row from an exemplar or a rule: \"date in your own calendar\"",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "seat",
@@ -379,92 +420,115 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim running through all four: that there is, in fact, something already ending in the person's shared life — the record gives the capacity and the seat, not their history, so each cell stays at how that capacity is working now and lets them say no. A reader could reasonably answer that nothing is dying and their traditions are fine, and every ask survives that, because each one asks for a look and a decision, not a belief about a loss. The sentence serving me over them was the line about loyalty being secret stagnation; it sounds wise, leans on shame, and is gone."
+      "check": "The unsupported claim is that a specific shared ending is already underway and authored by the person in the Unacknowledged cell; the record says only that something may be dying unnoticed, which permits the thinning but not the certainty of it. A reader could reasonably say nothing shared is dying at all and the quiet drift is just life. The ask still works if I am wrong: naming a last date produces either a real ending or a clear decision to keep the thing, and both are usable. The sentence that serves me more than the person is any image of a bridge burning behind them in the Too Much core; I have kept that to plain description of what the others at the table can feel."
     },
     {
       "attempt": 3,
-      "ms": 4097,
+      "ms": 4113,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"trade one thing for one thing and keep no score\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"done well,\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"to keep score on the\"",
           "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"as nothing being allowed to\"",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go where the feeling is already pulling\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"words still get said and\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 2
+          "status": 4
         },
         {
-          "code": "diagnosis",
-          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "five words in a row from an exemplar or a rule: \"your own calendar for the\"",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "seat",
@@ -473,37 +537,36 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim running through all four: that something is in fact already ending in the person's shared life, when the record gives only the capacity and the seat, not their history — so each cell stays with how that capacity is working and leaves room for them to say no. A reader could reasonably answer that nothing of theirs is dying and their traditions are holding fine, and every ask survives it, because each one asks for a look and a decision rather than agreement about a loss. The line that served me over them was the one about loyalty being secret stagnation; it sounds wise and leans on shame, so it is gone."
+      "check": "The unsupported claim is that a specific shared ending is already underway and authored by the person in the Unacknowledged cell; the record says only that something may be dying unnoticed, which permits the thinning but not the certainty. A reader could reasonably say nothing shared is dying at all, and the quiet drift is just life. The ask still works if I am wrong: naming a last date produces either a real ending or a clear decision to keep the thing, and both are usable. The sentence that serves me more than the person is any image of a bridge burning behind them in the Too Much core; I have kept it to plain description of what, from the far side of the table, feels like nothing being allowed to stay."
     },
     {
       "attempt": 4,
-      "ms": 4164,
+      "ms": 4078,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"trade one thing for one thing and keep no score\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"the ending that follows belongs\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -511,41 +574,141 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"stopped bringing you the things\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go where the feeling is already pulling\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"a piece of work a\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 2
+          "status": 4
         },
         {
-          "code": "diagnosis",
-          "detail": "\"dead\" — the seat may allow it; the phone doesn't",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 2
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put a date a place a container on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"keep the old way going\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that a specific shared ending is already underway and authored by the person in the Unacknowledged cell; the record says only that something may be dying unnoticed, which permits the thinning but not the certainty. A reader could reasonably say nothing shared is dying at all, and the drift is just how groups age. The ask still works if I am wrong: naming a last date produces either a real ending or a clear decision to keep the practice, and both are usable. The sentence that serves me more than the person is any image of a bridge burning behind them in the Too Much core; I have kept it to a plain description of what the far side of the table feels."
+    },
+    {
+      "attempt": 5,
+      "ms": 3608,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"trade one thing for one thing and keep no score\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"end without breaking what it\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (doorway, door) — one at most, usually none",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you the endings you make\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go where the feeling is already pulling\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"been meaning to learn and\"",
+          "hard": true,
           "status": 3
         },
         {
@@ -555,25 +718,61 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "wound",
+          "detail": "\"the last time you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put a date a place a container on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the last time you'll keep\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim running through all four: that something is in fact already ending in the person's shared life, when the record gives only the capacity and the seat, not their history — so each cell stays with how that capacity is working and leaves room for them to say no. A reader could reasonably answer that nothing of theirs is dying and their traditions are holding fine, and every ask survives it, because each one asks for a look and a decision rather than agreement about a loss. The line that served me over them was the one about loyalty being secret stagnation; it sounds wise and leans on shame, so it is gone."
+      "check": "The unsupported claim is that a specific shared ending is already underway and authored by the person in the Unacknowledged cell; the record says only that something may be dying unnoticed, which permits the thinning but not the certainty. A reader could reasonably say nothing shared is dying at all, and the drift is just how groups age. The ask still works if I am wrong: naming a last date produces either a real ending or a clear decision to keep the practice, and both are usable. The sentence that serves me more than the person is any image of a bridge burning behind them in the Too Much core; I have kept it to a plain description of what the far side of the table feels."
     }
   ],
   "usage": {
-    "input": 7110,
-    "output": 5177
+    "input": 5966,
+    "output": 6045
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:06:41.333Z"
+  "hardOpen": 4,
+  "date": "2026-10-02T13:25:53.959Z"
 }

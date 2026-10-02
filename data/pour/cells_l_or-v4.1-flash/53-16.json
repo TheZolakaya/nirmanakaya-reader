@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "sweep",
+  "group": "library",
   "signature_id": 53,
   "position_id": 16,
   "signature": "Stewardship",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding the growing thing and the form it needs at the same time, right now.",
-      "ask": "Sketch what the next growing thing needs, with nothing old in the frame. Five minutes, paper or dry-erase, whatever's closest.",
-      "core": "Something you were carrying the shape of is letting go — not torn out from under you, released. The room feels lighter than it should, and you're part of why. You're careful with what you water, patient with what's slow, and you don't confuse holding on with caring.\n\nWhat came down left a gap, and the gap is already being worked in your hands. This is the thing working: growth without forcing, care that doesn't exhaust, space held without clutching. The credit for what you carried hasn't been spoken yet, and that's fine. It only needs to land somewhere, not be performed anywhere.\n\nSketch what the next growing thing needs, and let the credit for the hand that carried this one arrive when someone offers it. Nothing here is owed back.",
-      "sheetLine": "The room came down and your hands are already in it.",
-      "verb": "tending what's growing through the form it needs",
-      "place": "a room where a structure just came down",
+      "tense": "You are here, with your hands on it, and the keeping-alive is going well.",
+      "act": "do the giving in the open this time, where it was always done unseen",
+      "ask": "Carry one piece of the work where it can be seen — whatever repair you usually make out of sight. Whoever it's for gets to be there while you do it. Offer no reason for the change.",
+      "core": "Two things need you and you're holding both, and what's in your care gets fed instead of forced. This is the shape of it when it's going well: nothing has to be dropped, and you're not braced for the next thing to go wrong. What goes unsaid is how much of it runs on what you've quietly taken on.\n\nNext time you do the piece nobody sees, do it where the one it's for can watch. Not a speech — just the work, visible, once. When a thank-you comes, stay long enough to hear it through. You're good at the doing and bad at the receiving, and the second one is where all the weight you're carrying would actually get set down.",
+      "sheetLine": "You keep it alive. Let someone watch you at it.",
+      "verb": "tending what has been put in your care, by hand, season after season",
+      "place": "where a structure that couldn't hold has just stopped standing",
       "provenance": {
         "signature_id": 53,
         "position_id": 16,
@@ -26,14 +27,72 @@
         "partner": "Honor",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 2,
+      "tense": "You will be braced for something further out that has not arrived yet.",
+      "act": "let the satisfaction of a finished thing land",
+      "ask": "Something you tend is already through — done, standing. Give it an hour as it is: no improving, no starting the next. Sit with what got finished and leave it alone.",
+      "core": "Where you tend what's in your care, the work runs a season ahead of what's actually here. Two demands are held, and held well, and keeping them level has come to feel like standing on ground that might give. So the next thing gets planted before the last one can be looked at. What you're growing is real; it's that the crop you're standing in is the one that isn't up yet.\n\nOne of the things you've already finished is finished. Give it an hour with nothing done to it — no improving, no planning the next. If sitting with it is hard, that's the part of this you haven't trained, and the not-sitting is what makes all of it heavier than the work itself.",
+      "sheetLine": "What you tend is fine. Go stand in what it made.",
+      "verb": "tending what has been put in your care, by hand, season after season",
+      "place": "where a structure that couldn't hold has just stopped standing",
+      "provenance": {
+        "signature_id": 53,
+        "position_id": 16,
+        "status": 2,
+        "partner_id": 50,
+        "partner": "Fulfillment",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "You were tending something once, and you are still standing where it came apart.",
+      "act": "go on toward it without needing a sign",
+      "ask": "Go on toward what you chose before it went quiet. Take an ordinary step this week and don't go looking for anything coming back. No proof, no signal. The step itself is the whole of it.",
+      "core": "A structure you were carrying came apart, and it came apart honestly — it wasn't holding anything real. What's in you to tend hasn't gone anywhere; that isn't what stopped. What stopped was the part where you could see it working. So you're standing at the place where it fell, waiting to be shown the work is still worth it.\n\nKeep going toward the thing you'd already chosen, without waiting for it to show you anything. One small, ordinary act, and no checking for a response. The sign you're waiting on isn't late; it was going to come from somewhere else. What you decided still stands, and it can carry a week of not-knowing without any help.",
+      "sheetLine": "The thing you chose still stands. Go on toward it.",
+      "verb": "tending what has been put in your care, by hand, season after season",
+      "place": "where a structure that couldn't hold has just stopped standing",
+      "provenance": {
+        "signature_id": 53,
+        "position_id": 16,
+        "status": 3,
+        "partner_id": 30,
+        "partner": "Resilience",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
@@ -49,99 +108,14 @@
       ]
     },
     {
-      "status": 2,
-      "tense": "Ahead of the clearing you've already rebuilt the thing, and you're bracing under its weight now.",
-      "ask": "Pick one thing you've been tending and let it stay unfinished for two days. Notice what the waiting actually asks of you — nothing more.",
-      "core": "The collapse hasn't fully landed and you're already several rooms ahead of it, holding up the next version before anyone asked. You tell yourself this is care, staying ready for them. Some of it is. Some of it is gripping the pot instead of watching the plant.\n\nRunning well, this is care that doesn't exhaust — space held without clutching. The work you're doing is real; it's the pace that's ahead of the soil. Things can wait, and the waiting won't undo anything. Pick one thing you've been tending and let it stay unfinished for a couple of days, and find out what your hands do when they aren't holding it up.",
-      "sheetLine": "You're carrying a structure that hasn't finished falling.",
-      "verb": "tending what's growing through the form it needs",
-      "place": "a room where a structure just came down",
-      "provenance": {
-        "signature_id": 53,
-        "position_id": 16,
-        "status": 2,
-        "partner_id": 50,
-        "partner": "Fulfillment",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, soil) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 3,
-      "tense": "You left the care behind you and still stand at the doorway, hands at your sides.",
-      "ask": "Put one small act of care on the calendar for tomorrow. Set it at whatever size fits the day, and let that size be enough.",
-      "core": "The clearing came and you walked out of the room ahead of it. Since then your hands have stayed empty, and some small work that used to be yours quietly stopped. Nothing announces it — the plant just goes unwatered and you don't notice you've stopped noticing.\n\nThe care itself hasn't gone anywhere. Restarting it is smaller than it feels like, and it can start at whatever size fits the day. Working well, this is growth without force — patient, unrushed, not exhausting. The report can wait. Put one small act of care on the calendar for tomorrow and notice how much easier the next one is once your hands have moved.",
-      "sheetLine": "Nothing was lost. The hands just stopped.",
-      "verb": "tending what's growing through the form it needs",
-      "place": "a room where a structure just came down",
-      "provenance": {
-        "signature_id": 53,
-        "position_id": 16,
-        "status": 3,
-        "partner_id": 30,
-        "partner": "Resilience",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
-        }
-      ]
-    },
-    {
       "status": 4,
-      "tense": "You are already tending what's growing, and you have been describing it as simply how things are.",
-      "ask": "Answer, in front of someone who cares, what would have happened if you had stopped tending. Let the answer stand without deflecting it.",
-      "core": "You've been calling it maintenance, just handling it, while you were the one deciding what got kept and what was let go. The structure came down and you were already at work in the gap — clearing it, keeping it from spreading — and your name didn't get put on that.\n\nIf you hadn't moved, the report would be different. One person who cares, one plain answer: what would have happened if you had stopped. Say it, let it land, and see if the room doesn't hold it. The credit for what you carried is already real; this is only the acknowledging.",
-      "sheetLine": "You were handling it. And you were the one deciding.",
-      "verb": "tending what's growing through the form it needs",
-      "place": "a room where a structure just came down",
+      "tense": "You are already keeping it standing, and no one — including you — would say so.",
+      "act": "stand where the giving can be witnessed",
+      "ask": "Carry the load-bearing part for someone here, next time, where they can watch. No speech and no ask for credit. Visible once, with nothing said about what it costs.",
+      "core": "The thing is being kept standing. Two demands are held level, the load-bearing part is carried, and if anyone asked, you'd describe yourself as outside of it. The room stopped buying that some time ago — they can see who's holding it up. What hasn't caught up is your own account: the one doing the work doesn't get counted among the ones keeping this alive, not even by themselves.\n\nDo the next load-bearing bit where it can be seen. No speech, no bid for credit — the visible act, once, with nothing said about what it takes out of you. Take the thank-you if it comes. The structure belonged to more than them. No lid was going to fit over a thing this size.",
+      "sheetLine": "They can see who's holding it. You count yourself out.",
+      "verb": "tending what has been put in your care, by hand, season after season",
+      "place": "where a structure that couldn't hold has just stopped standing",
       "provenance": {
         "signature_id": 53,
         "position_id": 16,
@@ -150,14 +124,19 @@
         "partner": "Honor",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -171,29 +150,181 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5324,
+      "ms": 6513,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
+          "detail": "\"The giving\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"do the next piece of\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "\"herself\" — no he/she for the partner or anyone",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The record never says this person tends land, money or a patch of earth; the seat they drew is an inner one, so my read of what they steward has to stay in what they carry rather than what they hold, and a listener could fairly say I've made the tending material when the draw says inner. The asks survive that being wrong: each one is doable by someone who tends people, work or a household, and each teaches something about where the giving shows. The sentence that serves me more than them is the closing image of the lid not fitting — it's the prettiest line in the quartet and I'm keeping it only because it says something true about a structure that couldn't hold."
+    },
+    {
+      "attempt": 2,
+      "ms": 5477,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "vocab",
           "detail": "two images in one core (shape, room) — one at most, usually none",
@@ -201,15 +332,15 @@
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 1
         },
         {
@@ -219,39 +350,33 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "vocab",
           "detail": "\"the tending\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 3
         },
         {
@@ -261,20 +386,8 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
+          "code": "history",
+          "detail": "\"you stopped believing\" — a cell knows no one's past",
           "hard": true,
           "status": 4
         },
@@ -283,140 +396,28 @@
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supplies no evidence that anything of the person's has actually collapsed or cleared, so the core treats the clearing as nearby or underway, not accomplished, and the ask never depends on it having happened. A reader could reasonably say the dissolution isn't liberation for them at all, just loss, so each core leaves the object unnamed and lets them name it. Yes — naming who the release is for, or sketching only what the next growing thing needs, holds up even if the reading is wrong. The stray line was 'you already know who it was for,' which flatters the read and puts an answer in their mouth; it is gone."
-    },
-    {
-      "attempt": 2,
-      "ms": 3857,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"This is what it looks like when\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, soil) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "five words in a row from an exemplar or a rule: \"say you stay out of\"",
           "hard": true,
           "status": 4
         },
@@ -425,87 +426,50 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record supplies no evidence that anything of the person's has actually collapsed or cleared, so every core treats the clearing as nearby or underway and lets the person name what came down. A reader could reasonably say the dissolution wasn't liberation for them, only loss, so no core claims what the loss meant. The asks still hold if the read is wrong: each names one ordinary act — a sketch, a pause, a calendar entry, a plain answer — useful whether or not a structure fell. The lines that served the writer were 'you already know' and 'and you know it,' both certifying what the record cannot; they are gone."
+      "check": "The record never says this person tends land, money or a patch of earth; the seat they drew is an inner one, so my read of what they steward has to stay in what they carry rather than what they hold, and a listener could fairly say I've made the tending material when the draw says inner. The asks survive that being wrong: each one is doable by someone who tends people, work or a household, and each teaches something about where the giving gets seen. The sentence that serves me more than them is the closing image of the lid not fitting — it's the prettiest line in the quartet and I'm keeping it only because it says something true about a structure that couldn't hold."
     },
     {
       "attempt": 3,
-      "ms": 2970,
+      "ms": 4501,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "refrain",
+          "detail": "\" and let the person\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, soil) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is running well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
           "status": 3
         },
         {
@@ -515,14 +479,14 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
+          "code": "history",
+          "detail": "\"you stopped believing\" — a cell knows no one's past",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "length",
-          "detail": "core 100 words (120–160)",
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
           "hard": false,
           "status": 4
         },
@@ -533,90 +497,165 @@
           "status": 4
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Nothing in the record shows that a structure has actually come down for this person, so every core keeps the clearing nearby or already behind and lets them say what happened. A reader could say the collapse was only loss, not release, so none of the cores assign a meaning to what went. The asks all survive a wrong read: each is one ordinary act — a sketch, a two-day pause, a calendar entry, one answered question — useful whether or not anything fell. What served the writer was 'you already know' and 'and you know it,' certifying what the record cannot; both are gone, along with 'the tending' and 'capacity.'"
+      "check": "The record never says this person tends land, money or a patch of earth; the seat they drew is an inner one, so my read of what they steward has to stay in what they carry rather than what they hold, and a listener could fairly say I've made the tending material when the draw says inner. The asks survive that being wrong: each one is doable by someone who tends people, work or a household, and each teaches something about where the giving gets seen. The sentence that serves me more than them is the closing image of the lid not fitting — it's the prettiest line in the quartet and I keep it only because it says something true about a structure that couldn't hold."
     },
     {
       "attempt": 4,
-      "ms": 3347,
+      "ms": 3987,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\" and let the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, soil) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record never says this person tends land, money or a patch of earth; the seat they drew is an inner one, so my read of what they steward has to stay in what they carry rather than what they hold, and a listener could fairly say I've made the tending material when the draw says inner. The asks survive that being wrong: each one is doable by someone who tends people, work or a household, and each teaches something about where the giving gets seen. The sentence that serves me more than them is the closing image of the lid not fitting — it's the prettiest line in the quartet and I keep it only because it says something true about a structure that couldn't hold."
+    },
+    {
+      "attempt": 5,
+      "ms": 4470,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time ago\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand where the giving can be witnessed\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -625,15 +664,20 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"carry\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "Nothing in the record shows a structure has actually come down for this person, so each core keeps the clearing nearby or behind and leaves the naming to them. A reader could say the collapse was only loss, so no core tells them what it meant. The asks hold even if the read is wrong: a sketch, a two-day pause, a calendar entry, one answered question. The lines that served the writer — 'you already know,' 'and you know it,' 'never,' 'the tending,' 'capacity,' 'when this is running well' — are gone."
+      "check": "The record never says this person tends land, money or a patch of earth; the seat they drew is an inner one, so my read of what they steward has to stay in what they carry rather than what they hold, and a listener could fairly say I've made the tending material when the draw says inner. The asks survive that being wrong: each one is doable by someone who tends people, work or a household, and each teaches something about where the giving gets seen. The sentence that serves me more than them is the closing image of the lid not fitting — it's the prettiest line in the quartet and I keep it only because it says something true about a structure that couldn't hold."
     }
   ],
   "usage": {
-    "input": 7236,
-    "output": 4353
+    "input": 6612,
+    "output": 6415
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:14:42.981Z"
+  "hardOpen": 2,
+  "date": "2026-10-02T13:11:59.991Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you can see how much you can give and you are giving it.",
-      "ask": "Offer one person something concrete — an hour, a hand, a name that opens a door — sized so you can do it again next week.",
-      "core": "There's a measure in what you hand over. You give where there's a need and you stop where giving more would cost you the strength that makes giving possible. That stopping is part of it, not a failure of it.\n\nOut here the picture isn't whole, and you're not waiting for it to be. One step is visible and you take it, then the next one shows up. That's how you move through the unlit part. The measure is what keeps what you offer from becoming a drain — give past it and the thing changes character, and the people receiving it can feel the change even when you can't. Where the line sits is yours to say. Keeping it is the practice.",
-      "sheetLine": "You know how much to give, and you give it.",
-      "verb": "sharing your strength by measure, where it is needed",
-      "place": "in the half-light, where one step is visible and the rest is not",
+      "tense": "You are giving from a full place, and it is landing where it is needed.",
+      "act": "choose which star to steer by and steer",
+      "ask": "Pick the heading your help takes this week — where it matters most — and follow that one. Other places can stay open until the next week.",
+      "core": "Support is moving out of you and arriving. You know how to hold something up, and right now that's being used — a call answered, a weight taken off someone, a thing arranged before anyone had to ask. None of it is being calculated. It's operating.\n\nWhat's less clear is the direction. Two or three places want the next portion of you, and from inside the fog they look equally plausible. You don't need to see the whole road. Pick the heading that matches what you actually want to have happen there, and follow that one for a week. The others stay open. They just don't get fed this week.",
+      "sheetLine": "Pick the heading your support takes, and hold it a week.",
+      "verb": "share your strength where it is actually needed",
+      "place": "in the fog where the next step is visible but the road is not",
       "provenance": {
         "signature_id": 57,
         "position_id": 18,
@@ -26,14 +27,24 @@
         "partner": "Orientation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a need that has not arrived yet and may never arrive.",
-      "ask": "Leave one person's problem alone for a week. When it stays unsolved, notice it did not become yours.",
-      "core": "You're making the move before the need shows up. You're reading ahead in a situation where the next page isn't written, and the picture you get is one where something falls apart if you don't get there first — so your strength goes out ahead of you, before anyone has asked.\n\nThe half-light is what sets this off, and it's also the condition you're built to move through. The difference is that you're not moving through it, you're bracing in it, trying to get to certainty before the situation has offered any. What you give arrives already decided for the person receiving it, and a hand that arrives decided is hard to take. The steady part can stay; the pushing ahead is what to set down.",
-      "sheetLine": "You're bracing for weight that hasn't arrived.",
-      "verb": "sharing your strength by measure, where it is needed",
-      "place": "in the half-light, where one step is visible and the rest is not",
+      "tense": "You are bracing already for the cost of helping before help has been asked.",
+      "act": "let the inner compass decide the small case",
+      "ask": "When a need seems to be forming nearby, hold still one breath and ask whether carrying it is actually yours. Let the small case decide, and move from what is on the table.",
+      "core": "The reach out is real and it runs past the situation. You sense what a person will need before they've said it, and you're already moving — arranging, supplying, arriving early. From outside it reads as plenty. From inside, some scan hasn't fully powered down.\n\nThe difficulty isn't the helping. It's deciding from the picture you've assembled rather than from what's actually on the table now. Some of what you bring isn't needed yet, and carrying it costs you quietly. Before the next act of help, pause for a single breath. Let what's here answer the question instead of what you've already imagined. Then move, either way.",
+      "sheetLine": "You may be supplying the imagined need, not the one present.",
+      "verb": "share your strength where it is actually needed",
+      "place": "in the fog where the next step is visible but the road is not",
       "provenance": {
         "signature_id": 57,
         "position_id": 18,
@@ -59,31 +71,42 @@
         "partner": "Conscience",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "There was a moment when what you offered was not taken, and you are still standing in it.",
-      "ask": "Tell one person one thing you need from them this week. State it plainly and let them answer however they answer.",
-      "core": "You've kept your strength in. When something comes up and you have what it would take to help, you don't hand it over, and you don't ask for anything either. What's gone quiet is the offering, not the strength.\n\nThe ground is dim around you too. When someone asks what you want or what's next, you don't put a direction out, and a direction is what lights the next step. That's the part sitting still. A small ask, to one person, said plainly, is enough to find out whether the door is still shut. It usually isn't, and you'll know either way.",
-      "sheetLine": "You stopped putting it out. The strength is still there.",
-      "verb": "sharing your strength by measure, where it is needed",
-      "place": "in the half-light, where one step is visible and the rest is not",
+      "tense": "You used to be the one people came to, and that door is behind you now.",
+      "act": "engage the hard part on purpose and see what holds",
+      "ask": "Stay inside a commitment that still has weight through the friction it brings — no sorting the whole life, just that engagement — and see what your strength holds.",
+      "core": "Something has you holding back. Not hoarding — just not reaching. Help doesn't move out of you the way it once did, and offers that come your way don't get picked up. You're standing at a door you've already stepped past, and the fog doesn't help: when you can't tell what's solid, waiting becomes the whole posture.\n\nYou don't need the whole road to find out. Stay with a commitment that still has weight in it, even a small one, while it's difficult. That friction shows you what your strength is made of now. Waiting until you feel ready first would defeat the test; from here, readiness and engagement are the same move.",
+      "sheetLine": "Staying with a commitment through friction shows what still holds.",
+      "verb": "share your strength where it is actually needed",
+      "place": "in the fog where the next step is visible but the road is not",
       "provenance": {
         "signature_id": 57,
         "position_id": 18,
@@ -92,19 +115,34 @@
         "partner": "Dedication",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 112 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -116,12 +154,13 @@
     },
     {
       "status": 4,
-      "tense": "The directions you are steering by are already being chosen by something you do not name.",
-      "ask": "Write the one thing you are aiming for in the next month on a piece of paper and pin it where you will see it.",
-      "core": "You're already pointing somewhere. There's a direction running under the week — what you say yes to, what you quietly drop, what you keep in the room. But when you talk about it, it turns into the situation deciding, or the timing, or other people needing you. The aiming is happening. Saying so isn't.\n\nYou can hold your strength out in the open and still not know which light you're facing while you do it. That's the part running unclaimed. Putting the aim into words doesn't change what you do with the strength; it just means you're the one who chose where it goes. That's a smaller thing than it sounds, and it changes who is carrying the decision.",
-      "sheetLine": "Name the light you're facing, and where it points.",
-      "verb": "sharing your strength by measure, where it is needed",
-      "place": "in the half-light, where one step is visible and the rest is not",
+      "tense": "You are already steering the direction here, and calling it the circumstances.",
+      "act": "face one way for three days",
+      "ask": "For three days, choose a heading on purpose and hold it, even if it feels arbitrary and nobody sees. Notice how the week changes when the direction comes from you.",
+      "core": "Look at what got arranged. Resources moved, people got covered, timing worked out. That wasn't the room doing it. Someone was steering — and it was you, though you've been telling it as what the situation required, as if the situation had preferences.\n\nThe blind spot is your own hand in where things have gone. For three days, pick a direction deliberately and keep to it, however small. You don't need a reason that would satisfy anyone. Notice what the week does when the heading came from you, instead of from whichever way things already leaned. The steering is what you're not seeing, not the outcome.",
+      "sheetLine": "You set this direction, and you've been calling it the situation.",
+      "verb": "share your strength where it is actually needed",
+      "place": "in the fog where the next step is visible but the road is not",
       "provenance": {
         "signature_id": 57,
         "position_id": 18,
@@ -130,19 +169,19 @@
         "partner": "Orientation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 105 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -156,27 +195,51 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6074,
+      "ms": 6392,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"burned\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "detail": "\"your giving\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the others\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
           "status": 1
         },
         {
@@ -186,14 +249,8 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -205,7 +262,7 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"and you're living in it\"",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -217,25 +274,37 @@
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"There was a time\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"engage the hard part on purpose and see what holds\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -247,108 +316,119 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported: I read 'offered' as one thing running the other way — the person waiting for a decision to be made for them, or for an ask to come first — when the record shows nothing about who offered what; it only says resources flow where needed and the seat navigates ambiguity. A reader could say the obstacle is resources or another person, not their own held-off move, and the cell would be wrong about them and still usable only if the ask stands on its own. It does: telling one person what you need and letting them answer is useful whether or not my read was right, since either way the person gets information they didn't have, and nothing in it waits on the response. Sentence that serves me more than them: 'You're waiting for it to be decided' — that one flatters the read and skips what I don't know. Fixing before writing: each core keeps the mechanism as one person's next move in a moment they'd recognise, no claims about why, and the ask never makes usefulness conditional on the read being true."
-    },
-    {
-      "attempt": 2,
-      "ms": 4842,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what you hand people arrives\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"star\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The weakest claim is in Status 2, where I have the person auditing every hand they lend without support for the idea that this is disrupting their ability to read the room; the record says resources flow outward and here run past measure, which supports over-extension but not the exact interior scene of counting. A reader could reasonably say the audit isn't happening — they just give freely and get drained — and the ask (steer by what's actually needed, not by what you imagine is required) still works if that's the case, because either way the fix is looking at the actual situation instead of the imagined one. The sentence that serves me more than them is any version of 'you give too much,' which is a verdict rather than an observation; a person who does not experience their giving as excessive would bounce right off it."
+    },
+    {
+      "attempt": 2,
+      "ms": 5709,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -359,25 +439,19 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"The naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -386,81 +460,127 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: I read the Too Much cell as a person bracing against a future need that hasn't arrived, when the record only says the capacity in excess crosses the map toward obsessive calculation of fairness. A reader could say the problem is that they are giving too little, not too much, and the cell would be wrong about them and still useful only if the ask can stand alone. It can: leaving one person's problem alone for a week teaches something about where the line sits whether or not the read was right, and nothing in it waits on my being correct. Sentence that serves me more than them: 'There's a future in your head where everyone falls apart without you' — that one invents a scene and a population to make the read feel true. Fixing before writing: each core keeps to one capacity in one kind of moment, no certification of what the person knows, no cause assigned to the Too Little standing-place, no universals, and the ask never makes its usefulness conditional on the read being true."
+      "check": "The weakest claim is Status 2, where I have the person pre-reading a need before it has been voiced and supplying it anyway; the record says resources flow outward and here run past measure, which supports over-extension but not the exact interior scene of pre-empting. A reader could reasonably say the giving isn't pre-empted, it's just draining — the ask survives either way, because watching what the actual moment already holds corrects both. The sentence that serves me more than them is any framed verdict on how much they give; a person whose giving feels proportionate would bounce off it clean."
     },
     {
       "attempt": 3,
-      "ms": 3697,
+      "ms": 5270,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're carrying weight nobody handed\"",
-          "hard": true,
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"engage the hard part on purpose and see what holds\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
         },
         {
@@ -468,20 +588,42 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: I read the Too Much cell as bracing against a future need that hasn't arrived, where the record only says the capacity in excess crosses toward obsessive calculation of what's owed. A reader could say the trouble is giving too little, not too much, and the cell would be wrong about them — still useful only if the ask stands on its own. It does: leaving one person's problem alone for a week teaches where the line sits regardless of my read. Sentence that serves me more than them: 'You're making the move before the need shows up' — it narrates a scene to make the read feel lived-in. Fixing before writing: no certification of what the person knows, no cause assigned to where Too Little stands, no universals, no mystical nouns made of verbs, no copied five-word runs, and the ask never depends on the read being right."
+      "check": "Status 2 carries the weakest claim — that a need is sensed before it is voiced and supplied anyway; the record supports resources flowing outward past measure but not a precise interior scene, and the ask still holds if the person simply gives and gets drained, because either way the correction is reading the moment rather than the assembled picture. Status 3 sits close to an unsupported cause; I keep it at where the person stands and never say what closed the door. The sentence that serves me more than them is any framed verdict on how much they give, so no cell renders a total."
     },
     {
       "attempt": 4,
-      "ms": 3361,
+      "ms": 3589,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -492,26 +634,56 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -523,13 +695,130 @@
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "Status 2 carries the weakest claim — that a need gets sensed before it is voiced and supplied anyway; the record supports resources flowing outward past measure but not a precise interior scene, and the ask still holds if the person simply gives and gets drained, because either way the correction is reading the moment rather than the assembled picture. Status 3 sits close to an unsupported cause; I keep it at where the person stands and never say what closed the door. The sentence that serves me more than them is any framed verdict on how much they give, so no cell renders a total."
+    },
+    {
+      "attempt": 5,
+      "ms": 3500,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -540,13 +829,13 @@
           "status": 4
         }
       ],
-      "check": "Unsupported: I read the Too Much cell as bracing against a future need that hasn't arrived, where the record only says the capacity in excess crosses toward obsessive calculation of what's owed. A reader could say the trouble is giving too little, not too much, and the cell would be wrong about them — still useful only if the ask stands on its own. It does: leaving one person's problem alone for a week teaches where the line sits regardless of my read. Sentence that serves me more than them: 'You're making the move before the need shows up' — it narrates a scene to make the read feel lived-in. Fixing before writing: no certification of what the person knows, no cause assigned to where Too Little stands, no universals, no mystical nouns made of verbs, no copied five-word runs, and the ask never depends on the read being right."
+      "check": "Status 2 carries the weakest claim — that a need gets sensed before it is voiced and supplied anyway; the record supports resources flowing outward past measure but not a precise interior scene, and the ask still holds if the person simply gives and gets drained, because either way the correction is reading the moment rather than the assembled picture. Status 3 sits close to an unsupported cause; I keep it at where the person stands and never say what closed the door. The sentence that serves me more than them is any framed verdict on how much they give, so no cell renders a total."
     }
   ],
   "usage": {
-    "input": 4131,
-    "output": 4671
+    "input": 9119,
+    "output": 5781
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:46:23.242Z"
+  "date": "2026-10-02T12:23:33.200Z"
 }

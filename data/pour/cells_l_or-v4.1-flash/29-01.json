@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one aiming this, and the aim is holding steady right now.",
-      "ask": "Tell one person which way you're pointed today. Not the plan, just the heading. Let the saying be the whole act.",
-      "core": "You know which way this goes, and it isn't loud. You pick the direction, you mean it, and the call doesn't need defending — it carries itself once it's pointed. Other people feel it as steadiness rather than force.\nThe quiet part is real too. Something in you holds a read on a situation before it says anything, and that holding is doing work. It's why the decisions land. What this balance costs to keep is that you keep trusting the read before it's confirmed — no committee, no second opinion, just the call and the moving. That cost only gets paid if the direction is yours, so it's worth knowing where you picked it up.",
-      "sheetLine": "You choose the direction and you mean it, quietly.",
-      "verb": "Moving with the direction already decided, no announcement needed",
-      "place": "At the point where the course gets chosen",
+      "tense": "Right now the direction is chosen and your hand is on it.",
+      "act": "keep the truth a while before saying it",
+      "ask": "On the next call you'd usually make in the moment, hold your answer back a day before you give it. Notice whether it is still your answer when it surfaces.",
+      "core": "When you point at a direction it moves, and the ground under it shows. You do not push. Attention goes where you send it, 'this, not that' comes out clean, and whoever is nearby can feel how steady the ground is.\n\nThe exposure in that speed is that the answer leaves before all of it has settled. Keep one back — a single day is enough. Most times it will come out the same, only quieter and harder to argue with. The patience is the fee, and you spend a little to keep the ground you already have. You are not wavering. You are letting the word catch up to the thing.",
+      "sheetLine": "You choose, and the choice holds.",
+      "verb": "moving with unstoppable clarity",
+      "place": "the place where you choose direction",
       "provenance": {
         "signature_id": 29,
         "position_id": 1,
@@ -26,46 +27,47 @@
         "partner": "Reflection",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already living in how this will land, and none of it has happened yet.",
-      "ask": "Pick one decision you've already made and tell someone why, without arguing the case. If the case needs arguing, it wasn't decided.",
-      "core": "You're steering toward an outcome that's still forming, and your grip has gotten ahead of it. Decisions come fast because you can see the whole structure in advance — so you're bracing for a version of events that hasn't arrived, and treating it as the thing to manage now.\nThe cost shows up in the room you're actually in. People get the conclusion before the situation has had its say, and the certainty that usually serves you starts to feel like pressure. The structure is real; the timing is what's off. When this is working, things make sense in your presence — clear, solid, no arm-wrestling. Here you're borrowing tomorrow's authority to settle today, and that costs you the read that would have made it unnecessary.",
-      "sheetLine": "You're settling tomorrow before today has spoken.",
-      "verb": "Moving with the direction already decided, no announcement needed",
-      "place": "At the point where the course gets chosen",
+      "tense": "You'll have the next few decisions worked out before the day even arrives.",
+      "act": "work the pattern through to its logic",
+      "ask": "Take the one you keep rehearsing and trace it on paper to what actually comes after, step by step. Stop where the logic stops, put the page down, and add nothing more.",
+      "core": "You decide things that have not happened, and each one gets a fallback, and a fallback for the fallback. From outside it looks like grip. From inside it feels like being ready, which is why it is hard to notice. The situation does not get to arrive, because you have already met it in advance.\n\nFollow the one you keep running all the way to its last real step — write each one, count them, stop where it ends. What you get is a page, not a plan: something to look at instead of carry around. Leave it there. What it shows is whether the ground was actually missing, or whether meeting the day as it comes is still something you can do.",
+      "sheetLine": "You've settled everything except what's actually here.",
+      "verb": "moving with unstoppable clarity",
+      "place": "the place where you choose direction",
       "provenance": {
         "signature_id": 29,
         "position_id": 1,
@@ -74,41 +76,27 @@
         "partner": "Calculation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stopped choosing, and you're still standing at the last place you chose.",
-      "ask": "Finish one small piece this week that you've already decided — an outline, a list, a first cut. Do the making and let it stand.",
-      "core": "There's a direction you set down and haven't picked back up. Not because you don't know it — you do — but because there's a spot you haven't stepped past, and standing at it has taken the place of moving. The aim is there. The pointing stopped.\nThe other side of this is plain: a clear call, made once, that others can lean on without asking. That comes back through something small and real to hold onto — making a thing where the structure is obvious and the stakes are low. Small and finished beats large and stalled. Let the making pull you forward, and the picking-back-up will follow it.",
-      "sheetLine": "You know the direction but you stopped pointing at it.",
-      "verb": "Moving with the direction already decided, no announcement needed",
-      "place": "At the point where the course gets chosen",
+      "tense": "You stood at the fork some while back, and the next step never did get taken.",
+      "act": "build the first new thing from what the clearing showed",
+      "ask": "This week, make a plain thing by hand that is here only because you said it should be — nobody else's plan, no approval sought. Finish it, however modest.",
+      "core": "The pointer works. You can tell it works — nothing about it is broken. Your last fork is only still open in your mind, and you are standing at it, which means no direction gets picked today, or tomorrow. Days pass in that spot and begin to feel like a fact about who you are.\n\nDo not try to force a decision. Build something this week, with your hands, by your own call. A built thing does not argue and it does not wait for certainty; it sits there and shows you that you can begin. Once something exists that you alone asked for, the next choice gets easier to make, and the one past that gets easier still.",
+      "sheetLine": "The direction is still yours. You just haven't moved.",
+      "verb": "moving with unstoppable clarity",
+      "place": "the place where you choose direction",
       "provenance": {
         "signature_id": 29,
         "position_id": 1,
@@ -117,14 +105,29 @@
         "partner": "Formation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -133,20 +136,21 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already steering this whole thing and you talk about it like it happened on its own.",
-      "ask": "Say the word 'I' about one decision you've been describing as the situation requiring it. One sentence, to yourself or someone else.",
-      "core": "You're setting the direction here — the calls, the priorities, the pace — and your account of it leaves you out. The steering is yours, and the story treats it as a fact of the landscape. That's not modesty and it isn't confusion. It's your hand on the wheel with nobody's name on it.\nSomething simpler is available. This whole line started as one plain act: this, not that, and meaning it. Not the whole architecture — just the first motion, chosen and owned. When this is working, people trust the structure because it visibly serves what it organizes, and you're visible inside it. That's what's been missing, and it's smaller than it looks. Worth saying, once, without the smoothing.",
-      "sheetLine": "You're steering it and calling it the situation.",
-      "verb": "Moving with the direction already decided, no announcement needed",
-      "place": "At the point where the course gets chosen",
+      "tense": "You're steering this whole thing already, and your telling of it has you riding along.",
+      "act": "hold the new form steady",
+      "ask": "Choose a thing near you that stands because you set it, and say that plainly as a fact of how it got made. Then let it stay yours.",
+      "core": "Look at the arrangements near you — the plans, the schedules, the calls that got made. The shape holds because you decided it, again and again, and counted none of it. When you describe it, it sounds like circumstance you walked into. The people who watched it happen are not going to argue, so the story stays one-sided.\n\nState one of them as what it is — this stands because you set it. Not for credit. So the making of it sits in your own hands for a moment. When it is yours again, you get to keep it or change it on purpose, and that is a different kind of steering than the kind that does not know it is steering.",
+      "sheetLine": "The whole shape is your hand, and you'd say it isn't.",
+      "verb": "moving with unstoppable clarity",
+      "place": "the place where you choose direction",
       "provenance": {
         "signature_id": 29,
         "position_id": 1,
@@ -155,29 +159,19 @@
         "partner": "Preservation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false
         }
       ]
@@ -186,18 +180,12 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5058,
+      "ms": 8432,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
@@ -205,13 +193,19 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the cost of keeping\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -222,40 +216,40 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the settling\" — a verb turned into a mystical noun",
+          "code": "hunch",
+          "detail": "\"The point isn't the answer; it's finding\" — the reveal: the person's own account overruled",
           "hard": true,
           "status": 2
         },
         {
+          "code": "vocab",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "label",
@@ -270,62 +264,56 @@
           "status": 3
         },
         {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
           "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"at its best\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"have no reason to correct\"",
           "hard": true,
           "status": 4
         },
@@ -334,45 +322,39 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 4
         }
       ],
-      "check": "The record does not say the person has ever spoken a direction to anyone, so any claim about what they have or haven't said out loud is mine, not the map's. A reader could fairly say the balanced cell flatters a person who is actually rigid, and the too-little cell assumes a wound the record never names. The asks survive being wrong because each one is doable by someone the read missed — naming a direction, holding one open, telling a person, telling one truth. The line that serves me more than them is 'you know what this is,' so I've cut every place it was standing in."
+      "check": "The draft's weakest claim is that this person's fast decisions rest on total structural understanding; the record supports speed and clarity, not completeness, so I've written the read as a shape they can recognise rather than a fact about them. A reader could reasonably say their decisiveness comes from impatience, not depth — the asks never require the depth read to be true, so each one still teaches something if I'm wrong. The sentence that serves me more than them is any version of 'you see the whole board', which flatters the reader instead of handing them something usable, so it's out."
     },
     {
       "attempt": 2,
-      "ms": 3125,
+      "ms": 6112,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
           "status": 1
         },
         {
@@ -382,126 +364,132 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
-          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person has ever spoken a direction to anyone, so any claim about what they have or haven't said aloud is mine, not the map's. A reader could fairly say the balanced cell flatters someone who is actually rigid, and the too-little cell assumes a wound the record never names. The asks survive being wrong because each one is doable by someone the read missed — naming a direction, dropping the case, making one small thing, saying I about one call. The line that serves me more than them is 'you know which way this goes,' so I've kept it only where the record's own balanced face — knowing that lands without argument — actually supports it."
+      "check": "The read that dominates too much is that this person pre-decides everything as a defense against a future they can't trust; the record supports a fast, complete-feeling clarity that runs ahead of events, and the bracing is the over-expressed face, so I've kept the mechanism specific and the ask independent of that diagnosis. A reader could say the rehearsing is just how they think, not a symptom — the ask still works either way, because running a rehearsal to its end on paper either reveals an answer or frees the loop. The sentence that serves me more than them is any version of 'you see the whole board before anyone else,' which flatters and hands nothing over, so it's gone."
     },
     {
       "attempt": 3,
-      "ms": 3203,
+      "ms": 5112,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -512,102 +500,96 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the one after that\"",
           "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person has ever spoken a direction aloud to anyone, so any claim about what they have or haven't said is mine, not the map's. A reader could fairly say the balanced cell flatters someone who's actually rigid, and the too-little cell edges toward a cause the record never names. The asks survive being wrong because each is doable by someone the read missed — telling one person the heading, dropping the argument, finishing one small piece, saying I about one call. The line that serves me more than them is 'you know which way this goes,' so I've kept it only where the record's own balanced face actually supports it."
+      "check": "The dominant claim is that the pre-deciding is a defense against an untrusted future; the record supports clarity that moves ahead of events, and the bracing belongs to the over-expressed face, so the mechanism stays specific and the ask works whether or not the diagnosis lands. A reader could reasonably say the rehearsing is just how this person thinks, not a symptom — running one rehearsal to its logical end on paper either produces an answer or frees the loop, so the ask survives being wrong. The sentence that serves me more than them is any version of 'you see the whole board before anyone else,' which flatters and hands nothing over, so it is gone; I checked the medicine acts against the card's own pull in the Balanced cell, and made the ask carry the medicine's act rather than the drawn card's prescription."
     },
     {
       "attempt": 4,
-      "ms": 3105,
+      "ms": 4069,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the truth a while before saying it\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -618,38 +600,32 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 107 words (120–160)",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -658,45 +634,33 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say the person has ever spoken a direction aloud, so claims about what they have or haven't said out loud are mine, not the map's. A reader could fairly say the balanced cell flatters someone who's actually rigid, and the too-little cell edges toward a cause the record never names. The asks survive being wrong because each is doable by someone the read missed — telling one person the heading, dropping the argument, finishing one small piece, saying I about one call. The line that serves me more than them is 'you know which way this goes,' so I've kept it only where the record's own balanced face actually supports it."
+      "check": "The dominant claim is that the pre-deciding is a defense against an untrusted future; the record supports a clarity that moves ahead of events, and the bracing belongs to the over-expressed face, so the mechanism stays specific and the ask works whether or not the diagnosis lands. A reader could reasonably say the rehearsing is just how this person thinks, not a symptom — running one rehearsal to its logical end on paper either produces an answer or frees the loop, so the ask survives being wrong. The sentence that serves me more than them is any version of 'you see the whole board before anyone else,' which flatters and hands nothing over, so it is gone; the Balanced ask carries the medicine's act (keeping the truth a while) rather than the card's own pull toward declaration."
     }
   ],
   "usage": {
-    "input": 4166,
-    "output": 4485
+    "input": 8173,
+    "output": 4756
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:14:51.194Z"
+  "date": "2026-10-02T11:51:41.995Z"
 }

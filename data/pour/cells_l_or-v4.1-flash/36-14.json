@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are making the fine distinctions now, and they are holding.",
-      "ask": "Tell one person the distinction you've been working out on your own, out loud, without tidying it first.",
-      "core": "You're making the distinctions while you're standing in the middle of things, adjusting a little here and there, and it's working well enough that you don't announce it. Something you worked out on your own has reached the point where it can leave the room it was made in.\n\nThe easy part to skip: when the private work goes well it feels finished where it sits. The next ordinary conversation is where it stops belonging only to you. Nothing needs settling first. You say the distinction as it stands, uneven as it is, and let the answer come. If it comes back wrong, that's information too.",
-      "sheetLine": "The distinctions are holding, and one of them is ready to be spoken.",
-      "verb": "telling one thing from another by working at it",
-      "place": "a place where you keep adjusting to hold the flow",
+      "tense": "You are at the bench with the work in front of you, taking away what doesn't hold, and the cut is good.",
+      "act": "deepen the mastery by persisting at it",
+      "ask": "Give the piece you're refining today's pass. Same hour tomorrow, and the day after, with no finish line in view.",
+      "core": "You can tell what holds from what doesn't, and you do it alone, without an audience, by sitting with a piece until the false part gives itself up. Kept at, this turns into mastery — not one good pass but the same pass returned to slowly, for as long as it takes.\n\nWhat makes it deepen instead of run dry is returning on ordinary days when nothing depends on the result. Give the work today's pass, then tomorrow's, then the day after. The repetition is the point; it's how a good ear becomes a reliable one. You'll learn the difference between a line that held and a line you let slide, and that knowledge lives only in hands that came back. The mastery isn't a talent you're proving; it's something you keep, and it feeds itself.",
+      "sheetLine": "You return on plain days, and the work deepens.",
+      "verb": "cutting what matters from what doesn't until the line is true",
+      "place": "a room where you keep adjusting the mix until the sound is right",
       "provenance": {
         "signature_id": 36,
         "position_id": 14,
@@ -26,14 +27,14 @@
         "partner": "Commitment",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -42,8 +43,13 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"deepen the mastery by persisting at it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -55,12 +61,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a verdict on the work that has not arrived.",
-      "ask": "Take one thing you have been refining and show someone the rough version of it this week.",
-      "core": "You're already ahead of where the work is. Something hasn't been said yet, hasn't been checked yet, and you're sharpening against an objection nobody has made — running it again in the car, hearing the verdict before it comes. Careful attention is doing its job and then continuing past the point where it had a job.\n\nRefining was not meant to be the whole relationship to the thing. Finishing means a version goes out while it's still rough, and you find out how it lands from someone else's mouth instead of your own. Done that way there is a calmer shape of this, where you are precise because the precision is good, and it costs you less than what you're paying now.",
-      "sheetLine": "You're testing the work against a verdict nobody gave.",
-      "verb": "telling one thing from another by working at it",
-      "place": "a place where you keep adjusting to hold the flow",
+      "tense": "You are holding tomorrow's test against what you haven't made yet, and the blade gets thinner than the work needs.",
+      "act": "let what you gave up be seen by the people it was for, without a word about it",
+      "ask": "Let whoever this practice costs see the given-up hours — and stay quiet about why it was worth it.",
+      "core": "Your eye runs past the work into what isn't built yet. You test distinctions no one asked for, keep the passes private, and the pressure has nowhere to land except back on you. What was sharp starts to feel like strain, because nothing you finish is finished enough for an eye that keeps moving.\n\nWhat's thin here isn't precision. It's being seen. Let the people this practice is for stand near the cost of it — the hours, what you set down to keep going — and don't explain that it was worth it. What was given up, simply visible, becomes something they can hold too. The pressure stops being yours alone. The next pass gets easier. So does stopping for the night.",
+      "sheetLine": "You're testing tomorrow's blade before today has one.",
+      "verb": "cutting what matters from what doesn't until the line is true",
+      "place": "a room where you keep adjusting the mix until the sound is right",
       "provenance": {
         "signature_id": 36,
         "position_id": 14,
@@ -69,11 +76,26 @@
         "partner": "Honor",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -83,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped bringing the work to anyone a while back.",
-      "ask": "Trade one small thing with someone today — something given, something gotten, no scorekeeping after.",
-      "core": "The adjusting is still running somewhere underneath, but nothing you make reaches a second pair of eyes. You tell yourself the distinctions aren't worth the trouble of saying, or that they would need too much explaining first. So the private work stays private, and nobody can tell you whether it's any good.\n\nThe honest version is that this was a fair call at the time, and the rule outlasted whatever made it fair. Fairness runs both directions, and right now nothing's moving either way. Start it small and actual: a thought you give away and a thought you take in, one exchange, and let it count for what it is. You don't have to feel ready.",
-      "sheetLine": "The work stopped reaching anyone, and that was a rule once.",
-      "verb": "telling one thing from another by working at it",
-      "place": "a place where you keep adjusting to hold the flow",
+      "tense": "Something you used to test carefully got decided a while back, and you haven't picked it up again.",
+      "act": "give one thing and take one thing, in balance",
+      "ask": "Accept what someone offers you, offer something back at the same size, and keep no tally of it.",
+      "core": "The private testing isn't running. You land on a judgment and stop there; the return, the willingness to find out you were wrong, has gone quiet. From outside it can look like clear opinions, but what made them worth having was the going-back. A verdict has taken the place of a practice.\n\nWhat wakes it up is exchange with someone. Accept what's offered, offer something back at the same size, and don't keep score. Not a favor you'll collect, not a debt owed. Someone offers, you take it; you offer, they take it. That two-way movement is the ground the quiet work stands on. Do it once this week and the practice has somewhere to land that isn't only your own head.",
+      "sheetLine": "You stopped testing and started holding the verdict.",
+      "verb": "cutting what matters from what doesn't until the line is true",
+      "place": "a room where you keep adjusting the mix until the sound is right",
       "provenance": {
         "signature_id": 36,
         "position_id": 14,
@@ -97,19 +120,24 @@
         "partner": "Reciprocity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -121,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "You are steering by fine readings you have not once claimed.",
-      "ask": "Name one adjustment you made today that nobody asked for, and say you made it.",
-      "core": "You notice when the room shifts, when the wording needs a small turn, when pushing will cost more than it buys — and you keep adjusting on the strength of it. That skill is running constantly. The question is who is holding it. Ask and you'll say you just noticed, or it seemed to need it, which is not the same as saying you made the call.\n\nThe skill is real and unowned, which is a strange way to live with it. There's satisfaction waiting on the other side of just this: an adjustment belongs to whoever made it, and the moment you say aloud that one was yours, the whole practice has an author again.",
-      "sheetLine": "You're doing the fine adjustments and calling them nothing.",
-      "verb": "telling one thing from another by working at it",
-      "place": "a place where you keep adjusting to hold the flow",
+      "tense": "You've been weighing true against false so long you'd call it just how you are.",
+      "act": "eat the meal you made and leave the kitchen as it is",
+      "ask": "Eat the meal you cooked, exactly as it is. Don't fix the seasoning. Don't clean up yet.",
+      "core": "You don't count the weighing as a choice anymore. It looks like good taste you happen to have, not a practice you kept, alone, before anyone could see what you were doing. The eye is yours. The hours behind it are yours.\n\nBefore you were refining things, you were someone who imagined them. Let that come back. Eat the meal you made and leave the kitchen as it is: no extra salt, no wiping the counter, no improving the plate. What sits under the weighing is the imagining, also yours, and it's been waiting for you to stop fixing and stand where the finished thing is, full as it is.",
+      "sheetLine": "It isn't your nature. It's work you did and didn't sign.",
+      "verb": "cutting what matters from what doesn't until the line is true",
+      "place": "a room where you keep adjusting the mix until the sound is right",
       "provenance": {
         "signature_id": 36,
         "position_id": 14,
@@ -135,19 +164,14 @@
         "partner": "Fulfillment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
@@ -166,20 +190,14 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5888,
+      "ms": 7235,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
@@ -191,7 +209,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return to the work daily until it is profound\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -208,15 +232,39 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"make the sacrifice visible without explaining it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -226,8 +274,247 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What charges it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record says the Honing capacity is private, inner, Body-Bridge through Air; it does not say the person keeps their sharp seeing hidden from anyone, only that the work is personal. A reader could object that they show their thinking all the time, and the Unacknowledged cell should survive that by pointing at authorship rather than secrecy. The asks stay useful if the read is wrong: each one is a small act the person can do or skip, and none depends on the diagnosis holding. The sentence that serves me more than them is the Tune poetry about 'calibration'; I've kept that out of the asks and kept one plain image in the Unacknowledged core, carried through."
+    },
+    {
+      "attempt": 2,
+      "ms": 6100,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"deepen the mastery by persisting at it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"for years\" — a cell knows no one's past",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for years\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record says the Honing capacity is private and personal; it does not say the person keeps their sharp seeing hidden from anyone, only that the work is done alone. A reader could object that they think out loud all the time, and the Unacknowledged cell survives that by pointing at authorship rather than secrecy. Each ask is a small, skippable act that doesn't depend on my read being right. The sentence that flattered me was the 'calibration' poetry; I kept it out of the asks and left one plain image in the Unacknowledged core."
+    },
+    {
+      "attempt": 3,
+      "ms": 4535,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"deepen the mastery by persisting at it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -238,6 +525,12 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -245,13 +538,13 @@
         },
         {
           "code": "length",
-          "detail": "core 106 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "glass",
-          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -269,111 +562,23 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person tests privately or revises alone — that is the card's mechanism, not their history, so every cell stays in what the capacity is doing in a moment they could recognise and none names what happened. A reader could say 'I don't work anything out alone, I never have', and the asks still hold because each one is a small external act that doesn't require the solitary premise to be true. The sentence serving the writer is 'the corrections nobody sees', which sounds like insight and is really the card admiring its own picture — cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 4240,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "the tense line is pasted into the core — the person reads it twice",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say the person works alone or has a history of withholding — the private thinker is the card's mechanism, not their life, so each cell keeps to what the capacity is doing in a moment they could recognise. A reader could say 'I think out loud constantly, I've never worked anything out quietly', and the asks still hold, because every one is a small external act that doesn't need the solitary picture to be true. The sentence serving the writer is 'the instrument reads well' — it flatters the card more than it helps the person, so it's cut."
+      "check": "The record says the Honing capacity is private and personal, done alone; it does not say the person hides it, only that the work is inner. A reader could object that they think out loud constantly, and the Unacknowledged cell survives that by pointing at authorship, not secrecy. Each ask is small and skippable and doesn't depend on my read holding. The sentence that served me more than them was the mix-and-calibration poetry; I've kept the seat phrase plain and left one carried image in the Unacknowledged core."
     },
     {
-      "attempt": 3,
-      "ms": 3285,
+      "attempt": 4,
+      "ms": 4249,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -384,8 +589,14 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"deepen the mastery by persisting at it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -394,6 +605,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -402,8 +631,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -414,6 +643,12 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -421,13 +656,119 @@
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record says the Honing capacity is private and personal, done alone; it does not say the person hides it, only that the work is inner. A reader could object that they think out loud constantly, and the Unacknowledged cell survives that by pointing at authorship, not secrecy. Each ask is small and skippable, and none depends on my read holding. The sentence that served me more than them was the mix-and-calibration poetry; the seat phrase stays plain."
+    },
+    {
+      "attempt": 5,
+      "ms": 3926,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"deepen the mastery by persisting at it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give one thing and take one thing in balance\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -444,13 +785,13 @@
           "status": 4
         }
       ],
-      "check": "The record does not say the person works in private or has a history of withholding — the solitary face is the card's mechanism, not their biography, so every cell keeps to what this capacity is doing in a moment they could recognise. A reader could say 'I think out loud constantly, I've never kept anything to myself', and the asks still hold, because each one is a small external act that doesn't depend on the private picture being true. The sentence serving the writer is 'The work holds either way' — it sounds steady and really closes the door on the person's answer, so it's cut."
+      "check": "The record says the Honing capacity is private and personal, done alone; it does not say the person hides it, only that the work is inner. A reader could object that they think out loud constantly, and the Unacknowledged cell survives that by pointing at authorship, not secrecy. Each ask is small and skippable, and none depends on my read holding. The sentence that served me more than them was the mix-and-calibration poetry; the seat phrase stays plain, and the last core now closes on the finished thing without the tic."
     }
   ],
   "usage": {
-    "input": 2567,
-    "output": 3038
+    "input": 9611,
+    "output": 6159
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:28:23.951Z"
+  "date": "2026-10-02T11:59:56.744Z"
 }

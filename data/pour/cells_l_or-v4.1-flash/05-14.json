@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are handing something on right now, and you can feel it change shape as it goes.",
-      "ask": "Teach the thing to one person and change one piece of it for them. Afterwards, write down what you changed and keep that note.",
-      "core": "You hand things on and the handing stays alive. What you pass along gets said a little differently each time — shorter for one person, softer for another — and that is not the meaning leaking out. That is it surviving.\n\nYou are not guarding the thing or performing it. You read the room, adjust, and what lands lands. Most people can do one of those and not the other: hold a thing exactly, or let it move. You are doing both in the same breath, which is why people leave with something they can actually use. The balance is not a state you reached, it is a thing you keep doing, and it costs you attention each round. That is the price of it staying true.",
-      "sheetLine": "You pass things on, and they stay alive in the passing.",
-      "verb": "passing on what was learned, in a form the next person can use",
-      "place": "keeping the balance by adjusting, not by holding still",
+      "tense": "You are holding what was handed to you and letting it shift with the people across from you right now.",
+      "act": "add a little or take a little away, and sense the difference",
+      "ask": "In what you pass on, change the wording or the order. Sit with whether it landed, then stop. No week to keep, no tally.",
+      "core": "You hold something that came from somewhere and you carry it forward, and none of it is stiff. You can read what the person sitting with you needs and you give them that, not the whole archive. Nothing splits you off from what you hold. That is why it keeps moving instead of wearing thin. The words shift, the core stays, and people take what is theirs without pretending to be the same as anybody else.\n\nWhen the line you're passing on doesn't suit the person beside you, adjust it — the wording, the order, what you leave out — then stop fussing. One small turn of the dial, then let it run. What you're holding is stronger when it moves a little with the moment. Nothing here needs adding or subtracting wholesale; it needs the small correction that keeps it alive.",
+      "sheetLine": "What you hold stays alive because you let it shift.",
+      "verb": "carrying the shared meaning forward",
+      "place": "a place where things are calibrated as they move",
       "provenance": {
         "signature_id": 5,
         "position_id": 14,
@@ -26,14 +27,14 @@
         "partner": "Tune",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +46,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already bracing for the version of this where the whole room finally gets it right.",
-      "ask": "Pick one piece of the practice and drop it for a week. At the end, note what still works without it.",
-      "core": "You are trying so hard for the thing that the thing has stopped moving. Somewhere ahead is the day it all gets said the right way, and you keep paying down on that day — correcting, setting the order straight, saying it again the way it should be said. The version you are defending is getting harder to breathe in.\n\nWhat you are carrying is good. The trouble is the windows are shut. You are running it as if loosening would lose it, so nothing gets to grow or change or get said wrong once and then found again by someone else. That is not holding onto it; it is holding it still. A practice that isn't allowed to move is hard to join, and hard to learn from when getting it wrong first is off the table.",
-      "sheetLine": "You are holding it so exactly that it cannot breathe.",
-      "verb": "passing on what was learned, in a form the next person can use",
-      "place": "keeping the balance by adjusting, not by holding still",
+      "tense": "You are bracing against a moment that hasn't come, holding the shape of the thing like it will break if anyone breathes on it.",
+      "act": "stop holding up the false thing and watch it come down",
+      "ask": "Pick the rule you're propping up by hand, then take your hand away. Let it lean where it leans and don't rebuild. Then leave it.",
+      "core": "What you're carrying has become a rule. The core is right — the thing did hold once, and it matters — but the way you hold it now demands that people stand the same way, and they can feel the pressure coming off it. The windows have been sealed to keep the air even. That isn't the thing itself; it's the scaffolding you've built around it, and the scaffolding is heavy enough to be felt by whoever walks past.\n\nFind the piece you're holding up that wouldn't stand without your hand under it. Take your hand away. Let it lean or fall, and don't catch it. What comes down comes down, and what stays was the thing itself. You'll be able to tell the difference once your arms are free of the weight.",
+      "sheetLine": "You are holding a shape up that only stands because you hold it.",
+      "verb": "carrying the shared meaning forward",
+      "place": "a place where things are calibrated as they move",
       "provenance": {
         "signature_id": 5,
         "position_id": 14,
@@ -59,26 +61,32 @@
         "partner": "Breakthrough",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You have been building from scratch for a while, and you already know how tired that is.",
-      "ask": "Ask one person who does this differently to show you how they do it. Say thank you, and write down one thing they do.",
-      "core": "Everything you know got built alone. That is what makes it yours — and it is also why it feels like starting over each round. There is no shelf behind you, nothing handed down, nothing you can reach for when the ground goes soft. So each new thing has to be carried by you and only you, and it holds until you put it down.\n\nSmart people stall here. The intelligence is not in question; the receiving is. You have done the hard part alone so many times that asking to be shown feels like a step back. It isn't. Nothing you build stops being yours because someone showed you the shape of it first. The thing you have been missing is not more effort. It is a hand on the other end of this.",
-      "sheetLine": "You have been the only one carrying it, and it shows.",
-      "verb": "passing on what was learned, in a form the next person can use",
-      "place": "keeping the balance by adjusting, not by holding still",
+      "tense": "You've been alone in this a long while, building every piece yourself because none of it was handed to you.",
+      "act": "step back far enough to see the whole arrangement",
+      "ask": "Choose a stretch of your own working-out and step back. See the parts and how they bear on each other. No notes, no verdict on it.",
+      "core": "You've been putting the pieces together from scratch — every frame, every use — because nobody handed anything over when it was needed. The work you've done inside that is real; the price is that it's yours alone, and there's nowhere to set it down. Standing on your own ground has meant standing on no ground. There's no history behind the way you know things, so it's hard to say whether any of it counts as anything but yours.\n\nTake some working-out of your own. Not the biggest thing. Step back and look at how it runs underneath — no detail, just the arrangement. What are the parts, and how do they bear on each other? Once you can see the shape, it stops being only yours. It can be handed on, and it can hold you.",
+      "sheetLine": "You rebuilt it all alone, so nothing of it carries you.",
+      "verb": "carrying the shared meaning forward",
+      "place": "a place where things are calibrated as they move",
       "provenance": {
         "signature_id": 5,
         "position_id": 14,
@@ -87,36 +95,32 @@
         "partner": "Abstraction",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already the one people copy from, and you keep calling that something else.",
-      "ask": "Say out loud, to one person, one thing you do a certain way and why. Let it be a small thing.",
-      "core": "Someone around you is already doing things your way. Not because you told them to — because they watched. You picked up a habit somewhere, kept it, and it spread, and you would still say you are not the one passing anything on.\n\nThat is the part that is hiding. The teaching is doing its work; the saying-so hasn't happened. You keep pointing at luck, or at the group, or at how it has been done here. But you are the one doing it, and the version you are doing has your adjustments in it. That is what makes it worth handing down. Nothing changes about the practice the moment you say so, except that you get to keep it yourself instead of leaving it to drift.",
-      "sheetLine": "People are already following your way. You have not said so.",
-      "verb": "passing on what was learned, in a form the next person can use",
-      "place": "keeping the balance by adjusting, not by holding still",
+      "tense": "You are already moving the thing forward, and your phrase for it is that you're just getting along.",
+      "act": "find the centre and hold it while things move",
+      "ask": "When something needs a small correction with someone and you make it, pause one breath first and let your own hand in it register. Then carry on.",
+      "core": "There's something being carried forward through you. You adjust when it needs adjusting — a word changed here, a weight taken off one side and put on the other — and it works, which is why nobody, including you, has looked at it. Your phrase for it is that you're easy to be around. The balancing has your handwriting on it. You'd say the group just gets on well, and what's actually happening is that the small corrections come off your hand minute to minute without ever being marked.\n\nNext time you sense the shift and make it, pause for one breath first and let yourself register that the hand doing it is yours. Then do it, or leave it. Either is fine. That pause is the only distance between being carried along by the thing and holding its centre while it moves.",
+      "sheetLine": "You are keeping it steady, and your phrase for it is getting along.",
+      "verb": "carrying the shared meaning forward",
+      "place": "a place where things are calibrated as they move",
       "provenance": {
         "signature_id": 5,
         "position_id": 14,
@@ -125,19 +129,14 @@
         "partner": "Tune",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -151,20 +150,32 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 8241,
+      "ms": 7312,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -181,21 +192,21 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
-          "hard": false,
           "status": 3
         },
         {
@@ -205,44 +216,26 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"me\" — a cell has no I; the Reader may add one live",
+          "code": "vocab",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
+          "detail": "five words in a row from an exemplar or a rule: \"your name for it is\"",
           "hard": true,
           "status": 4
         },
@@ -251,20 +244,42 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that the person has a specific audience or people currently receiving what they carry; the record only says the capacity to hand things on is present or not, not who is around. Reader's likely objection: 'I'm not teaching anyone' — which is why each core describes the capacity in small, checkable moments rather than a role. The ask survives being wrong: writing one plain sentence of what a practice is for can be done whether or not anyone is being taught, and either result is their own material. Sentence that serves the writer more than them: anything building toward 'you are the teacher' as a verdict — cut before it lands."
+      "check": "The unsupported claim is 'you're already the teacher' in the Unacknowledged cell — I can see that meaning is passing through them, but not that anyone is receiving it or that they hold a role. A reader could reasonably say the transmission is just a habit or a mood, not a teaching. The ask survives either way: pausing before a small correction to know your own hand is useful even if no one is learning from it, and useful if someone is. The sentence that serves me more than them is 'somebody is already learning from you' — I've cut it and left the act of balancing as what can be seen."
     },
     {
       "attempt": 2,
-      "ms": 4802,
+      "ms": 4846,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -275,20 +290,20 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -299,27 +314,15 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -327,20 +330,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that anyone is actually receiving what the person carries — the record gives the capacity to hand things on, not an audience. Reader's likely objection: 'I'm not teaching anyone,' so each core stays with small, checkable moments and never assigns a role. The ask survives being wrong: changing one piece of a practice for one person, or noting what still works without it, or asking to be shown, or saying one habit out loud, all produce usable material either way. Sentence that serves the writer more than them: any line building toward 'you are the teacher' as a verdict — cut it before it lands."
+      "check": "The unsupported claim is still the Unacknowledged cell's implication that someone is receiving what passes through them; I can see the calibration happening, not that it lands on anyone. A reader could say the steadying is just their temperament, not a role they're filling. The ask survives either way — pausing before a correction to register your own hand is useful whether or not anyone benefits. The sentence that serves me more than them is 'you're holding the centre' — I've cut it and left the small correction as the only thing visible."
     },
     {
       "attempt": 3,
-      "ms": 4224,
+      "ms": 4557,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -351,14 +370,20 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -369,48 +394,47 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your name for it is\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that anyone is actually receiving what the person carries — the record gives the capacity to hand things on, not an audience. Reader's likely objection: 'I'm not teaching anyone,' so each core stays with small, checkable moments and never assigns a role. The ask survives being wrong: changing one piece of a practice for one person, or noting what still works without it, or asking to be shown, or saying one habit out loud, all produce usable material either way. Sentence that serves the writer more than them: any line building toward 'you are the teacher' as a verdict — cut it before it lands."
+      "check": "The unsupported claim is still that anyone receives what passes through them in the Unacknowledged cell — I can see the small corrections happening, not that they land on a learner. A reader could say this is just their temperament, not a role they hold. The ask survives either way: pausing to register your own hand before smoothing something over is useful whether or not it teaches anybody. The sentence that serves me more than them is 'you keep it on course' — I've cut it and left only the visible correction."
     },
     {
       "attempt": 4,
-      "ms": 4105,
+      "ms": 6162,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -421,14 +445,20 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 1 contracted — written, not said",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -439,20 +469,8 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -463,13 +481,71 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that anyone is actually receiving what the person carries — the record gives the capacity to hand things on, not an audience. Reader's likely objection: 'I'm not teaching anyone,' so each core stays with small, checkable moments and never assigns a role. The ask survives being wrong: changing one piece of a practice for one person, or noting what still works without it, or asking to be shown, or saying one habit out loud, all produce usable material either way. Sentence that serves the writer more than them: any line building toward 'you are the teacher' as a verdict — cut it before it lands."
+      "check": "The unsupported claim is in the Unacknowledged cell: that anything is being received by others through this person's small corrections. The record shows the calibration, not an audience. A reader could say this is simply their temperament, not a role. Every ask survives that: each one only asks the person to do their own small acts with attention, which is useful whether or not anyone is learning from them. The sentence that serves me more than them is 'you keep the thing on course' — I've cut it and kept only the visible acts."
+    },
+    {
+      "attempt": 5,
+      "ms": 3452,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"add a little or take a little away and sense the d\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stop holding up the false thing and watch it come \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the centre and hold it while things move\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim remains the Unacknowledged cell's implication that others receive what this person's small corrections carry — the record shows the calibration, not an audience. A reader could say this is temperament, not a role. All four asks survive that: each asks only for the person's own small act, done with attention, useful whether or not anyone learns from it. The sentence that serves me more than them is 'you keep it on course' — cut, leaving only visible acts."
     }
   ],
   "usage": {
-    "input": 4057,
-    "output": 4455
+    "input": 9494,
+    "output": 6470
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:59:09.392Z"
+  "date": "2026-10-02T12:47:55.093Z"
 }

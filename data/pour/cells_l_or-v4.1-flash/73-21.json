@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Your hand is on the pen now, and the cold judgment and the warm feeling share it.",
-      "ask": "Name one promise you have already kept or one wrong you have already answered, and say it is done — out loud, today, to whoever it was for.",
-      "core": "You can be angry and still weigh the thing fairly in the same hour. Not many people manage both, and you do it without calling it anything. Years of feeling things all the way through settled into you and left a level hand — you decide what is right without the heat deciding for you. People bring you the loaded argument because they can feel you hold it steady.\n\nThe test right now is not whether you keep the hand level. It is whether you can let a thing be finished. You are at the point where what is complete gets released, and completion is what this moment is for. Pick one thing that has already run its course and declare it over, plainly. You do not have to hand it over perfectly. Today is the day the finished thing gets let go.",
-      "sheetLine": "You can call something finished and keep a level hand.",
-      "verb": "judging what is fair while staying level inside it",
-      "place": "the threshold where something finished gets let go",
+      "tense": "Here, at the threshold, judgment about what is fair is steady and felt.",
+      "act": "release what is done and keep what serves",
+      "ask": "Look over what this stretch leaves you holding, name the piece that's finished, and put that one down. Keep the rest.",
+      "core": "At the threshold, you can tell what a situation weighed and whether it came out fair. Feeling the whole thing through doesn't scatter you — it's how you arrive at the call. You hold the ending and the aftermath at once, and neither one rushes you.\n\nThat steadiness is the ground the next thing gets built on. What this balance is free to feed now is a finish let all the way finish: what still serves stays in your hands, what's done gets set down. Releasing cleans up what plenty needs. When you're weighing what to set down, the tell is usually whether you'd pick it up again knowing what you know.",
+      "sheetLine": "What's fair gets decided by feeling it all, not by counting.",
+      "verb": "Feeling a situation through to its fair shape and then letting it go",
+      "place": "The threshold where a long work finishes and what's next hasn't arrived",
       "provenance": {
         "signature_id": 73,
         "position_id": 21,
@@ -26,41 +27,47 @@
         "partner": "Steward of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already standing at a future verdict, bracing for a judgment that has not arrived.",
-      "ask": "Pick one thing that is not yours to settle and leave it alone today — do not correct it, do not rehearse for it, let it stay unanswered.",
-      "core": "You will not let a wrong stay standing. Each exchange with someone carries a small ledger, and somewhere ahead of you a score is waiting to be settled. You have already felt how it will land and how you will answer, so you keep arriving before anyone else is there. It feels like fairness. It costs like holding a door open that nobody walks through.\n\nFairness done that way stops flowing. It turns into calculation, and calculation leaves you braced instead of met. Holding the thing level is still yours. The pushing is what got added on top, and the pushing is what has worn you down. Put one thing down that is not yours to settle, and let the exchange move without your hand on it. If the read is wrong, you still get a day without carrying the verdict.",
-      "sheetLine": "You are settling scores nobody asked you to settle.",
-      "verb": "judging what is fair while staying level inside it",
-      "place": "the threshold where something finished gets let go",
+      "tense": "The ending hasn't arrived, and its outcomes are already being decided.",
+      "act": "hold the weight as a builder holds stone",
+      "ask": "Put down the outcome you're managing hardest, and carry only what's in your hands today — one piece, carried the length of today.",
+      "core": "At the threshold, the fairness calls are being made before the situation has shown its shape. Every future version gets judged — what you'll owe, what they'll owe, how it lands — and the judging has stopped waiting for the evidence. Steady feeling has become a grip that keeps arriving before the ending it's supposed to meet.\n\nFairness flows when the weighing can wait for the thing being weighed. So hold one weight the way a builder holds stone: the hand carries exactly what's there and sets it down when it's time. One outcome you're carrying too early, put down today; what's actually here, carried to the day's end. The call you're owed gets made when there's something to make it about.",
+      "sheetLine": "You're deciding endings before they've arrived to be decided.",
+      "verb": "Feeling a situation through to its fair shape and then letting it go",
+      "place": "The threshold where a long work finishes and what's next hasn't arrived",
       "provenance": {
         "signature_id": 73,
         "position_id": 21,
@@ -69,31 +76,37 @@
         "partner": "Executor of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "vocab",
-          "detail": "two images in one core (ledger, door) — one at most, usually none",
+          "detail": "two images in one core (threshold, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "A door closed behind you and you are still standing on the near side, not through it.",
-      "ask": "Take a few quiet minutes with one question you do not have an answer for, and let sitting with it be enough — no conclusion required.",
-      "core": "You know something about what is fair and you are not saying it. Judging has not gone anywhere; saying stopped. Something in you keeps standing back from the finish line, so the last chapter gets written without you in the room. The thing is over and you are not over it.\n\nWhen every ending feels unsafe, nothing gets to close, and that is the bend here. It is not a flaw in how you judge. It is a habit of staying back that has grown on top of the judging. Feed the other side of yourself — the side that looks before it uses. Take a few quiet minutes today with a single question and no answer waiting, and let your own attention connect. If you would rather not, the invitation stands anyway.",
-      "sheetLine": "You have the answer. You stopped saying it.",
-      "verb": "judging what is fair while staying level inside it",
-      "place": "the threshold where something finished gets let go",
+      "tense": "The threshold is behind you, and the judging of what was fair didn't happen.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Write what happened in the stretch that ended, in order, plain sentences, no feeling words. The sequence on paper, nothing added.",
+      "core": "The ending is behind you, and the fair call on it didn't get made. The whole way through you had a sense of what was right, and here it's quiet — so nothing gets judged, nothing gets said, and the finishing doesn't finish. You're standing at a door that already closed, waiting on your own verdict.\n\nNothing gets unstuck by pressing feeling into that quiet. What works instead is method: write what happened in the situation, in order, in plain sentences with no feeling words in them, and pin the page down. That's not the verdict — it's the material the verdict needs. The fairness comes back through the facts, in your order, once somebody writes them down.",
+      "sheetLine": "You're waiting at a door that already closed behind you.",
+      "verb": "Feeling a situation through to its fair shape and then letting it go",
+      "place": "The threshold where a long work finishes and what's next hasn't arrived",
       "provenance": {
         "signature_id": 73,
         "position_id": 21,
@@ -102,19 +115,14 @@
         "partner": "Executor of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
@@ -131,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "The pen is down in a hand that is still writing, and the page keeps getting finished.",
-      "ask": "Say out loud, once, a call you made that turned out fair, and say you made it — not the situation, not the room, you.",
-      "core": "You hold the line in rooms where it would be easier not to. You say the hard thing, you split the unfair thing down the middle, and people leave steadier than they arrived. But ask you about it and you will say that is just what being fair means. What is finished gets finished by something in you that you keep describing as the room's doing.\n\nThere is a quieter way of carrying it. Before you built all the machinery of deciding, there was just noticing what was true and trusting it. That simpler seeing is still in you, and it is more accurate than the machinery. Say one call you made that turned out right, and say it was yours. If the read is off, the sentence still belongs to you.",
-      "sheetLine": "The fairness is yours. You keep calling it the room's.",
-      "verb": "judging what is fair while staying level inside it",
-      "place": "the threshold where something finished gets let go",
+      "tense": "Judgment of fairness is steering things right now, and the one making the calls calls it nothing.",
+      "act": "ask the question you do not know the answer to",
+      "ask": "In this stretch where things are being sorted fair from unfair, ask a question you genuinely don't know the answer to, and carry it unanswered.",
+      "core": "People are being held to something around you — standards, the right split, what's owed — and it's coming out even. You'd tell it as things working themselves out. The calls are being made in you, constantly, and the one who talks about it gives the credit to circumstance.\n\nEver since you started, the calls have come from feeling the whole thing and then knowing. That's still what's doing it; it just doesn't sign its name. So ask a question about the situation that you genuinely don't know the answer to — who was actually being fair, what someone really meant — and carry it unanswered for a day. Before you had the answers, you were curious. Go back to the asking, and the fairness shows whose call it's been.",
+      "sheetLine": "The fairness here is your call, filed under circumstance.",
+      "verb": "Feeling a situation through to its fair shape and then letting it go",
+      "place": "The threshold where a long work finishes and what's next hasn't arrived",
       "provenance": {
         "signature_id": 73,
         "position_id": 21,
@@ -145,21 +154,11 @@
         "partner": "Initiate of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
@@ -176,74 +175,68 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7072,
+      "ms": 6147,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Creation",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (ledger, door) — one at most, usually none",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "hard": false,
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "wound",
-          "detail": "\"The door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -254,15 +247,9 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
           "status": 3
         },
         {
@@ -272,39 +259,27 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\", and let the page\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "scope",
-          "detail": "\"not luck\" — certifies the person; the record cannot know it",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
           "status": 4
         },
         {
@@ -312,17 +287,33 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"situation\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The draft's longest reach from the record is the Too Little cell saying the person stopped offering something worth handing over; the record only gives the past-tense stance and the starved seat, not what is behind them or that something was refused. A reader could fairly say the hesitation is recent or situational rather than old, so the core holds the authorship bend and leaves the history unnamed. The asks survive the read being wrong because each is a single move with a finish, useful even if the mechanism is off — the disclaimer at the end of each core is not decoration, it is the reading's own honesty about being one view. The sentence that serves me more than the person is any line that would sound finished before the person gets to answer; I have kept the cores open so the person's answer is still the point."
+      "check": "The draft claims the person is currently in the middle of integrating a long emotional season and about to release it; the record gives the capacity and the seat, not their history, so a reader could rightly say the ending happened months ago or hasn't started. The asks survive being wrong about that: laying a thing down, holding a weight back from crushing, writing the facts in order, and asking a plain question are all doable whether or not the transition is underway. The sentence that serves me more than them is any phrasing that says the read is about their life rather than their capacity — 'you've been carrying this season' would be me narrating them; I've kept to what the fairness capacity is doing in the moment."
     },
     {
       "attempt": 2,
-      "ms": 5044,
+      "ms": 4679,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -330,14 +321,8 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -348,42 +333,54 @@
           "status": 1
         },
         {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (ledger, door) — one at most, usually none",
+          "detail": "two images in one core (threshold, shape) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the page\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -391,14 +388,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -412,17 +403,38 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"stretch\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The draft's longest reach from the record is the Too Little cell implying a door closed behind the person; the record gives the past-anchored stance and the starved seat, not what happened there. A reader could fairly say the hesitation is recent or situational, so the core names the bend in authorship and leaves the history unnamed. The asks survive the read being wrong because each is one visible move with a finish, doable today, useful even if the mechanism is off. The sentence that serves me more than the person is any line that sounds resolved before they get to answer; the cores stay open so their answer is still the point."
+      "check": "The draft still leans on a transition being underway at the threshold, which the record doesn't give; a reader could say the work finished long back or hasn't begun. The asks survive that: naming a finished piece, holding one weight, writing a sequence, asking an open question are all doable regardless. The sentence that serves me most is any that narrates their season rather than their capacity, so I've kept to what the fairness capacity is doing in the moment and dropped the narrative cues the checker caught."
     },
     {
       "attempt": 3,
-      "ms": 3665,
+      "ms": 4300,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -430,44 +442,44 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (ledger, door) — one at most, usually none",
+          "detail": "two images in one core (threshold, shape) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the weight as a builder holds stone\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -484,18 +496,6 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
@@ -508,13 +508,13 @@
           "status": 4
         }
       ],
-      "check": "The draft's longest reach from the record is the Too Little cell implying the person stands back from endings as a settled habit; the record gives the past-anchored stance and the starved seat, not the history behind it. A reader could fairly say the hesitation is recent or situational, so the core names the bend in authorship and leaves the history unnamed. The asks survive the read being wrong because each is one visible move with a finish, doable today, useful even if the mechanism is off. The sentence that serves me more than the person is any line that sounds resolved before they get to answer; the cores stay open so their answer is still the point."
+      "check": "The read still assumes a long work is finishing and a threshold is being crossed, which the record doesn't grant; a reader could say nothing is finishing, or that the finishing is old news. The asks survive that: laying down a finished piece, carrying only what's in hand, writing a sequence plain, asking an open question are all doable whether or not any transition is underway. The sentence that serves me most is any that narrates their season rather than their capacity — I've kept to what the fairness capacity is doing in front of them and dropped the narrative cues the checker caught."
     }
   ],
   "usage": {
-    "input": 6095,
-    "output": 3576
+    "input": 2973,
+    "output": 3448
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:01:15.404Z"
+  "date": "2026-10-02T13:19:11.775Z"
 }

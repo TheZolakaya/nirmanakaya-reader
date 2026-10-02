@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you can be close to someone without losing the shape of what you are moving toward.",
-      "ask": "Tell one person one true thing about how the work is actually going, then go back to it. Notice you did not have to leave either one.",
-      "core": "You can be with someone and still be headed somewhere. That is harder than it sounds, and you are doing it — the person in front of you gets your real attention, and your own direction does not dissolve while you give it. You are not absorbing them and you are not steering them.\n\nWhat makes it work is that you are not holding on. You stay with them while they are there, and when the conversation ends you go back to your own road without either one costing you the other. That costs something to keep: it means staying present when it would be easier to perform, and getting your own goals named when attention feels generous. You carry weight and you keep going — that is what is holding this together. It does not need to be forced. It is already running.",
-      "sheetLine": "You can be close and still be moving where you meant to go.",
-      "verb": "feeling with someone rather than only about them",
-      "place": "in the motion toward what you are trying to finish",
+      "tense": "The distance is here, and you are still willing to close it.",
+      "act": "hold your shape under the weight",
+      "ask": "In the next hard conversation you are walking into, stay in your own position while you hear theirs. Decide nothing about who is right.",
+      "core": "The nearness is here and you are neither swallowing the other person nor holding them at arm's length. You know where you stop and they begin. You can steer while you stay on the same road, and nobody has to shrink for the going to be easy. The other side of this is steady presence inside a shared direction, and you are standing in it now.\n\nWhat you are free to add is duration. Not every load has to be lifted to be carried well; some just need you still holding your own weight underneath it. Hold your shape under the weight. The chance is to stay for one more exchange after you would normally step back, not to prove anything. A course holds because the one steering does not lean into the other boat.",
+      "sheetLine": "You stay near without losing where you end.",
+      "verb": "feeling your way across the gap",
+      "place": "a course held through rough water",
       "provenance": {
         "signature_id": 6,
         "position_id": 7,
@@ -26,36 +27,52 @@
         "partner": "Fortitude",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Somewhere ahead you are already bracing for a version of this that has not happened yet, and it is pulling you out of the room you are standing in.",
-      "ask": "Finish the one thing that is actually done and stop carrying its ending as a maybe. Say the ending out loud to yourself once, then leave the next step for tomorrow.",
-      "core": "You are carrying other people's weight before they hand it to you. Goals you have, and other people's feelings get folded into them until you cannot tell which momentum is yours. You move on behalf of others and call it direction, and the thing you were actually aiming at drifts.\n\nThe version you are bracing for is not the one in front of you. You are already solving a conversation that has not started, already softening an ending that has not arrived. That is not care; it is rehearsal, and it costs you the present. What ends here needs to be let end — not crushed, just finished — so the next thing has somewhere to begin. Endings you honor make room. Endings you postpone run the whole show.",
-      "sheetLine": "You are pushing ahead on a road that is not entirely yours.",
-      "verb": "feeling with someone rather than only about them",
-      "place": "in the motion toward what you are trying to finish",
+      "tense": "You are bracing for what the next mile together will demand of you.",
+      "act": "let the thing end that is already over",
+      "ask": "Take something you are already arranging your next months around. If it is finished, stop building for it, and leave the space empty.",
+      "core": "You are planning for a future with someone, or with a project that has many hands on it, and somewhere in the planning the distance between you and them has stopped existing. You are organizing your course around what you think they need, not what you need. The load is shared to the point that the two of you are steering one wheel, and you no longer know whose turn it is to be tired.\n\nFusion like this wants to be treated as a fact, not a feeling. Some endings are already finished, and you have been refusing to let them finish. Take one thing that is already over between you and someone. Close it plainly, say one true sentence about it, and do not reopen it. The separateness is not a loss. It is the condition under which two people can actually travel far together.",
+      "sheetLine": "You are steering a future that has already finished.",
+      "verb": "feeling your way across the gap",
+      "place": "a course held through rough water",
       "provenance": {
         "signature_id": 6,
         "position_id": 7,
@@ -64,7 +81,7 @@
         "partner": "Transformation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -76,29 +93,25 @@
         },
         {
           "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it direction\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "Back at some point spending feeling made the going impossible, so you stopped feeling it, and you are still standing at that door though you have already walked through it.",
-      "ask": "Pick one person you see most days and ask them one plain question about their week. Let the answer land before you decide what it means.",
-      "core": "You keep your distance and tell yourself it is efficiency. People come and go around you and nothing sticks, not because you are cold but because arriving fully would slow the thing you are chasing. The contact stays at the surface and you have stopped expecting more.\n\nWhat is missing is not warmth and it is not effort. It is the small ongoing work of adjusting — sensing what actually helps here, what to add, what to leave out — and that work has gone quiet. Feeling into someone will not come back by trying harder at it. It comes back through attention: noticing, correcting, staying in the exchange instead of managing it from a step back. Start small. One person, one real question, and let yourself be in it.",
-      "sheetLine": "You keep people at the surface so the going stays clear.",
-      "verb": "feeling with someone rather than only about them",
-      "place": "in the motion toward what you are trying to finish",
+      "tense": "You stood at a doorway that somebody else was already walking through.",
+      "act": "adjust one dial a little, then stop",
+      "ask": "In one conversation you have on a regular schedule, change a single thing — a question, a time, a place — then leave it alone.",
+      "core": "You are rowing toward a destination, and the people alongside you are mostly background. You can start a friendship or a project and keep it warm enough that nobody notices the middle has gone quiet. The date, the logistics, the surface of it: all present, no floor. This is not cruelty. It is the part of you that stopped expecting to be met, so it stopped going toward anyone in particular.\n\nWhat may help is small and unromantic. Adjust one dial a little, then stop. Take one exchange you have on a regular schedule and change a single thing about it — the day, the time, a question you begin with. Then leave it alone. The point is not to feel more. It is to see whether anything comes back from the other side of the adjustment. You are tuning, not opening a vein.",
+      "sheetLine": "You keep things warm without arriving at them.",
+      "verb": "feeling your way across the gap",
+      "place": "a course held through rough water",
       "provenance": {
         "signature_id": 6,
         "position_id": 7,
@@ -107,19 +120,24 @@
         "partner": "Tune",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -131,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "Right now you are doing things that land as warmth on other people while it registers in you as nothing in particular.",
-      "ask": "Take one thing you did this week that someone else called kind and say plainly what you were thinking in that moment. Do not correct it into something warmer than it was.",
-      "core": "People feel something from you that you would not describe as feeling. You listen, you hold a line for someone, you make a decision gentler than it had to be — and your own account of it is just that it was the sensible thing to do. The connection reaches them. It does not reach you.\n\nThe shape of it is not hidden from you; you know how you move and you know what usually works. What has not been claimed is the source. You are attributing your own motion to the situation, to what was needed, to the practical read. Naming it as yours does not make it softer or needier. It just puts the doing back with the one who is doing it. Start with one action, not the pattern.",
-      "sheetLine": "They feel your care. You have not said it was yours.",
-      "verb": "feeling with someone rather than only about them",
-      "place": "in the motion toward what you are trying to finish",
+      "tense": "Somebody is speaking of you with a warmth you do not recognise as yours.",
+      "act": "step back far enough to see the whole arrangement",
+      "ask": "Recall three moments someone called you kind. List what you actually did in each, plainly, then read the list back to yourself.",
+      "core": "You do not feel what you are told is yours. Someone says you were there for them and you can only remember being efficient. But the record is not the same as the experience: your care is being read by others at a level you are not conscious of running. They are not wrong about what they received. You are not lying about what you felt. Both are real, and only one of them is steering.\n\nStep back from the moments themselves and look at the arrangement. Take three times someone said you were kind and set down what you actually did, not what you meant by it. The pattern will show you what they see. Name the mechanism in one line and change nothing. The wholeness is not new; it is merely being kept where you can see it working.",
+      "sheetLine": "Your care is real and you have not been reading it.",
+      "verb": "feeling your way across the gap",
+      "place": "a course held through rough water",
       "provenance": {
         "signature_id": 6,
         "position_id": 7,
@@ -145,14 +164,19 @@
         "partner": "Abstraction",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"step back far enough to see the whole arrangement\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -171,82 +195,68 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7409,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "shape",
-          "detail": "no cells array",
-          "hard": true
-        }
-      ]
-    },
-    {
-      "attempt": 2,
-      "ms": 4142,
+      "ms": 8055,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "said",
           "detail": "8 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it direction\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"long ago\" — a duration the person never gave",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -257,6 +267,36 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"moving toward something and the\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -264,8 +304,26 @@
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"step back far enough to see the whole arrangement\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the last three times you\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -279,32 +337,55 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that others already feel a connection the person does not — the record gives the shape, not a fact about any particular room. A reader could rightly say it is not indifference, only patience or exhaustion, and the read would still stand. The asks survive a wrong read because each one can be done whether or not the read holds, and the sentence that serves me more than the person is the one about others feeling warmth they can't feel — so I have kept it narrow and made it something they can refuse."
+      "check": "The record only licenses the mechanism, not the story behind it — an author who writes a person's past into a Too Little card has invented evidence, not read the map. The real temptation here is to make Disowned Compassion sound noble, turning the ask into a witness that praises the unseen giver; the person said nothing about how they give, only that they are steering. The ask survives an incorrect read because it only asks the person to write down what they themselves do, which cannot be more wrong than their own memory."
     },
     {
-      "attempt": 3,
-      "ms": 4493,
+      "attempt": 2,
+      "ms": 5752,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 1
         },
@@ -316,25 +397,25 @@
         },
         {
           "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it direction\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -345,6 +426,24 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"What helps here is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"toward something and the people\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -352,7 +451,13 @@
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"step back far enough to see the whole arrangement\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -369,13 +474,125 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that others already feel a connection the person does not — the record gives the shape, not a fact about any particular room. A reader could rightly say it is not indifference, only patience or exhaustion, and the read would still stand. The asks survive a wrong read because each one can be done whether or not the read holds, and the sentence that serves me more than the person is the one about others feeling warmth they can't feel — so I have kept it narrow and made it something they can refuse."
+      "check": "The record licenses only the mechanism — Disowned Compassion as care others receive and the person does not register — not any history of why the noticing shut off, and not praise for a selflessness the person never claimed. The reader could reasonably object that they are not numb at all, only busy, and the Too Little card must survive that without arguing. The asks survive a wrong read because each one only asks the person to change one small thing or to look at their own record, which cannot be more wrong than their own memory. The sentence that serves me more than them is any line that makes the disowned giver sound noble; it is cut."
+    },
+    {
+      "attempt": 3,
+      "ms": 4556,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"adjust one dial a little then stop\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"step back far enough to see the whole arrangement\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record licenses the mechanism only — care that others receive and the person does not register as their own — not any history of when the noticing shut off, and not praise for a selflessness the person never claimed. The reader could fairly object that they are not numb at all, just occupied, and the Too Little cell has to survive that without arguing back. Every ask here only asks the person to change one small thing or to read their own record, so a wrong read cannot make the act useless. The sentence that serves me more than them is any line that makes the unseen giver sound noble; it is cut."
     }
   ],
   "usage": {
-    "input": 2641,
-    "output": 3548
+    "input": 6042,
+    "output": 3618
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:59:51.203Z"
+  "date": "2026-10-02T11:24:43.741Z"
 }

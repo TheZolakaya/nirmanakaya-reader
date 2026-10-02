@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now the weighing is here and the world can wait for it.",
-      "ask": "Set a timer for fifteen minutes, write what you already see, and end the page without a plan.",
-      "core": "There's something you see before you say it, and holding it back is not a delay. When you sit with both sides first, you catch the thing that would have been wrong before it leaves your mouth. That pause is the work, not the slowing of the work. Decisions land well around you when you're the one who actually held them open first. Staying open like that usually costs something. Right now it's costing and it's working.\n\nNothing here is decided yet, and that sits fine with you. That part can go sideways other weeks. You can keep one small window open today. Not for good — just long enough to not rush the next thing. If you sit down to write and nothing wants closing when the timer goes, leave it open a while longer. That's not a quota you owe anyone.",
-      "sheetLine": "You see it before you say it, and holding it is the work.",
-      "verb": "weighing what you know before you say it",
-      "place": "the room before anything has been decided here",
+      "tense": "What the mind holds, it holds steadily, and the holding can still choose.",
+      "act": "make the call and carry it through",
+      "ask": "Make a call you've already weighed, carry it through that same day, and keep the telling to the call itself.",
+      "core": "A weighing finishes in you early, before reasons get lined up into sentences. What you take in is real, so sitting with it a while tends to produce the better answer. No case has to be built first. When words do come, they land, and people feel the weight behind them.\nThe place this can slip is on the far side of the pause. Holding gets comfortable, and a call keeps waiting for a moment that doesn't get announced. What got weighed was meant to become a choice, not stay as material. So take it up today and move with it. The ground stays open either way, and none of it needs explaining to a room.",
+      "sheetLine": "You weigh it well. Make the call and go.",
+      "verb": "weigh what is known before saying it",
+      "place": "the open ground before any one direction is chosen",
       "provenance": {
         "signature_id": 33,
         "position_id": 0,
@@ -26,26 +27,37 @@
         "partner": "Command",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "In a few weeks this will be settled and it will have gone the way it should.",
-      "ask": "Give one open question a yes or a no for thirty days, and let a person you trust hold you to it.",
-      "core": "You're holding what you see and it won't come out. Two versions go back and forth and you keep running the move after this one before you've made this one. All that holding was supposed to keep you ready. It's turned into rehearsing a room you're not in yet. The weighing isn't weighing anymore — it's bracing.\n\nNothing here is decided, and that no longer fits. Some of what you're carrying belongs to a decision that hasn't happened. Try one small yes or no today, and leave it alone afterward. If you pick one, you can still change it later. What you stop doing is running it again tonight.",
-      "sheetLine": "You're keeping every door open, and none of them are open.",
-      "verb": "weighing what you know before you say it",
-      "place": "the room before anything has been decided here",
+      "tense": "The mind is bracing for a next moment that cannot be written in yet.",
+      "act": "go on toward it without needing a sign",
+      "ask": "Stay with the direction you already picked another stretch, with nothing confirming it, and keep the days plain.",
+      "core": "The pause in you usually ends in a clear call. Lately the pause has been given a bigger job: checking ahead for proof the direction will hold. Nothing gets chosen until the future signs off first, and anything looks shaky under that light. The bracing keeps running, scanning for a signal that was not built to arrive on schedule.\nLoosen that. Take the direction you already chose and stay with it a while longer, no proof attached — a week, a month, whatever a stretch is for you. What comes next is not being asked for anything. The staying is what holds, and it happens now. When a sign stops being required first, the brace loses its work.",
+      "sheetLine": "You're waiting for proof before you go.",
+      "verb": "weigh what is known before saying it",
+      "place": "the open ground before any one direction is chosen",
       "provenance": {
         "signature_id": 33,
         "position_id": 0,
@@ -54,36 +66,42 @@
         "partner": "Resilience",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go on toward it without needing a sign\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You were in the middle of deciding this once, and you're still standing as if you hadn't moved.",
-      "ask": "Say one thing you're sure of to a friend, roughly, and let what they say back land.",
-      "core": "What you see is right there and the room for saying it isn't. Something you were about to decide is still sitting in the draft pile. The thought hasn't gone anywhere. You just stopped using it.\n\nIt's not that the answer left. It's that saying it hasn't come back into reach yet, and pushing won't bring it. So don't grind at it. Do the thing that fills the tank — sleep, a walk, something you actually enjoy. When the energy comes back, it comes back here first. Before that, say one thing you're sure of out loud, even to yourself. The rest can wait for you.",
-      "sheetLine": "You know what you think. The saying-it part went quiet.",
-      "verb": "weighing what you know before you say it",
-      "place": "the room before anything has been decided here",
+      "tense": "The knowing is still standing where an older decision used to be.",
+      "act": "enjoy what you imagined now that it is here",
+      "ask": "Spend an hour with something you once wanted, which is here now, without improving it or reaching for the next.",
+      "core": "That weighing used to end in a call. It carried the taking up of something concrete — a pick already made, a while back. New options show up and the needle doesn't move. The quiet is what's left over: the pause with nothing on the far end of it. Plenty got built, and it doesn't get turned around; it gets walked past.\nPushing harder won't restart anything, and neither will more feeling. Spend an hour with something you once wanted that is here now, as it stands. Don't improve it, don't line up the next one. Let the satisfaction actually land. An hour spent where what you wanted already became something restarts things from a side effort doesn't reach.",
+      "sheetLine": "You wanted this once. It's here now.",
+      "verb": "weigh what is known before saying it",
+      "place": "the open ground before any one direction is chosen",
       "provenance": {
         "signature_id": 33,
         "position_id": 0,
@@ -92,31 +110,47 @@
         "partner": "Fulfillment",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what you imagined now that it is here\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You've been making the call as you go and calling it not having decided yet.",
-      "ask": "Pick one moment from the last week where you cast the deciding vote, and write down whose call it was.",
-      "core": "You've been letting people around you work out what they think, one sentence at a time. When someone reaches a conclusion in front of you and calls it their own, that conclusion had a shape already, and you were the one holding it. You're not tracking this as yours. It runs anyway.\n\nYou haven't been keeping score. That's exactly why this one needs you in it. This isn't a problem to fix before you do anything. One small piece of it, over and settled. Next time someone reaches a conclusion near you and calls it theirs, look at the shape for a second. You'll know what to do from there.",
-      "sheetLine": "You're already the one deciding. You just haven't claimed it.",
-      "verb": "weighing what you know before you say it",
-      "place": "the room before anything has been decided here",
+      "tense": "The pen is down in a room where the writing is still going on.",
+      "act": "accept what is offered for what you gave",
+      "ask": "Take what comes back for what you gave at the size it arrives — not enlarged, not waved away.",
+      "core": "A weighing runs while you're moving — timing, proportion, the call itself — and if anyone asked you to describe it, the account would have none of you in it. Rooms near you end up level, and you'd call that circumstance. What you put in to get here is already spent on it. What goes quiet is the other direction: coming back. The scale that meets a return stays put.\nLet one exchange run both ways. When something arrives for what you spent, take it at the size it comes. Not added to. Not refused. One even exchange, taken evenly, is enough to show you it was already doing the work.",
+      "sheetLine": "You keep things level. Let one run back.",
+      "verb": "weigh what is known before saying it",
+      "place": "the open ground before any one direction is chosen",
       "provenance": {
         "signature_id": 33,
         "position_id": 0,
@@ -125,14 +159,24 @@
         "partner": "Reciprocity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -146,8 +190,8 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -156,27 +200,39 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5794,
+      "ms": 5557,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "glass",
-          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and act on it the\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
           "status": 1
         },
         {
@@ -186,46 +242,34 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"The seat\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"and let it sit unanswered\"",
+          "detail": "\", and let the waiting\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "vocab",
@@ -234,14 +278,32 @@
           "status": 3
         },
         {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
+          "code": "vocab",
+          "detail": "3 images in one core (door, room, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -252,20 +314,233 @@
           "status": 3
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"Every room\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
+          "code": "vocab",
+          "detail": "\"The giving\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
+          "detail": "\" and let the evenness\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"accept what is offered for what you gave\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported claim: that the person's knowledge is present before it is spoken — the record supports the capacity, not its direction. A reader could reasonably say their real trouble is that nothing gets held at all, or that a decision was already made and the holding is only delay. The asks survive being wrong: each is a small act with a clock or none, and none makes progress conditional on agreeing with the reading. The sentence that serves the writer rather than the person is any phrasing that turns the unspoken knowing into a private gift held over other people, so those are not written."
+    },
+    {
+      "attempt": 2,
+      "ms": 5748,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"act on it the same\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the stretch\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
@@ -282,24 +557,30 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's reflective knowing is accurate or proven; the record only says the capacity exists and holds truth before declaring it, so I keep accuracy out of the unacknowledged cell and narrow Too Much to the holding crossing into bracing. A reader could reasonably say 'sometimes I just don't know yet and that's fine,' which is true and does not break the cells, because the seat condition is the same and I never say what happened at the replaced door or put a motive under it. The asks survive being wrong: each one is a plain act that can be done and cannot fail, and none makes anything conditional on the read landing. The sentence that served me more than them was any line about what a buried door cost or taught; I cut all of them."
+      "check": "Unsupported claim: that what the person knows arrives before the reasons do and is reliable — the record backs the capacity, not its accuracy or its timing. A reader could reasonably say they actually hold nothing back and blurt, or that a call was made long ago and the quiet is just habit. The asks survive being wrong: each is one visible act, no safe person needed, and none makes anything conditional on agreeing with the read. The sentence that serves the writer rather than the person is any line that turns the holding into a private gift held over other people, so none is written. Also fixed from the last pass: the verb-to-noun mystical phrasing, the universals about the person's life, the exemplar phrasing, the house tics, and the overload of images; image count is now one or none per cell."
     },
     {
-      "attempt": 2,
-      "ms": 4075,
+      "attempt": 3,
+      "ms": 6956,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the doing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
@@ -310,26 +591,180 @@
           "status": 1
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the days\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go on toward it without needing a sign\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"with it through one more\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what you imagined now that it is here\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported claim: that the person's weighing finishes early and lands right — the record backs the capacity to hold what is known, not its speed or its accuracy. A reader could reasonably say they hold nothing back at all, or that the quiet ended long ago. The asks survive being wrong: each is one visible act, no safe person needed, none makes anything conditional on agreeing with the read. The sentence that serves the writer rather than the person is any line turning the holding into a private gift held over others, so none is written. Also fixed from the last pass: all universals ('never', 'costs you nothing'), the verb-to-noun phrasing, exemplar word-runs, house and library tics, and the ask-shape monotony — the four asks now run on four different verbs, and two carry no clock."
+    },
+    {
+      "attempt": 4,
+      "ms": 4528,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go on toward it without needing a sign\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
@@ -340,20 +775,38 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what you imagined now that it is here\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -370,25 +823,25 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person's knowing proves accurate; the record says only that this capacity holds truth before declaring, so accuracy stays out. A reader could say 'sometimes I just don't know yet,' which is true and leaves the cells usable, because the seat condition is the same and I never say what happened at the closed door or put a motive under it. All asks survive being wrong: each is one plain act, doable today, that teaches something regardless. The sentence serving me more than them was any line about what a buried door cost or taught — cut."
+      "check": "Unsupported claim: that the weighing finishes early and lands right — the record backs the holding of what is known, not its speed or accuracy. A reader could reasonably say they hold nothing back at all, or that the quiet ended long ago. The asks survive being wrong: each is one visible act, no safe person needed, none makes anything conditional on agreeing with the read. The sentence that serves the writer rather than the person is any line turning the holding into a private gift held over others, so none is written. Also fixed from the last pass: the library tics ('let the doing', 'let the days', 'leave it'), exemplar word-runs, and the 'the choosing' noun; image count is one or none per cell."
     },
     {
-      "attempt": 3,
-      "ms": 3928,
+      "attempt": 5,
+      "ms": 3338,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
@@ -398,26 +851,50 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"go on toward it without needing a sign\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"enjoy what you imagined now that it is here\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -428,8 +905,26 @@
           "status": 3
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
@@ -446,89 +941,19 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that this knowing turns out accurate; the record only says the mind holds truth before declaring, so I let the holding itself be the fact and never promise the call will be right. A reader could fairly say 'sometimes I just don't know yet and that's fine,' and the cells survive it because the seat condition stays the same and I never say what happened at the closed door or put a motive beneath it. Every ask is one plain act, doable today, that teaches something even if the read is wrong, and none makes anything depend on the read landing. The sentence that served me more than them was any line about what the buried decision cost or taught — gone."
-    },
-    {
-      "attempt": 4,
-      "ms": 3811,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the weighing turns out accurate; the record says only that the mind holds truth before declaring, so I let the holding be the fact and promise nothing about whether the call is right. A reader could fairly say 'sometimes I just don't know yet and that's fine,' and the cells survive it because the seat condition stays the same and I never say what happened at the closed door or put a motive beneath it. Every ask is one plain act, doable today, that teaches something even if the read is wrong, and none makes anything depend on the read landing. The sentence that served me more than them was any line about what the buried decision cost or taught — gone."
+      "check": "Unsupported claim: that the weighing finishes early and lands right — the record backs the holding of what is known, not its speed or accuracy. A reader could reasonably say they hold nothing back at all, or that the quiet ended long ago. The asks survive being wrong: each is one visible act, no safe person needed, none makes anything conditional on agreeing with the read. The sentence that serves the writer rather than the person is any line turning the holding into a private gift held over others, so none is written. Fixed from the last pass: the 'the wanting' noun is now 'what you wanted'; library tics, exemplar word-runs, and image overload stay cleaned out."
     }
   ],
   "usage": {
-    "input": 4026,
-    "output": 4404
+    "input": 9490,
+    "output": 5480
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:25:03.539Z"
+  "date": "2026-10-02T11:56:02.273Z"
 }

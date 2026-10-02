@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Body",
+  "group": "library",
   "signature_id": 73,
   "position_id": 4,
   "signature": "Executor of Resonance",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The pen is in your hand right now, and what you're writing is fair.",
-      "ask": "Say the fair thing out loud once this week to the person it concerns, even if the room gets quieter.",
-      "core": "You read what's actually happening between people and you say the true thing about it, gently. Not the loudest voice at the table and not a bystander either — you hold a line that others can lean on. That's why things settle when you speak, and why people bring you the disputes they can't untangle alone.\n\nUnderneath, what you trust is simpler than it looks: when something ends, you let it end, and when something wants to start you don't flinch. That trust is what keeps the container steady. You can feed it one more thing — your read, said out loud, in a room where you've been quiet. Nothing here needs fixing. It needs one more place to work.",
-      "sheetLine": "You hold what's fair here, and you're the one holding it.",
-      "verb": "governing what people feel with a fairness that holds",
-      "place": "where you build the container that makes the chaos navigable",
+      "tense": "You already hold the small structure others stand in — and you can judge a thing squarely while it is still being felt.",
+      "act": "release what is done and keep what serves",
+      "ask": "Pick one arrangement you built when it was right and that now only runs on habit. Set it down — stop carrying it, say it's finished — and then see what your hands are holding.",
+      "core": "You can feel a thing all the way through and still judge it squarely. That's the skill — you rule from inside the feeling instead of over the top of it, and the small structures you build hold because of it. Whoever stands in one is steadier for the fact. You do it quietly, and it's yours.\n\nKeep an arrangement only as long as it's true. The next one you build, ask whether it still serves the people inside, and if it doesn't, set it down — not repaired, just finished. You know the kind: the ones the people inside are already working around. Ending it costs some comfort. It's also the only thing that frees the space it took for something living.",
+      "sheetLine": "You can feel all of it and still call a thing fair.",
+      "verb": "Weighing feeling fairly enough that people can live with the ruling",
+      "place": "The room where the pattern that others move inside gets drawn",
       "provenance": {
         "signature_id": 73,
         "position_id": 4,
@@ -26,24 +27,19 @@
         "partner": "Steward of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -55,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already braced for how this will go wrong before anyone has said a word.",
-      "ask": "Let one decision land in the room without you steering it, and stay in the room after it does.",
-      "core": "You're running the fairness before anything has actually happened. A conversation comes up and you've already judged who was right, what's owed, how the balance tips — settled in your head before the other person finishes their sentence. The reckoning runs ahead of the moment, and the ease it was meant to protect is what it takes.\n\nNobody asked you to referee feelings that haven't been felt yet. What wants to happen instead is lighter and slower: you hold what's here, and you let it be what it is for a while. That's not softness — it's the strength you already have, turned down to a volume where people can stay in the room with you.",
-      "sheetLine": "You've already ruled on a case nobody brought.",
-      "verb": "governing what people feel with a fairness that holds",
-      "place": "where you build the container that makes the chaos navigable",
+      "tense": "Where the structure is yours to hold, you'll be settling a hurt before it has had its hour.",
+      "act": "hold the weight as a builder holds stone",
+      "ask": "The next thing that lands wrong, carry it through a day with no ruling attached — a stone with no wall chosen yet. Let it finish being felt before you decide what it means.",
+      "core": "Where the structure is yours to hold, you're readying the ruling before the feeling has finished. A hurt arrives and by evening you've settled whether it was fair, who tipped it, what should happen — decided neatly, decided early, landing on people who didn't know a verdict was coming. You feel it too. That's the part nobody sees.\n\nHolding is not judging. The next upset close by, carry it for a day with no answer attached: what is it, who is in it, what's actually being weighed. A load of stone, nothing built yet. The right call is almost no worse for a night's keeping, and whoever it concerns will still be there when you're ready to make it.",
+      "sheetLine": "You're ruling on feelings before they finish being felt.",
+      "verb": "Weighing feeling fairly enough that people can live with the ruling",
+      "place": "The room where the pattern that others move inside gets drawn",
       "provenance": {
         "signature_id": 73,
         "position_id": 4,
@@ -69,19 +66,19 @@
         "partner": "Executor of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
@@ -98,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You were fair once and you've been quiet since, still standing at a door that's behind you.",
-      "ask": "Pick one small thing to look at closely this week — read it, ask about it, know it better than you did.",
-      "core": "You can see what's fair. You read the room, you know who was owed what, you feel the true weight of a thing — and when it's time to say it, you stay still. The judgment is intact and the speaking has stopped. Something in you learned it was safer to watch.\n\nWhen this works, it looks like a person who checks first and speaks second: careful, clear-eyed, unshowy about being right. Building that back doesn't take more feeling. It takes practice — one thing you get to know closely, on your own, until it's clear. That kind of study is what refills the part that used to speak up, and it works without asking anyone's permission.",
-      "sheetLine": "You still see it. You just don't say it anymore.",
-      "verb": "governing what people feel with a fairness that holds",
-      "place": "where you build the container that makes the chaos navigable",
+      "tense": "Where the pattern got drawn, something unfairness had been standing in — and it went quiet before anyone could weigh it.",
+      "act": "write the facts down in order, without feeling words",
+      "ask": "Take one unfair situation you're still carrying and put it on paper in sequence — this, then that, then the next. Keep feeling words off the page, then read it back and let the page hold it.",
+      "core": "Something between the people where you live stopped being balanced a while back, and it stayed that way. The arrangement rusted, someone carries more than their share, the thing that is known and unnamed sits in the middle of the room. It used to sort itself out when you were in the thick of it. Here, you've left the bench and there's no one else in that chair.\n\nThe method comes back before the nerve does. There's one unfair situation you keep turning over — one arrangement that rusted and nobody named. Put what happened on paper in sequence, no feeling words, and read it back. The imbalance gets visible on paper before it gets visible in a room, and the call arrives half made.",
+      "sheetLine": "You can see what's unfair and you've stopped calling it.",
+      "verb": "Weighing feeling fairly enough that people can live with the ruling",
+      "place": "The room where the pattern that others move inside gets drawn",
       "provenance": {
         "signature_id": 73,
         "position_id": 4,
@@ -112,19 +110,29 @@
         "partner": "Executor of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, bench) — one at most, usually none",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\" and let the page\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"put what happened on paper\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -136,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already setting what's fair here, and you talk about it as if it were the weather.",
-      "ask": "Name one call you made that shaped how things go here, and say out loud that it was yours to make.",
-      "core": "You're setting the terms here — what gets corrected, what gets let through, what the room can count on. People shift around it, and they do that because they trust you to be fair. You describe the whole arrangement as just how things are, as though it arrived by itself.\n\nThat's the gap. The thing is running; your hand in it isn't spoken. Underneath, there's a read on most of what you treat as open — the answer shows up the moment the topic comes up, and then it folds back. Say one of those out loud, as yours, and the room gets steadier, not louder.",
-      "sheetLine": "You're already the one who decides. You call it how things are.",
-      "verb": "governing what people feel with a fairness that holds",
-      "place": "where you build the container that makes the chaos navigable",
+      "tense": "In this corner of things, you're holding the shape for others while it doesn't register as yours at all.",
+      "act": "listen as a student of it",
+      "ask": "At the next dispute close by, hear the whole thing as someone new to it, before you do what you'd normally do to settle it. Say nothing. Just hear it.",
+      "core": "Things between the people close to you hold together — not by accident, and not as a rumour. You make a call and one side softens; you shift a word or a weight and a room settles. To your own telling, you're not in the middle of anything. But the ones who have been steadied by it go on behaving as though they know who did it.\n\nTry hearing your way into it instead of running it. At the next dispute close by, take it in from the start as though the whole thing were new, and only afterward do what you normally do to level it. Half of what you do happens before the words come together. Listening that slowly, the working gets counted from inside, by its maker.",
+      "sheetLine": "The balance between people is kept, by you, while you say you stay out of it.",
+      "verb": "Weighing feeling fairly enough that people can live with the ruling",
+      "place": "The room where the pattern that others move inside gets drawn",
       "provenance": {
         "signature_id": 73,
         "position_id": 4,
@@ -150,19 +159,24 @@
         "partner": "Initiate of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"listen as a student of it\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Say one of those out loud, as yours, and the room gets stead\" — end on the plain thing",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the balance between people is\"",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -176,39 +190,33 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4787,
+      "ms": 6350,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
+          "detail": "\"call it fair\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"in the room and not\"",
+          "detail": "five words in a row from an exemplar or a rule: \"and still call it fair\"",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
           "status": 1
         },
         {
@@ -216,188 +224,64 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is costing you the thing\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"didn't hold\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the stopping\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Say one of them out loud, as yours, and the room gets steadi\" — end on the plain thing",
-          "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "scope",
           "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the authorship is running the\"",
-          "hard": true,
-          "status": 4
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person is currently deciding or governing anything emotional at all — the record gives a capacity and a seat, not evidence of its present use, so each cell describes what this capacity does when running and lets them refuse it. Reader's likely objection: 'I'm not the one holding the fairness here, I'm just keeping things from falling apart' — which is why Authority sits as containment and the asks are small and local, not declarations of mastery. The ask survives being wrong because every one of the four is a single move that stands on its own with no promise of what it fixes. The sentence that serves me more than them would be anything about earned emotional authority, so it is gone."
-    },
-    {
-      "attempt": 2,
-      "ms": 3930,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, bench) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"went badly\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"write it down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"down in order what happened\"",
           "hard": true,
           "status": 3
         },
@@ -414,21 +298,33 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Say one of those out loud, as yours, and the room gets stead\" — end on the plain thing",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can feel your own\"",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"near you listen to it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -436,32 +332,154 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that the person is currently governing anyone's feelings with fairness — the record gives a capacity seated in Authority, not evidence of its present use, so each cell describes what the capacity does when running and leaves room for them to refuse it. Reader's likely objection: 'I'm not setting the terms here, I'm keeping things from falling apart' — which is why Authority sits as containment and the asks are small and local rather than declarations of mastery. The ask survives being wrong because each of the four is a single move that stands on its own with no promise of what it fixes. The sentence that serves me more than them would be anything about earned emotional authority, so it is gone."
+      "check": "The unsupported claim is that the person stays in the middle of disputes at all; the record only says this capacity organises the emotional field where it is established, and a reader could reasonably say the mess near them is theirs, not other people's. The ask survives being wrong: weighing one arrangement cold, on paper, still returns authorship of the structure to its maker, and the person still keeps the finding. The sentence that serves me more than them is the balanced core's opening clause about the room leaning on them — I have kept it as one local moment the person could recognise or refuse, never as a standing fact about their life."
     },
     {
-      "attempt": 3,
-      "ms": 2915,
+      "attempt": 2,
+      "ms": 5734,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, bench) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the page\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"what happened then what then\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"listen as a student of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it all the way through\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person stays in the middle of disputes at all; the record only says this capacity organises the emotional field where it is established, and a reader could reasonably say the mess near them is theirs, not other people's. The ask survives being wrong: weighing one arrangement cold, on paper, still returns authorship of the structure to its maker, and the person still keeps the finding. The sentence that serves me more than them is the balanced core's opening clause about the room leaning on them — I have kept it as one local moment the person could recognise or refuse, never as a standing fact about their life."
+    },
+    {
+      "attempt": 3,
+      "ms": 5956,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "five words in a row from an exemplar or a rule: \"between people that was right\"",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -473,13 +491,142 @@
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "five words in a row from an exemplar or a rule: \"a full day with no\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, bench) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the paper\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"stepped back from the bench\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"listen as a student of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"learning it before you do\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person sits at the centre of other people's disputes; the record only says this capacity settles feeling fairly where the structure is being drawn, and a reader could reasonably say the mess is theirs alone. The ask survives being wrong: setting down one arrangement they built, on their own side, still returns authorship of the structure to its maker whatever the room's part in it. The sentence that serves me more than them is the balanced core's opening about the structures holding — I have kept it as one local observation the person could refuse, never a standing fact about their life."
+    },
+    {
+      "attempt": 4,
+      "ms": 3811,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"look at what's left in\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
@@ -496,14 +643,137 @@
           "status": 2
         },
         {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the sheet\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"put what happened on paper\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"listen as a student of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"to hear you tell it\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person sits at the center of other people's disputes; the record only says this capacity settles feeling fairly where structure is being drawn, and a reader could reasonably say the mess is theirs alone. The ask survives being wrong: setting down one arrangement they built, on their own side, still returns authorship of the structure to its maker whatever the room's part in it. The sentence that serves me more than them is the balanced core's opening about structures holding — I've kept it as one local observation a person could refuse, never a standing fact about their life."
+    },
+    {
+      "attempt": 5,
+      "ms": 5875,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what serves\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, bench) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\" and let the page\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"put what happened on paper\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -514,14 +784,20 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"listen as a student of it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Say one of those out loud, as yours, and the room gets stead\" — end on the plain thing",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the balance between people is\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -530,15 +806,20 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that the person is currently governing anyone's feelings with fairness — the record gives a capacity seated in Authority, not evidence of its present use, so each cell describes what the capacity does when running and leaves room for them to refuse it. Reader's likely objection: 'I'm not setting the terms here, I'm keeping things from falling apart' — which is why Authority sits as containment and the asks are small and local rather than declarations of mastery. The ask survives being wrong because each of the four is a single move that stands on its own with no promise of what it fixes. The sentence that serves me more than them would be anything about earned emotional authority, so it is gone."
+      "check": "The unsupported claim is that the person sits at the center of other people's disputes; the record only says this capacity settles feeling fairly where structure is being drawn, and a reader could reasonably say the mess is theirs alone. The ask survives being wrong: setting down one arrangement they built, on their own side, still returns authorship of the structure to its maker whatever the room's part in it. The sentence that serves me more than them is the balanced core's opening about structures holding — I've kept it as one local observation a person could refuse, never a standing fact about their life."
     }
   ],
   "usage": {
-    "input": 6017,
-    "output": 3235
+    "input": 6250,
+    "output": 6276
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:39:43.324Z"
+  "hardOpen": 4,
+  "date": "2026-10-02T13:18:50.038Z"
 }

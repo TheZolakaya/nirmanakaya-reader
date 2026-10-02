@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The direction is chosen and the grip on it is loose right now, exactly where you're standing.",
-      "ask": "Keep going with what you're carrying, and let what you can do about what's coming rest without another arrangement from you.",
-      "core": "You're carrying something real, and it isn't costing you your grip on it. The direction got picked by you, not by what was loudest that day, and it holds under weight — you can put the next heavy thing down for a minute and the thing you chose stays chosen. That's not hardness and not force; the load hasn't made you rigid.\n\nThe person beside you gets the same you whether the day is light or heavy, and that steadiness is yours. It's easy to say you're just reacting to what arrives, but you're not — you're carrying exactly what you meant to. This keeps by staying in the present moment rather than bracing against the next thing that hasn't happened yet. Hold what's yours, and let the next unhappened weight arrive on its own.",
-      "sheetLine": "You chose this and it's holding, not bending under the weight.",
-      "verb": "choosing direction and holding the line you set",
-      "place": "in the room where you carry what has to be carried",
+      "tense": "Right now the pen fits your hand and the direction is picked cleanly.",
+      "act": "bear the next hour of it without deciding anything",
+      "ask": "When something lands heavy this week, carry it for an hour and decide nothing. At the end of the hour, see if you're still standing.",
+      "core": "You can steer and you can carry, and the two aren't fighting right now. What you pick, you pick from clear sight — not from a shove you can't name and not from dread that showed up before you did. That's a rare pairing: a direction with weight behind it, and no white knuckles.\n\nWhere you're steady is under load. You hold what has to be held without hardening into stone, and that holding is what keeps the steering honest. When this is working, the pick and the load sit together — you choose a road you can actually stand under. So the practice isn't more force. Stay with a thing for an hour and decide nothing yet. Tiny, and harder than it sounds. One hour.",
+      "sheetLine": "You pick a direction you can stand under.",
+      "verb": "Saying this, not that, and holding to it",
+      "place": "Where you carry weight without going rigid under it",
       "provenance": {
         "signature_id": 1,
         "position_id": 8,
@@ -26,7 +27,7 @@
         "partner": "Fortitude",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -37,20 +38,26 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"at the end of the\"",
+          "hard": true
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Some future that hasn't happened yet already has both hands on the wheel and is steering where today goes.",
-      "ask": "Let one future weight stay unguarded today — no plan made against it, no one stopped from asking for help — and see that things still converge without your arms around them.",
-      "core": "Some part of you is already bracing for a load that hasn't arrived. You're checking whether the person or the situation will hold before there's anything to hold, arranging outcomes that haven't even happened — and the bracing has become the thing you're carrying. That's why the control feels like care: you're standing guard over a future nobody asked you to build.\n\nThe difficulty isn't that you're weak; it's that you're spending energy on weight that isn't real yet. When you hold that way, you can't tell what today actually needs from you. And what you grip that hard tends to crush things that only grow if left standing. Put down the future long enough to see what's in your hands right now — the whole picture rarely narrows to one path, and the room for that opens when you stop staring at what hasn't happened.",
-      "sheetLine": "You're carrying tomorrow's weight with today's hands, and it's wearing both out.",
-      "verb": "choosing direction and holding the line you set",
-      "place": "in the room where you carry what has to be carried",
+      "tense": "From where you sit, the future is being braced against before it happens.",
+      "act": "look at the same thing longer, until it shows you more",
+      "ask": "When you catch yourself forcing a result, stop and look at the whole thing you're inside — what's involved, who's involved, where you sit. Look until it shows you something you hadn't seen.",
+      "core": "There's a grip in this. Results get shoved toward before their time, and the shove feels like strength when it's really bracing. You've left the moment behind and your arm is out, holding a shape the situation hasn't agreed to yet.\n\nThe trouble isn't that you can bear weight — it's that bearing has turned into pushing. When you take in the entire arrangement, not just the part you're squeezing, the pressure eases by itself. So next time you feel yourself forcing an outcome, look at the whole picture first and keep looking. Where you sit in it. What surrounds it. What you hadn't noticed. That loosens what a week of shoving won't.",
+      "sheetLine": "The grip that feels like strength is bracing for something.",
+      "verb": "Saying this, not that, and holding to it",
+      "place": "Where you carry weight without going rigid under it",
       "provenance": {
         "signature_id": 1,
         "position_id": 8,
@@ -59,15 +66,20 @@
         "partner": "Recognition",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (path, room) — one at most, usually none",
+          "code": "length",
+          "detail": "core 112 words (120–160)",
           "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"until it shows you something\"",
+          "hard": true
         },
         {
           "code": "seat",
@@ -78,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "There's a door behind you that didn't open the way you chose, and you're still standing at it.",
-      "ask": "Take the next small step on your own behalf — not a big one, just something you'd do if the last effort had been enough — and let that be the finish for today.",
-      "core": "You know how to carry things — that part is still in you. What's missing is the turning toward something you'd choose and hold on purpose, and it shows up as waiting for a force outside you to make the next move. From where you're standing it looks like nothing you start survives anyway. Not exactly — the door behind you is shut and you've been treating it as the whole room.\n\nDirection is a small daily motion: choosing one thing, holding it for an hour. It doesn't need the old door to open. If today has anything in it that is yours, face what is actually in front of you rather than the room behind, and let that show you that something in you is still moving.",
-      "sheetLine": "You stopped turning toward anything, and the stillness started to feel like safety.",
-      "verb": "choosing direction and holding the line you set",
-      "place": "in the room where you carry what has to be carried",
+      "tense": "The pen sits where it was set down and the room has gone quiet around it.",
+      "act": "do the thing in your own way, without proving it",
+      "ask": "For one day, do the ordinary things your own way — not the proper way, not for anyone watching. Make no case for it. Keep going anyway.",
+      "core": "The weight nearby hasn't gotten lighter; the arms stopped lifting. Days run on momentum and the old answer of so what. Where you're standing, the steering has gone slack, and a long stretch of it has made the slack feel like Tuesday rather than a state.\n\nThe bearing hasn't left — it's uncharged, waiting. Pushing harder won't charge it. Doing things the way only you would do them will, with no audience and no case to make. Small, ordinary, today — and again tomorrow. Whatever that is for you, not to prove a point, just done and kept at it. That pulls the rest through.",
+      "sheetLine": "The pen sits where it was set down.",
+      "verb": "Saying this, not that, and holding to it",
+      "place": "Where you carry weight without going rigid under it",
       "provenance": {
         "signature_id": 1,
         "position_id": 8,
@@ -92,41 +105,27 @@
         "partner": "Actualization",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 103 words (120–160)",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You're writing the day's direction with a hand you haven't looked at, and the pen hasn't stopped moving.",
-      "ask": "Pick one ordinary thing this week and say, in your own voice, that you chose it — to yourself is enough — and notice that the choice was yours.",
-      "core": "The direction is happening — you are carrying things, holding lines, showing up the same way — and you describe it as just how things go. The leg lifts before you have decided to lift it; the no was said before you noticed choosing it. That's not wrong exactly, but the motion is silent, and silent motion is easier to set down than chosen motion.\n\nWhat you have for holding form under pressure is part of what people around you count on. Saying so isn't claiming anything special — calling a day your own isn't taking credit for the room. It's recognizing the author is present at the desk and has been writing the whole time. A direction that knows it's chosen is steadier than one that just keeps happening.",
-      "sheetLine": "The pen is moving, and it's being held by someone who hasn't looked at the hand.",
-      "verb": "choosing direction and holding the line you set",
-      "place": "in the room where you carry what has to be carried",
+      "tense": "A choice is being made this minute and it is dressed as routine.",
+      "act": "put your own name on what is already yours",
+      "ask": "Take one thing you'd call just how it's done — a task, a habit, a stance you didn't know you held — and claim it as yours. Then check if that holds.",
+      "core": "Direction is being directed, and the hand on it isn't reporting in. Days go the way they go, and the line between what you picked and what you drifted into has gone soft. Nobody's steering wrong. It's that the steering stopped being visible, even to the one doing it.\n\nSince drifting and picking look alike from here, claim one moment. Not a big one — the ordinary thing you do the same every week. Call it yours, name it as set by you. If that's true, nothing changes and something returns. If it isn't, the wheel is right there. Either way you're back at it.",
+      "sheetLine": "Direction is running on habit and calling it how things go.",
+      "verb": "Saying this, not that, and holding to it",
+      "place": "Where you carry weight without going rigid under it",
       "provenance": {
         "signature_id": 1,
         "position_id": 8,
@@ -135,11 +134,21 @@
         "partner": "Actualization",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
@@ -148,11 +157,6 @@
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -161,14 +165,14 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 8240,
+      "ms": 6148,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
@@ -177,64 +181,52 @@
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (path, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 100 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -242,23 +234,83 @@
           "code": "glass",
           "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"all along\" — a motive the cell cannot know",
+          "code": "imperative",
+          "detail": "\"you have to\"",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"stayed down\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"already shaping what people around\"",
+          "detail": "\"the way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put your own name on what is already yours\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 4
         },
@@ -273,13 +325,23 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record doesn't say the person's endurance has been tested only through carrying others' loads — nor when or by whom — so Too Little must only locate the door behind them, never what happened in that room. A reader could object that white-knuckling is just care for someone who actually falls apart without it; that objection doesn't touch the ask — letting one future load rest in recognition that things converge is still useful even if the particulars are off. The sentence that serves the writer more than the person is any version of 'you've always been the strong one' — it congratulates the reader's stance instead of returning authorship."
+      "check": "Unsupported: 'somebody else is holding the wheel' — the record shows habit steering, not a second person; the reader could say the drift is theirs and they know it, so the core says habit and momentum, not another party. Ask survives being wrong: rating a week's steering is data either way and the medicine's own act. Sentence serving me more than them is the one about chasing a doorway; it's not on glass."
     },
     {
       "attempt": 2,
-      "ms": 4705,
+      "ms": 4606,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -291,39 +353,51 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (path, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "detail": "\"Your steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -331,6 +405,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put your own name on what is already yours\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "tense",
@@ -345,19 +437,247 @@
           "status": 4
         },
         {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported: 'somebody else is holding the wheel' — the record shows habit steering, not a second person; the reader could say the drift is theirs and they know it, so the core names momentum and routine, not another party. Ask survives being wrong: rating a week's steering is data either way and it is the medicine's own act. Sentence serving me more than them was the one about chasing a doorway; it is not on glass."
+    },
+    {
+      "attempt": 3,
+      "ms": 4068,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What brings it back\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported: any claim about what the person believes or why the drift started — the record shows direction running without awareness, not a story behind it, so the cores name the running, not a cause. The reader could say they know exactly what they chose, and the medicine still works: saying a thing is yours out loud is checkable either way. The sentence serving me more than them was about finding the wheel; it is off glass. Asks now vary in shape — an hour held, a minute of looking, a repeated doing, a naming with a condition — and only one carries a clock."
+    },
+    {
+      "attempt": 4,
+      "ms": 3577,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported: any claim about why the direction went slack or what the person believes about it — the record shows direction running without awareness, not a story behind it, so the cores name the running itself. The reader could say they know exactly what they've chosen; the ask still works either way, since claiming a thing as yours is checkable whether or not the claim holds. The sentence serving me more than them was about finding the wheel; it is off glass. Asks now vary: one held hour with a clock, one minute of looking with none, one repeated doing with none, one naming with a condition and no clock."
+    },
+    {
+      "attempt": 5,
+      "ms": 4086,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"at the end of the\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"until it shows you something\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record doesn't say the person's endurance was tested by carrying others' loads, or when, or by whom — so Too Little must locate the shut door without describing what happened behind it, and must not give a cause. A reader could object that bracing ahead is just practical care for people who actually fall apart without it; that objection doesn't touch the ask — leaving one future weight unmanaged still shows what today needs, even if the particulars are wrong. The sentence that serves the writer more than the person is any version of 'you've always been the strong one' — it flatters the stance instead of returning authorship."
+      "check": "Unsupported: any claim about what the person believes, feels, or why the drift began — the record shows direction running without awareness and weight held under load, not a backstory, so the cores name what is happening now. A reader could say they know exactly what they've chosen; the asks still work either way, since bearing a heavy thing for an hour, taking in an arrangement, doing a thing your way, or claiming a habit as yours are all checkable on their own terms. The sentence serving me more than them was the one about being back at it; it is off glass. Asks differ in shape — one hour held without deciding, one continuous practice through a day, one minute of looking, one naming with a condition — and only the first carries a clock."
     }
   ],
   "usage": {
-    "input": 1676,
-    "output": 2475
+    "input": 5772,
+    "output": 5747
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T01:54:19.248Z"
+  "hardOpen": 4,
+  "date": "2026-10-02T13:22:09.633Z"
 }

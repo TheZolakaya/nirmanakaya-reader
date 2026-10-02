@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Spirit",
+  "group": "library",
   "signature_id": 33,
   "position_id": 1,
   "signature": "Reflection",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You hold what you know before you say it, and the holding is doing its job.",
-      "ask": "Close one open question today by naming the answer you already carry, and say when you'll act on it.",
-      "core": "Something is already settled in you, and you haven't said it yet. That's not a delay — what you know arrives before the words do, and you're letting it finish arriving. You can hold two sides of a thing without flinching away from either, which is why the pause reads as solid instead of stuck.\\n\\nPeople around you can feel that you won't say more than you mean, and it changes how they bring things to you. This only holds if something finally gets said. Keep the pause short and it stays strong. Let it become the whole answer and it hardens into distance. Pick one live question, put the answer out loud, and put a date on it.",
-      "sheetLine": "Holding what you know until it's ready to be said.",
-      "verb": "holding what is known before saying it",
-      "place": "where a direction gets chosen",
+      "tense": "You can hold two readings of a situation without declaring one yet, and that holding is working.",
+      "act": "make the call and carry it through",
+      "ask": "Settle whatever you've been weighing two ways. Decide today and carry it through, without walking anyone through how you got there.",
+      "core": "You can weigh a thing before you speak, and today that pause is doing its job. Two readings of the same situation sit in your mind, neither has to win yet, and the wait isn't stalling — it's how you get there. When you finally come down on one side, it lands with a weight people feel. You don't have to argue for it.\n\nWhat's next is letting the call finish on time instead of leaving both open past its usefulness. Settle whatever you've been weighing two ways. Decide today and carry it through, without walking anyone through how you got there. The clarity will be quiet — you'll know it by how little it needs from you. What you get is a direction you can stand in, not a question you keep circling.",
+      "sheetLine": "You've been weighing it. Pick a side and carry it.",
+      "verb": "knowing what's true before you say it",
+      "place": "where you choose this, not that, and mean it",
       "provenance": {
         "signature_id": 33,
         "position_id": 1,
@@ -26,36 +27,37 @@
         "partner": "Command",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have weighed the choice so many times that the choosing never arrives.",
-      "ask": "Choose the option you'd defend today, say it in one sentence, and start the first step before you re-examine it.",
-      "core": "You're trying to know the whole shape of a decision before you take it. Every angle gets another pass, another comparison, another check that the thing is really understood — and all that examining has taken the place of moving. It feels like care. From outside it looks like the choice receding as you approach it.\\n\\nThe pause this names is real, but pause isn't supposed to be a residence. Fear of committing dressed as thoroughness is still fear, and it doesn't protect you — it just keeps the direction unwritten longer. What's on the other side is simpler than you're making it: decide, act, let the result inform the next move instead of your next round of weighing. Choose, say it once, take the first step.",
-      "sheetLine": "You're trying to know before you choose. That order doesn't exist.",
-      "verb": "holding what is known before saying it",
-      "place": "where a direction gets chosen",
+      "tense": "You're braced for a future that hasn't been written in yet, and the bracing is steering the choice.",
+      "act": "carry on with the version you chose through another week of doubt",
+      "ask": "Take the version you already chose. Carry it one more week through the doubt, without looking for a sign it's still the right one.",
+      "core": "You can know a thing before you say it, and lately the call arrives before the moment does. The future gets decided in your head well before it gets here — the fix is planned, the other person's reaction is predicted, the route is mapped past where anyone can see. Under that much forward pressure, the quiet weighing that usually serves you turns into getting there first. You're answering questions nobody has asked.\n\nWhat steadies this is not more foresight but staying on the thing you already picked. Take the version you already chose. Carry it one more week through the doubt, without looking for a sign it's still the right one. Staying with it isn't gritting through — it's letting the direction prove itself in time rather than in your head. What you have then is a chosen thing that lasted.",
+      "sheetLine": "You're deciding a future that hasn't happened yet.",
+      "verb": "knowing what's true before you say it",
+      "place": "where you choose this, not that, and mean it",
       "provenance": {
         "signature_id": 33,
         "position_id": 1,
@@ -64,31 +66,47 @@
         "partner": "Resilience",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You knew something once and have been standing at a door that closed behind you.",
-      "ask": "Tell one person the direction you want to take, in plain words, before you feel ready to say it well.",
-      "core": "You're not unknowing. You're not deciding either. What you know is there — it's the saying that stopped. It stays inside, where it can't be wrong and can't be used. Meanwhile the direction goes unchosen, and that starts to look like not having one.\\n\\nWhat's needed isn't to force a decision. It's to let something be received. Say one true thing to one person, badly, before you've polished it — not to be told what to do, just to have it land outside you. Watch what comes back. That exchange is what feeds the part of you that picks direction, and it runs on giving and getting, not on private certainty. Say it plainly, imperfectly, to someone.",
-      "sheetLine": "You knew it. The saying is what stopped.",
-      "verb": "holding what is known before saying it",
-      "place": "where a direction gets chosen",
+      "tense": "You're turned toward what's already behind you, and your choices now keep bending that way.",
+      "act": "eat the meal you made and leave the kitchen as it is",
+      "ask": "Finish something you already made. Sit with how it turned out — no fixing, no next version — and leave everything else where it sits.",
+      "core": "You can know a thing before you say it, and lately that doesn't reach the point of a decision. Picking is quiet — not refusing, just unlit — and days slide by without a clear this-not-that in them. From outside it looks like you can't decide. It's closer to running on empty: the place where you choose is there, the fuel isn't arriving. Nothing back there has to be reasoned out for that to change; it just needs a little current through it.\n\nBeing full of something finished is what feeds it. Finish something you already made. Sit with how it turned out — no fixing, no next version — and leave everything else where it sits. Not imagining the next one, not planning the improvement, just being with the made thing for an hour. That's enough for a decision to stand on again, and the meal you already cooked is the ground it gets made from.",
+      "sheetLine": "The willingness to choose has gone quiet — not the ability.",
+      "verb": "knowing what's true before you say it",
+      "place": "where you choose this, not that, and mean it",
       "provenance": {
         "signature_id": 33,
         "position_id": 1,
@@ -97,31 +115,37 @@
         "partner": "Fulfillment",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already choosing direction, and you keep describing it as just what happened.",
-      "ask": "Say \"this is what I'm choosing\" aloud about something you've been calling inevitable, before the day ends.",
-      "core": "Look at how you actually spend your time — what you refuse, what you let pass, what you turn toward without ceremony. That's a direction, and you're already walking it. But when you talk about it, the language slides off you: it's just what made sense, just how things went, just what was there. You are steering. You haven't worded it yet.\\n\\nThat gap costs you. A direction nobody owns is a direction you can't correct, defend, or hand to anyone else. Saying it plainly isn't boasting — it's just putting your name where your feet already are. Choose one thing you've treated as a given and admit you're the one picking it.",
-      "sheetLine": "You're choosing this already. You haven't worded it yet.",
-      "verb": "holding what is known before saying it",
-      "place": "where a direction gets chosen",
+      "tense": "A fair exchange is already running between you and someone, and you'd tell it you stay out of it.",
+      "act": "let the exchange with someone run both ways",
+      "ask": "Next time something passes between you and someone — a favour, a hand, a thing given — let it run both ways. Take what's offered without reaching for a reason you didn't earn it.",
+      "core": "You know what's fair between people before either side says a word, and you'd call that just reading the room. It isn't only reading — you're in the exchange, adjusting what passes and what doesn't, and the other person has felt you doing it. Your own account of this is that you keep out of it. The account and the exchange don't match, and the people involved have noticed the gap even if you haven't.\n\nWhat's older and simpler here is exchange, and it's worth going back to. Next time something passes between you and someone — a favour, a hand, a thing given — let it run both ways. Take what's offered without reaching for a reason you didn't earn it. You don't have to announce anything or explain the ledger. Let one exchange be even, and you'll have more of it in your hands than you knew you were holding.",
+      "sheetLine": "You're keeping things fair between people, and saying you're not.",
+      "verb": "knowing what's true before you say it",
+      "place": "where you choose this, not that, and mean it",
       "provenance": {
         "signature_id": 33,
         "position_id": 1,
@@ -130,24 +154,24 @@
         "partner": "Reciprocity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -156,45 +180,75 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5391,
+      "ms": 7040,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "vocab",
+          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×6 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
         {
           "code": "vocab",
           "detail": "\"the knowing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the ask in other words\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep following the star after everything that has \") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
           "status": 2
         },
         {
@@ -204,109 +258,39 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"got expensive\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The kernel only supports the seat and the card's mechanism, not any history, feeling, or motive behind an excess or an absence. A reader could reasonably say 'I'm not withholding — I just haven't decided,' and at Too Much, 'I'm not avoiding commitment — I'm being careful,' so both asks are framed as acts in the present that don't require the read to be true. The ask still teaches the person something about their own timing even if the diagnosis misses. The sentence that serves me more than them is the Too Little core's hint that something already happened at the door — the record doesn't say what, so I'm not naming it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3314,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (engine, current, kitchen) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Fulfillment does\") — the act in plain words, the name once at most",
+          "hard": true,
           "status": 3
         },
         {
@@ -316,26 +300,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\" and let the kitchen\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Reciprocity does\") — the act in plain words, the name once at most",
           "hard": true,
           "status": 4
         },
@@ -344,27 +334,150 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two statuses share an opening",
+          "hard": true
         }
       ],
-      "check": "The kernel gives me the card's mechanism and the seat, not any history, feeling, or motive behind an excess or an absence. A reader could reasonably say 'I'm not withholding — I just haven't decided,' and at Too Much, 'I'm not stalling — I'm being careful,' so both asks are framed as acts in the present that don't require the read to be true. The ask still teaches the person something about their own timing even if the diagnosis misses them. The Too Little cell was serving me more than the person by hinting at a cause behind the silence, so I'm leaving that unnamed now."
+      "check": "The unsupported claim is that the Too Little person is 'keeping a door open' or 'still standing at a closed door' — the record only says the seat is running on empty and the status is past-anchored, not what the person is doing about it. A reader could reasonably say 'I'm not pining after anything, I just don't have the energy to choose.' The Too Little ask survives being wrong: eating the finished meal and leaving the kitchen alone is useful whether or not the read about the past is accurate. The sentence that serves me more than them is any line implying I know what happened before now — fixed by saying only where the person stands, not why. The Too Much ask is the partner's own act (keep following the star), done small at the seat, not 'less reflection'. The Unacknowledged ask is the partner's own act (let the exchange with someone run both ways), done small at the seat, not 'notice yourself more'."
+    },
+    {
+      "attempt": 2,
+      "ms": 5375,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Fulfillment does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is still the Too Little framing — the record says the seat is past-anchored and running on empty, not that the person is standing at a closed door; the previous draft over-located the person behind the present. A reader could say 'I'm not turned toward anything old, I just can't get started.' The Too Little ask survives being wrong: sitting with a finished thing and not improving it feeds the seat whether or not anything is back there. The sentence that served me more than them was the 'standing at a door that had already closed behind you' line, and the 'engine idling' image — both cut; Too Little now says where the person stands, not why. The Too Much ask is Resilience's own act (carry on with the version you chose through another week of doubt), done small. The Unacknowledged ask is Reciprocity's own act (let the exchange with someone run both ways), done small. Verbs kept as verbs; 'the knowing', 'the choosing' and 'capacity' cut; no universal 'never'; partner named once at most and never as a common noun."
     },
     {
       "attempt": 3,
-      "ms": 3433,
+      "ms": 7202,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"take something you've been holding\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -374,45 +487,75 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
+          "status": 1
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"about one thing you've been\"",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
+          "hard": false,
           "status": 4
         },
         {
@@ -420,27 +563,33 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record gives the card's mechanism and the seat, not any history, feeling, or motive behind an excess or an absence. A reader could reasonably say 'I'm not withholding — I just haven't decided,' or at Too Much, 'I'm not stalling — I'm being careful,' so both asks stand as present acts that don't depend on the read being true. The Too Little cell would serve me more than the person if it hinted at a cause behind the silence, so the cause stays unnamed. The sentence that flatters me is any line that makes the stillness sound like wisdom rather than a moment of timing."
+      "check": "The unsupported claim is the Too Little framing — the record says the seat is past-anchored and running on empty, not that the person is turned back toward something; the draft says only where they stand, not why. A reader could say 'I'm not stuck on the past, I just can't get moving.' The Too Little ask survives being wrong: sitting with a finished thing and not improving it feeds the seat regardless. The sentence that served me over them was the 'engine' image from before, already cut. Too Much's ask is Resilience's own act (carry on with the version you chose through another week of doubt), done small. Unacknowledged's ask is Reciprocity's own act (let the exchange with someone run both ways), done small. Partner named once, in plain exchange and plain finishing, never as a noun."
     },
     {
       "attempt": 4,
-      "ms": 2832,
+      "ms": 4869,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -450,39 +599,63 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
+          "status": 1
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
+          "hard": false,
           "status": 4
         },
         {
@@ -490,15 +663,115 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record gives the card's mechanism and the seat, not any history, feeling, or motive behind an excess or an absence. A reader could reasonably say 'I'm not withholding — I just haven't decided,' or at Too Much, 'I'm not stalling — I'm being careful,' so both asks stand as present acts that don't depend on the read being true. The Too Little cell would serve me more than the person if it hinted at a cause behind the silence, so that cause stays unnamed."
+      "check": "The unsupported claim is the Too Little framing — the record says the seat is past-anchored and running on empty, not that the person is turned back toward something; the draft now says only where they stand. A reader could say 'I'm not stuck on the past, I just can't get moving,' and the ask survives that: eating a finished meal without improving it feeds the seat regardless. The sentence that served me over them was the 'turned toward what's already gone' line — cut. Too Much's ask is Resilience's own act (carry on with the version you chose through another week of doubt), done small. Unacknowledged's ask is Reciprocity's own act (let the exchange with someone run both ways), done small. Partner named once at most, in plain words."
+    },
+    {
+      "attempt": 5,
+      "ms": 3876,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is the Too Little framing — the record says the seat is past-anchored and running on empty, not that the person is turned back toward something; the draft says only where they stand. A reader could say 'I'm not stuck on the past, I just can't get moving,' and the ask survives that: eating a finished meal without improving it feeds the seat regardless. The sentence that served me over them was the 'turned toward what's already behind you' line — cut. Too Much's ask is Resilience's own act (carry on with the version you chose through another week of doubt), done small. Unacknowledged's ask is Reciprocity's own act (let the exchange with someone run both ways), done small. Partner named once at most, in plain words."
     }
   ],
   "usage": {
-    "input": 4003,
-    "output": 4464
+    "input": 10328,
+    "output": 6932
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:28:27.627Z"
+  "date": "2026-10-02T11:56:05.283Z"
 }

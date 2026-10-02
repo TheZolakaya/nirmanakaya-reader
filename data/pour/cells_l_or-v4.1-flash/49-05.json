@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You can touch one shared thing you carry and feel that it still fits, instead of weighing it constantly.",
-      "ask": "Name one shared thing you carry forward and one you have quietly stopped. Say the second part out loud, once.",
-      "core": "You know the difference between a thing worth carrying forward and a thing you keep from habit, and you can name it without making a production out of leaving. That's a harder skill than it sounds — most people either keep everything or drop everything at once. When a shared practice or phrase passes through you and fits, it stays alive rather than preserved under glass. The same ability runs when something has gone flat: you set it down without drama, and you don't need the people around you to agree before you do. What's already working is that you can tell the two apart in the moment, not years later. For a next small move, put one live thing and one spent thing in words in front of someone who shares them with you. Hearing yourself say which is which is what keeps this deliberate.",
-      "sheetLine": "You can tell what still carries, and set down what doesn't.",
-      "verb": "to test what still carries forward and step past what no longer does",
-      "place": "in whatever your people have always done together, where the meanings you share are kept and handed on",
+      "tense": "You are standing at the edge of a shared meaning, and the ground on both sides is solid.",
+      "act": "rest in the balance you already have",
+      "ask": "Before you walk on from this group or practice, take an evening where nothing gets decided. Let the room you are leaving and the one you are walking toward both stay as they are. Watch what settles once you stop checking.",
+      "core": "The shared thing you belong to has a far edge, and you are at it able to see both sides. That is rare and hard-won — most people either cling to what is ending or leave before they have looked at it plainly. You are doing neither.\n\nPart of you is still working the problem, checking whether you have earned the right to walk. That does not have to be solved tonight. Give the shared meaning an evening where nothing gets decided — no inventory of what the group gave you, no plan for the next one. Sit with both rooms at once. Where you are going will come into focus by itself, without being asked.",
+      "sheetLine": "You're at the edge and you can see both sides.",
+      "verb": "walking toward what still connects",
+      "place": "in the shared meaning you were raised inside",
       "provenance": {
         "signature_id": 49,
         "position_id": 5,
@@ -26,14 +27,29 @@
         "partner": "Repose",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the balance you already have\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +66,13 @@
     },
     {
       "status": 2,
-      "tense": "You are standing on the far shore of a shared thing before anyone has agreed to cross with you.",
-      "ask": "Pick one shared thing that's still working. Do it again the same way this week, no improvements, and notice what happens when nobody's watching.",
-      "core": "You've already decided which of your shared things is finished, and you're acting like the goodbye has been said. In practice people are still holding the old form, still expecting it, and you've moved on ahead of them — so a lot of your conversations carry a tug you don't state out loud. The leaving itself may be right. Doing it at speed and alone is what costs you: the shared meaning only thins out cleanly if the people who kept it can see you go. There's another way this can go — you spot the thing that's outlived its use and you end it, and the room feels relieved because you said so first. Look at where you've been treating it as over before it's over. That's a different decision than whether to leave.",
-      "sheetLine": "You've left in your head before anyone else has left the room.",
-      "verb": "to test what still carries forward and step past what no longer does",
-      "place": "in whatever your people have always done together, where the meanings you share are kept and handed on",
+      "tense": "You are already across a threshold you have not actually reached, dragging everyone with you.",
+      "act": "build the first new thing from what the clearing showed",
+      "ask": "Review the recent pushings — the moments you moved a group or tradition ahead before it was ready — and put the pattern into a line: what you reached for, and when. Then stop there. Nothing changes yet.",
+      "core": "In the shared meaning you belong to, you are already at the far side. You can see what the group should become, and you are moving it there — planning the next gathering, correcting the old story, naming what has to go. The distance between where the group actually is and where you have already put it is getting wide, and you are the only one who can see it.\n\nNext time the feeling comes, before you act on it, review the recent pushings — the moments you moved a group or tradition ahead before it was ready — and put the pattern into a line: what you reached for and when. Then stop. Seeing it clearly is the whole job for now. The next step will be yours to choose, not the momentum's.",
+      "sheetLine": "You've arrived somewhere the group hasn't reached yet.",
+      "verb": "walking toward what still connects",
+      "place": "in the shared meaning you were raised inside",
       "provenance": {
         "signature_id": 49,
         "position_id": 5,
@@ -64,11 +81,26 @@
         "partner": "Formation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
@@ -78,17 +110,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "A shared practice you used to stay inside has been behind you for a while, and you haven't put a word on it.",
-      "ask": "Say one half-formed thought about what you share with these people out loud to one of them, wrong wording allowed, before it's polished.",
-      "core": "Something you used to do with your people stopped, and rather than say it ended you just stopped showing up for it. From outside it looks like nothing changed, which is how you've been keeping it. The trouble isn't the leaving — it's that nothing new has come up where the old thing was. So the shared things you do now are the ones other people bring, and your own contributions have gone quiet. That's not a problem in the group. It's one way of taking part in you, thinly supplied, and it pulls from the same thinking that used to be yours — noticing the shape of things, saying what you notice. Send one honest, unfinished observation to one person who shares this with you. It doesn't need to be right. It needs to have left your head.",
-      "sheetLine": "You stopped showing up and didn't say anything out loud.",
-      "verb": "to test what still carries forward and step past what no longer does",
-      "place": "in whatever your people have always done together, where the meanings you share are kept and handed on",
+      "tense": "You are still standing at a door that is already behind you.",
+      "act": "work the pattern through to its logic",
+      "ask": "Take an old belonging — a group, a practice, a story you were raised in — and follow it to where it lands now. Trace the chain: what it asks of you, what it gives back, where it ends. Stop when it shows.",
+      "core": "There is a door in the shared meaning you grew up inside, and it has already closed behind you. You keep standing at it — still speaking the old language, still showing up to what you left — and the group has moved on without you, or you have moved and keep the old posture anyway. Nothing is wrong with the shared thing. You are just not there anymore, and the not-being-there is the whole of where you stand.\n\nPushing yourself back through the door will not work. Understanding will. Take something you still carry from that tradition and follow it to its end: what it asks, what it gives, where it lands now. Do not judge it — just trace it. When the chain is clear, the next place will show itself, because you will finally be looking at where you are instead of where you were.",
+      "sheetLine": "You keep standing at a door that's behind you.",
+      "verb": "walking toward what still connects",
+      "place": "in the shared meaning you were raised inside",
       "provenance": {
         "signature_id": 49,
         "position_id": 5,
@@ -97,26 +135,47 @@
         "partner": "Calculation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already changing what your people carry forward, and you keep describing it as just what's happening.",
-      "ask": "Name one change you've made in a shared practice as yours — to one person, in a sentence that starts with 'I decided'.",
-      "core": "You've been deciding what survives and what doesn't — which words still get used, which old routines have quietly stopped, which things get repeated because you repeat them. That's your hand on it, and you're doing it well enough that nobody's noticed, including you. It gets filed under 'that's just how it went' or 'we all agreed', and the credit goes nowhere. What's already working is the taste: you drop the stale parts and keep the live ones, and the group follows. What's missing is that you don't claim it, so when someone pushes back you have no position to stand on. Say the decision as a decision, out loud, to one person who shares this. Not for credit — so that when it's questioned, there's a place you made it from.",
-      "sheetLine": "You're already changing what gets carried. You just won't say it's you.",
-      "verb": "to test what still carries forward and step past what no longer does",
-      "place": "in whatever your people have always done together, where the meanings you share are kept and handed on",
+      "tense": "You are carrying a shared meaning forward, and your account of it is that it carries itself.",
+      "act": "sit still until the calibration settles",
+      "ask": "Name one way this group or tradition works because you keep showing up for it. Sit with that for ten minutes and do nothing about it. Not to be credited — just to be counted.",
+      "core": "People in this shared meaning know how to belong because you keep the shape of it — you remember the story, you hold the tone of the gathering, you make the thing feel like it has been there the whole time. If someone asked how it holds together, you would say it simply does. Your part in keeping it going has stayed off your own list.\n\nThe fatigue that is starting to show has a source. Name one way the tradition works because you keep showing up for it — one thing that would loosen if you stopped. Sit with that fact for ten minutes and do nothing about it. Not to be credited, just to be counted. The room will feel different once the one holding it knows they are holding it.",
+      "sheetLine": "You keep the whole thing going and don't count yourself.",
+      "verb": "walking toward what still connects",
+      "place": "in the shared meaning you were raised inside",
       "provenance": {
         "signature_id": 49,
         "position_id": 5,
@@ -125,11 +184,21 @@
         "partner": "Repose",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -141,21 +210,33 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6419,
+      "ms": 7562,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the balance you already have\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
@@ -171,20 +252,38 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it over\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the last three times you\"",
           "hard": true,
           "status": 2
         },
@@ -201,27 +300,63 @@
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -229,20 +364,43 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives me Culture-through-Resonance as a threshold of shared meaning and Repose as a mind at rest, but it never says what the person is leaving or who taught them not to leave it; I should not fill that in. The reader could reasonably say a balanced reading flatters the quiet decider, so the ask is a small testing of one thing to see if it still fits, not a verdict about the person or the tradition. The sentence that serves me is any line about the room behind them or about what leaving costs, and I'm cutting both."
+      "check": "The unsupported claim is that a threshold of shared meaning has actually been reached here; the reader could reasonably say nothing is ending, they are simply tired of a group or a practice. The Too Much ask survives being wrong because tracing the pattern across three reachings only shows what is there, true or not; the weakest line is the Unacknowledged core's 'they'd have no way to name it as yours,' which serves the writer's thesis more than the person — narrowed to what is said. The sentence that serves me is the Balanced core's 'part of you is still working the problem,' so it stays as an observation they can refuse."
     },
     {
       "attempt": 2,
-      "ms": 3741,
+      "ms": 4636,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the balance you already have\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -259,6 +417,24 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
@@ -271,8 +447,32 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -280,27 +480,62 @@
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives me Culture-through-Resonance as a threshold of shared meaning and Repose as a mind at rest, but it never says what the person is leaving or who taught them not to leave it; I should not fill that in. The reader could reasonably say a balanced reading flatters the quiet decider, so the ask is a small testing of one thing to see if it still fits, not a verdict about the person or the tradition. The sentence that serves me is any line about the room behind them or about what leaving costs, and I'm cutting both."
+      "check": "The unsupported claim is that a threshold of shared meaning has actually been reached; the reader could reasonably say nothing is ending, they are merely tired of a group or a practice. The Too Much ask survives being wrong because tracing the pattern across recent reachings only shows what is there, true or not. The weakest line was the Unacknowledged core's 'they'd have no way to name it as yours,' which served the writer's thesis more than the person — narrowed to what is said. The sentence that serves me is the Balanced core's 'part of you is still working the problem,' so it stays as an observation they can refuse."
     },
     {
       "attempt": 3,
-      "ms": 3887,
+      "ms": 6164,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the balance you already have\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -317,6 +552,24 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
@@ -329,68 +582,52 @@
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record gives me Culture-through-Resonance as a threshold of shared meaning and Repose as a mind at rest, but it says nothing about what the person is leaving or who taught them to keep quiet about it; I should not fill that in. The reader could reasonably say the balanced cell flatters a quiet decider, so the ask is a small naming of one live thing and one spent thing, a test rather than a verdict. The sentence that serves me is any line about the room behind them or what leaving costs, and I'm cutting both. The remaining risk is a universal sneaking into status 3 — 'never' — and I've made the claim about one practice instead of the person's life."
-    },
-    {
-      "attempt": 4,
-      "ms": 3816,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"work the pattern through to its logic\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -399,13 +636,13 @@
           "status": 4
         }
       ],
-      "check": "The record gives me Culture-through-Resonance as a threshold of shared meaning and Repose as a mind at rest, but it says nothing about what the person is leaving or who taught them to keep quiet about it; I should not fill that in. The reader could reasonably say the balanced cell flatters a quiet decider, so the ask is a small naming of one live thing and one spent thing, a test rather than a verdict. The sentence that serves me is any line about the room behind them or what leaving costs, and I'm cutting both. The remaining risk is a phrase that belongs to the map rather than the person, and I've kept every line in the kitchen."
+      "check": "The unsupported claim is that a threshold of shared meaning has actually been reached; the reader could reasonably say nothing is ending, they are merely tired of a group or a practice. The Too Much ask survives being wrong because reviewing recent pushings only shows what is there, true or not. The weakest line was a universal about the person's carrying, which served the writer's thesis more than the person — narrowed to what is said. The sentence that serves me is the Balanced core's 'part of you is still working the problem,' so it stays as an observation they can refuse. The asks are shaped differently now: an evening with nothing to decide, a review that stops, a chain traced to its end, and a counting that has no clock."
     }
   ],
   "usage": {
-    "input": 7343,
-    "output": 4884
+    "input": 6644,
+    "output": 3759
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:39:44.541Z"
+  "date": "2026-10-02T12:14:31.462Z"
 }

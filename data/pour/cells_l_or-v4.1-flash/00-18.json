@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The pen is down and today is the material, not the past.",
-      "ask": "Take one thing you want and make it small enough to do today. Name the step out loud to one person, then do it.",
-      "core": "You've still got everything in your hands and that hasn't made you greedy or frozen. Open is the word for it — you notice what's around, you're not measuring it against a plan, and nothing has asked you to pick yet. That's not laziness. It's the seed point, where the whole thing exists without being narrowed.\n\nThe small light is the point, not a failure of vision. On a day you don't know the road, what shows up is the next move — and you're steady enough to take it without forcing the rest. That is the whole trick of working without full sight: trust it to reveal itself. Keep that, and any plan you do make comes out of presence, not out of bracing.",
-      "sheetLine": "You can hold what's possible and still move one lit step.",
-      "verb": "holding everything as possible",
-      "place": "navigating ambiguity — moving with only the next step lit",
+      "tense": "You are standing at the start of something, and nothing has closed yet.",
+      "act": "choose the light to steer by and turn toward it",
+      "ask": "Find the pull you want to steer by — the one whose loss would cost you most — and turn toward it today. Not the plan, only the turning.",
+      "core": "You're standing at the start of something, and nothing has closed yet. Not because you can't decide — because you're open, and open is where you're meant to be right now. Every door is still live, and you're not clutching at any of them. This is the fresh moment, and you're in it.\n\nYou can steer by something real. Because what you've been growing inside has actually finished something, you get to pick what draws you and turn toward it instead of waiting to be sure. Name the pull you'd steer by, the one whose loss would cost you most, and turn toward it. The light doesn't need to be enough to see the whole road. It only needs to be the one you choose.",
+      "sheetLine": "Nothing's closed yet. Pick the light you'll steer by.",
+      "verb": "holding every possibility open before any of them becomes real",
+      "place": "navigating ambiguity — moving with only enough light for the next step",
       "provenance": {
         "signature_id": 0,
         "position_id": 18,
@@ -26,19 +27,29 @@
         "partner": "Inspiration",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "vocab",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -50,12 +61,13 @@
     },
     {
       "status": 2,
-      "tense": "The future is where the decision is being hidden, and the present is where it keeps waiting.",
-      "ask": "Choose one possibility and put it where people can see it — a draft, a date, a public yes — today or this week.",
-      "core": "You keep opening new versions of it and closing none. From outside, the options look like enough decisions to count, but they aren't — they're ways of staying before the moment. What you want sits above where any of them could reach, so each version gets compared to something untouchable, and the real thing stays unlived.\n\nThe light you're moving toward is not in another option. It's in letting the part of this you already are come out where it can be seen. Pick one, put it somewhere real, and let it be imperfect. A no will tell you something the maybe can't.",
-      "sheetLine": "All your options are keeping you from picking one.",
-      "verb": "holding everything as possible",
-      "place": "navigating ambiguity — moving with only the next step lit",
+      "tense": "You are keeping every door open, and none of them will ever be walked through.",
+      "act": "do one thing today the way only you do it, and do not explain it",
+      "ask": "Do something today in your own manner, and keep it to yourself — no proof offered, nobody told. Then stop there.",
+      "core": "Every door is still open, and that's starting to cost you. You keep the options warm because landing on one would close the rest, and from where you're standing that reads as losing. So nothing ever gets chosen, and the hovering itself has become the work. There's plenty of future and no present.\n\nWhat's underneath is that you're trying to earn the light rather than be it. So do a thing your way, in one deed, without explanation or proof — let it be yours, not a performance for the room. One landed act will tell you more about which door to walk through than another week of holding them all. The choice gets easier once you've been seen doing something.",
+      "sheetLine": "All the doors are open, and none of them is a life yet.",
+      "verb": "holding every possibility open before any of them becomes real",
+      "place": "navigating ambiguity — moving with only enough light for the next step",
       "provenance": {
         "signature_id": 0,
         "position_id": 18,
@@ -64,41 +76,47 @@
         "partner": "Actualization",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing in front of a door that closed a long time ago.",
-      "ask": "Tell one person the last time you wanted something and didn't reach. Let them say what they see.",
-      "core": "Wanting something doesn't get you near it anymore. The possibilities are still there and you can still name them, but saying them stays a description. What you do make comes out shaped by what won't work instead of by what you'd choose — safe first, then small, then gone.\n\nSeeing the pattern itself, once, from outside is the thing that loosens it: wanting isn't the problem, and nothing in the pattern says it is. The moment is behind you and the bracing outlasted it. You don't have to open anything yet — just stop treating one closed door as the whole wall.",
-      "sheetLine": "Wanting didn't close. Your grip on the old no did.",
-      "verb": "holding everything as possible",
-      "place": "navigating ambiguity — moving with only the next step lit",
+      "tense": "You are stopped at a doorway that closed behind you, and you haven't moved.",
+      "act": "draw the whole arrangement you are inside, with yourself marked on it",
+      "ask": "Sketch the arrangement you're inside — the people, the commitments, their weight — and mark where you sit within it. A rough page, no fixing, simply seeing the whole.",
+      "core": "Something closed you in a while back, and you've been creating from behind that wall ever since. You're not out of options so much as stopped in place, working from a picture that no longer matches the room.\n\nWhat will move you isn't trying harder to be open. It's seeing the whole arrangement you're standing inside — not the old story, the arrangement. Put it on one page: the people, the commitments, the constraints, your own position marked. You don't have to solve it. You just have to see where you actually are, all at once. Seeing the whole of it loosens the grip the smaller picture has on you.",
+      "sheetLine": "The door closed behind you. You're stopped at it.",
+      "verb": "holding every possibility open before any of them becomes real",
+      "place": "navigating ambiguity — moving with only enough light for the next step",
       "provenance": {
         "signature_id": 0,
         "position_id": 18,
@@ -107,29 +125,24 @@
         "partner": "Recognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, wall) — one at most, usually none",
+          "detail": "two images in one core (wall, room) — one at most, usually none",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
           "hard": false
         },
         {
@@ -141,12 +154,13 @@
     },
     {
       "status": 4,
-      "tense": "You have been writing with the pen down in a room you are already in.",
-      "ask": "Before the next automatic yes, stop and write three things you could do instead. Pick the one you'd choose if no one were waiting.",
-      "core": "You are steering this whole thing by reaction — replying, adjusting, getting through the last message — while the sense that there are options at all has gone quiet. The draft you're in isn't written by you consciously; it's written by whatever comes at you next. No choices are visible, only what arrives.\n\nThe way back is the thing you already do, just earlier and smaller. Give the uncertainty a page instead of a verdict. One option circled, tried, and either kept or dropped is enough; you only need the next step lit, not the whole road. Once one is visible, others start showing up beside it.",
-      "sheetLine": "You're reacting to your life. Start choosing one thing.",
-      "verb": "holding everything as possible",
-      "place": "navigating ambiguity — moving with only the next step lit",
+      "tense": "You are moving through the day reactively, and the doors have gone invisible to you.",
+      "act": "sketch the whole of it badly, on one page, and keep the sketch",
+      "ask": "Make a rough drawing of the situation — no polish — and keep it somewhere visible. All of it on the page before you settle on any decision.",
+      "core": "You're moving through this without seeing much of it. Things happen and you respond, and the responding feels like the whole story. The options were hidden less than they were moving too fast for you to notice you had them. Your hand is already on the pen; you've just stopped reading what it's writing.\n\nWhat brings the doors back is putting the whole thing down somewhere you can look at it. One rough page, badly done, all of it out where you can see the shape — not sorted, not solved. That's how what you've lived becomes something that can dream forward again. Keep the sketch. It'll tell you where you are without your having to know where you're going.",
+      "sheetLine": "You're steering, but you've stopped seeing the doors.",
+      "verb": "holding every possibility open before any of them becomes real",
+      "place": "navigating ambiguity — moving with only enough light for the next step",
       "provenance": {
         "signature_id": 0,
         "position_id": 18,
@@ -155,19 +169,24 @@
         "partner": "Imagination",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -181,14 +200,14 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6495,
+      "ms": 8953,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
@@ -199,44 +218,74 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose the light to steer by and turn toward it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd be sorriest to lose\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the way only you do\" — say the act in the person's words",
+          "hard": true,
           "status": 2
         },
         {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"long ago\" — a duration the person never gave",
           "hard": true,
           "status": 3
         },
@@ -248,8 +297,14 @@
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (map, door, wall) — a parable, not a sentence to a person",
+          "detail": "3 images in one core (wall, door, shape) — a parable, not a sentence to a person",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
@@ -260,8 +315,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -271,20 +326,38 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, road, door) — a parable, not a sentence to a person",
+          "code": "imperative",
+          "detail": "\"you have to\"",
           "hard": true,
           "status": 4
         },
         {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -293,20 +366,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record does not support saying the person is waiting for the one right option or that stillness has become a hiding place; a reader could say they are simply resting, delegating, or not responsible. The ask survives a wrong read because naming one wanted thing does not depend on why nothing has been picked. The sentence that serves me is any line that calls possibility itself whole or deep, which belongs to the package rather than the person."
+      "check": "The unsupported claim is that the reader is 'mid-collapse' specifically — nothing in the record says a choice is currently in play; the record only says possibilities haven't collapsed. A reader could reasonably say 'actually I just haven't decided anything yet, I'm not hovering,' and the Too Much ask survives that: doing one thing your own way without proof is useful whether the hovering is acute or chronic. The sentence that serves me more than them is 'you contain everything, committed to nothing yet' — it is a card line, not a person's sentence, so it stays in the record and not on the glass."
     },
     {
       "attempt": 2,
-      "ms": 4199,
+      "ms": 5296,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "detail": "two images in one core (door, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
@@ -317,33 +401,45 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd be sorriest to lose\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"let what you are show\" — say the act in the person's words",
+          "hard": true,
           "status": 2
         },
         {
@@ -353,14 +449,14 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (door, shape, wall) — a parable, not a sentence to a person",
+          "detail": "3 images in one core (wall, room, shape) — a parable, not a sentence to a person",
           "hard": true,
           "status": 3
         },
@@ -372,8 +468,8 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -383,20 +479,32 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, road, door) — a parable, not a sentence to a person",
+          "code": "imperative",
+          "detail": "\"you have to\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -405,80 +513,103 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record does not support saying the person is hiding from a decision or that the wanting stopped; a reader could say they are resting, delegating, or simply not responsible for this part of the work. The ask survives a wrong read because naming one wanted thing and one small step does not depend on why nothing has been picked. The sentence that serves me is any line that calls the possible itself 'whole' or 'deep,' which belongs to the package rather than the person."
+      "check": "The unsupported claim is that a specific choice is currently in play — the record only says possibilities haven't collapsed, not that the person is mid-decision. A reader could reasonably say 'I'm not hovering, I just haven't picked anything yet,' and the Too Much ask survives that: doing a thing in your own way without proof is useful whether the holding is acute or chronic. The sentence that serves me more than them is 'you contain everything, committed to nothing yet' — that stays in the record, not on the glass."
     },
     {
       "attempt": 3,
-      "ms": 6526,
+      "ms": 4502,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "detail": "two images in one core (door, road) — one at most, usually none",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
           "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
-          "status": 2
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Say it to\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and let wanting it be\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The opening\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, wall) — one at most, usually none",
+          "detail": "two images in one core (wall, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -489,12 +620,6 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -502,19 +627,31 @@
         },
         {
           "code": "length",
-          "detail": "core 111 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, road, door) — a parable, not a sentence to a person",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -523,45 +660,80 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record does not support saying the person is hiding from a decision or that wanting has stopped; a reader could say they are resting, delegating, or simply not responsible for this part of the work. The ask survives a wrong read because naming one wanted thing and one small step does not depend on why nothing has been picked. The sentence that serves me is any line that praises the possible itself as 'whole' or 'deep,' which belongs to the package rather than to the person."
+      "check": "The unsupported claim is that a specific choice is currently in play — the record only says possibilities haven't collapsed, not that the person is mid-decision. A reader could reasonably say 'I'm not hovering, I just haven't picked anything yet,' and the Too Much ask survives that: doing a thing your own way without proof is useful whether the holding is acute or chronic. The sentence that serves me more than them is 'you contain everything, committed to nothing yet' — that stays in the record, not on the glass."
     },
     {
       "attempt": 4,
-      "ms": 3972,
+      "ms": 4247,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "detail": "two images in one core (door, road) — one at most, usually none",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
           "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and let wanting it be\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 2
         },
         {
@@ -571,32 +743,14 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
           "code": "vocab",
-          "detail": "\"The opening\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, wall) — one at most, usually none",
+          "detail": "two images in one core (wall, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -607,12 +761,6 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -620,13 +768,25 @@
         },
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -637,43 +797,67 @@
           "status": 4
         }
       ],
-      "check": "The record does not support saying the person is hiding from a decision or that wanting has stopped; a reader could say they are resting, delegating, or simply not responsible for this part of the work. The ask survives a wrong read because naming one wanted thing and one small step does not depend on why nothing has been picked. The sentence that serves me is any line that praises the possible itself as 'whole' or 'deep,' which belongs to the package rather than to the person."
+      "check": "The unsupported claim is that a specific choice is currently in play — the record only says possibilities haven't collapsed, not that the person is mid-decision. A reader could reasonably say 'I'm not hovering, I just haven't picked anything yet,' and the Too Much ask survives that: doing a thing your own way without proof is useful whether the holding is acute or chronic. The sentence that serves me more than them is 'you contain everything, committed to nothing yet' — that stays in the record, not on the glass."
     },
     {
       "attempt": 5,
-      "ms": 4069,
+      "ms": 4010,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "detail": "two images in one core (door, road) — one at most, usually none",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "vocab",
           "detail": "\"The light\" — an ethereal image; use something in a life",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 2
         },
         {
@@ -683,20 +867,14 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, wall) — one at most, usually none",
+          "detail": "two images in one core (wall, room) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -707,12 +885,6 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -720,13 +892,19 @@
         },
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -737,13 +915,13 @@
           "status": 4
         }
       ],
-      "check": "The record does not support saying the person is hiding from a decision or that wanting has stopped; a reader could say they are resting, delegating, or simply not responsible for this part of the work. The ask survives a wrong read because naming one wanted thing and one small step does not depend on why nothing has been picked. The sentence that serves me is any line that praises the possible itself as 'whole' or 'deep,' which belongs to the package rather than to the person."
+      "check": "The unsupported claim is that a specific choice is currently in play — the record only says possibilities haven't collapsed, not that the person is mid-decision. A reader could reasonably say 'I'm not hovering, I just haven't picked anything yet,' and the Too Much ask survives that: doing a thing your own way without proof is useful whether the holding is acute or chronic. The sentence that serves me more than them is 'you contain everything, committed to nothing yet' — that stays in the record, not on the glass."
     }
   ],
   "usage": {
-    "input": 4818,
-    "output": 5191
+    "input": 9235,
+    "output": 6036
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:53:43.101Z"
+  "date": "2026-10-02T11:17:17.232Z"
 }

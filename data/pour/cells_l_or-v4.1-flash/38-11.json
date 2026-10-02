@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are at the table now, and the scale is already answering you.",
-      "ask": "Name what you'll give back and what you'll stop covering, once, out loud. Then let that be the whole ledger for the day.",
-      "core": "You can pick up everybody's loose threads and lay them out so they don't tangle, and what's fair shows up without you having to grind at it. The weighing is quick and quiet. You give and take without keeping a tally, and people feel that, which is why your judgment gets asked for.\n\nThat answer is only as good as the moment it's given in. You already sense which pieces belong together and which one only came along for the ride. Say what you sort out loud while it's true, before you've trimmed it into something tidier than you meant. The ones who hear it early can move on it while it still has your voice in it.",
-      "sheetLine": "What's fair shows up clear, and you move on it.",
-      "verb": "gathering scattered thoughts into one fair account before anything is decided",
-      "place": "the table where what's owed is weighed and set right",
+      "tense": "Right now the scale sits level and the reading is clear.",
+      "act": "return the small thing you owe before anyone asks",
+      "ask": "There's something you borrowed or promised and haven't given back. Hand it over this week, before anyone brings it up, and notice whether fairness feels lighter or heavier once it's done.",
+      "core": "Nothing here is loud. A favour someone at the table owes is easy to see, and the one you owe back is just as easy, so you settle it before there's a bill. That exchange can run without a ledger being kept.\n\nWhat a fair deal feels like when nobody's checking it — that's the thing to use. Go through the odds and ends you're carrying for other people: a promise, a book, a name you said you'd pass along. Hand one of them back this week. You'll learn from how it lands. Nothing needs managing beyond what you already knew was owed. The scale doesn't need watching; it needs using.",
+      "sheetLine": "Fair exchange is running, and you don't need the ledger open.",
+      "verb": "Gathering what's strewn, weighing each piece by feel until the whole is level.",
+      "place": "Where what's owed and what's owed to you get weighed on the same scale and set even.",
       "provenance": {
         "signature_id": 38,
         "position_id": 11,
@@ -26,46 +27,32 @@
         "partner": "Conscience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are living in a settlement that hasn't happened yet, running the sums ahead of the room.",
-      "ask": "Pick the one account that's actually open and leave the imaginary ones unaddressed. Let the next move come from what you feel, not from the loop.",
-      "core": "You're gathering every angle into one fair account before anyone has asked, and you've started living in the version where it's all settled. The payoff keeps receding, so the tidying keeps going — rereading, rebalancing, rehearsing relief that hasn't landed. You are doing the work of a decision that hasn't been made yet.\n\nA clear eye here holds the whole picture, feels which parts are yours to weigh most, and moves. The clarity is real. The timing isn't. You're deciding what the case is before the case has happened, and the deciding has become a place to live rather than a thing to finish. One thing is actually open right now. Sort that one, fairly. Then step back and let the next move come from your own weight rather than from the loop.",
-      "sheetLine": "You're settling accounts before anyone has opened them.",
-      "verb": "gathering scattered thoughts into one fair account before anything is decided",
-      "place": "the table where what's owed is weighed and set right",
+      "tense": "Soon there will be scores to settle that haven't happened yet.",
+      "act": "find the rhythm and stay in it",
+      "ask": "Take a thing you're keeping even with someone and don't settle it this week — not because it's unfair, but to feel whether the score was ever really open. Let it run a day past the moment you'd have corrected it.",
+      "core": "The air carries one eye on the next bill. Favours get filed, small imbalances get corrected early, because an uneven moment looks like a debt that hasn't been graded yet. The gathering is real; the timing pushes ahead of it.\n\nSome of it can wait for the ground to show. Take the thing that's actually balanced and treat it this week as still a little open. Let a reciprocal gesture sit, or don't name the correction the moment it appears. You'll learn whether it needed fixing or whether the scale was being kept even from habit.\n\nWhen both people are still moving, the score becomes the whole conversation and the exchange itself gets lost.",
+      "sheetLine": "The score is being settled before anyone's moved yet.",
+      "verb": "Gathering what's strewn, weighing each piece by feel until the whole is level.",
+      "place": "Where what's owed and what's owed to you get weighed on the same scale and set even.",
       "provenance": {
         "signature_id": 38,
         "position_id": 11,
@@ -74,11 +61,21 @@
         "partner": "Alignment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -88,12 +85,13 @@
     },
     {
       "status": 3,
-      "tense": "You are at the table and not at the table, and nothing has been said.",
-      "ask": "Say the one thing you hold back, out loud, to someone who wasn't there. Not to fix it — to hear your own voice say it.",
-      "core": "On your strongest days, the whole account comes to the table and sits in the open. You know which piece is yours, you say so, and the scales settle because you entered the weight instead of carrying it alone. You can still feel what's off. You can still tell when the split isn't even, and you still notice who is being shorted.\n\nWhat you do now is bring the piece that seems safe to weigh, one at a time, and the rest stays off the table. So the scales sit tipped and you keep quiet about the load. You notice what's off. You don't enter it. The sense of what's owed hasn't gone anywhere. What's missing is your voice in the room saying it. Start with one thing, not the whole pile. Say it to someone who wasn't there, who won't argue.",
-      "sheetLine": "The fairness sees it. You've stopped saying it.",
-      "verb": "gathering scattered thoughts into one fair account before anything is decided",
-      "place": "the table where what's owed is weighed and set right",
+      "tense": "There was a reckoning once, and you have been standing here since.",
+      "act": "sit with what the heart already knows",
+      "ask": "For fifteen minutes, sit with something owed and unpaid. No fixing, no assigning, no deciding — just let it be there. Notice what your own heart says before the reasoning starts up.",
+      "core": "A score has gone untouched. The gathering happens, the lines get sorted, and then nothing is said about who owes what. The exchange stays quiet, and the quiet is what gets carried into the next room. Nobody asks for the debt back, and you don't offer it.\n\nMore words won't help. Before the accounting starts, sit with the part of you that already knows what's fair. It doesn't need new information. Give it the fifteen minutes you'd normally give to fixing the proportion; let it sit with you, and leave the fixing for later or skip it. The sense is still in there and it answers when nothing is demanding.\n\nStay silent long enough and a thing stops feeling like a choice.",
+      "sheetLine": "Something owed has gone quiet, and you've stopped asking for it.",
+      "verb": "Gathering what's strewn, weighing each piece by feel until the whole is level.",
+      "place": "Where what's owed and what's owed to you get weighed on the same scale and set even.",
       "provenance": {
         "signature_id": 38,
         "position_id": 11,
@@ -102,21 +100,11 @@
         "partner": "Reverie",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -126,12 +114,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already sorting what's owed, and you are calling it something else.",
-      "ask": "Call one thing you did today what it actually was — a fairness call — and say it plain, without the softer wording.",
-      "core": "You're already gathering what's scattered and laying it out fairly. You do it in how you rephrase a complaint so it can be heard, in whose turn you let come back around, in what you quietly refuse to let slide. That work runs all day. You call it keeping the peace.\n\nYour fairness is carrying real weight and you're giving it none of the credit. That's a smaller loss than it sounds — you don't need to announce it. Just stop pretending it's chance. One thing you did today was a fairness call. Say it that way, plainly, to yourself or to someone who'd recognise it. The claim doesn't get louder when you name it. It just becomes yours.",
-      "sheetLine": "You're already sorting it fairly. You call it keeping the peace.",
-      "verb": "gathering scattered thoughts into one fair account before anything is decided",
-      "place": "the table where what's owed is weighed and set right",
+      "tense": "You keep the scale and act as if someone else put it there.",
+      "act": "mark the good thing together, out loud",
+      "ask": "A shared arrangement made something good possible. Say that out loud to the person it belongs to, as a fact and not a favour. No thanks needed, no score kept.",
+      "core": "The evening went well, the split came out even, and if someone asked about it you'd shrug and call it nothing much. The accounting is already yours — you spotted it, held it, and said nothing about it. The credit gets filed under harmony, or luck, or how that household does things.\n\nA good arrangement got marked by your hand, and it can be said. One true thing — a bill settled fairly, a week that ran because you carried it — can be spoken to the person it touches. Just say it plainly. The point isn't applause; it's keeping the connection in the shared record. You'll feel the difference between the doing and the saying.\n\nWhat builds into a debt in silence was probably years of carrying the scale without the family ever hearing your name.",
+      "sheetLine": "The arrangement is holding, and you won't put your name on it.",
+      "verb": "Gathering what's strewn, weighing each piece by feel until the whole is level.",
+      "place": "Where what's owed and what's owed to you get weighed on the same scale and set even.",
       "provenance": {
         "signature_id": 38,
         "position_id": 11,
@@ -140,14 +129,14 @@
         "partner": "Celebration",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
@@ -161,157 +150,51 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5461,
+      "ms": 6612,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "vocab",
+          "detail": "two images in one core (room, ledger) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return the small thing you owe before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the settling\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"You used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is doing real work and\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports fairness as a private felt-sense the person already has, not proof of how they weigh things at any particular table. A reader could reasonably object that confusion, not fairness, is what they carry — the ask still works then, because putting the numbers back through one fair pass helps a person who sees a worse snarl than I described. The sentence that serves me more than them is 'You keep the tally running' — it is clean enough to feel true without pointing at anything they can check, so I have left it out."
-    },
-    {
-      "attempt": 2,
-      "ms": 4134,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the settling\" — a verb turned into a mystical noun",
+          "detail": "\"every imbalance\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"When this goes well\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -319,12 +202,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "scope",
@@ -333,22 +210,85 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
+          "code": "refrain",
+          "detail": "\"You're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record says the person gathers scattered thoughts and that the seat is fair calibration, but it does not say how the gathering is landing for them, and I am writing as if several lines are still loose — a reader could reasonably answer that the strategizing is fine and what is off is something else. If my read is wrong, the ask still holds: returning a small owed thing teaches them whether the felt sense runs clean or must be checked, and either way they get the data. The sentence that serves me more than them is any line that treats the balance as already proven rather than offered."
+    },
+    {
+      "attempt": 2,
+      "ms": 4595,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return the small thing you owe before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -357,9 +297,21 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd say you were just\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -369,30 +321,18 @@
           "status": 4
         }
       ],
-      "check": "The record supports fairness as a private felt-sense the person already carries, not proof of how they weigh things at any particular table. A reader could reasonably object that confusion, not fairness, is what they carry — the ask still works then, because putting the open accounts back through one fair pass helps a person who sees a worse snarl than I described. The sentence that serves me more than them is 'You keep the tally running' — it is clean enough to feel true without pointing at anything they can check, so I have left it out. The Too Little cell must locate the person in the present without giving a cause; I have kept it on what is not said now, not on what happened."
+      "check": "The record says thoughts are being gathered and the seat is fair calibration, but it does not say the settling is failing; a reader could answer that the strategizing is fine and what's uneven is elsewhere. If that's true, the asks still work — returning an owed thing, sitting with an unsettled one, or naming a shared good all teach the person where their felt sense of fairness actually runs. The sentence that serves me more than them is any line that treats the level scale as proven rather than offered."
     },
     {
       "attempt": 3,
-      "ms": 3448,
+      "ms": 4595,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -403,10 +343,16 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"find the rhythm and stay in it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -415,38 +361,14 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -457,183 +379,13 @@
           "status": 4
         }
       ],
-      "check": "The record supports fairness as a private felt-sense the person already carries, not proof of how they weigh things at any particular table. A reader could reasonably object that confusion, not fairness, is what they carry — the ask still works then, because putting the open accounts back through one fair pass helps a person who sees a worse snarl than I described. The sentence that serves me more than them is 'You keep the tally running' — clean enough to feel true without pointing at anything they can check, so I have left it out. The Too Little cell must locate the person in the present without giving a cause or a universal; I have kept it on what is not being said now."
-    },
-    {
-      "attempt": 4,
-      "ms": 3836,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"done well,\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports fairness as a private felt-sense the person already carries, not proof of how they weigh things at any particular table. A reader could reasonably object that confusion, not fairness, is what they carry — the ask still works then, because putting the open accounts back through one fair pass helps a person who sees a worse snarl than I described. The sentence that serves me more than them is 'You keep the tally running' — clean enough to feel true without pointing at anything they can check, so I have left it out. The Too Little cell must locate the person in the present without giving a cause or a universal; I have kept it on what is not being said now, and lengthened it by showing the working capacity before the fault."
-    },
-    {
-      "attempt": 5,
-      "ms": 3447,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the scales\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports fairness as a private felt-sense the person already carries, not proof of how they weigh things at any particular table. A reader could reasonably object that confusion, not fairness, is what they carry — the ask still works then, because putting the open accounts back through one fair pass helps a person who sees a worse snarl than I described. The sentence that serves me more than them is 'You keep the tally running' — clean enough to feel true without pointing at anything they can check, so I have left it out. The Too Little cell is kept on what is not being said now, with the working capacity shown first and no cause or universal."
+      "check": "The record says thoughts are being gathered and the seat is fair calibration, but it doesn't say the settling is failing — a reader could answer that the strategizing is fine and what's uneven is somewhere else. If that's true, the asks still work: handing back an owed item, letting an open score sit a day, staying with an unsettled one, or naming a shared good all teach the person where their felt sense of fairness actually runs. The sentence that serves me more than them is any line that treats the level scale as proven rather than offered."
     }
   ],
   "usage": {
-    "input": 8205,
-    "output": 5637
+    "input": 6459,
+    "output": 3693
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:30:08.945Z"
+  "date": "2026-10-02T13:04:09.326Z"
 }

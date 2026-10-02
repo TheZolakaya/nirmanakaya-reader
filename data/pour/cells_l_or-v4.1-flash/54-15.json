@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Mind",
+  "group": "library",
   "signature_id": 54,
   "position_id": 15,
   "signature": "Formation",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You see the pattern while you're in the middle of it, and the seeing and the making move together.",
-      "ask": "Take the next concrete step on the thing you're making, while it's still fresh. Nothing else tonight.",
-      "core": "You can see the shape of a thing before it hits the table, and you trust what you see. What you're making keeps coming out clearer for it — the pattern and your hands aren't fighting each other. That's the balanced face operating: the structure is obvious and quiet at the same time, and the deciding where the next piece goes is happening at the pace the work can hold.\n\nWhat's working is that this balance is free to feed the next thing. You built toward this, and you're allowed to stand in it without hurrying. The offer is to take the next step while the shape is still in front of you, at the pace that doesn't make you brace. The structure you're raising holds when you keep moving through it.",
-      "sheetLine": "You see the shape early, and the early seeing keeps being right.",
-      "verb": "building the thing that couldn't exist before, from the parts that were already there",
-      "place": "the room where the pattern appears before it arrives in the world",
+      "tense": "You are here at the bench, with the pen in your hand.",
+      "act": "point to the passage you can see",
+      "ask": "In two sentences, sketch the first step you can see in something a friend is stuck on. Say it once, then leave the outcome alone.",
+      "core": "You can look at a thing long enough to see how it works underneath, and lately that sight has been steady enough to say out loud. When your practice runs easy, without forcing, that ease is the sign the form is solid. Something is coming together out of work you have already done, and right now it is small enough that its shape is mostly yours.\n\nYour quiet is not distance. People near you begin seeing the pattern themselves, and they don't notice you laid it out. In two sentences, sketch the first step you see in something a friend is stuck on. Say it once and stop. What this costs is the comfort of working unobserved.",
+      "sheetLine": "What you see clearly, you can hand to someone else.",
+      "verb": "Building something new from what the clearing left behind",
+      "place": "Where pattern shows itself apart from any one instance",
       "provenance": {
         "signature_id": 54,
         "position_id": 15,
@@ -26,24 +27,29 @@
         "partner": "Guidance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
@@ -55,12 +61,14 @@
     },
     {
       "status": 2,
-      "tense": "You keep reworking a future version of the thing before any of it has had a chance to land.",
-      "ask": "Get one piece down in its roughest form tonight and leave it alone until tomorrow.",
-      "core": "Somewhere ahead there's a finished version, and you're comparing every current piece to it. Nothing lands because nothing's finished — and the version in your head keeps getting sharper and further away. You'd rather sketch again than make one thing that could be wrong.\n\nThis is the future-projected face: over-shaping, one more revision short of arrival. The live version — the one in front of you, imperfect and unpolished — is the one anyone else can actually meet. Work that hasn't landed can't be handed to anyone. So let the rough piece exist for one night, in someone else's sight or no one's. The building moves forward once you stop rewriting the future and start finishing the present.",
-      "sheetLine": "The future version is stealing the one piece that exists.",
-      "verb": "building the thing that couldn't exist before, from the parts that were already there",
-      "place": "the room where the pattern appears before it arrives in the world",
+      "tense": "You will have to hold the whole structure together before it is even built.",
+      "act": "cross over to the people it actually requires",
+      "ask": "Go to the person who is actually in this with you — the one it needs, not the easiest. Show up in person or on a real call and stay for the whole conversation.",
+      "core": "You can see the whole shape before it exists, and lately that sight runs faster than the hands that have to make it. You have been defending the plan, checking joints that have not been formed, carrying the load before there is a load. Racing what is actually here makes the building feel like a test you can still fail.\n\nGo deeper than is comfortable. Go to the person who is actually in this with you — the one it needs, not the easiest. Show up in person or on a call and stay the whole conversation. Nothing gets solved by the visit. The plan does not have to carry tonight; you do, and you do not have to do that part alone.",
+      "sheetLine": "You're carrying a structure that isn't built yet.",
+      "cost": "The cost is the wait — a plan holds better once someone else has stood inside it.",
+      "verb": "Building something new from what the clearing left behind",
+      "place": "Where pattern shows itself apart from any one instance",
       "provenance": {
         "signature_id": 54,
         "position_id": 15,
@@ -69,31 +77,37 @@
         "partner": "Passage",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You knew how to start things like this once, and that version of you is standing at a door that's already shut.",
-      "ask": "Say the direction out loud to one person in ten words, then start the first piece today.",
-      "core": "The pattern that used to arrive so easily isn't arriving now. You can still recognize it in other people's work, still explain it, still see the shape — but the making has stopped, and it's been stopped for a while. What's left is the recognition, unhooked from the doing.\n\nWhat would help isn't more insight. It's the other direction, the simplest visible one: someone needs to know what you're building before you believe it's worth building. The direction has to leave your head and land somewhere another person can hear it. Once it's out there, the pattern usually finds its way back to the page. Name it plainly to one safe person today, then make the first rough piece without showing it to anyone yet. The telling and the making are two different days, and both count.",
-      "sheetLine": "Seeing without starting is a locked door you keep leaning on.",
-      "verb": "building the thing that couldn't exist before, from the parts that were already there",
-      "place": "the room where the pattern appears before it arrives in the world",
+      "tense": "You have been standing at a door since the building behind it was finished.",
+      "act": "decide it and act the same day, without explaining",
+      "ask": "Pick a thing you keep weighing that has a visible first step, do that step today, and tell no one why. No explanation, no announcement.",
+      "core": "You can see how things work under the surface, and that sight has gone quiet. You keep circling the shape of something without putting a hand on it, so the pattern stays an idea instead of anything you can stand in. People have trouble finding you where you actually are.\n\nDecide today and act before the day is over. No explanation to anybody. Not the biggest thing you have been circling — the nearest one, the one whose first step you can already picture. Structure that moves does not need announcing or a feeling of readiness first. The first step will make the second look different.",
+      "sheetLine": "You keep seeing the pattern and staying outside it.",
+      "verb": "Building something new from what the clearing left behind",
+      "place": "Where pattern shows itself apart from any one instance",
       "provenance": {
         "signature_id": 54,
         "position_id": 15,
@@ -102,19 +116,24 @@
         "partner": "Command",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false
+        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -126,12 +145,13 @@
     },
     {
       "status": 4,
-      "tense": "You're already making the pattern in front of you, and you keep calling it somebody else's work or just the way things go.",
-      "ask": "Pick one thing you shaped this week and say aloud that you shaped it, to yourself if no one's there.",
-      "core": "The pattern in your work is real and it's in your hands — the making, the shaping, the deciding what fits. But somewhere along the way you started describing the work as if it were happening to you, or through you, or because the situation demanded it. The work is running and the credit is missing.\n\nThis is the disowned face: the machinery is fine, the labeling is off. You don't need to defend anything to take your name back — you just need to notice the pattern you keep producing and stop assigning it to circumstance. The next move is small: say out loud, once, that a particular thing came from you. Not grandly. Not to a room. Just so the record matches the fact.",
-      "sheetLine": "You did that. You're just not saying so.",
-      "verb": "building the thing that couldn't exist before, from the parts that were already there",
-      "place": "the room where the pattern appears before it arrives in the world",
+      "tense": "You are already writing the thing while telling everyone you are only taking notes.",
+      "act": "refuse the pull off course, once more",
+      "ask": "When someone offers a different route for what you're building, say no once and keep going. No rehearsal, no reasons offered.",
+      "core": "You have a way of seeing the mechanism under a thing, and it has been steering choices you would describe as instinct or luck. What you put your eye and your hand on usually gets credited to someone else. The pattern keeps coming out as a thing that happened to you rather than a thing you made.\n\nWhen someone offers a different route for what you are building, say no once and keep going. No rehearsal, no reasons. Direction that comes from genuine engagement does not need a case built around it. One refusal is enough to find out whether the heading was chosen by you or inherited — and you will feel the difference from the inside.",
+      "sheetLine": "The pattern you see is yours, and you keep calling it luck.",
+      "verb": "Building something new from what the clearing left behind",
+      "place": "Where pattern shows itself apart from any one instance",
       "provenance": {
         "signature_id": 54,
         "position_id": 15,
@@ -140,14 +160,19 @@
         "partner": "Resolve",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refuse the pull off course once more\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -157,7 +182,7 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -166,32 +191,20 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6543,
+      "ms": 5676,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 1
         },
@@ -203,14 +216,8 @@
         },
         {
           "code": "refrain",
-          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let them use\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
           "status": 1
         },
         {
@@ -218,28 +225,52 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "label",
-          "detail": "\"Offer:\" printed",
-          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Command does\") — the act in plain words, the name once at most",
           "hard": true,
           "status": 3
         },
@@ -251,19 +282,19 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
           "hard": true,
           "status": 3
         },
@@ -274,33 +305,15 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refuse the pull off course once more\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -310,17 +323,16 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record gives nothing about what the person builds, where, or with whom, so any clause naming a specific project, scene, or history would be invented; the Architecture framing (inner structure, pattern) is licensed by the seat and the structure channel but the person could reasonably say 'no, I'm the one making a thing with my hands, not drawing diagrams' — and that has to be fine, so the cells keep the mechanism, not a setting. The asks all survive being wrong because each one acts on the pattern-level (name the piece, take the next step, sketch the parts) rather than on a claim about what is true — none of them require the read to be right to be useful. The sentence that served the writer more than the person was 'seeing the shape is the work,' which sounds deep and would have flattered me; it's out — the person gets the concrete act instead."
+      "check": "The unsupported claim is that the person is 'building something' visibly and with others — the record says Formation is emerging, not that a project exists; a reader could fairly say the building is internal and has no co-builders. The asks survive being wrong because each is a single bounded act (point, walk, decide, refuse) that teaches its mechanism even if the read misses. The sentence that serves me more than them is any line implying their pattern-sight is already complete and quietly operating — dropped in favor of 'starting to see how it works' and 'you can recognise the pattern.'"
     },
     {
       "attempt": 2,
-      "ms": 4480,
+      "ms": 4281,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -332,26 +344,20 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"doesn't cost you anything\" — certifies the person; the record cannot know it",
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
           "hard": true,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
         },
@@ -360,105 +366,17 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record gives nothing about what the person makes, where, or with whom, so any clause naming a specific project or scene is invented; the reader could reasonably say 'I'm the one with materials and a deadline, not the one drawing diagrams,' so the cells keep the mechanism and drop the setting. The asks survive being wrong because each one acts on the pattern (name the piece, take the next step, say it in ten words, name one thing you shaped) rather than on a claim about what is true. The sentence that served me more than the person was 'seeing the shape is the work,' which sounds deep and flatters a reader; it's cut, and every cell now lands on a concrete act the person can do without a witness or a budget."
-    },
-    {
-      "attempt": 3,
-      "ms": 4466,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
           "status": 2
         },
         {
@@ -466,6 +384,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Command does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "refrain",
@@ -475,14 +417,14 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"witnessed\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -492,8 +434,14 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refuse the pull off course once more\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -505,35 +453,46 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says nothing about what the person makes, where, or with whom, so any clause naming a specific project or scene would be invented; the reader could reasonably say 'I work with my hands and a deadline, not diagrams,' so the cells keep the mechanism and drop the setting. The asks survive a wrong read because each one acts on pattern-level behavior (take the next step, leave a rough piece, say the direction in ten words, name one thing you shaped) rather than on a claim about the person's history — none of them need the read to be right to be useful. The line that served me more than the person was 'seeing the shape is the work,' which sounds profound and flatters the writer; it's cut, and every cell now lands on a concrete act doable today without money, a witness, or spare energy."
+      "check": "The unsupported claim was that the person 'already knows' a route and has laid patterns out for others unnoticed — the record supports sight and formation, not a demonstrated track record; a reader could fairly say the seeing is recent and private. The asks survive being wrong because each is one bounded act (a sentence to one person, one conversation, one step, one refusal) that teaches its mechanism even if the read misses. The sentence that served me more than them was any line implying their pattern-sight is finished and quietly operating; replaced with 'starting to see' and 'you can recognise the pattern.' Fixed: scopes narrowed, 'let them use', 'ahead of the', 'in the room' gone, Command named once at most, and the Too Little ask now sits on the medicine's act rather than the card's."
     },
     {
-      "attempt": 4,
-      "ms": 3537,
+      "attempt": 3,
+      "ms": 4233,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
         },
@@ -542,46 +501,58 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"decide it and act the same day without explaining\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 117 words (120–160)",
           "hard": false,
-          "status": 2
+          "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refuse the pull off course once more\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -593,100 +564,18 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says nothing about what the person makes, where, or with whom, so any clause naming a specific project or scene would be invented; the reader could reasonably say 'I work with my hands and a deadline, not diagrams,' so the cells keep the mechanism and drop the setting. The asks survive a wrong read because each one acts on pattern-level behavior (take the next step, leave a rough piece, say the direction in ten words, name one thing you shaped) rather than on a claim about the person's history — none of them need the read to be right to be useful. The line that served me more than the person was 'seeing the shape is the work,' which sounds profound and flatters the writer; it's cut, and every cell now lands on a concrete act doable today without money, a witness, or spare energy."
-    },
-    {
-      "attempt": 5,
-      "ms": 3254,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says nothing about what the person makes, where, or with whom, so any clause naming a specific project or scene would be invented; the reader could reasonably say 'I work with my hands and a deadline, not diagrams,' so the cells keep the mechanism and drop the setting. The asks survive a wrong read because each one acts on pattern-level behavior (take the next step, leave a rough piece, say the direction in ten words, name one thing you shaped) rather than on a claim about the person's history — none of them need the read to be right to be useful. The line that served me more than the person was 'seeing the shape is the work,' which sounds profound and flatters the writer; it's cut, and every cell now lands on a concrete act doable today without money, a witness, or spare energy."
+      "check": "The unsupported claim would be that the person has a finished, demonstrated pattern-sight they have handed to others — the record says Formation is emerging, so sight is recent and largely private; a reader could fairly say the building is internal with no co-builders yet. Each ask survives being wrong because it is a bounded, observable act (a sentence, a conversation, a same-day step, one refusal) that teaches its own mechanism even if the read misses. The sentence that serves me more than them was any line implying their sight is complete and quietly operating for other people — replaced with 'starting to see' and 'the shape is mostly yours.' Fixed: cut the 'tell one person' remedy, softened the universal, named Command minimally, reworded the tic, and made the four asks take four different shapes (a sentence, a visit, a same-day move, a refusal)."
     }
   ],
   "usage": {
-    "input": 8891,
-    "output": 5977
+    "input": 2957,
+    "output": 3434
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:39:18.209Z"
+  "date": "2026-10-02T13:12:14.257Z"
 }

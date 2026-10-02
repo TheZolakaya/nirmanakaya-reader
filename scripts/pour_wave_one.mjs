@@ -109,6 +109,9 @@ function relint({ quiet = false } = {}) {
     const why = {}; for (const x of refused) for (const h of new Set(x.hard.map((s) => s.split(':')[1]))) why[h] = (why[h] || 0) + 1;
     console.log('calls refused by code:', Object.entries(why).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join('  '));
     const w = lintWave(rows.map((x) => x.r));
+    if (w.trigrams) console.log(`3-gram chorus (over ${w.trigramLimit} cells = 1 in 20): ${w.trigrams.length ? w.trigrams.slice(0, 12).map((x) => `${x.gram} ${x.cells}`).join(' · ') : 'none'}`);
+    if (w.hinges) console.log(`paragraph-two hinges by status (over 1 in 40): ${w.hinges.length ? w.hinges.map((x) => `${x.key} ${x.cells}`).join(' · ') : 'none'}`);
+    if (w.askOpeners) console.log(`ask opening verbs: ${w.askOpeners.map((x) => `${x.word} ${x.share}%`).join('  ')}`);
     console.log(`refrain budget (cap ${w.refrainLimit} of ${w.cells} cells):`, w.refrains.slice(0, 8).map((x) => `"${x.gram}" ${x.cells}`).join('  ') || 'none over the cap');
     console.log(`seat-swap pairs (same card, same status, asks ≥ 45% alike): ${w.seatSwaps.length}`, w.seatSwaps.slice(0, 4).map((s) => `${s.signature} ${STATUS_NAMES[s.status]} ${s.seats.join('/')} ${s.overlap}`).join(' · '));
   }
@@ -120,7 +123,11 @@ async function author(call, { force = false } = {}) {
   const { thinkingFor } = await import('../lib/modelConfig.js');
   const out = cellPath(call.sig, call.pos);
   if (!force && fs.existsSync(out)) return { skipped: true };
-  const exemplars = fs.readFileSync('data/pour/exemplars_worked_cells.md', 'utf8');
+  // 2026-10-03 (after the prompt-n sample: 15 of 23 open flags were five-grams lifted from the exemplars; "one"/clock in half the asks):
+  // each call sees TWO of the eight quartets, chosen by the call, so there is less to copy, no chorus can form from all eight at once,
+  // and the library as a whole is anchored on every pair. The lint still bars five-grams from all eight.
+  const exemplarFile = fs.readFileSync('data/pour/exemplars_worked_cells.md', 'utf8');
+  const exemplars = (() => { const parts = exemplarFile.split(/\n(?=## )/); if (parts.length < 4) return exemplarFile; const head = parts[0]; const quartets = parts.slice(1); const i = (call.sig * 7 + call.pos * 3) % quartets.length; const j = (i + Math.floor(quartets.length / 2) + (call.pos % 2)) % quartets.length; return [head, quartets[i], quartets[j === i ? (i + 1) % quartets.length : j]].join('\n'); })();
   const pkg = authoringPackage(call.sig, call.pos, DEFS, { exemplars, author: AUTHOR });
   const ctx = (status) => ({ signatureId: call.sig, positionId: call.pos, partner: pkg.meta.partners[status]?.partner, partnerId: pkg.meta.partners[status]?.partnerId });
   const messages = [{ role: 'user', content: pkg.message }];

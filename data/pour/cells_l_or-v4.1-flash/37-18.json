@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one already reading the ground and handing people the next step.",
-      "ask": "Before a decision that's already moving, write the one sentence that says what you can currently see, read it once, then go ahead with it anyway.",
-      "core": "The fog hasn't stopped you. You've got a read on what's actually going on — where the confusion really sits, what move cuts through it without making anyone pretend they understand — and you hand that read to people as a next step rather than a speech.\n\nWhat's good here is that you trust small light over false daylight. You don't wait for the whole road to appear before anyone moves. People around you stop hunting for certainty and start standing on the ground they're actually on. The line to hold is that the way you guide gets built on real thinking about real things, not on whatever's loudest or nearest. When that holds, the direction you give carries. If you skip the next step, nothing goes wrong. You just don't build what was next.",
-      "sheetLine": "You don't wait for the whole road. You hand people the next step.",
-      "verb": "charting a way through fog for people who can't see it yet",
-      "place": "a place where the next step is visible and the road after it isn't",
+      "tense": "Here, with the pen, the next step is already legible enough to take.",
+      "act": "make something skilled and small on the cleared ground",
+      "ask": "Build one small, skilled piece of work in the fog — a page, a sketch, a rough plan good enough to steer by. Make it where things feel unclear, then set it down and take the next step. Let it stand as it is.",
+      "core": "You can move through the unclear parts without needing the whole road in view. One step shows itself, you take it, and the next one shows up after. The way is drawn by walking. That's what makes it hold together — clarity arrives in small pieces and you use each piece for exactly as long as it's true, then let it go. The people who look to you aren't following something you wrote at the start.\n\nFog is not the problem here. Where it slips is when the sealed picture in your head starts counting for more than the ground under your foot — you defend the plan and stop reading the conditions. This week, when someone asks what you're doing, hand them the small thing you made instead of the whole story. What you build from what's actually been cleared will show a passage the unbuilt version couldn't.",
+      "sheetLine": "The way forward is found one step at a time.",
+      "verb": "Charting the passage for others to follow",
+      "place": "In the fog where the next step is the only one visible",
       "provenance": {
         "signature_id": 37,
         "position_id": 18,
@@ -26,11 +27,16 @@
         "partner": "Formation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are going to keep steering until every person in the room is out of water they are not in.",
-      "ask": "Pick one thing you are not currently responsible for, leave it alone for a day, and tell whoever is actually holding it that it's theirs.",
-      "core": "You're already running the whole crossing in your head. Someone hasn't asked yet and you've decided how to get them through — where the trouble will be, which turn is safe, what they'll need from you by the time they arrive. Anticipation is a real skill. When it runs ahead of what's here, it starts steering things nobody handed you the wheel for.\n\nWhat's good in this is that you can do the patient work of getting people across, and the people around you trust that. The step back exists so the work you do stays work that's actually yours. Letting a thing be somebody else's is not abandoning them; the discipline here is finishing one crossing before you launch the next. When you hold that line, the room settles instead of straining against you.",
-      "sheetLine": "You're steering crossings nobody put you on.",
-      "verb": "charting a way through fog for people who can't see it yet",
-      "place": "a place where the next step is visible and the road after it isn't",
+      "tense": "Tomorrow's clear route is already composed in your mind, though the ground is still unread today.",
+      "act": "engage the hard part on purpose and see what holds",
+      "ask": "Pick the part of this you've been routing around — the piece that resists you — and push on it on purpose. Let it answer back. Whatever holds, keep; whatever gives way, drop the method and keep the point.",
+      "core": "You've laid out the whole crossing in your head before walking it, every turn accounted for. It feels like foresight. It works more like a brace: you're holding your idea of the route up against the route itself, so the uncertainty gets no chance to teach you anything. The plan gets made and remade while the first step stays untaken.\n\nThis isn't something to repair before moving. It's the same reading, running further out than the ground it was meant to read. Let friction do the checking instead. The route only shows itself to an honest inch of walking at a time, not to a finished drawing. Once you stop pre-writing the whole trip, the actual way has room to appear, and it will.",
+      "sheetLine": "You're sketching the crossing faster than you can walk it.",
+      "verb": "Charting the passage for others to follow",
+      "place": "In the fog where the next step is the only one visible",
       "provenance": {
         "signature_id": 37,
         "position_id": 18,
@@ -59,16 +66,11 @@
         "partner": "Dedication",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
-          "hard": false
-        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
@@ -78,17 +80,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You knew the water and you have stopped handing anyone the read you carry.",
-      "ask": "Take one small decision now happening around you, say the single next step out loud to one person there, then let the conversation take it from there.",
-      "core": "You knew the way through this part. The reading of the ground hasn't moved; the offering went quiet. Maybe the room was already too bright, or nobody was asking, or being the one who says it out loud stopped feeling worth the trouble. So you waited to be asked. The waiting can outlast the reason for it.\n\nWhat's good in this is that you can sit inside uncertainty without needing it solved first, which is exactly what leading through continuous fog requires. What has starved is the private sense of what's fair to say out loud, and to whom. Feeding that back in isn't about forcing feeling or pushing effort. It's putting one honest read in front of one person and letting the exchange do what it does. Whatever returns is information, not a verdict.",
-      "sheetLine": "You stopped pointing. The water hasn't changed.",
-      "verb": "charting a way through fog for people who can't see it yet",
-      "place": "a place where the next step is visible and the road after it isn't",
+      "tense": "You were at the crossing once, and the step that would have taken it never came.",
+      "act": "return the small thing you owe before anyone asks",
+      "ask": "Something is outstanding — a reply, a borrowed item, a thank-you. Bring it back before anyone asks. Nothing about the fog, nothing about what comes later. That much, then stop.",
+      "core": "You can stand at the edge of uncertainty and not test the ground. Nothing gets read; the hand doesn't get dealt. Taking one honest step in the mist is something you know how to do, and it isn't happening right now. Whatever light you carry for other people faces the wrong way.\n\nWhat charges this isn't more thinking about the route. It's a loose thread in the count, settled without an audience. That plain keeping is the kind of integrity the moment is asking for. You don't need to see the whole crossing, or even the first step. The path begins showing itself to your feet once they're moving.",
+      "sheetLine": "You stood at the edge and didn't test the step.",
+      "verb": "Charting the passage for others to follow",
+      "place": "In the fog where the next step is the only one visible",
       "provenance": {
         "signature_id": 37,
         "position_id": 18,
@@ -97,14 +105,29 @@
         "partner": "Conscience",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (thread, path) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -116,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already standing where the next step gets decided and you describe it as if it decided itself.",
-      "ask": "On one piece of work that has been moving without you saying so, put your name on it once — to yourself first, then to one person in it with you.",
-      "core": "Look at a room where people gather before something begins — the spot they come to when they don't know what to do next. Something is already convening them, and in your account that thing is just what happened. It isn't. People in that room are turning toward you for the read, not toward the schedule, and you keep calling that coincidence or calling it adults handling themselves.\n\nWhat's good here is that you can navigate the middle of something without needing the outline, and when two people are walking the same unknown and you say so, it goes further than either could alone. The step below this is smaller than you think: name one connection that has been forming without you claiming it, then start from where it actually is. That's not about credit. It's about the thing going where it's going with both hands on it.",
-      "sheetLine": "People already turn toward you when the road disappears.",
-      "verb": "charting a way through fog for people who can't see it yet",
-      "place": "a place where the next step is visible and the road after it isn't",
+      "tense": "The pen is down, yet the room is being written without your hand on it.",
+      "act": "join someone in the work so the two streams run as one",
+      "ask": "Take one person into the work — not to check it, to do a stretch of it alongside you. Run the two efforts as one and notice what the joined version finds that you wouldn't have alone.",
+      "core": "The way through is already being found — by a version of you other people notice and you don't count as yourself. It shows in your hands: the accurate read, the clear step, the route discovered with no visible effort. Asked how, you'd say the path opened or the fog lifted. The working is there; the word for it isn't.\n\nThe finding doesn't belong only to you. It is what you do, doing its job. Don't disown what it turns up just because it arrives unlabelled. Bring someone else into the crossing — not as a passenger, as a second person on the same trip. What gets decided together, the shared sight returns. The route you're quietly charting is the one you're already standing on.",
+      "sheetLine": "The route is being found by a hand you don't call yours.",
+      "verb": "Charting the passage for others to follow",
+      "place": "In the fog where the next step is the only one visible",
       "provenance": {
         "signature_id": 37,
         "position_id": 18,
@@ -130,11 +154,21 @@
         "partner": "Merge",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -146,27 +180,27 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7827,
+      "ms": 7850,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 178 words (120–160): long",
+          "code": "glass",
+          "detail": "\"The map\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 1
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Breakthrough",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (shape, road, room) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
@@ -176,20 +210,8 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 1
         },
@@ -200,14 +222,26 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"your steadiness\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
+          "detail": "4 images in one core (road, path, map, room) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -224,44 +258,74 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "glass",
-          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "code": "vocab",
+          "detail": "\"The seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"hasn't gone anywhere the offering\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "vocab",
+          "detail": "two images in one core (path, map) — one at most, usually none",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "\"joión someone in the work so the two streams run as one\" is not one of Merge's listed acts",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that other people can see\"",
           "hard": true,
           "status": 4
         },
@@ -270,17 +334,33 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person is currently navigating ambiguity or that their uncertainty has a discernible shape the reading can name; the record gives the seat, not their life. A reader could object that nothing here is actually in question for them right now, or that what looks like leading in fog is only a schedule they keep. The ask survives being wrong because it produces a real effect on someone — a finish line said out loud moves the line whether or not the read is right. The sentence that serves the writer rather than the person would be anything like 'you're the one who can see the way through' — it flatters the seat instead of naming what it is doing."
+      "check": "The record supports the mechanism and the seat's capacity, but not any claim about what the person's uncertainty is about or why the capacity runs thin or bright — so no cell names a situation, a history, or a feeling as fact. A reader could reasonably say 'that's not what's happening' to the Too Much cell's bracing read, so the ask there is a practice that stands on its own whether or not the read lands. The sentence that serves me more than them is any line that would sound good on a card about being the one who sees clearly; those were cut. The four acts are chosen from the listed medicine acts word for word, each done small in the seat."
     },
     {
       "attempt": 2,
-      "ms": 4434,
+      "ms": 5954,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "ask 46 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -292,105 +372,17 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is working well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person is currently navigating ambiguity or that their uncertainty has a discernible shape the reading can name; the record gives the seat, not their life. A reader could reasonably say nothing here is actually in question right now, or that what looks like leading in fog is only a schedule they keep. The ask survives being wrong because it produces a real effect either way — a next step said out loud moves things whether or not the read is right. The sentence that serves the writer rather than the person would be anything like 'you're the one who can see the way through' — it flatters the seat instead of naming what it does."
-    },
-    {
-      "attempt": 3,
-      "ms": 4003,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
-          "hard": false,
           "status": 2
         },
         {
@@ -406,8 +398,38 @@
           "status": 2
         },
         {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"return the small thing you owe before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -416,6 +438,158 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let them take\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the mechanism and the seat's capacity but not any claim about what the person's uncertainty is about or why the capacity runs thin or bright, so no cell names a situation, a history, or a feeling as fact. A reader could reasonably reject the Too Much bracing read, so that ask is a practice that stands on its own whether or not the read lands. The sentence that serves me more than them is any line that would sound wise about being the one who sees clearly; those were cut. The four acts are the listed medicine acts word for word, each done small in the seat, and the check runs first."
+    },
+    {
+      "attempt": 3,
+      "ms": 4599,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (thread, path) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the vision be shared with one other\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -424,13 +598,107 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is currently navigating ambiguity or that their uncertainty has a discernible shape the reading can name; the record gives the seat, not their life. A reader could reasonably say nothing here is actually in question right now, or that what looks like leading in fog is only a schedule they keep. The ask survives being wrong because it produces a real effect either way — a next step said out loud moves things whether or not the read is right. The sentence that serves the writer rather than the person would be anything like 'you're the one who can see the way through' — it flatters the seat instead of naming what it does."
+      "check": "The record supports the mechanism and the seat's capacity but not any claim about what the person's uncertainty is about or why the reading runs thin or bright, so no cell names a situation, a history, or a feeling as fact. A reader could reasonably reject the Too Much bracing read, so that ask is a practice that stands on its own whether or not the read lands. The sentence that serves me more than them is any line that would sound wise about being the one who sees clearly; those were cut. The four acts are the listed medicine acts word for word, each done small in the seat, and the check runs first."
+    },
+    {
+      "attempt": 4,
+      "ms": 5054,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (thread, path) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports the mechanism and the seat's capacity but not any claim about what the person's uncertainty is about or why the reading runs thin or bright, so no cell names a situation, a history, or a feeling as fact. A reader could reasonably reject the Too Much bracing read, so that ask stands on its own whether or not the read lands; the same is true of the Too Little read of a step untaken. The sentence that serves me more than them is any line that would sound wise about being the one who sees clearly; those were cut. The four acts are the listed medicine acts word for word, and the check runs first."
     }
   ],
   "usage": {
-    "input": 3143,
-    "output": 3731
+    "input": 8466,
+    "output": 5177
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:29:30.766Z"
+  "date": "2026-10-02T12:01:09.614Z"
 }

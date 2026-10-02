@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are sitting with the living thing and letting it grow at its own pace.",
-      "ask": "Open a window for it: give one growing thing a quiet ten minutes and do nothing but watch. No fixing, no adjusting.",
-      "core": "You stay with what you're growing long past the interesting part, and that patience is working on it in ways you won't get to see for a while. You hold back from tweaking, which is rare — most people force growth so it will feel like progress. What comes up under your attention tends to come out sound because you didn't rush it.\n\nThe depth underneath all that waiting is real. Stay with something long enough and you stop needing to figure it out and start recognizing it — the same quiet knowing that shows up when you finally admit what you already felt. That isn't laziness and it isn't giving up. It's the part where the growing becomes something you understand.",
-      "sheetLine": "You grow what you tend by staying, not by pushing.",
-      "verb": "Going deep into what you are growing until understanding arrives by way of patience rather than thought",
-      "place": "Where you keep tending something that is still becoming itself",
+      "tense": "The pen is in your hand right now, and the thing is right in front of you.",
+      "act": "spend an hour with the thing you love without a task attached to it",
+      "ask": "Give something you're growing an hour with no task attached — no notes, no plan, no fixing at the end. Stay the hour, then stop.",
+      "core": "Tending is patient here, and the two of you sit well together. You can go far into what you're watching without turning it into a problem, and the care doesn't need a result to keep going. The growth keeps its own pace, and you stay kind about that.\n\nGive something you're growing an hour with no task attached to it — no notes, no plan, no fixing at the end. Then stop. Whatever arrives in that hour, if anything does, doesn't have to be brought back and used. Staying through it without a job in hand is something you can confirm for yourself once and keep.",
+      "sheetLine": "You can be near what grows without managing it.",
+      "verb": "thinking your way into the place where thought runs out",
+      "place": "where you tend what is still growing",
       "provenance": {
         "signature_id": 39,
         "position_id": 3,
@@ -26,36 +27,37 @@
         "partner": "Reverie",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You'll have started transplanting what is growing before it has had time to root.",
-      "ask": "Pick one thing you are growing and say out loud what it needs next, then wait one full day before doing any of it. Let the declaration stand on its own.",
-      "core": "You are pulling your growing things toward a version of them you can already see, and the pulling is starting to cost you the plants. There's no cruelty in it — you just want what's coming to arrive now. So you tend harder than the moment calls for. You prune too early, or course-correct before the roots have set. The person you are being with the thing is standing ahead of the thing.\n\nWhat's underneath is wanting to be sure it turns out. That's care, and it's also driving. Something can hold the structure of what you have and still stay down here with it. You don't have to choose between caring and letting it be, you only have to leave your hands by your side for one more day.",
-      "sheetLine": "You're forcing the harvest before the field is ready.",
-      "verb": "Going deep into what you are growing until understanding arrives by way of patience rather than thought",
-      "place": "Where you keep tending something that is still becoming itself",
+      "tense": "You are trying to write a future that keeps refusing to be written.",
+      "act": "put the frame on the table before anyone asks",
+      "ask": "Tell the people near a thing you're growing where it has actually got to — its stage, what it needs next — once, out loud. Then leave it with them.",
+      "core": "The mind is racing to decide what the growing thing will be before it has been that yet. Where patience belongs, a frame is being fitted onto something still forming, and the people nearby feel steered rather than included. The growth gets pushed toward a shape it hasn't chosen.\n\nPut the frame on the table before anyone asks for it: what stage this has really reached, what you're carrying, what it needs next. Say it once, plainly, as information rather than as a forecast. The others can hold that with you instead of guessing at it. What you're growing stops being pulled toward an ending and starts being allowed a middle.",
+      "sheetLine": "You are fitting a frame to something still forming.",
+      "verb": "thinking your way into the place where thought runs out",
+      "place": "where you tend what is still growing",
       "provenance": {
         "signature_id": 39,
         "position_id": 3,
@@ -64,31 +66,42 @@
         "partner": "Assertion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stood at the edge of the thing and backed away, and you are still standing there.",
-      "ask": "Show one thing you are growing to one other person — half-formed, no explanation, no apology. Let them see it in its current state.",
-      "core": "You stopped staying with what you were growing, and staying with it is still available to you. You know how to sit through the awkward middle of a thing. But at some point the watching got interrupted, and you haven't gone back to the table since. The plants are still there. The patience is still yours.\n\nWhat's absent here isn't the ability to go deep. It's the room to do it in. Depth needs to be shared to keep its heat; a private slowness goes cold. More effort pushed into a quiet house won't warm it, and in this case it isn't more work that's called for. It's bringing one small growing thing into contact with someone else, so there's a reason to pick the sitting back up. A person on the other end changes what the watching is for.",
-      "sheetLine": "You stopped tending it, but the thing is still there.",
-      "verb": "Going deep into what you are growing until understanding arrives by way of patience rather than thought",
-      "place": "Where you keep tending something that is still becoming itself",
+      "tense": "You are standing at a door the room has already moved past.",
+      "act": "share the joy with the people it belongs to",
+      "ask": "Name to the people near you something going well right now, while it's still going, from inside it — not filed afterward.",
+      "core": "The care still runs here, but from a little outside it. Something is being kept going at arm's length, watched rather than joined, and the growth has stopped being something held in common. Being among the people who have a share in it has thinned.\n\nTell those people about something going well at this moment, while it's still going, from inside it rather than afterward. The thing named matters less than being in the warmth with them when you name it. Do that once and you find out whether you can stand in the middle of what's growing, or only at the edge of it.",
+      "sheetLine": "You are tending from the edge, not the middle.",
+      "verb": "thinking your way into the place where thought runs out",
+      "place": "where you tend what is still growing",
       "provenance": {
         "signature_id": 39,
         "position_id": 3,
@@ -97,26 +110,37 @@
         "partner": "Celebration",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already shaping what is growing while saying it is simply taking its own course.",
-      "ask": "Name one choice you made about a growing thing as yours — say 'I picked this' instead of 'it just happened' — about one small decision from this week.",
-      "core": "You are tending more carefully than most — the timing, the pace, the amount of space you leave — and you'd say you were only watching. But you choose when to speak and when to stay quiet. You decide what gets noticed and what gets left alone. That choosing runs through every bit of what you do, and you haven't claimed any of it.\n\nIt hasn't occurred to you to claim it because it doesn't feel like steering. It feels like holding still. But holding still is a thing you are doing, and it's why things around you come up sound. The recognition you've been giving the plant — this is alive, this is becoming — belongs to you too. Sit with one decision you made and let it be yours.",
-      "sheetLine": "You're steering what grows and calling yourself a witness.",
-      "verb": "Going deep into what you are growing until understanding arrives by way of patience rather than thought",
-      "place": "Where you keep tending something that is still becoming itself",
+      "tense": "You are at the desk, writing this, while telling anyone who asks that you just watch.",
+      "act": "stay with the quiet of it",
+      "ask": "Sit a few minutes with something you quietly keep steady for someone. Don't arrange it. Don't mention it. Notice your own hand in it, then leave it unchanged.",
+      "core": "Conditions for something to grow are being kept — light, timing, the small adjustments — and the account given is that of someone standing to one side. This quiet work is real and it is yours. The people it serves can already name whose hand has been on it.\n\nSpend a few minutes with something kept quietly steady for someone, arranging nothing and saying nothing about it to them. Notice that the hand is yours. Then leave it as it was. That noticing changes nothing on the outside, except that the work gains an author inside your own record. The people nearby can stop being the ones who bring it up.",
+      "sheetLine": "The hands keeping it steady are yours.",
+      "verb": "thinking your way into the place where thought runs out",
+      "place": "where you tend what is still growing",
       "provenance": {
         "signature_id": 39,
         "position_id": 3,
@@ -125,11 +149,26 @@
         "partner": "Reverie",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stay with the quiet of it\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -141,14 +180,201 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6081,
+      "ms": 6680,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the place phrase is pasted into the tense line or the opening — \"In where you become…\" does not parse",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the place phrase is pasted into the tense line or the opening — \"In where you become…\" does not parse",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"The point isn't the thing, it's that\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the place phrase is pasted into the tense line or the opening — \"In where you become…\" does not parse",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the tending\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"I've\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're already holding\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the people around it can\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the place phrase is pasted into the tense line or the opening — \"In where you become…\" does not parse",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
+        },
+        {
+          "code": "shape",
+          "detail": "the four cells open the same way (\"where you tend…\")",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person cannot yet tell when their own thinking has gone fuzzy — a boundary they may already know well. The reader could say the ask is trivial, since caring for anything usually has a task attached. The ask survives being wrong: an hour without a task still teaches them whether they can be near a thing they love without managing it, and what that hour is like for them. The sentence that serves the writer is about the mind bending toward a slowed edge; I've grounded it in tending one thing that will not be hurried instead."
+    },
+    {
+      "attempt": 2,
+      "ms": 5837,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -159,163 +385,122 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\", and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\"The keeping\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"describe yourself as just being\"",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stay with the quiet of it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that pattern-recognition has hit its edge and only a different kind of knowing can proceed — the record cannot know that the person has reached a threshold, only that this card, at this number, marks one. A reader could reasonably say the depth is ordinary and nothing has shifted. The ask survives being wrong because offering one piece of a living thing asks the person only to do a small concrete thing they actually can do. The sentence that serves the writer more than the person is any line about the depths reaching back — cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3927,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"say\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that pattern-recognition has hit its edge and only a different kind of knowing can proceed — the record cannot know that the person has reached a threshold, only that this card, at this number, marks one. A reader could reasonably say the depth is ordinary and nothing has shifted. The ask survives being wrong because it asks the person to hand one small living thing to one other person, a thing they can do whether or not the deep-read is true. The sentence that serves the writer more than the person was any line about the depths reaching back — cut it, and no line here tells them why the waiting stopped."
+      "check": "The unsupported claim is that the person's own account of themselves — that they merely watch what grows — needs correcting; the record cannot know how they narrate their part, only that the keeping is happening. The reader could say the asks are too passive to change anything, especially the Unacknowledged one, where the act is sitting still. The asks survive: each is a real act a camera could see, and each teaches the person something about being near what grows without managing it, whatever the reading gets wrong. The sentence that serves the writer more than the person is any line about the drawing itself; I've kept the cells on the tending and left the signature unspoken."
     },
     {
       "attempt": 3,
-      "ms": 3541,
+      "ms": 4246,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -323,40 +508,76 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let them hear\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stay with the quiet of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -365,15 +586,21 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that pattern-recognition has hit its edge and only a different kind of knowing can proceed — the record cannot know that the person has reached a threshold, only that this card, at this number, marks one. A reader could reasonably say the depth is ordinary and nothing has shifted. The ask survives being wrong because it asks the person to hand one small living thing to one other person, a thing they can do whether or not the deep-read is true. The sentence that serves the writer more than the person was any line about the depths reaching back — cut it, and no line here tells them why the sitting stopped."
+      "check": "The unsupported claim is that the person's account of themselves — that they only watch what grows — is wrong and needs correcting; the record cannot know how they narrate their part, only that steadying is happening. The reader could say the asks are too quiet to matter, especially the Unacknowledged one, where the act is simply sitting still. Each ask survives being wrong: all four are real acts a camera could see, and each teaches the person something about being near what grows without managing it. The sentence that serves the writer more than the person would be any line about the drawing itself; I've kept the cells on the tending and left the signature unspoken."
     },
     {
       "attempt": 4,
-      "ms": 3789,
+      "ms": 3486,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -381,34 +608,70 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put the frame on the table before anyone asks\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stay with the quiet of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -417,13 +680,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that pattern-recognition has hit its edge and only a different kind of knowing can proceed — the record cannot know that the person has reached a threshold, only that this card, at this number, marks one. A reader could reasonably say the depth is ordinary and nothing has shifted. The ask survives being wrong because it asks the person to hand one small living thing to one other person, a thing they can do whether or not the deep-read is true. The sentence that serves the writer more than the person was any line about the depths reaching back — cut it, and no line here tells them why the sitting stopped."
+      "check": "The unsupported claim is that the person's account of themselves — that they only watch what grows — needs correcting; the record cannot know how they narrate their part, only that steadying is happening. The reader could say the asks are too quiet to matter, especially the Unacknowledged one, where the act is simply sitting still. Each ask survives being wrong: all four are acts a camera could see, and each teaches something about being near what grows without managing it. The sentence that serves the writer more than the person would be any line about the drawing itself; the cells stay on the tending and leave the signature unspoken."
     }
   ],
   "usage": {
-    "input": 7273,
-    "output": 4634
+    "input": 8293,
+    "output": 4617
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:30:41.134Z"
+  "date": "2026-10-02T13:04:29.714Z"
 }

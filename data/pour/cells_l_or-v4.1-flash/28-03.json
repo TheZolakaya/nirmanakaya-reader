@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you are the one holding the direction, and you know how you chose it.",
-      "ask": "Ask the person you are growing what they want next, and follow that for one week instead of your plan for them.",
-      "core": "You're holding a direction that matters, and your grip is easy. What you defend, you defend as something you picked, not something you got cornered into. The care you've put into growing this has a steady hand on it — you can feel when to push and when to stand back, and the reading you get is usually right.\\n\\nWhat this balance is free to feed next is shared joy. Meaning passed back and forth, teaching that shifts as it goes, people belonging without having to match. So ask the person you are growing what they want next, and follow that for one week instead of your plan for them. What you hear will move the direction somewhere better than where you were going to take it alone.",
-      "sheetLine": "You hold the direction and still let it be changed by what you hear.",
-      "verb": "Holding a chosen direction against what pushes back",
-      "place": "Where something small is being tended toward its own growth",
+      "tense": "You are standing on the direction you chose, and it is holding.",
+      "act": "share the joy with the people it belongs to",
+      "ask": "Take the good thing you are protecting and tell the ones who helped carry it that it is working.",
+      "core": "You are standing on a direction you chose, and it is holding. The growth you are tending there is real, and you are not forcing it. You gathered what was scattered, pointed it at one place, and the rest happened without a fight. This looks quiet on a person. Anyone watching sees it anyway.\n\nSo tell the ones who helped build it. You do not have to make the case or explain the strategy. Saying the good thing out loud to the people who were part of it feeds what is growing better than another hour of careful tending. One plain sentence about the thing that is working. Then stop.",
+      "sheetLine": "It is holding. Tell the people who helped.",
+      "verb": "Defending the chosen direction.",
+      "place": "Where what is growing is tended.",
       "provenance": {
         "signature_id": 28,
         "position_id": 3,
@@ -26,36 +27,52 @@
         "partner": "Celebration",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have defended this through the moment when it stopped needing defending at all.",
-      "ask": "Let one decision about what you tend go the way the other person wants it, and watch what happens over a week.",
-      "core": "You're defending something that isn't under attack yet. The next move gets planned before this one lands, and you carry a picture of how it has to go that nobody in the room agreed to. From your side it reads as protection. From theirs, it starts to feel like a plan they weren't let in on.\\n\\nThe care is not the problem. What's missing is the ease that lets you hold a direction and set it down anyway. So let one decision about what you tend go the way the other person wants it, and watch what happens over a week. You know how to hold a line. The practice here is letting one line be theirs.",
-      "sheetLine": "You are defending a future nobody in the room has agreed to.",
-      "verb": "Holding a chosen direction against what pushes back",
-      "place": "Where something small is being tended toward its own growth",
+      "tense": "You are bracing for a future where the thing you are defending has already fallen.",
+      "act": "sit still until the calibration settles",
+      "ask": "Sit still for ten minutes before you adjust the direction again, and give your thinking room to settle.",
+      "core": "Someone tending a growing thing can start defending it against trouble that has not arrived. You are doing that with the chosen direction. The guard is up a season early, and the attention that belongs on what is green is going into a future that has not happened. From across a room it reads as tension. What you are protecting can feel that, even if nothing gets said about it.\n\nPut the problem down and rest your mind. Not solve and rest — rest first. Ten minutes of sitting still with no adjustments on the board, and let your thinking level out. The direction will be waiting, and the next move you make from a settled mind will be smaller and more correct than the five moves you were about to make.",
+      "sheetLine": "You are defending a future that has not arrived.",
+      "verb": "Defending the chosen direction.",
+      "place": "Where what is growing is tended.",
       "provenance": {
         "signature_id": 28,
         "position_id": 3,
@@ -64,7 +81,85 @@
         "partner": "Repose",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "You are still at a door that closed behind you, and the thing you were growing has been left untended.",
+      "act": "hold the new form steady",
+      "ask": "Look at the change that already happened here, then keep one small piece of it steady through the week.",
+      "core": "The growing thing moved on, or ended, or became something you did not plan, and you are still at the old version of it. The hold you are keeping has a shape from before the change. You are tending a form that is no longer the form, and the care is going backward. That is why it feels like effort and not like patience.\n\nLook at what the ending already produced. Call it something to yourself, even if the word is small: the new routine, the thing that stopped being yours, the ground that got cleared. Keep one piece of that steady for the week. What grew is not gone. It is sitting in its changed shape, waiting for you to pick it up again.",
+      "sheetLine": "You are tending the old form. The change already happened.",
+      "verb": "Defending the chosen direction.",
+      "place": "Where what is growing is tended.",
+      "provenance": {
+        "signature_id": 28,
+        "position_id": 3,
+        "status": 3,
+        "partner_id": 55,
+        "partner": "Preservation",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"Call it something\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 4,
+      "tense": "You are holding a direction steady, and you would tell anyone it is simply how the work goes.",
+      "act": "build the first new thing from what the clearing showed",
+      "ask": "Take the structure you have been holding steady and build a first new piece where the old one fell.",
+      "core": "You are holding a line steady through pressure, and to you it is just how the work goes. Ask you about the pressure and you point at the calendar. Something under your care keeps surviving, and nobody in the story is keeping it alive. That holding is yours. The story just does not have your name in that role yet.\n\nPut a first piece down on the ground where the old structure fell. Make it with your hands, where someone can see it. You do not have to announce that you cleared the space. The building itself is the acknowledgment. Start with one piece, small enough to finish in a week, and walk away from it.",
+      "sheetLine": "The hold is yours. You say it is the work.",
+      "verb": "Defending the chosen direction.",
+      "place": "Where what is growing is tended.",
+      "provenance": {
+        "signature_id": 28,
+        "position_id": 3,
+        "status": 4,
+        "partner_id": 54,
+        "partner": "Formation",
+        "mechanism": "reduction",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
@@ -75,114 +170,18 @@
           "hard": false
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 3,
-      "tense": "You stopped putting your weight behind the direction, and the door you passed is well behind you.",
-      "ask": "Take the smallest next step for what you tend, today, where one other person can see you take it.",
-      "core": "You know what you care about, and you have stopped moving it forward. Where you once stood up for the direction, now there is upkeep — quiet, careful, and it can go on a long stretch without the thing getting any bigger. The pull is still there. The standing behind it is what thinned out.\\n\\nThe way back runs through the smaller, steadier work, not a big push. Take the smallest next step for what you tend, today, where one other person can see you take it. You don't have to feel moved first. The motion tends to come after the step rather than before it, and the step is small enough to take tired.",
-      "sheetLine": "You stopped moving the direction and called the upkeep enough.",
-      "verb": "Holding a chosen direction against what pushes back",
-      "place": "Where something small is being tended toward its own growth",
-      "provenance": {
-        "signature_id": 28,
-        "position_id": 3,
-        "status": 3,
-        "partner_id": 55,
-        "partner": "Preservation",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 4,
-      "tense": "You are already holding the direction steady while describing it as only what needed doing.",
-      "ask": "Tell one person what you are holding steady and why you picked it, in a sentence you would actually say.",
-      "core": "You are already the one holding this steady. You gather the scattered parts, you keep the small thing alive, and you file it under what needed doing. The pick is yours and it goes unnamed. Going well here would look like someone saying out loud what they are keeping and why, and letting the people around them hear the choice in it.\\n\\nThat gap costs you something. The work is real, and neither you nor anyone else is saying what it is. The way out is smaller than you'd think. Tell one person what you are holding steady and why you picked it, in a sentence you would actually say. Say it once, plainly, and let it stand without taking it back.",
-      "sheetLine": "You are already holding the line and have not called it yours.",
-      "verb": "Holding a chosen direction against what pushes back",
-      "place": "Where something small is being tended toward its own growth",
-      "provenance": {
-        "signature_id": 28,
-        "position_id": 3,
-        "status": 4,
-        "partner_id": 54,
-        "partner": "Formation",
-        "mechanism": "reduction",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
           "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -191,14 +190,50 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5446,
+      "ms": 5862,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"not luck\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the people it belongs to\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the next step is to\"",
           "hard": true,
           "status": 1
         },
@@ -209,32 +244,44 @@
           "status": 1
         },
         {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"called it keeping\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -246,8 +293,8 @@
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -257,68 +304,62 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "\"The keeping\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
+          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         },
         {
           "code": "faces",
-          "detail": "two statuses share an ask",
+          "detail": "two asks in this call open on the same verb (\"name\") — four asks, four verbs (prompt m)",
           "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person has already chosen a direction and is defending it; a reader could reasonably say they are still deciding, or that nothing is under pressure. The ask survives being wrong because it is doable either way — the maintaining act does not require the read to be true. The sentence that serves me is the loudest one about holding the line."
+      "check": "The term \"momentum that holds\" implies that the defense has already succeeded, though the record only says something under pressure is asking whether it holds. The likely objection: a person might say that nothing feels under pressure and that they are simply deciding, not defending. The reprieve ask holds up even if the read is wrong, since resting the mind for an hour is useful regardless. The sentence that serves the writer more than the person is the one about the seedlings inside the hold, which flatters the reader into picturing themselves as a gardener before they have done the work."
     },
     {
       "attempt": 2,
-      "ms": 4729,
+      "ms": 4562,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -326,26 +367,38 @@
           "status": 1
         },
         {
+          "code": "said",
+          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\" and let the mind\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -356,38 +409,8 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "history",
-          "detail": "\"for years\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"for years\" — a duration the person never gave",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -402,110 +425,215 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person is defending a chosen direction against resistance; a reader could reasonably say nothing is under pressure and no direction has been chosen yet. The ask survives being wrong because asking what the person being grown wants is doable whether or not the read lands. The sentence that serves me is the one about holding the line; the cells below earn it rather than lean on it."
-    },
-    {
-      "attempt": 3,
-      "ms": 3481,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "length",
           "detail": "core 113 words (120–160)",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"name\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The draft's unsupported claim is that the pressure the person faces is external and already resolved in their favor; the record only says something worth protecting is under pressure and the question is whether the momentum holds. A reader could reasonably say that nothing feels under pressure and that they are simply deciding, not defending. The asks survive being wrong — calming the mind, steadying one changed piece, and building one small thing are each useful regardless of whether the read is right. The sentence that serves the writer more than the person was the one about tending a form that is no longer the form, which flatters the reader into picturing themselves as a caretaker before they have picked anything up."
+    },
+    {
+      "attempt": 3,
+      "ms": 3558,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft's unsupported claim is still that the pressure is external and largely resolved, where the record only says something under pressure is asking whether the momentum holds. A reader could say nothing feels under pressure and they are simply deciding, not defending. The asks survive a wrong read — ten quiet minutes, keeping one changed piece steady, building one small thing each pay off regardless. The sentence that served the writer more is the brick-and-cleared-ground image, which flatters the reader into picturing themselves as a builder before they have made anything."
+    },
+    {
+      "attempt": 4,
+      "ms": 3019,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -522,26 +650,26 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -550,21 +678,121 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        }
+      ],
+      "check": "The draft's unsupported claim is still that the pressure is external and largely resolved, where the record only says something under pressure is asking whether the momentum holds. A reader could say nothing feels under pressure and they are simply deciding, not defending. The asks survive a wrong read — ten quiet minutes, keeping one changed piece steady, building one small thing each pay off regardless. The sentence that served the writer more is the image of the cleared space, which flatters the reader into picturing themselves as a builder before they have made anything."
+    },
+    {
+      "attempt": 5,
+      "ms": 3010,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"Call it something\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is defending a chosen direction against pushback; a reader could reasonably say no direction has been chosen yet and nothing is pressing on it. The ask survives being wrong because asking what the person being grown wants is worth doing whether or not anything is under pressure. The sentence that serves me is the one about holding the line, so each cell has to earn it from the mechanism rather than lean on it."
+      "check": "The draft's unsupported claim is still that the pressure is external and largely resolved, where the record only says something under pressure is asking whether the momentum holds. A reader could say nothing feels under pressure and they are simply deciding, not defending. The asks survive a wrong read — ten quiet minutes, keeping one changed piece steady, and building a first piece on cleared ground each pay off regardless. The sentence that served the writer more is the image of the cleared space, which flatters the reader into picturing themselves as a builder before they have made anything."
     }
   ],
   "usage": {
-    "input": 2389,
-    "output": 3051
+    "input": 8773,
+    "output": 5488
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:20:37.644Z"
+  "date": "2026-10-02T11:50:39.617Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding a read of the situation until it is shaped enough to put on the table.",
-      "ask": "Before one decision this week, write what you make of it in a single line, sit with it until the moment it's needed, then say it plainly when it comes.",
-      "core": "You can hold two sides of something and still come down on one, and the coming-down is what people trust. That pause before you speak isn't stalling — it's where your read gets tested against the other side, and it's why what you put on the table usually fits.\n\nWhat this balance can feed next is structure people can stand in: a call that holds, a share that's clear. That's an offer, not a duty. When a question lands, your even read is already there; you could say it a beat sooner and let the room organize around it. What that costs is the warmth of keeping every option open once you've spoken. Say the one line and let it stand — the rest follows.",
-      "sheetLine": "You hold it until it's worth saying, and it holds.",
-      "verb": "weighing what you know before you say it",
-      "place": "the table where shares get worked out and settled",
+      "tense": "You are the one at the table who knows, and you are keeping it until it says itself",
+      "act": "make the call and carry it through",
+      "ask": "Pick the call you have been sitting on and make it. Then carry it through without explaining first, and let whoever is owed something plain have it.",
+      "core": "You keep what you know steady before you say it, and you get the timing right because of that. No announcement runs before the thing itself. When something sits off between people here, you can feel it before anyone names it, and nothing gets sorted until that gets said. Both are the same steady hand.\n\nOpenings are fine. What this balance is free to feed next is the part where one of those held-back things gets spoken. Pick the call you have been sitting on, make it, and carry it through without explaining first. Let whoever is owed something plain have it. Say it once and then stand there. What got said will show you what the pause was for.",
+      "sheetLine": "You keep what you know until the right moment.",
+      "verb": "holding what you know steady before you say it",
+      "place": "where what belongs to each side gets set right again",
       "provenance": {
         "signature_id": 33,
         "position_id": 11,
@@ -26,14 +27,19 @@
         "partner": "Command",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "hunch",
-          "detail": "\"call that holds\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are rehearsing an argument for a scene that hasn't arrived and may never need a case made.",
-      "ask": "Ask one real question out loud this week, stay quiet until the other person finishes, then let their answer stand without amending it.",
-      "core": "You're building the case before anyone's asked for it. Two sides get re-weighed, outcomes get run ahead of time, and the preparing has started to stand in for deciding. Up ahead is a version where it finally gets said right — and today goes into getting ready for it.\n\nWhen fairness runs on that much prep it stops looking like fairness and starts looking like control. Here's the other path: act on the version you have, before it feels finished. You don't have to like what comes back. What's on the far side of that is a read that lands quietly, without being argued into place. Put the question down, then let the table answer it.",
-      "sheetLine": "You're preparing a case instead of making a call.",
-      "verb": "weighing what you know before you say it",
-      "place": "the table where shares get worked out and settled",
+      "tense": "You are rehearsing lines for a room that is still a week away",
+      "act": "carry on with the version you chose through another week of doubt",
+      "ask": "Take the version you already chose and keep going with it for another week, doubt and all. No new test to check whether it is still right, no re-deciding.",
+      "core": "You know what you think, and lately that has meant carrying every version of the next conversation at once — what to say here, how it will land there, what to have ready in case. Being ready this far out means you are somewhere other than the part that is actually happening, and the people with you can feel it. That is where the accurate read bends.\n\nTake the version you already chose and keep going with it for another week, doubts and all. No new test to check whether it is still right. Just the week, then look. What holds after a dull seven days without a sign is the part that was ever yours, and you will be able to tell it apart from the rehearsal.",
+      "sheetLine": "You are preparing for a room you have not entered.",
+      "verb": "holding what you know steady before you say it",
+      "place": "where what belongs to each side gets set right again",
       "provenance": {
         "signature_id": 33,
         "position_id": 11,
@@ -59,14 +66,19 @@
         "partner": "Resilience",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -75,20 +87,21 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You pulled your read off the table and it sits unfinished where you left it.",
-      "ask": "Write ten lines on one unfinished thought this week, badly, no editing, and finish the tenth line whether or not anyone sees it.",
-      "core": "Your read of things is still in you, and you've stopped bringing it to the table. Questions that should be easy sit unanswered, and you go along with what's decided without putting your side in. The weighing isn't broken. The habit of setting it down in front of people is.\n\nWhat's thin here is imagination that runs to the end — letting something be worked all the way through rather than dropped halfway. Pick something small and follow it past the point where you usually quit. What's at the end of that is yours, and nobody needs an explanation for it. The first one will be clumsy. Do it anyway, then a second time.",
-      "sheetLine": "You have a read and you've stopped bringing it to the table.",
-      "verb": "weighing what you know before you say it",
-      "place": "the table where shares get worked out and settled",
+      "tense": "You already left that room, and you are still standing at its door",
+      "act": "let the satisfaction of a finished thing land",
+      "ask": "Take something good that is already over and give it a minute, unhurried. No searching for the next improvement, no undoing it.",
+      "core": "There is a read that arrives whole and lands clean, and it is not landing anywhere right now. Something got finished, and you went on before it could mean anything. The discernment still works, but it keeps turning over what is already gone rather than what is here, so nothing gets weighed. That is the bend. What is ahead is fine and has not been touched.\n\nTake something good that is already over and give it a minute, with no next improvement attached and nothing to undo. Let one finished thing count where you can see it. The read comes back the way it does now — through the face of it first. If the read is wrong about any of this, the minute still hands you something back.",
+      "sheetLine": "You are still at a door that is already behind you.",
+      "verb": "holding what you know steady before you say it",
+      "place": "where what belongs to each side gets set right again",
       "provenance": {
         "signature_id": 33,
         "position_id": 11,
@@ -97,19 +110,34 @@
         "partner": "Fulfillment",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -119,19 +147,20 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already recalibrating what's fair around you while calling it just how things are.",
-      "ask": "Name one thing you did last week that made something fairer, and say out loud that you're the one who did it.",
-      "core": "You keep the table even. You catch it when a share is off, when a bill needs fixing, when someone got left out — and you set it right, quietly, without turning it into a scene. That's a real skill, and it's why people feel settled around you.\n\nWhat goes unsaid is that the adjusting is yours. You talk about the fairness as if it were a property of the room. Fairness doesn't have to be worked out to belong to you — it can run the way you already let it, and the doing of it can carry your name. Put a hand on one instance. Say this was you. Then watch what the next exchange does.",
-      "sheetLine": "You keep things even and call it the room's doing.",
-      "verb": "weighing what you know before you say it",
-      "place": "the table where shares get worked out and settled",
+      "tense": "The read is right there in what you say, and you are calling it luck",
+      "act": "let the exchange with someone run both ways",
+      "ask": "The next time something goes out from you to someone, let something come back at the size it actually is. Take it without shrinking it or paying for it.",
+      "core": "You read people well. You know what is fair here before anyone has to argue for it, and you do it without running sums — it is just what the moment needs. That reading is a hand steadying things, and asked about it you would say nothing special happened, anyone would have. The call is right. Your name on it is missing.\n\nThen take one plain thing back. The next time you give something here — a hand with a load, a word that steadies someone — let something come the other way at its true size, and take it without paying for it twice or making it smaller. Keep a hand so the exchange runs both ways, and do not hold onto anything more than that. Nothing here needs a ledger.",
+      "sheetLine": "You keep the balance and call it nothing special.",
+      "verb": "holding what you know steady before you say it",
+      "place": "where what belongs to each side gets set right again",
       "provenance": {
         "signature_id": 33,
         "position_id": 11,
@@ -140,14 +169,19 @@
         "partner": "Reciprocity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -161,56 +195,68 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5874,
+      "ms": 6348,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"before you're sure of it\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"went wrong\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"has been right\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 3
         },
@@ -221,45 +267,51 @@
           "status": 3
         },
         {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"before you can say why\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"me\" — a cell has no I; the Reader may add one live",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing is the claim\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -267,20 +319,42 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: that the pause the person keeps taking is genuinely full of held certainty rather than ordinary uncertainty — the record only says knowing is present in the card, not how it feels from inside. A reader could object that they truly don't know yet, and that I've written them as withholding. The asks survive: a question asked out loud and a tenth written down still teach someone how their own knowing behaves either way. The sentence that serves me more than them is any version of 'you already know' — it flatters the reader of the card, not the person, and gets cut."
+      "check": "The record does not state two truths are being weighed in the person's daily life, only that the pause before declaring is the drawn signature; a reader could say there is nothing they are deliberating over at all. The asks for Too Much and Too Little need no internal knowing to survive — keeping on with a chosen thing after the test, and letting one good moment land, are things a person can do without any particular perception, so both still teach something if the read is wrong. The sentence that serves the writer is the brief's own 'decide it and act the same day' put next to 'inner knowing' until it sounds like the card is about urgency, when the card is the pause that gets declared from."
     },
     {
       "attempt": 2,
-      "ms": 4762,
+      "ms": 4505,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"call that holds\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -291,9 +365,15 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -303,20 +383,32 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -328,26 +420,20 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -355,20 +441,42 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported: anywhere I write 'you already know' or 'the knowing' as a settled thing — the record says the card carries decisive inner knowing, but it can't certify what this person holds or how it sits in them. A reader could say they genuinely haven't decided and I've cast them as withholding. The asks survive being wrong: writing a line and holding it, asking one question out loud, finishing ten lines, naming a fair act — each teaches something about how their own read behaves whether or not my read of the card lands. The sentence that serves me more than them is any turn that reassures the person they secretly know — that flatters the card, not the reader, and gets cut."
+      "check": "The record does not state that two truths are being weighed in the person's daily life; only the pause before declaring is drawn, so a reader could reasonably say there is nothing they are currently deliberating over. The Too Much and Too Little asks need no particular inner perception to work — keeping on with a chosen thing after the test, and letting one finished moment count, are available without any special read — so both survive being wrong about the person. The sentence that serves the writer is the phrase 'make the call' set beside 'inner knowing' until the card sounds like it is about urgency, when the card is the pause a clear thing gets declared out of."
     },
     {
       "attempt": 3,
-      "ms": 3607,
+      "ms": 3605,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"call that holds\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -379,8 +487,14 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -391,20 +505,38 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 3
         },
@@ -416,13 +548,19 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -433,18 +571,24 @@
           "status": 4
         }
       ],
-      "check": "Unsupported: any line that certifies what the person privately holds — 'you already know' or 'a read you're keeping' — the record can name the card's function, not this person's interior. A reader could reasonably say they simply haven't decided yet and I've cast them as withholding. The asks survive that objection: writing one line and holding it, asking one question aloud, finishing ten lines, naming a fair act — each teaches something about how their own weighing behaves even if my read of the card misses. The sentence that serves me more than them is any reassurance that they secretly know; it flatters the card, not the reader, and stays cut."
+      "check": "The record does not state that two truths are being weighed in the person's daily life; only the pause before declaring is drawn, so a reader could reasonably say there is nothing they are currently deliberating over. The Too Much and Too Little asks need no particular inner perception to work — keeping on with a chosen thing after the test, and letting a finished moment count, are available without any special read — so both survive being wrong about the person. The sentence that serves the writer is the phrase 'make the call' set beside 'inner knowing' until the card sounds like it is about urgency, when the card is the pause a clear thing gets declared out of."
     },
     {
       "attempt": 4,
-      "ms": 3359,
+      "ms": 3448,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"call that holds\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -455,8 +599,14 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -467,20 +617,150 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record does not state that two truths are being weighed in the person's daily life; only the pause before declaring is drawn, so a reader could reasonably say there is nothing they are currently deliberating over. The Too Much and Too Little asks need no particular inner perception to work — keeping on with a chosen thing after the test, and letting a finished moment count, are available without any special read — so both survive being wrong about the person. The sentence that serves the writer is the phrase 'make the call' set beside 'inner knowing' until the card sounds like it is about urgency, when the card is the pause a clear thing gets declared out of."
+    },
+    {
+      "attempt": 5,
+      "ms": 3575,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the satisfaction of a finished thing land\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -492,13 +772,19 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -509,13 +795,13 @@
           "status": 4
         }
       ],
-      "check": "Unsupported: any line that certifies what the person privately holds — 'you already know' or 'a read you're keeping' — the record can name the card's function, not this person's interior. A reader could reasonably say they simply haven't decided yet and I've cast them as withholding. The asks survive that objection: writing one line and holding it, asking one question aloud, finishing ten lines, naming a fair act — each teaches something about how their own weighing behaves even if my read of the card misses. The sentence that serves me more than them is any reassurance that they secretly know; it flatters the card, not the reader, and stays cut."
+      "check": "The record does not state that two truths are being weighed in the person's daily life; only the pause before declaring is drawn, so a reader could reasonably say there is nothing they are currently deliberating over. The Too Much and Too Little asks need no particular inner perception to work — keeping on with a chosen thing after the test, and letting a finished moment count, are available without any special read — so both survive being wrong about the person. The sentence that serves the writer is the phrase 'make the call' set beside 'inner knowing' until the card sounds like it is about urgency, when the card is the pause a clear thing gets declared out of."
     }
   ],
   "usage": {
-    "input": 4042,
-    "output": 4341
+    "input": 6017,
+    "output": 6011
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:25:33.843Z"
+  "date": "2026-10-02T13:30:21.450Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are steering right now, and your hand on the wheel is steady.",
-      "ask": "Name the next real crossing coming up to one person, and hold the line you set for it this week.",
-      "core": "You're carrying a direction and it isn't costing you yourself. That's rarer than it sounds. Most people lose the aim or lose themselves getting to it; you're holding both, which means what you understand is available to be used.\n\nThis isn't gritted teeth. It's the steady hand that picks the route and stays on it when the road argues back, and that steadiness is working even in the hours nobody watches. There's also something unfinished in it — a structure that wants to come together under your hands, made from material you've already cleared. So this balance isn't rest. It costs you the next crossing, said out loud, and the line held.",
-      "sheetLine": "You're steering and you're still yourself doing it.",
-      "verb": "holding a line through the crossing",
-      "place": "in the drive toward a goal, at the point where the crossing is being made",
+      "tense": "Here, with the pen, you are steering a thing toward what it needs to become.",
+      "act": "build the first new thing from what the clearing showed",
+      "ask": "Take a goal where the old way has already fallen away, and put up the roughest usable piece of it. Load-bearing beats pretty.",
+      "core": "You can feel where a thing needs to go and you say the direction early, before it's settled, so nobody traveling with you has to guess which way. That's the useful part: the course is legible while it's still forming, and the walking stays steadier for it.\n\nThere's ground near you that's already been cleared. Something that needed to go has gone, and what comes next keeps getting crowded out by the next thing. Take one goal on that cleared ground and raise the roughest usable piece of it this week. No polish, no launch. A structure sitting only in your head is still a wish, and this one has been a wish long enough. Ugly and standing beats considered.",
+      "sheetLine": "You say the direction before it's settled.",
+      "verb": "steering toward what you are trying to reach",
+      "place": "a goal being carried forward",
       "provenance": {
         "signature_id": 37,
         "position_id": 7,
@@ -26,26 +27,37 @@
         "partner": "Formation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You'll have the next turn solved before the road has a chance to show it to you.",
-      "ask": "Pick one goal and finish this week's piece of it before you re-plan any part of it.",
-      "core": "You're running the next turn in your head before you've reached this one. Decisions get pre-solved, outcomes rehearsed, other people's responses already answered — and the momentum you have is being spent on a road that hasn't arrived. The pushing feels like discipline. It's bracing.\n\nWhat it buys is the opposite of what you want. The trip gets managed instead of taken, and the surprise that would have redirected you gets filtered out. Practice moves without force when it's balanced, and quiet sharpens instead of tightens, but you're ahead of the moment you're actually in.\n\nLet one thing finish before you work out what comes after. Finishing is the door, not defeat.",
-      "sheetLine": "You're planning a crossing you haven't reached yet.",
-      "verb": "holding a line through the crossing",
-      "place": "in the drive toward a goal, at the point where the crossing is being made",
+      "tense": "By then you will have already decided how the whole thing has to go.",
+      "act": "let the friction test what you are committed to",
+      "ask": "When the plan grinds against what actually happens, stay in the hard part a day and name what you're still in it for. The reason, not the method.",
+      "core": "The goal is up ahead and you can see every way it could go wrong, so the route got finished in advance, corner by corner, before anything moved. The grip is doing more steering than the road is. That certainty is real work, and it means that when the road turns out different, you're the last one able to turn, still tending a course nobody's driving on.\n\nLet the actual thing grind against your plan once this week and don't reroute it. Stay in the hard part for a day and say what you're still in it for — the reason, not the method. Whatever holds up under that has earned the push. What doesn't can be dropped without anyone calling it a failure, including you.",
+      "sheetLine": "The route is finished before anything moves.",
+      "verb": "steering toward what you are trying to reach",
+      "place": "a goal being carried forward",
       "provenance": {
         "signature_id": 37,
         "position_id": 7,
@@ -54,24 +66,19 @@
         "partner": "Dedication",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Finishing is the door, not defeat.\" — end on the plain thing",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, door) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -83,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped setting the course a while back, and you haven't said so since.",
-      "ask": "Name one thing you want and one step toward it, then let someone else hear you name it.",
-      "core": "The direction went quiet. Not lost — quiet. The steering stopped being yours to do and you've been letting the day choose for you, calling that going with things. Nothing is wrong with the motor. The fuel is fine. What drained was the sense of what's fair to want at all.\n\nWanting got tangled up with owing — someone else's need, someone's disapproval, a debt you didn't agree to — and the clean feel for what's yours to reach for got buried under it. So the aim is gone and the engine still runs. The charge comes from touching that fairness sense again, not from pushing yourself to care.",
-      "sheetLine": "The car runs. The direction belongs to someone else.",
-      "verb": "holding a line through the crossing",
-      "place": "in the drive toward a goal, at the point where the crossing is being made",
+      "tense": "For a while now you have not been saying where you think things should go.",
+      "act": "act on the private sense of what is right",
+      "ask": "Do the fair thing that's yours to do — the favor owed, the small wrong set right — and tell no one afterward.",
+      "core": "The direction is still in you and it isn't coming out. You see the turn before the driver does, and that read gets filed under not your call. So you move with the group and take no position on the destination. The push keeps going. You're on it, not steering it, and the ride is smooth enough that nobody asks.\n\nWhat comes back first is the inner sense of what's fair and what's owed. It doesn't need permission or an audience. Do one fair thing you can see coming this week — the favor owed, the small wrong set right — and tell no one after. That isn't a gesture. It's a compass needle, and a needle works even when the car is moving.",
+      "sheetLine": "You're on the push, not steering it.",
+      "verb": "steering toward what you are trying to reach",
+      "place": "a goal being carried forward",
       "provenance": {
         "signature_id": 37,
         "position_id": 7,
@@ -97,31 +105,32 @@
         "partner": "Conscience",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"calling that going\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The momentum is already running and you describe it like weather.",
-      "ask": "Say out loud that one direction you've been moving in is one you picked.",
-      "core": "Look at where you actually go when nothing is forcing the choice. The projects that keep getting your evenings, the person you keep showing up for, the goal you keep circling back to — that's a course, and it's been running for a while. Your own account files it under something that isn't you.\n\nNothing is failing here. The drive is intact, maybe the strongest thing about you. What hasn't happened is owning it. Some of it gets called 'how it's going,' some 'someone needs this,' some 'it makes sense' — and each of those leaves the choice out of your hands.\n\nThe dream about where this goes can only come after the choice already made is acknowledged. Say it once, to yourself or to someone. Then the road is one you're on because you chose it.",
-      "sheetLine": "The course is yours. Your account files it elsewhere.",
-      "verb": "holding a line through the crossing",
-      "place": "in the drive toward a goal, at the point where the crossing is being made",
+      "tense": "Right now you are setting the course and calling it somebody else's map.",
+      "act": "join someone in the work so the two streams run as one",
+      "ask": "Ask one person to work on a goal alongside you — not to help you with it, but as a partner in it.",
+      "core": "On this push the route keeps appearing — a shortcut noticed, a bad turn dodged, the right words landing when they were needed — and you'd say it worked out, the thing found its way. Somebody watched the road. The steering goes on and the credit goes elsewhere, and that's a smaller loss than it sounds, because you still arrive.\n\nThe missing piece is a second person. You've been holding the whole route alone and calling the load light. Ask one person to work on a goal alongside you this week — not to help you carry it, but as a partner in it, both hands on the same thing. You'll learn fast which parts are only yours and which parts hold better with two. Those get better with someone else in them.",
+      "sheetLine": "Somebody watched the road, and it was you.",
+      "verb": "steering toward what you are trying to reach",
+      "place": "a goal being carried forward",
       "provenance": {
         "signature_id": 37,
         "position_id": 7,
@@ -130,14 +139,14 @@
         "partner": "Merge",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -147,7 +156,7 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -156,17 +165,186 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5191,
+      "ms": 6561,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
+        {
+          "code": "refrain",
+          "detail": "\" and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people moving with\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"Everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"my\" — a cell has no I; the Reader may add one live",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, stream) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it run\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"on the way to the\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"goal\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's steering is currently 'good' or 'right' — the record says the direction is running, not that it is correct, so I describe the hand at the wheel without grading the route. A reader could reasonably say the giving-feeling is not theirs to claim, so the Balanced core names the act of steadying others as something they would recognise themselves doing, not as a role awarded to them. The asks survive a wrong read because each is one small act this week that teaches them something about their own pull toward the goal regardless of whether the map named it. The sentence that serves me more than them is 'the hand at the wheel is yours' — it sounds earned and would flatter the read, so each core builds the same point from what the person actually does instead of from the signature's dignity."
+    },
+    {
+      "attempt": 2,
+      "ms": 4483,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "glass",
           "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
@@ -174,111 +352,87 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people walking it\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "names",
-          "detail": "another card's name on glass: Completion",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Completion is the door, not defeat.\" — end on the plain thing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every decision\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (road, door) — one at most, usually none",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the naming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "4 images in one core (current, engine, anchor, compas) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it going\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing is the claim\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "3 images in one core (road, stream, wheel) — a parable, not a sentence to a person",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -286,126 +440,49 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person is 'charting passage for others' — the seat is Drive, personal momentum toward goals, and the record says the card is the outer face, but I cannot seat that knowing as a fact in their life. The reader could reasonably say 'I don't show anyone anything, I just keep going.' The ask survives being wrong because naming the next crossing and staying with it is useful whether or not anyone else is being led. The sentence serving me more than them would be any line about 'charting passage for those who can't yet see' — it flatters the card, not the person."
-    },
-    {
-      "attempt": 2,
-      "ms": 3212,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Finishing is the door, not defeat.\" — end on the plain thing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, door) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (engine, compas) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling that going\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person is 'showing the way' for others — the seat is Drive, personal momentum toward goals, and the card's outer face doesn't put other people in their life as a fact. The reader could say 'I'm not guiding anyone, I'm just trying to get there.' The ask survives being wrong because naming the next crossing and staying on the line is useful whether or not anyone is being led. The sentence serving me more than them would be any line about leading people who can't see — it flatters the card instead of the person."
+      "check": "The unsupported claim is that the person's steering is currently 'good' or 'right' — the record says direction is running, not that it is correct, so I write about the hand at the wheel without grading the route. Each ask is one small act this week that teaches something about their own pull toward the goal whether or not the map named them right. The sentence that serves me more than them was 'the hand at the wheel is yours' — fond of its own sound — so the cores earn the same point through what a person could recognise themselves doing, not through the signature's dignity."
     },
     {
       "attempt": 3,
-      "ms": 2709,
+      "ms": 4103,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "the closing sentence poses: \"Finishing is the door, not defeat.\" — end on the plain thing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, door) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -416,20 +493,32 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 106 words (120–160)",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
         {
-          "code": "hunch",
-          "detail": "\"calling that going\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "five words in a row from an exemplar or a rule: \"word at the right moment\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -441,18 +530,181 @@
         },
         {
           "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's direction is currently right — the record says the steering is running, not that the route is correct, so I describe the hand without grading what it steers toward. A reader could reasonably say the route-building is caution, not control, so Too Much names only what a person could recognise: the plan finished before the thing started. Each ask survives a wrong read because it is one small act that teaches something about their own pull toward the goal whether or not the map named them. The sentence that serves me more than them is 'somebody's watching the road' — it flatters the read — so the Unacknowledged core builds the same point from what the person actually does and what another person would notice."
+    },
+    {
+      "attempt": 4,
+      "ms": 3566,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is showing anyone the way — the seat is Drive, personal momentum toward a goal, and the record's outer face doesn't put other people into their life as a fact. The reader could reasonably say 'I'm not guiding anyone, I'm just trying to get there.' The ask survives being wrong because naming the next crossing and holding the line is useful whether or not anyone is being led. The sentence serving me more than them would be any line about leading people who can't see — it praises the card, not the person."
+      "check": "The unsupported claim is that the person's direction is currently right — the record says the steering is running, not that the route is correct, so I describe the hand without grading what it steers toward. A reader could reasonably say the route-building is caution, not control, so Too Much names only what a person could recognise: the plan finished before the thing started. Each ask survives a wrong read because it is one small act that teaches something about their own pull toward the goal whether or not the map named them. The sentence that serves me more than them is 'somebody watched the road' — it flatters the read — so the Unacknowledged core builds the same point from what the person actually does and what another person would notice."
+    },
+    {
+      "attempt": 5,
+      "ms": 3822,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the friction test what you are committed to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person's direction is currently right — the record says the steering is running, not that the route is correct, so I describe the hand at the wheel without grading what it steers toward. A reader could reasonably say the route-building is caution, not control, so Too Much names only what a person could recognise: the plan finished before the thing started. Each ask survives a wrong read because it is one small act that teaches something about their own pull toward the goal whether or not the read lands. The sentence that serves me more than them is 'somebody watched the road' — it flatters the read — so the Unacknowledged core earns the same point from what the person does and what another person would notice, with no universal about their life in it."
     }
   ],
   "usage": {
-    "input": 2648,
-    "output": 3247
+    "input": 9495,
+    "output": 5914
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:15:57.667Z"
+  "date": "2026-10-02T13:03:49.445Z"
 }

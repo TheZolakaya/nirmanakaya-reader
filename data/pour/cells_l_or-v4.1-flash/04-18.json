@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now the structure you built is doing exactly what you built it for.",
-      "ask": "Hand someone the next step instead of the whole plan. Say what comes first, then let them walk it.",
-      "core": "You build the frame and the frame holds. Not everything in it, but the part that needed holding — the part that would have stayed tangled without you. People come into your presence and the pieces settle into an order they can move in. That is not the same as controlling them. You let the thing be what it is and you give it a shape it can live in.\n\nThe next thing this balance is free to feed is knowing what to attend to. You already get this right in the moment — you can feel what a situation needs before you can explain why — and the open question is whether that knowing is going to the parts that matter. Try handing over the next step rather than the whole map. Then watch what grows.",
-      "sheetLine": "You give the thing a shape it can live in.",
-      "verb": "organizing chaos into workable form",
-      "place": "moving through uncertainty without forcing clarity",
+      "tense": "You can lay a shape over a half-lit thing and have it hold.",
+      "act": "wait until you know which part matters, then begin with that part",
+      "ask": "On the next unclear thing, hold off until the part that actually counts shows itself, then start there — and leave the rest alone until it does.",
+      "core": "You can put a shape on something unclear and have it hold — a plan, a week, a way through a piece of work nobody could see the end of. What you build serves what it's for instead of being the point, and the people beside you can feel where the ground is.\n\nThere's a version you don't need yet: the whole layout, before anything has happened. The one that keeps is smaller — hold off until the part that counts shows itself, then start there. Not the full picture, one true piece. The rest gets its own hour later. Watching beats working out reasons first, and what you sense tends to arrive before the argument for it.",
+      "sheetLine": "Put a shape on the half-lit thing and it stays put.",
+      "verb": "organizing what's half-lit into something that holds",
+      "place": "the half-lit stretch where you can't see the whole road",
       "provenance": {
         "signature_id": 4,
         "position_id": 18,
@@ -26,19 +27,24 @@
         "partner": "Wisdom",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, map) — one at most, usually none",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -50,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a scene that has not happened and cannot be written yet.",
-      "ask": "Let one structure stay unfinished past tonight. Do not fix it, do not name it, just leave it open.",
-      "core": "You are trying to write the ending before the story begins. Every step gets its system, the system gets its defense, and the defense turns into a wall that keeps the actual thing out. What you are protecting is the idea of the shape, not the shape itself. The more you force it, the less it can hold anything real, and you can feel that — you are working harder and the thing is getting smaller.\n\nThere is a looser way to see it. The same eye for pattern, turned toward what connects things instead of what controls them. You know how this works underneath; you can see the mechanism without needing to trap it. Let one piece stay unfinished past tonight. The structure will still be there in the morning, and it will fit better for the waiting.",
-      "sheetLine": "You are building a cage for a shape that needs air.",
-      "verb": "organizing chaos into workable form",
-      "place": "moving through uncertainty without forcing clarity",
+      "tense": "You'll have the whole layout drawn before the dark has shown any of it.",
+      "act": "step back far enough to see the whole arrangement",
+      "ask": "Before you lay the next structure, move back far enough to take in the whole arrangement you've already built — and keep everything you see. Change none of it yet.",
+      "core": "On ground where you can't see far, you're drawing the whole thing early — a plan for every unclear stretch before any of it has shown you what it is. The layout gets drawn tighter and tighter, and the tightness starts to look like the point. The people moving through what you've laid down can feel the edges, and you can feel that nobody was asked.\n\nThere's a way to move back and take in the shape of what you've already built, without the detail of any one piece. Not to fix it — just to see it from far enough away. The shape tends to show which part carries weight and which is only holding the drawing up. Once you've seen that, you'll know what to keep and what was holding nothing.",
+      "sheetLine": "You've drawn the whole road before it's shown you anything.",
+      "verb": "organizing what's half-lit into something that holds",
+      "place": "the half-lit stretch where you can't see the whole road",
       "provenance": {
         "signature_id": 4,
         "position_id": 18,
@@ -64,36 +71,32 @@
         "partner": "Abstraction",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that is already behind you, waiting for permission to walk through.",
-      "ask": "Pick the smallest thing on the pile. Do that one thing only, and stop when it is done.",
-      "core": "The pieces do not assemble, and you have stopped expecting them to. Everything on the shelf is important, so nothing gets picked up; everything needs a place, so nothing gets one. You can see the whole pile at once and no single part of it, which means the first move keeps not arriving. It is not that you cannot build — it is that the building stopped, and you have been living beside the pile since.\n\nWhat is waiting is a clearing, not a plan. One thing falls away and the rest start to have edges. You do not need to see the whole road, just enough to take the next step. Take the smallest thing on the pile and finish it. Not the most important thing. The smallest one.",
-      "sheetLine": "You can see the whole pile and not one piece of it.",
-      "verb": "organizing chaos into workable form",
-      "place": "moving through uncertainty without forcing clarity",
+      "tense": "You've been at a door trying to line everything up before you walk through it.",
+      "act": "let one structure collapse that could not hold",
+      "ask": "Pick one arrangement you've been holding upright — a schedule, a list, a way you've been keeping the week — and stop holding it. See what's there afterward.",
+      "core": "The pieces are all present; they haven't been going together, and you've had the arrangement propped up by hand so long that setting it down looks like losing. Something in the system doesn't fit the ground it's on, and you've been the one keeping it level. From inside that, every next step looks like more of the same.\n\nThe way out isn't a better plan. Stop holding one arrangement — just the one that was keeping nothing up — and stay in the gap without building anything yet. Not a collapse, more like setting down a wall you'd been leaning against. What's there when the pieces settle will tell you what was real, and the next part gets clearer once the skyline's out of the way.",
+      "sheetLine": "Set down one thing that wasn't doing the work.",
+      "verb": "organizing what's half-lit into something that holds",
+      "place": "the half-lit stretch where you can't see the whole road",
       "provenance": {
         "signature_id": 4,
         "position_id": 18,
@@ -102,19 +105,24 @@
         "partner": "Breakthrough",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -126,12 +134,13 @@
     },
     {
       "status": 4,
-      "tense": "The pen is already moving, and you are describing the writing as if it were only the room.",
-      "ask": "Pick one mess you organized without noticing. Say it out loud or write it down: this was your doing.",
-      "core": "You organize without noticing you are doing it. You walk into a scattered situation and an hour later people are moving differently, and you call it nothing, or you call it them. What you built is holding, and you are the only one who cannot see it. When your own hands are the ones arranging things, the result looks like the sky — nobody thinks they made it.\n\nThere is a smaller, truer version of this that comes first. Before calling yourself the one who structures, something finished, and the frame stayed up around it out of habit. Let it be done. Then claim one thing you organized without noticing. Not for credit — because building on ground you will not stand on is building anyway.",
-      "sheetLine": "You built the frame and you call it the room.",
-      "verb": "organizing chaos into workable form",
-      "place": "moving through uncertainty without forcing clarity",
+      "tense": "You're organizing the shared thing and your account has you only getting on with it.",
+      "act": "mark the end of it with a plain act",
+      "ask": "For the way of working you've been quietly keeping up, do one plain thing that says it's settled — a file closed, a folder archived, a short last note. Then leave it closed.",
+      "core": "The half-lit thing is in order because you kept ordering it — the way a week runs, the way work gets handed around, the way a group meets. Ask and you'd say it was nothing. Nobody there has reason to correct you, and they'd probably say the same. Somewhere under that you're tired of a job you keep not noticing you have.\n\nThere's a smaller thing here than the whole before-picture. Pick the one way of working you've been quietly keeping up, and put one plain act at its end — a file closed, a folder archived, a note saying this much is done. Don't reopen it. What ends is a form, not you. One clean ending is how this kind of work starts carrying your name.",
+      "sheetLine": "You've been keeping the shape together and calling it nothing.",
+      "verb": "organizing what's half-lit into something that holds",
+      "place": "the half-lit stretch where you can't see the whole road",
       "provenance": {
         "signature_id": 4,
         "position_id": 18,
@@ -140,14 +149,19 @@
         "partner": "Transformation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -156,21 +170,27 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 7398,
+      "ms": 9005,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"horizon\"",
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, map) — one at most, usually none",
-          "hard": false,
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (shape, floor, map) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 1
         },
         {
@@ -180,51 +200,69 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wall, shape) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"wait until you know which\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"step back far enough to\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 3
         },
         {
@@ -234,51 +272,81 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\" and let it come\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"my\" — a cell has no I; the Reader may add one live",
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you'd say you were only\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person is 'the one others rely on,' which the record asserts as the Unacknowledged condition but the person may deny outright. A reader could reasonably say 'others do not lean on me, I just cannot get organized' — the Too Little reading and the Unacknowledged reading can look identical from inside. The ask survives being wrong either way, because saying 'this is mine' about one thing still teaches the person where they place authorship, even if the read is off. The sentence that serves the writer is 'things make sense in your presence,' a rhythm I must not lean on at every status; I have written it out except where the record gives it directly as the balanced face."
+      "check": "The unsupported claim is that the person feels formless while others rely on their structure (Unacknowledged) — the record says the authorship is misattributed, not that they experience it as void, so the cell narrows to 'ask them and they would say they were only getting on.' The reader could reasonably object that others actually organize the shared thing, not them; the ask (start one small thing with no one waiting) survives that objection because it needs no one else's agreement. The sentence that serves the writer more than the person is any line about 'the moment when what was must fully end' — the poetry of Transformation, which the cell cuts. Also cut: 'Chaos,' 'containers,' 'architecture' — Image-bank nouns the person would never say aloud."
     },
     {
       "attempt": 2,
-      "ms": 4705,
+      "ms": 5875,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, map) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -286,26 +354,32 @@
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\" and let it hold\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wall, shape) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -316,14 +390,20 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -334,30 +414,30 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "person",
-          "detail": "first person: \"my\" — a cell has no I; the Reader may add one live",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that others rely on this person's structure, which the record names for the Unacknowledged status but the person may deny. A reader could say 'no one leans on me, I just can't get organized,' and the Unacknowledged reading and the Too Little reading look identical from inside. The asks survive being wrong: each one tests one act the person can perform or drop, and the asking itself teaches where they place authorship. The sentence serving the writer was 'things make sense in your presence' — written out here except where the record gives it as the balanced face. Also replaced 'somewhere back there' with a present location, pulled 'never,' removed the imperative, dropped first person and the weather refrain."
+      "check": "The unsupported claim is that the person feels formless while others rely on their structure — the record only says authorship is misattributed, so the Unacknowledged cell narrows to 'ask and they'd say it was nothing.' The reader could reasonably object that someone else actually organizes the shared thing; the ask (mark one ending plainly, then leave it closed) survives that objection because it needs nobody's agreement. The sentence that serves the writer more than the person is any line about 'necessary endings' arriving — the poetry of Transformation, which the cell cuts, along with 'chaos,' 'containers,' and 'architecture.'"
     },
     {
       "attempt": 3,
-      "ms": 4215,
+      "ms": 5228,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, map) — one at most, usually none",
+          "code": "length",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -368,33 +448,39 @@
           "status": 1
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (wall, shape) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
@@ -404,25 +490,213 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that others rely on this person's structure — the record names this for the Unacknowledged status, but the person may deny it outright, and from inside the Unacknowledged reading and the Too Little reading can look identical. The reader could reasonably say 'no one leans on me, I just can't get organized.' The asks survive being wrong: each one is a single act the person can do or drop, and the doing itself shows where they place authorship. The sentence that would serve the writer is 'things make sense in your presence,' a rhythm I have kept to the one place the record gives it. Also removed the remaining universal in status 3 ('never') and the first person in status 4."
+      "check": "The unsupported claim is that the person feels formless while others lean on their structure — the record only says the making is not owned, so the Unacknowledged cell narrows to 'ask and they'd say it was nothing.' The reader could reasonably object that someone else actually runs the shared thing; the ask (close one form plainly and leave it) holds regardless, since it needs nobody's agreement. The sentence serving the writer over the person is any line about 'necessary endings' — the poetry of Transformation, cut here as elsewhere."
+    },
+    {
+      "attempt": 4,
+      "ms": 4555,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person feels formless while others lean on their structure — the record only says the making is not owned, so the Unacknowledged cell narrows to 'ask and they'd say it was nothing.' The reader could reasonably object that someone else runs the shared thing; the ask (close one form plainly and leave it closed) holds regardless, since it needs nobody's agreement. The sentence serving the writer over the person is any line about 'necessary endings' — the poetry of Transformation, cut here as elsewhere."
+    },
+    {
+      "attempt": 5,
+      "ms": 4661,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let one structure collapse that could not hold\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that others lean on this person's structure while they feel formless — the record only says the making is not owned, so the Unacknowledged cell narrows to 'ask and they'd say it was nothing.' The reader could reasonably object that someone else runs the shared thing; the ask (close one form plainly and leave it closed) holds regardless, since it needs nobody's agreement. The sentence serving the writer over the person is any line about 'necessary endings' — the poetry of Transformation, cut here as elsewhere."
     }
   ],
   "usage": {
-    "input": 2786,
-    "output": 3405
+    "input": 9113,
+    "output": 6101
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:58:09.336Z"
+  "date": "2026-10-02T11:22:58.519Z"
 }

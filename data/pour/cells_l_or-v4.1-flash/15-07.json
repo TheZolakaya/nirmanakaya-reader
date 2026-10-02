@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are reading the structure underneath the thing you are aiming at, and it is sharpening the aim.",
-      "ask": "Name the structure you've already spotted. Then take the next step you were planning on taking.",
-      "core": "You can see the pattern under the thing you want. Not a distraction from it — the reason the pursuit holds. What you strip away sharpens what you act on, and the direction stays yours.\n\nRead right, this is leverage. You have the shape of the problem, so you know where to press. The reading and the moving are one motion: you pick a step because you understand the structure, and it gets clearer because you took the step. Put a name on what you've seen, then take the step. Nothing is waiting for you to finish understanding before it lets you move.",
-      "sheetLine": "You see the pattern and it points the way.",
-      "verb": "stripping the surface away until only the pattern remains",
-      "place": "in the push toward a stated goal",
+      "tense": "You are standing here with the next real move in your hands, and you can see why it works.",
+      "act": "pick the one you would be sorriest to lose",
+      "ask": "Name the goal on this road that matters most, the one whose loss would sting longest. Say it plainly to yourself. Then take a step toward it today.",
+      "core": "You can see what's under things. Not in a spooky way — you notice the shape a situation is making, and that shape tells you what to do next without the noise. Here, on a road you're holding, the lever is visible to you.\n\nWhat keeps this honest is choosing a light on purpose instead of drifting toward whatever is loudest. That doesn't need a justification or a proof that the heading is right. Name the goal whose loss would sting longest, and put a foot toward it before the day ends. Doing that once sharpens your reading of the road instead of letting it turn into a story you keep rehearsing about how it might go.",
+      "sheetLine": "You see the shape of it, and you move.",
+      "verb": "seeing the pattern under the surface",
+      "place": "the stretch of road where a direction is being held",
       "provenance": {
         "signature_id": 15,
         "position_id": 7,
@@ -26,24 +27,24 @@
         "partner": "Inspiration",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a version of this goal that has not arrived, and the analysis is tightening around a future you cannot yet write.",
-      "ask": "Write down every conclusion you already have. Then leave one alone for a week.",
-      "core": "You are reading the pattern harder than the goal requires. Every layer peeled back reveals another, and the pile of analysis is now what you are carrying — not the goal. Action keeps getting deferred until the structure is clear enough.\n\nRead right, the mapping serves the aim, and you stop once you have enough to move. The bend is that you don't stop. Structure doesn't clear before you move; it clears by moving, and you have enough of the shape already. The piece you're hunting for is not hidden. It is in the way. Let one conclusion sit unexplained for a week, and see whether the goal is still there when you stop holding it up.",
-      "sheetLine": "You are analyzing the goal instead of moving toward it.",
-      "verb": "stripping the surface away until only the pattern remains",
-      "place": "in the push toward a stated goal",
+      "tense": "You will have worked out every turn of this road before you have taken the first step.",
+      "act": "set one rule that makes the rest easier",
+      "ask": "Set a rule for this direction — a day you stop for the week, an hour it gets, a line past which you won't keep planning. Keep the rule this week.",
+      "core": "The pattern-finding has turned on itself. Every branch of the direction gets thought through before a foot moves, and the thinking keeps going because thought doesn't stop by itself. Underneath is a wish for the road to be settled before you commit anything to it.\n\nMore insight won't close this. A single rule will. A day you stop for the week, an hour the work gets, a line past which you don't keep planning. That isn't a cage. It's a bank that lets the water go somewhere. Once the thinking has an edge, you can act on the part you can already see, and it stops needing to generate more.",
+      "sheetLine": "You'll think through every turn before you take one.",
+      "verb": "seeing the pattern under the surface",
+      "place": "the stretch of road where a direction is being held",
       "provenance": {
         "signature_id": 15,
         "position_id": 7,
@@ -69,36 +71,32 @@
         "partner": "Authority",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing at a door you stopped opening, and the direction you move in is the one directly in front of you.",
-      "ask": "Take one thing you have been taking literally, and write what else it might be pointing at.",
-      "core": "You stopped looking under the surface. The effect is quiet and ongoing: you take things as given now. The plan is the plan. The problem is the problem. No pattern asks to be seen, so none is seen, and you move in the direction directly in front of you.\n\nRead right, this looks smaller than it sounds. You ask what one familiar thing might be, and the answer changes how you handle it. A habit turns into a signal. A plan turns into a preference. You don't need depth everywhere — you need it in one place you have been walking past. The door is not far. It is the next thing you decide to look at twice.",
-      "sheetLine": "You take things at face value and the depth is waiting.",
-      "verb": "stripping the surface away until only the pattern remains",
-      "place": "in the push toward a stated goal",
+      "tense": "The direction was chosen and you are still standing at the edge of it.",
+      "act": "join the practice the others keep",
+      "ask": "Join one standing practice with other people in it — a class, a group, a weekly thing — and show up a few times before you decide whether it's yours.",
+      "core": "There's a road you set out on, and you have not got your weight behind it. When you look at it, what shows up is the literal layer: the tasks, the steps, the thing you said you'd do. None of it carries a reason bigger than itself, so nothing pulls you forward.\n\nEffort won't fix that. Contact will. Go to one meeting, one class, one standing thing with other people in it, before you've made up your mind about whether it belongs to you. Find someone who walked this before and ask how they really did it, the unpolished account and not the summary. Direction tends to come back through other people, not through pushing. You don't have to feel it first.",
+      "sheetLine": "You chose the direction. You haven't stepped in.",
+      "verb": "seeing the pattern under the surface",
+      "place": "the stretch of road where a direction is being held",
       "provenance": {
         "signature_id": 15,
         "position_id": 7,
@@ -107,21 +105,11 @@
         "partner": "Culture",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -131,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "The pattern is running underneath the goal you are already moving toward, but you describe it as just the way things are done.",
-      "ask": "Name one pattern in how you work toward what you want. Say aloud that it is yours.",
-      "core": "You have already seen the structure. It shows in how you work — the steps you take, the order you take them in, the parts you skip. You call it the process or the job, as though it existed without you.\n\nThe pattern is yours. It was not imposed by the goal or the work. Read right, you can say what shape you gave it and change your mind about part of it. That recognition hasn't caught up to the doing yet. Once it does, the pattern becomes something you can adjust, rather than something that runs on its own while you call it the work.",
-      "sheetLine": "You built the pattern you credit to the work.",
-      "verb": "stripping the surface away until only the pattern remains",
-      "place": "in the push toward a stated goal",
+      "tense": "You are the one steering this direction, and you talk about it as if it were running loose.",
+      "act": "feel it alongside them and keep your own side",
+      "ask": "Next time someone tells you what they're carrying, feel it with them for a few minutes and keep your own footing. No sorting, no pointing at what you notice. Stay, and stay yourself.",
+      "core": "You are steering a whole direction, and the story you tell has it steering itself. The patterns you spot so easily in the work — you don't spot the one where your hand is on the wheel, and nobody nearby has a reason to bring it up.\n\nWhat's underneath all of it is simple feeling with other people, and that part has gone quiet. The way in is smaller than the direction: sit with one person in what they're carrying, and fix nothing. Not long. The point isn't to help. It's to be reached by them. When you can feel with someone without tidying them, the wheel comes back under your own hands, and you get to know it's there.",
+      "sheetLine": "You steer it and call it the road.",
+      "verb": "seeing the pattern under the surface",
+      "place": "the stretch of road where a direction is being held",
       "provenance": {
         "signature_id": 15,
         "position_id": 7,
@@ -145,14 +134,24 @@
         "partner": "Compassion",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -161,20 +160,185 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5104,
+      "ms": 6437,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 82 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the wanting\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"boundary\" — clinic-adjacent",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (map, road) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you can see and it\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it reach\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"what comes back is\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is smaller\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person is steering a direction they can already feel going well — the record only gives the capacity, not that it's aimed anywhere. A reader could reasonably say the direction is someone else's, or that they're only watching, not steering. The asks survive being wrong because each one is a small move you can make even if the reading is off. The sentence that serves me is 'you can build in the dark' — it's an image I like, not anything the record says."
+    },
+    {
+      "attempt": 2,
+      "ms": 4413,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -185,9 +349,21 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"Say it to\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"you would be sorriest to\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the one you'd be sorriest\"",
+          "hard": true,
           "status": 1
         },
         {
@@ -198,37 +374,43 @@
         },
         {
           "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"some time ago\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"some time ago\" — a duration the person never gave",
           "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -238,31 +420,48 @@
           "hard": false,
           "status": 3
         },
-        {
-          "code": "length",
-          "detail": "core 90 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim: that abstraction is being used to steer goals at all — the record can show the capacity and the seat, not what the person is doing with either. The reader could reasonably say the analysis is just careful planning, not avoidance. The ask survives being wrong: sitting still for a week with one conclusion proves useful to anyone, whether they're over-thinking or under-feeling. The sentence serving the writer more than them is 'the pattern you find is the one you'll find' — it's too neat and makes the person a case study rather than a person."
-    },
-    {
-      "attempt": 2,
-      "ms": 3841,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "length",
           "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 1
+          "status": 4
         },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person can already feel the direction going well — the record gives the capacity, not that it is aimed anywhere. A reader could reasonably say the road is someone else's, or that they are only watching it. The asks survive being wrong because each is a small move available whether or not the reading lands. The sentence that serves me is the phrase about seeing the shape under things — it is my image, not the record's."
+    },
+    {
+      "attempt": 3,
+      "ms": 3745,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -273,8 +472,78 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that a direction is being held at all — the record gives the capacity for sustained aim, not that one is currently running. A reader could reasonably say the road is someone else's and they are only standing near it. The asks survive being wrong because each is a small move available whether or not the reading lands. The sentence that serves me is the phrase about seeing the shape under things — it is my image, not the record's."
+    },
+    {
+      "attempt": 4,
+      "ms": 3688,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -283,244 +552,68 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"when it is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "length",
           "detail": "core 111 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim: that abstraction is being used to steer goals at all — the record can show the capacity and the seat, not what the person is doing with either. The reader could reasonably say the analysis is just careful planning, not avoidance. The ask survives being wrong: sitting still with one conclusion proves useful to anyone, whether they're over-thinking or under-feeling. The sentence serving the writer more than them is 'the pattern you find is the one you'll find' — too neat, makes the person a case study rather than a person."
-    },
-    {
-      "attempt": 3,
-      "ms": 3213,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
-          "hard": false,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 106 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
-        }
-      ],
-      "check": "The unsupported claim: that abstraction is being used to steer goals at all — the record can show the capacity and the seat, not what the person is doing with either. The reader could reasonably say the analysis is just careful planning, not avoidance. The ask survives being wrong: sitting still with one conclusion proves useful to anyone, whether over-thinking or under-feeling. The sentence serving the writer more than the object is any neat formulation about the last layer being in the way — it makes the person a case study rather than a person."
-    },
-    {
-      "attempt": 4,
-      "ms": 3065,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim: that abstraction is being used to steer goals at all — the record can show the capacity and the seat, not what the person is doing with either. The reader could reasonably say the analysis is just careful planning, not avoidance. The ask survives being wrong: sitting still with one conclusion for a week is useful to anyone, over-thinking or under-feeling. The sentence serving the writer more than the person is any neat line about the last layer being in the way — it makes the person a case study rather than a person."
+      "check": "The unsupported claim is that a direction is being held at all — the record gives the capacity for sustained aim, not that one is currently running. A reader could reasonably say the road is someone else's and they are only standing near it. The asks survive being wrong because each is a small move available whether or not the reading lands. For status 2 I had written 'thinking can always keep going,' which certifies a universal about the person's life; the fix is to describe the mechanism in one moment they could recognise, not in general. The sentence that still serves me more than them is the phrase about seeing the shape under things — it is my image, not the record's, and I keep it out of the glass."
     },
     {
       "attempt": 5,
-      "ms": 3299,
+      "ms": 3787,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, road) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -531,12 +624,6 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
@@ -544,33 +631,15 @@
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 3 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "seat",
@@ -580,18 +649,30 @@
         },
         {
           "code": "length",
-          "detail": "core 105 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim: that abstraction is being used to steer goals at all — the record can show the capacity and the seat, not what the person is doing with either. The reader could reasonably say the analysis is just careful planning, not avoidance. The ask survives being wrong: sitting still with one conclusion for a week is useful to anyone, over-thinking or under-feeling. The sentence serving the writer more than the person is any neat line about the last layer being in the way — it makes the person a case study rather than a person."
+      "check": "The unsupported claim is that a direction is being held at all — the record gives the capacity for sustained aim, not that one is currently running. A reader could reasonably say the road is someone else's and they are only standing near it. The asks survive being wrong because each is a small move available whether or not the reading lands. The sentence that serves me more than them is the phrase about seeing the shape under things — it is my image, not the record's, and I keep it out of the glass."
     }
   ],
   "usage": {
-    "input": 4879,
-    "output": 5076
+    "input": 5838,
+    "output": 5879
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:08:46.185Z"
+  "date": "2026-10-02T13:26:24.087Z"
 }

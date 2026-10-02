@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Emotion",
+  "group": "library",
   "signature_id": 28,
   "position_id": 11,
   "signature": "Resolve",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you're the one holding the line you picked, and it's holding.",
-      "ask": "Name one thing you're protecting and who it's for, and say it to that person this week without building a case.",
-      "core": "You picked a direction and you're in it. What you gathered — the reasons, the people, the hours — is aimed at one point, and the aim is steady. You're not defending everything, just the thing that matters, and you know the difference when the day wobbles. You steady it yourself, without much noise, and the people close to you feel that.\n\nThe invitation sitting in front of this one is to hand the meaning on rather than the argument. Not a lecture about your choice — the account of it, told plainly to someone who'd carry it too. One person, this week. What you say simply travels further than another round of defending, and the joy in it is shared, not spent.",
-      "sheetLine": "You're holding the line you chose, and it's holding.",
-      "verb": "holding a chosen direction against what pushes back",
-      "place": "where what's owed gets weighed and the proportions corrected",
+      "tense": "You are holding the line you chose, and the line is holding.",
+      "act": "share the joy with the people it belongs to",
+      "ask": "Say the good thing out loud to one of the people it was for. Not a report, the true sentence, delivered to a face. Keep saying it as it comes up.",
+      "core": "Direction with weight behind it — that's what you've got. What was scattered got gathered, the line got held, and it's still up. There's a version of this that carries people with it: whoever this was for gets to hear that it worked.\n\nPut the word out to one of them. Say the good thing happened, plainly, where it can be heard. Shared gladness is what keeps momentum from turning into a private burden, and this wasn't carried alone. The line stays yours; the joy belongs as much to the ones who stood behind it. Say it to them as it comes up, and the fairness takes care of itself.",
+      "sheetLine": "The line held, and it wasn't only you holding it.",
+      "verb": "gathering what has been scattered to hold one chosen line against pressure",
+      "place": "the fair point where what is owed and what is given get recalibrated until the proportions come level",
       "provenance": {
         "signature_id": 28,
         "position_id": 11,
@@ -26,11 +27,26 @@
         "partner": "Celebration",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You're already braced for a fight that hasn't arrived, spending today's strength on it.",
-      "ask": "Pick the one thing you're actually defending. Leave the rest unsorted for a week and see which ones come back on their own.",
-      "core": "Going well here looks like movement from feeling — you know what matters and you move toward it without arming first. What's happening instead is that you're defending ground nobody's attacked yet. The case gets built before anyone asks, the proof gets assembled, and the gathering meant to serve the thing has become the thing. You wake up already braced.\n\nThat bracing is what's spending you, not the direction itself. When you notice yourself building the argument before anyone's asked, let one stay unbuilt. Sort what's really under pressure from what might be, and let the maybes wait for a week.",
-      "sheetLine": "You're defending ground nobody's standing on yet.",
-      "verb": "holding a chosen direction against what pushes back",
-      "place": "where what's owed gets weighed and the proportions corrected",
+      "tense": "You will be rehearsing an opposition that has not shown up.",
+      "act": "let the mind rest instead of working the problem",
+      "ask": "Leave the problem untouched. No hour, no schedule — just don't pick it up when it offers itself. Pick it up again when you actually decide to.",
+      "core": "The gathering is real and the direction is chosen, but the defense runs hotter than the day requires. You're checking the proportions before anyone has upset them, guarding a line nothing is pressing on. Ground gets held by gathering, not by staying clenched overnight.\n\nStop working the problem. The situation doesn't need an answer from you right now, and rest is not the same as giving up. Direction that comes from genuine engagement comes back refreshed; direction that comes from vigilance just tires the hand on the wheel. Set it down without a clock on it, do something else, and return when you decide to.",
+      "sheetLine": "You're guarding a line nothing is pressing on.",
+      "verb": "gathering what has been scattered to hold one chosen line against pressure",
+      "place": "the fair point where what is owed and what is given get recalibrated until the proportions come level",
       "provenance": {
         "signature_id": 28,
         "position_id": 11,
@@ -54,19 +71,14 @@
         "partner": "Repose",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "core 105 words (120–160)",
           "hard": false
         },
         {
@@ -78,12 +90,13 @@
     },
     {
       "status": 3,
-      "tense": "You've stopped pushing for something you started carrying a while back.",
-      "ask": "Pick the one thing you still want to see through and do its smallest next piece today — one call, one page, one hour.",
-      "core": "There was a direction you meant to hold and you've gone quiet about it. Not settled — parked. Somewhere along the way the defending got tiring enough that you stopped gathering, and the thing you were protecting has been sitting there without you. You still know what it is.\n\nThe next move is small and visible. Before you rebuild the whole case, do the smallest piece a camera could see — one call, one page, one hour. You don't have to get loud again. Keep one commitment attached to it and let that be enough for now; the direction comes back by degrees, not by force.",
-      "sheetLine": "You stopped defending something you still want.",
-      "verb": "holding a chosen direction against what pushes back",
-      "place": "where what's owed gets weighed and the proportions corrected",
+      "tense": "Something has already finished, and you are still standing where it was.",
+      "act": "hold the new form steady",
+      "ask": "Name one way the change left you doing things differently. Then do it on purpose this week, where you can watch yourself do it, instead of letting it happen by itself.",
+      "core": "You've been giving to the direction and getting little back. The push is still being made, the hours still go out, and the offers that come toward rest or credit don't seem to land. Effort is real and it isn't returning in any form you can feel.\n\nWhat's worth doing is holding onto one thing the change already produced. Find something that came out of it — a way you now handle a certain kind of day, a line you no longer cross — and keep it deliberately, once this week, where you can see it happening. Don't let it drift past you. Whatever is over is over; the piece of it that's alive is yours to hold.",
+      "sheetLine": "The push goes out. Nothing comes back in.",
+      "verb": "gathering what has been scattered to hold one chosen line against pressure",
+      "place": "the fair point where what is owed and what is given get recalibrated until the proportions come level",
       "provenance": {
         "signature_id": 28,
         "position_id": 11,
@@ -92,14 +105,19 @@
         "partner": "Preservation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -111,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You're steering a direction you'd call just how things landed.",
-      "ask": "Name one decision you've been treating as circumstance, and say out loud that you chose it.",
-      "core": "You're holding ground, and you talk about it like the ground chose itself. The reasons are lined up, the work is aimed, the people around you feel the even way you carry it — but ask where the direction came from and it turns into what the situation called for. You're the one doing it. The decision gets described as the situation asking.\n\nWhat's underneath is direction from real engagement, which usually sounds simpler than the case you've built around it. Before you make one more decision this way, name one you already made and say it as yours. That's the whole thing. The building can wait until the choice has your name on it.",
-      "sheetLine": "You're holding a direction you call just how things went.",
-      "verb": "holding a chosen direction against what pushes back",
-      "place": "where what's owed gets weighed and the proportions corrected",
+      "tense": "A direction is being held here, and the one holding it hasn't claimed the holding.",
+      "act": "build the first new thing from what the clearing showed",
+      "ask": "Make the thing you're defending exist in some form — a page, a version, a draft, in your own hands. Nothing finished, nothing shown. Then keep it where you can find it.",
+      "core": "The ground is defended, and the account of it says the group simply works, or that this is how it was before anyone arrived. Meanwhile a line is being held that somebody drew, and the drawing goes unclaimed. The direction is running with no one's hand visibly on it.\n\nWhat's cleared is usable ground. Build the thing on it with your own hands — a rough version, a first page, a working sketch — enough that when you look at what you're defending you can see a person made it. Nothing finished, nothing shown. Build it, and put it somewhere you'll come across it again.",
+      "sheetLine": "The line is held. The hand on it is unclaimed.",
+      "verb": "gathering what has been scattered to hold one chosen line against pressure",
+      "place": "the fair point where what is owed and what is given get recalibrated until the proportions come level",
       "provenance": {
         "signature_id": 28,
         "position_id": 11,
@@ -125,14 +144,19 @@
         "partner": "Formation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 103 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -151,14 +175,185 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6131,
+      "ms": 7374,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "scope",
+          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Celebration does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Tell one person\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"and take a walk with\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"That's not resolve, it's the shape\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, current) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "\"move something you actually want into the slot the dead thin\" is not one of Preservation's listed acts",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"the seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "hunch",
+          "detail": "\"That's not modesty, it's a hand\" — the reveal: the person's own account overruled",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the Too Little core's picture of 'keeping the slot occupied' — the record does not say the person is holding a dead form, only that the capacity is under-expressing. If that is wrong, the ask still works: moving something wanted into an occupied hour is useful whether or not the hour was occupied by a structure. The sentence that serves me more than them is 'you've kept a place for a thing that's over'; the fix is to say the hours are claimed by something the person can't name, and offer the move, not the diagnosis. In Too Much, I have avoided naming a specific person or group — the signature is about defending a chosen direction, and the seat is balance, so the ask stays first-person: rest the mind, put the problem down."
+    },
+    {
+      "attempt": 2,
+      "ms": 6093,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "refrain",
+          "detail": "\", and let the gladness\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 1
         },
@@ -176,114 +371,20 @@
         },
         {
           "code": "length",
-          "detail": "core 83 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"Every conversation\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the wanting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person's momentum is already meeting resistance — that is the transient's condition, not a fact about this life. A reader could reasonably say the opposition isn't there yet, or that the pushing is in a job or a family and not in what they protect. The asks all survive being wrong: gathering one account, letting a sorting wait, keeping one commitment, putting a hand back on one thing are useful even if the read is off. The sentence that serves me more than them is any line about what the holding costs them — so I keep the cost in what they can watch themselves do, not in what it has done to them."
-    },
-    {
-      "attempt": 2,
-      "ms": 4246,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "two images in one core (wheel, shape) — one at most, usually none",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\" and let the mind\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -293,8 +394,8 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
+          "code": "diagnosis",
+          "detail": "\"boundary\" — clinic-adjacent",
           "hard": false,
           "status": 3
         },
@@ -311,8 +412,8 @@
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
@@ -327,17 +428,40 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record states the transient's condition, not a fact about this person's life, so any claim that opposition is already present is mine, not the map's. A reader could reasonably say the pushback is elsewhere — a job, a family, a body — and not in the direction the card names. The asks survive that: naming who a thing is for, leaving one argument unbuilt, doing the smallest next piece, putting your name on one decision, all still do work if the read is off. The line that serves me more than them is any sentence about what the holding costs them, so I keep cost in what they can watch themselves do rather than in what it has done to them."
+      "check": "The unsupported claim is the Too Little picture of a slot held by something finished — the record says the capacity is under-expressing, not that a dead form occupies the hours. If that read is wrong, the ask still holds: giving an already-claimed hour to something wanted costs nothing and teaches the person where their hours actually go. In Too Much I have kept the ask first-person and rest-based, since the signature defends a chosen direction and the medicine is the mind at rest. In Unacknowledged the temptation sentence was 'that's not modesty' — the fix is to describe the mechanism without overruling the person's own account, and to let the ask be a making rather than a claiming. The sentence that serves me rather than them was 'the ground you chose doesn't return them'; replaced with a plain statement of what the hours are doing."
     },
     {
       "attempt": 3,
-      "ms": 3202,
+      "ms": 3756,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -346,13 +470,13 @@
         },
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "vocab",
+          "detail": "two images in one core (wheel, shape) — one at most, usually none",
           "hard": false,
           "status": 2
         },
@@ -361,59 +485,76 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"boundary\" — clinic-adjacent",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 107 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 4
         },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the Too Little picture of a slot kept filled by something finished — the record says the capacity is under-expressing, not that a dead form occupies the hours. If that read is wrong, the ask holds: giving an already-claimed hour to something wanted costs nothing and shows the person where the hours go. In Too Much, I keep the ask first-person and rest-based, since the signature defends a chosen direction and the medicine is the mind at rest. In Unacknowledged the temptation was a reveal sentence; the fix is to describe the mechanism plainly and let the ask be a making, not a claiming. The sentence that serves me rather than them was 'the ground you chose doesn't return them' — replaced with a plain statement of what the hours are doing."
+    },
+    {
+      "attempt": 4,
+      "ms": 3848,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "length",
           "detail": "core 109 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"share the joy with the people it belongs to\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
-          "status": 4
+          "status": 1
         },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record states the transient's condition, not a fact about this person's life, so any claim that opposition is already present is mine, not the map's. A reader could reasonably say the pushback is elsewhere — a job, a family, a body — and not in the direction the card names. The asks survive that: naming who a thing is for, leaving one argument unbuilt, doing the smallest next piece, putting your name on one decision, all still do work if the read is off. The line that serves me more than them is any sentence about what the defending costs them, so I keep cost in what they can watch themselves do rather than in what it has done to them."
-    },
-    {
-      "attempt": 4,
-      "ms": 3105,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -422,13 +563,7 @@
         },
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 2
         },
@@ -440,7 +575,13 @@
         },
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold the new form steady\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -452,7 +593,13 @@
         },
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the first new thing from what the clearing s\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -469,13 +616,13 @@
           "status": 4
         }
       ],
-      "check": "The record states the transient's condition, not a fact about this person's life, so any claim that opposition is already present is mine, not the map's. A reader could reasonably say the pushback is elsewhere — a job, a family, a body — and not in the direction the card names. The asks survive that: naming who a thing is for, leaving one argument unbuilt, doing the smallest next piece, saying out loud that you chose a decision, all still do work if the read is off. The line that serves me more than them is any sentence about what the defending costs them, so I keep cost in what they can watch themselves do rather than in what it has done to them."
+      "check": "The unsupported claim is the Too Little picture of a slot kept filled by something finished — the record says the capacity is under-expressing, not that a dead form occupies the hours. If that read is wrong, the ask holds: giving an already-claimed hour to something wanted costs nothing and shows where the hours go. In Too Much I keep the ask rest-based and first-person, since the signature defends a chosen direction and the medicine is the mind at rest. The sentence that served me rather than them was 'the ground you chose doesn't return them' — replaced with a plain statement of what the hours are doing. The quartet's asks now differ in shape: an unbounded practice, a stop with no clock, a repeated deliberate act, a made thing."
     }
   ],
   "usage": {
-    "input": 6801,
-    "output": 4127
+    "input": 8072,
+    "output": 4910
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:18:18.822Z"
+  "date": "2026-10-02T12:59:43.860Z"
 }

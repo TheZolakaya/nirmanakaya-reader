@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you are keeping a feeling steady and full without needing to spend it.",
-      "ask": "Hand one half-made decision to someone you trust and let them hold it a day.",
-      "core": "You know how to let a feeling sit until it's done saying what it has to say. Not numbing it, not rushing it — you stay with it, and what you tell people comes out of that staying. You can feel what's true in a room and you don't have to spend any of it to prove it's real. That's a rare kind of company to be.\n\nWhat this leans toward next is depth — less feeling, more of what sits underneath the feeling. While it's quiet, you can follow the lines between what you've known a long time and what you're only starting to see. The quiet isn't empty. It's full, and it doesn't need stirring to count.",
-      "sheetLine": "You feel the room without spending it to prove it's real.",
-      "verb": "sitting with what the heart knows before it moves",
-      "place": "the open room before anything has been chosen",
+      "tense": "The feeling is here now, held in a hand that hasn't moved yet.",
+      "act": "stay in the depth of it instead of surfacing",
+      "ask": "Stay down in what you feel toward someone close, longer than is comfortable, past the urge to smooth it over or speak, until it quiets without your help.",
+      "core": "You can be with someone and not need to move the feeling anywhere. A hard thing gets said, and you let it be said, and you stay. That stillness is doing work — it gives the other person room to land, and it gives you a place to stand while they do. You hold feeling that has settled rather than feeling still churning.\n\nThere is more underneath, though, and you haven't been down there. Stay down in what you feel toward someone close, not the loudest part of it, longer than is comfortable — past the urge to smooth it over or explain. The depth is where the next thing lives, and you've kept to the shallows where it's easy to be kind.",
+      "sheetLine": "You let feeling rest before you reach to change it.",
+      "verb": "sitting still with feeling that has settled, before it is moved",
+      "place": "the open ground before anything has been chosen",
       "provenance": {
         "signature_id": 45,
         "position_id": 0,
@@ -26,36 +27,32 @@
         "partner": "Immersion",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a conversation that has not happened yet, scripting it before anyone else is in the room.",
-      "ask": "Pick one thing you are managing early and let it stay unattended for a single day.",
-      "core": "You can feel what's coming before it gets here. When it's working, that's a gift: you know what a person needs before they say it, and you meet them there without making a thing of it. That same wiring right now has you living ahead of yourself — rehearsing a conversation, pre-settling how it ends, closing a door nobody else has walked up to. The feeling is real. The bracing around it is doing the work the feeling was supposed to do.\n\nLet that one situation be unattended for a day: no rehearsal, no early arrangement, no closing the loop. Whatever looks finished now is likely still growing. Endings get honored when they've arrived, not when they've been forecast.",
-      "sheetLine": "You're managing a moment nobody else is in yet.",
-      "verb": "sitting with what the heart knows before it moves",
-      "place": "the open room before anything has been chosen",
+      "tense": "You are already bracing for what this stillness will have to become.",
+      "act": "gather what the change grew",
+      "ask": "Write a single line about an ending and what it actually left you. Read that line each morning for a week. Nothing else to do with it.",
+      "core": "When someone brings you something heavy, part of you is already past it — writing the ending in your head, preparing for the moment this peace turns into work. You reach the far side of things before they've happened, and the person with you can feel the distance. Connection gets managed instead of entered.\n\nSome of what you see coming is real, and the endings behind you already happened. Gather what one of them grew: write a single line about what that ending actually left you — not what it cost, what came after. Read it each morning for a week. What you gather is yours; what you're bracing for isn't here yet.",
+      "sheetLine": "You're already living past the moment you're in.",
+      "verb": "sitting still with feeling that has settled, before it is moved",
+      "place": "the open ground before anything has been chosen",
       "provenance": {
         "signature_id": 45,
         "position_id": 0,
@@ -64,14 +61,29 @@
         "partner": "Harvest",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -83,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "A feeling about the people near you is going unspoken, and the moment keeps not being right.",
-      "ask": "Tell one person one true thing about how you feel, badly, and don't fix how it lands.",
-      "core": "You have feelings about what's near you, and they aren't making it out. You stay quiet, hold steady, wait for the moment to be right — and it keeps not being right. The heart hasn't stopped knowing things. The saying has.\n\nWhat's missing is small and specific: one true thing, out loud, imperfect is fine. You don't have to trust it will go well, and you don't have to find the right person first. Say it anyway and let the piece land where it lands. What gets built between people is built on the trying, not on the version that comes out clean. Start with one sentence and see.",
-      "sheetLine": "The heart knows things, only the saying has stopped.",
-      "verb": "sitting with what the heart knows before it moves",
-      "place": "the open room before anything has been chosen",
+      "tense": "That door closed a while back, and you are still standing at it.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "About some situation you care about, write the single sentence of what you know is true — not how you feel. Carry it this week and act on none of it.",
+      "core": "You are still holding a possibility that passed — a version of something, some connection, that didn't happen. The life you're living and the one you keep half-attending don't line up, and most days that goes unmentioned. You go through the motions with people and part of you isn't there. It has gone on long enough to feel like your nature.\n\nIt isn't. About some situation you care about, write the single sentence of what you know is true — not how you feel, what you know. Carry it through the week and do nothing with it. The stillness comes back through what you know, not through how hard you want it.",
+      "sheetLine": "You're standing at a door that already closed behind you.",
+      "verb": "sitting still with feeling that has settled, before it is moved",
+      "place": "the open ground before anything has been chosen",
       "provenance": {
         "signature_id": 45,
         "position_id": 0,
@@ -97,41 +110,47 @@
         "partner": "Reconciliation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already steady and warm with the people near you, and you call all of it just being polite.",
-      "ask": "Say out loud one quiet certainty you have been calling no big deal, and leave it standing.",
-      "core": "You keep some things close and steady: what you know about the people around you, what you can feel without saying. You attribute it to being easygoing, or being used to people, or nothing special. Meanwhile it's quietly doing work every week — people soften around you and say more than they planned to. What you're doing with them is real, and it's running without your name on it.\n\nName one piece of it. Not a declaration, not a speech — one quiet certainty you've been treating as not worth mentioning. Saying it out loud doesn't make it bigger. It makes it yours. What stays hidden doesn't get built on, and it stays open.",
-      "sheetLine": "You're already steady with people. Call it something.",
-      "verb": "sitting with what the heart knows before it moves",
-      "place": "the open room before anything has been chosen",
+      "tense": "The peace that hangs around you is doing quiet work, and your name isn't on it.",
+      "act": "let the mind find its own limit in the thing",
+      "ask": "Follow a worry you've been holding for someone else past where you usually stop. Note where your thinking runs out, then set it down untouched.",
+      "core": "People leave your presence calmer, and by your account nothing happened. You don't count the stillness you bring — it seems like something in the air, not something you do. But it's yours; the room steadies because you got quiet first. The one who feels none of that steadiness is the one who makes it.\n\nFollow a worry you've been holding for someone else past where you usually stop. Not to solve it — to find where your thinking runs out. Every question has an edge, and finding the edge is what lets the question down. You've been carrying threads past their end. Follow a thread to its limit and open your hands.",
+      "sheetLine": "You bring the calm, and you leave yourself out of the count.",
+      "verb": "sitting still with feeling that has settled, before it is moved",
+      "place": "the open ground before anything has been chosen",
       "provenance": {
         "signature_id": 45,
         "position_id": 0,
@@ -140,19 +159,39 @@
         "partner": "Immersion",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -161,33 +200,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5617,
+      "ms": 6558,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (room, shape, thread) — a parable, not a sentence to a person",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"past the point where you'd\"",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
           "status": 1
         },
         {
@@ -198,14 +225,26 @@
         },
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"and you're living in it\"",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -216,20 +255,8 @@
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
           "status": 3
         },
         {
@@ -240,7 +267,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -252,7 +285,43 @@
         },
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it all the way through\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -261,45 +330,55 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record does not say this person actually has a still, settled emotional life underneath; it says the capacity, when operating, has that character. The reader could reasonably object that their heart is anything but quiet, and the read would still need to be useful. The asks survive being wrong because each is an act a person can do whether or not the picture fits — hand over a half-decision, let one unattended thing stay unattended, say one true thing badly, name one quiet certainty as yours. The sentence that serves the writer is 'you carry the hush of the deep water' — pretty, unsupported, and cut."
+      "check": "The unsupported claim: that the person's still, unspent feeling is a settled depth rather than simply early or unformed. A reader could reasonably say they are not at rest, they are just not started — so the cells keep 'at rest' as a thing that holds right now, not a depth earned. The asks survive being wrong: each is a step out of the medicine's own acts, useful even if the read lands sideways. The sentence that serves the writer more than the person: any clause about the heart having already chosen — kept out."
     },
     {
       "attempt": 2,
-      "ms": 3112,
+      "ms": 4975,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (room, shape, thread) — a parable, not a sentence to a person",
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
           "status": 2
         },
         {
@@ -310,38 +389,56 @@
         },
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 104 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, thread) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -349,38 +446,50 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record does not say this person has a settled emotional life underneath; it says the capacity, when running, has that character. A reader could object their heart is anything but quiet, and the cells still have to be useful — each ask is an act anyone can do whether or not the picture fits. The sentence serving the writer was 'you carry the hush of the deep water' — pretty, unsupported, cut."
+      "check": "The unsupported claim is that the person's stillness is a settled depth rather than simply early or unformed feeling; a reader could say they are not at rest, just not started, so the cells keep the stillness as what holds right now, never as earned depth. The asks survive being wrong because each is one step drawn from the medicine's own acts and teaches something about how this person meets feeling even if my read lands sideways. The sentence that serves the writer more than the person — anything saying the heart has already chosen — stays out."
     },
     {
       "attempt": 3,
-      "ms": 3464,
+      "ms": 3834,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -392,31 +501,55 @@
         },
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 112 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -425,15 +558,139 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record does not say this person has a settled emotional life underneath; it says the capacity, when running, has that character. A reader could object their heart is anything but quiet, and the cells still have to be useful — each ask is an act anyone can do whether or not the picture fits. The sentence serving the writer was 'you carry the hush of the deep water' — pretty, unsupported, cut."
+      "check": "The unsupported claim is that the person's stillness is settled depth rather than simply early or unformed feeling; a reader could say they are not at rest, just not started, so the cells keep the stillness as what holds right now, never as earned depth. The asks survive being wrong because each is one step drawn from the medicine's own acts and teaches something about how this person meets feeling even if my read lands sideways. The sentence that serves the writer more than the person — anything saying the heart has already chosen — stays out."
+    },
+    {
+      "attempt": 4,
+      "ms": 4101,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather what the change grew\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 110 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, thread) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the mind find its own limit in the thing\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person's stillness is settled depth rather than simply early or unformed feeling; a reader could say they are not at rest, just not started, so the cells keep the stillness as what holds right now, never as earned depth. The asks survive being wrong because each is one step drawn from the medicine's own acts and teaches something about how this person meets feeling even if my read lands sideways. The sentence that serves the writer more than the person — anything saying the heart has already chosen — stays out."
     }
   ],
   "usage": {
-    "input": 2602,
-    "output": 3106
+    "input": 7839,
+    "output": 4638
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:35:53.833Z"
+  "date": "2026-10-02T12:09:28.889Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The result is here and you are standing in it with your hands open, not counting.",
-      "ask": "Pick one thing you made and let someone else use it their own way, without your instructions. Let it be theirs.",
-      "core": "When the road isn't visible yet, you don't force a shape onto it. You take the step you can actually see, and that has been enough to bring something real through — something that now stands on its own. You can watch it work and not reach in.\n\nThat's this thing going well: growth that doesn't exhaust you, care that holds without clutching. You're not standing over the result, correcting it, or moving straight to the next. You let a thing be finished and let it be good. That ease is what lets what you grew belong to the people it reached, rather than staying a project of yours.",
-      "sheetLine": "What you grew is here, and you can let it be enough.",
-      "verb": "letting what was tended come in",
-      "place": "the room where the path shows itself one step at a time",
+      "tense": "The harvest is in your hands and you are standing at the edge of an open field.",
+      "act": "engage the hard part on purpose and see what holds",
+      "ask": "Go straight at the difficult part of what you're carrying forward — no detour, no workaround — and stay with it long enough to feel which of it holds and which of it was only held up by the way you used to work.",
+      "core": "The road ahead is mostly dark, but you're not walking it empty-handed. What you've grown is real and it's yours, and that's exactly why you can move into what you can't see yet. You know the next step when you're standing on it, and that's enough to lay it.\n\nFriction isn't the enemy. Something you've committed to is being tested, and the test is the point, not the obstacle. Go at the hard part directly, without detour, and keep the commitment while you're in there. The friction scrapes off whatever approach was built for a different field. What holds was going to hold. What falls was borrowed, and the ground under you is clearer for it.",
+      "sheetLine": "You know how to grow things. Now walk into what you can't see.",
+      "verb": "watching what you tended come up in abundance — and stepping into what's next without forcing it",
+      "place": "on a road where you can see one step, in a season that's already handed you the harvest",
       "provenance": {
         "signature_id": 60,
         "position_id": 18,
@@ -26,24 +27,39 @@
         "partner": "Dedication",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "detail": "two images in one core (road, field) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "vocab",
+          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -55,12 +71,13 @@
     },
     {
       "status": 2,
-      "tense": "Somewhere ahead the whole thing arrives, and you are braced for a future that cannot be written in yet.",
-      "ask": "Take one person's half-formed idea and sit with it until you feel what they mean. Don't fix it or improve it today.",
-      "core": "You're living in a version of this that hasn't happened. The result is already here and you're still out ahead of it, planning next season, pulling a future into a present that doesn't need you to. From the outside it looks like care. From the inside it's a grip that will not let go.\n\nWhat walking through uncertainty well looks like: enough light for one step, and the trust to take it. What you've got instead is a forecast for every step you haven't taken yet. Loosening that grip means joining one real thing in front of you — a person, an idea — rather than managing the ones you imagine. What you made doesn't need guarding.",
-      "sheetLine": "You're carrying a result that hasn't arrived yet.",
-      "verb": "letting what was tended come in",
-      "place": "the room where the path shows itself one step at a time",
+      "tense": "You are already standing in the next season, bracing for a field you haven't been given yet.",
+      "act": "choose one connection and flow with it",
+      "ask": "Pick one person you genuinely want to build something with, and instead of sketching the plan at them, bring them into the work itself — their hands on the same thing yours are on — so the shape of it gets found between you.",
+      "core": "You can see the whole crop before the seed's in the ground. The vision is real — you're not imagining things — but it's arriving before the ground it needs, and the push to get there now is what's making it heavy. You don't get the whole road handed to you. You get the next step, and then you wait.\n\nStop building it alone in your head. Bring one person you actually want to go somewhere with into the work itself — not a presentation, just the two of you on the same thing at the same time. Let what you're dreaming become something made in common rather than something you're carrying on both your behalf. Two people moving together is slower than one person planning. It's also the thing that lands.",
+      "sheetLine": "You're carrying a harvest nobody's planted with you yet.",
+      "verb": "watching what you tended come up in abundance — and stepping into what's next without forcing it",
+      "place": "on a road where you can see one step, in a season that's already handed you the harvest",
       "provenance": {
         "signature_id": 60,
         "position_id": 18,
@@ -69,36 +86,42 @@
         "partner": "Merge",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "ask 42 words (≤40)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door you already walked through, waiting for it to open again.",
-      "ask": "Name one direction you can actually see from where you stand and take one small step toward it this week.",
-      "core": "What going well looks like here is simple: enough light for the next step, and the willingness to take it before the whole road is visible. Seeing everything isn't the requirement. Moving is. What you have instead is a wait — you stop at the edge of the unknown and hold still, because the way hasn't shown itself all at once, and it won't.\n\nSo the step doesn't get taken. What you tended is sitting there, finished or near it, and you stand off to one side like a visitor in a room you used to live in. The light hasn't gone anywhere. What's missing is a direction you've chosen out loud and the motion that follows it.",
-      "sheetLine": "You've stopped taking steps into the not-knowing.",
-      "verb": "letting what was tended come in",
-      "place": "the room where the path shows itself one step at a time",
+      "tense": "The field you planted is behind you and you're still standing at its gate, not yet walking.",
+      "act": "turn toward the one direction and stop surveying",
+      "ask": "Stop weighing the options and face a single direction for a few days — the one you'd pick if nobody were watching — long enough to feel whether it still pulls when the surveying stops.",
+      "core": "You've grown things before. That's not in question — the evidence is behind you and it's real, which is exactly why it's hard to walk away from it into open ground. The next field hasn't shown itself yet, so you're standing where the last one ended, waiting for a sign that isn't coming from the rear view.\n\nWhat pulls you forward is a heading, not a proof. Turn toward something you actually want — not the reasonable choice, the wanted one — and stay facing it for a few days before you've mapped how you'll get there. You don't need the whole way lit. A direction, and enough time in it to find out whether it holds. Point yourself somewhere and go, and the light on the road will follow rather than lead.",
+      "sheetLine": "You finished the last field. Face a new direction and walk.",
+      "verb": "watching what you tended come up in abundance — and stepping into what's next without forcing it",
+      "place": "on a road where you can see one step, in a season that's already handed you the harvest",
       "provenance": {
         "signature_id": 60,
         "position_id": 18,
@@ -107,29 +130,19 @@
         "partner": "Orientation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (field, road) — one at most, usually none",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false
         },
         {
@@ -146,12 +159,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already in the middle of it, walking the not-knowing like it's nothing, and calling it luck.",
-      "ask": "Say out loud or write down: this one is mine. Name something you've been calling the way things went instead of your doing.",
-      "core": "You move through not-knowing better than most people and don't clock it as a skill. You'd call it getting by, or being flexible, or just how it went. But the thing is running: you take the next visible step over and over without demanding the whole road first, and something real has grown from it. What that looks like going well is exactly what you're doing, minus the disclaimer.\n\nThe doing goes unattributed. You describe what came out of it as circumstance, as timing, as something that happened to you, instead of the thing you kept at while you couldn't see ahead. It's already yours. The only piece left is saying so — to yourself first, and then out loud to someone who was there.",
-      "sheetLine": "You're already walking the not-knowing. You call it luck.",
-      "verb": "letting what was tended come in",
-      "place": "the room where the path shows itself one step at a time",
+      "tense": "Something you've been growing has quietly become abundant and you're still talking like you're just getting by.",
+      "act": "release the method, not the purpose",
+      "ask": "Notice the method you've been using to keep this going that no longer fits what you're actually committed to, set it down, and keep the commitment alive another way — and see what happens when the grip isn't what's holding it.",
+      "core": "You've been tending something for a long time and it's producing — that part is done, it's already true. What hasn't caught up is the account you give of yourself. You'd say you're still figuring it out, still trying, still mostly in the middle of it. Anyone watching from the edge can see the fruit. You keep describing the tree as if it were a seedling.\n\nThe old way you've been holding this together has quietly expired. It kept you faithful through a season when the thing needed that kind of grip, and now the grip is the only part that's still tight. Let the method go and keep the commitment. Whatever it was protecting has grown enough to stand unaided. What you're releasing isn't the thing itself — it's the version of you that had to guard it. That version did its job. Let it finish.",
+      "sheetLine": "The thing you tended is already bearing. Put down the old grip.",
+      "verb": "watching what you tended come up in abundance — and stepping into what's next without forcing it",
+      "place": "on a road where you can see one step, in a season that's already handed you the harvest",
       "provenance": {
         "signature_id": 60,
         "position_id": 18,
@@ -160,11 +174,21 @@
         "partner": "Dedication",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -176,26 +200,38 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5363,
+      "ms": 7561,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 92 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (map, shape) — one at most, usually none",
+          "detail": "two images in one core (road, field) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "vocab",
+          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the friction\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -206,20 +242,26 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "vocab",
+          "detail": "3 images in one core (seed, road, map) — a parable, not a sentence to a person",
           "hard": true,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -230,26 +272,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "imperative",
+          "detail": "\"you need to\"",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the dark\" — an ethereal image; use something in a life",
+          "detail": "two images in one core (field, road) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -260,39 +296,39 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose which star to steer by and steer\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 89 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -300,92 +336,114 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record says the seat is Imagination (navigating ambiguity) but the card is Spirit house, outer abundance — I render the seat as the place where the person walks in not-knowing, without importing anything about what they have or haven't built. A reader could reasonably say 'I don't experience my life as a garden at all' — the garden never enters the cell, only the plain fact that what was tended is now bearing. The asks survive a wrong read: leaving one thing alone, not finishing the sentence today, naming a direction from inside the fog, calling one thing yours — all useful even if the mechanism is off. The sentence that serves me more than them is anything about low light or half-seen roads as a mood; it stays out, or it stays as a fact of the weather."
+      "check": "The draft's shakiest claim is that the Too Little person is standing at a door already behind them — the record says past-anchored and withdrawn, but it doesn't say what door. The reader could reasonably say 'I'm not stuck, I'm just busy.' The asks survive a wrong read because each is a small act the person can do or refuse without needing the reading to be true. The sentence that serves the writer more than the person is 'You always find a way through' — cut it, it's a compliment, not a mirror."
     },
     {
       "attempt": 2,
-      "ms": 5484,
+      "ms": 4923,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "ask 44 words (≤40)",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"the map\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (road, map, room) — a parable, not a sentence to a person",
+          "detail": "two images in one core (road, field) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the two\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (field, road) — one at most, usually none",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -396,10 +454,34 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -408,30 +490,54 @@
           "status": 4
         }
       ],
-      "check": "The record's card is Flourishing at the outer face (abundance arrived); its medicine at Too Much is Merge, whose balanced form is vision that flows from finished processing — so the ask for Too Much must move toward connecting or joining, not just resting. At Too Little the medicine is Orientation (choosing a star) — so the ask must be about picking a direction, not about waiting for the fog to thin. A reader could reasonably say 'nothing I tended is bearing'; the plants stay out, and so does any word like harvest — the plain fact is that something has grown and is here. The asks survive a wrong read: leaving a thing running without you, joining one person's way of seeing, taking one visible step, putting a name on what you did. The sentence that serves me more than them is any line about the fog as atmosphere; ambiguity stays a condition, not a mood."
+      "check": "The draft's shakiest claim is that the Too Little person is standing where the last field ended, waiting — the record says past-anchored and withdrawn, but it doesn't say what they're looking back at, and 'busy' is a fair objection. The asks survive a wrong read because each is a small act the person can take or leave without needing the reading to be true. The sentence that serves the writer more than the person is 'What's been cultivated in you is finished enough to trust' — it flatters rather than mirrors; cut it. I've also re-shaped the four asks so only one carries a clock, and none is 'one bounded thing' four times over."
     },
     {
       "attempt": 3,
-      "ms": 3814,
+      "ms": 4258,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, field) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -443,7 +549,31 @@
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -454,32 +584,14 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You have to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (field, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -496,36 +608,72 @@
           "status": 3
         },
         {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record's card is Flourishing at the outer face (something grown now bearing); its medicine at Too Much is Merge, whose balanced form is vision that flows from finished processing — so the Too Much ask moves toward joining one real thing, not only resting. At Too Little the medicine is Orientation, choosing a star — so the ask picks a direction, not a wait for the fog to thin. At Unacknowledged the medicine is Dedication: the simpler, earlier form of the same line — so the ask names one thing as the person's own, in a room where they're already doing it. A reader could reasonably say 'nothing I tended is bearing'; plants stay out, and so does 'harvest'. The asks survive a wrong read: letting a made thing run without instructions, sitting with one person's half-formed idea, naming one visible direction and stepping, saying 'this one is mine'. The sentence that serves me more than them is any line about fog as atmosphere; ambiguity stays a condition, not a mood."
+      "check": "The draft's shakiest claim is that the Too Little person is standing where the last field ended, waiting — the record says past-anchored and withdrawn, but not what they look back at, and 'busy' is a fair objection. The asks survive a wrong read because each is a small act the person can take or leave without needing the reading to be true. The sentence that serves the writer more than the person is 'What grew in you last season is finished' — it flatters rather than mirrors; cut it."
     },
     {
       "attempt": 4,
-      "ms": 3504,
+      "ms": 4087,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 108 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 42 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "detail": "two images in one core (road, field) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "vocab",
+          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -537,7 +685,19 @@
         },
         {
           "code": "length",
-          "detail": "core 115 words (120–160)",
+          "detail": "ask 42 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (seed, road) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose one connection and flow with it\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -548,32 +708,14 @@
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (field, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 3
         },
@@ -590,19 +732,31 @@
           "status": 3
         },
         {
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record's card is Flourishing at the outer face (something tended now bearing); at Too Much its medicine is Merge, whose balanced form is vision flowing from finished processing, so that ask moves toward joining one real thing. At Too Little the medicine is Orientation, choosing a star, so the ask picks a direction rather than waiting for clarity. At Unacknowledged the medicine is Dedication — the simpler form of the same line — so the ask names one thing as the person's own. A reader could reasonably say 'nothing I tended is bearing'; plants, harvest and garden all stay out. Every ask still works if the read is wrong: letting a made thing run, sitting with a person's half-formed idea, naming a direction and stepping, saying 'this one is mine'. The sentence that serves me more than them is any line about fog as weather; ambiguity stays a condition, not a mood."
+      "check": "The draft's shakiest claim is that the Too Little person is standing where the last field ended, waiting — the record says past-anchored and withdrawn, but not what they look back at, and 'busy' is a fair objection. The asks survive a wrong read because each is a small act the person can take or leave without needing the reading to be true. The sentence that serves the writer more than the person is 'What grew in you last season is finished' — it flatters rather than mirrors; cut it."
     }
   ],
   "usage": {
-    "input": 7123,
-    "output": 4532
+    "input": 8406,
+    "output": 5364
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:49:07.001Z"
+  "date": "2026-10-02T12:26:34.486Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing at the turn where what was outside comes in and becomes yours.",
-      "ask": "Finish one thing today and let it be finished — write down what it gave you, then let the next thing arrive on its own.",
-      "core": "You still know how to meet what's coming in. Nothing on the way here had to be forced, and the goal out ahead hasn't blinded you to the fact that you're moving through a world that keeps handing you things. Whatever arrives lands, and you take it the way it's given.\n\nEnding something is where this balance gets spent. Each thing you finish releases you into the next, and the whole point is that the finish doesn't close you down — it opens the room for what comes after. The release is what keeps the motion clear.\n\nSo complete one piece of what you're carrying, and let the completing be the whole of it — no idling, no reopening.\n\nThat is how the openness stays real.",
-      "sheetLine": "You meet what's arriving, and what you finish lets the next thing in.",
-      "verb": "meeting what arrives at the turn",
-      "place": "in motion toward a goal you have not reached yet",
+      "tense": "Right now you stand where the next thing is already entering.",
+      "act": "finish the thing that has been waiting on its last step",
+      "ask": "Take the goal you're moving toward that only lacks its final move, and make that move. Then jot one unfinished line about what could follow it, and leave that line open.",
+      "core": "You can face what's coming in without halting your forward motion. Most people notice the turning only once it's carried them somewhere; you can turn toward it mid-go and meet it while you're still under way. That changes what the moving is for. When the thing you've been heading for shows up, you neither grip it nor rush past into the next aim. It lands, you're in it, and the going holds.\n\nWhen it lands, make the final move before any polish, then jot a single line for whatever comes after, and leave that line unfinished. A chapter that closes with its last page unsealed lets the next thing in. You'll know what that next thing wants when you read back what you set down for it.",
+      "sheetLine": "You meet the next thing arriving, still in motion.",
+      "verb": "Meeting what's arriving as it comes in",
+      "place": "In the current of what you're moving toward",
       "provenance": {
         "signature_id": 10,
         "position_id": 7,
@@ -26,26 +27,32 @@
         "partner": "Creation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"finish the thing that has been waiting on its last\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Your momentum has jumped ahead of you and you are already living past the moment that is actually here.",
-      "ask": "Pick one thing you're pushing toward and let this week be enough for it as it is — do nothing today to move it further.",
-      "core": "Lately the current runs you instead of the other way. You are moving, hard, and it can look like focus from outside — but the arrival is something you've already decided on, and you're meeting a future that hasn't been written rather than the moment you're standing in. When it goes badly, the cause is somewhere else: the timing, the other person, the circumstances.\n\nThat is what keeps the pattern turning. The motion is real and the direction has quietly stopped being yours.\n\nWhat settles this is ending something on purpose. Not finishing the goal — finishing a stretch of effort, and letting the cycle close while you stay open to whatever comes next.\n\nPut one thing down for a week and let the week be the whole of it.",
-      "sheetLine": "You're being carried, and you're calling it driving.",
-      "verb": "meeting what arrives at the turn",
-      "place": "in motion toward a goal you have not reached yet",
+      "tense": "You are bracing for a current that hasn't reached you yet.",
+      "act": "complete it without making it final",
+      "ask": "Choose the goal you're treating as done and finish only the piece genuinely ready this week. Name what the goal still holds open, then keep your hands off that part for now.",
+      "core": "Where you move toward things, the bracing is toward arrivals that haven't come — carrying endings before the starts have done their work. The pull is steering and you're signing for it. The pattern repeats and its origin keeps living somewhere else. You can't outrun what's coming by pre-deciding what it will ask.\n\nTake the goal you're already calling complete and finish just the piece that's actually ready. Then put a name on what it still leaves open and keep your hands off that part. Not all at once. A thing closed before it's finished doesn't free you; it moves the same cycle one step sideways and starts it over. Let one ending stay partial and stay there.",
+      "sheetLine": "You finish ahead of time and call it done.",
+      "verb": "Meeting what's arriving as it comes in",
+      "place": "In the current of what you're moving toward",
       "provenance": {
         "signature_id": 10,
         "position_id": 7,
@@ -54,26 +61,37 @@
         "partner": "Creation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "hunch",
-          "detail": "\"calling it driving\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You were at a turning some time back and you are still standing at the near side of it.",
-      "ask": "Take the smallest thing you want and do one real step toward it this week — one step only, and let that count.",
-      "core": "The goal is still there and the charge has gone out of it. Stepping back can look like wisdom — nothing to chase, no outcome to cling to, a state you'd rather keep steady than disturb. From inside that, it reads as freedom from the whole business of wanting things.\n\nWhat it costs is the turning itself. What arrives still arrives, and you are no longer moving into it, so nothing has a chance to complete. The stillness isn't peace so much as a fixed spot you've decided to keep.\n\nSomething has to move before the meeting can happen, and it can't be pushed straight into the place that's gone still. Put charge where you still act — one small real step, in real time, toward something you actually want.\n\nMomentum follows the step.",
-      "sheetLine": "You've stepped back and the turning stopped meeting you halfway.",
-      "verb": "meeting what arrives at the turn",
-      "place": "in motion toward a goal you have not reached yet",
+      "tense": "You are still standing at a door that closed behind you.",
+      "act": "close the cycle and leave the door open for the next",
+      "ask": "Find something already over that you haven't marked as over. Name it plainly, once, and start nothing in its place for a full week.",
+      "core": "Moving toward things has gone quiet where you stand. Whatever you'd reach for feels as if it would only pull you back onto a turning you're trying to step off, so nothing gets picked up and nothing gets begun. What reads as peace is a position you're still holding after its moment passed. Meeting what arrives isn't far from you. It's one turn ahead of where you've parked.\n\nTake something in your life that already finished and mark it finished, plainly, once, without ceremony. Don't install a replacement and don't hand its role to the next candidate. Let that stretch sit unclaimed for a week. The next thing comes in when the last one is acknowledged, not before. You don't need to choose it today; you only need to stop standing where the old one stood.",
+      "sheetLine": "What you call stillness is a door already closed.",
+      "verb": "Meeting what's arriving as it comes in",
+      "place": "In the current of what you're moving toward",
       "provenance": {
         "signature_id": 10,
         "position_id": 7,
@@ -82,26 +100,37 @@
         "partner": "Creation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"close the cycle and leave the door open for the ne\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already moving toward something, and the choosing underneath it hasn't been claimed as yours.",
-      "ask": "Name one thing you're moving toward and say out loud where the choice for it came from — then keep the direction or change it.",
-      "core": "Your momentum is running. Decisions are being made, effort is going somewhere, and when the results land you're surprised in a way that keeps suggesting it happened to you. Maybe the current did it, or the moment, or someone else's push — anything but the one who has been steering.\n\nNone of that is a fault. It is just the steering sitting in the wrong column: the turn is being made and no one has said who made it. The arrival is happening either way.\n\nWhat's missing is smaller and earlier than any big reorientation — a plain acknowledgement that a direction was chosen, and by you. Not force. Just saying \"this, not that\" and meaning it.\n\nSay it about one thing, then see whether you still want it.",
-      "sheetLine": "You're steering this, and you keep saying it just happens.",
-      "verb": "meeting what arrives at the turn",
-      "place": "in motion toward a goal you have not reached yet",
+      "tense": "You are writing in a place you don't remember arriving at.",
+      "act": "choose this, not that, and mean it",
+      "ask": "Take one direction you're already moving in without having chosen it. Decide it's yours and not the other, mean it, and do one job only someone who chose it would do.",
+      "core": "What happens downstream of you keeps taking you by surprise. Where you move toward goals, the motion is real and the aim belongs to something other than you — cycles turn and the outcomes read like the day's conditions. The pull runs. Nobody present recalls setting the bearing. You've been steering while calling it how things happen to go.\n\nPick one direction you're already travelling and claim it: this one, not that one. Nothing about the doing has to change. Say it belongs to you, mean it, then do one piece of work only someone who picked this path would do. Watch what comes of an outcome you signed for. That's the whole gap between being carried and going someplace on purpose.",
+      "sheetLine": "You're steering and calling it the current.",
+      "verb": "Meeting what's arriving as it comes in",
+      "place": "In the current of what you're moving toward",
       "provenance": {
         "signature_id": 10,
         "position_id": 7,
@@ -110,135 +139,480 @@
         "partner": "Will",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
-      "lint": []
+      "lint": [
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        }
+      ]
     }
   ],
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6924,
+      "ms": 8344,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "missing",
-          "detail": "no verb",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (current, door) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"waiting on its last step\" — say the act in the person's words",
           "hard": true,
           "status": 1
         },
         {
-          "code": "missing",
-          "detail": "no place",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "missing",
-          "detail": "no verb",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 2
         },
         {
-          "code": "missing",
-          "detail": "no place",
-          "hard": true,
+          "code": "vocab",
+          "detail": "two images in one core (current, shape) — one at most, usually none",
+          "hard": false,
           "status": 2
         },
         {
           "code": "hunch",
-          "detail": "\"calling it driving\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it your\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
         {
-          "code": "missing",
-          "detail": "no verb",
-          "hard": true,
-          "status": 3
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
-          "code": "missing",
-          "detail": "no place",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "glass",
-          "detail": "\"empty place\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 3
         },
         {
-          "code": "missing",
-          "detail": "no verb",
+          "code": "vocab",
+          "detail": "3 images in one core (wheel, door, threshold) — a parable, not a sentence to a person",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "missing",
-          "detail": "no place",
+          "code": "hunch",
+          "detail": "\"call it stillness\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "two images in one core (current, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record does not support any story about what the person has done with this capacity before now, so all four cells keep to the mechanism as it runs in a moment they could recognise. A reader may object that a fresh recognition of what's arriving is not something you can lose or overdo, and the cells meet that by treating the four statuses as four ways the same turning is met rather than four amounts of it. The asks survive a wrong read because each is a small act of ending and settling in ordinary time, useful whether or not the picture fits. The sentence that served me more than them was any rendering of the turning as a thing that happens to a person alone, which none of the cells now carry."
+      "check": "The record gives no motive for what the person is doing, and no history for how the Drive seat emptied — the Too Little cell must locate them at the door without saying what happened there, and the Unacknowledged cell must name misattribution without naming what they tell themselves. A reader could reasonably say the Too Much cell assumes a life where conclusions actually land, and the ask will be useless if their real problem is that nothing in their life is finishable — but the act still teaches them which cycles are theirs to close. The sentence that serves me more than them is any line implying their Drive seat is broken rather than held, and it is cut from all four."
     },
     {
       "attempt": 2,
-      "ms": 4073,
+      "ms": 6585,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "vocab",
+          "detail": "3 images in one core (current, shape, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (current, root, shape) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty space\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (door, threshold, doorway) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"close the cycle and leave the door open for the ne\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (shape, current, path) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"choose this not that and mean it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record supports no motive for the person's motion and no history for how the Drive seat emptied — Too Much and Too Little must name the mechanism's shape without narrating what caused it, and Unacknowledged must mark misattributed authorship without saying what story the person tells themselves. A reader could say the Too Much cell assumes conclusions land somewhere in their life, and the Too Little cell assumes a finished thing sits available to name; both asks still teach something even if that read is wrong, because each has the person locate one concrete piece rather than fix a mood. The line that serves me over them is any phrasing implying their Drive seat is defective rather than held or mid-turn; it is gone from all four."
+    },
+    {
+      "attempt": 3,
+      "ms": 4286,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"finish the thing that has been waiting on its last\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
           "code": "hunch",
-          "detail": "\"calling it driving\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (doorway, threshold, door) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"close the cycle and leave the door open for the ne\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The record does not support any story about what this person has done with this capacity before now, so all four cells keep to the mechanism as it runs in a moment they could recognise. A reader may object that a fresh recognition of what's arriving is not something you can lose or overdo, and the cells meet that by treating the four statuses as four ways the same turning is met rather than four amounts of it. The asks survive a wrong read because each is a small act of settling or ending in ordinary time, useful whether or not the picture fits. The sentence that served me more than them was any rendering of the turning as something that happens to a person alone, which none of the cells now carry."
+      "check": "The record gives no cause for how the Drive seat emptied and no motive behind the person's motion, so Too Much and Too Little must name the mechanism's shape in a moment recognisable without narrating history, and Unacknowledged must mark misattributed authorship without saying what story the person tells themselves. A reader could object that the Too Much cell presumes something in their life actually concludes, and the Too Little cell presumes a finished chapter sits near enough to notice; both asks survive being wrong because each has the person locate a concrete piece rather than repair a mood, and the locating teaches even if my read is off. The sentence serving me over them is any line implying the Drive seat is defective rather than held or mid-turn; it is gone from all four."
+    },
+    {
+      "attempt": 4,
+      "ms": 4155,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"finish the thing that has been waiting on its last\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"close the cycle and leave the door open for the ne\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supplies no cause for how the Drive seat emptied and no motive behind the motion, so Too Much and Too Little must render the shape of the mechanism in a moment the person could recognise without narrating history, and Unacknowledged must mark misattributed authorship without supplying the story the person tells themselves. A reader could object that the Too Much cell presumes something in their life actually concludes, and the Too Little cell presumes an ending sits close enough to name; both asks survive that objection because each has the person locate one concrete piece rather than repair a mood, and the locating teaches even if my read is wrong. The sentence that serves me more than them is any phrasing that implies the Drive seat is defective rather than held or mid-turn; it is cut from all four."
+    },
+    {
+      "attempt": 5,
+      "ms": 3665,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"finish the thing that has been waiting on its last\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"complete it without making it final\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"close the cycle and leave the door open for the ne\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supplies no cause for how the Drive seat emptied and no motive behind the motion, so Too Much and Too Little must render the shape of the mechanism in a moment the person could recognise without narrating history, and Unacknowledged must mark misattributed authorship without supplying the story the person tells themselves. A reader could object that the Too Much cell presumes something in their life actually concludes, and the Too Little cell presumes an ending sits close enough to name; both asks survive that objection because each has the person locate one concrete piece rather than repair a mood, and the locating teaches even if my read is wrong. The sentence that serves me more than them is any phrasing implying the Drive seat is defective rather than held or mid-turn; it is cut from all four."
     }
   ],
   "usage": {
-    "input": 1603,
-    "output": 2379
+    "input": 6309,
+    "output": 6299
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:03:58.431Z"
+  "date": "2026-10-02T13:25:00.893Z"
 }

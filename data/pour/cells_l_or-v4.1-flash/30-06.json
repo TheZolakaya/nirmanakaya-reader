@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are still going, and the company you keep is holding, right now.",
-      "ask": "Stay reachable through one more round of the long thing — answer one message from the middle of it, no news required.",
-      "core": "The hoping still has legs. What you set out toward, you are still moving toward, and after everything the road has asked you are standing. That is not grit for its own sake. It shows up as steadiness next to people — you keep your footing, so they can keep theirs, and nobody has to be managed from a hard place.\n\nThat steadiness is a real thing, and it can sit down when you do. Softness and load are in the same room; you do not have to choose between them. The offer here is one more piece of company than feels needed, even on a day with nothing to report. Reach for one person from inside the long stretch, not after it.",
-      "sheetLine": "You're still going, and the ones near you can feel it.",
-      "verb": "staying with what was hoped for, long after the hoping got tested",
-      "place": "beside someone, in contact, where two separate lives can line up",
+      "tense": "You are still here, and the hoping has outlasted everything that tried to end it.",
+      "act": "stand firm in the material hardship",
+      "ask": "Take the hardest thing you're carrying and do the next real step on it, whatever the step actually is, before anything else today.",
+      "core": "You keep hoping past the point other people quit, and it isn't naivety; you've been through enough that the hope got tested and stayed. The same steadiness is what lets you sit beside people without needing them to hurry up and be fine. You can feel with someone and not be swept off your feet by it. When that's working, the other person gets room to move at their own speed.\n\nThe risk right now is that your endurance runs quietly, pointed at the work and not at the people in it. So take the heaviest thing you carry and move on it once. Just the next piece of it. Then look up and notice who has been standing nearby, steady in the same way you are.",
+      "sheetLine": "The hope survived everything, and so did your aim.",
+      "verb": "keep going after everything, because you still hope for it",
+      "place": "beside the people you keep turning toward, close enough to feel with them",
       "provenance": {
         "signature_id": 30,
         "position_id": 6,
@@ -26,24 +27,19 @@
         "partner": "Steadfastness",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
-          "hard": false
-        },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -60,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You will be bracing for a blow the situation has not yet earned from you.",
-      "ask": "Before the next push, ask one person one real question — no plan attached — and wait through the silence for the answer.",
-      "core": "The hope has started running ahead of the day. You keep a version of how this goes ready in advance, and you spend the present holding it steady — bracing for the break that has not come. The push grows out of the hoping itself, which is why it is hard to notice. From the inside it just feels like continuing to care.\n\nPeople near you feel the plan before they feel you — what gets said is already shaped toward the outcome. Put it down for a beat. Find out what someone actually thinks before deciding what to do with it. The advance work does not stop the break; it only keeps you out of the room where the answer was going to come from.",
-      "sheetLine": "You're bracing hard enough for both of you.",
-      "verb": "staying with what was hoped for, long after the hoping got tested",
-      "place": "beside someone, in contact, where two separate lives can line up",
+      "tense": "You will keep going no matter what, and you are already bracing for what that keeping will cost.",
+      "act": "hold two true things without declaring either",
+      "ask": "On a coming decision, write the best and worst outcome side by side, close the page, and leave both alone until tomorrow.",
+      "core": "You are going to keep going, that much is settled. The bracing comes from having already run the whole thing forward in your head — every way it can fail, every part of you it will take — so the shape of how this goes is being written before it happens. It doesn't get softer with rehearsal. It gets louder.\n\nYour mind already knows how to hold a thing before saying it. Let that happen with the near future too. When a prediction swirls at you, give it a page and a night to prove itself, then read what you actually wrote. A lot of what got announced last week didn't arrive. Both versions can sit there, unanswered, until one of them earns it.",
+      "sheetLine": "You run the future early, then live as if it already happened.",
+      "verb": "keep going after everything, because you still hope for it",
+      "place": "beside the people you keep turning toward, close enough to feel with them",
       "provenance": {
         "signature_id": 30,
         "position_id": 6,
@@ -74,26 +71,37 @@
         "partner": "Reflection",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "Something in the past taught the hoping to keep its head down, and the body is still obeying it.",
-      "ask": "Send one honest line to someone you once waited alongside — no summary, no apology, no invitation needed.",
-      "core": "The hope is still there — it just stopped coming out. Your grip on the long thing has gone private. You keep going, but quietly, and the people who would meet you at the door do not get to stand beside you while it happens.\n\nWhat is missing is not strength. It is the company that strength was going to be for. Tend one small thing with a person in it — a note, a call, a shared task done slowly. Care does not have to exhaust you to count. Let one person stand beside the work instead of seeing it finished.",
-      "sheetLine": "You kept the hope and lost the company it was for.",
-      "verb": "staying with what was hoped for, long after the hoping got tested",
-      "place": "beside someone, in contact, where two separate lives can line up",
+      "tense": "You held the line for so long that holding on became the only thing you were doing.",
+      "act": "steward it without clutching",
+      "ask": "Choose something still growing — a plant, a person, a piece of work — and give it only what it needs this week, then leave it be.",
+      "core": "You kept going through something that took a lot, and you're still keeping going now that it's done. The people who come close meet the part of you that endures instead of the part of you that's here. Catching up to right now is still available to you. It happens in ordinary minutes, not in a big decision.\n\nCare is the way back, without squeezing. Take one thing still growing and tend it for a week. Give it water, give it space, and skip the hourly check. Looking after what you care about without crushing it is already in your hands. Do that with something small, and the present gets easier to land in.",
+      "sheetLine": "Spend the week on what's growing, and let today catch up.",
+      "verb": "keep going after everything, because you still hope for it",
+      "place": "beside the people you keep turning toward, close enough to feel with them",
       "provenance": {
         "signature_id": 30,
         "position_id": 6,
@@ -102,36 +110,47 @@
         "partner": "Stewardship",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "The steering is already happening in the room, and your hands are not on it yet.",
-      "ask": "Name one choice out loud to someone who was there when you made it — just the choice, not the whole story.",
-      "core": "You are already holding people steady through the long thing — through how you stay, what you absorb, what you do not put down. The strength is doing the work of keeping people close. The description of it, though, has been just how things went, as if anyone would have.\n\nThe refusal here is only of the frame, not the fact. There is a smaller version of this underneath — holding without forcing, without having asked permission. Say one thing to one person that you have been carrying quietly and calling nothing. It happened on your watch. Let it be yours out loud.",
-      "sheetLine": "You're already carrying them. Stop calling it nothing.",
-      "verb": "staying with what was hoped for, long after the hoping got tested",
-      "place": "beside someone, in contact, where two separate lives can line up",
+      "tense": "You are carrying the whole load again and still calling it a string of lucky breaks.",
+      "act": "carry your own share, all of it",
+      "ask": "Name one hard thing you got through that you credit to timing or luck, and say it as yours, with the disclaimer left off.",
+      "core": "What you do beside people is keep going — including after they've quit, including when it's expensive. That is the same resilience that lets you sit with someone in a hard season without rushing them toward better news. You can stay close to pain and not be swallowed by it. The people near you get a companion who isn't frightened by how long something takes.\n\nThe trouble is that you book your own endurance under circumstance: it worked out, they happened to stay, the timing was right. That leaves you standing beside something you built and calling it weather. So pick one load you carried and say its name as yours. No disclaimer, no shrinking it to what anyone would have done.",
+      "sheetLine": "The name on the endurance is yours and unsigned.",
+      "verb": "keep going after everything, because you still hope for it",
+      "place": "beside the people you keep turning toward, close enough to feel with them",
       "provenance": {
         "signature_id": 30,
         "position_id": 6,
@@ -140,24 +159,29 @@
         "partner": "Steadfastness",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -166,27 +190,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5860,
+      "ms": 6970,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 1
         },
         {
@@ -194,263 +212,629 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claims the record does not back: that this person's persistence has ever actually broken a relationship (Too Much) or that a specific old room is still governing them (Too Little) — I describe the mechanism, not a history. A reader could fairly say 'it hasn't cost me anyone' or 'it didn't fail, I just got tired.' The asks survive being wrong because each starts from what the person is already doing — hope, contact, tending, choice — and asks for one bounded move, not a verdict on their life. The sentence that serves the writer more than them is the clean antithesis 'the push is coming out of the hope' — cut it; say the mechanism plainly."
-    },
-    {
-      "attempt": 2,
-      "ms": 3533,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pause before you let it be known\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one sentence on paper\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "wound",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 105 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"credit from the one person\"",
+          "detail": "\" and let it stay\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"it all the way through\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record does not say this person's persistence has ever cost them anyone, and it does not say an old room is still governing them. A reader could fairly say 'it hasn't cost me anyone' or 'I just got tired, nothing happened.' The asks survive being wrong because each starts from what the person is already doing — hoping, staying, tending, choosing — and asks for one bounded move, not a verdict. The sentence that served me more than them was the clean antithesis about the push and the hope — cut it and the mechanism stands on its own."
+      "check": "The unsupported claim is that their persistence is currently landing as connection, or that people feel steadied by it — the seat is Compassion, but the card only says persistence keeps going, not what it does for anyone near them. A reader could reasonably say the endurance is private, or that it costs the people close to them rather than holding them. The asks survive being wrong: each one is the medicine's own act, doable even if the reading misses. The sentence that serves me is the Too Little line about a door already behind — it sounds like closure and they never told me there was a door."
     },
     {
-      "attempt": 3,
-      "ms": 4163,
+      "attempt": 2,
+      "ms": 4487,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (road, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"tell someone\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 100 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
-          "status": 3
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that their persistence currently lands as connection, or that the people near them feel steadied by it — the card says persistence keeps going, not what it does for anyone else. A reader could reasonably say the endurance is private, or that it costs the people close to them. The asks survive being wrong: each is the medicine's own act, doable even if the read misses. The sentence that serves me is the Too Little line about a wasted week — it sounds like absolution and they never told me anything was wasted."
+    },
+    {
+      "attempt": 3,
+      "ms": 3868,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 101 words (120–160)",
+          "detail": "core 100 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that their persistence currently lands as connection, or that the people near them feel steadied — the card says persistence keeps going, not what it does for anyone else. A reader could reasonably say the endurance is private, or that it costs the people close to them. The asks survive being wrong: each is the medicine's own act, doable even if the read misses. The sentence that serves me is the Too Little line about keeping going because it's what you do — it lets a whole history off the hook that I invented."
+    },
+    {
+      "attempt": 4,
+      "ms": 3772,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 98 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The record does not say this person's persistence has ever cost them anyone, and it does not say an old room is still governing them. A reader could fairly say 'it hasn't cost me anyone' or 'I just got tired, nothing happened.' The asks survive being wrong because each starts from what the person is already doing — hoping, staying, tending, choosing — and asks for one bounded move, not a verdict. The sentence that served me more than them was the clean antithesis about the push and the hope — cut it and the mechanism stands on its own."
+      "check": "The unsupported claim is that the persistence currently reaches the people nearby at all — the card says the enduring keeps going, not that anyone feels held by it. A reader could say the endurance is private, kept in the work rather than the room, or that the people close to them bear the bill for it. Each ask is the medicine's own act and stays doable if I've read the seat wrong. The sentence that serves me is the Too Little line about holding on being what you do — it lets a whole history off a hook I invented."
+    },
+    {
+      "attempt": 5,
+      "ms": 3732,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"stand firm in the material hardship\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold two true things without declaring either\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"steward it without clutching\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"carry your own share all of it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the persistence currently reaches the people nearby at all — the card says the enduring keeps going, not that anyone feels held by it. A reader could say the endurance is private, kept in the work rather than the room, or that the people close to them bear the bill for it. Each ask is the medicine's own act and stays doable if I've read the seat wrong. The sentence that serves me is the Too Little line about holding on being what you do — it lets a whole history off a hook I invented."
     }
   ],
   "usage": {
-    "input": 2732,
-    "output": 3214
+    "input": 5650,
+    "output": 5811
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:22:41.187Z"
+  "hardOpen": 1,
+  "date": "2026-10-02T13:29:38.728Z"
 }

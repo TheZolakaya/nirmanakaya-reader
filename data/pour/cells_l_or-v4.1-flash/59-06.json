@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The work is deep and the people around you are still in reach.",
-      "ask": "Show one person an unfinished piece this week, not the polished version, and stay in the room while they look.",
-      "core": "You're far enough into this that you can tell what still needs work, and you're keeping people close anyway. The refining is doing its job and it hasn't cut you off from anyone. What keeps this steady is that the practice doesn't need anyone watching to continue, and it doesn't need to be hidden to be real.\n\nSolitude feeds the work. The people around you feed the reason for it. You don't have to choose between the two. When somebody else can see the piece before it's good, and you find out it still stands, the practice stays honest and the connection stays current. That's the balance, and keeping it costs you the comfort of only showing what's already finished, which is a cost you can pay.",
-      "sheetLine": "The work is deep and the door is still open.",
-      "verb": "keeping a long dedication through each pass, deeper and more refined",
-      "place": "where two people come into alignment and feel the same thing at once",
+      "tense": "You are at the workbench now, and the craft is steady in your hands.",
+      "act": "refine one distinction by close attention",
+      "ask": "Go back over an exchange from today, in detail — what was said, what you answered, what changed — and name a detail you handled well and a detail you'd handle differently, said plainly.",
+      "core": "What you build at your own bench comes into a conversation with you. The people closest to you get the steadier version, and an exchange going well — each side heard, neither flattened — shows it. You can feel with someone and still keep your judgment free enough to be useful. The crafting and the closeness are not two jobs.\n\nThe refining bent is running ahead, though. You are going back over an exchange to see how it stands, how the other person read you, what you'll say next time before this one has landed. What's shared gets examined instead of inhabited. Let the next ordinary conversation finish before you take it to the bench. Stay with it one beat longer than feels efficient, and let what's true surface at its own pace, not the pace of practice.",
+      "sheetLine": "The craft steadies the talk — let the talk catch up.",
+      "verb": "keep a practice deep enough to steady the connections near you",
+      "place": "in a connection where two people are trying to stay level",
       "provenance": {
         "signature_id": 59,
         "position_id": 6,
@@ -26,36 +27,42 @@
         "partner": "Honing",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're already braced for the day the work is finished and they finally understand it.",
-      "ask": "Bring one unfinished piece to someone this week and leave it unfinished in front of them.",
-      "core": "There is a future in your head where the work is done, the people around you get it, and everything lands at once. You're living there more than here. Every pass at the bench carries the weight of that moment, and the people in your life get the polished version or nothing. The pushing has become a way of postponing contact.\n\nThe craft isn't the problem. It's being asked to earn something connection doesn't require. You can let people into the unfinished part. That isn't lowering the standard, it's letting the work and the relationships breathe at the same speed. What lands comes from what's real, and the people who matter can meet the work while it's still being made.",
-      "sheetLine": "You're saving people the finished version and losing the real one.",
-      "verb": "keeping a long dedication through each pass, deeper and more refined",
-      "place": "where two people come into alignment and feel the same thing at once",
+      "tense": "You are shaping a conversation that hasn't happened yet.",
+      "act": "celebrate with the others, not after them",
+      "ask": "When something good lands between you and someone close — a joke, a task finished together — say it out loud in the same breath it happened in. Not filed away, not marked down later. Said while you're both still there.",
+      "core": "Where closeness is concerned, you are at the workbench before the moment arrives — a version of the relationship already built, read, and ready for what's next. People can feel the rehearsal. They bring you a moment and you've moved it along to the refining, to the thing worth examining, before they've finished being in it. A structure meant to hold the connection has started to stand in for the connection.\n\nGladness is the way back. The next good thing between you and someone close gets marked aloud, with them, in the same breath. Noticed later in your own notes, but said now, while they're still there. The gladness the moment belongs to gets to land with the person it belongs to. That's a smaller move than the work you're used to, and it hands the moment back to the people it happened between.",
+      "sheetLine": "Stop refining the moment that hasn't happened yet.",
+      "verb": "keep a practice deep enough to steady the connections near you",
+      "place": "in a connection where two people are trying to stay level",
       "provenance": {
         "signature_id": 59,
         "position_id": 6,
@@ -64,11 +71,26 @@
         "partner": "Celebration",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Much's time",
@@ -83,12 +105,13 @@
     },
     {
       "status": 3,
-      "tense": "The bench is still there and you have not been sitting down at it.",
-      "ask": "Say the next step of one piece out loud to someone who can hear you, then take that step today.",
-      "core": "You know how to build this. The building isn't happening. The people who could have been alongside you haven't seen the work in some time, and you haven't asked them to. The ability is still there. What stopped is the saying of it.\n\nWhat brings this back isn't more feeling. It's one clear statement. Say what the next piece is, say it where someone can hear, and let the shape of it land in the room. Structure that serves what it organizes starts with a sentence that puts it outside your own head. You don't have to feel connected first. Say what you're making, and the connection has something solid to stand on.",
-      "sheetLine": "The work is there and you've stopped saying so.",
-      "verb": "keeping a long dedication through each pass, deeper and more refined",
-      "place": "where two people come into alignment and feel the same thing at once",
+      "tense": "You are still standing at the threshold of a connection you've already left.",
+      "act": "declare the shape of it outward, plainly",
+      "ask": "Say the shape of a connection out loud to the person it concerns — what you two are to each other, or what you want to build — plainly, once, in your own words, without softening it into a question.",
+      "core": "What you can build is real — deep practice with a steady hand — and here it has gone quiet. Closeness is asking for something you've been deferring: the shape of the thing said, claimed, set down where the two of you can see it. The connection stays at the edge, undefined, and the absence is felt on the other side as distance rather than as choice.\n\nThe return is a sentence, not a feeling. Put the shape of a connection on the table in your own words — once, not argued, not hedged. The practice of building can serve the connection instead of waiting for the connection to define itself. One clear sentence, said and then left alone, is enough to start.",
+      "sheetLine": "The threshold's behind you. Say what's on the table.",
+      "verb": "keep a practice deep enough to steady the connections near you",
+      "place": "in a connection where two people are trying to stay level",
       "provenance": {
         "signature_id": 59,
         "position_id": 6,
@@ -97,46 +120,32 @@
         "partner": "Assertion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already shaping how the people near you see this work, and you describe it as happening on its own.",
-      "ask": "Name one thing you chose to keep doing here, and say out loud that you chose it.",
-      "core": "You show up and do the work, and the people around you take it as something reliable they can lean on. But you file it under a habit, or under the work having its own momentum that you're keeping up with. Someone is making that call each time, and that someone is you.\n\nThat matters, because the people in your life are aligning to something you haven't claimed. One sentence takes it back. When you say you keep choosing this, they can meet the person choosing, not just the schedule. Move from what you actually feel about the work and the rhythm becomes yours to name; the reliability others lean on finally has a name they can thank.",
-      "sheetLine": "You're already committed. You keep calling it a habit.",
-      "verb": "keeping a long dedication through each pass, deeper and more refined",
-      "place": "where two people come into alignment and feel the same thing at once",
+      "tense": "You are keeping the connections steady while saying you're not steering anything.",
+      "act": "move at the pace your feeling can sustain",
+      "ask": "Take a piece of a connection you're carrying, and move it at a speed you could hold steady for a long stretch — not the sprint you can manage for a day.",
+      "core": "Some of the closeness near you is held because you quietly keep the rhythm right — a reply timed well, a silence left open, a pace set so the other person can meet it. Asked, you'd say you aren't steering. The people being held level can tell. They don't mind; they just know.\n\nLet the pacing show. Take one piece of a connection you're carrying, and move it at a speed your feeling can actually sustain — the slower one, not the sprint. A rhythm you could hold for a long stretch, not a day. That will feel slower than what you've been running. It's also more yours, because the speed is chosen rather than set by what you think the other person needs before they've said it.",
+      "sheetLine": "The rhythm you keep is yours. Let it be seen.",
+      "verb": "keep a practice deep enough to steady the connections near you",
+      "place": "in a connection where two people are trying to stay level",
       "provenance": {
         "signature_id": 59,
         "position_id": 6,
@@ -145,19 +154,19 @@
         "partner": "Alignment",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -166,32 +175,203 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4868,
+      "ms": 6607,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"for an audience\" — a motive the cell cannot know",
-          "hard": true,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "3 images in one core (shape, bench, room) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "detail": "two images in one core (bench, room) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 48 words (≤40)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Celebration does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"You need to\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, threshold) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"structure that serves what it\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you need to\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"at the pace your feeling\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the people being kept level\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's close connections are held together by their practice; the record supports the capacity at this seat, not a history of who it has served. A reader could say they are not the one keeping people level, that the connection runs the other way — the ask (attend closely to the next ordinary exchange) survives that, since it can be done alone and teaches what attends here. The sentence that serves the writer more than the person is 'close to you because you keep them level' — cut; the cells say only what the capacity does in a moment, not who owes what."
+    },
+    {
+      "attempt": 2,
+      "ms": 5630,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -209,20 +389,38 @@
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "ask 43 words (≤40)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Breakthrough",
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -238,105 +436,68 @@
           "status": 3
         },
         {
-          "code": "history",
-          "detail": "\"a while ago\" — a cell knows no one's past",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The claiming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"you say '\" — words put in the person's mouth",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"but you talk about it\"",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"move at the pace your feeling can sustain\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"for a month not the\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says Commitment's medicine is Honing, a solo craft refinement, while the seat is Compassion, which is about connection. The unsupported leap is that this person's craft is done in relation to others at all — the reader could reasonably say 'my commitment is to a private practice nobody sees.' The ask survives being wrong because 'let someone watch one pass' is useful even if the craft is solitary by nature; worst case it's an optional experiment. The sentence that serves me more than them would be any claim about what they feel while they build."
+      "check": "The unsupported claim is that the person's close connections are held together by their practice; the record names the capacity at this seat, not a history of who it has served. A reader could say the connection runs the other way, that they are the one being steadied — the asks survive that, since each is one act of the medicine that can be done alone and teaches what attention here costs. The sentence that serves the writer more than the person is any line about who owes whom for the steadiness; cut, and the cells say only what the capacity is doing in a moment."
     },
     {
-      "attempt": 2,
-      "ms": 3114,
+      "attempt": 3,
+      "ms": 4062,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -344,8 +505,8 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -362,15 +523,21 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
           "status": 2
         },
         {
@@ -386,166 +553,72 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the claiming\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says Commitment's medicine is a solo craft refinement and this seat is about connection — the unsupported leap is that their dedication has anything to do with other people at all; a reader could reasonably say 'my commitment is to something nobody else can see.' The ask survives being wrong: showing one piece of unfinished work to someone stays useful whether the practice is shared or private, and worst case it's an optional experiment. The sentences that serve me most are the ones that would claim to know what they feel while they work, or why the showing stopped — none of those belong in a cell."
-    },
-    {
-      "attempt": 3,
-      "ms": 2837,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, door, current) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 117 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
+          "code": "history",
+          "detail": "\"for months\" — a cell knows no one's past",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"for months\" — a duration the person never gave",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives Commitment a solo-craft medicine while the seat is about connection — the unsupported leap is that this person's dedication involves other people at all; a reader could reasonably say 'my commitment is to something nobody else can see.' The asks survive being wrong: showing one unfinished piece, naming one next step, claiming one choice all stay useful whether the practice is shared or private, and worst case they're optional experiments. The sentences that serve me most are any that claim to know what they feel at the bench or why the showing stopped — none of those belong in a cell."
+      "check": "The unsupported claim is that the person's closeness is held together by their practice; the record names the capacity at this seat, not a history of who it has served. A reader could say the connection runs the other way, that they are the one being steadied — the asks survive that, since each is one act of the medicine that can be done alone and teaches what attention here costs. The sentence that serves the writer more than the person is any line about who owes whom for the steadiness; cut, and the cells say only what the capacity is doing in a moment."
     },
     {
       "attempt": 4,
-      "ms": 2873,
+      "ms": 3895,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"refine one distinction by close attention\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -554,6 +627,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"celebrate with the others not after them\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "tense",
@@ -568,55 +665,37 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives Commitment a solo-craft medicine while this seat is about connection — the unsupported leap is that this person's dedication involves other people at all; a reader could reasonably say 'my commitment is to something nobody else can see.' The asks survive being wrong: showing one unfinished piece, saying one next step out loud, naming one choice all stay useful whether the practice is shared or private, and at worst they're optional experiments. The sentences that serve me most are any that claim to know what they feel at the bench or why the showing stopped — none of those belong in a cell."
+      "check": "The unsupported claim is that the person's closeness is held together by their practice; the record names the capacity at this seat, not a history of who it has served. A reader could say the connection runs the other way, that they are the one being steadied — the asks survive that, since each is one act of the medicine that can be done alone and teaches what attention here costs. The sentence that serves the writer more than the person is any line about who owes whom for the steadiness; cut, and the cells say only what the capacity is doing in a moment."
     }
   ],
   "usage": {
-    "input": 3795,
-    "output": 4258
+    "input": 8485,
+    "output": 5095
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:19:28.947Z"
+  "date": "2026-10-02T12:24:55.291Z"
 }

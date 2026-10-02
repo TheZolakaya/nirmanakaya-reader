@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are adjusting in real time as each thing arrives, and the adjustment holds.",
-      "ask": "Name the one thing you keep going back and forth on, then let the next answer come from someone else.",
-      "core": "You are doing a live thing most people can't see. Things come in from outside — news, a mood, someone needs something — and you keep adjusting what to take in, what to hold out, what to pass along. The balance isn't steady, it's active, and it holds even when the day keeps moving under you.\\n\\nThe adjustment is yours. You may have learned it so well you don't clock it as a skill; it just is what the room needs. That's the picture: something new arrives and it has a way in through you without taking you over, and you have a hand in where it lands. Let one piece of today's incoming get named before you work on it.",
-      "sheetLine": "You keep adjusting as things arrive — that's the work, and it's yours.",
-      "verb": "adjusting things as they arrive so what's live stays in proportion",
-      "place": "at the door where what's outside turns into what's yours",
+      "tense": "Right now you are reading what is arriving and adjusting the mix without losing your footing.",
+      "act": "teach it the way it was taught to you, with one change",
+      "ask": "Show a thing you already do well to somebody who hasn't learned it, the way it first came to you — then change one step so it fits them. Watch the change hold.",
+      "core": "Something is arriving and you can meet it without deciding anything about it yet. You read what's coming, you adjust what you're carrying, and the adjustment doesn't cost you your footing. A lot of people meet a new thing by picking a side early. You meet it level, and you let the mix tell you what it needs.\n\nThis week there's a thing you'll want to hand to somebody else. Hand it over the way it first came to you, then change one step to fit who they are — the small change you'd make without thinking. Notice that change is yours. That's the part that doesn't get recorded, and it's what the next person inherits.",
+      "sheetLine": "You can meet what arrives without picking a side early.",
+      "verb": "calibrating the mix as it arrives",
+      "place": "the threshold where what is coming in first meets you",
       "provenance": {
         "signature_id": 14,
         "position_id": 10,
@@ -26,41 +27,32 @@
         "partner": "Culture",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing toward a version of this that is arriving faster than it really is.",
-      "ask": "Leave one thing you're carrying unhandled until tomorrow, and don't smooth anyone's answer into what you predicted.",
-      "core": "You can feel what's coming and you're already there, trying to smooth it all into something that won't hurt. So you get to the moment ahead of the moment, and the people around you can feel you're not where they are. The eagerness to prevent the thing is costing the thing itself.\\n\\nThis isn't carelessness — it's care stuck in fast-forward. You'd rather have the hard part over with than have it happen while you're in the room. But the version you're steering for hasn't arrived, and you're spending yourself on it. The room you're actually in is quieter than the one you're managing. Let one thing arrive on its own time.",
-      "sheetLine": "You're already in tomorrow, steering before the thing shows up.",
-      "verb": "adjusting things as they arrive so what's live stays in proportion",
-      "place": "at the door where what's outside turns into what's yours",
+      "tense": "You are smoothing what is arriving before it has had a chance to land, and the smoothing is becoming the whole job.",
+      "act": "start before you feel ready",
+      "ask": "Take a first step today or tomorrow toward the thing you have been keeping level — before it feels settled. No announcement needed. Just move while it's still rough.",
+      "core": "What is arriving is being brought into agreement before anyone has had a chance to disagree. Every new thing gets blended until the surface is flat, and you can do that so well that nobody notices the surface is the point. It feels like keeping the peace. What it costs is that nothing new enters as itself — it enters already adjusted, already welcome, already the same as what was there.\n\nThere is something you want that you have not moved toward. Take the first step toward it before the room is ready for it. Not a confrontation — a direction. You know which one. Moving toward it while it's still rough is what lets the mix actually balance, instead of pretending it already has.",
+      "sheetLine": "You're smoothing what arrives before it ever lands.",
+      "verb": "calibrating the mix as it arrives",
+      "place": "the threshold where what is coming in first meets you",
       "provenance": {
         "signature_id": 14,
         "position_id": 10,
@@ -69,36 +61,37 @@
         "partner": "Drive",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start before you feel ready\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You walked away from a door that was open, and you've been scattered since.",
-      "ask": "Pick one person and answer them without editing, then stay with whatever they say for one full exchange.",
-      "core": "Things still come at you, but nothing stays in one piece. Each new thing scatters you before the last one has settled. You're moving between rooms, paying attention to all of them and none, and the center you used to be able to find isn't there in the same way.\\n\\nIt would be easy to call this being busy. But if someone asked what you're actually holding, the answer would come out in pieces. What arrived, what's coming, what's left — none of it is sorted. There's a specific pull in that — the sense that the next thing will finally land you. It won't. You don't need more to arrive. You need one thing to stay with you long enough to matter. Start with one person.",
-      "sheetLine": "Things arrive, but nothing stays long enough to settle.",
-      "verb": "adjusting things as they arrive so what's live stays in proportion",
-      "place": "at the door where what's outside turns into what's yours",
+      "tense": "You are standing at a door that has already opened, and you are still reading the wood for signs of what's coming.",
+      "act": "stay in contact while it is hard",
+      "ask": "Next time someone you already talk to is in something hard, stay in the conversation one exchange longer than feels natural — past where you'd normally go quiet or reach for a fix.",
+      "core": "The center is not where you are standing. Every new thing that arrives gets reacted to as if it's the same shape as the last one, and there's no steady place left to read from, so the reading skips straight to the reaction. You're still arriving places — you just arrive braced, and the brace is what meets whoever's there. The door opened already.\n\nStay with one person a little longer than you usually would when they are in something hard. Not to fix it, not to say the right thing — just stay in the conversation one exchange past where you would normally pull back. The staying is what rebuilds the center. It doesn't come back through thinking about it; it comes back through contact.",
+      "sheetLine": "You arrive braced, and the brace is what people meet.",
+      "verb": "calibrating the mix as it arrives",
+      "place": "the threshold where what is coming in first meets you",
       "provenance": {
         "signature_id": 14,
         "position_id": 10,
@@ -107,14 +100,14 @@
         "partner": "Compassion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false
         },
         {
@@ -131,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already sorting what arrives, but you talk about it as if it just happens.",
-      "ask": "Say out loud to one person which thing you let in and what you left outside, and call it your choice.",
-      "core": "Something gets sorted as it comes in — what to keep, what to set aside, what to bring to other people. That sorting is happening, and it has been for a while. But you describe it as the day's shape or someone else's needs or just how it is, as if the picking were happening to you.\\n\\nYou're not wrong that things arrive. Some of them do. But there's a difference between what the day hands you and the door you open for it, and you've been calling both one thing. The moment you say which pile something went into, you'll notice you had a hand in the placing. That isn't a compliment you're being asked to accept. Open one door on purpose today, then say it was on purpose.",
-      "sheetLine": "What's coming in is already being sorted — by you.",
-      "verb": "adjusting things as they arrive so what's live stays in proportion",
-      "place": "at the door where what's outside turns into what's yours",
+      "tense": "You are already adjusting to what is arriving and you have been calling it something that isn't the adjusting.",
+      "act": "learn how the people before you did it",
+      "ask": "Ask somebody who has done the thing longer than you how they first learned it. Listen for the part that surprises you. Carry it with you — no notes.",
+      "core": "You're tuning what comes in — trimming here, adding there, finding the level — and the tuning is being filed under luck or under the moment. You haven't been calling it a skill. It is one, and it's the kind that gets passed person to person, not put on paper. The ones near you are getting the benefit and the credit doesn't have your name on it, and you'd probably say that's fine.\n\nFind one person who's been doing what you do longer than you have, and ask how they first learned it. Listen for the part that surprises you — the thing you wouldn't have guessed. That's the part that tells you your own adjustments came from somewhere, and that you're making new ones on top. Ask the question and leave the answer where it sits; you'll know it landed when you catch yourself doing the thing differently the next day.",
+      "sheetLine": "You've been calling your tuning luck.",
+      "verb": "calibrating the mix as it arrives",
+      "place": "the threshold where what is coming in first meets you",
       "provenance": {
         "signature_id": 14,
         "position_id": 10,
@@ -145,19 +139,14 @@
         "partner": "Culture",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false
         }
       ]
@@ -166,62 +155,74 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6320,
+      "ms": 7689,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"when this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"that is the whole of\"",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "wound",
-          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
+          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -238,102 +239,82 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"I'm\" — a cell has no I; the Reader may add one live",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that what is arriving is already shaped and 'waiting' to be met — the record says timing and recognition, not predestination, so the cells must say the person does the shaping. A reader could object that they are not scattered, just busy, so Too Little names the difficulty without telling them what happened. The ask survives being wrong: a wrong read makes a plain act (open a room, guard a night) still useful, since the act is a door, not proof. The sentence serving me more than them: 'The version you haven't looked at is the one you're already becoming' — it flatters the writer; cut it."
+      "check": "The unsupported claim is that the person's early adjustments are being made but filed under luck or circumstance — the record says authorship isn't recognized, not what the person believes about it; a reader could reasonably say the choices are visible and owned. The asks survive being wrong: each is a small act from the medicine's own list, useful whether or not the read lands. The sentence that serves me more than them is the straight-fixed-gaze image in Too Much — it flatters the turn of phrase; I've dropped it and kept the plain one. The Too Little ask (stay in contact while it's hard) could read as requiring a safe person on hand, which rule 2 forbids — a person already in your week doesn't count as 'on hand', but I've kept the ask about contact already happening, not a search for someone new. The Unacknowledged ask uses the Culture reduction (learn how the people before you did it — the simpler earlier form of the same line) rather than the full transmission acts; the record's REDUCTION mechanism wants the earlier form."
     },
     {
       "attempt": 2,
-      "ms": 4117,
+      "ms": 4765,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start before you feel ready\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -344,78 +325,135 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"past the point where you'd\"",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
+          "code": "refrain",
+          "detail": "\"write it down\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that what is arriving is already shaped and 'waiting' to be met — the record says timing and recognition, so the cells must leave the shaping with the person. A reader could object that they are not scattered, just busy, so Too Little names the difficulty without narrating their history. The ask survives being wrong: a wrong read still leaves a plain act that works as a door rather than proof. The sentence that serves me more than them: 'The version you haven't looked at is the one you're already becoming' — it flatters the writer; cut it."
+      "check": "The unsupported claim is that the person files their tuning under luck or circumstance — the record says authorship isn't recognized, not what the person believes about it; a reader could say the adjustments are visible and owned. The asks survive being wrong: each is a small act from the medicine's own list, useful whether or not the read lands. The sentence that serves me more than them is the 'surface is the point' line in Too Much — it admires its own turn; I've kept the plain version. The Too Little ask (stay in contact while it's hard) could read as requiring a safe person on hand, which rule 2 forbids — here it's someone already in the person's week, not a search for someone new. The quartet's four asks now open on four different verbs: show, start, stay, ask. Too Much and Too Little read as opposite failures of one capacity — smoothing what arrives before it lands versus arriving already braced."
     },
     {
       "attempt": 3,
-      "ms": 3456,
+      "ms": 5652,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start before you feel ready\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the answer\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that the person files their tuning under luck — the record says authorship isn't recognized, not what the person believes about it; a reader could say the adjustments are visible and owned. The asks survive being wrong: each is a small act from the medicine's own list, useful whether or not the read lands. The sentence that serves me more than them is the 'surface was the point' turn in Too Much — I've kept the plain version. The Too Little ask stays in contact with someone already in the person's week, so no safe person needs to be on hand. The quartet's four asks open on four verbs — show, start, stay, ask — and vary in shape: a demonstration, a first move, a continuing contact, a question that is carried. Too Much and Too Little read as opposite failures of one capacity: smoothing what arrives before it lands versus arriving already braced."
+    },
+    {
+      "attempt": 4,
+      "ms": 4418,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"already\" ×4 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
@@ -426,14 +464,14 @@
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start before you feel ready\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "vocab",
+          "detail": "two images in one core (shape, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -450,113 +488,19 @@
           "status": 3
         },
         {
-          "code": "imperative",
-          "detail": "\"you have to\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"learn how the people before you did it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that what is arriving is already shaped and waiting to be met — the record says timing and recognition, so the cells leave the shaping with the person. A reader could object that they are not scattered, just busy, so Too Little names the difficulty without narrating their history. The ask survives being wrong: a wrong read still leaves a plain act that works as a door rather than proof. The sentence that serves me more than them: 'The version you haven't looked at is the one you're already becoming' — it flatters the writer; cut it."
-    },
-    {
-      "attempt": 4,
-      "ms": 3573,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, door) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that what's arriving is already shaped and waiting — the record gives timing and recognition, so the cells leave the shaping with the person. A reader could object they're not scattered, just busy, so Too Little names the difficulty without narrating a history. The ask survives being wrong: the act is a door, not proof. The sentence serving me more than them: 'The version you haven't looked at is the one you're already becoming' — cut."
+      "check": "The unsupported claim is that the person files their tuning under luck — the record says authorship isn't recognized, not what the person believes; a reader could say the adjustments are visible and owned. The asks survive being wrong: each is a small act from the medicine's own list, useful whether or not the read lands. The line that serves me more than them is the 'surface was the point' turn in Too Much — kept plain here. Too Much and Too Little read as opposite failures of one capacity: smoothing what arrives before it lands versus arriving already braced. The quartet's asks open on four verbs — show, take, stay, ask — and vary in shape: a demonstration, a first move, a continuing contact, a question carried."
     }
   ],
   "usage": {
-    "input": 3774,
-    "output": 4507
+    "input": 7764,
+    "output": 5205
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:07:59.556Z"
+  "date": "2026-10-02T11:35:19.901Z"
 }

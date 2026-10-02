@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Spirit",
+  "group": "library",
   "signature_id": 43,
   "position_id": 10,
   "signature": "Merge",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing at the threshold now, and you know what is worth letting in.",
-      "ask": "When something real shows up this week, say yes to it out loud, once, where it can be heard. Then stay ten minutes longer than feels needed.",
-      "core": "You are at the threshold and you know what is worth letting in. Not every knock, and not on a schedule. The real thing arrives and you can feel the difference, so when it comes you say yes with your whole body, not half of it. You name it first, you decide second, no committee meeting in between. That is what makes the yes land.\n\nThe once is what it costs, and you pay it without ceremony — a yes here means less room for the next thing asking. What this can feed already knows its own direction: let the meeting move you. When resolve comes from genuine engagement rather than from a plan, the momentum carries itself and you are not the one pushing. Choosing is not filing it away. It is agreeing to keep running the same way tomorrow.",
-      "sheetLine": "You can tell what is worth meeting, and you meet it.",
-      "verb": "meeting what matters and letting two streams become one flow",
-      "place": "the threshold where what was outside comes in and gets met",
+      "tense": "Two streams are meeting right now and one heading is being chosen with the pen in hand.",
+      "act": "defend the direction you chose against the next push",
+      "ask": "Keep the heading you already chose here. The next time something presses against it — a doubt, a delay, another person's opinion — hold your line once before you revise anything. Then leave it standing.",
+      "core": "What arrives at your threshold turns into a direction you can feel. Two pulls meet, and you pick one and move in it. The choice comes from real engagement rather than from argument, and when the decision is yours you can hold it. This is what it looks like going well: you know which stream you are in.\nSo the work here is not to choose again but to stand behind what you chose. The first push that comes — an objection, a lagging doubt, another person's read — is where this gets decided. Defend the chosen heading once against that push rather than reopening it. You already gathered the determination. This is one more time of keeping course when it costs you a moment of ease.",
+      "sheetLine": "You pick the stream, then keep the heading.",
+      "verb": "choosing one stream and letting two flows become one heading",
+      "place": "the threshold where what was outside first shows up inside",
       "provenance": {
         "signature_id": 43,
         "position_id": 10,
@@ -26,24 +27,14 @@
         "partner": "Resolve",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (threshold, stream) — one at most, usually none",
           "hard": false
         },
         {
@@ -52,20 +43,21 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have decided what this is before it has had the chance to arrive.",
-      "ask": "Pick one thing that has not fully arrived yet and leave it alone for two days. No planning, no deciding, no rehearsing. On the third day, notice what you actually want.",
-      "core": "You are already living on the other side of a meeting that has not happened. The connection is real in your head, the flow is pictured in detail, and you are working it so hard that the work has replaced the thing itself. Somewhere in there you took up both streams and started deciding what they should be, so the other one has nowhere to land.\n\nWhat you want is growth that happens without forcing, care that does not exhaust you. Holding space without clutching is the same generosity you already have — it just waits instead of gripping. Stop writing the scene and the scene can show up. Your picture of things works best when experience has been lived first; the dreaming comes after the meeting, not instead of it.",
-      "sheetLine": "You are working a meeting that has not arrived yet.",
-      "verb": "meeting what matters and letting two streams become one flow",
-      "place": "the threshold where what was outside comes in and gets met",
+      "tense": "You are bracing for what the meeting will become before it has even arrived.",
+      "act": "rest in the result of the tending",
+      "ask": "Something here has already come along under your care. For a week, do nothing more to it — no improving, no next step, no finishing touches. Let it be done and stop there.",
+      "core": "You meet what comes in and immediately run it forward: what it will become, what it will need, where it will go. The connection is barely through the door and you have already grown it into a future and started tending that. Some of what you are carrying has not happened yet, and you are spending on it as if it had.\nWhat brings you back is taking pleasure in something that already grew. You know how to hold a thing without clutching it. Something has actually come along here, over time, under your care. Enjoy it. Then leave it be for a week. Rest in the result — growth without forcing looks like letting a grown thing stand just as it is.",
+      "sheetLine": "You are tending what has not arrived yet.",
+      "verb": "choosing one stream and letting two flows become one heading",
+      "place": "the threshold where what was outside first shows up inside",
       "provenance": {
         "signature_id": 43,
         "position_id": 10,
@@ -74,31 +66,52 @@
         "partner": "Flourishing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You were at the threshold, and you are still standing on the other side of it.",
-      "ask": "Name one small thing that has come close to you and that you have avoided, and turn toward it for ten minutes today. Not a decision, just attention.",
-      "core": "The threshold is open and you are not in it. Something came close — a person, an opening, a pull you could feel — and you stayed back where it was safer. That is not indifference. Something in you went quiet, and the quiet is what has been starving the moment.\n\nWhat feeds this back is not more effort and not more feeling. It is trusting what your own senses report: they land without argument, and you can sit with one thing you cannot explain yet and stay easy there. That ease is the practice. When direct knowing works again, the meeting stops looking like a threat and starts looking like the next obvious thing. You do not have to push into the pull. You just stop steering away from it.",
-      "sheetLine": "The threshold is open, and you are still not in it.",
-      "verb": "meeting what matters and letting two streams become one flow",
-      "place": "the threshold where what was outside comes in and gets met",
+      "tense": "What arrived here was not fully met, and the moment passed while the door stayed open.",
+      "act": "list the pulls on you and mark which are yours",
+      "ask": "Set down every pull on you now — people, plans, obligations. Beside each, mark yours or borrowed. Act on one of your own this week.",
+      "core": "When something arrives at your threshold, other people's pull on you is the one you can feel. Your own read of what is coming is quieter, and it goes unmarked. So you stand at a door that has already closed behind you, still deciding what the meeting was, and what came in does not get fully met.\nSorting is not the problem to solve; you can hold several true reads at once. You simply have not named whose they are. Put the pulls on paper and mark each one yours or borrowed. That marking is the whole of it — nobody has to be confronted and nothing has to be resolved. Then act on one of your own, small, this week.",
+      "sheetLine": "You feel every pull and call them all yours.",
+      "verb": "choosing one stream and letting two flows become one heading",
+      "place": "the threshold where what was outside first shows up inside",
       "provenance": {
         "signature_id": 43,
         "position_id": 10,
@@ -107,14 +120,19 @@
         "partner": "Discernment",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -126,17 +144,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already deciding what is arriving, and calling it as if it were happening to you.",
-      "ask": "Find one choice you have been describing as something that just happened, and say to one person: this is mine. Keep it or change it, either way.",
-      "core": "The deciding runs underneath your days, and you keep talking around it. What arrives gets met, sorted, given a direction, and the story you tell is that it came that way by itself. That is not dishonesty. It is a habit of humility taking up more room than it earned.\n\nThe fix is simpler than the habit wants it to be. You already have discipline; it just needs somewhere to go. When practice flows without force, solitude connects you instead of walling you off. Call one decision yours, plainly, without the story, and the direction you have been describing becomes something you can steer. The authority was not missing. It was unnamed, and an unnamed hand on the wheel forgets it is holding one.",
-      "sheetLine": "You are steering this. You have not said so out loud.",
-      "verb": "meeting what matters and letting two streams become one flow",
-      "place": "the threshold where what was outside comes in and gets met",
+      "tense": "What enters here is met and shaped, and whoever did the shaping keeps no record of it.",
+      "act": "show someone the way you found",
+      "ask": "You found a way through something that arrived here. Walk someone through the route plainly, once, in the order you actually took it. Then let them walk it alone.",
+      "core": "You meet what comes in and find a passage through it. Asked how, you would say the situation worked itself out. The lining-up of the timing, the read of the room, the route through the ambiguity — that was you steering. The people who were helped along by it know, and their account differs from yours.\nThe fix is small and it is about someone else. There is a stretch you found your way through here. Show another person the way you went. Say it once, plainly, in the order you actually did it, and then let them walk it themselves. Nothing is claimed and nothing needs to be. What you pass on is a route, and a route is proven the moment someone can use it.",
+      "sheetLine": "You find the passage and say it found itself.",
+      "verb": "choosing one stream and letting two flows become one heading",
+      "place": "the threshold where what was outside first shows up inside",
       "provenance": {
         "signature_id": 43,
         "position_id": 10,
@@ -145,24 +169,29 @@
         "partner": "Guidance",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, wheel) — one at most, usually none",
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -171,7 +200,7 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 8377,
+      "ms": 7268,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -181,188 +210,157 @@
           "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "glass",
-          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "4 images in one core (door, room, current, stream) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "imperative",
-          "detail": "\"you should\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (stream, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "glass",
           "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "diagnosis",
-          "detail": "\"anxiety\"",
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "4 images in one core (room, wall, current, wheel) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 4
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
         },
         {
-          "code": "person",
-          "detail": "first person: \"I\" — a cell has no I; the Reader may add one live",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The draft wants to say a specific real connection is arriving; the record only gives the capacity for decisive meeting, so I will describe what the capacity is doing in a moment, not who or what is arriving. A reader could reasonably say there is no one else in the picture at all, so every cell must stay usable in a room with one person in it. The ask survives being wrong in all four, because each one is an action the person can take with their own attention whether or not my read is right; the sentence that serves me more than them is 'something is arriving,' so it does not go in."
-    },
-    {
-      "attempt": 2,
-      "ms": 4953,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "status": 3
+        },
         {
           "code": "refrain",
           "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "names",
-          "detail": "another card's name on glass: Recognition",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (door, room, stream) — a parable, not a sentence to a person",
+          "code": "format",
+          "detail": "a literal backslash-n (or -r, -t) in the text — an escape printed as characters",
           "hard": true,
-          "status": 1
+          "status": 4
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"show someone the way you found\") — read it: is it that act made small?",
           "hard": false,
-          "status": 1
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"to hear you tell it\"",
+          "hard": true,
+          "status": 4
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "Unsupported claim: that a specific connection is being chosen or is arriving right now — the record gives the capacity (decisive emotional meeting) and the seat (what enters now), not an event. If the person says nothing new is arriving, the Merge core still holds as capacity, but the Source seat reads as thinner than written. The asks survive being wrong: each one is a drill in the medicine's own act (defending a chosen direction; taking pleasure in what tending produced; sorting pulls; giving one clear direction), all doable with no one else on hand. The sentence that serves the writer more than the reader would be any line announcing what is entering — cut it; the cores ask the person to sort what is theirs from what arrived, which is useful whether or not anything large is in fact arriving."
+    },
+    {
+      "attempt": 2,
+      "ms": 5085,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, stream) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -373,14 +371,32 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false,
           "status": 2
         },
@@ -391,20 +407,20 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, current) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -415,20 +431,38 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (room, current, wheel) — a parable, not a sentence to a person",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -437,62 +471,86 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The draft wanted to say a specific real connection is arriving; the record only gives the capacity for decisive meeting, so each cell describes what the capacity is doing in a moment, not who or what is arriving. A reader could reasonably say there is no one else in the picture at all, so every cell stays usable in a room with one person in it. The ask survives being wrong in all four, because each is an action the person can take with their own attention whether or not my read is right; the sentence that serves me more than them is 'something is arriving,' so it stays out."
+      "check": "Unsupported claim remains the same: that a specific connection is arriving right now — the record gives the capacity and the seat, not an event. If nothing new is arriving, the hires still stand as practice in the medicine's acts (holding a chosen heading, resting in what grew, sorting pulls, passing on a route). The ask survives that: it is useful whether or not anything large is at the threshold. The sentence that serves the writer more than the reader would be any line announcing what enters — cut it. Also fixed here: no map words on glass, no refrains, no escapes, one beat per sheet line, each ask a different shape."
     },
     {
       "attempt": 3,
-      "ms": 4583,
+      "ms": 4082,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "vocab",
+          "detail": "two images in one core (threshold, stream) — one at most, usually none",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let that count\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (threshold, room, stream) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
           "hard": false,
-          "status": 1
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -509,14 +567,20 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, wheel) — one at most, usually none",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -525,32 +589,26 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The draft wants to say a specific real connection is arriving; the record only gives the capacity for decisive meeting, so each cell describes what the capacity is doing in a moment, not who or what is arriving. A reader could reasonably say there is no one else in the picture at all, so every cell stays usable in a room with one person in it. The ask survives being wrong in all four, because each is an action the person can take with their own attention whether or not my read is right; the sentence that serves me more than them is 'something is arriving,' so it stays out."
+      "check": "Unsupported claim remains: that a specific connection is arriving or being chosen right now — the record gives the capacity (decisive emotional meeting) and the seat (what enters now), not an event. If nothing new is at the threshold, the cores still hold as practice in the medicine's acts. Each ask survives being wrong because it drills the medicine's own act with no one else required. The sentence serving the writer more than the reader would be any line announcing what is entering — cut it. Fixed here: no map words on glass, no mystical nouns, no refrains, one beat per sheet line, four ask shapes distinct."
     },
     {
       "attempt": 4,
-      "ms": 4084,
+      "ms": 4109,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "two images in one core (threshold, stream) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -561,10 +619,22 @@
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "said",
@@ -573,14 +643,44 @@
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -597,14 +697,20 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, wheel) — one at most, usually none",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -613,15 +719,139 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The draft wants to say a specific real connection is arriving; the record only gives the capacity for decisive meeting, so each cell describes what the capacity is doing in a moment, not who or what is arriving. A reader could reasonably say there is no one else in the picture at all, so every cell stays usable in a room with one person in it. The ask survives being wrong in all four, because each is an action the person can take with their own attention whether or not my read is right; the sentence that serves me more than them is 'something is arriving,' so it stays out. The image count is the recurring failure — one image per core at most, carried through."
+      "check": "Unsupported claim remains: that a specific connection is arriving or being chosen right now — the record gives the capacity (decisive emotional meeting) and the seat (what enters now), not an event. If nothing new is at the threshold, the cores still hold as practice in the medicine's acts. Each ask survives being wrong because it drills the medicine's own act with no one else required. The sentence serving the writer more than the reader would be any line announcing what is entering — cut it. Fixed here: no map words on glass, no mystical nouns, no refrains, one beat per sheet line, four ask shapes distinct."
+    },
+    {
+      "attempt": 5,
+      "ms": 3424,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, stream) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported claim remains: that a specific connection is arriving or being chosen right now — the record gives the capacity (decisive emotional meeting) and the seat (what enters now), not an event. If nothing new is at the threshold, the cores still hold as practice in the medicine's acts. Each ask survives being wrong because it drills the medicine's own act with no one else required. The sentence serving the writer more than the reader would be any line announcing what is entering — cut it. Fixed here: no map words on glass, no mystical nouns, no refrains, one beat per sheet line, four ask shapes distinct."
     }
   ],
   "usage": {
-    "input": 7238,
-    "output": 4727
+    "input": 9362,
+    "output": 5982
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:16:44.405Z"
+  "date": "2026-10-02T13:07:16.305Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "What matters most in the room tends to reach you whole, and you move from it without assembling the case first.",
-      "ask": "Take one decision you've been circling and write the single sentence that shows why it goes the way it goes, then say that sentence to the person it concerns.",
-      "core": "What matters most in a room tends to reach you whole, and you act from it without building the case. The read usually holds up later, which is how the shortcut stays cheap. There's an ease in you when a question lands complete — you take your time with it mainly by not talking too soon.\n\nThat stretch before you answer isn't doubt and it isn't delay. The read arrives, you let it sit, and then you move. One cost sits inside this: because the answer comes so fast, you can finish the conversation before anyone else in the room has caught up. Name the grounds to one person on a call this week — not to check yourself, just to let them stand where you're standing.",
-      "sheetLine": "You know what matters. You can hand someone the reason.",
-      "verb": "acting from what you know without arguing for it",
-      "place": "at the edge of knowing",
+      "tense": "The answer is here now, and it holds the pen.",
+      "act": "weigh what you know before it leaves you",
+      "ask": "Before you answer something that matters, weigh what you know against what you don't, for the length of one slow breath, then speak. Same words, arriving later.",
+      "core": "You can tell what deserves attention, and you don't have to argue for it. The answer shows up before the reasons do, and it holds up often enough that you've stopped needing the reasons first. So decisions move. An open question can sit for a while without gnawing at you, which keeps your read of the situation clean.\n\nThe next thing this balance can feed is patience with the unsettled part. Take a subject you actually know, and before you say what you see, weigh what you have against what you don't, then let it out. What lands after that pause holds when someone tests it. Wait a beat past where you usually land, and notice what the beat gives back. The weighing is not doubt; it is what makes the answer worth hearing.",
+      "sheetLine": "You know before you can explain, and it holds.",
+      "verb": "moving on a decision with the whole weight of knowing behind it",
+      "place": "where what matters is understood before it can be explained",
       "provenance": {
         "signature_id": 29,
         "position_id": 2,
@@ -26,36 +27,32 @@
         "partner": "Reflection",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're already standing inside the decision you haven't made, defending a version of events that hasn't happened yet.",
-      "ask": "Name the one thing you keep checking because the ground feels unsteady, then go a whole day without looking at it.",
-      "core": "You've got the outcome written before it happens, and you're spending the hours ahead defending a case nobody has made yet. Your read of the room stopped landing on its own and started getting doubled — double the certainty, half the listening. You call it preparing. From here it looks like standing in a future that can't be written in.\n\nAnd you can't leave the ground alone. Run a scene forward far enough and it stops being about the people in it; it becomes a race against being told you're wrong. Get the sizing under something that helps: write out the pattern you're tracking, the repeated move you keep seeing, on one page, and keep it beside the actual thing rather than the version headed your way.",
-      "sheetLine": "You're defending a decision the day hasn't asked you for.",
-      "verb": "acting from what you know without arguing for it",
-      "place": "at the edge of knowing",
+      "tense": "You are bracing for the answer before the question has finished arriving.",
+      "act": "reason it from first principles once",
+      "ask": "Pick a problem you've already worked through in your head, and lay out only the first step it actually rests on. Stop there. Notice what that step alone shows.",
+      "core": "There's a version of this where the certainty finishes the situation early. You fill in how a thing goes before it has gone that way, and you're moving on the shape you predicted — the meeting whose outcome you settled on the way there, the choice made before the facts arrive. The ability is real. It has just reached past what you have actually got in hand.\n\nWhat you can actually check is usually a page in, and you only need the first of it. Take a problem you already solved in your head and lay out the first step it actually rests on. Stop at that step. What the first piece alone gives is usually enough to move on, and this time you reasoned it instead of recalling it.",
+      "sheetLine": "The certainty has moved past what you have in hand.",
+      "verb": "moving on a decision with the whole weight of knowing behind it",
+      "place": "where what matters is understood before it can be explained",
       "provenance": {
         "signature_id": 29,
         "position_id": 2,
@@ -64,21 +61,11 @@
         "partner": "Calculation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "hunch",
-          "detail": "\"call it preparing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -88,12 +75,13 @@
     },
     {
       "status": 3,
-      "tense": "There's a read you trusted once and haven't moved from since — you're still standing at a door that's behind you.",
-      "ask": "Pick one place where you've stopped trusting your own read — a room, a relationship, a standing call — and rebuild a small piece of how it runs this week.",
-      "core": "The read used to arrive on its own, and now the same room gets a different treatment. You wait to be told, and you've learned to call that accepting the situation. What you can see hasn't stopped working. It just stopped getting a vote.\n\nSo the room, the project, the thing you keep half-arriving at and sliding back out of: you deal with it by building what's in front of you. Put your hands on a piece of it — the desk, the two calls, the regular thing — and reshape one small part of how it runs. That kind of work is what pulls your read back into the present, and it's how the trust comes back. Then something you can't see yet has a reason to come into view.",
-      "sheetLine": "The read used to land. Now it waits for permission.",
-      "verb": "acting from what you know without arguing for it",
-      "place": "at the edge of knowing",
+      "tense": "You are still standing at a door that has closed behind you.",
+      "act": "start building where the false thing fell",
+      "ask": "On the ground where something you held to turned out not to be true, make a thing that rests only on what you found. Finish it in an hour.",
+      "core": "Something was held to here, and it did not hold. That much is already known — the kind of thing learned rather than read. Since then your attention has kept itself careful, unwilling to land hard on anything, and the part that used to point at what mattered goes quiet before it has said a word.\n\nWhere the old thing fell there is cleared ground, and building is what a mind does on cleared ground. Make something that rests only on what you found — a plan sketched in an hour, one page written and stopped, a call that exists because of what you now know. Keep it small on purpose. The point is only to set one thing on it, and then another if you want.",
+      "sheetLine": "Clear about what didn't hold. Something else can.",
+      "verb": "moving on a decision with the whole weight of knowing behind it",
+      "place": "where what matters is understood before it can be explained",
       "provenance": {
         "signature_id": 29,
         "position_id": 2,
@@ -102,19 +90,24 @@
         "partner": "Formation",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "hunch",
-          "detail": "\"call that accepting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call that exists\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -126,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already setting what the room treats as the shape of things, and you talk about it as if the room were doing that on its own.",
-      "ask": "Next time you make a call that settles how something runs, say one sentence out loud naming it as your call rather than the situation's.",
-      "core": "You set what the people around you treat as the shape of things — when something starts, what counts, which direction holds. It happens through small moves you make before anyone votes, and you'd call it just handling it. The steering is running. Nobody at the table has said it's yours, and you haven't either.\n\nThere's older material under this that makes calling it your own feel heavier than it is, and that part stays yours to look at. Keep what works: hold a habit that's yours, done at an ordinary hour, week in and week out — the one piece of your day that answers to you before anyone else's does. That's the ground to build from, not the ends of things.",
-      "sheetLine": "You're already setting the shape of it. Name the calls as yours.",
-      "verb": "acting from what you know without arguing for it",
-      "place": "at the edge of knowing",
+      "tense": "The clarity is doing its work, and your name for it is getting lucky.",
+      "act": "keep what the change produced from drifting",
+      "ask": "When a quiet call of yours turns out right, say who made it — one sentence, to whoever is nearby or to the nearest page.",
+      "core": "The attention is already going where it should. You saw what nobody else noticed, and said nothing about it when saying nothing cost you nothing. Asked how you knew, you would say you happened to be paying attention, or that it was obvious, or that it was a guess that worked. The call is on the record. Your name is not on it.\n\nWhat is unclaimed drifts back into guesswork. The next time a call of yours turns out right, say who made it — one sentence, to whoever is nearby or to the nearest page. Naming it is the entire move, and it is small. Acting by insight and being the one who acted are the same thing more often than not.",
+      "sheetLine": "Right before anyone says so. Put your name on it.",
+      "verb": "moving on a decision with the whole weight of knowing behind it",
+      "place": "where what matters is understood before it can be explained",
       "provenance": {
         "signature_id": 29,
         "position_id": 2,
@@ -140,11 +134,31 @@
         "partner": "Preservation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -156,51 +170,57 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6837,
+      "ms": 8326,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
           "hard": true,
-          "status": 1
+          "status": 2
         },
         {
           "code": "vocab",
           "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it preparing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"ahead of the\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has run out past the\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -210,27 +230,9 @@
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that accepting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
           "status": 3
         },
         {
@@ -240,20 +242,26 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 4
         },
@@ -264,15 +272,27 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "code": "vocab",
+          "detail": "\"The seeing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -280,62 +300,71 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"once\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The claim the record doesn't back: 'you never check your reading of a room,' which is biography I wasn't given — the mechanism is that the knowing lands whole and nothing gets examined, so I keep it at that. A reader could rightly say some days are not like this, so every cell is about the moment rather than the week. The asks still hold if I'm wrong about which part of life it is, because each is something they can try on a scene in front of them. The sentence serving me more than them is the line about the quiet answer arriving before the question is finished — it flatters the reader at my desk, not the one at the table."
+      "check": "Unsupported claim: that the person cannot tell what matters — the record only says the capacity is under-expressed in this area, and anyone can be organising a life fine while this one part sits behind. Reader's likely objection: 'I know exactly what matters, I just haven't gotten to it.' The Too Little ask survives that: building one small thing from a clearing already behind them doesn't depend on my read of them being right, only on their hands. Sentence serving me more than them: the 'crude eyebrow' image in Too Much — cut it; it admires itself and reads like an insult to their skill. Also cut 'sized to nothing' from Too Little and any trace of the record's own vocabulary."
     },
     {
       "attempt": 2,
-      "ms": 4766,
+      "ms": 5453,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it preparing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
         {
           "code": "vocab",
           "detail": "\"The knowing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one of them take a\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"long ago\" — a duration the person never gave",
+          "hard": true,
           "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"call that accepting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call that exists\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -346,9 +375,9 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the knowing hasn't gone anywhere\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
+          "hard": false,
           "status": 3
         },
         {
@@ -356,51 +385,74 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim left in the draft was biography — a past room, a reason, a 'never' — which the record does not give, so every cell now stays inside what one capacity is doing in a moment the person could recognise. A reader could reasonably say that some days this read is wrong for them; that's why each ask is something to try on a scene in front of them, useful even if the read misses. The sentence that served me more than them was the one about the knowing arriving before the question is finished — flattering the reader at my desk, so it's gone; what's left is plain description and an act they own."
+      "check": "Unsupported: that the person is guessing — the record says the capacity is under-expressed here, not that they never see clearly. Reader's objection: 'I know what matters; I just haven't moved on it.' Too Little's ask survives that: building one small thing on cleared ground only needs their hands. Sentence serving me over them: 'a seedling is not asked to be a tree' — cut; it is a line admiring itself in the reader's mouth. Also stripped: the map idiom, every noun built from a verb, and the 'once' opener."
     },
     {
       "attempt": 3,
-      "ms": 3750,
+      "ms": 4323,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it preparing\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 2
         },
         {
@@ -411,7 +463,7 @@
         },
         {
           "code": "hunch",
-          "detail": "\"call that accepting\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"call that exists\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -422,10 +474,46 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -434,13 +522,183 @@
           "status": 4
         }
       ],
-      "check": "The remaining failure was a phrase doing double duty as a mystical noun — 'the knowing' — which turns a verb into an object and repeats the house's own echo; every cell now states what the capacity is doing in plain verbs, no nouns made of verbs. A reader could reasonably say some days aren't like this, so each ask stays something to try on a scene in front of them and holds even if the read misses. The line serving me more than them was the potted reassurance about the read returning; it's cut, and what's left is the act itself."
+      "check": "Unsupported: any claim that the person cannot tell what matters — the record says this capacity is under-expressed here, not absent. Reader's objection: 'I see the point; I just never moved on it.' The Too Little ask survives that, since it only asks the hands to make something on cleared ground. Sentences serving me over them: 'the seeing is on the record' and 'a seedling is not asked to be a tree' — both cut, along with every noun built from a verb, the map idiom, and the repeated 'once' opener. The four asks now open on weigh, reason, start, keep, and only two carry a clock."
+    },
+    {
+      "attempt": 4,
+      "ms": 3969,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that exists\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported: that the person cannot tell what matters — the record says this capacity is under-expressed here, not absent. Reader's objection: 'I see the point; I just never moved on it.' The Too Little ask survives that, since it only asks the hands to make something on cleared ground. Sentences serving me over them: 'the call is on the record' and 'the ground is empty' — both cut, along with every noun built from a verb, the map idiom, the repeated 'once' opener, and the two library tics. The four asks now open on weigh, reason, start, keep, and only two carry a clock."
+    },
+    {
+      "attempt": 5,
+      "ms": 4141,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call that exists\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start building where the false thing fell\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "Unsupported: that the person cannot tell what matters — the record says this capacity is under-expressed here, not absent. Reader's objection: 'I see the point; I just never moved on it.' The Too Little ask survives that, since it only asks the hands to make something on cleared ground. Sentences serving me over them: 'the call is on the record' and 'the ground is empty' — both cut, along with every noun built from a verb, the map idiom, the repeated 'once' opener, and the library tics. The four asks now open on weigh, reason, start, keep, and only two carry a clock."
     }
   ],
   "usage": {
-    "input": 2950,
-    "output": 3545
+    "input": 9519,
+    "output": 5979
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:21:35.305Z"
+  "date": "2026-10-02T11:51:46.209Z"
 }

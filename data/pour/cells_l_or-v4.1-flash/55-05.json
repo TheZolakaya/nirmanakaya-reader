@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are keeping what the change left standing, and you know you're doing it.",
-      "ask": "Write down the customs you're actually keeping, the people beside each one, before any of them starts slipping.",
-      "core": "It's not the holidays. It's the specific way a thing gets done around you — learned, now carried — and you know which parts you hold and which parts hold themselves. When you hand something over at the right moment, it stays handed over. Few people can do that without gripping it.\n\nThat steadiness is real, and it has a cost worth seeing. Customs don't balance on their own. Somebody sets the table, somebody sits at it, and the ledger runs one way for a while before anyone notices. Write down what you're keeping and who's been on the receiving end, named. Not because you owe the meal back tonight — because seeing the shape of it tells you where to give next.",
-      "sheetLine": "You carry the way things get done, and you know you're choosing it.",
-      "verb": "holding what the change left standing",
-      "place": "in what gets said the same way twice, passed between people",
+      "tense": "You are standing where a change has settled and the form around it is holding steady.",
+      "act": "let the exchange with someone run both ways",
+      "ask": "Pick one piece you share with another person — a meal, a story, a way of marking a season — and let this exchange run both directions. What you hand over, something comes back of the same weight. Watch where it lands between you, and stop there.",
+      "core": "You're standing where something changed and settled, and what you keep is holding. The practices, the words, the way your people do things — they came out of something real, and they're steady now because you've kept them steady. This is the part of a life where the shared thing has taken its shape and can be handed on, and it holds because nobody carries it alone.\n\nThe next move is small. Pick one piece you share with another person — a meal you cook together, a story you both tell, a way you mark a season — and let this exchange run both ways. What you give, something comes back of the same weight. Watch where it lands. What you keep will sit lighter after, and you'll see which people are actually carrying it with you rather than watching from the side.",
+      "sheetLine": "What you keep holds because no one carries it alone.",
+      "verb": "holding what change produced, in a form sturdy enough to pass on",
+      "place": "in the shared meaning and tradition a person keeps and hands forward",
       "provenance": {
         "signature_id": 55,
         "position_id": 5,
@@ -26,36 +27,32 @@
         "partner": "Reciprocity",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "ask 45 words (≤40)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (ledger, shape) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You're holding this thing so hard the holding has stopped being about the thing.",
-      "ask": "Sit out the next season and let it look wrong without your correction.",
-      "core": "Something is coming for this practice, and you're leaning out to meet it. You can feel an ending far off and you're already defending against it, so the tradition gets squeezed tighter than the change actually requires. There's a pull toward all the versions this could still become, and you keep reaching into the middle of them.\n\nPicture the same gathering without you standing over it, and watch whether you relax or reach. If you reach, there may not be much that needs your hands on it just yet. Let one season happen sloppily. Nothing gets ruined. The surface ruffles, then settles, and you find out which parts were actually holding it up and which parts were you.",
-      "sheetLine": "You've been bracing for a change that hasn't arrived yet.",
-      "verb": "holding what the change left standing",
-      "place": "in what gets said the same way twice, passed between people",
+      "tense": "You will make sure the shared thing survives, gripping it so hard nothing can touch the shape.",
+      "act": "go once toward the thing that draws you and see what it is up close",
+      "ask": "Go once toward whatever pulls at you and find out what it actually is. Not to replace anything you keep — just to see it up close. Stay as long as it holds your attention; nothing more is asked of you.",
+      "core": "You are protecting something that was hard-won, and the protecting has gotten ahead of you. Every practice, every word you pass on is being defended before anything threatens it — the shape stays, but the people it was made for feel your grip on it. What was supposed to be shared is being kept safe from the ones it was meant for, and whatever else might still be possible with it gets read as a danger.\n\nTry it the other way. Let something you keep sit where it is, and go once toward whatever draws you — not to swap it out, just to find out what it is. You don't have to choose it. What you left will still be there when you look back. What comes first is usually the plain pleasure of being pulled toward something instead of bracing against it.",
+      "sheetLine": "You're guarding the form from the people it was for.",
+      "verb": "holding what change produced, in a form sturdy enough to pass on",
+      "place": "in the shared meaning and tradition a person keeps and hands forward",
       "provenance": {
         "signature_id": 55,
         "position_id": 5,
@@ -64,19 +61,14 @@
         "partner": "Allure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false
         },
         {
@@ -88,12 +80,13 @@
     },
     {
       "status": 3,
-      "tense": "You hold the way of doing it and you've stopped showing it to anyone.",
-      "ask": "Pick one thing you know and show it to one person who doesn't already know it.",
-      "core": "There's a whole way of doing things still living in your hands — you could set that table without thinking. You could do it with your eyes closed and your mind elsewhere, and that ease is the thing worth noticing. But you've stopped writing it down and stopped showing anyone. One hand's been off the wheel for a while now, and what stopped was the showing, not the ability.\n\nWhat's called for isn't a ritual, just one person and one thing you'd do anyway, and you telling them what you're doing while you do it. The point isn't the recipient. It's how trying to pass it on moves you, once there's somewhere for it to go.",
-      "sheetLine": "You hold the way of doing it and have gone quiet about holding it.",
-      "verb": "holding what the change left standing",
-      "place": "in what gets said the same way twice, passed between people",
+      "tense": "The shared thing kept going without you, and you have been standing outside the door.",
+      "act": "refuse the pull off course, once more",
+      "ask": "Refuse the next pull that tries to take you off something you know matters. Stay where you are and don't move. Nothing follows the refusal — no plan, no next step. The standing is the whole act.",
+      "core": "The practices and meanings around you are still there, and you are not in them. You hold what you have by not showing up — not adding a word, not putting a hand in, not saying what you actually think — and the things you would once have carried forward are being held at a distance. The people near it can feel the absence, and so can you. Something you care about is waiting for you to decide again, and you have not decided anything in a while.\n\nStart from feeling, not duty. Take something you know matters — a phrase, a meal, a way of doing things — and when the next pull tries to take you off it, refuse. Stand there once. This is not taking over; it is staying where you already are. The direction comes back in pieces, and the first piece is the one you did not hand away.",
+      "sheetLine": "You keep what you have by staying outside it.",
+      "verb": "holding what change produced, in a form sturdy enough to pass on",
+      "place": "in the shared meaning and tradition a person keeps and hands forward",
       "provenance": {
         "signature_id": 55,
         "position_id": 5,
@@ -102,14 +95,24 @@
         "partner": "Resolve",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -121,12 +124,13 @@
     },
     {
       "status": 4,
-      "tense": "You're already keeping this thing alive and calling it something that just happens here.",
-      "ask": "Name one thing you keep going here as yours, once, no ritual attached to saying it.",
-      "core": "People do the thing your way when they come around — the order, the words, what gets made first. You say that's just how it's done here, but no one else decided it. Keeping it going is something you do. Your name isn't on it. That gap matters more than it sounds like it should.\n\nWhen a custom runs quietly, endings feel like earthquakes. If the practice looks like something that runs itself, any small break in it lands as damage instead of ordinary change. Saying it's yours isn't the same as needing it to stay. Once you've named it as a thing you choose, holding stops being a vigil and goes back to being a practice — with a shape you can see and no pressure underneath.",
-      "sheetLine": "You're the one who decides what stays, and you haven't put your name on it.",
-      "verb": "holding what the change left standing",
-      "place": "in what gets said the same way twice, passed between people",
+      "tense": "You are already keeping something steady, and the keeping has been written off as the place's own nature.",
+      "act": "let the structure act instead of announcing it",
+      "ask": "Set it back when something shared starts to drift — a word in the right place, no explanation, nothing announced. Then, later, notice that the hand was yours. That noticing is the only thing to carry.",
+      "core": "Something is holding, and you have been treating that as ordinary. Someone brings up the practice again, someone looks around for what to do, and the thing is steady before anyone sees who steadied it. You are the one. The structure you keep for your people is being filed under how things naturally work, and the ones who benefit from it mostly don't see it either.\n\nGo back to the plain act. Next time something you share begins to drift, put it back without announcing it, and notice afterward that it was you. Deciding it and doing it in the same moment puts your name back on the thing you've been carrying quietly. Once is enough; seeing it is the part that was missing.",
+      "sheetLine": "The way things hold here runs through your hands.",
+      "verb": "holding what change produced, in a form sturdy enough to pass on",
+      "place": "in the shared meaning and tradition a person keeps and hands forward",
       "provenance": {
         "signature_id": 55,
         "position_id": 5,
@@ -135,14 +139,14 @@
         "partner": "Command",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the structure act instead of announcing it\") — read it: is it that act made small?",
           "hard": false
         }
       ]
@@ -151,27 +155,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5492,
+      "ms": 7595,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\" and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
           "status": 1
         },
         {
@@ -181,272 +173,274 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "imperative",
+          "detail": "\"you have to\"",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (road, wheel) — one at most, usually none",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"the people around it can\"",
           "hard": true,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 163 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The keeping\" — a verb turned into a mystical noun",
+          "detail": "\"The choosing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
+          "detail": "five words in a row from an exemplar or a rule: \"the people around it can\"",
           "hard": true,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the structure act instead of announcing it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The draft's riskiest claim is that the person keeps a custom partners never agreed to, which the record does not establish — a reader could reasonably say the custom is mutual and simply theirs. The ask survives that: writing down what is actually held needs no verdict about who started it. The line that serves me more than them is any phrasing where the writing-down quietly re-balances the scale; the ask has to be kept as seeing, not as handing over a debt."
+      "check": "Each ask is one act from the medicine's own list, done small in shared meaning and tradition, and none depends on my read being right — someone who says 'that's not what's happening' can still do the thing and learn from it. When the ask is the person's own act (Allure, Resolve, Command), no other person is required; for Reciprocity, another person may be part of the exchange but is not required, since the arrangement can be set down in writing alone. The sentence that serves me more than the person is 'The form is holding what the change made' — it says what the card is doing rather than what the person can use, so I kept it out of the glass."
     },
     {
       "attempt": 2,
-      "ms": 3493,
+      "ms": 4933,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "refrain",
+          "detail": "\", and let the exchange\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"give one thing and take\" — say the act in the person's words",
           "hard": true,
           "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the structure act instead of announcing it\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The riskiest claim is that the person is carrying a specific custom that their people didn't agree to — the record only says the holding capacity is running well in the culture seat, not that anyone handed it over. A reader could reasonably say the custom is mutual and simply theirs, which is fine. The ask survives that: writing down what's actually kept needs no verdict about origin. The sentence serving me more than them was any phrasing where the writing-down quietly re-sets the scale; the ask stays as seeing, not as collecting a debt."
+      "check": "The check is carried from before: each ask is one act from the medicine's own list, made small in shared meaning and tradition, and none of them needs my read to be right — someone who says 'that is not what is happening' can still do the thing and get something from it. When the ask is the person's own action (Allure, Resolve, Command) no second person is required; for Reciprocity another person may be part of the exchange but can also be the one the arrangement is written down with, so the act stands alone. The sentence that serves me more than the person is 'the form is holding what the change made' — it describes the card instead of giving the person something usable, so I kept it out. This rewrite also varies the asks: three of the four carry no clock, one is a stop, one is a single moment noticed after, one is a pause with nothing after it."
     },
     {
       "attempt": 3,
-      "ms": 3925,
+      "ms": 4839,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (ledger, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "ask 42 words (≤40)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The keeping\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"something\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person's keeping is unrecognized by their people — the record says only that the holding capacity is running unclaimed, not that anyone else fails to notice. A reader could reasonably say the custom is mutual and openly theirs; the ask survives that, since naming one thing as chosen needs no verdict on anyone else. The sentence that served me more than them was the closing offer to see which parts are outgrown — it promises relief the ask can't guarantee, so the close now stays with the naming itself."
+      "check": "Carried from before: each ask is one act from the medicine's own list, made small in shared meaning and tradition, and none requires my read to be right — someone who says 'that is not what is happening' can still do the thing and get something from it. No second person is required for any ask; for Reciprocity the other person may be the one the exchange runs with, but the act stands alone. The sentence that serves me more than the person is 'the form is holding what the change made' — it describes the card instead of giving the person something usable, so it stays out of the glass. This rewrite varies the asks: no clock on three of four, one ask is a stop with nothing after it, one is a pause noticed afterward, one ends wherever it ends with nothing to complete."
     },
     {
       "attempt": 4,
-      "ms": 3269,
+      "ms": 4140,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (ledger, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "ask 45 words (≤40)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 2
         },
@@ -457,8 +451,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -469,19 +475,19 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the structure act instead of announcing it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The riskiest claim is that no one else decided the custom — the record says the holding capacity runs unclaimed, not that the person invented the practice. A reader could reasonably say the custom is shared and openly theirs; the ask survives that, since naming one thing as chosen needs no verdict on anyone else. The line that served me more than them claimed the custom is invisible to the people around it, which the record doesn't support, so the core now stays with what the person does and says."
+      "check": "Carried from before: each ask is one act from the medicine's own list, made small in shared meaning and tradition, and none requires my read to be right — someone who says 'that is not what is happening' can still do the thing and get something from it. No second person is required for any ask; for Reciprocity the other person may be the one the exchange runs with, but the act stands alone. The sentence that serves me more than the person is 'the form is holding what the change made' — it describes the card instead of giving the person something usable, so it stays out of the glass. This rewrite gives the four asks four different opening verbs (pick, go, refuse, set), no clock on three of four, one ask is a stop with nothing after it, one is a pause noticed afterward, and one ends wherever it ends."
     }
   ],
   "usage": {
-    "input": 3761,
-    "output": 4109
+    "input": 8625,
+    "output": 5524
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:43:56.576Z"
+  "date": "2026-10-02T12:20:49.569Z"
 }

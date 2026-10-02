@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding the first piece of this and you know exactly what to do with it.",
-      "ask": "Name the one thing in front of you and the single line of finish that would let it go. Put it where you can see it and leave it at that.",
-      "core": "You have the first piece in hand and you know what to do with it. This is one thing in front of you — a resource, an opening, a commitment — and you are carrying it as a beginning rather than as a debt. That is not nothing. Most people take the piece they have and bury it under the whole plan at once.\n\nSo lean on what is around you. One person who can hold a piece of it while the rest lands. That is the only support that matters here. What you have started is meant to be finished, not perfected, and the finishing is what gets it out of your hands and into the world. Whatever comes next has to wait for this one to be done.",
-      "sheetLine": "You have the first piece. Finish it before you carry it further.",
-      "verb": "beginning the build from what is already in hand",
-      "place": "the point where what is finished gets let go",
+      "tense": "Right now you are standing at the start of something you mean to build.",
+      "act": "give a concrete piece of help and finish it",
+      "ask": "Pick a concrete thing someone near you needs, do it now, and see it through to done.",
+      "core": "Right now you are holding the first piece of something you mean to build, and it is doing what a first piece should: it is turning into the rest. When a start lands well, the made thing gets made and the next move is obvious by itself. You are working on one of those and there is no need to look past it.\n\nA concrete hand offered to someone near you, taken all the way to finished in one sitting, keeps the line moving. Not a sweeping gesture — enough to close before the tea goes cold. That is what makes a beginning readable: someone else can see it, and so can you, and neither of you has to call it anything.",
+      "sheetLine": "A finished thing makes the next one obvious.",
+      "verb": "starting the first piece of what will be built",
+      "place": "at the launch point",
       "provenance": {
         "signature_id": 52,
         "position_id": 21,
@@ -26,14 +27,24 @@
         "partner": "Support",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
           "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living at the end of this, bracing for a version that has not arrived and cannot be written in yet.",
-      "ask": "Say to one person the real thing about how this piece is going — not the finished version. Let the sentence come out unfinished and sit with what they say back.",
-      "core": "You are building the whole ending in your head before the first piece has a place. Every version of how this should turn out, every way it could fall short, already measured. Somewhere ahead of you is a completed thing and you keep living there, so the piece in your hand is nothing but a means to that future.\n\nThat is the trap of the beginning. You are trying to arrive at the end so hard that you skip the work of actually seeing what this is right now. Which piece, which person, which real condition on the ground. The habit of spanning to the finished version makes the present feel like a delay. Some room should be left for what you don't know about how this will end. Let one piece of it be seen whole by the person it is for. That is where it starts moving again.",
-      "sheetLine": "You are racing to a finished version that has not happened yet.",
-      "verb": "beginning the build from what is already in hand",
-      "place": "the point where what is finished gets let go",
+      "tense": "You are pushing for a completion that cannot be imagined from here.",
+      "act": "name every feeling in it on one page, none of them crossed out",
+      "ask": "Take a page, name every feeling this one has stirred, and leave every one of them standing.",
+      "core": "You are pushing something toward a finished shape that cannot be imagined from here, and the pushing runs ahead of anything you have. There is nothing to brace against yet — the next step has no picture, and it cannot be forced into one. Hoping harder will not get it.\n\nBefore the next move, put every feeling about this onto one page, all of them, none crossed out. It will not fit a theme and it will not be tidy. Stay with the page until the whole of it is legible, and the push will have somewhere to stand. What is actually complete can be measured against it rather than guessed at.",
+      "sheetLine": "You are forcing a shape the thing cannot wear yet.",
+      "verb": "starting the first piece of what will be built",
+      "place": "at the launch point",
       "provenance": {
         "signature_id": 52,
         "position_id": 21,
@@ -59,36 +71,42 @@
         "partner": "Completion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "said",
-          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You knew how to start once, and that version of you is back behind a closed door.",
-      "ask": "Write down the one piece you are still sitting on belonging to you. Not the story — just the object, deadline, or decision, and the one small next move into someone else's hands.",
-      "core": "There is a beginning you stopped holding. The conditions were wrong or the ground was not ready, and now you wait for conditions that keep changing. What is missing is not inspiration. It is the willingness to stand in front of the first piece and call it good enough to start.\n\nYou do not need to feel like a creator to take the first step. See one clear thing — one small edge of the material already in front of you — and let that be your first move. That is it. One object, one name, one next thing. The ability is still there. It is just not in charge this week.",
-      "sheetLine": "You stopped picking up the first piece over a door that has closed.",
-      "verb": "beginning the build from what is already in hand",
-      "place": "the point where what is finished gets let go",
+      "tense": "You were standing at the start of something, and the starting has gone quiet.",
+      "act": "see it whole, with nothing hidden",
+      "ask": "Put all of it out where it can be taken in at once, and stay with it until no piece is left turned away.",
+      "core": "A first piece of something was there, and it has gone quiet. What you meant to build lives as a heap in a back room — all still sitting, none of it started, and you in front of it half turned away. The pull toward it is still in you. It is not doing anything right now.\n\nPut the pieces where they can be taken in together — no cupboard, no stack, everything in view. Stay with them until no piece is left turned away, and start nothing. What is whole there is already yours to take in; that alone is the first cut of a beginning, and it will not need pushing from you.",
+      "sheetLine": "You want it built, and nothing has been started.",
+      "verb": "starting the first piece of what will be built",
+      "place": "at the launch point",
       "provenance": {
         "signature_id": 52,
         "position_id": 21,
@@ -97,29 +115,29 @@
         "partner": "Clarity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 113 words (120–160)",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it good\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -131,12 +149,13 @@
     },
     {
       "status": 4,
-      "tense": "The writing is already happening and you are calling it something that arrived on its own.",
-      "ask": "Pick one piece of this you have been treating as just happening. Say out loud, once, that you are the one making it. Then let it stand as yours.",
-      "core": "You are already building the thing — choosing the shape, setting the order, deciding what stays and what goes. That is not a voicemail from the universe. Every arrangement you make has your hand on it, and the work is running on that making without knowing it. You keep saying it just came together, it just happened that way, it is what it is.\n\nBut the pen has been moving. The integration is real. The completion is happening whether you claim it or not. Calling it nothing is not humility — it is laundering your own work out of your hands. What you are making is not less yours because you did not announce it. One honest sentence about what you are actually building here and you have the whole thing back.",
-      "sheetLine": "You are already making this. Say so.",
-      "verb": "beginning the build from what is already in hand",
-      "place": "the point where what is finished gets let go",
+      "tense": "The pen is already moving on this building, with your hand not claiming it.",
+      "act": "see the true thing whole, as the last word on it",
+      "ask": "Look at one finished piece already on the table until you can take it in whole, and take it as yours.",
+      "core": "The pen is already moving on this building, and you talk about it as if nothing is happening. You are making small finished pieces and calling them luck, or saying anyone would have. The pieces are on the table — the concrete bit is real. The maker part of the work is the part you have not put your name to.\n\nTake one finished thing that is already done, and look at it until you can see all of it at once — what it took, what it's made of, that it stands. No credit to argue for. Holding it whole, with no doorway left to hide behind, is how a beginning gets kept, and you will need it kept for the next one.",
+      "sheetLine": "The building is already underway in your name.",
+      "verb": "starting the first piece of what will be built",
+      "place": "at the launch point",
       "provenance": {
         "signature_id": 52,
         "position_id": 21,
@@ -145,19 +164,14 @@
         "partner": "Clarity",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
@@ -171,115 +185,33 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6002,
+      "ms": 5335,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 118 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 1 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "said",
           "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it good\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim I had to cut: that the seed already in hand is something the person chose, or that it is the seed of the whole build — the record says only that a resource, opportunity, or commitment is presenting itself at the threshold of emergence. A reader could reasonably object that what is in front of them is not a seed at all, or not theirs. The ask survives that: naming what is present and the one line of finish does not depend on my read being right, and the person can answer 'no, that is not what's there' and still have the act. The sentence that served me more than them was any line about a seed yet to grow — that is the writer enjoying the metaphor, not the person holding something."
-    },
-    {
-      "attempt": 2,
-      "ms": 3524,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
           "status": 1
         },
         {
@@ -289,44 +221,185 @@
           "status": 1
         },
         {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "said",
-          "detail": "5 uncontracted to 1 contracted — written, not said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call it good\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "five words in a row from the medicine's own acts: \"lay every piece of it\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see the true thing whole as the last word on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The least supported claim is that a completion is waiting past the pile-up — cards don't license that, and a reader could fairly say the pile is just a pile and they are only submerged tonight. The ask survives the read being wrong: a finished object sitting where it can be seen can be found in the room without believing any of the rest. Serving me more than them: the self-portrait of someone who finishes what they pick up."
+    },
+    {
+      "attempt": 2,
+      "ms": 4422,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The wanting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -338,13 +411,337 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see the true thing whole as the last word on it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (1) — the card prescribing itself",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The least supported claim is that a completion is waiting past the pile-up — cards don't license that, and a reader could fairly say the pile is just a pile and they are only submerged tonight. The ask survives the read being wrong: a finished object sitting where it can be seen can be found in the room without believing any of the rest. Serving me more than them: the self-portrait of someone who finishes what they pick up — cut so the cells describe the mechanism and leave the verdict to them."
+    },
+    {
+      "attempt": 3,
+      "ms": 4116,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "said",
-          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the taking\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The least supported claim is that a completion is waiting past the pile-up — cards don't license that, and a reader could fairly say the pile is just a pile and they are only submerged tonight. The ask survives the read being wrong: a finished thing sitting where it can be seen can be found in the room without believing any of the rest. Serving me more than them: the self-portrait of someone who finishes what they pick up — cut so the cells describe the mechanism and leave the verdict to them."
+    },
+    {
+      "attempt": 4,
+      "ms": 3558,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that count\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The least supported claim is that a completion is waiting past the pile-up — cards don't license that, and a reader could fairly say the pile is just a pile and they are only submerged tonight. The ask survives the read being wrong: a finished thing sitting where it can be seen can be found in the room without believing any of the rest. Serving me more than them: the self-portrait of someone who finishes what they pick up — cut so the cells describe the mechanism and leave the verdict to them."
+    },
+    {
+      "attempt": 5,
+      "ms": 3451,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it anything\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see it whole with nothing hidden\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
@@ -355,13 +752,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim I had to cut: that the seed in hand is something the person chose, or that it is the seed of the whole build — the record says only that a resource, opportunity, or commitment is presenting itself at the threshold. A reader could say what is in front of them is not a seed at all, or not theirs. The ask survives that: naming what is present and the one line of finish does not depend on my read being right, and the person can say 'no, that is not what's there' and still have the act. The sentence that served me more than them was any line about a seed yet to grow — the writer enjoying the metaphor, not the person holding something."
+      "check": "The least supported claim is that a completion is waiting past the pile-up — cards don't license that, and a reader could fairly say the pile is just a pile and they are only submerged tonight. The ask survives the read being wrong: a finished thing sitting where it can be seen can be found in the room without believing any of the rest. Serving me more than them: the self-portrait of someone who finishes what they pick up — cut so the cells describe the mechanism and leave the verdict to them."
     }
   ],
   "usage": {
-    "input": 1411,
-    "output": 2398
+    "input": 8695,
+    "output": 5330
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:42:51.629Z"
+  "date": "2026-10-02T12:18:30.712Z"
 }

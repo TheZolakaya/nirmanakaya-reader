@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are moving from something felt, and the direction comes with it.",
-      "ask": "Hand one thing you keep over to someone this week, finished, with no conditions on what they do with it.",
-      "core": "When a shared thing is worth passing on, the pull to pass it shows up while you're still in it. You feel a piece of meaning that holds — yours and someone else's — and the next move follows from that, not from a plan. That kind of movement is hard to fake and easy to miss when you're busy.\n\nThe part that costs comes after: wanting to check that what you gave landed right, watching how it's used, keeping a hand on it. The connection is real. Holding on is the extra piece, and it's holding on that makes handing something over feel like losing it. Let one carrying be a gift with no receipt.",
-      "sheetLine": "Direction arrives while you're in it. Trust that part.",
-      "verb": "merging what's worth carrying toward what's worth joining",
-      "place": "where a shared meaning is handed down and kept alive",
+      "tense": "You are inside the shared thing as a clear choice, not a drift.",
+      "act": "keep the heading when it is contested",
+      "ask": "Keep to a custom your people hold through the next shrug you get — no speech, no defense, just do it how it is done, and stay with it.",
+      "core": "Where your people's meaning lives, you are in it on purpose. The sayings, the ways, the days that get kept — you know why they are yours, and you carry them without holding them tight. What you bring gets taken in; what you take in settles. That is a clean place to stand, and you are the one standing there.\n\nA custom gets shrugged at, and that is normal. Keep to a real one through the next shrug — no speech, no defending it, just do it the way it is done. What you will learn is which ones you actually stand behind and which ones you were only carrying. Hold the heading when somebody questions it, once.",
+      "sheetLine": "You're in this on purpose, and that is the difference.",
+      "verb": "letting one stream decide, and the other water join that choice",
+      "place": "in the rooms where meaning gets handed down, among people keeping what proved worth keeping",
       "provenance": {
         "signature_id": 43,
         "position_id": 5,
@@ -26,36 +27,42 @@
         "partner": "Resolve",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are trying to lock in a joining that has not fully shown itself yet.",
-      "ask": "Before the next conversation about it, set down what you want it to become and let it sit unsent for a week.",
-      "core": "The future is being written out ahead of the meeting. Before both people know what's actually on the table, the union is assumed and everything gets built around it — plans, shared language, routines, a story of how this will go. Each push looks like commitment, which is why it's hard to catch from inside. It reads as care. It costs the thing care was for.\n\nWhat's being tended right now is the shape of the joining, arriving before the joining. Ease up and the pull to rush goes with it. What's real here won't need to be forced into place.",
-      "sheetLine": "You're setting a table for guests who haven't said yes.",
-      "verb": "merging what's worth carrying toward what's worth joining",
-      "place": "where a shared meaning is handed down and kept alive",
+      "tense": "You will be bracing to defend a joining that has not happened yet.",
+      "act": "rest in the result of the tending",
+      "ask": "Use one custom your people built exactly as it was handed to you, and stop improving it for a week.",
+      "core": "You are standing ahead of a meeting, guarding something that has not fully arrived. You can already picture how it should go, and the picturing has gotten loud — rehearsing the belonging, defending a custom nobody has questioned. The version in your head keeps outrunning the one the day brings, and the guarding takes energy the meeting itself would not have asked for.\n\nWhat your people made was grown slowly by other hands, and it is still here. Rest in that. Take one custom, use it exactly the way it was handed to you, and do not touch it up. The belonging you keep trying to hold up was already under your feet before you started.",
+      "sheetLine": "You're guarding a door that was already open.",
+      "verb": "letting one stream decide, and the other water join that choice",
+      "place": "in the rooms where meaning gets handed down, among people keeping what proved worth keeping",
       "provenance": {
         "signature_id": 43,
         "position_id": 5,
@@ -64,36 +71,47 @@
         "partner": "Flourishing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing outside something that already happened, still deciding whether to walk in.",
-      "ask": "Go back to one practice or group you used to belong to, once, even awkwardly, and let no one need to notice.",
-      "core": "Something real passed between you and other people, and you've been treating it as a one-off ever since. A genuine meeting and a near one are easy for you to separate, and lately the near ones are the only ones you're letting happen. Nothing is wrong with seeing clearly. It just isn't taking you anywhere.\n\nWhat's missing is the crossing. You can still read exactly what mattered and what didn't — that part is sharp — but reading it hasn't turned into belonging to anything. Standing back has become its own habit, safer than choosing and safer than being chosen. Seeing things straight is fine. The joining is what stopped.",
-      "sheetLine": "The meeting already happened. You're the one still outside it.",
-      "verb": "merging what's worth carrying toward what's worth joining",
-      "place": "where a shared meaning is handed down and kept alive",
+      "tense": "You were standing in the doorway of the shared thing, and the step in never got taken.",
+      "act": "distinguish what is yours from what you borrowed",
+      "ask": "Take an hour with the customs you keep — sayings, meals, days — and sort which ones arrived from someone and which you picked up alone.",
+      "core": "Where your people's meaning lives, you are at the edge of it. You know the words and the ways, and you keep to them, but the inside of the belonging is not where you are standing — you are near it, watching it go on around you. Nobody has asked you to arrive, so no step was taken. The distance is quiet, and it looks a lot like respect.\n\nSort what you carry. Make a plain list of the customs you keep — the sayings, the meals, the days — and mark beside each one whether it came from someone or whether you picked it up on your own. No verdict on any of it. Knowing which is which is the whole task; the door you are standing in is already behind you.",
+      "sheetLine": "You keep the words. You are standing just outside them.",
+      "verb": "letting one stream decide, and the other water join that choice",
+      "place": "in the rooms where meaning gets handed down, among people keeping what proved worth keeping",
       "provenance": {
         "signature_id": 43,
         "position_id": 5,
@@ -102,41 +120,52 @@
         "partner": "Discernment",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false
-        },
         {
           "code": "ask",
           "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"distinguish what is yours from what you borrowed\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "Something has already carried you toward a shared life, and you keep calling it circumstance.",
-      "ask": "Name one thing that's yours because of a commitment you made with others, and say so out loud to one person.",
-      "core": "A language has formed between you and other people and you didn't sit down to invent it. The way you say things, the bits of history you repeat, the small practices that mean something only to those who were there — all of it is running, and you talk as if it came together on its own.\n\nWhat's misfiled isn't the fact. Somewhere along the way you did pick this, probably more than once, and the picking has been quietly filed under luck or the mood of the group. Nothing needs renegotiating. The claim just wants to be set down somewhere, so what you carry is also what you stand in.",
-      "sheetLine": "You built something with people. You've been calling it just how things are.",
-      "verb": "merging what's worth carrying toward what's worth joining",
-      "place": "where a shared meaning is handed down and kept alive",
+      "tense": "You are already doing the joining without having claimed it as your doing.",
+      "act": "point to the passage you can see",
+      "ask": "Name a step you know to someone learning it — the trick, the order, the way your people do it — plainly, once.",
+      "core": "A joining is happening through you — between people, or between what your people were and what they are becoming — and you are not the one taking credit. You introduce, you translate, you explain the old way to the new person as if it were nothing. It runs through your hands cleanly, and your account of yourself leaves it out.\n\nPoint one person to a step you know. Show them how your people do a thing — the trick, the order, the way it is actually done — plainly, once, and then stop. Naming that you are the one who knows is what has been missing from how you say it, and it has been true for a while.",
+      "sheetLine": "You already pass it on. You just don't say so.",
+      "verb": "letting one stream decide, and the other water join that choice",
+      "place": "in the rooms where meaning gets handed down, among people keeping what proved worth keeping",
       "provenance": {
         "signature_id": 43,
         "position_id": 5,
@@ -145,29 +174,24 @@
         "partner": "Guidance",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
           "hard": false
         }
       ]
@@ -176,151 +200,161 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4417,
+      "ms": 6221,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"You already know\" — certifies the person; the record cannot know it",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one of them this week\"",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "glass",
-          "detail": "\"the house\" — a map idiom, a product name or a tarot word on glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"distinguish what is yours from what you borrowed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The opening\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you can tell the difference\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\", and let them walk\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The claim the record doesn't support is that the person is currently choosing one person or one tradition to belong to — the card is only a transient, so it can be read as a moment they are meeting, not a fact about their ties. A reader could reasonably say they aren't deciding anything right now because nothing has arrived to decide, and the ask is still useful if that's true, since each ask works on what is already in their hands. The sentence that serves me more than them is any line that presumes a particular other person or a particular tradition is the subject."
+      "check": "The unsupported claim is that a connection is being chosen right now — the record names this as a possible transient, not something I can confirm in their life. A reader could fairly say the meeting already happened, or never did, and the seat reading still stands because it describes where the capacity shows up, not when. The asks survive being wrong: each one is a small act they can do whether or not the read lands, and none of them depends on my diagnosis being right. The sentence that serves me more than them is 'two streams meeting' — it sounds like the card's picture, so it stays out of the cells."
     },
     {
       "attempt": 2,
-      "ms": 3700,
+      "ms": 5681,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "\"The keeping\" — a verb turned into a mystical noun",
-          "hard": true,
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 1
         },
         {
@@ -330,96 +364,118 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"distinguish what is yours from what you borrowed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"custom\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The claim the record doesn't support is that the person is currently choosing one person or one tradition to belong to — the card only marks a moment of meeting, not a fact about their ties, so any line presuming a particular person or tradition is mine, not theirs. A reader could reasonably say nothing has arrived to decide, and the asks still hold if that's true, since each one works on what's already in their hands or already around them. The line that serves me more than them is the one that turns a passing moment into a verdict about their life."
+      "check": "The record names a possible transient — a connection being chosen — not a fact about this person's life, so no cell may assert the joining is happening now or already happened. A reader could fairly say the meeting is old, or still pending, and the seat still stands because it describes where the capacity shows up, not when. Each ask survives the read being wrong: keeping a custom, using one, sorting what was inherited, showing someone a step — all land whether or not my diagnosis fits. The sentence that serves me more than the person is 'two streams meeting,' which echoes the card's picture and stays out of the cells."
     },
     {
       "attempt": 3,
-      "ms": 2482,
+      "ms": 4895,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
@@ -430,34 +486,40 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "length",
-          "detail": "core 100 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "ask",
@@ -466,49 +528,179 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"distinguish what is yours from what you borrowed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record names a possible transient — a connection being chosen — not a fact about this person's life, so no cell asserts the joining is happening now or already happened. A reader could fairly say the meeting is old, or still pending, and the seat stands because it describes where the capacity shows up, not when. Each ask survives the read being wrong: keeping a heading, using a custom as-is, sorting what was inherited, showing someone a step — all land whether or not my diagnosis fits. The sentence that serves me more than the person is 'two streams meeting,' which echoes the card's picture and stays out of the cells."
+    },
+    {
+      "attempt": 4,
+      "ms": 3974,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"rest in the result of the tending\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"distinguish what is yours from what you borrowed\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"point to the passage you can see\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The claim the record doesn't support is that the person is currently choosing one person or one tradition to belong to — the card marks a moment of meeting, not a fact about their ties, so any line presuming a particular person or tradition is mine, not theirs. A reader could reasonably say nothing has arrived to decide, and the asks still hold if that's true, since each works on what's already in their hands or already around them. The line that serves me more than them is any sentence that turns a passing moment into a verdict about their life."
+      "check": "The record names a possible transient — a connection being chosen — not a fact about this person's life, so no cell asserts the joining is happening now or already happened. A reader could fairly say the meeting is old, or still pending, and the seat still stands because it describes where the capacity shows up, not when. Each ask survives the read being wrong: holding a practice, using a custom exactly as handed down, sorting what was inherited, telling someone a step — all land whether or not my diagnosis fits. The sentence that serves me more than the person is 'two streams meeting,' which echoes the card's picture and stays out of the cells."
     }
   ],
   "usage": {
-    "input": 2475,
-    "output": 3114
+    "input": 7942,
+    "output": 4651
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:17:05.049Z"
+  "date": "2026-10-02T12:07:29.197Z"
 }

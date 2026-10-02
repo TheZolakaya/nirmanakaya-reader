@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you can gather what people around you might feel, and you know you're doing it.",
-      "ask": "Offer one thing you're proud of and leave it open to how it lands — say it once, then let the group take it where they will.",
-      "core": "You can see the several ways a shared moment might go, and you're the one who picks which one to open. Not charming people into something. You notice the shape underneath what they're already doing and you work with it, and that happens best when you're actually here while it does.\n\nThe pattern you're catching is the one that connects things, so the pick isn't guesswork. What a group keeps is what it gets to hold for a while on its own. Hand the thing over and then step back from it. What comes back tells you more than another push would, and the meaning you started gets to carry itself.",
-      "sheetLine": "You can gather what a room might feel, and you're here while you do it.",
-      "verb": "Gathering the many ways a feeling could go",
-      "place": "In the shared meanings handed down between people",
+      "tense": "The pull of what has not been felt yet is here now, and there's a pen in hand.",
+      "act": "reason it from first principles once",
+      "ask": "Pick one tradition that has gone slack and work out why it exists at all, on paper, then write what it needs next.",
+      "core": "A wedding, a funeral, the words said at the turn of a year: in these places you hold open what might be felt, and you don't force it. That openness is what has made the heritage feel useful to people, rather than merely inherited. You let the gathering find its own charge instead of setting the charge yourself, and it usually works.\n\nSo take one tradition that has gone slack and work out, on paper, why it exists at all — what it was for when it started. Follow the thinking until it points at what the practice needs next. Not a plan to enforce on anyone; a line you can meet the next season with. The depth you're after arrives while the thinking is doing its work, not while you're trying to summon a feeling.",
+      "sheetLine": "You hold many possible feelings open, and you can also follow one of them through.",
+      "verb": "holding many possible feelings at once and waiting to find which belong",
+      "place": "where a community's meaning is carried across generations — its rituals, its language, and the stories it tells about itself",
       "provenance": {
         "signature_id": 48,
         "position_id": 5,
@@ -26,19 +27,19 @@
         "partner": "Calculation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it from first principles once\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -50,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You're pushing the many ways people might feel ahead of any moment that's actually arrived.",
-      "ask": "Take one thing you've already shared and leave it alone for a week — no re-sharing, no checking, no improving it — and see what still stands on its own.",
-      "core": "You've got more feeling-possibilities moving than any room can hold. A plan, an offering, a way the evening could go — you're living a few scenes ahead, and the conversation in front of you becomes the place to land it. It feels like care. From where others stand it reads as pressure, and the pressure is what's costing the thing it was meant to bring.\n\nWhat's worth keeping is the sense that meaning shouldn't be forced. If something's worth carrying, it holds without the second and third push. Put one gathered thing down and let it be seen for what it is — the endings are as real as the openings, and trusting that is what lets what you started stay.",
-      "sheetLine": "You're pushing toward how people might feel before the moment gets here.",
-      "verb": "Gathering the many ways a feeling could go",
-      "place": "In the shared meanings handed down between people",
+      "tense": "The heart is already racing through a future it hasn't been allowed to reach yet.",
+      "act": "keep what the change produced from drifting",
+      "ask": "Hold steady one thing the last ending in your community actually won — a habit, a kindness — and give it a shape that outlasts the bracing.",
+      "core": "The pull of what might be felt is running ahead now. Every possibility gets felt in advance: the family evening that hasn't happened, how the holiday will land, whose face will fall. The heritage stops being a place where meaning gets carried and starts being a set of outcomes you're managing before anyone has arrived. Fixed still reads as alive, and the people in it can feel themselves being arranged.\n\nSo hold steady what the last ending produced. One thing a recent change in your shared life actually won — a habit, a kindness, an insight people found — deserves a form that outlasts the bracing. A heritage protects what the change already gave rather than reaching into what hasn't come. Bracing spends the present on a future nobody has reached; keeping spends it on what the room already earned.",
+      "sheetLine": "You're feeling the heritage's next moment before it has happened.",
+      "verb": "holding many possible feelings at once and waiting to find which belong",
+      "place": "where a community's meaning is carried across generations — its rituals, its language, and the stories it tells about itself",
       "provenance": {
         "signature_id": 48,
         "position_id": 5,
@@ -64,26 +66,42 @@
         "partner": "Preservation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You can gather the many ways a feeling could go, and none of them gets set down where others can reach it.",
-      "ask": "Say one thing you remember from the way you grew up, once, to someone — the floor in your grandmother's house, a song, whatever comes — and then let them answer without steering what they say.",
-      "core": "The pull is there, and the placing of it isn't. You can feel what a shared moment might become and it stays inside, so the room doesn't get a chance to meet it. Nothing gets risked and nothing gets offered.\n\nWhat's missing is setting one possibility down in front of people, not the feeling itself. Picking one doesn't have to mean losing the rest of what you gather; it means letting the one you chose be seen. Start where the stakes are low, say the piece without dressing it up, and let other people's reactions do some of the work alongside you.",
-      "sheetLine": "You can gather the feelings, but you've stopped setting one down.",
-      "verb": "Gathering the many ways a feeling could go",
-      "place": "In the shared meanings handed down between people",
+      "tense": "Many possible feelings passed through this place, and the pull has already gone quiet.",
+      "act": "put the problem down and take a walk with nothing to solve",
+      "ask": "Put the question of what belongs to your heritage down, and walk for half an hour with nothing to solve.",
+      "core": "Where meaning used to be carried across generations, the feeling has gone quiet. The many possible feelings are still present, but the pull toward them stayed behind at some earlier point, and what reaches people now is care without its charge. Rituals get done correctly and land as instructions. No one is asking you to feel more; what's needed is for the steering to stop for a while.\n\nSo put the problem down and walk for half an hour with nothing to solve. Let the tradition run as it already runs, without your hand on it, and don't fix how it lands. The walk isn't for figuring out where you stand. It's for standing somewhere still.",
+      "sheetLine": "The feelings came through, and the pull toward them was left behind.",
+      "verb": "holding many possible feelings at once and waiting to find which belong",
+      "place": "where a community's meaning is carried across generations — its rituals, its language, and the stories it tells about itself",
       "provenance": {
         "signature_id": 48,
         "position_id": 5,
@@ -92,19 +110,14 @@
         "partner": "Repose",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "core 116 words (120–160)",
           "hard": false
         },
         {
@@ -116,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You have a hand in what people around you pass along, and you talk about it like it's the mood of the room.",
-      "ask": "Pick one thing people around you already do — a phrase, a habit, a way of marking a day — and say out loud that you're keeping it; name why, in one sentence.",
-      "core": "It's already happening. You say a thing and the tone of the room shifts; you repeat a phrase and it comes back to you next week. The shaping runs the whole time, and you tell it as though it were just how things go. What you've had a hand in and what you haven't are blurred together.\n\nThat gap leaves you on the receiving end of your own effect. The way back is small: notice one piece of shared meaning you've already touched, and say that you're the one keeping it. Once that's said, it has somewhere to stand, and you can choose what to pass on instead of watching it happen.",
-      "sheetLine": "You have a hand in what gets passed along. Say so.",
-      "verb": "Gathering the many ways a feeling could go",
-      "place": "In the shared meanings handed down between people",
+      "tense": "The possibilities are being gathered while you say you're not doing it, and the pen is down.",
+      "act": "count it out and read what the numbers show",
+      "ask": "Count how many times you decided something about your tradition this month, and read what the number shows you.",
+      "core": "In your shared life you are already the one gathering what might be felt. You choose whose memory gets honored, which story gets told first, and who gets named in the ritual; the pen is moving in your hand while your account says you're simply keeping what was given. The gathering is happening. The story about it is a bystander's story, and the people who keep coming back to the ritual have not been fooled.\n\nSo count it out and read what the numbers show. Tally the decisions you made this month about how your shared life runs — what got kept, what got dropped, who got named — and look at the total. The count will say more than your account of yourself can. Say nothing to anyone. Seeing it is enough.",
+      "sheetLine": "You gather the possibilities of your heritage while your account says you only keep it.",
+      "verb": "holding many possible feelings at once and waiting to find which belong",
+      "place": "where a community's meaning is carried across generations — its rituals, its language, and the stories it tells about itself",
       "provenance": {
         "signature_id": 48,
         "position_id": 5,
@@ -130,29 +144,19 @@
         "partner": "Calculation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
@@ -161,35 +165,11 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6028,
+      "ms": 9239,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
         {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
@@ -197,50 +177,56 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 2
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the pattern through to its\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"every conversation\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "refrain",
+          "detail": "\"Write down\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"There was a time\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
+          "status": 2
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
+          "detail": "4 images in one core (room, door, shape, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Repose does\") — the act in plain words, the name once at most",
           "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "\"lot the mind rest instead of working the problem\" is not one of Repose's listed acts",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"down and take a walk\" — say the act in the person's words",
           "hard": true,
           "status": 3
         },
@@ -251,10 +237,10 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
@@ -269,73 +255,60 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
-          "hard": true,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The record says nothing about what anyone handed the person, or whether a room ever went badly — so the Too Little cell locates the flinch in the present (the offering that stops) and never says who or when or what it cost. The reader could reasonably object that gathering ways of feeling isn't wrong in them at all, just that they haven't given any one of them a test; the cell says only that no one way has been put in front of anyone, which leaves that room open. The ask survives a wrong read: saying one memory out loud and letting people say it back is useful whether the card is right or not, and the reduction cell's ask is just the same act in its smallest form. The sentence that serves this writer more than the person is 'You're already shaping what people around you believe' — it sounds like praise and claims authorship the record doesn't grant, so the Unacknowledged cell keeps the shaping small and names only one thing they can point to."
+      "check": "The record does not say the person gathers feelings in order to be loved, chosen, or kept, and it does not say the possibilities are other people. Reader's objection: tradition and ritual may simply not be where these decisions get made at all, and the gathering may be private rather than cultural. The asks survive a wrong read because each is a small act of thinking (Balanced and Unacknowledged), of preserving (Too Much) or of rest (Too Little) that does not depend on the seat being correct. Sentence serving me more than them: any line implying the heritage will be let go of without loss, which I've removed."
     },
     {
       "attempt": 2,
-      "ms": 4821,
+      "ms": 7069,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"calibration\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
+          "code": "vocab",
+          "detail": "3 images in one core (threshold, shape, current) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it stay\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -343,12 +316,6 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
@@ -357,43 +324,47 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're already shaping what people\"",
-          "hard": true,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"tradition\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The record says nothing about what happened to the person or who was in the room when an offering went badly, so the Too Little cell stays in the present tense of the standing-back and never gives a cause. The reader could reasonably say that gathering ways of feeling is not failing them at all, only that no single one has been set down where others can meet it — the cell says only that, which leaves that disagreement live. The ask survives a wrong read: saying one memory out loud to someone and letting them answer is useful whether the card is right or not. The sentence that serves this writer more than the person is the Unacknowledged opener about pulling people — it sounds like a compliment and claims more than the record grants, so that cell keeps the shaping small and names one custom the person can actually point to."
+      "check": "The record does not say the person gathers feelings in order to be loved, chosen, or kept, and it does not say the possibilities are other people. Reader's objection: tradition and ritual may simply not be where these decisions get made at all, and the gathering may be private rather than cultural. The asks survive a wrong read because each is a small act of thinking, preserving, resting, or cutting through a story that does not depend on the seat being correct. Sentence serving me more than them: any line implying the heritage will be let go of without loss, which I've removed."
     },
     {
       "attempt": 3,
-      "ms": 3566,
+      "ms": 8521,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
+          "detail": "five words in a row from the medicine's own acts: \"reason it from first principles\" — say the act in the person's words",
+          "hard": true,
           "status": 1
         },
         {
@@ -403,34 +374,40 @@
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "\"the cost of keeping\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
@@ -439,36 +416,36 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're already shaping what people\"",
-          "hard": true,
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says nothing about what happened to the person or who was in the room when an offering stopped landing, so the Too Little cell stays in the present tense of the standing-back and gives no cause. The reader could reasonably say that gathering ways of feeling is not failing them at all, only that no single one has been set down where others can meet it — the cell says only that, which leaves that disagreement live. The ask survives a wrong read: saying one memory out loud to someone and letting them answer is useful whether the card is right or not. The sentence that serves this writer more than the person is anything that would sound like praise for shaping a room, so the Unacknowledged cell keeps the shaping small and names one custom the person can actually point to."
+      "check": "The record does not say the person gathers feelings in order to be loved, chosen, or kept, and it does not say the possibilities are other people. Reader's objection: tradition and ritual may simply not be where these decisions get made at all, and the gathering may be private rather than cultural. The asks survive a wrong read because each is a small act of thinking, preserving, resting, or cutting through a story that does not depend on the seat being correct. Sentence serving me more than them: any line implying the heritage will be let go of without loss, which I've removed."
     },
     {
       "attempt": 4,
-      "ms": 3377,
+      "ms": 6589,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"reason it from first principles once\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -477,63 +454,63 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "refrain",
           "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep what the change produced from drifting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says nothing about what happened to the person or who was in the room when an offering stopped landing, so the Too Little cell stays in the present tense of the standing-back and gives no cause. The reader could reasonably say that gathering ways of feeling is not failing them at all, only that no single one has been set down where others can meet it — the cell says only that, which leaves that disagreement live. The ask survives a wrong read: saying one memory out loud to someone and letting them answer is useful whether the card is right or not. The sentence that serves this writer more than the person is anything that would sound like praise for shaping a room, so the Unacknowledged cell keeps the shaping small and names one custom the person can actually point to."
+      "check": "The record does not say the person gathers feelings in order to be loved, chosen, or kept, and it does not say the possibilities are other people. Reader's objection: tradition and ritual may simply not be where these decisions get made at all, and the gathering may be private rather than cultural. The asks survive a wrong read because each is a small act of thinking, preserving, resting, or noticing that does not depend on the seat being correct. Sentence serving me more than them: any line implying the heritage will be let go of without loss, which I've removed."
     }
   ],
   "usage": {
-    "input": 7388,
-    "output": 4664
+    "input": 8051,
+    "output": 4874
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:38:49.806Z"
+  "date": "2026-10-02T12:13:23.871Z"
 }

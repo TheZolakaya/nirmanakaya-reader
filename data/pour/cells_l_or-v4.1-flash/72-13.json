@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here at the threshold, holding steady while something in your reach is finishing.",
-      "ask": "Say out loud one thing in your life that has already finished, plainly, and let that be enough for today.",
-      "core": "You're at the threshold, and you're not rushing it. Something nearby is closing or has just closed, and you're making room for that while staying in contact with the people around you—not drowning in their feeling, not shutting yours off. That's a rare balance: carrying the weight and still keeping someone in the room.\n\nWhat's working is your ability to tend the space between people without making it about you. You can be present to what's ending and still keep the connection alive. The ask is to say one true thing about a finished thing—just out loud to yourself—so it gets its due and you're not carrying it silent. That's what makes the clearing real.",
-      "sheetLine": "You hold the room while something ends, and you don't drop it.",
-      "verb": "Tending the space between people so feeling can move and be held without collapsing into anyone.",
-      "place": "A threshold where what was must fully end for what is next to have room—clearing, not destroying.",
+      "tense": "The ending is here and you can stand in it with the people it touches, steadying the space while it closes.",
+      "act": "build the thing that endures",
+      "ask": "Build the goodbye that outlasts it. Choose a shape the closing can take — a meal, a final walk, a box set on the step — and carry it out. Make it solid enough to stand on afterwards.",
+      "core": "Things end around you, and you stay steady in the middle of it. You can hold a room while it breaks without turning brittle or going under, and the ones who lean on you feel exactly that: you don't rush them past the hurt, and your own footing doesn't slip.\n\nWhat's left is the goodbye itself. Choose a shape the closing can take — a meal, a final walk, a box set on the step — and carry it out. That is the builder's move: you make something solid enough to stand on after the ending. Nothing has to be carried past the doing, and once it's made you can set it down finished.\n\nNow the ending has a shape, and you didn't have to force anyone to feel it.",
+      "sheetLine": "You can hold the goodbyes and stay standing.",
+      "verb": "holding space for what's ending without going down with it",
+      "place": "at the edge of something you loved, keeping it steady while it ends",
       "provenance": {
         "signature_id": 72,
         "position_id": 13,
@@ -26,19 +27,19 @@
         "partner": "Executor of Structure",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false
         },
         {
@@ -50,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for an ending that hasn't arrived, carrying feelings that were never handed to you.",
-      "ask": "Pick one thing you're carrying for someone else and put it down for today, in words or in silence.",
-      "core": "You're ahead of the ending. Somewhere in you, the clearing has already happened—or you're sure it's about to—and you're managing the feelings around it before those feelings have landed. You're tending a space that isn't yours to tend yet, and the bracing is costing you the very connection you're trying to protect.\n\nThe excess is real: you're holding too much, too early, and it's made you the only one already at the farewell. The ask is to set down one weight you picked up before it was offered. Not forever, just today. Let the ending happen at its own pace. You don't have to hold the whole room through it before it even starts.",
-      "sheetLine": "You're bracing for an ending that hasn't happened yet.",
-      "verb": "Tending the space between people so feeling can move and be held without collapsing into anyone.",
-      "place": "A threshold where what was must fully end for what is next to have room—clearing, not destroying.",
+      "tense": "You are already braced for the next ending, closing it in your head before it has finished closing here.",
+      "act": "release what is done and keep what serves",
+      "ask": "Release this ending, not a later one. Take something already over — a tie you keep loosening for someone gone — and let it rest as finished. See what you kept it for. Keep that much.",
+      "core": "You can see the ending coming long before it arrives, and you have started clearing the decks for it. Some part of you believes the break can be pre-absolved if you get ahead of it — and the people still eating dinner with you are watching you end something that hasn't finished leaving.\n\nLet it end here first. Take something already over — a tie you keep loosening for someone who has left, a habit of checking on something that closed last winter — and let it rest as finished. See what you kept it for, and keep that much. The rest can go.\n\nIt will end in its own time. You are not the one who has to call it early.",
+      "sheetLine": "You're grieving on schedule before the loss has happened.",
+      "verb": "holding space for what's ending without going down with it",
+      "place": "at the edge of something you loved, keeping it steady while it ends",
       "provenance": {
         "signature_id": 72,
         "position_id": 13,
@@ -64,41 +66,42 @@
         "partner": "Steward of Structure",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 114 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
+          "detail": "\" and let it rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are at a door that closed behind you, and you aren't holding space for what ended.",
-      "ask": "Tell one person one true thing about how you're actually doing, without asking them to fix it.",
-      "core": "The ending has already happened, but you're not beside it. Feeling it made something impossible, so you stopped making room—for yourself and for anyone else. You're at a door that closed behind you, and the connection you used to tend has gone quiet. It's not that you don't care. It's that arriving here asks more than you've been willing to spend.\n\nWhat's absent isn't the ability to feel. It's the willingness to be seen while you do. The ask is small: tell one person one true thing about how you are, and let them just hear it. Not fix it. Not carry it. Just hear it. That's the first step back into a room where endings can be honored and something new can begin.",
-      "sheetLine": "You're at the door that already closed.",
-      "verb": "Tending the space between people so feeling can move and be held without collapsing into anyone.",
-      "place": "A threshold where what was must fully end for what is next to have room—clearing, not destroying.",
+      "tense": "The ending happened while you were still at the door, telling yourself you had not come through it yet.",
+      "act": "say the hard thing gently, once",
+      "ask": "Offer one true sentence into the quiet it left. Say it slowly, aloud if you can — even just to yourself. Nothing has to happen after it.",
+      "core": "The break already happened, and you are still where the room used to be, not bringing yourself to say so. Speaking of it has gone quiet in you — to the people around, to yourself — and the clearing has slowed to a stop around your silence. You have not come through the door yet, not because the ending is unfinished, but because you have not said it.\n\nOne sentence is enough. Say the hard thing gently, once, in your own words — that it's over, that you miss it, that you are standing in a room already bare. Say it aloud if you can, even to yourself. Nothing has to follow it.\n\nThe door was behind you already. The sentence is what lets you turn and face where you're standing.",
+      "sheetLine": "You can see the ending. You haven't said it yet.",
+      "verb": "holding space for what's ending without going down with it",
+      "place": "at the edge of something you loved, keeping it steady while it ends",
       "provenance": {
         "signature_id": 72,
         "position_id": 13,
@@ -107,14 +110,14 @@
         "partner": "Steward of Cognition",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false
         },
         {
@@ -128,8 +131,8 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -141,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already tending the space between people, though you call it something else entirely.",
-      "ask": "Name one thing you've been doing to keep a connection intact, and call it what it is—care.",
-      "core": "You're doing the work already. You're the one who notices when a room goes quiet, who checks in, who makes space so something difficult can be said and survived. You call it logistics, or just being there, or nothing at all. But the work is happening, and it's shaping how people around you get through their own endings.\n\nIt's running for real; you just haven't owned it. The ask is to name one thing you've done to keep a connection whole—not as a favor, not as a duty, but as care—and say it out loud, even just to yourself. That's what makes it yours. The ending you're in doesn't have to erase the space you make for others.",
-      "sheetLine": "You make room for people. You just haven't claimed it.",
-      "verb": "Tending the space between people so feeling can move and be held without collapsing into anyone.",
-      "place": "A threshold where what was must fully end for what is next to have room—clearing, not destroying.",
+      "tense": "You are clearing things for everyone around you and calling it staying out of it, pen down in a room you are already writing.",
+      "act": "cut to the logic and act on it",
+      "ask": "Cut to a clean line. Mark something finished in a plain sentence, then act on it the same day — no second-guessing, nothing explained away.",
+      "core": "You are the one who sees what needs to close before the others can — and your account of yourself is that you are only keeping the peace while it closes. You are the keeper of the endings, and you have been calling yourself a bystander. The person who moves things toward their clear end, quietly, is you.\n\nMake one line and carry it out. Mark something finished in a plain sentence and do the single thing the sentence asks for, the same day. A name can go in the sentence if the ending involves someone, and then the sentence is the whole move. When it's a clean cut, there is nothing left to keep hidden — no role to be seen in, no story to keep telling. The logic of endings can be carried out in one sentence, by the one doing it.\n\nWhat ends cleanly doesn't need a keeper.",
+      "sheetLine": "You are the one ending it, and saying you're just watching.",
+      "verb": "holding space for what's ending without going down with it",
+      "place": "at the edge of something you loved, keeping it steady while it ends",
       "provenance": {
         "signature_id": 72,
         "position_id": 13,
@@ -155,20 +159,20 @@
         "partner": "Catalyst of Cognition",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"act on it the same\"",
+          "hard": true
         }
       ]
     }
@@ -176,62 +180,86 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4926,
+      "ms": 6689,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "hunch",
-          "detail": "\"and you know it\" — words put in the person's mouth",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"empty space\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
           "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -243,19 +271,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
+          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -266,290 +288,46 @@
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the tending\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "5 uncontracted to 2 contracted — written, not said",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"tell them\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"so\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The draft risks claiming the person is actually in a period of endings—the record only says the card sits in the seat of Transformation, not that the person is living through one. A reader could say the ending language is imposed. The ask still holds if the read is wrong, because it is a small, concrete act of witnessing the person in front of them. The sentence that serves me is any line that makes the reader feel seen rather than instructed."
+      "check": "The unsupported claim is that the person's steadying touch in a dissolving bond has been seen at all — the record supports only that the keeping is ongoing, not anyone's recognition of it, so the Unacknowledged core drops 'they have not believed it once' and keeps the fact to the person themselves. A reader could object that they genuinely are uninvolved, and if so the ask costs them nothing — they can watch the next thing end and still do the one clear thing. The sentence that serves this writer more than the person is the satisfying close about being seen in a role; it has been cut and the cell ends on what leaving clean is like for the leaver."
     },
     {
       "attempt": 2,
-      "ms": 3234,
+      "ms": 3931,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already holding\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record does not say the person is in a season of endings, only that the card landed in the seat of Transformation, so any line that asserts an ending is actually happening in their life oversteps. A reader could reasonably say the seat is just where this capacity is doing its work, not a verdict on their circumstances. The asks survive being wrong because each one is a small act they can do regardless of what season they are in. The sentence that flatters me is any line where I make the ending sound certain and wise rather than letting them tell me what is closing."
-    },
-    {
-      "attempt": 3,
-      "ms": 3260,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
           "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says the card landed in the seat of Transformation—necessary endings and clearing—but does not say the person is living through an ending, so any line asserting an ending is actually happening oversteps. A reader could say the seat is where this capacity is doing its work, not a report on their circumstances. The asks survive being wrong because each is a small outside act they can do regardless of season. The sentence that flatters me is any line where I make the ending sound certain and wise instead of letting them tell me what is closing."
-    },
-    {
-      "attempt": 4,
-      "ms": 3010,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
@@ -558,187 +336,408 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"not in the room with\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record places the card in the seat of Transformation but does not say the person is currently living through an ending, so any line that asserts one is happening in their life oversteps the map. A reader could say the seat is simply where this capacity is doing its work, not a report on their circumstances. The asks survive being wrong because each is a small outside act that holds regardless of season, and none of them requires the ending to be real. The sentence that flatters me is any line that makes the ending sound certain and wise rather than letting them tell me what is closing."
-    },
-    {
-      "attempt": 5,
-      "ms": 2831,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 115 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (threshold, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 114 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the unarrived future — a cousin heard four times in twenty-four",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"you used to\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, door) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "length",
           "detail": "core 118 words (120–160)",
           "hard": false,
-          "status": 4
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the sentence\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the person's steadying touch in a dissolving bond has been seen at all — the record supports only that the keeping is ongoing, not anyone's recognition of it, so the Unacknowledged core keeps the fact to the person themselves and drops any 'they have not believed it once' move. A reader could object that they genuinely are uninvolved, and if so the ask costs them nothing — they can act on one plain sentence and still do the one clear thing. The sentence that serves this writer more than the person is the satisfying close about being seen in a role; it has been cut, and each cell ends on what the leaving is like for the leaver."
+    },
+    {
+      "attempt": 3,
+      "ms": 4513,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"and the people leaning on\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it stay\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports the keeping and the clearing, not anyone's recognition of the person doing it, so the Unacknowledged core stays with what the person can observe in themselves and drops any 'they have not believed it once' move. A reader could reasonably say they are genuinely uninvolved, and even then the acts cost little: each one is a small thing a camera could see, so the ask survives being wrong. The sentence that serves the writer more than the person is the satisfying close about finally being seen in a role; it has been cut, and each cell ends on what the leaving is like for the one doing it."
+    },
+    {
+      "attempt": 4,
+      "ms": 4053,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The record supports that the holding and the clearing happen, not that anyone has noticed who does it, so the Unacknowledged core stays with what the person can see in their own conduct and never asserts a witness. A reader could say they are truly uninvolved in the endings around them, and even then each ask is a small visible act that costs almost nothing, so it survives being wrong about them. The sentence serving the writer more than the person is any close that congratulates the reader for finally being seen in a role; that move is gone from all four, and each cell ends on the plain fact of the leaving."
+    },
+    {
+      "attempt": 5,
+      "ms": 3456,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "hunch",
+          "detail": "\"call it early\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it rest\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 2 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"act on it the same\"",
+          "hard": true,
           "status": 4
         }
       ],
-      "check": "The record places the card in the seat of Transformation but never says the person is living through an ending, so any line asserting one is happening oversteps. A reader could say the seat is where this capacity works, not a report on their circumstances. The asks survive being wrong because each is a small outside act that holds in any season. The line that flatters me is the one that makes the ending sound certain and wise instead of letting them tell me what is closing."
+      "check": "The record supports the holding and the clearing as behaviors, not that anyone has noticed who does them, so the Unacknowledged core stays with what the person can observe in their own conduct and never asserts a witness. A reader could object that they are truly uninvolved in the endings around them, and even then each ask is small and visible and costs almost nothing, so all four survive being wrong. The sentence that serves the writer more than the person is any close that congratulates the reader for being seen in a role; that move is gone, and each cell ends on the plain fact of the leaving."
     }
   ],
   "usage": {
-    "input": 5606,
-    "output": 5624
+    "input": 6131,
+    "output": 6555
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T03:21:25.303Z"
+  "hardOpen": 2,
+  "date": "2026-10-02T13:18:27.640Z"
 }

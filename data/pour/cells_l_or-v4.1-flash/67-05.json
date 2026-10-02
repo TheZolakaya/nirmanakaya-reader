@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one in the room holding the thread of what this group is really saying.",
-      "ask": "Next time the group talks past each other, put the actual difference into words once, then stop. You are not there to enforce settled agreement, only to keep the real question moving. Notice what the saying-it costs you.",
-      "core": "You can hear the real thing inside a group's language and hand it back without breaking it. The customs you carry are live, not frozen — you keep the old form and swap in plainer words where the room has drifted, and people follow without being told to. That is not a personality trait. It is a skill that is working, and it runs each time you sit with others.\n\nThe balance asks something on top of the handling. Say what this group inherited from past decisions when the topic comes up this week — once, in words you would say out loud, no padding. Let their answer land as theirs to hear. That is what keeps this side generous over time: the reasoning keeps moving, and nothing sets hard in your hands.",
-      "sheetLine": "You keep the shared thing alive by saying what it actually is.",
-      "verb": "cutting through what a group takes for granted to the structure under it",
-      "place": "where meaning gets handed down between people and kept alive across time",
+      "tense": "The reasoning moves at speed, and the shared thing is where it has been landing.",
+      "act": "express yourself freshly, with confidence",
+      "ask": "Bring the half-finished idea you hold about the shared thing to the table this week — the one that's still live, not the polished edit — and stop before it's rounded off.",
+      "core": "You think fast and the thinking has somewhere to land. The traditions around you are old and living, and you can look at all of it and see what holds, what has gone quiet, and what the thing was originally for. When that reaches the table it arrives with heat, and people feel you mean them and not the idea. That is rare. Rarer still is that you brought it somewhere that had lasted long enough to carry it, so what you find returns to the common inheritance.\n\nThe standpoint is not the private cold read but the shared one, and you keep it that way. Stand behind what you put in front of them, no margin built in. When the pattern is wrong, the correction goes into what the tradition already holds and the account grows wider rather than thinner. Afterward the conversation runs lighter, which is the tell you can smell on the day.",
+      "sheetLine": "You think fast, and there is a tradition here to catch it.",
+      "verb": "cutting through to the pattern underneath",
+      "place": "inside a shared tradition — the rituals, language, and inheritance you move within and pass on",
       "provenance": {
         "signature_id": 67,
         "position_id": 5,
@@ -26,31 +27,42 @@
         "partner": "Initiate of Intent",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already arguing the next version of the theory in your head before the room has finished its current sentence.",
-      "ask": "Pick one shared rule or story you have been quietly trying to improve. Leave it alone completely for seven days — don't rehearse it, don't correct one person on it. If the itch comes back, write the correction down and change nothing yet.",
-      "core": "You are racing to fix the group's thinking before they arrive at it themselves. Every gathering becomes a chance to sharpen the common understanding, and you see the better frame two steps before anyone else finds it — so you keep pushing the room toward it. The push is outrunning the room. The shared meaning you wanted to release is now something people submit to rather than arrive at, and the speed has quietly stopped being for their benefit.\n\nThe way back is not in the head. Order what is already true instead of theorising what should be — one concrete act, decided and finished, no committee. A firm yes or no on one thing this group has been floating is what breaks the rush. Clear structure that serves what it organises is the piece your side is missing.",
-      "sheetLine": "You are trying to perfect the group's thinking instead of carrying it.",
-      "verb": "cutting through what a group takes for granted to the structure under it",
-      "place": "where meaning gets handed down between people and kept alive across time",
+      "tense": "The thinking is already out past where the shared thing will be once it has moved.",
+      "act": "set a boundary and hold it",
+      "ask": "Decline one commitment the tradition expects of you this month — the evening, the chair, the favor — and keep that no at the same size for four weeks.",
+      "core": "You are running the shared tradition ahead in your head faster than it can move, and wanting the room to hurry to where you already are. The cutting is still happening, but it has left the common ground and is aimed at it — at the pace, at the people, at the version still being held. The sharpening comes from a pressure that has to prove itself right, and the sharper it gets the farther it moves from what you inherited, which only ever moves at the speed of the people passing it between them.\n\nThe correction is to move rather than refine. Give up one commitment the shared thing expects of you and hold that refusal for the month. The point is not to cut yourself off. It is to stand in one place inside the tradition long enough for it to mean something again, which an idea that keeps arriving early does not.",
+      "sheetLine": "You have already arrived somewhere the tradition has not.",
+      "verb": "cutting through to the pattern underneath",
+      "place": "inside a shared tradition — the rituals, language, and inheritance you move within and pass on",
       "provenance": {
         "signature_id": 67,
         "position_id": 5,
@@ -59,36 +71,37 @@
         "partner": "Catalyst of Intent",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set a boundary and hold it\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You stood at a door of shared understanding a while back and came away without passing through it.",
-      "ask": "Bring one half-formed thought about what this group is for to somebody in it, badly, this week. Say it mid-sentence if that is how it arrives. Do not prepare it, do not preface it, and let them interrupt.",
-      "core": "There is a place where a group's meaning got defined and you went quiet. You know the pattern underneath what gets repeated in that group — you can hear where the telling has worn thin — and you have not put any of that into words out loud. The insight did not disappear. It stopped moving between people, which is the only place shared meaning can live. Your private read on it is sound and unshared.\n\nWhat refills this is not more thinking from your armchair. It is contact — warmth carried through a real exchange, meaning that shifts because two people actually met. Take one piece of what the group holds and say it plainly to a person who cares about it too. Reach for what is emotionally true in the telling, not the clean version. That is what starts it running again.",
-      "sheetLine": "The understanding is intact. It just stopped being handed to anyone.",
-      "verb": "cutting through what a group takes for granted to the structure under it",
-      "place": "where meaning gets handed down between people and kept alive across time",
+      "tense": "The reasoning stood at the threshold of the shared thing, and the feet have stayed outside it.",
+      "act": "pursue the emotional truth with someone",
+      "ask": "Take one person from the shared thing aside and ask what a piece of it means to them today. Linger in the answer longer than feels necessary.",
+      "core": "You can see the shape of the shared tradition clearly. That has been true a while. What has stopped is standing inside it while you see it. The reasoning is still precise, maybe more than ever, but it is idle. The common meaning has gone flat to the touch even though the practice is still there and the people are still around. You can read what is written and have stopped being written into it.\n\nMore reading will not help. Find one person from it and ask what the ritual, the phrase, or the old habit means to them today, and let their answer stand without your correction. What someone actually feels about the thing they inherited is the living part of it, and that is heard better where it is spoken.",
+      "sheetLine": "You can still see the shape. You have not been inside it.",
+      "verb": "cutting through to the pattern underneath",
+      "place": "inside a shared tradition — the rituals, language, and inheritance you move within and pass on",
       "provenance": {
         "signature_id": 67,
         "position_id": 5,
@@ -97,14 +110,14 @@
         "partner": "Catalyst of Resonance",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -113,30 +126,26 @@
           "hard": false
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already rewriting how this group talks about itself, and you describe it as just being sensible.",
-      "ask": "Name one piece of shared language or habit you changed and have been calling obvious. Say to whoever follows it: this came from this work, here is why. Don't defend it, don't look for agreement. Stop the moment you've said both parts.",
-      "core": "You are quietly changing what this group believes — the words people now use, the story they repeat about themselves, the things nobody bothers to question anymore. That work is running, and it is running without your claim on it. In your own account, you simply reason well and people happen to agree. The shaping is not a side effect of your thinking. It is the work, and it is not being credited by you.\n\nThe way back is a smaller, earlier move: relation, not argument. You can hold a group's feeling and still stay one person in it — recognition without fusing, your truth next to theirs. Say what you changed, out loud, once. Not as a boast. As a return of the claim to the one who is doing it.",
-      "sheetLine": "You're already changing what this group believes. You call it being sensible.",
-      "verb": "cutting through what a group takes for granted to the structure under it",
-      "place": "where meaning gets handed down between people and kept alive across time",
+      "tense": "The cutting through to the pattern is happening here, and being impatient is the name you give it.",
+      "act": "hold space for what someone feels without fixing it",
+      "ask": "When someone in the shared thing tells you how they feel about it, hand them nothing useful. Let the feeling sit with the two of you a while.",
+      "core": "Around this shared thing — the tradition, the old language, what was handed down — you cut to the pattern before anyone finishes talking, and then you hand them the cleaned-up version. That is what you do with your mind. Being impatient is the name you give it, or not being a feelings person, or just trying to help. The clearing is happening. Other people are feeling something about it and getting the analysis instead, and they have noticed what they are not getting, even if they have not said so.\n\nWhat sits underneath the cutting is the ability to stay close to what moves through a group. Let it show unevenly. Keep one place your own, beside a person, where feeling is not useful to you and you do not pretend it is. That one small relation, where you stay, is where the use will come.",
+      "sheetLine": "You name it patience. They are feeling skipped over.",
+      "verb": "cutting through to the pattern underneath",
+      "place": "inside a shared tradition — the rituals, language, and inheritance you move within and pass on",
       "provenance": {
         "signature_id": 67,
         "position_id": 5,
@@ -145,39 +154,24 @@
         "partner": "Steward of Resonance",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
         {
           "code": "said",
           "detail": "5 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         }
       ]
@@ -186,32 +180,26 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6743,
+      "ms": 6207,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "ask 41 words (≤40)",
+          "detail": "core 173 words (120–160): long",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
           "hard": false,
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, room, current) — a parable, not a sentence to a person",
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 1
         },
@@ -223,56 +211,98 @@
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is doing quiet work every\"",
+          "detail": "the ask opens on \"Say\" — a speech act under a medicine that is not about people",
           "hard": true,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "ask 44 words (≤40)",
+          "detail": "core 170 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
           "code": "names",
-          "detail": "another card's name on glass: Clarity",
+          "detail": "another card's name on glass: Authority",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "history",
-          "detail": "\"for weeks\" — a cell knows no one's past",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
           "status": 2
         },
         {
           "code": "scope",
           "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set a boundary and hold it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you need to\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"the door closed\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (thread, current) — one at most, usually none",
-          "hard": false,
+          "detail": "3 images in one core (shape, door, room) — a parable, not a sentence to a person",
+          "hard": true,
           "status": 3
         },
         {
@@ -288,90 +318,89 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "ask 41 words (≤40)",
-          "hard": false,
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
           "hard": true,
           "status": 4
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "person",
-          "detail": "first person: \"me\" — a cell has no I; the Reader may add one live",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that the person already carries this capacity and it is running at these spots in their shared meanings — the record states the mechanism but not how it is showing up in their particular traditions. The reader could reasonably say the read is wrong because their situation involves a group where they are not the one holding the reasoning. The ask survives being wrong because it is one act doable in any condition and teaches something about what they do with meaning regardless. The sentence that serves me more than them is any line implying they are already authoring tradition with full awareness — I have cut those."
+      "check": "The unsupported claim is that the person's fast pattern-cutting is welcome in a shared tradition or is what makes the tradition work. The record only says a strategic, logic-cutting capacity is currently balanced, in a setting of shared meaning; a reader could reasonably say the cutting is aimed AT the tradition, or that the seat is where they work rather than where they belong. The ask survives being wrong because it doesn't depend on why they cut — it is the partner's own action, that they would otherwise do elsewhere. The sentence that serves the writer is 'the room keeps the shape you give it' — cut it."
     },
     {
       "attempt": 2,
-      "ms": 4615,
+      "ms": 4078,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "ask 41 words (≤40)",
+          "detail": "core 167 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
@@ -382,38 +411,50 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (room, thread, current) — a parable, not a sentence to a person",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set a boundary and hold it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -424,108 +465,119 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"The way back is\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"you call it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that this person is the one in each group holding the reasoning — the record gives the mechanism, not evidence of where it shows up in their particular circles. A reader could reasonably say the read is wrong because their situation is one where they are junior in the room or the shared meaning belongs to someone else. The ask survives being wrong because it is one act any person could do, and it teaches something about how meaning moves between people regardless. The sentence that serves me more than them is any line implying they already own this in their group with full awareness — I have cut those."
+      "check": "The unsupported claim is that the fast pattern-cutting is welcome in a shared tradition and has somewhere to land there. The record only says a strategic logic-cutting capacity is currently balanced, in a setting of shared meaning. A reader could reasonably say the cutting is aimed at the tradition, or that the seat is just where they work, not where they belong. The asks survive being wrong because each is the partner's own act, which they would otherwise do elsewhere; the sentence that serves the writer is 'the room keeps the shape you give it' — cut it."
     },
     {
       "attempt": 3,
-      "ms": 4114,
+      "ms": 4314,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set a boundary and hold it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -536,34 +588,133 @@
           "status": 3
         },
         {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "tense",
           "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
-          "status": 3
+          "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "ask 42 words (≤40)",
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"You call it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the fast pattern-cutting is welcome in a shared tradition and has somewhere to land there. The record only says a strategic logic-cutting capacity is currently balanced, seated in a setting of shared meaning. A reader could reasonably say the cutting is aimed at the tradition, or that the seat is simply where they work rather than where they belong. Three of the four asks survive being wrong because they are the partner's own acts, done small; the Too Little ask, though, depends on someone nearby answering honestly, so it is the one that could go empty. The sentence that serves the writer is 'the room keeps the shape you give it' — gone."
+    },
+    {
+      "attempt": 4,
+      "ms": 3582,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the refusal\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "said",
@@ -572,31 +723,134 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that this person is the one in each group holding the reasoning — the record gives the mechanism, not evidence of where it shows up in their particular circles. A reader could reasonably say the read is wrong because their situation is one where they are junior in the room or the shared meaning belongs to someone else. The ask survives being wrong because it is one act any person could do, and it teaches something about how meaning moves between people regardless. The sentence that serves me more than them is any line implying they already own the shared meaning outright — I have cut those."
+      "check": "The unsupported claim is that the fast pattern-cutting is welcome in a shared tradition and has somewhere to land there. The record only says a strategic logic-cutting capacity is currently balanced, seated in a setting of shared meaning. A reader could reasonably say the cutting is aimed at the tradition, or that the seat is simply where they work rather than where they belong. The asks survive being wrong because they are the partner's own acts, done small, and none of them depends on my read being right. The sentence that serves the writer is 'the room keeps the shape you give it' — gone."
+    },
+    {
+      "attempt": 5,
+      "ms": 3442,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"express yourself freshly with confidence\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"set a boundary and hold it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"pursue the emotional truth with someone\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that the fast pattern-cutting is welcome in a shared tradition and has somewhere to land there. The record only says a strategic logic-cutting capacity is currently balanced, seated in a setting of shared meaning. A reader could reasonably say the cutting is aimed at the tradition, or that the seat is just where they work rather than where they belong. The asks survive being wrong because they are the partner's own acts, done small, and none depends on my read being right. The sentence that serves the writer is 'the room keeps the shape you give it' — dropped."
     }
   ],
   "usage": {
-    "input": 3182,
-    "output": 3759
+    "input": 6423,
+    "output": 6490
   },
-  "hardOpen": 0,
-  "date": "2026-10-02T02:55:10.106Z"
+  "hardOpen": 2,
+  "date": "2026-10-02T13:16:51.192Z"
 }

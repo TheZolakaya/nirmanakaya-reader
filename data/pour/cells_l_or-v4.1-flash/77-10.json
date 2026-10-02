@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "This is here now, and this person is meeting it while the door is still open.",
-      "ask": "Take one thing that arrived this week and give it a shape today — a time, a place, or one small step for it.",
-      "core": "Something is coming in, and the person here is handling it as it comes. That is the whole position. The strength that builds is working the way it should: not straining ahead, not hanging back, just giving form to what shows up. In the middle of an ordinary day this is already happening. A problem gets a time set for it. A date gets written down. A thing that needs doing gets a first move. What arrives is received on purpose instead of piling up unhandled.\\n\\nThe other side of this is staying in touch with what is actually in front of them while they hold the line on something. The person in front of them still gets through. The feeling in the room still gets through. One way to keep that alive is to say out loud what just came in, even if it is small. Naming it counts as meeting it.",
-      "sheetLine": "What arrives gets a shape from this person, on purpose.",
-      "verb": "meeting what lands and giving it shape",
-      "place": "the threshold where what arrives comes in",
+      "tense": "What you have built has lines you already trust, and it takes what comes without bracing.",
+      "act": "ask how it feels to them and stay with the answer",
+      "ask": "Ask someone close how something landed for them, and stay for their answer instead of fixing it.",
+      "core": "You have a form here with lines you have tested with your hands, and that steadiness is what lets a new thing cross into your days without tipping you. When something enters now, you can tell what it is, because the foundation is quiet enough to hear it.\n\nThe next thing this balance can feed is other people. Most of what arrives comes through someone — a request, a feeling, a thing they need said. You don't have to fix it. Ask one real question about how something felt to them, and wait there while the answer finishes. What you built holds. This is where the strength shows what it is for.",
+      "sheetLine": "What comes in meets a form that holds.",
+      "verb": "holding the form while it is built",
+      "place": "at the threshold where what is arriving crosses in",
       "provenance": {
         "signature_id": 77,
         "position_id": 10,
@@ -26,14 +27,24 @@
         "partner": "Steward of Resonance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -45,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "They are building for a future that has not arrived, readying the door before it opens.",
-      "ask": "Pick one thing you are preparing for and leave its next step unplanned until tomorrow.",
-      "core": "The strength to meet what comes is running ahead of what is here. Something might arrive, and a plan is being built for it before it has shown up — a version of the future getting nailed down while the present waits. The building is real, the strength is real, and it is aimed at something that has not happened yet. Bracing takes the place of receiving. The same grip that holds something together is holding a future that cannot be written yet.\\n\\nUnderneath, the fear is usually that if it is not built in advance, it will land too hard. So the question becomes what is actually fair to what is coming. Fair means letting it have its own timing. Let one thing arrive tomorrow without having been built for today, and the strength gets something real to meet instead of something feared.",
-      "sheetLine": "They are building a future that has not arrived, and the building is all there is.",
-      "verb": "meeting what lands and giving it shape",
-      "place": "the threshold where what arrives comes in",
+      "tense": "You are bracing against a future that has no date, gripping the structure so it cannot shift.",
+      "act": "weigh what it costs them against what it gives",
+      "ask": "Before you give your next answer to someone, weigh what it offers them against what it takes from them, once.",
+      "core": "The grip has outrun the day it belongs to. You are building against arrivals you can only imagine, measuring every coming thing before it is here, and the structure has gone stiff with the effort. It feels like diligence. It reads as carrying more than the bench holds.\n\nYour own fairness is the way back, done at close range. Before you give one answer to one person, weigh what it offers them against what it takes — once, with a face in view, not a forecast. Deciding for someone standing here breaks the habit of deciding for a future nobody can read, and the day can be a day again.",
+      "sheetLine": "You are holding a future that hasn't arrived.",
+      "verb": "holding the form while it is built",
+      "place": "at the threshold where what is arriving crosses in",
       "provenance": {
         "signature_id": 77,
         "position_id": 10,
@@ -59,19 +71,24 @@
         "partner": "Executor of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
           "code": "refrain",
           "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
           "hard": false
         },
         {
@@ -83,12 +100,13 @@
     },
     {
       "status": 3,
-      "tense": "They are still standing at a door that is already behind them, holding what is finished.",
-      "ask": "Name out loud that one thing is done, then close it — put it away, mark it finished, tell one person it is over.",
-      "core": "The strength to meet what is arriving is there, but it is not being used at the threshold. Attention is still on something that already came in, and that attention has taken the place of receiving anything new. A finish has not been called, so the hands stay full of what is done. The person is here in the body, present, while the grip is on something that ended. Giving it an ending is part of giving it a shape.\\n\\nNothing needs to be pushed toward feeling here, and nothing needs to be forced open. What is needed is one completed thing, named as finished, out in the open where it can be seen. When something is truly called done, the hands come free for what is waiting outside. What has been standing there gets its chance to come in.",
-      "sheetLine": "They are at the threshold but still holding what already came through.",
-      "verb": "meeting what lands and giving it shape",
-      "place": "the threshold where what arrives comes in",
+      "tense": "You are standing at a door that has already opened and closed, holding strength as though it was spent.",
+      "act": "release what is done and keep what is not",
+      "ask": "Name one finished thing and set it aside from your week, keeping only the unfinished work within reach.",
+      "core": "The strength did not leave. It is being spent on a moment already behind you, and the body is still braced at a threshold already crossed, tired in a way rest does not reach. What is entering cannot show itself while both hands grip the old door.\n\nThis is not a push. Let one finished thing be finished — not filed, not hidden, simply done — and keep only what is still genuinely in your hands. The structure returns to what it was built for: living work, not memory. One set down, one kept close. That is how the charge comes back to a form that is already built.",
+      "sheetLine": "The strength is holding a door you already walked through.",
+      "verb": "holding the form while it is built",
+      "place": "at the threshold where what is arriving crosses in",
       "provenance": {
         "signature_id": 77,
         "position_id": 10,
@@ -97,14 +115,29 @@
         "partner": "Executor of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -113,8 +146,8 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -126,12 +159,13 @@
     },
     {
       "status": 4,
-      "tense": "This person is already giving shape to what arrives, and speaking as though it happens on its own.",
-      "ask": "Once today, catch something you shaped and say 'I did that' — name it as yours out loud, even to yourself.",
-      "core": "The shaping is already underway. What arrives gets met and given form — a time, a place, a way to proceed — and then the telling makes it sound as though it fell into place by itself. People around this person can see the shape and can feel the evenness of it, while the one doing the work keeps quiet about doing it. There is freshness in it too, because each thing that arrives makes its own demand.\\n\\nClaiming it takes one sentence, no speech. Say plainly that this thing has a shape because you gave it one. That is the whole move. When the claim catches up to what is already happening, the work gets its own name attached to it, and the person who did it gets to keep what they made.",
-      "sheetLine": "The shaping is already happening, and this person has not said it is theirs.",
-      "verb": "meeting what lands and giving it shape",
-      "place": "the threshold where what arrives comes in",
+      "tense": "You carry the structure so quietly that you would not call the carrying yours.",
+      "act": "start something for the spark of starting",
+      "ask": "Begin something with no purpose beyond beginning it, and don't put it on any list of what you owe.",
+      "core": "The building is steady and your name is not on it. People bring you the shape of things and walk away with it intact, and if asked, you would say it was the work needing doing. Under the quietly kept structure there is an appetite to make something that is not for anyone — the fire that was there before the plans. It has been handed to the role instead of to you.\n\nStart something with no reason that survives an audit. A sketch, a shelf, a route walked twice. It doesn't have to become anything. What gets returned is the fact that starting is yours to do, not only the care of what others began. That recognition does not need an announcement.",
+      "sheetLine": "Your building is carrying you out of your own sight.",
+      "verb": "holding the form while it is built",
+      "place": "at the threshold where what is arriving crosses in",
       "provenance": {
         "signature_id": 77,
         "position_id": 10,
@@ -140,24 +174,29 @@
         "partner": "Initiate of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false
         }
       ]
@@ -166,21 +205,27 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6409,
+      "ms": 5580,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "3 images in one core (door, shape, room) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (door, room) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "said",
+          "detail": "6 uncontracted to 1 contracted — written, not said",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let it stand\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -190,14 +235,20 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "code": "vocab",
+          "detail": "3 images in one core (door, bench, wall) — a parable, not a sentence to a person",
           "hard": true,
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, door, wall) — a parable, not a sentence to a person",
+          "code": "refrain",
+          "detail": "the \"tell one person\" ask — the house's favourite remedy (hard since 2026-10-02: 378 cells)",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
@@ -208,39 +259,33 @@
           "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty spot\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
           "status": 3
         },
         {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "3 images in one core (doorway, door, shape) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "9 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -251,7 +296,13 @@
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -262,45 +313,27 @@
           "status": 3
         },
         {
-          "code": "label",
-          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
-          "hard": true,
-          "status": 4
-        },
-        {
           "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
-          "code": "hunch",
-          "detail": "\"all along\" — a motive the cell cannot know",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
-          "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"talk about it as if\"",
-          "hard": true,
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -310,30 +343,34 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record says the card is Body-house, Seed, inner, with the tightest material range in the pack, and the seat is Source — the turn where what was outside comes in. The temptation is to say the person is already building something lasting, or is about to be handed a chance, and I can't know either of those from a card in a seat. A reader could say: this is just management advice about projects and decisions, and you don't know what's actually arriving for me. The ask survives being wrong because it's one small act of receiving or starting in something concrete that a camera could see, done today, and it doesn't depend on my reading being the true one. The sentence that serves me more than them is anything like 'the long-term structure is asking to be built' — it sounds deep and tells them nothing they can use."
+      "check": "The draft leans hardest on 'what's arriving' as if a threshold is certain when the record only says it is a turning point; it cannot claim an entrance is happening on schedule. A reader could reasonably say nothing is entering right now, or that they are mid-build rather than at a door. The asks survive because each is a small act done in the present of the seat, not conditional on my read being right. The sentence that serves me more than them is any line implying the timing itself has been confirmed, so I have kept every ask ordinary and sized to a day."
     },
     {
       "attempt": 2,
-      "ms": 5223,
+      "ms": 4018,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 161 words (120–160)",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 1
         },
@@ -344,14 +381,26 @@
           "status": 1
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "vocab",
-          "detail": "3 images in one core (door, wall, shape) — a parable, not a sentence to a person",
+          "detail": "4 images in one core (doorway, bench, threshold, wall) — a parable, not a sentence to a person",
           "hard": true,
           "status": 2
         },
@@ -368,15 +417,39 @@
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "vocab",
-          "detail": "3 images in one core (threshold, room, shape) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -386,8 +459,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -396,23 +469,35 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the steadiness\" — a verb turned into a mystical noun",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -422,24 +507,35 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record says Body house, Seed, inner, with the tightest material range in the pack, and the seat is Source — the turn where what was outside comes in. I still cannot know that anything specific is arriving for this person, or that they are already finishing something, or that they have shaped anything this week; a card in a seat is not a report on their week. A reader could say: this is just management advice about projects, and you don't know what's actually arriving for me. The ask survives being wrong because it is one small concrete act a camera could see, done today, that does not depend on my read being the true one. The sentence that serves me more than them is any variation on 'the long-term structure is asking to be built' — it sounds deep and hands them nothing."
+      "check": "The draft still assumes a threshold is actively occurring when the record only names the seat as a turning point; a reader could say nothing is arriving and they are simply mid-build. The asks survive that objection because each is an ordinary act done where the person already stands. The line that serves the writer more than them is any implying the timing has been confirmed, so the cores stay off that claim."
     },
     {
       "attempt": 3,
-      "ms": 3985,
+      "ms": 3394,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -448,6 +544,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (doorway, bench, wall) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "said",
@@ -462,15 +570,39 @@
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "vocab",
-          "detail": "3 images in one core (threshold, room, shape) — a parable, not a sentence to a person",
-          "hard": true,
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
           "status": 3
         },
         {
@@ -480,8 +612,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -492,8 +624,26 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "\"the keeping\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -504,24 +654,41 @@
           "status": 4
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record gives me Body house, Seed, inner, tightest material range, and the seat Source — the turn where what was outside comes in. I cannot know that anything specific is arriving for this person, that they are finishing something, or that they shaped anything this week. A reader could say this is management advice and I don't know their situation. The ask survives being wrong because it is one visible act done today, independent of my read. The sentence that serves me more than them is any variation on 'the long-term structure is asking to be built' — deep-sounding, useless."
+      "check": "The draft still leans on a threshold actively occurring when the record only names the seat as a turning point; a reader could say nothing is arriving and they are mid-build. Each ask survives that because it is an ordinary act done where the person already stands. The line serving the writer more than them is any implying the timing is confirmed, so every core stays off that claim."
     },
     {
       "attempt": 4,
-      "ms": 3436,
+      "ms": 3981,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the answer\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -530,6 +697,18 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "3 images in one core (bench, doorway, wall) — a parable, not a sentence to a person",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "said",
@@ -544,14 +723,38 @@
           "status": 2
         },
         {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (threshold, shape) — one at most, usually none",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -562,8 +765,8 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
@@ -574,31 +777,167 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record gives me Body house, Seed, inner, the tightest material range, and the seat Source — the turn where what was outside comes in. I cannot know that anything specific is arriving for this person, that they are finishing something, or that they shaped anything this week. A reader could say this is management advice and I do not know their situation. The ask survives being wrong because it is one visible act done today, independent of my read. The sentence that serves me more than them is any variation on 'the long-term structure is asking to be built' — deep-sounding, useless."
+      "check": "The draft keeps implying that something is arriving right now, when the record only names the seat as a turning point; a reader could say nothing is entering and they are simply mid-build, and each ask survives that because it is an ordinary act done where the person already stands. The line serving the writer more than them is any hint that the timing itself is confirmed, so no core asserts an entrance is under way. The sentence that serves me is the one that treats the future-bracing cell as if the grip were nobler than it is."
+    },
+    {
+      "attempt": 5,
+      "ms": 5019,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 111 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (threshold, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"start something for the spark of starting\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft keeps implying something is arriving right now, when the record only names the seat as a turning point; a reader could say nothing is entering and they are mid-build, and each ask survives that because it is an ordinary act done where the person already stands. The line serving the writer more than them is any hint that the timing is confirmed, so no core asserts an entrance is under way. The sentence that serves me is the one treating the future-bracing cell as if the grip were nobler than it is."
     }
   ],
   "usage": {
-    "input": 4618,
-    "output": 4917
+    "input": 9153,
+    "output": 5467
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:04:33.878Z"
+  "date": "2026-10-02T12:43:08.094Z"
 }

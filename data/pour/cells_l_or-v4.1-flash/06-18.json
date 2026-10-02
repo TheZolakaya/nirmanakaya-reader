@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now you can sit with someone else's feeling and still know where you end.",
-      "ask": "Offer to sit with one person this week, and while you're there keep track of where their feeling stops and yours starts.",
-      "core": "The room isn't dark and it isn't lit. You've got enough to see the next few steps and not the shape of the whole thing, and you're not standing around waiting for the rest to arrive. You move when the next stretch shows itself, and you let the rest stay unknown.\n\nThat's how it works with people too. Someone brings you something half-finished -- a story they can't end, a mood they can't name -- and you don't rush them into a shape. You stay close, and you stay yourself. You're not pretending to feel it with them, and you're not backing off into politeness either. Something in you stays put while their feeling moves, and they can feel the difference. Keep a little of that steadiness in reserve when the week gets loud.",
-      "sheetLine": "You sit with it and stay yourself. That's the whole thing.",
-      "verb": "feeling with people and staying distinct",
-      "place": "in the middle of not knowing how it goes",
+      "tense": "You are here right now, with the pen, in the half-lit place where the road stays hidden.",
+      "act": "hold your shape under the weight",
+      "ask": "This week, a conversation that's been heavy — stay yourself in it, say what you actually think, and leave their version standing without adopting it.",
+      "core": "You can feel what someone else is feeling without disappearing into it. You stay on your own side of the line and still get close, and the closeness reads truer for that. You don't need the road mapped to take the next step toward somebody. Enough light shows up when you're near them.\n\nThe move that grows it: stay yourself in a conversation that's been carrying weight. Say what you actually think, hear their version, let it stand without taking it on. Holding your shape while someone else holds theirs isn't distance you're keeping. It's what makes the meeting real. Do it once this week, in a talk you'd normally bend in, and notice after what stayed yours.",
+      "sheetLine": "You stay close and stay yourself.",
+      "verb": "feeling with someone instead of only feeling about them",
+      "place": "in the low light where the next step shows itself and the whole road doesn't",
       "provenance": {
         "signature_id": 6,
         "position_id": 18,
@@ -26,24 +27,24 @@
         "partner": "Fortitude",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -55,12 +56,13 @@
     },
     {
       "status": 2,
-      "tense": "You're already living in how it will feel when this goes wrong for someone you care about.",
-      "ask": "When you catch yourself rehearsing someone's pain tonight, write down what's actually happening now, and let one thing end because it already has.",
-      "core": "Before anything has happened, you're already in it -- you can feel how bad it's going to be for them, how it will land, what you'll have to hold. The future is crowded and no one has arrived there yet. You meet people from inside that rehearsal, and they can feel you somewhere else.\n\nYou're not indifferent. You're too far in. You take on a friend's unexplained silence as if it were written to you, and by the time they speak you've already carried the whole ending. That's not steadiness; that's being everywhere at once. Sometimes something is genuinely over and you keep it open because closing it feels cruel -- the story stays alive on fumes. What ends was real and already ending. Let the thing that has finished actually finish, then see how much of it is still yours to feel.",
-      "sheetLine": "You keep carrying endings that haven't happened yet.",
-      "verb": "feeling with people and staying distinct",
-      "place": "in the middle of not knowing how it goes",
+      "tense": "You are bracing for a future you keep trying to write before it arrives.",
+      "act": "let the thing end that is already over",
+      "ask": "Somewhere between you and another person, a version has finished but you keep returning to it. Mark its ending once — a line in a notebook, a folded page — and don't reopen it.",
+      "core": "Near other people, the line between you and them has gone soft. You pick up what they're feeling and it becomes yours — you carry moods and worries and plans that aren't from your own life, and from inside it's hard to say where you stop. Care this wide stops being something you give and becomes something done to you both.\n\nSome of what you're holding is already over. A version of a relationship, an old arrangement, a way you two used to be — it ended, and you've kept it alive by not marking it. Let that version end. A line in a journal or a folded-up page will do. The space it frees is where the next real thing with that person can stand — not the imagined one, the actual one.",
+      "sheetLine": "Holding on to what's over isn't the same as holding them.",
+      "verb": "feeling with someone instead of only feeling about them",
+      "place": "in the low light where the next step shows itself and the whole road doesn't",
       "provenance": {
         "signature_id": 6,
         "position_id": 18,
@@ -69,14 +71,19 @@
         "partner": "Transformation",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -88,12 +95,13 @@
     },
     {
       "status": 3,
-      "tense": "You went quiet in order to keep the peace, and you're still standing at that door.",
-      "ask": "Tell one person one true thing about how you're doing, and stop there. No follow-up questions, no fixing, just say it and let it sit.",
-      "core": "Conversations run smoothly and nothing reaches you. You know how to be warm enough that no one asks -- you keep your side light and you don't lean in, and that's been a way of getting through. You're still doing it now. The people around you get the surface and you get the surface too, and nobody says anything about it.\n\nYou can't order feeling back, and you can't force your way to caring. What you can do is get steady again -- not by feeling more, but by feeling straight. That means knowing what's actually yours in a room, what's theirs, what you're carrying by accident. Tell one person one true thing about how your day went, no performance, no summarising. Say it and let them do what they do with it. Your side of the room gets a little more solid just by being occupied out loud.",
-      "sheetLine": "You kept the peace by leaving the room. You can come back.",
-      "verb": "feeling with people and staying distinct",
-      "place": "in the middle of not knowing how it goes",
+      "tense": "You are still standing at a door that closed behind you some time back.",
+      "act": "add a little or take a little away, and sense the difference",
+      "ask": "Take a small thing you already do with someone — a question, a check-in, a hand on a shoulder — and this week add one more of it, or drop one. Notice what shifts.",
+      "core": "Staying near people has gone flat. You can be present, say the right things, and feel nothing arrive — and after that you stop expecting it to. The distance between you and others doesn't move much. The door you're standing at is one you already walked through. You're just still holding the handle.\n\nNo one orders feeling back. It returns through adjustments, one at a time. Take something you already do when you're with someone, add a little of it or take a little away — one more question, one fewer, one honest sentence where you'd normally nod — and check what shifted in you and between you. You're not trying to feel more. You're testing the dial, letting the difference teach you where you are. Then stop for the week.",
+      "sheetLine": "Feeling returns through small adjustments, not through deciding to feel.",
+      "verb": "feeling with someone instead of only feeling about them",
+      "place": "in the low light where the next step shows itself and the whole road doesn't",
       "provenance": {
         "signature_id": 6,
         "position_id": 18,
@@ -102,19 +110,24 @@
         "partner": "Tune",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false
         },
         {
@@ -126,12 +139,13 @@
     },
     {
       "status": 4,
-      "tense": "You're steady with people in a way others notice, and you treat it as just being sensible.",
-      "ask": "Name one thing you did this week that held someone steady, and call it care instead of getting it done.",
-      "core": "Someone's had a rough day, and you check in before you've thought about it. You lift the weight off them without being asked, you stay in the room when leaving would be easier. Anyone close to you could describe this about you faster than you could.\n\nThat's the part you keep stepping past -- not out of cruelty, but because you've decided that's not a thing you do, feelings being shaky ground and all. You file it under practical, reliable, easy to have around. Those are real. They're just the outside of something else you haven't named. You don't have to start feeling more to make it true. Notice one instance where you showed up for someone, and say out loud that it was care.",
-      "sheetLine": "People already feel it. You've not once said it's yours.",
-      "verb": "feeling with people and staying distinct",
-      "place": "in the middle of not knowing how it goes",
+      "tense": "You are writing in a room and calling the pen somebody else's.",
+      "act": "see how it works underneath, apart from this instance",
+      "ask": "Think of three recent times you went flat or distant with someone, and look only at the shape they share — what sets it off, what the pulling-away does. Notice it, change nothing.",
+      "core": "You go distant with people and you'd call it just how you are. But something keeps happening in those moments — the flatness arrives on a schedule, and the version of you that reaches others reads as cool. From inside, you'd say you felt nothing. That's the honest report from where you sit, and it isn't the whole picture.\n\nBefore you try to fix it, look at how it works. Three recent times you went flat or far away with somebody — what set each one off, what the going-away did for you. Don't touch the pattern yet. Just see its shape once: what it protects, what it costs. Naming how a thing runs, apart from any single instance, is what lets it stop running you. Notice it this week and change nothing.",
+      "sheetLine": "The distance you'd call your nature has a shape you can see.",
+      "verb": "feeling with someone instead of only feeling about them",
+      "place": "in the low light where the next step shows itself and the whole road doesn't",
       "provenance": {
         "signature_id": 6,
         "position_id": 18,
@@ -140,11 +154,21 @@
         "partner": "Abstraction",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see how it works underneath apart from this instan\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "tense",
           "detail": "the tense sentence does not read as Unacknowledged's time",
@@ -161,32 +185,26 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 8542,
+      "ms": 9442,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"that's the whole of it\"",
           "hard": true,
           "status": 1
         },
@@ -198,7 +216,371 @@
         },
         {
           "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see how it works underneath apart from this instan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The draft risks asserting that others visibly feel the person's compassion while the person feels nothing — I softened it to what the person themselves notices going missing, since that inner flatness is the record's claim and the others' experience is not knowable from outside. A reader could reasonably say the distance they keep is simple preference or tiredness, not compassion run underground; the asks survive that because each one is something they can do alone, in their own week, and learn from either way. The sentence that serves me more than them is the one about others feeling warmth they don't — cut it."
+    },
+    {
+      "attempt": 2,
+      "ms": 4944,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let the other\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see how it works underneath apart from this instan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim I cut: that others visibly feel the person's compassion while the person feels nothing — inner flatness is what the record gives me and what the person can verify, so that is what I render. A reader could reasonably say the distance they keep is preference or plain tiredness, not compassion run underground; each ask survives that because it is a small thing done in their own week that teaches them something either way. The sentence that serves me more than them was the one about others feeling warmth they don't — it flattered the reading rather than describing them, and it is gone."
+    },
+    {
+      "attempt": 3,
+      "ms": 5952,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let that version\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see how it works underneath apart from this instan\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The claim I cannot support from the record is that other people register this person's warmth while the person feels nothing — inner flatness is what the record actually gives me, and it is what the person can check themselves, so that is what I render. A reader could reasonably say the distance they keep is preference or plain tiredness rather than compassion running underground; each ask survives that because it is small, self-contained, and teaches them something either way. The sentence that flattered the reading rather than describing them — others feeling warmth they don't — was cut, and what remains is the person's own side of it."
+    },
+    {
+      "attempt": 4,
+      "ms": 6022,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold your shape under the weight\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let the thing end that is already over\") — read it: is it that act made small?",
           "hard": false,
           "status": 2
         },
@@ -210,91 +592,15 @@
         },
         {
           "code": "wound",
-          "detail": "\"There was a time\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "\"some time back\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't called\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person feels nothing while others feel their compassion — the record states this, but the person may simply call it being private, busy, or fair, and the reading should stay useful if so. Reader's likely objection: 'I do feel close to people, I just don't show it' — the cell narrows to what a camera could see rather than ruling on their inner life. The ask survives being wrong because noticing or naming what arrives on its own is useful even if the read is off. The sentence that serves me more than them would be any line about how people secretly feel their warmth — cut; others' experience stays out of it."
-    },
-    {
-      "attempt": 2,
-      "ms": 4400,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 3
         },
         {
           "code": "refrain",
@@ -303,27 +609,21 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't called\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you call it being practical\"",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"see how it works underneath apart from this instan\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
@@ -339,259 +639,13 @@
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person feels nothing while others feel their compassion — the record states this, but the person may simply call it being private, busy, or fair, and the reading should stay useful if so. Reader's likely objection: 'I do feel close to people, I just don't show it' — the cell narrows to what a camera could see rather than ruling on their inner life. The ask survives being wrong because taking one beat from a day and letting it stand beside the other person's is useful even if the read is off. The sentence that serves me more than them would be any line about how people secretly feel their warmth — cut; others' experience stays out of it."
-    },
-    {
-      "attempt": 3,
-      "ms": 4609,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person feels nothing while others feel their compassion — the record states this, but the person may simply call it being private, busy, or fair, and the reading should stay useful if so. Reader's likely objection: 'I do feel close to people, I just don't show it' — the cell narrows to what a camera could see rather than ruling on their inner life. The ask survives being wrong because doing one visible thing for someone is useful even if the read is off. The sentence that serves me more than them would be any line about how people secretly feel their warmth — cut; others' experience stays out of it."
-    },
-    {
-      "attempt": 4,
-      "ms": 4397,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person feels nothing while others feel their compassion — the record says this, but they may simply keep a private face, and the cell should stay useful if they disagree. Reader's likely objection: 'I do feel close, I just don't show it' — so the cell describes what someone watching would see and leaves the inside alone. The ask survives being wrong because naming one thing you did is useful whatever the read; the line that served me rather than them was any claim about how others secretly feel their warmth, and it is cut."
-    },
-    {
-      "attempt": 5,
-      "ms": 3926,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, shape) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that others feel the person's compassion while the person feels nothing — the record says so, but the person may simply keep their warmth unspoken, and the cell should stay useful if they disagree. Reader's likely objection: 'I do feel close, I just don't show it' — so the cell stays on what someone watching would see and leaves the inside alone. The ask survives being wrong because noticing one act you did for someone is useful whatever the read is; the line that served the writer more than the person was any claim about how others secretly feel their warmth, and it is cut."
+      "check": "The claim I can't support from the record is that others register this person's warmth while the person feels nothing — inner flatness is what the record actually gives me, and it's what the person can verify themselves, so that's what I render. A reader could reasonably say the distance they keep is preference or plain tiredness rather than compassion running underground; each ask survives that because it's small, self-contained, and teaches them something either way. The sentence that flattered the reading rather than describing them — others feeling warmth they don't — is cut."
     }
   ],
   "usage": {
-    "input": 5549,
-    "output": 6098
+    "input": 7806,
+    "output": 5036
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:00:27.032Z"
+  "date": "2026-10-02T11:25:27.939Z"
 }

@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the pen, and what you are making is already being passed around.",
-      "ask": "Finish one piece today and show it to someone before the feeling cools.",
-      "core": "You're right here with what you're making, and you're not making it alone. Something you've built goes out and lands with people, and the joy in that comes back multiplied. Not because you asked for it — because you showed it. The making and the handing over are one motion, and you move between them without a lot of drama.\n\nThat sharing does real work. It's not decoration on the creation; it's how the made thing crosses to someone else. Go on joining the moment when someone shows up for what you made. One person, one reaction, one yes. You finish something, you hand it over, and you let the pleasure of that count.",
-      "sheetLine": "You make it, you share it, the joy multiplies",
-      "verb": "Sharing the joy of something made until it multiplies",
-      "place": "Where what is made is joined and released",
+      "tense": "Right now, with the pen in hand, the joy is here and it is being passed around.",
+      "act": "gather the scattered thoughts into one line",
+      "ask": "Before the next finished thing leaves your hands, pull what's been rattling around your head about it down to a single sentence — what it actually meant to you — and keep that sentence for a beat before you pass anything on.",
+      "core": "You can feel something good and hand it straight to other people — a win, a finished piece, news that lifts you — and instead of that thinning the good feeling, it multiplies. What you finish lands shared. The moment doesn't have to be solemn; the meaning is in how it spreads, not in how it's marked.\n\nThe bend is small: some of that good feeling gets spent before you've named what it was to you. Before the next finished thing goes anywhere, pull what's been rattling around your head about it down to one sentence — what it actually meant — and sit with that sentence for a beat. What you do with it after is yours to decide.",
+      "sheetLine": "What you finish, you hand over, and the good multiplies.",
+      "verb": "sharing the joy of something out loud until it belongs to everyone in the room",
+      "place": "the place where what is finished gets sent out as it is",
       "provenance": {
         "signature_id": 44,
         "position_id": 21,
@@ -26,14 +27,19 @@
         "partner": "Reconciliation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 113 words (120–160)",
+          "detail": "core 116 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -42,20 +48,21 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a reception that has not happened yet, and it shapes every choice you make.",
-      "ask": "Finish the smallest unfinished thing today and tell no one it's done.",
-      "core": "You're looking at what you're making and already imagining the room it will land in — who will see it, what they'll say, whether it will be enough. The celebration hasn't happened. You're living in the imagined version of it, and making has started to feel like performing for a crowd that isn't in the room.\n\nThe strain takes back the thing you wanted the sharing for. The joy is in the making itself, not the applause. Done right, this looks like finishing small things for no audience and letting that be enough. One finished piece, nobody told, today. Let that be the whole of it.",
-      "sheetLine": "You're bracing for applause instead of finishing what you're making",
-      "verb": "Sharing the joy of something made until it multiplies",
-      "place": "Where what is made is joined and released",
+      "tense": "By the time it is finished, the sharing will already be running several steps ahead of the thing itself.",
+      "act": "commit to the long build and do today's part",
+      "ask": "Pick the build that matters most and do only today's part of it — decide nothing about how it will be received, who will hear it, or when it lands.",
+      "core": "There's a point where a finished thing stops being finished and starts being an event — and you're living there already, bracing for the launch, the room, how it will land, while the thing itself is still being made. The joy is real. It's just being spent on a day that hasn't arrived, so the work at hand gets treated like a prelude instead of the actual thing.\n\nPick the build that matters most and do today's part of it — only today's part. Nothing gets settled about the launch, the listeners, or what they'll say. Keeping the work here costs you the early applause, and it will feel slower than you want. The build is what makes the sharing worth anything.",
+      "sheetLine": "You rehearse the room before the work is made.",
+      "verb": "sharing the joy of something out loud until it belongs to everyone in the room",
+      "place": "the place where what is finished gets sent out as it is",
       "provenance": {
         "signature_id": 44,
         "position_id": 21,
@@ -64,16 +71,11 @@
         "partner": "Commitment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false
-        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -83,12 +85,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped showing what you made at some point, and you are still standing at that door.",
-      "ask": "Write one true sentence about what you're working on and let one person read it.",
-      "core": "You still know how to make things. What's gone quiet is the sharing. Putting your work in front of people stopped feeling worth it, and you've been making in private ever since. Keeping it back looks like focus, but it's really a door closing. The work itself didn't stop — only the part where someone else gets to see it did.\n\nThe making isn't finished until it's handed to someone, even imperfectly. When you're on, you make something and you put it in front of a person and you let that be the point, and the room gets easier. You don't need a whole audience. One person, one sentence, today. The door can open without a crowd on the other side.",
-      "sheetLine": "You're building in private and calling it focus",
-      "verb": "Sharing the joy of something made until it multiplies",
-      "place": "Where what is made is joined and released",
+      "tense": "The joy was here once, and the sharing stayed on the far side of a door already shut.",
+      "act": "read the hardest page of it twice, slowly, before you stop",
+      "ask": "Go back through the hardest page of whatever you're working on, slower than feels natural, and read it a second time before you set it down — no notes, no fixing.",
+      "core": "Where this should be alive — something finished, something worth raising your voice for — the sharing has thinned. What you know, you keep private; what's done gets filed quietly, as though marking it would spend it. The ability to make a thing mean something to a room is still in you. Lately it isn't reaching the room.\n\nGoing at it with more force won't restore it. Go back through the hardest page of whatever you're working on, slower than feels natural, and read it a second time before you set it down. No notes, no fixing — just the second pass, where the same words have to hold up twice. Understanding returns through that kind of contact first, and contact starts with one thing at a time.",
+      "sheetLine": "The meaning stays inside you, unspoken.",
+      "verb": "sharing the joy of something out loud until it belongs to everyone in the room",
+      "place": "the place where what is finished gets sent out as it is",
       "provenance": {
         "signature_id": 44,
         "position_id": 21,
@@ -97,21 +100,11 @@
         "partner": "Immersion",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false
-        },
         {
           "code": "refrain",
           "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
@@ -121,17 +114,23 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You keep the pen down on something you are already giving away, and you call it something else.",
-      "ask": "Name one thing you've made that other people are already using.",
-      "core": "What you built is out there, moving through other people's hands, shaping how they do things. You describe that as if it happened on its own — luck, timing, the work being obvious. But you chose what to make and how to put it out, and that choosing was the work, and it was yours. The rest followed from it.\n\nThat is a celebration whether you named it or not. The making is yours, and the sharing is yours, and the joy that comes back is the receipt. Say out loud that one thing came from you. It doesn't need a ceremony or a claim on everything. One honest sentence is enough.",
-      "sheetLine": "You're already shared. You just haven't claimed it",
-      "verb": "Sharing the joy of something made until it multiplies",
-      "place": "Where what is made is joined and released",
+      "tense": "The joy being passed around was made by you, and you are not the one it's credited to.",
+      "act": "sort the pieces into a shape you can act on",
+      "ask": "Take the thing you finished and showed people how to use, and next time you explain it, add one plain line about how it got here — yours, matter-of-fact, to one person.",
+      "core": "You finish things and set them down where people can pick them up, and the picking up is what gets talked about. The taste, the timing, the choices that made the thing land — those came from you, and the story has been left to whoever speaks first. You're standing right there. The name on it isn't.\n\nTake the thing you finished and showed people how to use, and next time you explain it, add one plain line about how it got here — just one, to one person, matter-of-fact. No credit speech. You may find the sentence smaller than you feared; the point is that its author says it once.",
+      "sheetLine": "You set it down, and someone else says who made it.",
+      "verb": "sharing the joy of something out loud until it belongs to everyone in the room",
+      "place": "the place where what is finished gets sent out as it is",
       "provenance": {
         "signature_id": 44,
         "position_id": 21,
@@ -140,19 +139,29 @@
         "partner": "Reconciliation",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 111 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -161,15 +170,161 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4621,
+      "ms": 6331,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
           "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"scattered thoughts into one line\" — say the act in the person's words",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"it twice slowly before you\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"harder won't bring it back\"",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "label",
+          "detail": "a semicolon in the sheet line — two beats stitched; carry one",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"thing\") — four asks, four verbs (prompt m)",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is that this person has ever taught, hosted, or carried a group's shared meaning — the record gives capacity, not history, so each core stays inside one recognisable moment instead of naming an event. The reader could reasonably say the joy is quieter than I describe, or that nothing communal is involved; every ask is a solo thinking act, so it stands even if that's true. The sentence that serves me rather than them is the symmetry of 'an ending that opens instead of closing' — it is beautiful but it tells the person what their finishing is for, so it stays out of the cores."
+    },
+    {
+      "attempt": 2,
+      "ms": 4775,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 1
         },
         {
@@ -185,52 +340,16 @@
           "status": 1
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"gather the scattered thoughts into one line\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the pushing is costing you\"",
-          "hard": true,
-          "status": 2
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
@@ -245,401 +364,43 @@
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 97 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already making\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you talk about it as\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record asserts joy wants to be shared and that this card opened the capacity for communal celebration, but it cannot tell me what actually gets celebrated here — the maker's own finished thing, or the gathering around it. A reader could reasonably say they are not joyful at all and that the word misses them. The ask is still useful if the read is wrong: it is a small act of joining a moment already happening, valuable whether or not celebration is their capacity. The sentence that serves me more than them is any line implying they have something worth passing on and are failing to pass it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3851,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is costing you the thing\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
           "code": "length",
-          "detail": "core 101 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "\"You're already making\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sort the pieces into a shape you can act on\") — read it: is it that act made small?",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record says joy here wants to be shared and that this card opened the capacity for communal celebration, but it cannot tell me whether what gets celebrated in this seat is the maker's finished thing or the gathering that forms around it — creation here means completion that gets released, not necessarily applause. A reader could reasonably say they aren't joyful at all and that the word misses them entirely. The ask survives being wrong: joining a moment already happening is worth doing whether or not celebration is their capacity. The sentence that serves me more than the person is any line implying they have something worth passing on and are failing to pass it."
-    },
-    {
-      "attempt": 3,
-      "ms": 2952,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 96 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says joy here wants to be shared and that this card opened the capacity for communal celebration, but it cannot tell me whether what gets celebrated in this seat is the maker's finished thing or the gathering that forms around it — creation here means completion that gets released, not necessarily applause. A reader could reasonably say they aren't joyful at all and that the word misses them entirely. The ask survives being wrong: joining a moment already happening is worth doing whether or not celebration is their capacity. The sentence that serves me more than the person is any line implying they have something worth passing on and are failing to pass it."
-    },
-    {
-      "attempt": 4,
-      "ms": 3052,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 112 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says joy here wants to be shared and that this card opened the capacity for communal celebration, but it cannot tell me whether what gets celebrated in this seat is the maker's finished thing or the gathering that forms around it — creation here means completion that gets released, not necessarily applause. A reader could reasonably say they aren't joyful at all and that the word misses them entirely. The ask survives being wrong: joining a moment already happening is worth doing whether or not celebration is their capacity. The sentence that serves me more than the person is any line implying they have something worth passing on and are failing to pass it."
-    },
-    {
-      "attempt": 5,
-      "ms": 3091,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 105 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (door, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"calling it focus\" — the relabel is Unacknowledged's own shape; here it is a hunch",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record says joy wants to be shared and that this card opened the capacity for communal celebration, but it cannot tell me whether what gets celebrated is the maker's finished thing or the gathering around it. A reader could reasonably say they aren't joyful at all and the word misses them. The ask survives being wrong: handing one piece to one person is worth doing whether or not celebration is their capacity. The sentence that serves me more than the person is any line implying they have something worth passing on and are failing to pass it."
+      "check": "The unsupported claim is that this person has ever hosted, taught, or carried a group's shared meaning out loud — the record gives a capacity, not a history, so each core stays inside one recognisable moment and names no event. The reader could reasonably say nothing communal is involved and the joy is quieter than I describe; every ask is a solo act of thinking, so it stands even if that's true. The sentence that serves me rather than them is the neat symmetry of an ending that opens — it flatters the writing and tells the person what their finishing is for, so it stays out."
     }
   ],
   "usage": {
-    "input": 4853,
-    "output": 4973
+    "input": 5216,
+    "output": 2369
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:35:52.557Z"
+  "date": "2026-10-02T12:09:18.950Z"
 }

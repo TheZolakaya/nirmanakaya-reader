@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here, pen down, letting what has finished finish.",
-      "ask": "Tell one person, plainly, what you accepted as finished this month, and what you are leaving open for that to become. Say only what you choose.",
-      "core": "From where you stand you can take in the whole shape at once, and that is not the same as judging it. What is over reads as over to you, not as a verdict and not as an escape. You are not closing things to feel clean; you are letting them finish, and you trust that what comes after can be met. That is a quiet thing you carry, and it reaches the people around you in how you hold a room.\nFairness is doing something real here: what you have carried and what you are willing to put down are getting even, and the exchange happens in flow rather than by calculation. Say what has finished out loud. Let the renewal arrive on its own timing.",
-      "sheetLine": "You can see what is ending. Say it and let renewal in.",
-      "verb": "ending what has finished so something else can start",
-      "place": "where you can see the whole shape",
+      "tense": "You are standing where the whole shape is visible, and the ending is being honored with the pen still in your hand.",
+      "act": "let an exchange flow both ways",
+      "ask": "Take what someone offers this week without adding anything back for a while, and watch what that stirs in you when the exchange tilts your way.",
+      "core": "You can see the full pattern of something from here, and you are letting what is done be done. Not with drama or a speech — just the plain acknowledgment that a season has finished and what comes next has room to start. Endings move through you from felt certainty rather than from a fear wearing the name of freedom, and you trust what is on the other side of the close. The ordinary exchanges keep moving in both directions without needing to announce themselves.\n\nThat ease holds because you keep giving and receiving in proportion — accepting what is offered, handing back what you can, and stopping there. Take what someone offers this week without adding anything back for a while, and watch what that stirs in you when the exchange tilts your way.",
+      "sheetLine": "You can see a season finish and not hold it open.",
+      "verb": "Ending what has run its course so renewal can begin",
+      "place": "At a vantage where all of it can be seen at once",
       "provenance": {
         "signature_id": 13,
         "position_id": 20,
@@ -26,24 +27,19 @@
         "partner": "Equity",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
@@ -52,20 +48,21 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are already in the next upheaval, ending things before they can live.",
-      "ask": "Pick one thing you were about to end today and hold it one more week. Let someone in that situation see your face when you tell them why.",
-      "core": "Every ending feels urgent, like the whole shape depends on getting ahead of it. Somewhere out there is a version where this is finally clear and you can rest, and you are living in that version instead of this one. The people beside you get a decision instead of you, and the closing keeps costing the thing it was meant to protect. Ending early is one more way of not arriving.\nCompassion here is contact, not softness — let someone feel your actual state rather than a summary of what you have decided. Stay with one person long enough to know what they are carrying before you clear the table. The push to release early is fear wearing freedom's coat, and it reads plainly from outside.",
-      "sheetLine": "You are ending early to dodge the weight of staying.",
-      "verb": "ending what has finished so something else can start",
-      "place": "where you can see the whole shape",
+      "tense": "A future is being braced against before it exists, and endings are being forced before anything has had time to live.",
+      "act": "stay in contact while it is hard",
+      "ask": "When someone close to you is in a hard stretch, keep talking with them through it rather than steering toward the resolution.",
+      "core": "Where you see the whole pattern, you also see the next ending before it has happened, and you clear things out early to keep ahead of what might hurt. The clearing starts to feel like the point. What was built to make room for renewal is cutting before the fruit is ripe. Staying close to someone while it is genuinely difficult, without steering toward the fix, is not softness; it is letting another person be reached by what they carry while you keep your own side.\n\nWhen someone close to you is in a hard stretch, keep talking with them through it rather than steering toward the resolution.",
+      "sheetLine": "You end things early to keep from being caught.",
+      "verb": "Ending what has run its course so renewal can begin",
+      "place": "At a vantage where all of it can be seen at once",
       "provenance": {
         "signature_id": 13,
         "position_id": 20,
@@ -74,47 +71,19 @@
         "partner": "Compassion",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 3,
-      "tense": "You were standing at a door that had already closed behind you.",
-      "ask": "Pick one object tied to something already finished and take it out of your space today. Ask one person to walk through that room with you and tell you what shifted.",
-      "core": "Something has ended and you keep it where it was. You pass it every morning and call that steadiness. From outside it looks like loyalty, but the pattern you are known for spotting has gone cloudy around this one spot, and direction has nothing to run on while that space stays warm. The finished thing takes up room that something new would need.\nChoose one object tied to what is over and move it out today. Let one person walk through that room with you and say what they notice. This is not about pushing feeling into a place that has gone quiet; it is one motion, small and concrete, so you can see again on your own.",
-      "sheetLine": "You keep a finished thing in place and call it steady.",
-      "verb": "ending what has finished so something else can start",
-      "place": "where you can see the whole shape",
-      "provenance": {
-        "signature_id": 13,
-        "position_id": 20,
-        "status": 3,
-        "partner_id": 7,
-        "partner": "Drive",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 108 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false
         },
         {
@@ -123,8 +92,57 @@
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call that steadiness\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "A door already behind you is still being stood at, and what has ended is kept alive by habit alone.",
+      "act": "go where the feeling is already pulling",
+      "ask": "Follow the pull you already feel toward something new, one step this week, without waiting to feel settled about the old thing first.",
+      "core": "Seeing the whole pattern is working here — you can tell what is over in someone else's life before they can say it, and the same sight holds for the arrangements and roles you are inside. What you see is that something has finished, and you have stayed, calling the staying loyalty. It costs more than the ending would.\n\nDirection comes back when it starts from what you genuinely feel, not from what you think you owe a thing already gone. There is a pull toward something even now, and following it is the return. Follow the pull you already feel toward something new, one step this week, without waiting to feel settled about the old thing first.",
+      "sheetLine": "What's finished is still being kept alive in you.",
+      "verb": "Ending what has run its course so renewal can begin",
+      "place": "At a vantage where all of it can be seen at once",
+      "provenance": {
+        "signature_id": 13,
+        "position_id": 20,
+        "status": 3,
+        "partner_id": 7,
+        "partner": "Drive",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-03-s",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false
         },
         {
@@ -138,20 +156,21 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already standing in the clearing, still calling it weather.",
-      "ask": "Name one thing that has already ended in your life but is still being handled as ongoing. Write it down somewhere private, then tell one person what you are no longer carrying.",
-      "core": "The clearing is already underway and you have not named it. It shows up in how you talk about the last stretch — a rough season, a strange year — and not as something that finished. Taking in a whole shape is something you do constantly, and here you are doing it without letting yourself in on what you find. Naming the close would mean owning the change, so the talk stays about what keeps happening to you.\nSay what is over but still being treated as ongoing. Write it down where only you will read it, then tell one person what you are no longer carrying. That statement is structure, and structure is what holds the next thing while it forms.",
-      "sheetLine": "You are in the clearing and calling it a rough year.",
-      "verb": "ending what has finished so something else can start",
-      "place": "where you can see the whole shape",
+      "tense": "Something is ending in you and the pen is down, in a room where the writing is already happening without you.",
+      "act": "build the smallest structure that holds it",
+      "ask": "Give one open ending a shape you can pick up — a date, a room, a single sentence on a page — and keep that shape somewhere you will see it again.",
+      "core": "You give form to other people's confusion without effort — you take a mess of feeling, put it into an order they can carry, and hand it back lighter. The structure is yours. It is clear, reliable, and the ones near you rest on it.\n\nWhat has not yet been given that form is your own life. Something is ending close by and the pattern-seer in you has not turned to look at it. You keep moving, keep giving, and the endings happen without your hand on them. A page that stays empty is not peace; it is a container not yet built. Give one open ending a shape you can pick up — a date, a room, a single sentence on a page — and keep that shape somewhere you will see it again.",
+      "sheetLine": "You build the shape for others. Not for what's ending in you.",
+      "verb": "Ending what has run its course so renewal can begin",
+      "place": "At a vantage where all of it can be seen at once",
       "provenance": {
         "signature_id": 13,
         "position_id": 20,
@@ -160,14 +179,24 @@
         "partner": "Authority",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the smallest structure that holds it\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -176,8 +205,8 @@
           "hard": false
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -186,27 +215,21 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5862,
+      "ms": 6581,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
           "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\" and let it finish\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 1
         },
         {
@@ -216,10 +239,28 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "said",
@@ -228,44 +269,44 @@
           "status": 2
         },
         {
+          "code": "hunch",
+          "detail": "\"calling it a\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask leans on the drawn card's own acts (2 words) more than the medicine's (0) — the card prescribing itself",
+          "hard": true,
+          "status": 2
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
-          "code": "imperative",
-          "detail": "\"you need to\"",
+          "code": "length",
+          "detail": "core 95 words (120–160): thin — say what this looks like going well here before the fault",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (room, shape, door) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
           "status": 3
         },
         {
           "code": "hunch",
-          "detail": "\"calling it steady\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "detail": "\"calling it loyalty\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -282,32 +323,50 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "glass",
-          "detail": "\"card\" — a map idiom, a product name or a tarot word on glass",
+          "code": "length",
+          "detail": "core 89 words (120–160): thin — say what this looks like going well here before the fault",
           "hard": true,
           "status": 4
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give the mess a shape it can be carried in\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -318,90 +377,101 @@
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
         }
       ],
-      "check": "The kernel says Transformation brings endings, and that may be heard as an alternative to involvement, though it may still be receiving. The reader could say that continuing to see the whole picture is possible even when accepting what is ending. The act holds if the read is wrong because offering it openly can still be attended to or declined. The phrase that principally serves the writer is the symmetry of four statuses, which the person cannot answer back to."
+      "check": "The degree of feeling is not observable from outside; the person may say the ending already happened and what remains is plain grief, not avoidance or upheaval. If the read is wrong, the ask still holds: a fair exchange done once is useful whether or not the standing relationship ever formally closed. The sentence that served the writer more than the person was the elegant phrase 'tide comes back'; it is gone."
     },
     {
       "attempt": 2,
-      "ms": 4993,
+      "ms": 6004,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"the house\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call that steadiness\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "refrain",
+          "detail": "\", and let the answer\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"sit with someone in it without fixing it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 3
         },
@@ -412,21 +482,33 @@
           "status": 3
         },
         {
+          "code": "refrain",
+          "detail": "\"tell a person\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"tell a person\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
+          "status": 3
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
+          "code": "diagnosis",
+          "detail": "\"disorder\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -436,9 +518,21 @@
           "status": 4
         },
         {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"and leave it\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"people can stand on it\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -448,36 +542,47 @@
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"name\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that a close is 'necessary' — only the person can say that, and the record's Balanced face says by felt necessity, which is theirs to feel, not mine to assert. A reader could reasonably say the ending is still live and simply unresolved. The ask still holds if I am wrong, because naming what has finished is theirs to do or decline and teaches them what they actually think. The sentence that serves me more than them is any line that treats the whole shape as already seen; I have cut those and describe only what seeing the shape is doing, not what it should see."
+      "check": "The record does not say the person has already ended anything, only that endings and clearing are where Transformation lands; a reader could reasonably say the ending is still fully ahead of them or that nothing in their life is currently closing. If that read is wrong, every ask survives — writing an order, sitting with a finished thing, taking one step, naming what you carry are useful whether or not a season is genuinely over. The sentence that served the writer more than the person was 'what you can see clearly for other people stays blank on your own page'; it is gone."
     },
     {
       "attempt": 3,
-      "ms": 3487,
+      "ms": 5360,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
+          "detail": "\"the giving\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\" and let it close\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"let an exchange flow both ways\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -488,10 +593,40 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -500,32 +635,20 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 115 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"your seeing\" — a verb turned into a mystical noun",
-          "hard": true,
           "status": 3
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that steadiness\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -542,21 +665,33 @@
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 119 words (120–160)",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"people around you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 4
         },
         {
@@ -566,36 +701,35 @@
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The unsupported claim is that a close is 'necessary' — only the person can say that; the record's Balanced face calls it felt necessity, theirs to feel, not mine to assert. A reader could reasonably say the ending is still live and simply unresolved. The ask still holds if I am wrong, because naming what has finished is theirs to do or decline and teaches them what they actually think. The sentence that serves me more than them is any line treating the whole shape as already seen; I describe only what the seeing is doing, not what it should see."
+      "check": "The record says Transformation lands here as endings and clearing, not that the person has actually ended anything; a reader could say nothing in their life is currently closing, or that it closed long ago and what remains is plain grief. Every ask survives that: trading one thing for one thing, staying with someone in it, putting energy where the feeling already pulls, and ordering what keeps circling are useful whether or not a season is genuinely over. The sentence that served the writer more than the person was 'the blank page is not peace'; it is gone."
     },
     {
       "attempt": 4,
-      "ms": 3358,
+      "ms": 5628,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "5 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
@@ -606,10 +740,28 @@
           "status": 1
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -618,26 +770,32 @@
           "status": 2
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "hunch",
-          "detail": "\"call that steadiness\" — the relabel is Unacknowledged's own shape; here it is a hunch",
           "hard": false,
           "status": 3
         },
@@ -654,14 +812,38 @@
           "status": 3
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "\" and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"put a date a place a container on it\") — read it: is it that act made small?",
           "hard": false,
           "status": 4
         },
@@ -672,19 +854,160 @@
           "status": 4
         },
         {
-          "code": "format",
-          "detail": "paragraphs run together (single line break)",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record says Transformation lands here as endings and clearing, not that the person has actually ended anything; a reader could reasonably say nothing in their life is currently closing, or that it closed long ago and what remains is plain grief. Each ask survives that: taking what is offered, staying with someone through a hard stretch, following what already pulls, and giving a looming ending an address are useful whether or not a season has genuinely finished. The sentence that served the writer more than the person was 'the shape is right, the timing is not'; it is gone."
+    },
+    {
+      "attempt": 5,
+      "ms": 4804,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"hurt\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"build the smallest structure that holds it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that a close is 'necessary' — only the person can say that; the record's Balanced face calls it felt necessity, theirs to feel, not mine to assert. A reader could reasonably say the ending is still live and simply unresolved. The ask still holds if I am wrong, because naming what has finished is theirs to do or decline and teaches them what they actually think. The sentence that serves me more than them is any line treating the whole shape as already seen; I describe only what is happening in front of them, not what they should find."
+      "check": "The record says Transformation lands here as endings and clearing, not that the person has actually ended anything; a reader could reasonably say nothing in their life is closing, or that it closed long ago and what remains is plain grief. Each ask survives that: taking what is offered, staying with someone through a hard stretch, following what already pulls, and giving a looming ending an address are useful whether or not a season has genuinely finished. The sentence that served the writer more than the person was 'the shape is right, the timing is not'; it is gone."
     }
   ],
   "usage": {
-    "input": 3800,
-    "output": 4338
+    "input": 8787,
+    "output": 5693
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:07:20.133Z"
+  "date": "2026-10-02T11:34:45.420Z"
 }

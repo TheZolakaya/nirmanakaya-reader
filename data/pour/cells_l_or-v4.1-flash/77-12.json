@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are holding something well right now, and you decide when it gets set down.",
-      "ask": "Before you call the next piece finished, set it down for ten minutes and look at it with your hands off. Then say whether it is done.",
-      "core": "You carry weight and you decide when to set it down. What you build holds because of that, and the setting down is not separate from the building — it is part of why the thing lasts.\n\nThe risk in a steady hand is that carrying becomes the default. Something that no longer needs to be carried still gets carried, out of habit, and the room it took stays full. Nothing dramatic happens. The next thing just arrives into a space that already has someone standing in it.\n\nSo set one piece down on purpose. Not because the work is finished — because you are the one who decides when carrying stops being useful. Let it sit a day without going back to check that it stayed where you left it. What you can put down and still trust is the whole reason you held it that long.",
-      "sheetLine": "You carry it well, and you decide when it gets set down.",
-      "verb": "carrying the weight and deciding when to set it down",
-      "place": "the moment a grip loosens, where the value of what was held becomes visible",
+      "tense": "Right now, the build is holding steady, and the hands are steady with it.",
+      "act": "hold space for what someone feels without fixing it",
+      "ask": "Someone near you is carrying something heavy this week. Stay with what they feel instead of handing them a solution. Let the answer wait.",
+      "core": "You can carry weight without gripping it. A project, a room, a thing you're making — it holds because you built it to, not because you're bearing down on it right now. And when someone near you is carrying something, you can stand beside them without reaching in to solve it. That's the balance: the strength is the builder's, and the space around it is real.\n\nThe place to aim next is other people's feeling. You're good at holding the structure; the living piece is staying with a feeling without making it a job. When it's heavy, don't shape it. Stay near it. What you've built in yourself is steady enough to stand next to something unshaped and not reach for the tools.",
+      "sheetLine": "You build so it holds, and you can let it hold.",
+      "verb": "building what holds — raising the structure that will stand after the hands that made it are done",
+      "place": "where grip gets opened on purpose — the deliberate clearing of space for what comes next",
       "provenance": {
         "signature_id": 77,
         "position_id": 12,
@@ -26,14 +27,19 @@
         "partner": "Steward of Resonance",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "vocab",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false
         },
         {
@@ -45,12 +51,13 @@
     },
     {
       "status": 2,
-      "tense": "You are bracing for a version of this that has not happened yet, and holding harder to keep it possible.",
-      "ask": "Pick one thing you are keeping upright by force and leave it alone for a day. Write down afterward what is still true about it.",
-      "core": "You are getting ahead of the load. Something is weeks out, and you are already carrying it — holding the shape of the finished thing in your hands so nothing catches you off guard. The grip is for a future that has not been built yet.\n\nThat grip costs more than it looks. Nothing gets set down, because setting anything down feels like letting the future drift. What you are holding for is not the work. It is the worry that if you stop, it falls apart, and stopping is not what makes things fall apart.\n\nSo let one thing stand on its own. Set it down for a day and do not go back to check on it. If it is still there, that tells you what actually needed your hands. If it moves, you found where the real weight is. Either way you learn it by testing instead of bracing.",
-      "sheetLine": "Holding harder is how you keep the future from arriving.",
-      "verb": "carrying the weight and deciding when to set it down",
-      "place": "the moment a grip loosens, where the value of what was held becomes visible",
+      "tense": "Somewhere ahead of you, a future is being braced against before it can be built.",
+      "act": "make the fair call about a feeling, yourself",
+      "ask": "When a feeling runs hot this week — yours or someone's near you — hold the ruling until it finishes moving. Make the call then, at the size the feeling actually is.",
+      "core": "The build is running ahead of itself. You're pouring foundations for a house whose plans changed last week, tightening what isn't ready to be held. The strength is real; the timing is not. When a thing is pushed into its final shape before it has settled, the shape breaks later, and the rebuilding lands on somebody — often on you.\n\nWhat's left to do is smaller than what you've been doing. You don't need to manage the feeling before it lands. Let one run its course without a verdict on it, then rule once the air is clear. That's the fair call, made by you, at the pace feeling actually moves.",
+      "sheetLine": "You're pouring the foundation before the plans stop changing.",
+      "verb": "building what holds — raising the structure that will stand after the hands that made it are done",
+      "place": "where grip gets opened on purpose — the deliberate clearing of space for what comes next",
       "provenance": {
         "signature_id": 77,
         "position_id": 12,
@@ -59,14 +66,14 @@
         "partner": "Executor of Resonance",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false
         },
         {
@@ -78,12 +85,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped setting anything down at a door you already walked through and never finished closing.",
-      "ask": "Take one thing you have carried past its finish and say out loud, to yourself or someone, that it is done. Then leave it alone for two days.",
-      "core": "You built things. That part is true and it is not in question. What stopped is the setting down. You are still carrying what you carried, or you have gone quiet and left it standing with nobody at the wheel, and either way nothing is being released.\n\nThere is a lighter version of strength that got set aside. Not the strength of carrying, not the force — the part where a person recognizes they are done and finds out what they are for once they are no longer propping something up.\n\nThe move back is to complete one small thing out loud. A finish, a handoff, a word. Say it is done, then wait two days before you touch it again. Let the waiting do something. What shows up in that gap is not emptiness. It is where the next thing starts, and you are allowed to be there.",
-      "sheetLine": "You stopped setting things down, and it outlasted the thing.",
-      "verb": "carrying the weight and deciding when to set it down",
-      "place": "the moment a grip loosens, where the value of what was held becomes visible",
+      "tense": "Something finished, and the hands are still on the old tools.",
+      "act": "release what is done and keep what is not",
+      "ask": "There's something that finished a while back and is still being held open. Write a page on what it gave you, close the page, and add nothing more to it.",
+      "core": "The build here has stalled, and it isn't the work that stopped — the closing didn't happen. What's done is being held as if the outcome could still change. The hands are still on it, and the tools are still out. The strength to release is the same strength that built the thing in the first place; it just hasn't been called on.\n\nOne completion, acknowledged right, returns the current. So finish something on purpose — not the project, the putting down of it. What it gave you is already in your hands. Set down what's left over, and the next thing to build gets a builder with free hands.",
+      "sheetLine": "The build is done and you're still holding the tools.",
+      "verb": "building what holds — raising the structure that will stand after the hands that made it are done",
+      "place": "where grip gets opened on purpose — the deliberate clearing of space for what comes next",
       "provenance": {
         "signature_id": 77,
         "position_id": 12,
@@ -92,19 +100,24 @@
         "partner": "Executor of Intent",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false
         },
         {
@@ -116,12 +129,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already letting go somewhere in this, and you talk about it as if the letting go were happening to you.",
-      "ask": "Point at one thing you have quietly stopped forcing and say you are choosing to let it rest, instead of saying it fell away.",
-      "core": "You have been releasing things for a while now, without calling it that. A piece you stopped tending. A grip you eased off, gradually, so nobody noticed. It is real, and it worked.\n\nBut there is a version where it happened on its own. You say it drifted, or it stopped being important, or it fell away. The way you talk about it does not have your hand in it, and that shows up now: you are doing this well and not letting yourself have it.\n\nSo name it. One thing you have been letting rest — say out loud that you are the one letting it rest. You do not have to make it a decision or a project. Just say who did it. The thing is still yours either way. What changes is whether it is yours on purpose.",
-      "sheetLine": "You have been letting things go, and calling it drift.",
-      "verb": "carrying the weight and deciding when to set it down",
-      "place": "the moment a grip loosens, where the value of what was held becomes visible",
+      "tense": "The structure stands, and the record of who raised it has gone quiet.",
+      "act": "start something for the spark of starting",
+      "ask": "Begin something with no plan, no use, and nobody to show it to. Start it and stop it before it turns into a project.",
+      "core": "What you keep standing, keeps standing — quietly, without a marker that says who made it. You do that so well the structure looks like it was there before anyone touched it. And the piece that's missing is the plain delight of the start: the unbuilt pleasure of beginning something just because it began.\n\nThe correction is smaller than the pattern. Go back toward the first move — the one before it has a use. Whatever you start doesn't need to become anything. It only needs to be yours at the start, where the spark lives. That's the part that got folded away for the structure to hold.",
+      "sheetLine": "The structure stands, and the record has gone quiet.",
+      "verb": "building what holds — raising the structure that will stand after the hands that made it are done",
+      "place": "where grip gets opened on purpose — the deliberate clearing of space for what comes next",
       "provenance": {
         "signature_id": 77,
         "position_id": 12,
@@ -130,14 +144,19 @@
         "partner": "Initiate of Intent",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
@@ -151,50 +170,92 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6119,
+      "ms": 7777,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"next time someone brings you\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"you're the one\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the letting go\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -205,8 +266,26 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -215,26 +294,36 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "two asks in this call open on the same verb (\"next\") — four asks, four verbs (prompt m)",
+          "hard": true
         }
       ],
-      "check": "The least supported claim is that release is already available and wanted by the person at any status — the record gives the map, not their consent. A reader could reasonably say the thing I am calling grip is just steadiness, or the thing I am calling grip is how a load gets held safely. The ask survives being wrong only where it is small, visible and reversible: holding something one day, or moving without checking with one person. The sentence that serves me more than them is the one where clearing becomes redemption — if I let go and something gets measurably lighter for them, I have overpromised."
+      "check": "The record does not support saying this person keeps others' structures standing as a disowned habit (the Unacknowledged core), nor that the Too Little build has already happened. A reader could object that their steady building serves a purpose they chose. The asks survive a wrong read because each is small, self-contained, and teaches from its own side of the map. The sentence that serves me rather than them is the Unacknowledged core's 'the people standing on it have not believed the story once' — cut it."
     },
     {
       "attempt": 2,
-      "ms": 4302,
+      "ms": 5726,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -245,32 +334,50 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -281,8 +388,20 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -291,26 +410,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The least supported claim is still that release is the next useful move at every status — the record gives the map, not their consent, and a reader could reasonably say the grip I am pointing at is just how a load gets held safely. The ask survives being wrong wherever it is one visible, reversible act with a finish and no promise attached: setting a thing down for a day, saying a piece is done, calling a stop by name. The sentence that serves me more than them is any line where letting go is promised to make something lighter — if I promise relief, I have overreached the map and should cut it."
+      "check": "The record does not support saying this person habitually keeps others' structures standing while disowning it, nor that a finished build is being held. A reader could object that their steady building is chosen and current. The asks survive a wrong read because each is small, self-contained, and teaches from its own side of the map. The sentence that serves me rather than them is the Unacknowledged core implying the structure stands without them having made it — cut it."
     },
     {
       "attempt": 3,
-      "ms": 3843,
+      "ms": 3684,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -321,8 +445,8 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
@@ -333,20 +457,26 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -357,8 +487,14 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -367,90 +503,31 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The least supported claim is still that release is the next useful move at every status — the record gives the map, not their consent, and a reader could reasonably say the grip I am pointing at is just how a load gets held safely. The ask survives being wrong wherever it is one visible, reversible act with a finish and no promise attached: setting a thing down for a day, saying a piece is done, calling a stop by name. The sentence that serves me more than them is any line where letting go is promised to make something lighter — if I promise relief, I have overreached the map and should cut it."
+      "check": "The record does not support saying this person habitually keeps others' structures standing while disowning it, nor that a finished build is being held. A reader could object that their steady building is chosen and current. The asks survive a wrong read because each is small, self-contained, and teaches from its own side of the map. The sentence that serves me rather than them is the Unacknowledged core implying the structure stands without them having made it — cut it."
     },
     {
       "attempt": 4,
-      "ms": 3696,
+      "ms": 3805,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
         {
           "code": "vocab",
-          "detail": "\"the holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
+          "detail": "two images in one core (room, shape) — one at most, usually none",
+          "hard": false,
+          "status": 1
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The least supported claim is still that release is the next useful move at every status — the record gives the map, not their consent, and a reader could reasonably say the grip I point at is just how a load gets held safely. The ask survives being wrong wherever it is one visible, reversible act with a finish and no promise attached: setting a thing down for a day, saying a piece is done, calling a stop by name. The sentence that serves me more than them is any line where letting go is promised to make something lighter — if I promise relief, I have overreached the map and should cut it."
-    },
-    {
-      "attempt": 5,
-      "ms": 3632,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"hold space for what someone feels without fixing i\") — read it: is it that act made small?",
           "hard": false,
           "status": 1
         },
@@ -461,8 +538,8 @@
           "status": 1
         },
         {
-          "code": "said",
-          "detail": "8 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 110 words (120–160)",
           "hard": false,
           "status": 2
         },
@@ -473,14 +550,20 @@
           "status": 2
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 108 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"release what is done and keep what is not\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
@@ -491,8 +574,14 @@
           "status": 3
         },
         {
-          "code": "said",
-          "detail": "7 uncontracted to 0 contracted — written, not said",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -503,13 +592,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim that keeps recurring is that release is the next useful move at every status — the record gives the map, not the person's consent, and a reader could reasonably say the grip I point at is just how a load gets held safely. The ask survives the read being wrong wherever it is one visible, reversible act with a finish and no promise attached: a piece set down for a day, a finish said out loud, a stop named by the one who chose it. The sentence that serves the writer more than the person is any line where letting go is promised to make something lighter — cut it every time; the map says what the release frees, not what it fixes."
+      "check": "The record does not support saying this person habitually keeps others' structures standing while disowning it, nor that a finished build is being held. A reader could object that their steady building is chosen and current. The asks survive a wrong read because each is small, self-contained, and teaches from its own side of the map. The sentence that serves me rather than them is the Unacknowledged core implying the structure stands without them having made it — cut it."
     }
   ],
   "usage": {
-    "input": 8740,
-    "output": 6219
+    "input": 8066,
+    "output": 4564
   },
   "hardOpen": 0,
-  "date": "2026-10-02T03:04:38.869Z"
+  "date": "2026-10-02T12:43:17.025Z"
 }

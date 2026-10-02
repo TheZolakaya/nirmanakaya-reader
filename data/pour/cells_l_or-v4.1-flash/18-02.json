@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are here with the pen, dreaming from what you've already brought through.",
-      "ask": "Offer one uncertain next step to someone this week without first explaining why it matters.",
-      "core": "You dream from what you've already brought through. The road ahead isn't lit and that's fine — you only need the next stretch, and you trust it to show up as you move. What you see gets shaped by everything you've been through, and it arrives as vision rather than guesswork. That kind of dreaming is a real thing to have.\n\nYou can feel what matters before you can say why. That sense runs ahead of your reasons, and it's usually right. Don't trade it for a system that only counts what it can explain. The offer this week is one uncertain step — say it or take it — and let the not-knowing stay where it is. That's what keeps this balanced, and it costs you the comfort of a full map.",
-      "sheetLine": "You dream from a life already lived through.",
-      "verb": "moving through uncertainty without forcing clarity",
-      "place": "where deep knowing precedes analysis",
+      "tense": "You are standing in the middle of an unfinished thing and you know which part to touch first.",
+      "act": "move toward the thing you want, one step, today",
+      "ask": "Take one step today toward the thing you actually want. Not the one you're supposed to want — the one the pull already leans toward. You can do it without seeing where it lands.",
+      "core": "When the road ahead is unclear, you can take the next step without demanding the whole map. That steadiness comes from having lived enough to know which part of the fog matters. You don't force a clear picture before moving; you move, and the picture sorts itself as you go.\n\nWhat feeds this is motion from real engagement. The thing you're drawn to isn't a distraction from your work — it's the direction. So take one step today toward what you actually want, not what looks right. The step will teach you more than another hour of looking, and you'll be standing somewhere new when it does.",
+      "sheetLine": "You can move before the picture is clear.",
+      "verb": "moving through fog and trusting only the next step",
+      "place": "at the table where you decide what deserves your attention",
       "provenance": {
         "signature_id": 18,
         "position_id": 2,
@@ -26,11 +27,16 @@
         "partner": "Drive",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false
+        },
         {
           "code": "vocab",
           "detail": "two images in one core (road, map) — one at most, usually none",
@@ -38,7 +44,17 @@
         },
         {
           "code": "vocab",
-          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -50,12 +66,13 @@
     },
     {
       "status": 2,
-      "tense": "You will keep reaching for a vision before it has had time to arrive.",
-      "ask": "Pick one thing worth growing and give it a week of steady, unforced care, then leave it where it is.",
-      "core": "You're chasing a dream that hasn't arrived yet. Every half-formed image gets treated as the whole road, and the chase has started to feel like the work itself. You're not short on vision. You're short on the patience that lets it land.\n\nWhat you're looking for is real, but it grows at its own speed. Tending it means giving it conditions — time, quiet, your attention held steadily — not pulling it toward you. You can care for something without making it hurry and without gripping it. Choose one thing that's actually growing and give it a week of that. If you do, the dream may stop needing to prove itself. That's the cost of this balance: less drama, slower returns.",
-      "sheetLine": "The dream you're chasing can't be pulled forward.",
-      "verb": "moving through uncertainty without forcing clarity",
-      "place": "where deep knowing precedes analysis",
+      "tense": "You are bracing for a future you can't write yet, and the bracing has become the work.",
+      "act": "give it what it needs today, not what it is scheduled for",
+      "ask": "Choose something you're tending — a project, a habit, someone close. Meet what it asks for right now, not what the schedule says. Same again tomorrow, if you get there.",
+      "core": "Where your vision runs hot, the picture starts replacing the ground. You can hold a finished version so vividly that the small real one dims beside it, and you keep steering by the version that isn't here yet. The future isn't a failure of your sight; it's that nothing real grows well under a finished picture.\n\nNurturing brings you back. Take something you're tending and keep the finished version out of the room. Meet what it asks for right now, not what the schedule says. Do that, and the picture stops eating the work, and the work starts showing what the picture was for.",
+      "sheetLine": "The dream is eating the thing it meant to grow.",
+      "verb": "moving through fog and trusting only the next step",
+      "place": "at the table where you decide what deserves your attention",
       "provenance": {
         "signature_id": 18,
         "position_id": 2,
@@ -64,19 +81,24 @@
         "partner": "Nurturing",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 104 words (120–160)",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give it what it needs today not what it is schedul\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false
         },
         {
@@ -88,12 +110,13 @@
     },
     {
       "status": 3,
-      "tense": "You stopped trusting the unseen, and that choice is still standing behind you now.",
-      "ask": "Name one thing today you know without being able to argue for it, and let it stand unargued.",
-      "core": "Intuition stopped being something you could trust. You don't read symbols now. You don't sit with the unclear. You wait for hard facts before you move, and the waiting has carved something out.\n\nDeep knowing hasn't left you. It's sitting there starved, waiting for you to look at it without demanding a reason first. Don't force feeling back into it — that won't work — but you can act as if your perceptions are worth something. Name one thing you know without being able to prove it, and let it stand for today. That's not the whole road back. It's the next stretch of it.",
-      "sheetLine": "You stopped trusting the unseen and haven't gone back.",
-      "verb": "moving through uncertainty without forcing clarity",
-      "place": "where deep knowing precedes analysis",
+      "tense": "You stopped trusting the quiet knowing a while back, and you've been building reasons ever since.",
+      "act": "notice what you already know before you reason about it",
+      "ask": "Before you analyze the next real decision, put down what you knew about it in the first minute. Then reason as long as you like. Compare the two when you're done.",
+      "core": "The quiet knowing in you went silent, and you've been getting by on reasons since. It isn't that you can't see through to what matters — it's that you don't trust what arrives before the argument, and by the time you've argued it through, the thing has moved. You're not short on knowledge. You stopped attending to the kind that comes first.\n\nYou don't have to believe it outright. Let the next perception land before you talk it down. Put down what you knew in the first minute, before the reasons started, and look at it again later. It will either prove itself or it won't, and either way you'll have something to go on besides the arguing.",
+      "sheetLine": "You knew what mattered before you decided you didn't.",
+      "verb": "moving through fog and trusting only the next step",
+      "place": "at the table where you decide what deserves your attention",
       "provenance": {
         "signature_id": 18,
         "position_id": 2,
@@ -102,14 +125,14 @@
         "partner": "Wisdom",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
@@ -121,12 +144,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already shaping what comes next, and you're calling it someone else's doing.",
-      "ask": "Write down one repeated image you've been carrying, then take one small step that treats it as yours.",
-      "core": "You've been living inside a dream and calling it circumstance. The images you keep returning to, the version of your life you keep half-seeing — those aren't accidents passing through. They're shaping choices you think you're making for practical reasons, and you haven't yet claimed them as authored by you. The dreaming is yours. The saying-so isn't.\n\nOne thing you already do well: you return to something small and keep returning to it. A single repeated act, done without drama, is how this becomes visible. Write down one image you keep carrying and take one small step that treats it as something you're actually building. That step might not change the picture. It changes who's holding the pen, and that's the point.",
-      "sheetLine": "You're already dreaming this. You just haven't claimed it.",
-      "verb": "moving through uncertainty without forcing clarity",
-      "place": "where deep knowing precedes analysis",
+      "tense": "You are dreaming a life forward without having noticed you're the one holding the pen.",
+      "act": "do the small practice again, alone, today",
+      "ask": "Take up whatever you already do alone — the walk, the pages, the same short session — and do it again. Same version, no improvements. Notice it was you who kept it going.",
+      "core": "You can picture where a thing is heading before anyone else can, and that picture quietly steers what you do — which fork you take, what you drop, who you make time for. When this is working you know the picture is yours. You chose it, you keep it, and you can set it down when the ground says otherwise.\n\nRight now you'd tell anyone you're just reacting to what's around you, and the shaping keeps happening with your name off it. That's the gap: not a missing vision, a missing 'I did that'. The same small practice, done again today — the walk, the pages, the same short session, alone, no improvements — is how the name gets back on. A thing you've done twice is yours.",
+      "sheetLine": "You're steering a life you think is happening to you.",
+      "verb": "moving through fog and trusting only the next step",
+      "place": "at the table where you decide what deserves your attention",
       "provenance": {
         "signature_id": 18,
         "position_id": 2,
@@ -135,11 +159,16 @@
         "partner": "Discipline",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -151,93 +180,165 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5853,
+      "ms": 6838,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"processed\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"That's not luck\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
           "hard": false,
           "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"Your knowing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (path, road, map) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The path ahead\" — an ethereal image; use something in a life",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"your seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"doing quiet work every day\"",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 1
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"protect the young thing from being judged early\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"give it what it needs\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the thing it was meant\"",
+          "hard": true,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 1
+          "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the reaching\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, road) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"write down\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "names",
+          "detail": "the partner's name used as a common noun (\"what Discipline does\") — the act in plain words, the name once at most",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"do the plain version first\" — say the act in the person's words",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -245,20 +346,30 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record supports Imagination in a Balanced state, but my draft claims the person has been dreaming *because* past experience was fully processed — the record never says the processing happened or was complete, so a reader could reasonably say dreaming feels natural for reasons other than finished work. The ask survives being wrong: offering one step before the way is clear is useful even if the person is already moving well, and it only asks for movement, not for a particular outcome. The sentence that serves me more than them is 'you trust the path that reveals itself' — it sounds like wisdom but tells the person nothing they can act on, so I cut it and keep the focus on what they can offer this week."
+      "check": "The core for Too Much claims the person is 'steering a life that hasn't arrived yet,' which the record supports only as chronic illusion/dream-reality confusion — the person could reasonably say they're not dreaming about the future, they're just not acting on what they see. The ask survives being wrong: tending one thing as it is for a week is useful whether the cause is future-bracing or ordinary neglect. The sentence that serves the writer — 'You can read a room before it decides what it is' — is smooth but asserts a precocity the record does not support; cutting it."
     },
     {
       "attempt": 2,
-      "ms": 3796,
+      "ms": 4983,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
+          "code": "length",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -270,7 +381,19 @@
         },
         {
           "code": "vocab",
-          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -281,39 +404,63 @@
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 102 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give it what it needs today not what it is schedul\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the end of the week\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 116 words (120–160)",
+          "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (door, road) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 100 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -321,17 +468,28 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "4 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record supports Imagination operating in a Balanced way in the seat of Wisdom, but my draft claimed the person has been dreaming *because* past experience was fully processed — the record doesn't say the processing happened, only what balanced looks like, so a reader could reasonably say their dreams come from somewhere else entirely. The ask survives being wrong: offering one step before the way is clear is still useful to someone who is already moving well, because it asks for movement, not for an outcome. The sentence that serves me more than them was 'you trust the path that reveals itself' — it sounds like wisdom but gives the person nothing to do, so I cut it and kept the focus on one thing they could do this week."
+      "check": "The Too Much core says the person grades the small thing against the finished version — the record supports only dream-reality confusion in this seat, and a reader could reasonably say their problem is the reverse, that no picture arrives at all. The ask survives that: tending one thing as it is for a week helps whether the fault is a picture too loud or none. The sentence that serves the writer is 'the fog clears behind you,' which asserts a result the reading cannot know."
     },
     {
       "attempt": 3,
-      "ms": 3606,
+      "ms": 3651,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "vocab",
           "detail": "two images in one core (road, map) — one at most, usually none",
@@ -340,7 +498,19 @@
         },
         {
           "code": "vocab",
-          "detail": "\"The road ahead\" — an ethereal image; use something in a life",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -352,13 +522,241 @@
         },
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 106 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give it what it needs today not what it is schedul\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the thing it was meant\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The Too Much core says the small real thing 'gets graded' against a finished picture — the record supports dream-reality confusion here, not a verdict habit, and a reader could say the opposite: no picture arrives at all. The ask survives that: meeting today's need in one thing helps whether the fault is a loud picture or a missing one. The sentence serving the writer is 'the work shows you what the picture was for,' which promises an outcome the reading cannot know."
+    },
+    {
+      "attempt": 4,
+      "ms": 3901,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 105 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give it what it needs today not what it is schedul\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the thing it was meant\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The Too Much core says the small real thing 'dims beside' a finished version — the record supports dream-reality confusion here, not a comparison habit, and a reader could say the opposite, that no picture comes at all. The ask survives that: meeting what something asks for right now helps whether the fault is a loud picture or a missing one. The sentence serving the writer is 'the work starts showing what the picture was actually for,' which implies a result the reading cannot know."
+    },
+    {
+      "attempt": 5,
+      "ms": 3553,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 106 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (road, map) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the road ahead\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 104 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"give it what it needs today not what it is schedul\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
         },
@@ -370,7 +768,7 @@
         },
         {
           "code": "length",
-          "detail": "core 103 words (120–160)",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -379,6 +777,12 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "seat",
@@ -387,13 +791,13 @@
           "status": 4
         }
       ],
-      "check": "The record supports Imagination moving through uncertainty in the seat of Wisdom, but nothing in it says the person's dreaming comes from finished processing — only that this is what balance looks like when it's here — so a reader could reasonably say their vision arrives from somewhere else entirely. The ask survives being wrong: offering one step before the way is clear still gives someone something to do even if they're already moving well, because it asks for movement, not for a result. The sentence that serves me more than them was 'you trust the path that reveals itself' — it sounds like wisdom and gives the person nothing, so it's cut and the focus stays on one concrete thing this week."
+      "check": "The Too Much core says the small real thing 'dims beside' a finished version — the record supports dream-reality confusion here, not a comparison habit, and a reader could say the opposite, that no picture comes at all. The ask survives that: meeting what something asks for right now helps whether the fault is a loud picture or a missing one. The sentence serving the writer is 'the work starts showing what the picture was for,' which implies an outcome the reading cannot know."
     }
   ],
   "usage": {
-    "input": 2818,
-    "output": 3384
+    "input": 8840,
+    "output": 5596
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:11:13.031Z"
+  "date": "2026-10-02T11:39:43.627Z"
 }

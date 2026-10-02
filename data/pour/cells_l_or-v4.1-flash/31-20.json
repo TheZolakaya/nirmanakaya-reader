@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing where the whole is visible and the pen is in your hand.",
-      "ask": "Name the pattern you're reading in one part of your life out loud to someone who's in it with you — one sentence, today.",
-      "core": "You can step back far enough to see the shape of it without leaving the room. Most people are either inside it and can't see, or outside it and can't feel it land. You do both, which is why your read on what's actually going on tends to hold.\n\nSomething got made. Not an idea you had, an actual result the early possibility turned into, and you're carrying all of it — the size and the weight. You don't need to decide what it's for. That already got decided by where the years went. Say the shape out loud once so it belongs to the two of you, not just to the inside of your head. Saying it is what makes it a shared fact instead of private luck.",
-      "sheetLine": "You can see the whole pattern and you're still inside it.",
-      "verb": "carrying what possibility became",
-      "place": "seeing the whole from inside it",
+      "tense": "What began as an open question has finished into something real, and you are standing here holding the whole of it.",
+      "act": "choose which star to steer by and steer",
+      "ask": "Pick the direction you actually want next, say it in a sentence, and for three days steer by it in the small calls you make. No re-deciding each morning. Just head that way and see what the three days teach you.",
+      "core": "Something you started as pure possibility has become real, and it's in your hands now — the whole of it. Your sight is clear on it: you can take in how the parts fit, what it came from, what it amounts to, all the layers at once. That's a real thing to be able to do, and it's yours.\nSeeing the whole doesn't hand you the next move. That part is still open. So set your heading on purpose instead of letting the weight of what's done decide for you: pick the direction you actually want, say it plainly, and let three days of small calls bend toward it. Not forever. Three days, and then you'll know whether it holds.",
+      "sheetLine": "You can see the whole of it. Pick where it points next.",
+      "verb": "carrying what possibility became into its completed form",
+      "place": "standing at the outer edge of what has just finished, seeing it whole",
       "provenance": {
         "signature_id": 31,
         "position_id": 20,
@@ -26,41 +27,42 @@
         "partner": "Orientation",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for the moment after this one and the pattern you're reading may not be there yet.",
-      "ask": "Pick one thing that hasn't happened yet and stop unpacking it today — when the thought arrives, write one plain line about what you already have.",
-      "core": "You're reading the whole from outside the whole, and most of what you're reading is ahead. Somewhere forward this is finished and judged and either earned or ruined, and you live in that room — so every actual moment gets audited for what it's about to become. The timing pressure is on everything now.\n\nReading forward isn't wrong. It's just treating an unwritten page like a record. The pleasure you want at the end is already here in lower volume: the raw, uncommitted part where what came out of the early days hasn't hardened yet. That quiet in you can just be there without defending the outcome. So for today, one future you've been pre-writing gets no more pages.",
-      "sheetLine": "You're reading a finished version of a thing that hasn't finished.",
-      "verb": "carrying what possibility became",
-      "place": "seeing the whole from inside it",
+      "tense": "You are already living past this thing's ending, standing in what comes after it, before it has fully finished arriving.",
+      "act": "describe what is in front of your eyes in five plain lines, no conclusions",
+      "ask": "Take what's actually finished and here — not what it could lead to — and write five plain lines describing it. What it is, what it looks like, nothing about next. Then stop.",
+      "core": "You've got the whole pattern in view, and it's true — you can take it in. But your picture of it has jumped ahead of what's actually here. You're living in the version already complete, already succeeded, already next, and the actual thing reads as a way station on the way to that.\nThat's why it's hard to rest even though the work is done. There's no present to land in. Try describing what's finished in five plain lines, with no conclusion at the end, and stop. Look before you explain. What's right here is worth taking in for what it is before you break it into the story of what it's becoming.",
+      "sheetLine": "You're living after the ending. Come back and look at it.",
+      "verb": "carrying what possibility became into its completed form",
+      "place": "standing at the outer edge of what has just finished, seeing it whole",
       "provenance": {
         "signature_id": 31,
         "position_id": 20,
@@ -69,31 +71,37 @@
         "partner": "Perception",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 112 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are standing at a door that already closed behind you, looking back at what was finished then.",
-      "ask": "Say one true thing about what you're carrying right now — not what it used to be — to someone safe who can just listen.",
-      "core": "You can see the shape of a situation when someone else lays theirs out. They finish a sentence and you have the whole of it. What stopped is connecting that to your own — other people's nets come up full, yours stays in the water.\n\nSomething did get built from the earlier possibility. It's not the theory in your head, it's a thing in the room. But around here it feels easier to leave it alone than to say what it became, and you stay at that distance. You still read clearly when you look. One or two plain sentences about what's here now — not what it was, not what it should be — and it lands where you're standing.",
-      "sheetLine": "You see the shape in other lives but not the one you're holding.",
-      "verb": "carrying what possibility became",
-      "place": "seeing the whole from inside it",
+      "tense": "You have been standing before something that finished a while back, still reading it as if it hasn't.",
+      "act": "open before anything has arrived",
+      "ask": "Find a spot you don't usually sit, for a short while, with your hands empty. Let whatever comes come — feeling, no feeling, whatever. Don't sort it or name it. Nothing has to arrive.",
+      "core": "Taken in well, a pattern like this keeps speaking while you hold it — exact and alive at the same time. What you have right now comes through flat. You can lay out the shape of it, how it started and what it turned into, but none of it reaches you.\nPart of what's done is that it's actually done. Taking in a whole isn't meant to be held once and closed. So sit somewhere you don't usually sit, hands empty, for even ten minutes, and let what arrives arrive — whatever feeling, whatever not-feeling. Don't sort it or name it. You're making room again at the front of the room.",
+      "sheetLine": "The view is accurate and it's flat. Let something in.",
+      "verb": "carrying what possibility became into its completed form",
+      "place": "standing at the outer edge of what has just finished, seeing it whole",
       "provenance": {
         "signature_id": 31,
         "position_id": 20,
@@ -102,14 +110,14 @@
         "partner": "Receptivity",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 109 words (120–160)",
           "hard": false
         },
         {
@@ -118,25 +126,31 @@
           "hard": false
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open before anything has arrived\") — read it: is it that act made small?",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are reading the whole across layers without putting your name on the reading.",
-      "ask": "Say 'I saw that' out loud once this week about a pattern you spotted before it played out — one sentence, to one person.",
-      "core": "You catch the theme in a conversation before anyone else says it, and you steer by it. Then you talk about that like it's just what the situation is — nothing to do with you. The reading keeps going. Your hand on the wheel doesn't get mentioned.\n\nThat bias toward the report over the reporter is where it goes quiet. What you've built and what you've seen happen aren't just 'how it went' — they came from a person who was reading right the whole time. Say once that you're the one who saw it and the pattern stops floating off on its own. You keep the credit cheap by keeping the story impersonal. It isn't — you were the one reading the room.",
-      "sheetLine": "You've been reading the pattern. Your name stayed off the page.",
-      "verb": "carrying what possibility became",
-      "place": "seeing the whole from inside it",
+      "tense": "The pattern gets read by you daily, and you would not say it is you doing the reading.",
+      "act": "let the vision be shared with one other",
+      "ask": "Show one person the whole shape of this the way you see it — the actual shape, not the highlights. Let them hear it and ask whatever they ask. Don't edit it for them.",
+      "core": "You can take in the whole pattern here, and you use it — you know where things are going and you steer by it. Ask how you know and you say it's obvious, anyone would see it. The read is yours and you keep it out of the frame.\nBringing it into the open costs nothing and it changes the record: a vision you've only shown to yourself is easy to file under personality, or under good instinct. Tell it to one person in full, every part, and hear what they make of it. Not to prove anything. Just to put it where you can see it too, next to the person who made it.",
+      "sheetLine": "You read the whole pattern, and you call that instinct.",
+      "verb": "carrying what possibility became into its completed form",
+      "place": "standing at the outer edge of what has just finished, seeing it whole",
       "provenance": {
         "signature_id": 31,
         "position_id": 20,
@@ -145,19 +159,14 @@
         "partner": "Merge",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
@@ -166,8 +175,8 @@
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -176,204 +185,134 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6085,
+      "ms": 6739,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "wound",
-          "detail": "\"went badly\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"back then\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "scope",
-          "detail": "\"everyone\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"every choice\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
+          "detail": "\"name one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "glass",
-          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 4
+          "status": 2
         },
         {
           "code": "vocab",
           "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
+          "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 107 words (120–160)",
           "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Unsupported claim: that the person can see the whole across layers in a way that holds up against their own account — the record gives the function, not evidence it is running on the day. Likely objection: 'I don't see any pattern, I just deal with what's in front of me.' The ask survives being wrong because asking to check the pattern is useful even when the read is off — the person learns whether the whole matches the parts. Sentence that serves the writer more than the person: 'you know you know' — cut before the draft. Written so those are already fixed."
-    },
-    {
-      "attempt": 2,
-      "ms": 3636,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
+          "status": 3
+        },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
+          "code": "names",
+          "detail": "another card's name on glass: Recognition",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"long ago\" — a duration the person never gave",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
+          "detail": "\"The seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "vocab",
+          "detail": "two images in one core (door, room) — one at most, usually none",
           "hard": false,
-          "status": 1
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"with nothing in your hands\" — say the act in the person's words",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"door that's already behind you\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "length",
           "detail": "core 119 words (120–160)",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
           "status": 4
         },
         {
           "code": "vocab",
-          "detail": "\"the noticing\" — a verb turned into a mystical noun",
+          "detail": "\"The seeing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're already doing\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"has a hand on it\"",
           "hard": true,
           "status": 4
         },
@@ -384,36 +323,153 @@
           "status": 4
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        }
+      ],
+      "check": "The record supports that Recognition is online and that something completed is being carried, but it does not support my reading that the load feels heavy, nor that anyone else is waiting on it — I put weight on the person that the kernel doesn't name. A reader could reasonably say the pattern isn't heavy at all, or that nothing has finished and they're still mid-start, and most of what I wrote holds either way because it only points at where they're standing. The line serving me more than them is the balanced core's 'you don't have to love it' — I don't know their feeling about the thing, so it comes out and the ask stays put, since looking at what's in front of you is small enough to do whether or not my read is right."
+    },
+    {
+      "attempt": 2,
+      "ms": 4836,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 44 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"in front of you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open before anything has arrived\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let it be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"all of it and let\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person reliably sees the whole pattern across layers — the record gives the function, not proof it is running every day. Likely reader objection: 'I don't see any pattern, I just handle what's in front of me.' The ask survives being wrong: checking whether the whole matches the parts teaches the person something either way. Sentence that serves the writer more than the person: 'you know you know' — cut before the draft. Written so those are already fixed."
+      "check": "The record supports that something once open has become real and that the pattern can be taken in whole, but it doesn't say the load is heavy or that anyone is waiting on it — I set that weight down this time. A reader could say nothing has finished and they're mid-start, and the asks survive that: choosing a heading, describing what's plainly there, sitting with empty hands, and telling one person the shape are all doable whether or not anything is complete. The sentence that serves me more than them was the too-much core's framing of the person living after the ending — I don't know their relationship to time, so it comes out and the ask stands on its own."
     },
     {
       "attempt": 3,
-      "ms": 3378,
+      "ms": 4449,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
           "status": 1
         },
@@ -424,168 +480,86 @@
           "status": 1
         },
         {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
           "status": 2
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "the core opens on a standing opener: \"When this is going well, the pattern…\"",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"is running the claim on\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "Wrong: that the person reliably reads the whole across layers — the record gives the function, not evidence it runs daily. Objection: 'I don't see any pattern, I just handle what's in front of me.' The ask survives being wrong: checking whether the whole matches the parts teaches something either way. Sentence serving the writer: 'the whole thing arrives' — cut. Written so those are fixed."
-    },
-    {
-      "attempt": 4,
-      "ms": 3379,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
           "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 118 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"signature\"",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open before anything has arrived\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"When this is going well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"your word for it is\"",
           "hard": true,
           "status": 4
         },
@@ -596,60 +570,66 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person reliably sees the whole pattern across layers — the record gives the function, not proof it runs every day. Likely objection: 'I don't see any pattern, I just handle what's in front of me.' The ask survives being wrong: checking whether the whole matches the parts teaches something either way. Sentence serving the writer: 'the whole thing arrives' — cut. Written so those are fixed."
+      "check": "The record supports that something once open has become real and that the pattern can be taken in whole, but it does not say the load is heavy or that anyone is waiting on it — I leave that weight off. A reader could say nothing has finished and they are mid-start, and the asks survive that: choosing a heading, describing what sits plainly there, sitting with empty hands, and telling one person the shape all work whether or not anything is complete. The sentence serving me more than them was the too-much core's framing of the person living after the ending — I don't know their relationship to time, so it is gone and the ask stands on its own."
     },
     {
-      "attempt": 5,
-      "ms": 3191,
+      "attempt": 4,
+      "ms": 3704,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "length",
+          "detail": "core 119 words (120–160)",
           "hard": false,
           "status": 1
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "ask 41 words (≤40)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 118 words (120–160)",
+          "detail": "core 116 words (120–160)",
           "hard": false,
           "status": 3
         },
@@ -660,9 +640,15 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open before anything has arrived\") — read it: is it that act made small?",
           "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 3
         },
         {
@@ -672,14 +658,14 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, room) — one at most, usually none",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -690,19 +676,119 @@
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that the person reliably sees the whole pattern across layers — the record gives the function, not proof it runs every day. Likely objection: 'I don't see any pattern, I just handle what's in front of me.' The ask survives being wrong: checking whether the whole matches the parts teaches something either way. Sentence serving the writer: 'it lands where you're standing' — cut. Written so those are fixed."
+      "check": "The record supports that something once open has become real and that the pattern can be taken in whole, but it does not say the load is heavy or that anyone is waiting on it — I leave that weight off. A reader could say nothing has finished and they are mid-start, and the asks survive that: choosing a heading, describing what sits plainly there, sitting with empty hands, and telling one person the shape all work whether or not anything is complete. The sentence serving me more than them was the too-much core's framing of the person living after the ending — I don't know their relationship to time, so it is gone and the ask stands on its own."
+    },
+    {
+      "attempt": 5,
+      "ms": 3661,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "ask 41 words (≤40)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 112 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"open before anything has arrived\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record supports that something once open has become real and that the pattern can be taken in whole, but it does not say the load is heavy or that anyone is waiting on it, so that weight stays off. A reader could say nothing has finished and they are mid-start, and the asks survive that: choosing a heading, writing what sits plainly there, sitting with empty hands, and telling one person the shape all work whether or not anything is complete. The sentence serving me more than them was the too-much core's framing of the person living after the ending — I don't know their relationship to time, so it is gone and the ask stands on its own."
     }
   ],
   "usage": {
-    "input": 8558,
-    "output": 5522
+    "input": 9785,
+    "output": 6234
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:24:12.638Z"
+  "date": "2026-10-02T11:54:55.053Z"
 }

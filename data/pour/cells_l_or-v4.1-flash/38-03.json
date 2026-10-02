@@ -1,6 +1,6 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
   "group": "library",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "Right now the pieces are in your hands and the order is yours to set.",
-      "ask": "Take one thing you're tending and put its next three steps on paper today, then do the first.",
-      "core": "You're holding several threads about something you're growing, and you can see how they fit. Most people carry threads like these and leave them in a heap. You put them in order.\n\nIt shows in how you talk about what you're tending. You don't list worries, you sequence them: this first, that next, this one waits. That's quiet, steady work, and whatever you're bringing along gets the benefit of it. The same clear eye is available for you when the question is what you owe or what you're owed — the answer tends to arrive fast and without much arithmetic. Run with it rather than checking it again. The plan has been reviewed enough. What it wants now is a first step, taken today.",
-      "sheetLine": "You can see how the pieces fit. Act like it.",
-      "verb": "Gathering scattered thoughts into one shape",
-      "place": "Where something young is being tended",
+      "tense": "Right now you can hold the whole tangled mess without losing your footing in it.",
+      "act": "keep your own count of what is owed, and pay it",
+      "ask": "Find something small you owe somebody — a reply, a thanks, a borrowed dish — and settle it before they ask, keeping your own tally as you go. Nobody needs to hear about it.",
+      "core": "You can take a pile of half-finished thoughts and put them in an order that holds. That is what people get around you where something small is growing: you gather what is scattered and they can carry on without stopping to sort it first. When the pieces line up, nobody has to say so. You just know what fits.\n\nUse it this week on the things you keep meaning to hand back. Find something you owe another person — a reply, a thank you you kept putting off, something borrowed — and settle it before they ask. Keep your own tally along the way, not because anyone is watching, but so the sense of what is fair stays yours to run. The ordering will show you where the edge is.",
+      "sheetLine": "You gather the scattered thoughts so something can keep growing.",
+      "verb": "Gathering scattered thoughts into one line, on purpose",
+      "place": "With what is still young and growing",
       "provenance": {
         "signature_id": 38,
         "position_id": 3,
@@ -26,11 +27,16 @@
         "partner": "Conscience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -40,12 +46,13 @@
     },
     {
       "status": 2,
-      "tense": "You are already living in a version of this that hasn't happened yet.",
-      "ask": "Pick the one next step that's actually available today and do only that, leaving the rest unscheduled.",
-      "core": "You're trying to get the whole picture right before anything moves. Somewhere ahead is the version where every part is accounted for and nothing can go wrong, and you're bracing for it — adding plans, checking them, adding more. The thing you're tending doesn't need the finished picture. It needs a next step.\n\nThere's care in all that preparation, real care, and it's starting to crowd out the thing itself. Growing doesn't wait for certainty. When you push the plan ahead of the pace of what's actually happening, you end up managing instead of tending. What sits under the urgency is feeling — yours about this — and that's the thing worth steering by, more than the fear of missing something. One true step beats five prepared ones.",
-      "sheetLine": "You're planning the whole thing instead of tending it.",
-      "verb": "Gathering scattered thoughts into one shape",
-      "place": "Where something young is being tended",
+      "tense": "Soon you will be trying to line up every thought before it has even arrived.",
+      "act": "do the next piece at the speed you can keep for a month, not the speed you can keep for a day",
+      "ask": "Take a piece of what you're tending and work it at a pace you could hold for thirty days rather than one you could hold for a single day. If the deadline is yours, set it further out first.",
+      "core": "One day you will be arranging thoughts faster than they come in, because a loose end in the middle of something still growing looks like a hole that won't be forgiven. You will get everything into an order before anyone's asked for it, and it will feel like good care the whole time. The mind is running days ahead of whatever is actually growing.\n\nDrop back to the pace your own footing can hold. Take the next piece of what you're tending and work it at a speed you could maintain for thirty days rather than one you could maintain for a single one. If the deadline is yours, set it further out before you start. Steady direction carries further than a burst that costs you two days after.",
+      "sheetLine": "You line the thoughts up before they've arrived.",
+      "verb": "Gathering scattered thoughts into one line, on purpose",
+      "place": "With what is still young and growing",
       "provenance": {
         "signature_id": 38,
         "position_id": 3,
@@ -54,14 +61,14 @@
         "partner": "Alignment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
@@ -73,12 +80,13 @@
     },
     {
       "status": 3,
-      "tense": "The door you're standing at has already closed behind you.",
-      "ask": "Tell one person one thing you're actually growing right now, in plain words, and let their response land before you answer it.",
-      "core": "There's something you've been caring for and you've stopped pulling your thoughts together about it. The threads are still there. You just haven't picked them up. You describe it as fine, or as handled, and that description has gotten further from the truth over time.\n\nThe care didn't leave. What stopped is the gathering. When you don't bring the thoughts into one place, everything about the thing feels like too much at once, so you look away from all of it, and looking away has started to feel like the safe choice. Plenty of feeling is still moving through — it just has nowhere to sit without a shape. Let one person hear it plainly. Not to fix it. Just to have it said where someone can see it.",
-      "sheetLine": "The care is still there. The gathering stopped.",
-      "verb": "Gathering scattered thoughts into one shape",
-      "place": "Where something young is being tended",
+      "tense": "Thoughts stayed scattered where you had been sorting them for what was growing.",
+      "act": "sit with what the heart already knows",
+      "ask": "Sit with something you're tending and fix nothing, plan nothing, decide nothing about it. Keep it company for a while, the way you would with something you are glad exists. Once is enough.",
+      "core": "First a few threads slipped, then you stopped reaching for them. What is growing beside you still gets watered, still gets the right temperature, but nothing is getting put in order and no one is asking for it. The pieces worth keeping are not being collected, and that goes unmissed.\n\nGo back to it sideways, not straight on. Sit with what you're tending and don't sort it, don't improve it, don't decide what it needs. Keep it company for a while, the way you would with something you are glad exists. That quiet is the whole of the act. Telling yourself to be more careful won't open that door. An unhurried hour will, if you give it one.",
+      "sheetLine": "The thoughts stay loose where you used to gather them.",
+      "verb": "Gathering scattered thoughts into one line, on purpose",
+      "place": "With what is still young and growing",
       "provenance": {
         "signature_id": 38,
         "position_id": 3,
@@ -87,24 +95,19 @@
         "partner": "Reverie",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "vocab",
-          "detail": "two images in one core (thread, shape) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
           "hard": false
         },
         {
@@ -116,12 +119,13 @@
     },
     {
       "status": 4,
-      "tense": "You are already tending this well and calling it nothing in particular.",
-      "ask": "Name one thing you've been growing, out loud, as yours, and say what you want for it.",
-      "core": "You're doing the gathering already — noticing what's off, checking what's fair, holding the threads about something you're growing. It runs in the background, and you talk about it like it's just how things went. The work is happening. You haven't signed it.\n\nThat matters more than it sounds. When the care goes unnamed, it can't be shared, and the thing you're growing ends up with nobody standing behind it — including you. Fairness is tangled up in this too. You've been giving attention without counting it, then wondering why it feels like no one's keeping score. Somebody is keeping score. You are. Say what you're growing and what you want for it, where it can be heard. Not a report. Just yours, said out loud.",
-      "sheetLine": "You're already tending it. Nobody has heard the why.",
-      "verb": "Gathering scattered thoughts into one shape",
-      "place": "Where something young is being tended",
+      "tense": "You are already holding it all together, and you would call that nothing much.",
+      "act": "mark the good thing together, out loud",
+      "ask": "When something goes well in what you're tending, name it while it's still happening — that happened, that worked — to whoever is there, even if it's only the room.",
+      "core": "The lines you pull together for what's growing — the friend you check on, the plan you keep from wobbling, the thing you quietly hold steady — are getting done, and if anyone asked how, you would say it sorted itself out. Your hand is on it the whole time. Nobody has heard that part, because you have not stopped to say it.\n\nStep back into the plain version. When something goes well in what you're tending, name it while it is still happening — that happened, that worked — to whoever is there, even if it is only the room. Saying it puts the credit where the work was. That part wasn't luck. It was yours, and it has been for a while.",
+      "sheetLine": "You hold it together and call it nothing much.",
+      "verb": "Gathering scattered thoughts into one line, on purpose",
+      "place": "With what is still young and growing",
       "provenance": {
         "signature_id": 38,
         "position_id": 3,
@@ -130,14 +134,19 @@
         "partner": "Celebration",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"mark the good thing together out loud\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -146,11 +155,17 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 6476,
+      "ms": 7888,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "glass",
+          "detail": "\"this part of your life\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "scope",
           "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
@@ -158,14 +173,8 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 1
         },
@@ -176,15 +185,21 @@
           "status": 1
         },
         {
-          "code": "vocab",
-          "detail": "3 images in one core (shape, thread, map) — a parable, not a sentence to a person",
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
           "status": 2
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
-          "hard": false,
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"keep for a month not\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"one of the things you're\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -195,26 +210,26 @@
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"somewhere behind you\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The sorting\" — a verb turned into a mystical noun",
+          "detail": "\"The looking\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (thread, shape) — one at most, usually none",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
-          "hard": false,
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
@@ -224,14 +239,20 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"The claim on it\" — a house refrain; a person who draws twice meets it twice",
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "person",
+          "detail": "first person: \"we\" — a cell has no I; the Reader may add one live",
           "hard": true,
           "status": 4
         },
@@ -240,13 +261,23 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "Unsupported claim: that the person is specifically gathering scattered thoughts into a plan — the record gives the capacity, not the content, so each core renders the mechanism in a moment they could recognize and leaves the subject open. Reader's likely objection: 'it's not strategy, it's just life' — the ask stands whether or not the read is right, since sorting one mess into a shape and acting on it costs nothing and teaches something either way. Sentence serving the writer: any line naming what the growth will produce — deleted, no promised outcomes."
+      "check": "The unsupported claim is that the person is holding anyone else's growth together right now; the record gives a capacity for gathering thought in this seat, not a roster of dependents, so the reader could reasonably say no one is leaning on me and still use the ask. The ask survives being wrong because paying a small owed thing is doable and useful whether or not the read lands, and it needs no money, no energy, no safe person, and no time. The sentence that serves me more than them is the one that turns other people's dependence into a fact, so I fixed it to describe the capacity bending in a moment they could recognise instead of narrating a life."
     },
     {
       "attempt": 2,
-      "ms": 3882,
+      "ms": 6295,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -264,9 +295,27 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "length",
+          "detail": "ask 43 words (≤40)",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "imperative",
+          "detail": "\"you have to\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"say so\" — a speech act in the cell under a medicine that is not about people",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain — the ask names the medicine act itself, not speech by default",
+          "hard": true,
           "status": 2
         },
         {
@@ -274,22 +323,16 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (thread, shape) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -300,33 +343,39 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 4
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that anything specific is being grown or that fairness-feelings are already running — the record gives the capacity and its seat, not the content, so each core stays on the mechanism in a moment and leaves the subject open. Reader's likely objection: 'there's nothing big I'm tending' — the ask survives being wrong, since putting three steps to paper costs nothing and shows the person something either way. Sentence serving the writer: any line naming what the care will produce — cut, no promised outcomes."
+      "check": "The unsupported claim is that the person is holding anyone else's growth together right now; the record gives a capacity for gathering scattered thought in this seat, not a roster of dependents, so a reader could reasonably say nothing is leaning on me and still use the ask. The ask survives being wrong because settling a small owed thing is doable whether or not the read lands, and it needs no money, no spare energy, no safe person, and no free time. The sentence that serves me more than them is the one that turns other people's dependence into a fact about their life, so I kept the capacity bending in a moment they could recognise and left the people unnamed. The ask in cell four now asks them to say the good thing out loud rather than to celebrate as a group, so the act stays theirs even if no one is around."
     },
     {
       "attempt": 3,
-      "ms": 3301,
+      "ms": 5650,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
@@ -334,8 +383,84 @@
           "status": 1
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Much's time",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"mark the good thing together out loud\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that anyone is leaning on the person's gathering right now; the record gives a capacity for pulling scattered thought into one line in this seat, not a roster of dependents, so a reader could reasonably say nothing is leaning on me and still use the ask. The ask survives being wrong because settling a small owed thing is doable whether or not the read lands, and it needs no money, no spare energy, no safe person, and no free time. The sentence that serves me more than them is any line that turns other people's dependence into a fact about their life, so each cell keeps the capacity bending in a moment they could recognise and leaves the people unnamed. Cell three names no cause for the standing-down, only where the person stands now; cell four's act is shared marking, which the record allows as people-facing, and it stays doable with whoever is actually present."
+    },
+    {
+      "attempt": 4,
+      "ms": 5074,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
@@ -347,19 +472,13 @@
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (thread, shape) — one at most, usually none",
-          "hard": false,
+          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the \"tell one person\" ask — the house's favourite remedy; eight of twenty-four asks had it",
+          "code": "vocab",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -370,19 +489,89 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"mark the good thing together out loud\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that anything specific is being grown, or that the fairness-sense is already running — the record gives the capacity and its seat, not the content, so each core stays on the mechanism in a moment the person could recognise and leaves the subject open. Reader's likely objection: 'there's nothing big I'm tending' — the ask survives being wrong, since writing three steps for one thing costs nothing and shows them something either way. Sentence serving the writer: any line naming what the care will produce — cut, no promised outcomes."
+      "check": "The unsupported claim is that anyone is leaning on the person's gathering right now; the record gives a capacity for pulling scattered thought into one line in this seat, not a roster of dependents, so a reader could reasonably say nothing is leaning on me and still use the ask. The ask survives being wrong because each one is small, needs no money, no spare energy, no safe person and no free time, and teaches something about the person's own felt sense of fairness whether or not the read lands. The sentence that serves me more than them would be any line that turns other people's dependence into a fact about their life, so every cell keeps the capacity bending in a moment they could recognise and leaves the people unnamed; the only 'never' left in the quartet is in the sheet line about the order not being handed back, which describes the capacity, not the person's life."
+    },
+    {
+      "attempt": 5,
+      "ms": 4498,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep your own count of what is owed and pay it\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 118 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (thread, door) — one at most, usually none",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"mark the good thing together out loud\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The unsupported claim is that anyone is leaning on the person's gathering right now; the record gives a capacity for pulling scattered thought into one line in this seat, not a roster of dependents, so a reader could reasonably say nothing depends on me and still use the ask. The ask survives being wrong because each is small, needs no money, no spare energy, no safe person and no free time, and teaches the person something about their own felt sense of fairness either way. The sentence that serves me more than them would be any line turning other people's dependence into a fact about their life, so every cell keeps the capacity bending in a moment they could recognise and leaves the people unnamed; the 'never' and the verb-as-noun are gone."
     }
   ],
   "usage": {
-    "input": 2679,
-    "output": 3200
+    "input": 9535,
+    "output": 6358
   },
   "hardOpen": 0,
-  "date": "2026-10-02T02:29:44.431Z"
+  "date": "2026-10-02T12:01:39.027Z"
 }

@@ -1,9 +1,9 @@
 {
   "schema": "0.5",
-  "prompt": "pour-author-2026-10-02-l",
+  "prompt": "pour-author-2026-10-03-s",
   "author": "or-v4.1-flash",
   "wave": "one",
-  "group": "spread:Emotion",
+  "group": "library",
   "signature_id": 38,
   "position_id": 2,
   "signature": "Reconciliation",
@@ -12,12 +12,13 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The thoughts are coming into one line right now, and you are the one holding the pen.",
-      "ask": "Give one clear call on what matters most, without laying out your reasoning first.",
-      "core": "The thoughts that were going in different directions have come into one line, and you can hold that line while the day keeps coming. You know what to attend to before you can say why. That knowing is doing more work than your sentences are paying for.\n\nWhat this balance is for is fairness. You can see what belongs to whom and what is owed, and usually you don't have to grind at it. The cost of keeping it is that you stop checking. Leave one decision in the open and let the call be shared, and the line stays right longer.",
-      "sheetLine": "The thoughts gathered and you can hold them.",
-      "verb": "gathering scattered thoughts into one line that holds",
-      "place": "knowing what matters before knowing why, in the doing of it",
+      "tense": "Right now the thoughts are settling into one line you can walk.",
+      "act": "return the small thing you owe before anyone asks",
+      "ask": "Go return the tiny thing still owed — the reply, the borrowed book, five minutes. Today, without checking with anyone first.",
+      "core": "You can pull scattered thoughts into one line and follow it. What actually matters gets your attention first, and once that's handled there's a calm under the day that doesn't need defending. Fairness arrives as a felt thing — you don't argue yourself into it; you just notice when the right weight has settled. Attention goes where it should, and the rest of the list waits quietly.\n\nThere's a small debt still on the books, and it's clear which one. Return it today, before it grows into a question you'd need to answer carefully, and skip the check with anyone else — your read is the one that counts on this. The other items keep. Staying honest on the little case is what keeps the bigger ones clear.",
+      "sheetLine": "You can feel what's fair here. Settle it quietly.",
+      "verb": "gathering scattered thoughts into one line you can walk",
+      "place": "where what matters is picked out before you can say why",
       "provenance": {
         "signature_id": 38,
         "position_id": 2,
@@ -26,36 +27,32 @@
         "partner": "Conscience",
         "mechanism": "growth",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for a future that cannot be written in, and the ground under the present is paying for it.",
-      "ask": "Pick the next step and do that one before you have the rest of the sequence.",
-      "core": "You are trying to sort tomorrow's thoughts today, and the line keeps moving. You run the conversation ahead of time, refile what hasn't happened, and the center keeps losing the thread it had a minute ago. When it works, it feels like strategy. From the outside it looks like more of the same.\n\nThere is a different way through: move on what you already feel, not on what you can foresee. The next step is usually enough. What gets left undone is only the extra sorting, and you will have to trust the parts you can't reach yet. Give one clear move to the present and let the rest wait.",
-      "sheetLine": "Rebuilding tomorrow's order ahead of time.",
-      "verb": "gathering scattered thoughts into one line that holds",
-      "place": "knowing what matters before knowing why, in the doing of it",
+      "tense": "You're bracing for a future you can't write down yet, gathering thoughts as fast as they arrive.",
+      "act": "keep the momentum steady instead of surging",
+      "ask": "Move the next thing at a pace that could hold for a long while, not the one this week demands. Find that rhythm, then stay in it.",
+      "core": "You're gathering thoughts into alignment, and the gathering has picked up speed. Loose threads get tied before you can put the day down, and fresh threads keep arriving, so pulling what matters into a line doesn't close when the light does. The strain shows up in your shoulders and your tempo. From outside it reads as urgency. From inside it feels like care.\n\nSlow the gather. Move at a rhythm you could hold steady instead of the pace the week is asking for. Find that speed, then stay with it — no surge, no catching up after. The line will wait, and you'll walk it steadier moving with your own weight than pressed against a clock.",
+      "sheetLine": "You're gathering faster than the thoughts can land.",
+      "verb": "gathering scattered thoughts into one line you can walk",
+      "place": "where what matters is picked out before you can say why",
       "provenance": {
         "signature_id": 38,
         "position_id": 2,
@@ -64,26 +61,47 @@
         "partner": "Alignment",
         "mechanism": "diagonal",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
           "code": "length",
-          "detail": "core 110 words (120–160)",
+          "detail": "core 115 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the momentum steady instead of surging\") — read it: is it that act made small?",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "You are still standing at a door that is already behind you, and it is keeping the center quiet.",
-      "ask": "Say out loud what matters most, once, to no one in particular.",
-      "core": "Nothing is gathering, and part of you can tell. Things that matter and things that don't keep arriving at the same weight, so the day decides what gets attended to and you follow. That is what it looks like from inside: nothing wrong, nothing chosen.\n\nThe center isn't gone. What it needs is a feeling to sit with, not more effort. A place you find yourself in often carries a felt kind of rightness, the one that knows what is yours and what is not. Sit with that, even briefly. Then what matters most can land from under the noise instead of being dragged up over it.",
-      "sheetLine": "Everything feels like it might matter, so nothing does.",
-      "verb": "gathering scattered thoughts into one line that holds",
-      "place": "knowing what matters before knowing why, in the doing of it",
+      "tense": "The thoughts stopped coming into one line a while back, and none has been drawn since.",
+      "act": "let the feeling settle into its own depth",
+      "ask": "Sit with something you love — no project, no improving it, nobody watching. Let the time pass and the feeling settle where it settles.",
+      "core": "The gathering stopped a while back. Thoughts that need lining up are still scattered, and the sense of what deserves attention has gone quiet — so the list sits there and you stand at its edge, not frozen exactly, but not arriving either. What used to come without effort has thinned, and you've been working around the gap instead of looking at it.\n\nGo sit with something you love instead. No task attached, no one else's voice in your ear. The heart knows what it knows slowly, and it needs unhurried hours before it will say anything again. Don't try to line the thoughts up while you're there — let the feeling deepen where it deepens. What to attend to tends to come back through something loved, not something solved.",
+      "sheetLine": "It's quiet now. Sit with what you love.",
+      "verb": "gathering scattered thoughts into one line you can walk",
+      "place": "where what matters is picked out before you can say why",
       "provenance": {
         "signature_id": 38,
         "position_id": 2,
@@ -92,31 +110,27 @@
         "partner": "Reverie",
         "mechanism": "vertical",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You are already pulling the day into one line; you just talk about it as if it happened on its own.",
-      "ask": "Point at one decision you made and say, plainly, that you chose it.",
-      "core": "You already decide what gets attended to: which call to take, what to read twice, what to let go by. The line is running through your day, and it is holding up better than the account you give of it. You call it what the schedule allowed, or what they needed, and the fact that you picked goes unnamed.\n\nWhat that cover does is hand the credit to the day. Saying it out loud is simple and unsentimental: point to one thing you decided and say so to someone who was there. Nothing has to change in what you chose. The telling is the part that has been missing, and it starts with one honest sentence.",
-      "sheetLine": "You are already sorting. You just haven't claimed it.",
-      "verb": "gathering scattered thoughts into one line that holds",
-      "place": "knowing what matters before knowing why, in the doing of it",
+      "tense": "You're drawing the line between what matters and what doesn't, and filing it under circumstance.",
+      "act": "share the joy with the people it belongs to",
+      "ask": "When something good happens, say it out loud to someone it belongs to — a message, a sentence across the room, right then.",
+      "core": "You're gathering thoughts and picking out what matters, and that picking goes into the record as just how things are here, not as something you did. The line gets drawn correctly. The credit slips away without being discussed, and the people already standing on the floor you cleared haven't been told whose work it is, because you haven't said so.\n\nThe fix isn't a bigger claim. It's sharing the good things as they land, out loud, with the people they belong to. Name the glad thing the moment it happens — say it to a face, out loud. Separating what matters from what doesn't is real work, and it starts feeling like yours the moment you hear it named in someone else's mouth.",
+      "sheetLine": "The line is yours. Say the good thing out loud.",
+      "verb": "gathering scattered thoughts into one line you can walk",
+      "place": "where what matters is picked out before you can say why",
       "provenance": {
         "signature_id": 38,
         "position_id": 2,
@@ -125,14 +139,14 @@
         "partner": "Celebration",
         "mechanism": "reduction",
         "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
+        "prompt_version": "pour-author-2026-10-03-s",
         "author_model": "or-v4.1-flash",
         "date": "2026-10-02"
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false
         },
         {
@@ -146,58 +160,64 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 4628,
+      "ms": 7535,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "code": "scope",
+          "detail": "\"You already know\" — certifies the person; the record cannot know it",
           "hard": true,
           "status": 1
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
           "code": "vocab",
-          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "detail": "\"the knowing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one small thing\" — a library tic (one cell in ten or more said it); say it another way",
           "hard": true,
-          "status": 3
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"keep for a month not\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "vocab",
@@ -207,15 +227,15 @@
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
+          "detail": "\"Pick one thing\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
           "status": 3
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 4
+          "status": 3
         },
         {
           "code": "vocab",
@@ -225,20 +245,14 @@
         },
         {
           "code": "vocab",
-          "detail": "\"the choosing\" — a verb turned into a mystical noun",
-          "hard": true,
+          "detail": "two images in one core (floor, room) — one at most, usually none",
+          "hard": false,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
-          "hard": true,
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
           "status": 4
         },
         {
@@ -246,56 +260,369 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks are \"one\" bounded thing — vary the shape of the act",
+          "hard": true
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
         }
       ],
-      "check": "The record supports the mechanism at each status and the medicine's action, but it does not say why the person's thoughts scattered, that anyone around them is unfair, or that they grew up in a household where a decision cost something — so the cells locate the moment, never the history. A reader could reasonably say the sorting is theirs and works fine; if so, the ask still holds as a small test of the strategic center. Two sentences serve me more than them and are cut: any that explain too much about the past, and any that praise the person for this kind of reading."
+      "check": "The one claim the record doesn't support is the specific shape of the person's mental life under Too Much — that gathering thoughts is what eats the time. The reader could reasonably say that's obligation, not thought. The asks survive being wrong in every case: each one is a small act of the medicine's own list, worth doing whether or not the bend I described is theirs. The sentence that serves me more than them is the Too Much core's line about bracing at a future I can't see — it has my image in it, not their week, so I've cut back to the plain thing."
     },
     {
       "attempt": 2,
-      "ms": 2716,
+      "ms": 5679,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "length",
-          "detail": "core 102 words (120–160)",
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 110 words (120–160)",
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 107 words (120–160)",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"at the end of the\"",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "detail": "\"in the room\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
+          "code": "vocab",
+          "detail": "\"the sorting\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (floor, room) — one at most, usually none",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"on its own\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"The way back isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the Too Much read that gathering thoughts is the specific thing eating the person's week — a reader could fairly say it's obligation, not thought, and I've kept the ask small enough that it stands either way. The reader's likely objection is that I've certified what the person already knows in the Balanced cell; I've reworded to describe what the capacity does in a moment rather than assert their knowledge of it. The sentence that served me more than them was the Too Much image of bracing toward an unwritten future — it flattered the writing, so it's gone to the plain thing."
+    },
+    {
+      "attempt": 3,
+      "ms": 4973,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "imperative",
+          "detail": "\"you have to\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\", and let that be\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\" and let the line\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"for a month not the\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"one thing you\" — a library tic (one cell in ten or more said it); say it another way",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the Too Much read that the pace itself is what's straining the week — a reader could fairly say it's other people's deadlines, not their own gathering, so I've kept the ask small and worth doing either way. The Balanced cell no longer asserts what the person already knows; it describes what the attention does in a moment they'd recognize. The sentence that served me more than them was the image of a clock that isn't theirs — it flattered the writing, so it's cut."
+    },
+    {
+      "attempt": 4,
+      "ms": 4262,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "imperative",
+          "detail": "\"you have to\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "history",
+          "detail": "\"for months\" — a cell knows no one's past",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"for months\" — a duration the person never gave",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from the medicine's own acts: \"the next piece at the\" — say the act in the person's words",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "faces",
+          "detail": "3 of the four asks carry a clock — let some have none",
+          "hard": true
+        }
+      ],
+      "check": "The unsupported claim is the Too Much read that the pacing itself is what strains the week — a reader could fairly say it's other people's deadlines, so the ask is small and worth doing either way. The Balanced cell describes what the attention does in a recognizable moment rather than asserting what the person knows; nothing in any cell is put in their mouth. The sentence that served me more than them was the clock in the Too Much core — it flattered the writing, so it stays cut."
+    },
+    {
+      "attempt": 5,
+      "ms": 4077,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 115 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the light\" — an ethereal image; use something in a life",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "medicine",
+          "detail": "the ask shares no word with the chosen act (\"keep the momentum steady instead of surging\") — read it: is it that act made small?",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"out loud\" — the spoken-act refrain (earned here: the medicine is about people — still vary it)",
           "hard": false,
           "status": 4
         },
@@ -306,13 +633,13 @@
           "status": 4
         }
       ],
-      "check": "The record shows the mechanism at each status and the medicine's action, but it does not say why the person's thoughts scattered, that anyone around them is unfair, or that they grew up in a household where a decision cost something — so the cells locate the moment, never the history. A reader could reasonably say the sorting is theirs and works fine; if so, the ask still holds as a small test of the strategic center. Two sentences serve me more than them and are cut: any that explain too much about the past, and any that praise the person for this kind of reading."
+      "check": "The unsupported claim is the Too Much read that the person's own gathering pace is what strains the week — a reader could fairly say it's other people's deadlines, so the ask stays small and worth doing either way. The Balanced cell describes what attention does in a recognizable moment rather than certifying what the person knows. The sentence serving me more than them was the clock in the Too Much core — cut, and the pace ask carries no calendar now."
     }
   ],
   "usage": {
-    "input": 1395,
-    "output": 2001
+    "input": 6134,
+    "output": 6028
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:28:47.813Z"
+  "date": "2026-10-02T13:31:35.738Z"
 }
