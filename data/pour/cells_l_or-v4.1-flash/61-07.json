@@ -12,18 +12,18 @@
   "cells": [
     {
       "status": 1,
-      "tense": "The drive is pointed at what you meant to finish, and it is still holding, right here.",
-      "ask": "Finish one thing you've been circling and call it done out loud, to no one in particular. Then leave it alone. Tomorrow, start the next one from that quiet.",
-      "core": "You know what you're building toward and how far off it is. The energy keeps its line through the boring middle and the parts that resist, and you don't get eaten by the resistance doing it. That steadiness is rare enough that people come back to it long after they forget what you said about it.\n\nThe cost of holding a line this well is that you can get loyal to the plan instead of the thing it was for. So check the aim now and then while you're still in motion, and don't let the only finish you accept be the biggest one. You pick the direction from here; that's what keeps this clean. A practice for the next stretch is in the ask.",
-      "sheetLine": "You aim the drive at what you meant to finish, and it holds.",
-      "verb": "finishing what was actually set out, and letting the finish stand",
-      "place": "the room where energy is aimed at a destination",
+      "tense": "The effort is already long and you are still pointed at finishing it.",
+      "ask": "Before the day's noise starts, write the one thing that has to stand at the end of it, and let that line steer the hours.",
+      "core": "The push is long, and the direction in you doesn't feel like effort anymore. It reads as one steady decision — morning, middle, end — heading one way without drama.\nWhat keeps it steady is that you're not forcing the outcome. You make the moves because they're next, not because fear is driving the wheels. That's a quieter kind of momentum than people imagine.\nThe cost is real. A long push leaves you holding all of it at once, and it's easy to keep gripping after it's already built. The satisfaction of being done is yours, but only if you can still feel it.\nIf the day starts handing you reasons to doubt it all, that's not a sign the push was wrong; that's closeness talking. Check the course in the morning and see it again: one thing has to stand. The rest is appetite and interruption.",
+      "sheetLine": "The long push still holds a direction, and it's nearly done.",
+      "verb": "carrying a long effort to the standing point where it can be called done",
+      "place": "the stretch of a life where momentum runs toward a destination and stays pointed through whatever resists it",
       "provenance": {
         "signature_id": 61,
         "position_id": 7,
         "status": 1,
-        "partner_id": 61,
-        "partner": "Achievement",
+        "partner_id": 56,
+        "partner": "Steadfastness",
         "mechanism": "growth",
         "schema_version": "0.5",
         "prompt_version": "pour-author-2026-10-02-l",
@@ -37,25 +37,30 @@
           "hard": false
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "Somewhere ahead of you the thing is finished and praised, and you are already there while today is still going on.",
-      "ask": "Cut one task you've taken on for how it will look down to the version that helps one real person today. Do that smaller one first, and leave the polished version until someone actually asks.",
-      "core": "You're pressing on what you meant to finish harder than the thing can absorb. Part of it is reaching ahead to a version of the work that's already done and well received, so the present gets spent trying to get there faster than it will go. The push is eating the thing the pushing was for.\n\nNothing here says ambition is the problem. The aim has run ahead of the work, and the ground to stand on is today. If the future you're braced for doesn't arrive as pictured, the move below still has something in it for you. Put the energy on the version of the goal that has a date on it this week rather than a verdict on it someday. One move is in the ask.",
-      "sheetLine": "You're finishing it in advance and the work can't catch up.",
-      "verb": "finishing what was actually set out, and letting the finish stand",
-      "place": "the room where energy is aimed at a destination",
+      "tense": "You are rehearsing the moment the effort lands before the work has arrived there.",
+      "ask": "Pick the smallest finished part of your current project, say out loud that it's done, and leave the rest alone until tomorrow.",
+      "core": "You're running the last stretch in your head. The finish hasn't arrived, but you're already living in it — telling people it's almost there, checking for signs it's about to pay off, bracing for the relief.\nThat bracing is spending the very momentum that would get you there. You're rehearsing the ending instead of walking the remaining steps, and the push starts to look like it belongs to a future you can't touch yet.\nWhat's specific here: it isn't that you're working too hard, it's that you're pressing on the finishing — treating a thing near its natural end as if it were late. Hold the shape of it a little longer without demanding the completed form.\nThe cost of the grip is that the work you've done stops being yours to stand in. It becomes a debt you're waiting on. The finish lives on the other side of easing the hold on when it arrives.",
+      "sheetLine": "You're bracing for a completion that hasn't landed yet.",
+      "verb": "carrying a long effort to the standing point where it can be called done",
+      "place": "the stretch of a life where momentum runs toward a destination and stays pointed through whatever resists it",
       "provenance": {
         "signature_id": 61,
         "position_id": 7,
@@ -70,20 +75,40 @@
       },
       "lint": [
         {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 3,
-      "tense": "The last stretch of this has been set down, and you're still standing at a door that's already behind you.",
-      "ask": "Say one thing you've been sitting on out loud, to one person, and let the saying of it point you at the next concrete step. Name the step, then take it before the day ends.",
-      "core": "There's a finish that hasn't happened yet and something in you settled for that. The energy you'd need is going someplace quieter than the goal, and from where you sit the aim can look gone. The line is still there. It's just not lit at the moment you'd need it lit.\n\nWhat restores it isn't forcing effort back into the starved spot. You start by getting one clear look at what's actually in front of you, and that look alone starts the current moving again. Whichever way this read lands for you, the move below still holds. First the clear look, then the motion, and a step small enough to take today counts as a step.",
-      "sheetLine": "The aim didn't die. The line to it just isn't lit.",
-      "verb": "finishing what was actually set out, and letting the finish stand",
-      "place": "the room where energy is aimed at a destination",
+      "tense": "You are standing still while the direction that used to pull you has gone quiet.",
+      "ask": "Choose one thing sitting undone right now and make it finishable today; give it twenty minutes and close that block.",
+      "core": "The energy that used to point forward has thinned out. You can see the next step, and seeing it doesn't move you. Work waits and you watch it from the side, and the watching takes more out of you than the step would.\nIt isn't that you've lost the ability to direct yourself. The ability is intact and the destination is still yours. What's missing is the current that used to make the next move obvious — the one that made stepping feel like the only thing to do.\nSo the task is smaller than it feels. Don't try to see the whole route to the end; pick the one thing in front of you that could be finished in the time you have. Finish that block and let it count.\nDirection doesn't come back because you waited for it. It comes back when the next small piece is done and you notice you did it.",
+      "sheetLine": "The pull that used to move you has gone quiet.",
+      "verb": "carrying a long effort to the standing point where it can be called done",
+      "place": "the stretch of a life where momentum runs toward a destination and stays pointed through whatever resists it",
       "provenance": {
         "signature_id": 61,
         "position_id": 7,
@@ -98,18 +123,8 @@
       },
       "lint": [
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
+          "code": "wound",
+          "detail": "\"that used to pull you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false
         },
         {
@@ -118,26 +133,26 @@
           "hard": false
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "There's momentum moving through your week that you talk about like weather, not like something you're doing.",
-      "ask": "Pick one thing you call \"it got done\" and say, out loud or in a note you keep, that you did it. Not the method — just the fact, in your own words, once.",
-      "core": "You point things toward an end and that pointing isn't in the story. The drive shows in how you choose what to start, what to leave standing, what to let go cold, but the results get filed under the situation or the pace. Your hand is on the wheel, and the directions get written down as the road's.\n\nThe fix isn't more output. It's a smaller, earlier form of the same movement: aim and direction are patterns you can name, then keep. Whether or not this matches you, the act leaves you knowing something about your own week. Claim one result as yours and watch what shifts in the next one. The act is the one in the ask, and it asks for honesty, not effort.",
-      "sheetLine": "Your hand is on this wheel. Put your name on it.",
-      "verb": "finishing what was actually set out, and letting the finish stand",
-      "place": "the room where energy is aimed at a destination",
+      "tense": "You are deciding the direction already and you speak about it as if it were chosen elsewhere.",
+      "ask": "Pick one decision you've been blaming on the situation, write 'I chose this' on it, and read it once before the day ends.",
+      "core": "The steering is happening. You decide what gets effort and what gets dropped, and those choices show in your schedule whether or not you name them. The direction in your days already comes from your hand.\nWhat you don't say is that it's you. You talk about the work ahead as if the calendar set it or whoever asked set it, and the choice underneath stays unnamed — the deciding real, the saying-so not happening.\nThis isn't a failing to be hard on yourself about. It's that credit for steering goes to whoever else might want it, and the effort that could be feeding your sense of where you're going is feeding a story instead.\nName one choice as yours. The unclaimed part isn't the work — it's the one who keeps picking it.",
+      "sheetLine": "The steering is yours. You haven't said so.",
+      "verb": "carrying a long effort to the standing point where it can be called done",
+      "place": "the stretch of a life where momentum runs toward a destination and stays pointed through whatever resists it",
       "provenance": {
         "signature_id": 61,
         "position_id": 7,
         "status": 4,
-        "partner_id": 61,
-        "partner": "Achievement",
+        "partner_id": 32,
+        "partner": "Perception",
         "mechanism": "reduction",
         "schema_version": "0.5",
         "prompt_version": "pour-author-2026-10-02-l",
@@ -146,18 +161,18 @@
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, road) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false
         }
       ]
@@ -166,11 +181,17 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5244,
+      "ms": 6635,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
@@ -178,8 +199,14 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -190,56 +217,80 @@
           "status": 1
         },
         {
-          "code": "imperative",
-          "detail": "\"you should\"",
-          "hard": true,
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 167 words (120–160)",
+          "hard": false,
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 2
         },
         {
           "code": "length",
-          "detail": "core 117 words (120–160)",
+          "detail": "core 174 words (120–160): long",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "hunch",
+          "detail": "\"and you know it\" — words put in the person's mouth",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"that used to carry you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "glass",
-          "detail": "\"empty spot\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "scope",
-          "detail": "\"you already know\" — certifies the person; the record cannot know it",
-          "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the seeing\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
+          "detail": "two images in one core (current, road) — one at most, usually none",
           "hard": false,
           "status": 3
         },
@@ -250,10 +301,22 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 171 words (120–160): long",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "vocab",
@@ -262,33 +325,33 @@
           "status": 4
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "scope",
-          "detail": "\"costs you nothing\" — certifies the person; the record cannot know it",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You just haven't said\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"this you just haven't said\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
+          "status": 4
+        },
+        {
+          "code": "hunch",
+          "detail": "\"all along\" — a motive the cell cannot know",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "scope",
+          "detail": "\"every day\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
+          "hard": true,
           "status": 4
         },
         {
@@ -296,17 +359,35 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "Unsupported claim: that a history of unfinished work is what holds the Too Little status — the record supports a wound or history without saying what happened, whose it was, or when, so I keep the door unnamed and only locate it as behind. The reader could reasonably say the drive is still moving and the completion isn't mine to measure; the ask still works either way, since seen and named is useful whether the read is right or wrong. The sentence that serves me more than the person would be anything ending the reading for them; I cut it and left the act with no promise attached."
+      "check": "The card's line says a material cycle has completed and what was willed stands; the record does not say so about this person's actual life, and every cell must locate the capacity itself — what is cheap or costly right now — without claiming the cycle completed, the structure stands, or something was built, including for Too Little, where the record gives permission to locate the person behind the present and forbids describing what happened there. The likeliest objection: 'this isn't about a real product, I have several irons in the fire' — so no cell may name a finished thing or a house or a channel; the free clause for the Balanced status is 'sustained without noise,' which I answer with the un-staged moment, and the ask survives being wrong because it commits nothing to the product, only to an hour and a sentence left in what stands. The sentence that serves me more than her — even after I trimmed it — is the fate-image 'everything resting on whether tomorrow's push lands'; I cut it to something she can verify in the room today."
     },
     {
       "attempt": 2,
-      "ms": 3665,
+      "ms": 4917,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
+        {
+          "code": "length",
+          "detail": "core 163 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
         {
           "code": "wound",
           "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
@@ -314,8 +395,14 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "wound",
+          "detail": "\"for a long time\" — a duration the person never gave",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -326,63 +413,87 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 167 words (120–160)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
+          "code": "vocab",
+          "detail": "two images in one core (door, shape) — one at most, usually none",
           "hard": false,
-          "status": 3
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"that used to pull you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"The choosing\" — a verb turned into a mystical noun",
+          "detail": "\"the looking\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 1 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the claim on it\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 4
         },
         {
           "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
           "status": 4
         },
         {
@@ -390,13 +501,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "Unsupported claim: that a history of unfinished work is what holds the Too Little status — the record supports a wound or history without naming what happened, whose it was, or when, so I keep the door unnamed and only place it behind. The reader could reasonably say the drive is still moving and the completion isn't mine to measure; the ask still works either way, since seeing where the aiming has gone quiet is useful whether the read is right or not. The sentence that serves me more than the person would be one that closes the question for them; I cut it and leave the act with no promise attached."
+      "check": "The unbounded claim in my draft: 'something you've carried for a long time is near its finished state' — the record does not say this person's work is near done, only that the capacity itself, when it appears, carries a long effort toward the standing point. Fixed by locating the capacity in how they hold the hours, not in any product. The likeliest objection: 'I don't have one big thing, I have several going' — so no cell names a finished item; the ask commits to one block and one sentence, useful even if my read is wrong. The sentence that served me more than her was the fate-rehearsal in Too Much, 'a door that might open tomorrow' — cut. Status 3 was carrying past and cause; I now say only where the seat stands — power out, waiting — and let the ask move the next step."
     },
     {
       "attempt": 3,
-      "ms": 2976,
+      "ms": 4042,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -408,8 +531,8 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -420,9 +543,21 @@
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
           "status": 2
         },
         {
@@ -430,53 +565,41 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "wound",
+          "detail": "\"that used to pull you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"You're already steering\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"one thing you've been calling\"",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
           "status": 4
         },
         {
@@ -484,13 +607,25 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "Unsupported claim: that a history of unfinished work is what holds the Too Little status — the record supports a wound or history without naming what happened, whose it was, or when, so I keep the door unnamed and only place it behind. The reader could reasonably say the drive is still moving and the completion isn't mine to measure; the ask still works either way, since seeing where the aiming has gone quiet is useful whether the read is right or not. The sentence that serves me more than the person would be one that closes the question for them; I cut it and leave the act with no promise attached."
+      "check": "The unsupported claim still lurking: that the person has one long effort, or any particular product, near done — the record says only what the capacity does, so every cell stays on how the hours are being held, not on what has been built. The reader's likeliest objection is 'I have several things going, none of them finished' — the asks commit to a block and a sentence, so they survive that. Too Much and Too Little remain opposite failures of one capacity: pressing the finish that hasn't come, versus the aimed current gone quiet. The sentence that would serve me more than them was the fate-image about bracing like a door opening tomorrow — cut again, replaced with the plain tell of checking for signs."
     },
     {
       "attempt": 4,
-      "ms": 3099,
+      "ms": 3249,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -502,8 +637,8 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -512,6 +647,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -520,20 +673,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
+          "code": "wound",
+          "detail": "\"that used to pull you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -544,47 +697,41 @@
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 3
         },
         {
           "code": "refrain",
-          "detail": "the \"say it once\" close — the house medicine; vary how it is handed over",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, road) — one at most, usually none",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"Say so once\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "five words in a row from an exemplar or a rule: \"one thing you've been calling\"",
           "hard": true,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "Unsupported claim: that a history of unfinished work is what holds the Too Little status — the record allows a history without naming what happened, whose it was, or when, so the door stays unnamed and only behind. The reader could reasonably say the aiming is still live and the finishing isn't something I can see from here; the ask still works either way, since finding where the aiming went quiet is useful whether the read lands or misses. The sentence that serves me more than the person would be one that settles the question for them; I cut it and left the act with no promise on it."
+      "check": "The unsupported claim: that the person has one long effort near done, or any particular product at all — the record says what the capacity does, not what has been built, so every cell stays on how the hours are held. The reader's likeliest objection is 'I have several things going, none of them close' — the asks commit to one block and one sentence, so they survive that. Too Much and Too Little stay opposite failures of one capacity: pressing a finish that hasn't come, versus the aimed current gone quiet. The sentence that would serve me more than them was the fate-image about bracing like a door opening tomorrow — cut, replaced with the plain tell of checking for signs."
     },
     {
       "attempt": 5,
-      "ms": 4136,
+      "ms": 2856,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -596,8 +743,8 @@
           "status": 1
         },
         {
-          "code": "hunch",
-          "detail": "\"call it done\" — the relabel is Unacknowledged's own shape; here it is a hunch",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -606,6 +753,24 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "wound",
+          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
         },
         {
           "code": "seat",
@@ -614,20 +779,20 @@
           "status": 2
         },
         {
-          "code": "length",
-          "detail": "core 116 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
-          "status": 3
+          "status": 2
         },
         {
-          "code": "diagnosis",
-          "detail": "\"die\" — the seat may allow it; the phone doesn't",
+          "code": "wound",
+          "detail": "\"that used to pull you\" — a past claimed in a tense word's clothes; locate them, don't narrate them",
           "hard": false,
           "status": 3
         },
@@ -636,39 +801,39 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
+        },
+        {
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
         },
         {
           "code": "weave",
           "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (wheel, road) — one at most, usually none",
-          "hard": false,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "format",
+          "detail": "paragraphs run together (single line break)",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "Unsupported claim: that a history of unfinished work is what holds the Too Little status — the record allows a history without naming what happened, whose it was, or when, so the door stays unnamed and only behind. The reader could reasonably say the aiming is still live and the finishing isn't something I can see from here; the ask still works either way, since finding where the aiming went quiet is useful whether the read lands or misses. The sentence that serves me more than the person would be one that settles the question for them; I cut it and left the act with no promise on it."
+      "check": "The unsupported claim: that the person has one long effort near done, or any particular finished product — the record says what the capacity does, not what has been built, so every cell stays on how the hours are held, not on what stands. The reader's likeliest objection is 'I have several things running, none of them close' — the asks commit to one block and one written sentence, so they hold even if the read is wrong. Too Much and Too Little stay opposite failures of one capacity: pressing a finish that hasn't come, versus the aimed current gone quiet. The sentence that would serve me more than them was the fate-image about bracing like a door opening tomorrow — cut, replaced with the plain tell of checking for signs."
     }
   ],
   "usage": {
-    "input": 8668,
-    "output": 5915
+    "input": 9280,
+    "output": 6637
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:15:22.644Z"
+  "date": "2026-10-02T03:10:13.552Z"
 }

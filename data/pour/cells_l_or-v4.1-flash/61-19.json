@@ -12,12 +12,12 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are standing in the thing that got built, and the pen is in your hand.",
-      "ask": "Say out loud what you finished and that it was you who finished it. Then go on with the day.",
-      "core": "You're standing in what you finished, and the pen is still in your hand. People who might not say it see the thing standing there, and the room you walk through quietly holds what you made. You chose it and you carried it to the end, which is why it's here.\n\nThe part that's easy to skip: saying it's yours. Not loud, not to anyone in particular. You can keep doing the work — the next thing is already there — but finish the count while the structure still stands. What this balance is free to feed next is patience with where you actually are. Name what got finished. It costs a few seconds and guards the thing from being treated as ordinary.",
-      "sheetLine": "You built it and you're the one who knows it",
-      "verb": "finish what you started and let it stand",
-      "place": "where what you are finally takes up the room",
+      "tense": "You're building something whole, and you're doing it on purpose.",
+      "ask": "Take one piece of work tonight to the point where you'd hand it over, then stop for the day and say out loud that it's done.",
+      "core": "You can build something whole without losing yourself in the building. The effort has a shape, it has an end, and when the thing stands you can step back from it — not clinging, not collapsing. Most people can push or they can let go. You're holding both at once, and it's why what you finish tends to stay finished.\n\nHere the finished thing and the true self show up as the same thing. Effort stops feeling like proving something. It just feels like attention, and the attention is unhurried enough to be accurate.\n\nWhat keeps this is a different strength than the one that finished it: holding without forcing. The thing you've built is done, and part of you wants a hand on it still. Let it stand a day without your upkeep. See what it does on its own.",
+      "sheetLine": "You built it whole, and you can let it stand.",
+      "verb": "Directing sustained effort until a form is complete",
+      "place": "Where you become what you already are",
       "provenance": {
         "signature_id": 61,
         "position_id": 19,
@@ -40,17 +40,22 @@
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You will have finished it a hundred times in your head before anyone has seen anything.",
-      "ask": "Before you change anything, stop — wait until the thing has been finished for three days before you touch it again.",
-      "core": "You're running past the end. In your head it's already done, already admired, already the start of what comes after — so you keep finishing it, again and again, before anyone has seen the standing thing. The work is faster than the moment it makes. Someone says it's done and you hear a beginning.\n\nThat's the pushing: it keeps the ground from setting. You know how to hold a thing to the end, and right now that holding has nowhere to land, so it eats the day it just won. Leave the thing in the room for three days. Not deciding, not starting. Let what is actually finished be finished. What shows up in that quiet is closer to the next thing than any plan you'll force.",
-      "sheetLine": "It's done and you keep starting it over",
-      "verb": "finish what you started and let it stand",
-      "place": "where what you are finally takes up the room",
+      "tense": "You're racing a future that doesn't exist yet, and you're trying to finish it early.",
+      "ask": "Close the work tonight at eighty percent and leave it until morning. Notice what you reach for in the gap and let that stay undone.",
+      "core": "You're out ahead of the thing. Somewhere forward is a state where this is done, done better, done already, and you're bracing against a deadline nobody set. So the work stops being building and becomes chasing. You complete one piece and the line moves — because what you're running at is a feeling, not a form.\n\nWhen this runs clean, the work gets done because it's ready, from a clear choice, not because stopping would feel like dying. Tonight the push is eating the pleasure of the making. That's the tell.\n\nMore effort won't fix it. You need a way of knowing that can stay open. Let one thing you've made be enough for tonight without being final. The heart can hold a thing open. Let it do that.",
+      "sheetLine": "You're finishing things before they're ready to be finished.",
+      "verb": "Directing sustained effort until a form is complete",
+      "place": "Where you become what you already are",
       "provenance": {
         "signature_id": 61,
         "position_id": 19,
@@ -58,6 +63,72 @@
         "partner_id": 42,
         "partner": "Receptivity",
         "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-02-l",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "You're still standing at the door of something you already finished.",
+      "ask": "Pick one thing you've made and say, without explaining, what it took. Then set it down and go do something else.",
+      "core": "You know how to take a thing to the end — you've done it — and you're not standing in that. The skill is intact. The showing up with it isn't. You'll describe the work as if it belongs to someone else, or as if it barely counted, and the describing has become the habit.\n\nWhat's missing here isn't more building. It's clear sight. You've been looking at what you made through borrowed eyes long enough that you can't tell what you actually did. A first clear look is just this: one thing, seen plainly, as yours.\n\nDon't push into the starved spot. Feed your perception instead. Look at one finished thing with no verdict attached — not good, not wasted, just standing there — and let that be enough for today.",
+      "sheetLine": "You did the work. You're just not standing in it.",
+      "verb": "Directing sustained effort until a form is complete",
+      "place": "Where you become what you already are",
+      "provenance": {
+        "signature_id": 61,
+        "position_id": 19,
+        "status": 3,
+        "partner_id": 32,
+        "partner": "Perception",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-02-l",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 4,
+      "tense": "You're already settled in a way you keep calling unfinished.",
+      "ask": "Name one thing in your life you didn't build but are standing in, and treat it as yours for a day without checking whether you earned it.",
+      "core": "Something in you is already settled — whole, done being built — and you keep talking about it as still in progress. You'll say you're working on it. You'll say you're not there yet. Meanwhile it's doing the work: it's in how you carry yourself, what you'll accept, what you won't. People feel it. You haven't said it.\n\nWhere you're standing, what you are and what you've made stop being two questions. The end isn't a prize waiting out there. It's ground you're on while you keep going.\n\nWhat brings this back is seeing before naming. Look at one thing you've already become and leave it unlabeled for a minute. No verdict, no next step. Just look at it standing there. It's already yours.",
+      "sheetLine": "You're already settled where you keep saying you're building.",
+      "verb": "Directing sustained effort until a form is complete",
+      "place": "Where you become what you already are",
+      "provenance": {
+        "signature_id": 61,
+        "position_id": 19,
+        "status": 4,
+        "partner_id": 32,
+        "partner": "Perception",
+        "mechanism": "reduction",
         "schema_version": "0.5",
         "prompt_version": "pour-author-2026-10-02-l",
         "author_model": "or-v4.1-flash",
@@ -75,83 +146,12 @@
           "hard": false
         }
       ]
-    },
-    {
-      "status": 3,
-      "tense": "Something in you went quiet after a certain room, and you have not built much since.",
-      "ask": "Choose one thing you can finish in a day and finish it — something that stays put when the day is out.",
-      "core": "Not much of yours is standing anywhere — not because you lost the ability to build, but because the work got left in the same room. You know what a finished thing feels like, and some part of you has been standing outside since. So new building is hard to start now. The days move. The shelf stays empty.\n\nOne small thing brought to a real end can loosen that. Sweep one room completely and look at it before you leave — not the whole place, a small area you can see done in a day, closed and kept. That might tell you what the quiet has been protecting. Then do the small thing anyway, while you still don't know. That's the moving through.",
-      "sheetLine": "You have a room you never moved out of",
-      "verb": "finish what you started and let it stand",
-      "place": "where what you are finally takes up the room",
-      "provenance": {
-        "signature_id": 61,
-        "position_id": 19,
-        "status": 3,
-        "partner_id": 32,
-        "partner": "Perception",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 4,
-      "tense": "You are writing your own account of this place and calling it the account of events.",
-      "ask": "Say out loud, to no one in particular: 'I did this,' about one thing in the room within arm's reach.",
-      "core": "You make the day go, and you know the day goes, but you talk about the doing like it's water that finds its own way down. The work gets done. The room runs because your hand is on it. But you describe afternoons as something that happened to you, which means the one person who keeps the structure standing gets credited to the structure.\n\nIt doesn't need a ceremony. Pick one thing within reach — anything that you made or moved or decided — and own it flat: 'I did this.' Then stop. Not because the standing needs praise. Because when the hands don't get their name back, the work starts to feel like it belongs to no one, and it stops teaching you what you actually are.",
-      "sheetLine": "You run the place and then file it under no one",
-      "verb": "finish what you started and let it stand",
-      "place": "where what you are finally takes up the room",
-      "provenance": {
-        "signature_id": 61,
-        "position_id": 19,
-        "status": 4,
-        "partner_id": 32,
-        "partner": "Perception",
-        "mechanism": "reduction",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
     }
   ],
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5783,
+      "ms": 5126,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -169,15 +169,27 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
           "hard": false,
           "status": 2
         },
         {
           "code": "refrain",
-          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
-          "hard": false,
+          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "hard": true,
           "status": 2
         },
         {
@@ -187,15 +199,33 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "history",
+          "detail": "\"a while ago\" — a cell knows no one's past",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
           "hard": true,
           "status": 3
         },
         {
           "code": "vocab",
-          "detail": "\"the stopping\" — a verb turned into a mystical noun",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
           "status": 3
         },
         {
@@ -211,20 +241,14 @@
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "code": "names",
+          "detail": "another card's name on glass: Completion",
           "hard": true,
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
@@ -235,11 +259,11 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person has built lasting material form — a completed structure and material cycle; real Achievement may be a small room that felt like a world, or a finished shift, and a material cycle may be invisible. The reader could object that what stands is not theirs, was never willed, or that a room behind them did not happen as implied; the no-fact rule keeps Too Little to knowing a room closed without naming it. The asks survive being wrong because each is a practice anytime: read the room without changing it, cook and clean once, look at one thing one minute, say one thing is yours. The sentence that serves the writer is the sheet line — it flatters like a poster; the core spends its words earning the credit instead."
+      "check": "The record doesn't say the person has actually finished anything — it says the capacity for completion is what's seated here, so the cells make no claim about a finished life. The fair objection is that someone reading the Too Much cell may say the pushing is just what the work requires; the ask still works because it's one room, one hour, and changes nothing else. The sentence that serves me more than them would be any line that praises completion as a virtue instead of describing the capacity; removed."
     },
     {
       "attempt": 2,
-      "ms": 3519,
+      "ms": 3764,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -257,9 +281,21 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 2
         },
         {
@@ -269,14 +305,20 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "glass",
+          "detail": "\"empty part\" — a map idiom, a product name or a tarot word on glass",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -287,8 +329,8 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
@@ -299,11 +341,11 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person has built lasting material form — a completed structure and material cycle; real Achievement may be a small room that felt like a world, or a finished shift, and a material cycle may be invisible. The reader could object that what stands is not theirs, was never willed, or that a room behind them did not happen as implied; the no-fact rule keeps Too Little to knowing a room closed without naming it. The asks survive being wrong because each is a practice anytime: read the room without changing it, cook and clean once, look at one thing one minute, say one thing is yours. The sentence that serves the writer is the sheet line — it flatters like a poster; the core spends its words earning the credit instead."
+      "check": "The record supports the seat and the mechanism but not any claim about what the person has actually finished or failed to finish; the cells describe the capacity and its posture, never a life history. The fair objection a reader could raise is that the Too Much push is just what the work requires — the ask still holds because it changes one night, not the work, and gives information either way. The sentence that serves me more than the person was any line praising completion as a virtue rather than naming the bend; those are gone. The overreach left was in the Too Little cell, where I had put a cause behind the door and used map words; both are removed."
     },
     {
       "attempt": 3,
-      "ms": 3326,
+      "ms": 3047,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -321,9 +363,21 @@
           "status": 1
         },
         {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "\"Right now the\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
           "status": 2
         },
         {
@@ -333,14 +387,14 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
+          "code": "vocab",
+          "detail": "\"the seeing\" — a verb turned into a mystical noun",
           "hard": true,
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
           "hard": false,
           "status": 3
         },
@@ -351,8 +405,8 @@
           "status": 3
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "code": "refrain",
+          "detail": "\"already\" ×3 in one core — the house voice showing",
           "hard": false,
           "status": 4
         },
@@ -363,11 +417,11 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person has built lasting material form — a completed structure and material cycle; real Achievement may be a small room that felt like a world, or a finished shift, and a material cycle may be invisible. The reader could object that what stands is not theirs, was never willed, or that a room behind them did not happen as implied; the no-fact rule keeps Too Little to knowing a room closed without naming it. The asks survive being wrong because each is a practice anytime: read the room without changing it, cook and clean once, look at one thing one minute, say one thing is yours. The sentence that serves the writer is the sheet line — it flatters like a poster; the core spends its words earning the credit instead."
+      "check": "The record supports the mechanism and the postures but not any claim about what the person has actually built, missed or finished; the cells stay on the capacity and its current bend. The fair objection is that the Too Much push may simply be what the work requires, and the ask holds because it changes one night and returns information either way. The sentence that would serve me rather than the person would be any line praising finishing as a virtue; those are gone, and the remaining hazards are the three refusals, now fixed."
     },
     {
       "attempt": 4,
-      "ms": 3498,
+      "ms": 2967,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -385,38 +439,38 @@
           "status": 1
         },
         {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "diagnosis",
+          "detail": "\"dying\" — the seat may allow it; the phone doesn't",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
           "code": "refrain",
           "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -427,77 +481,13 @@
           "status": 4
         }
       ],
-      "check": "The unsupported claim is that the person has built lasting material form — a completed structure and material cycle; real Achievement may be a small room that felt like a world, or a finished shift, and a material cycle may be invisible. The reader could object that what stands is not theirs, was never willed, or that a room behind them did not happen as implied; the no-fact rule keeps Too Little to knowing a room closed without naming it, and no sentence may claim life-wide extremity. The asks survive being wrong because each is a practice anytime: say what you finished, leave a finished thing three days, finish one small thing in a day, name one thing as yours. The sentence that serves the writer is the sheet line — it flatters like a poster; the core spends its words earning the credit instead."
-    },
-    {
-      "attempt": 5,
-      "ms": 3444,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that the person has built lasting material form — a completed structure and material cycle; real Achievement may be a small room that felt like a world, or a finished shift. The reader could object that what stands is not theirs, or that a room behind them did not happen as implied; the no-fact rule keeps Too Little to knowing a door closed without naming it. The asks survive being wrong because each is a plain practice: say what you finished, leave a done thing for three days, finish one small thing in a day, name one thing as yours. The sentence that serves the writer is the sheet line — it flatters like a poster; the core spends its words earning the credit."
+      "check": "The record supports the mechanism and the four postures but says nothing about what this person has actually built or left unfinished, and none of the cells claim that. The fair objection is that the Too Much push is just what hard work looks like; the ask holds because it changes one evening only and returns information either way. The sentence that would serve the writer more than the person is any line that praises finishing as a virtue rather than naming the bend — those are stripped out, and the two flagged phrases are gone."
     }
   ],
   "usage": {
-    "input": 5218,
-    "output": 5607
+    "input": 4302,
+    "output": 4686
   },
-  "hardOpen": 1,
-  "date": "2026-10-02T02:50:06.545Z"
+  "hardOpen": 0,
+  "date": "2026-10-02T03:19:58.186Z"
 }

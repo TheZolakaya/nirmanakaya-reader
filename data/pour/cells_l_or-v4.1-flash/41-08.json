@@ -12,18 +12,18 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are the one who keeps the roof up, and it does not cost you your softness.",
-      "ask": "Let one person carry the next thing you would have taken; stay while they finish it.",
-      "core": "When pressure comes, you can hold the shape of it without going stiff and without falling apart. You stay in touch with the people around you while you bear it, which is rarer than bearing it alone. It runs the way it should: the weight arrives, you take it, and you are still yourself on the other side.\n\nThe place it slips is naming. You take the weight, then go quiet and let it look like nothing happened. Try handing one small thing back to the person it belongs to. Stay in the room while they handle it, and do not take it back. That is what keeps this steady: the credit stays with you, and the load gets shared instead of absorbed.",
-      "sheetLine": "You hold the weight and stay soft. Let someone else carry one piece.",
-      "verb": "seeing the whole thing through and knowing there is nothing left to add",
-      "place": "the room where you take the weight and hold it steady",
+      "tense": "You are seeing what is actually in front of you, all the way through, and holding steady while you do.",
+      "ask": "Say out loud what you have fully understood, to someone who will hear it, and give the same account to yourself that you gave them.",
+      "core": "You see how a thing works, not just its surface, and you can keep at it while pressure is on. The whole shape shows up before you say a word, which is why your word is worth waiting for. You finish the read and you stay in the room while it lands — no rush to explain it away, no need to prove you got there first. You hold what you see without turning it into a verdict on anyone.\n\nNothing has to be fixed. You do not have to prove anything by doing more. Your understanding does not need to become a big explanation; it needs to land where it can be used. Let the next thing you pick up be one you chose, then let it be carried.",
+      "sheetLine": "You see it clearly and you hold steady while it lands.",
+      "verb": "seeing a thing all the way through to the end",
+      "place": "where what must be carried is borne without breaking",
       "provenance": {
         "signature_id": 41,
         "position_id": 8,
         "status": 1,
-        "partner_id": 41,
-        "partner": "Clarity",
+        "partner_id": 34,
+        "partner": "Calculation",
         "mechanism": "growth",
         "schema_version": "0.5",
         "prompt_version": "pour-author-2026-10-02-l",
@@ -32,45 +32,35 @@
       },
       "lint": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false
-        },
-        {
           "code": "vocab",
           "detail": "two images in one core (shape, room) — one at most, usually none",
           "hard": false
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false
         }
       ]
     },
     {
       "status": 2,
-      "tense": "You are bracing for weight that has not come, and the bracing has become its own work.",
-      "ask": "Name one thing already handled, then set one worry down for an hour and do the next plain task.",
-      "core": "A body like this meets trouble when it shows up, bears what's real, and comes out the far side intact. Lately the trouble hasn't shown up. Contingencies, rehearsals, the shape of the next hard thing — you take them on before they exist, so the waiting itself becomes the job. Some of that readiness is exactly right, and some is aimed at a future that cannot be written in yet.\n\nWhat it costs is the present, which sits unheld while you prepare for later. Nothing about your strength disappears when you stop bracing. Pick one worry, write it down, leave it alone for an hour. Do the next ordinary thing in front of you with both hands. That is the same strength doing less work, not a different person.",
-      "sheetLine": "You're holding what hasn't come. Set one worry down for an hour.",
-      "verb": "seeing the whole thing through and knowing there is nothing left to add",
-      "place": "the room where you take the weight and hold it steady",
+      "tense": "You are holding a shape you are sure about before the thing itself is done forming.",
+      "ask": "Take one thing you are almost sure about and leave it undecided for a day, on purpose, then decide with what the day gave you.",
+      "core": "By the time someone is halfway through, you have finished it for them, and what you spend on the unfinished part does not get counted anywhere. The certainty is doing work; it has also gotten ahead of the thing itself. You end up bracing for a version that hasn't happened, and the effort goes there instead of here.\n\nNothing has to be broken. What you are sure about is real. The guess just arrives early and loud enough that the guess becomes the thing. Take one thing you are almost sure of and leave it open a day, then decide with what the day brought. No one has to agree with you for this to mean something. You are the one who gets to be surprised.",
+      "sheetLine": "The guess arrived before the thing finished forming.",
+      "verb": "seeing a thing all the way through to the end",
+      "place": "where what must be carried is borne without breaking",
       "provenance": {
         "signature_id": 41,
         "position_id": 8,
@@ -85,6 +75,21 @@
       },
       "lint": [
         {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false
@@ -93,12 +98,12 @@
     },
     {
       "status": 3,
-      "tense": "You stopped letting the weight show, and you would call that just getting on with it.",
-      "ask": "Tell one person one true sentence about what is heavy, no fixing asked for, and stay in the room.",
-      "core": "You can still carry a great deal, and you do. What has gone quiet is letting anyone see it happen. You hold the load on your own, say nothing about it, and the day moves on, and nobody in the room knows what is being borne. Carrying well does not mean carrying less — it means carrying it in contact with somebody.\n\nBeing seen while carrying is not the same as needing rescue. Pick one person, one true sentence about what is heavy, nothing asked of them. Then stop and let them hear it without rushing to make it lighter. That contact is what keeps your strength from becoming a wall you hold up by yourself. Being known while you hold is the point, not holding less.",
-      "sheetLine": "You carry it unseen. Say one true sentence to one person.",
-      "verb": "seeing the whole thing through and knowing there is nothing left to add",
-      "place": "the room where you take the weight and hold it steady",
+      "tense": "You saw how it all works, said nothing, and now you stand at a moment that has moved on without you.",
+      "ask": "Write one sentence about something you noticed and put it in front of one person, without softening it first.",
+      "core": "You saw how it worked, and you did not take it anywhere. Under any real demand you go tense or go blank, and you cannot stand in the moment long enough to use what you see. You went quiet somewhere back and have not come back to the room where the present happens. What can bear weight in you is unexercised, so it reads as not there.\n\nYou are not empty. Write one sentence about something you noticed and put it in front of one person without softening it first. Hold what they give back without turning it into a verdict. Small and specific. The next thing you say does not have to be the whole thing.",
+      "sheetLine": "You saw it. You left the room before you said it.",
+      "verb": "seeing a thing all the way through to the end",
+      "place": "where what must be carried is borne without breaking",
       "provenance": {
         "signature_id": 41,
         "position_id": 8,
@@ -113,31 +118,41 @@
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, wall) — one at most, usually none",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
     },
     {
       "status": 4,
-      "tense": "You already steady the room when you walk in, and you would say you are just being practical.",
-      "ask": "Say out loud one ordinary thing you do that steadies someone, and put your name on it today.",
-      "core": "People settle when you are in the room, and you would describe that as nothing — just being sensible. The learning is already done in you: what breaks under weight, what holds, how much you can take. It runs through how you wait, how you do not flinch, how you keep the room from tipping. None of it is credited to you as something you do.\n\nNaming it is not showing off. It is putting your own name back on work you have been calling logistics. Today, catch one plain thing — the way you hold a silence, the way you stay — and say, in a sentence you would actually use, that you do it. The light is already on; this just says whose it is.",
-      "sheetLine": "You already steady the room. Put your name on what you do.",
-      "verb": "seeing the whole thing through and knowing there is nothing left to add",
-      "place": "the room where you take the weight and hold it steady",
+      "tense": "You are keeping your head under pressure and calling it something that happens on its own.",
+      "ask": "Name one thing you held back today, out loud to yourself, and say which part of it was your choice.",
+      "core": "You are keeping your head, not letting the moment throw you — and you talk about it like the pressure is something that happens to you. Nobody has to be thanked. But your hand is on it, and that part goes unclaimed. When you say it just got handled, your own part of it disappears.\n\nYou are steadier than you tell yourself. Name one thing you held back today, out loud to yourself, and say which part of it was your choice. That is all. It does not make you the strong one or the fixed one. It just puts the pen back where it already is, which is what a next small choice is.",
+      "sheetLine": "You're holding that line. Say so.",
+      "verb": "seeing a thing all the way through to the end",
+      "place": "where what must be carried is borne without breaking",
       "provenance": {
         "signature_id": 41,
         "position_id": 8,
         "status": 4,
-        "partner_id": 41,
-        "partner": "Clarity",
+        "partner_id": 10,
+        "partner": "Source",
         "mechanism": "reduction",
         "schema_version": "0.5",
         "prompt_version": "pour-author-2026-10-02-l",
@@ -146,18 +161,28 @@
       },
       "lint": [
         {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false
         }
       ]
@@ -166,235 +191,123 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5455,
+      "ms": 4853,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 92 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "core 115 words (120–160)",
           "hard": false,
           "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The steadiness\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 91 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "scope",
-          "detail": "\"never\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you've already taken the shape\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 91 words (120–160): thin — say what this looks like going well here before the fault",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"you're just not in the\"",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "the map's jargon: \"authorship\"",
-          "hard": true,
-          "status": 4
         },
         {
           "code": "vocab",
           "detail": "\"The seeing\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 4
-        },
-        {
-          "code": "vocab",
-          "detail": "\"the light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"admit one thing you do\"",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that each person's steadiness is settled in the present tense rather than held against a future or used to hide from a past; the record gives a tendency, not a history. A reader could rightly say the calm is useful and not a symptom, so the ask has to stand as an offer even if my read is off. The ask is sized to still be worth doing when the reading misses, because it aims at one concrete act, not at confirming a story. The sentence that serves the writer more than the person would be 'you're the calm everyone can rely on' — it flatters my read and hands nothing over; I have cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 4605,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
-          "hard": false,
           "status": 1
-        },
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The holding\" — a verb turned into a mystical noun",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what the balance costs to\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 111 words (120–160)",
-          "hard": false,
-          "status": 2
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
-          "status": 2
+          "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 113 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 3
+          "status": 1
         },
         {
           "code": "vocab",
-          "detail": "two images in one core (room, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"without asking them to lift\"",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
+          "status": 2
         },
         {
           "code": "said",
           "detail": "6 uncontracted to 0 contracted — written, not said",
           "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "weave",
+          "detail": "the tense line is pasted into the core — the person reads it twice",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "vocab",
+          "detail": "\"The knowing\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 119 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the holding\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
           "status": 4
         },
         {
@@ -402,23 +315,135 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is that each person's steadiness is actually settled and present, when the record only gives a tendency and a reader could rightly say they are simply tired rather than balanced. The ask has to stand on its own even if the read is off, so it points at one concrete act and never at confirming the story. The sentence that would serve the writer more than the person is 'you're the calm everyone leans on' — praise for my read that hands nothing over, and I have left it out."
+      "check": "The draft's one unsupported move is 'people bring you things because you steady what they're holding' — the record says holding capacity, not that others seek the person out; better to say only what the person holds. A reader could reasonably say the Balanced cell sounds like praise for being the strong one, and the Too Much cell could flatten into pestering instead of the guess that the whole shape is known before it exists. The ask survives a wrong read in every cell: showing one thing as it is, leaving one blank, saying one word, doing the small next step are all usable even if the seat is wrong. The sentence that serves the writer and not the person is anything like 'you have always carried more than your share' — cut the history, keep the act."
     },
     {
-      "attempt": 3,
-      "ms": 3588,
+      "attempt": 2,
+      "ms": 3050,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
+          "code": "length",
+          "detail": "core 93 words (120–160): thin — say what this looks like going well here before the fault",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "length",
+          "detail": "core 109 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 103 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "said",
+          "detail": "3 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft's one unsupported move is 'you already know things' in the Too Little cell — the record says under-expressed, not that the person holds knowledge they are withholding; better to describe the withdrawal and let the person supply the content. A reader could reasonably say the Balanced cell praises steadiness as a virtue, so cut the admiration and keep only the mechanism. The ask survives a wrong read in every cell: saying one thing plainly, leaving one thing open, writing one sentence, naming one choice are all usable even if the seat is wrong. The sentence that serves the writer and not the person is anything like 'you have always carried more than your share' — history the record does not have, so it stays cut."
+    },
+    {
+      "attempt": 3,
+      "ms": 3188,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
         {
           "code": "vocab",
           "detail": "two images in one core (shape, room) — one at most, usually none",
@@ -426,26 +451,144 @@
           "status": 1
         },
         {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "\"When it goes well\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "vocab",
+          "detail": "\"the carrying\" — a verb turned into a mystical noun",
+          "hard": true,
+          "status": 2
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
+          "status": 3
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Too Little's time",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The draft's one unsupported move is that any cell might present steadiness as a virtue the record cannot certify; better to describe only the mechanism and let the person supply the verdict. A reader could reasonably say the Unacknowledged cell still carries a faint 'you're doing well' tone, so I keep it to what the moment shows. The ask survives a wrong read in every cell: saying one thing plainly, leaving one thing open, writing one sentence, naming one choice are all usable even if the seat is wrong. The sentence that serves the writer and not the person is anything like 'you have always carried more than your share' — history the record does not have, so it stays cut."
+    },
+    {
+      "attempt": 4,
+      "ms": 3249,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "vocab",
+          "detail": "two images in one core (shape, room) — one at most, usually none",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false,
           "status": 1
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 1
         },
@@ -457,108 +600,14 @@
         },
         {
           "code": "refrain",
-          "detail": "\"when it is going well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "detail": "the unarrived future — a cousin heard four times in twenty-four",
           "hard": false,
           "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, wall) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that each person's steadiness is present and intact rather than simply a habit they are too tired to question; the record gives a tendency in one capacity, not a settled self. A reader could rightly say the calm is just how they get through the week, so every ask has to be worth doing even if my read is wrong, which is why each one points at a single act rather than at confirming a story. The sentence that serves the writer more than the person is 'you steady the whole room without trying' — it admires my read and hands nothing over."
-    },
-    {
-      "attempt": 4,
-      "ms": 3257,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "said",
-          "detail": "3 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "\"still standing\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
           "status": 2
         },
         {
@@ -568,108 +617,44 @@
           "status": 2
         },
         {
-          "code": "vocab",
-          "detail": "two images in one core (room, wall) — one at most, usually none",
+          "code": "length",
+          "detail": "core 117 words (120–160)",
           "hard": false,
           "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The unsupported claim is that each person's steadiness is present and intact, where the record offers a tendency in one capacity and a reader could reasonably say it's just how they get through the week. Each ask points at one act that still makes sense if the read is wrong, rather than at confirming a story. The sentence that serves the writer more than the person would be 'you hold the whole room without trying' — admiration for my read that hands nothing over, and it is not in the cells."
-    },
-    {
-      "attempt": 5,
-      "ms": 3080,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "wound",
-          "detail": "\"cost\" — a cause given to a status; Too Little says where the person stands, never why",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "ask",
-          "detail": "no visible act in the ask — could a camera see it?",
-          "hard": false,
-          "status": 1
         },
         {
           "code": "said",
           "detail": "3 uncontracted to 0 contracted — written, not said",
           "hard": false,
-          "status": 1
+          "status": 3
         },
         {
           "code": "tense",
-          "detail": "the tense sentence does not read as Balanced's time",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (room, wall) — one at most, usually none",
+          "detail": "the tense sentence does not read as Too Little's time",
           "hard": false,
           "status": 3
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
           "hard": false,
           "status": 3
         },
         {
-          "code": "vocab",
-          "detail": "\"The light\" — an ethereal image; use something in a life",
+          "code": "length",
+          "detail": "core 114 words (120–160)",
           "hard": false,
           "status": 4
         },
         {
           "code": "said",
-          "detail": "6 uncontracted to 0 contracted — written, not said",
+          "detail": "4 uncontracted to 0 contracted — written, not said",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Unacknowledged's time",
           "hard": false,
           "status": 4
         },
@@ -678,15 +663,21 @@
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 4
+        },
+        {
+          "code": "weave",
+          "detail": "the ask is pasted whole into the core — the person reads it twice",
+          "hard": false,
+          "status": 4
         }
       ],
-      "check": "The unsupported claim is that each person's steadiness is intact and present, where the record only gives a tendency in one capacity and a tired reader could reasonably say it's just how they get through the week. Every ask is a single act that still makes sense if my read is wrong, so nothing is conditional on the story holding. The line that would serve the writer more than the person is 'you hold the whole room without trying' — it admires my read and hands nothing over, and it stays out."
+      "check": "The draft's unsupported move is any wording that certifies what the person holds or has understood — the record names the capacity and the seat, not the contents; keep every claim to what shows in the moment. A reader could object that the Balanced cell praises steadiness as a virtue; keep it to the mechanism and let the verdict stay theirs. The asks survive a wrong read: saying one thing plainly, leaving one thing open, writing one sentence, naming one choice are all usable even if the seat is wrong. The sentence that serves the writer is anything like 'you have carried more than your share' — history the record does not have."
     }
   ],
   "usage": {
-    "input": 8517,
-    "output": 5410
+    "input": 6936,
+    "output": 4345
   },
   "hardOpen": 0,
-  "date": "2026-10-02T01:13:19.342Z"
+  "date": "2026-10-02T03:10:06.179Z"
 }

@@ -12,12 +12,12 @@
   "cells": [
     {
       "status": 1,
-      "tense": "You are in the open with the pen already moving and the ground still yours.",
-      "ask": "Set one small piece of the work down today, plainly, where someone can see it.",
-      "core": "You're standing where nothing has been decided yet, and the pen is already moving. Most people freeze here or rush, and you're doing neither. You pick up what the clearing left and set one piece, then the next, and you know why each one goes where it goes. Hands on material, moving at the size the material allows — the mechanism is running the way it should.\\n\\nIt isn't certainty and it doesn't need to be. It's the slow making of something that wasn't there before, at a scale you can actually hold. The pace is what keeps the shape visible, so keep it where you can still see what you're making and let it stay unfinished as long as it needs to.",
-      "sheetLine": "You're building in the open and the pace is yours.",
-      "verb": "building something new out of cleared ground, hands first",
-      "place": "the open field before the first mark",
+      "tense": "You are at the front edge of it, choosing what the first form gets to be.",
+      "ask": "Start the piece whose shape you can see, and hand one part of it to someone else today.",
+      "core": "You're building and you know you're building. Not forcing it — laying one course, checking it holds, letting the thing say what it wants next. When it runs like this the work carries you instead of the other way around.\n\nThe quiet part: the alone hours aren't shutting people out. You go in and come back with something worth showing. So the trip worth protecting is the return. Keep bringing it to somebody, even half-formed. What gets built stands sturdier once another pair of hands has held it, and some of it only exists because two people touched the same frame.",
+      "sheetLine": "You're building it a course at a time, and it holds.",
+      "verb": "raise something new from what was just cleared, with more than your own hands on it",
+      "place": "the seed state where everything is still possible and nothing is yet chosen",
       "provenance": {
         "signature_id": 54,
         "position_id": 0,
@@ -32,94 +32,18 @@
       },
       "lint": [
         {
+          "code": "length",
+          "detail": "core 100 words (120–160)",
+          "hard": false
+        },
+        {
           "code": "scope",
           "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
           "hard": false
         },
         {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 2,
-      "tense": "You are already bracing at a finished thing that nobody has started building yet.",
-      "ask": "Find one person who has built something like this and ask what they cut.",
-      "core": "You can see the finished structure and you're already living in it — measuring it, defending it, impatient with anyone who can't see it yet. The ground is still empty and you're arguing about the roof. The future pulls you past the only part where something actually gets made.\\n\\nThe work runs slower than the vision. Bracing against that keeps your hands busy holding a shape that hasn't arrived, and the material sits there waiting. Go ask someone who has built close to this what they left out. Their answer won't be yours, and it will put you back in the room with the material.",
-      "sheetLine": "You're defending a building that hasn't been raised.",
-      "verb": "building something new out of cleared ground, hands first",
-      "place": "the open field before the first mark",
-      "provenance": {
-        "signature_id": 54,
-        "position_id": 0,
-        "status": 2,
-        "partner_id": 49,
-        "partner": "Passage",
-        "mechanism": "diagonal",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false
-        }
-      ]
-    },
-    {
-      "status": 3,
-      "tense": "You stood where something could have started and you are still at that door.",
-      "ask": "Put one thing you've already decided into the world today, in its plainest form, and let it stand.",
-      "core": "The ground is cleared and you didn't step onto it. The field is open and you're not in it. At its best this is a person laying one small thing down without needing it finished or defended — the first stone set simply because setting it is the work. What happens instead is a standing at the edge, watching the ground stay empty while the cleared space keeps its shape.\\n\\nA better plan doesn't move this and more energy doesn't either. One definite thing put where it can be seen — that's the act, and it costs nothing but being visible. It also restores the sense that what you set down stays set down, and that is what makes the next act available.",
-      "sheetLine": "The field is open and you haven't stepped in.",
-      "verb": "building something new out of cleared ground, hands first",
-      "place": "the open field before the first mark",
-      "provenance": {
-        "signature_id": 54,
-        "position_id": 0,
-        "status": 3,
-        "partner_id": 29,
-        "partner": "Command",
-        "mechanism": "vertical",
-        "schema_version": "0.5",
-        "prompt_version": "pour-author-2026-10-02-l",
-        "author_model": "or-v4.1-flash",
-        "date": "2026-10-02"
-      },
-      "lint": [
-        {
-          "code": "vocab",
-          "detail": "two images in one core (field, shape) — one at most, usually none",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true
-        },
-        {
           "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false
         },
         {
@@ -135,13 +59,89 @@
       ]
     },
     {
+      "status": 2,
+      "tense": "You are building for a day that hasn't arrived, and the scaffolding is for visitors who aren't here.",
+      "ask": "Pick the one part that's already finished and leave it alone for a day. Nothing added, nothing improved.",
+      "core": "You're past the first form and racing toward the finished one, and the race is costing you the building. Each version gets measured against something that doesn't exist yet, so nothing you finish counts as finished. You're not short on skill. You're just standing ahead of where the work is.\n\nThe bracing shows up as adding — another layer, another safeguard, another thing ready. You might notice the structure getting heavier while the thing it was meant to serve goes quiet. The counterweight: go somewhere meaning still travels between people, where what you know can be said plainly and land. That's a short walk, not a renovation. Go before you think you've earned it.",
+      "sheetLine": "You're building for a day that isn't here yet.",
+      "verb": "raise something new from what was just cleared, with more than your own hands on it",
+      "place": "the seed state where everything is still possible and nothing is yet chosen",
+      "provenance": {
+        "signature_id": 54,
+        "position_id": 0,
+        "status": 2,
+        "partner_id": 49,
+        "partner": "Passage",
+        "mechanism": "diagonal",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-02-l",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 113 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "status": 3,
+      "tense": "You are still standing at a door that has closed behind you.",
+      "ask": "Take the smallest version of the thing you keep not starting and begin it in front of someone today.",
+      "core": "The reach is gone. You can see what could be built and you can't feel your hands on it; starting keeps getting postponed, and postponing has become its own habit. The work stays inside you, where it's safe.\n\nWhat's gone is the plain reliable sense that a structure will hold when you put weight on it — and that sense comes back from outside, not from more thinking. Pushing yourself to feel ready won't get it back. Saying one clear thing, in order, where someone can hear it and things start to line up will. Small, out loud, today. The doing comes first; the rest follows the doing.",
+      "sheetLine": "The reach is gone, and the door closed behind you.",
+      "verb": "raise something new from what was just cleared, with more than your own hands on it",
+      "place": "the seed state where everything is still possible and nothing is yet chosen",
+      "provenance": {
+        "signature_id": 54,
+        "position_id": 0,
+        "status": 3,
+        "partner_id": 29,
+        "partner": "Command",
+        "mechanism": "vertical",
+        "schema_version": "0.5",
+        "prompt_version": "pour-author-2026-10-02-l",
+        "author_model": "or-v4.1-flash",
+        "date": "2026-10-02"
+      },
+      "lint": [
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false
+        }
+      ]
+    },
+    {
       "status": 4,
-      "tense": "You are shaping what gets built here while calling yourself a spectator to it.",
-      "ask": "Name one thing you shaped this week that you've been describing as how it went.",
-      "core": "You're already in it — picking what gets carried, adjusting the plan, saying the thing that moves people. The building is going up around you and you talk like you arrived after it started. The hands are yours. The accounting isn't, and that gap is the whole thing.\\n\\nNone of this needs announcing or a title. It needs one moment where you catch yourself calling a choice how it went and admit you made it. Owning the moves already inside the structure is what makes the next choice yours — not more effort on the building, but claiming the pen sitting in your hand. Start with the smallest move you can find.",
-      "sheetLine": "You're choosing the shape and calling it how it went.",
-      "verb": "building something new out of cleared ground, hands first",
-      "place": "the open field before the first mark",
+      "tense": "The structure is already rising and you're talking about it as if it were forming on its own.",
+      "ask": "Say \"I'm building this\" about one piece you've been calling the project's, and name what it's for.",
+      "core": "You're shaping something — it's moving, people are finding it — and you keep describing it as though it were assembling itself. \"It's coming together.\" \"This is where it's going.\" The making is running fine. Your name on it is missing, and that gap costs you the steering.\n\nUnderneath is an earlier, simpler version of the same drive, the one that started this: something you actually felt like making, before it became a thing you manage on behalf of the circumstances. Going back to that isn't regression. It's picking up the direction that was yours before it got absorbed into the general push. Name the piece as yours, once, and say what it's for.",
+      "sheetLine": "It's already yours, and you can say so.",
+      "verb": "raise something new from what was just cleared, with more than your own hands on it",
+      "place": "the seed state where everything is still possible and nothing is yet chosen",
       "provenance": {
         "signature_id": 54,
         "position_id": 0,
@@ -157,17 +157,7 @@
       "lint": [
         {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "detail": "core 112 words (120–160)",
           "hard": false
         },
         {
@@ -181,7 +171,137 @@
   "attempts": [
     {
       "attempt": 1,
-      "ms": 5373,
+      "ms": 5465,
+      "ok": true,
+      "repaired": false,
+      "error": null,
+      "flags": [
+        {
+          "code": "length",
+          "detail": "core 117 words (120–160)",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"every time\" — a universal about the person's life; the card's claim is about one capacity",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "\"you already know\" — certifies the person; the record cannot know it",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"there's a version of this\"",
+          "hard": true,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
+          "hard": false,
+          "status": 1
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "glass",
+          "detail": "\"capacity\" — a map idiom, a product name or a tarot word on glass",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "wound",
+          "detail": "\"didn't land\" — a cause given to a status; Too Little says where the person stands, never why",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 3
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "length",
+          "detail": "core 114 words (120–160)",
+          "hard": false,
+          "status": 4
+        },
+        {
+          "code": "vocab",
+          "detail": "the map's jargon: \"authorship\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "\"weather\" — a house refrain; a person who draws twice meets it twice",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"the claim on it isn't\"",
+          "hard": true,
+          "status": 4
+        },
+        {
+          "code": "seat",
+          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "hard": false,
+          "status": 4
+        }
+      ],
+      "check": "The record says the medicine carries the medicine's own Circle name — Guidance, Passage, Command, Resolve — and the likely objection is that a person reading a card about structure and first forms will wonder why the direction cards speak. The ask survives a wrong read because it is an action the person can perform and discard, not a claim about who they are; the sentence that serves the writer more than them is 'breakthrough flows from genuine insight', which sounds like a promise about their life I cannot cash. Fixed below by keeping the parent face off the glass and rendering only the mechanism as something a person could recognise."
+    },
+    {
+      "attempt": 2,
+      "ms": 3037,
       "ok": true,
       "repaired": false,
       "error": null,
@@ -193,14 +313,14 @@
           "status": 1
         },
         {
-          "code": "glass",
-          "detail": "\"this seat\" — a map idiom, a product name or a tarot word on glass",
-          "hard": true,
+          "code": "scope",
+          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "hard": false,
           "status": 1
         },
         {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
           "hard": false,
           "status": 1
         },
@@ -223,20 +343,8 @@
           "status": 2
         },
         {
-          "code": "scope",
-          "detail": "\"always\" — a universal about the person's life; the card's claim is about one capacity",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "3 images in one core (field, shape, room) — a parable, not a sentence to a person",
-          "hard": true,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
           "hard": false,
           "status": 2
         },
@@ -248,8 +356,14 @@
         },
         {
           "code": "wound",
-          "detail": "\"Somewhere back there\" — a cause given to a status; Too Little says where the person stands, never why",
+          "detail": "\"long ago\" — a duration the person never gave",
           "hard": true,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
+          "hard": false,
           "status": 3
         },
         {
@@ -260,7 +374,13 @@
         },
         {
           "code": "refrain",
-          "detail": "\"What's missing isn't\" — a house refrain; a person who draws twice meets it twice",
+          "detail": "\"the way back\" — the house phrase for the medicine; say what the act is instead",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "refrain",
+          "detail": "\"the way back isn't\" — a house refrain; a person who draws twice meets it twice",
           "hard": true,
           "status": 3
         },
@@ -272,14 +392,8 @@
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 111 words (120–160)",
           "hard": false,
-          "status": 4
-        },
-        {
-          "code": "imperative",
-          "detail": "\"You need to\"",
-          "hard": true,
           "status": 4
         },
         {
@@ -289,242 +403,30 @@
           "status": 4
         },
         {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports a structure-capacity sitting in potential, but it does not support any claim about what the person is building, whether it will work, or what happened when it didn't. The reader could reasonably say 'you're describing a moment I'm not in — I'm between projects, not forming one.' The ask still holds if my read is wrong: building one small thing forever, without announcing it, is useful to anyone in this seat regardless of the status. The sentence that serves the writer more than the person is any line about 'the thing you're meant to build' — cut it."
-    },
-    {
-      "attempt": 2,
-      "ms": 3893,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "length",
-          "detail": "core 104 words (120–160)",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "length",
-          "detail": "core 99 words (120–160): thin — say what this looks like going well here before the fault",
+          "code": "refrain",
+          "detail": "five words in a row from an exemplar or a rule: \"you just haven't said so\"",
           "hard": true,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 101 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
           "status": 4
         },
         {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
           "status": 4
         }
       ],
-      "check": "The record supports a structure-capacity sitting in undifferentiated potential, but nothing about what the person is building, whether it will hold, or what stopped it. A reader could say 'I'm not between anything — I'm resting on purpose.' The ask survives that: setting one small thing down without fanfare is useful in this seat at any status. The line that serves the writer more than the person is anything about 'what you're meant to build' — cut it."
+      "check": "The record gives the medicine as Guidance, Passage, Command, Resolve, and a person reading about structure will wonder why direction cards answer. The ask survives a wrong read because it is a small act they can try and drop; the sentence serving the writer is the parent's 'breakthrough flows from genuine insight', which promises something about their life I can't cash. Kept off the glass below; only the mechanism shows."
     },
     {
       "attempt": 3,
-      "ms": 3631,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "refrain",
-          "detail": "five words in a row from an exemplar or a rule: \"what this looks like when\"",
-          "hard": true,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"When this goes well\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 108 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×3 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"you're already holding\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports a structure-capacity sitting in undifferentiated potential, but not what the person is building, whether it will hold, or what stopped it. A reader could say the field is open because they chose to rest, not because anything closed. The ask survives that: setting one small piece down where it shows is useful in this seat at any status. The line that serves the writer more than the person is any claim about what they are meant to build — cut it."
-    },
-    {
-      "attempt": 4,
-      "ms": 3229,
+      "ms": 2580,
       "ok": true,
       "repaired": false,
       "error": null,
       "flags": [
         {
           "code": "length",
-          "detail": "core 119 words (120–160)",
+          "detail": "core 100 words (120–160)",
           "hard": false,
           "status": 1
         },
@@ -535,32 +437,44 @@
           "status": 1
         },
         {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Balanced's time",
+          "hard": false,
+          "status": 1
+        },
+        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 1
         },
         {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
+          "code": "weave",
+          "detail": "the ask may not be in the core — the core is what the Reader stands on",
           "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
+          "status": 1
         },
         {
           "code": "length",
-          "detail": "core 116 words (120–160)",
+          "detail": "core 113 words (120–160)",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "tense",
+          "detail": "the tense sentence does not read as Too Much's time",
+          "hard": false,
+          "status": 2
+        },
+        {
+          "code": "length",
+          "detail": "core 107 words (120–160)",
+          "hard": false,
+          "status": 3
+        },
+        {
+          "code": "ask",
+          "detail": "no visible act in the ask — could a camera see it?",
           "hard": false,
           "status": 3
         },
@@ -571,44 +485,14 @@
           "status": 3
         },
         {
-          "code": "refrain",
-          "detail": "\"Done well,\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "seat",
           "detail": "the ask carries no word of the place — the same ask would serve any seat",
           "hard": false,
           "status": 3
         },
         {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
           "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
+          "detail": "core 112 words (120–160)",
           "hard": false,
           "status": 4
         },
@@ -619,113 +503,13 @@
           "status": 4
         }
       ],
-      "check": "The record supports a structure-capacity sitting in undifferentiated potential, but not what the person is building, whether it will hold, or what stopped it. A reader could say the field is open because they chose to rest, not because anything closed. The ask survives that: setting one small piece down where it shows is useful in this seat at any status. The line that serves the writer more than the person is any claim about what they are meant to build — cut it."
-    },
-    {
-      "attempt": 5,
-      "ms": 3262,
-      "ok": true,
-      "repaired": false,
-      "error": null,
-      "flags": [
-        {
-          "code": "scope",
-          "detail": "a Balanced cell with no cost in it — a person doing this well is still carrying something",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 1
-        },
-        {
-          "code": "length",
-          "detail": "core 103 words (120–160)",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (shape, room) — one at most, usually none",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 2
-        },
-        {
-          "code": "vocab",
-          "detail": "two images in one core (field, shape) — one at most, usually none",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "the Too Little door — the map's image, in 42 of 97 tense lines; name the place in the seat's own terms",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "refrain",
-          "detail": "\"At its best\" — a house refrain; a person who draws twice meets it twice",
-          "hard": true,
-          "status": 3
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Too Little's time",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "weave",
-          "detail": "the ask may not be in the core — the core is what the Reader stands on",
-          "hard": false,
-          "status": 3
-        },
-        {
-          "code": "length",
-          "detail": "core 109 words (120–160)",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "refrain",
-          "detail": "\"already\" ×2 in one core — the house voice showing",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "tense",
-          "detail": "the tense sentence does not read as Unacknowledged's time",
-          "hard": false,
-          "status": 4
-        },
-        {
-          "code": "seat",
-          "detail": "the ask carries no word of the place — the same ask would serve any seat",
-          "hard": false,
-          "status": 4
-        }
-      ],
-      "check": "The record supports a structure-capacity sitting in undifferentiated potential, but not what the person is building, whether it will hold, or what stopped it. A reader could say the field is open because they chose to rest, not because anything closed. The ask survives that: setting one small piece down where it shows is useful in this seat at any status. The line that serves the writer more than the person is any claim about what they are meant to build — cut it."
+      "check": "The record names the medicine as Guidance, Passage, Command, Resolve, and a person drawing a card about early structure will wonder why direction cards answer — the render keeps only what the medicine does, not its house name. The ask survives a wrong read because it is a small doable act they can discard rather than a claim about who they are. The sentence that serves the writer over the person is the parent's 'breakthrough flows from genuine insight', which promises an outcome I can't cash; it stays off the glass."
     }
   ],
   "usage": {
-    "input": 7855,
-    "output": 5031
+    "input": 2594,
+    "output": 3205
   },
-  "hardOpen": 1,
-  "date": "2026-10-02T02:43:00.649Z"
+  "hardOpen": 0,
+  "date": "2026-10-02T03:18:35.738Z"
 }
