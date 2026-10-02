@@ -2375,7 +2375,7 @@ ${DRAGON_STANDARD}`, 600);
                       ? 'rounded-xl border border-violet-700/40 bg-violet-950/20 p-4 text-sm text-violet-100 break-words'
                     : t.role === 'wrap'
                       ? 'rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-5 text-[1rem] leading-relaxed text-emerald-50 break-words'
-                      : 'relative rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 pb-7 text-[0.9375rem] leading-relaxed text-zinc-200 break-words'}>
+                      : 'relative rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[0.9375rem] leading-relaxed text-zinc-200 break-words'}>
 
                   {t.role === 'catchup' && <div className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
                   {t.role === 'wrap' && <div className="text-[0.625rem] uppercase tracking-wider text-emerald-300/70 mb-2">The reading, written up</div>}
@@ -2462,7 +2462,7 @@ ${DRAGON_STANDARD}`, 600);
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
-                    <div className="absolute left-0 right-0 -bottom-3.5 flex flex-wrap justify-center gap-1 px-2"> {/* .597: smaller pills, a wrap allowed, capitalised (founder: 'too big, off screen, not capitalised') */}
+                    <div className="mt-4 flex flex-wrap justify-center gap-1"> {/* .598: in normal flow at the bubble's foot — the .517 straddle grew UPWARD when it wrapped at large text and covered the geometry line (founder's screenshot) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
