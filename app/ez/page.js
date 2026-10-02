@@ -635,10 +635,16 @@ export default function EZPage() {
   };
   const [voiceToast, setVoiceToast] = useState(null);
   const voiceToastTimer = useRef(null);
+  const [voiceOffer, setVoiceOffer] = useState(null); // .599: { id, v } — "say the last turn again in this voice?"
   const chooseVoice = (v) => {
+    const changed = v !== voice;
     setVoice(v); try { localStorage.setItem('nkya_ez_voice', v); } catch {}
+    // .599 (founder: "pull voice and offer to rerun when you choose a different voice"): the per-turn Voice pill is gone; the voice
+    // setting is the one place, and with a reading on the page it offers to say the last turn again in the new voice.
+    const last = changed ? [...turns].reverse().find((t) => t.role === 'reader' && !t.pending) : null;
+    setVoiceOffer(last ? { id: last.id, v } : null);
     setVoiceToast(v); if (voiceToastTimer.current) clearTimeout(voiceToastTimer.current);
-    voiceToastTimer.current = setTimeout(() => setVoiceToast(null), 3200);
+    voiceToastTimer.current = setTimeout(() => { setVoiceToast(null); setVoiceOffer(null); }, last ? 9000 : 3200);
   };
   const plainish = voice === 'plain' || voice === 'grown'; // .484: both plain registers hide the map's words
 
@@ -2024,7 +2030,12 @@ ${DRAGON_STANDARD}`, 600);
         <div style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
           <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
           <div className="text-[0.75rem] leading-snug text-zinc-400 mt-0.5">{VOICE_NOTES[voiceToast][1]}</div>
-          <div className="text-[0.625rem] text-zinc-600 mt-1">takes effect on the next reply</div>
+          {voiceOffer && voiceOffer.v === voiceToast && !loading ? (
+            <button onClick={() => { const o = voiceOffer; setVoiceOffer(null); setVoiceToast(null); move(o.id, `voice:${o.v}`); }}
+              className="mt-1.5 text-[0.75rem] text-fuchsia-200 underline decoration-dotted hover:text-fuchsia-100">say the last turn again this way →</button>
+          ) : (
+            <div className="text-[0.625rem] text-zinc-600 mt-1">takes effect on the next reply</div>
+          )}
         </div>
       )}
       <div className="relative z-10 flex-1 flex flex-col w-full">
@@ -2462,7 +2473,7 @@ ${DRAGON_STANDARD}`, 600);
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
-                    <div className="mt-4 flex flex-wrap justify-center gap-1"> {/* .598: in normal flow at the bubble's foot — the .517 straddle grew UPWARD when it wrapped at large text and covered the geometry line (founder's screenshot) */}
+                    <div className="mt-4 -mb-4 translate-y-1/2 flex flex-wrap justify-center gap-1 px-2"> {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
@@ -2475,21 +2486,6 @@ ${DRAGON_STANDARD}`, 600);
                         className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
                         Find it
                       </button>
-                      {/* .543: HEAR IT ANOTHER WAY — the same turn in another register; the saved voice is untouched */}
-                      <button onClick={() => setVoicePickFor(voicePickFor === t.id ? null : t.id)} title="hear this turn in another voice — your setting stays as it is"
-                        className={`rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-fuchsia-500/60 text-fuchsia-200 hover:bg-fuchsia-950/70 ${voicePickFor === t.id ? 'bg-fuchsia-950/70' : ''}`}>
-                        Voice
-                      </button>
-                    </div>
-                  )}
-                  {t.role === 'reader' && !t.pending && !loading && voicePickFor === t.id && (
-                    <div className="mt-6 flex flex-wrap justify-center gap-1.5">
-                      {VOICE_ORDER.filter((r) => r !== (t.voice || voice)).map((r) => (
-                        <button key={r} onClick={() => { setVoicePickFor(null); move(t.id, `voice:${r}`); }} title={VOICE_NOTES[r]?.[1] || ''}
-                          className="rounded-full border border-fuchsia-500/40 bg-zinc-950 px-3 py-1 text-[0.75rem] text-fuchsia-100 hover:bg-fuchsia-950/60 transition-colors">
-                          {VOICE_LABELS[r]}
-                        </button>
-                      ))}
                     </div>
                   )}
 
