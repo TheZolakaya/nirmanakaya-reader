@@ -186,7 +186,7 @@ const ReadingSection = ({
                 e.stopPropagation();
                 onHeaderClick();
               }}
-            >↑ view card</span>
+            >↑ view signature</span>
           )}
         </div>
         {type === 'card' && showTraditional && trans?.traditional && !isCollapsed && (

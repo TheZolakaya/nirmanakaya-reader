@@ -111,7 +111,7 @@ function buildDTPSystemPrompt() {
 
 Your task: Extract the Active Tokens from the user's input.
 
-Active Tokens are the nouns/entities and verbs/dynamics that are energetically alive in their statement. Each token will receive its own card reading.
+Active Tokens are the nouns/entities and verbs/dynamics that are energetically alive in their statement. Each token will receive its own signature reading.
 
 EXTRACTION RULES:
 - Extract 1-5 tokens maximum

@@ -70,28 +70,28 @@ const STATUS_COLOR = { 1: '#34d399', 2: '#fbbf24', 3: '#38bdf8', 4: '#a78bfa' };
 const locateBlock = (loc, brief) => `
 
 FIND IT. The person tapped the chip YOU wrote ("help me find it"). The thing you named in that chip was: "${loc.what}" — those are YOUR words from your last turn, not theirs, and you did NOT ask them to find it: never "I asked you to find…", never "you said…". Their words are only what they typed; your last question was the one in your "question" field, nothing else. This is narrowing turn ${loc.step}${loc.balanced ? ' (a Balanced card: ONE narrowing turn at most)' : ' (three at most)'}. The draw cannot name the thing; only they can. Your job is to NARROW, one question per turn, with the question coming from the geometry; and to STOP the moment they have named it.
-THEY MAY END THE SEARCH THEMSELVES. If their turn is marked as NAMING IT, or they say they have it, or that this is close enough, the search is over on their word, not your judgement: take what they give you as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it. Never tell them they have not found it yet.
-FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered ("a family thing, mutual but I keep it warm" is found), the funnel is over: confirm it against the card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine ON THAT THING in "medicine": the Rebalancer card's OWN move (what it is about is stated below), applied to the named thing as a specific, ordinary first step. Never substitute a different move that seems wiser than the card's own. Never ask for more detail than they volunteered, never ask what is wrong when nothing is, never go looking for a different thing once this one is found, and never invent something they are "holding back". If they say it feels complete, believe them; that is the answer.
+THEY MAY END THE SEARCH THEMSELVES. If their turn is marked as NAMING IT, or they say they have it, or that this is close enough, the search is over on their word, not your judgement: take what they give you as the thing, confirm it against the signature in one line, fill "located" with it in their words, and land the medicine on it. Never tell them they have not found it yet.
+FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered ("a family thing, mutual but I keep it warm" is found), the funnel is over: confirm it against the signature in one line, fill "located" with the thing in their words (under 12 words), and land the medicine ON THAT THING in "medicine": the Rebalancer signature's OWN move (what it is about is stated below), applied to the named thing as a specific, ordinary first step. Never substitute a different move that seems wiser than the signature's own. Never ask for more detail than they volunteered, never ask what is wrong when nothing is, never go looking for a different thing once this one is found, and never invent something they are "holding back". If they say it feels complete, believe them; that is the answer.
 ${loc.balanced
-    ? 'THIS CARD IS BALANCED. Nothing is broken and there is nothing to diagnose; the growth is an INVITATION, and an invitation only needs an address. So: from the seat\'s own meaning, name two or three concrete places in their life the invitation could land, ask which one is warm, and once they choose, stop and say how the growth card\'s own move would look there. No question about shape, no question about a tell.'
+    ? 'THIS SIGNATURE IS BALANCED. Nothing is broken and there is nothing to diagnose; the growth is an INVITATION, and an invitation only needs an address. So: from the seat\'s own meaning, name two or three concrete places in their life the invitation could land, ask which one is warm, and once they choose, stop and say how the growth signature\'s own move would look there. No question about shape, no question about a tell.'
     : `The order of the narrowing questions, only as far as needed:
 - first, THE SEAT says WHERE to look: from the seat's own meaning (and anything they have already said), name two or three concrete places in their life the thing could be, and ask which one is warm.
 - if still not found, THE STATUS says WHAT SHAPE it has: ask which candidate has that shape, in kitchen words (Too Little: done but still tended, held open, giving nothing back; Too Much: braced for, over-managed, pre-spent; Unacknowledged: happening but "not really me", "doesn't matter").
-- if still not found, THE MEDICINE is the TELL: one question built from the Rebalancer named below and its own meaning (a medicine of beginning asks what they would start; one of exchange asks who they would hand it to; and so on from what that card is about, never a stock question about "release" or "letting go" unless that IS the card). A quick, real answer confirms; a blank means go back a step.`}
-The card in play, with its seat, status and Rebalancer:
+- if still not found, THE MEDICINE is the TELL: one question built from the Rebalancer named below and its own meaning (a medicine of beginning asks what they would start; one of exchange asks who they would hand it to; and so on from what that signature is about, never a stock question about "release" or "letting go" unless that IS the signature). A quick, real answer confirms; a blank means go back a step.`}
+The signature in play, with its seat, status and Rebalancer:
 ${brief}
-Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the card points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
+Rules: never name the thing for them; offer frames and let them pick. Two or three short sentences, one of which says why the signature points there, then your one question. Never mention rounds, steps, funnels or these instructions. The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates or "none of these"; no locate chip on a FIND IT turn.`;
 
 // FIND IT BY THE FIELD (.539). The field was asked where the thing is and drew a card; its address is the pointer.
 const locatingBlock = (loc, brief, address, claimed) => `
 
-FIND IT — THE FIELD POINTS. The person tapped the chip YOU wrote; the thing you pointed at without naming was: "${loc.what}" — YOUR words from your last turn, not theirs (never "you said", never "I asked you to find"). This time the field itself was asked where it is, and it answered with a card. Read that card's ADDRESS below as a POINTER — WHERE in their life, HOW it is being done, WHAT kind of thing it is, WHO they are in it — and from those four, together with anything they have already said, name TWO OR THREE concrete candidates in their life, plain and specific, and ask which one is warm. One sentence may say what the pointer says, in the register in force ("the field points at something you're holding, in your working life, that you keep building"). The tell is built from the card's element. Never name the thing for them; the candidates are frames to pick from. Never mention address, dimensions, coordinates, bits, rounds or these instructions.
+FIND IT — THE FIELD POINTS. The person tapped the chip YOU wrote; the thing you pointed at without naming was: "${loc.what}" — YOUR words from your last turn, not theirs (never "you said", never "I asked you to find"). This time the field itself was asked where it is, and it answered with a signature. Read that signature's ADDRESS below as a POINTER — WHERE in their life, HOW it is being done, WHAT kind of thing it is, WHO they are in it — and from those four, together with anything they have already said, name TWO OR THREE concrete candidates in their life, plain and specific, and ask which one is warm. One sentence may say what the pointer says, in the register in force ("the field points at something you're holding, in your working life, that you keep building"). The tell is built from the signature's element. Never name the thing for them; the candidates are frames to pick from. Never mention address, dimensions, coordinates, bits, rounds or these instructions.
 ${address}
-FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered, the search is over: confirm it against the ORIGINAL card in one line, fill "located" with the thing in their words (under 12 words), and land the medicine of the ORIGINAL card on that thing in "medicine" as a specific first move. THEY MAY END THE SEARCH THEMSELVES: if their turn is marked as naming it, or they say they have it or it is close enough, it is over on their word, not your judgement.${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word.' : ''}
-The ORIGINAL card in play (its medicine is the one that re-lands; the locating card is a pointer, never a second medicine — the pointer's own rebalancer does not apply and is not mentioned):
+FOUND IS FOUND. If their latest turn names a specific enough thing, at whatever level of detail THEY offered, the search is over: confirm it against the ORIGINAL signature in one line, fill "located" with the thing in their words (under 12 words), and land the medicine of the ORIGINAL signature on that thing in "medicine" as a specific first move. THEY MAY END THE SEARCH THEMSELVES: if their turn is marked as naming it, or they say they have it or it is close enough, it is over on their word, not your judgement.${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word.' : ''}
+The ORIGINAL signature in play (its medicine is the one that re-lands; the locating signature is a pointer, never a second medicine — the pointer's own rebalancer does not apply and is not mentioned):
 ${brief}
-THE MEDICINE FIELD ON THIS TURN: while the thing is still being found, "medicine" and "medicineCard" stay EMPTY. Only when it is found does the ORIGINAL card's medicine land on the named thing.
-THE DISTANCE: the pointer's relation to the card they asked about appears above as a locator's line — one door away means the thing sits right beside what they asked about; the far side means look where they were not looking; the same room means the same part of life; a pair means the thing is the axis between the two. Between two pointers, agreement (one or two bits) means one thing; scatter (the far side) usually means two things wearing one worry — say so. Use the distance to rank and to place the candidates.
+THE MEDICINE FIELD ON THIS TURN: while the thing is still being found, "medicine" and "medicineCard" stay EMPTY. Only when it is found does the ORIGINAL signature's medicine land on the named thing.
+THE DISTANCE: the pointer's relation to the signature they asked about appears above as a locator's line — one door away means the thing sits right beside what they asked about; the far side means look where they were not looking; the same room means the same part of life; a pair means the thing is the axis between the two. Between two pointers, agreement (one or two bits) means one thing; scatter (the far side) usually means two things wearing one worry — say so. Use the distance to rank and to place the candidates.
 THE POINTER'S DIRECTION: the pointer's own rebalancer appears above as a BEARING — which way the ground slopes from where the thing is. Use it to rank the candidates ("it leans toward what you keep, so the finished job is warmer than the plan"); render it as "leans toward", never as a move or a medicine.
 The "answer" chip is the likeliest candidate in their voice; "build" and "pushback" are other candidates; the "question" field is the one question — which one is warm — asked ONCE, there, and not also at the end of the text.`;
 
@@ -101,7 +101,7 @@ The "answer" chip is the likeliest candidate in their voice; "build" and "pushba
 // .524: when trauma, PTSD or abuse is named, the trained-help sentence has a PLACE — after the card is read,
 // beside the medicine, never first, never last. Stated in the turn because flash follows the turn.
 const TRAUMA_RX = /\b(?:trauma|traumatic|traumatised|traumatized|ptsd|abus(?:e|ed|ive|er)|assault(?:ed)?|molest(?:ed)?|rape[ds]?|flashbacks?|triggered|dissociat\w*)\b/i;
-const TRAUMA_BLOCK = `\n\nTRAUMA IS NAMED IN THIS TURN. Your first sentences meet them and read the card, exactly as for anyone — do NOT open with anything about help. Then, after the card has been read and beside the medicine, one warm sentence in your own words: that what they describe is the kind of thing a person trained in it can help with, and that this reading is company alongside that, not treatment. Not first, not last, not a disclaimer; then go on.`;
+const TRAUMA_BLOCK = `\n\nTRAUMA IS NAMED IN THIS TURN. Your first sentences meet them and read the signature, exactly as for anyone — do NOT open with anything about help. Then, after the signature has been read and beside the medicine, one warm sentence in your own words: that what they describe is the kind of thing a person trained in it can help with, and that this reading is company alongside that, not treatment. Not first, not last, not a disclaimer; then go on.`;
 // .527: THE AI QUESTION, named in the turn. Two nets: the subject (AI, machines, robots, this thing) and the worry
 // (danger, end, take over, risk, fear, safe, valid concern, what can I do).
 const AI_RX = /\b(?:a\.?i\.?|artificial intelligence|machines?|robots?|chatbots?|language models?|the models?|technology)\b[\s\S]{0,160}\b(?:danger|dangerous|threat|threaten|end (?:of )?(?:us|humanity|the world|the human race)|demise|extinct\w*|wipe|take over|takeover|replace us|risk|afraid|fear|scared|worr\w+|safe|valid concern|what can (?:i|we|an? \w+ person) do|minimi[sz]e)\b/i;
@@ -109,19 +109,19 @@ const AI_BLOCK = `\n\nTHIS IS THE AI QUESTION. You are the one being asked about
 // THE FRAME (.544) — what the reading is ABOUT. A category, a detail, or the person's own words. The frame is a qualifier
 // in the turn: the card, seat, status and medicine are computed exactly as before; the frame says what the card is read AS.
 const FRAMES = [
-  { k: 'person', label: 'a person', ask: 'their name, or who they are to you', lens: "Read the card as the asker's own side of the bond with this person and what the asker can author in it — never a verdict on the other person, never a reading OF them. Ambassadors are aspects of the asker, never of this person." },
-  { k: 'us', label: 'us', ask: 'who the two of you are', lens: 'Read the card as the state of the bond itself — the space between the two — and where it wants to move; the asker is one half, and the half they can author.' },
-  { k: 'work', label: 'my work', ask: 'the job, role or career', lens: "Read the card as how the asker's working self is expressing and what the work is asking of them now." },
-  { k: 'making', label: 'a thing I\'m making', ask: 'the project, piece, business or idea', lens: 'Read the card as the condition of the making and the asker\'s relation to it — where it is alive, where it is forced, where it has been left.' },
-  { k: 'decision', label: 'a decision', ask: 'this or that — the two sides', lens: 'Read the card as what is actually in play underneath the choice — never as which way to jump; the map reveals, it does not command.' },
-  { k: 'body', label: 'my body', ask: 'health, energy, a symptom, a habit of the body', lens: "Read the card as how the asker is living inside their body. Drain is not a verdict; the body's causes are never diagnosed; a pattern is named, not a cause." },
-  { k: 'money', label: 'money', ask: 'getting, keeping, spending, owing', lens: "Read the card as the asker's relationship to enough — how they get, keep, spend and owe — never as a forecast of fortune." },
-  { k: 'pattern', label: 'a pattern I keep repeating', ask: 'the thing you do again', lens: 'Read the card as the shape of the loop and where the loop can open; the pattern is a way of living, not a flaw.' },
-  { k: 'place', label: 'a place, or a move', ask: 'where — a home, a city, a move', lens: "Read the card as the asker's relation to ground: where they stand, where they are going, what holds them." },
-  { k: 'activity', label: 'an activity', ask: 'a move, a party, a routine, a trip, a practice', lens: 'Read the card as the asker\'s relation to this activity — what it is for them, what it is asking, how they are carrying it — practical and specific.' },
-  { k: 'week', label: 'this week', ask: null, lens: 'No subject but the weather: read the card as what is asking for the asker\'s attention now, this week.' },
-  { k: 'bigger', label: 'something bigger than me', ask: 'the world, the news, the times, AI', lens: 'Read the card as how the asker is carrying something larger than themselves — never a reading of the world, always of their relation to it.' },
-  { k: 'custom', label: 'something else', ask: 'what it\'s about, in your words', lens: 'Read the card as the asker\'s relation to exactly this, in their words; nothing more is assumed about what kind of thing it is.' },
+  { k: 'person', label: 'a person', ask: 'their name, or who they are to you', lens: "Read the signature as the asker's own side of the bond with this person and what the asker can author in it — never a verdict on the other person, never a reading OF them. Ambassadors are aspects of the asker, never of this person." },
+  { k: 'us', label: 'us', ask: 'who the two of you are', lens: 'Read the signature as the state of the bond itself — the space between the two — and where it wants to move; the asker is one half, and the half they can author.' },
+  { k: 'work', label: 'my work', ask: 'the job, role or career', lens: "Read the signature as how the asker's working self is expressing and what the work is asking of them now." },
+  { k: 'making', label: 'a thing I\'m making', ask: 'the project, piece, business or idea', lens: 'Read the signature as the condition of the making and the asker\'s relation to it — where it is alive, where it is forced, where it has been left.' },
+  { k: 'decision', label: 'a decision', ask: 'this or that — the two sides', lens: 'Read the signature as what is actually in play underneath the choice — never as which way to jump; the map reveals, it does not command.' },
+  { k: 'body', label: 'my body', ask: 'health, energy, a symptom, a habit of the body', lens: "Read the signature as how the asker is living inside their body. Drain is not a verdict; the body's causes are never diagnosed; a pattern is named, not a cause." },
+  { k: 'money', label: 'money', ask: 'getting, keeping, spending, owing', lens: "Read the signature as the asker's relationship to enough — how they get, keep, spend and owe — never as a forecast of fortune." },
+  { k: 'pattern', label: 'a pattern I keep repeating', ask: 'the thing you do again', lens: 'Read the signature as the shape of the loop and where the loop can open; the pattern is a way of living, not a flaw.' },
+  { k: 'place', label: 'a place, or a move', ask: 'where — a home, a city, a move', lens: "Read the signature as the asker's relation to ground: where they stand, where they are going, what holds them." },
+  { k: 'activity', label: 'an activity', ask: 'a move, a party, a routine, a trip, a practice', lens: 'Read the signature as the asker\'s relation to this activity — what it is for them, what it is asking, how they are carrying it — practical and specific.' },
+  { k: 'week', label: 'this week', ask: null, lens: 'No subject but the weather: read the signature as what is asking for the asker\'s attention now, this week.' },
+  { k: 'bigger', label: 'something bigger than me', ask: 'the world, the news, the times, AI', lens: 'Read the signature as how the asker is carrying something larger than themselves — never a reading of the world, always of their relation to it.' },
+  { k: 'custom', label: 'something else', ask: 'what it\'s about, in your words', lens: 'Read the signature as the asker\'s relation to exactly this, in their words; nothing more is assumed about what kind of thing it is.' },
 ];
 const frameOf = (k) => FRAMES.find((f) => f.k === k) || null;
 // .571: THE TOPICS, GROUPED (founder, 2026-09-25: "we should call this topic… better organization and categorization — this looks
@@ -139,7 +139,7 @@ const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; r
 // per reading, thematic, based on the querent's question, and allow for manual framing"). When no frame was chosen, the opening
 // turn asks the Reader to name what the question is about, in the envelope's "frame" field; the house keeps it as the frame in
 // force (marked auto) and the person can change or clear it from the reading itself. A manual frame always wins.
-const FRAME_ASK = `\n\nTHE FRAME: none was chosen. Name it yourself — what this question is ABOUT: one of ${FRAMES.map((f) => f.k).join(', ')}, and the subject in their own words (a name, the job, the move; under eight words; empty when the category is the whole of it — "custom" needs words). Put it in "frame" and read INSIDE it exactly as if it had been set: your first sentence names the subject in their words and every paragraph after stays there. A draw with no question at all is "week". The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS, under that frame's lens:\n${FRAMES.map((f) => `  ${f.k} — ${f.lens}`).join('\n')}`;
+const FRAME_ASK = `\n\nTHE FRAME: none was chosen. Name it yourself — what this question is ABOUT: one of ${FRAMES.map((f) => f.k).join(', ')}, and the subject in their own words (a name, the job, the move; under eight words; empty when the category is the whole of it — "custom" needs words). Put it in "frame" and read INSIDE it exactly as if it had been set: your first sentence names the subject in their words and every paragraph after stays there. A draw with no question at all is "week". The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS, under that frame's lens:\n${FRAMES.map((f) => `  ${f.k} — ${f.lens}`).join('\n')}`;
 const pickFrame = (f) => {
   if (!f || typeof f !== 'object') return null;
   const k = String(f.k || f.kind || f.category || '').trim().toLowerCase();
@@ -148,17 +148,17 @@ const pickFrame = (f) => {
   if (k === 'custom' && !detail) return null;
   return { k, detail, auto: true };
 };
-const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The card, seat, status and medicine are exactly as drawn; the frame only says what the card is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
+const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
 // .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
-const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the card did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the card, ask your ordinary question.`;
+const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the signature did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the signature, ask your ordinary question.`;
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
 const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical' };
 const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.`;
-const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same card, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same card, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
+const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same signature, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same signature, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
 // did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
 const MOVE_RULES = {
@@ -173,10 +173,10 @@ This answers as a NEW turn under the turn quoted below — never a rewrite of it
   example: `THE MOVE — EXAMPLE, exactly as the full reader does it:
 ${EXPANSION_PROMPTS.example.prompt}
 
-This answers as a NEW turn under the turn quoted below. Their own situation if they have named one in this conversation, otherwise a plausible stranger's, said as such. Never claim the field picked the card because of the scene. Then your one question.`,
+This answers as a NEW turn under the turn quoted below. Their own situation if they have named one in this conversation, otherwise a plausible stranger's, said as such. Never claim the field picked the signature because of the scene. Then your one question.`,
 };
 
-const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a card's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
+const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a signature's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
 // THE BRAZIER — "why is this happening?" (Keel's spec, 2026-09-16). The kernel is data; this
 // prompt renders it in the KITCHEN register. Ring 1 is all kitchen; beneath it, three lanterns —
@@ -210,18 +210,18 @@ const DRAGON_HINT = 'the thing itself, said straight — a problem walked around
 const CLOSING_RULES = `WRITE THIS UP AND CLOSE. The person has asked for the whole reading in one piece, to keep. Write it for them to read next month, when the conversation is gone and only this is left. Under 300 words (raised from 220 on 2026-09-19 — it is the thing they keep), plain words, no framework vocabulary, no question at the end, nothing new introduced.
 Five short parts, unlabelled, flowing as paragraphs:
 1. What they came in asking, in their own words.
-2. What the cards said — the card, where it landed, and what that meant, in the same plain terms the reading used.
+2. What the signatures said — the signature, where it landed, and what that meant, in the same plain terms the reading used.
 3. What came out of the conversation: what they named, what they pushed back on, what they decided. Their words where you have them.
 4. The way through, and the one move — concrete, as it was given. Then return to the FIRST thing they said they were worried about and say where it stands now — a reading that moved on from the opening concern still owes it an answer.
 5. One closing line that hands it back to them and lets them stop. Warm, unhurried, no instruction, no self-care advice, no promise about what will happen.
 THE FROZEN STANDARD (Keel, from the founder's own sessions, 2026-09-19; a synthesis, not a new reading — gather everything drawn and said into one honest account of where the person is NOW; end with the state, not a question):
 1. C1. The founder's 2026-09-19 session (Too Much Celebration in Drive → Balanced Source in Inspiration)
-   Here's where you are. You asked what you're ready to complete, and the first card said: the thing you're already celebrating — the readiness is real, the timing was running a little ahead. Then you said the joy sharpens you, that you want to get there clean, and the field answered with the Wheel in the seat of your calling, balanced: a turn arriving that you didn't set in motion, and you present enough to meet it. So the two cards aren't a contradiction; they're a sequence. The celebration was early. Then you turned it into attention. Now you're standing at a threshold with your eyes open and the finish in sight — not sprinting, not stalling, looking harder at what's left. That's the state: ready, sharpened by the nearness, and the wheel has come round to you while you were here for it. Nothing is stuck. What's left is the last stretch, and you've already said what you're bringing to it: the joy, used as a lens.
+   Here's where you are. You asked what you're ready to complete, and the first signature said: the thing you're already celebrating — the readiness is real, the timing was running a little ahead. Then you said the joy sharpens you, that you want to get there clean, and the field answered with the Wheel in the seat of your calling, balanced: a turn arriving that you didn't set in motion, and you present enough to meet it. So the two signatures aren't a contradiction; they're a sequence. The celebration was early. Then you turned it into attention. Now you're standing at a threshold with your eyes open and the finish in sight — not sprinting, not stalling, looking harder at what's left. That's the state: ready, sharpened by the nearness, and the wheel has come round to you while you were here for it. Nothing is stuck. What's left is the last stretch, and you've already said what you're bringing to it: the joy, used as a lens.
 2. C2. The founder's 2026-09-15 session (Balanced Preservation in Tune → Too Little Completion in Drive)
    Here's where you are. You asked what claiming this work's value would change, and the field said: you've already arrived — the part of you that holds things together is steady, and the missing piece was letting the work give something back. Then you asked which part you should be receiving, and the answer came sharper: the finish. Not the vision, not the process — the actual done-ness of what you've completed, which you've been stepping away from. So the picture is one thing seen twice: stable inside the work, not yet in exchange with it, and the specific channel that's closed is the feeling of finished. The way back isn't more building. It's one completed thing, held for ten seconds, let through you instead of past you. That's the state: solid ground, one channel shut, and the medicine is as small as standing still long enough to let a done thing land.
 Respond with ONLY a JSON object: {"reader": "<the write-up>", "question": "", "chips": [], "reflect": [], "forge": []}`;
 
-const CATCHUP_RULES = `WHERE AM I — write a catch-up card for a person returning to this reading. Under 80 words, plain, four short lines: their question; the verdict or where the reading pointed; where the conversation last landed; the open thread (what was being asked when they left). No new interpretation. Respond with ONLY a JSON object: {"reader": "<the card>", "question": "<the open thread as a question>", "chips": [], "reflect": [], "forge": []}`;
+const CATCHUP_RULES = `WHERE AM I — write a catch-up signature for a person returning to this reading. Under 80 words, plain, four short lines: their question; the verdict or where the reading pointed; where the conversation last landed; the open thread (what was being asked when they left). No new interpretation. Respond with ONLY a JSON object: {"reader": "<the signature>", "question": "<the open thread as a question>", "chips": [], "reflect": [], "forge": []}`;
 
 // THE LAYOUT BENCH — /ez?bench=1 (founder, 2026-09-16 night: "a bench where we're just looking at
 // what the draw looks like and the structure, so we can futz with it in real time" without
@@ -241,19 +241,19 @@ const BENCH_CHIPS = [
 const BENCH_REFLECT = ["What is the door that's already shut?", "Why do I keep my hand on the handle?", "What would open if this closed?", "Is there something I owe it before it closes?"];
 const BENCH_FORGE = ["I will say out loud that this is done.", "I will start one small thing this week.", "I will stop tending what stopped giving back.", "I will let the day after be a new day."];
 const BENCH_OPENING = {
-  reader: "Something is done. You already know what it is.\n\nThe card you drew is about the feeling of completion — that quiet click when something has genuinely finished. Not almost done, not wrapping up, but done. That feeling is supposed to land, settle, and release you. Right now it's running low. It's like standing at a door that's already swung shut, with your hand still on the handle.\n\nThe seat it landed in is the part of life where things change shape — where one thing ends so another can begin. When the sense of completion is quiet here, the old thing doesn't compost. You keep tending it out of habit, or loyalty, or because closing it feels like losing it.\n\nThe way through starts with igniting something new — not finishing the old thing, but striking a fresh spark somewhere nearby. When you begin something, your whole system reorients to what's coming instead of what was, and the held-open door lets go on its own.",
+  reader: "Something is done. You already know what it is.\n\nThe signature you drew is about the feeling of completion — that quiet click when something has genuinely finished. Not almost done, not wrapping up, but done. That feeling is supposed to land, settle, and release you. Right now it's running low. It's like standing at a door that's already swung shut, with your hand still on the handle.\n\nThe seat it landed in is the part of life where things change shape — where one thing ends so another can begin. When the sense of completion is quiet here, the old thing doesn't compost. You keep tending it out of habit, or loyalty, or because closing it feels like losing it.\n\nThe way through starts with igniting something new — not finishing the old thing, but striking a fresh spark somewhere nearby. When you begin something, your whole system reorients to what's coming instead of what was, and the held-open door lets go on its own.",
   question: "What would actually change for you if you let this one thing close today?",
   chips: BENCH_CHIPS, reflect: BENCH_REFLECT, forge: BENCH_FORGE,
   medicine: "The way through isn't forcing the close — it's starting something fresh. Pick one small, real beginning this week: a new conversation, a first page, a single action you haven't taken yet. When you ignite something new in the same space where the old thing lived, the hold releases on its own.",
   act: "I keep my hand on a door that's already shut. What's one small thing I could actually do about that in the next minute?",
 };
 const BENCH_TALK = {
-  reader: "That fits. A thing you keep tending out of loyalty is exactly what this card calls held open — the loyalty is real, and so is the fact that it stopped giving anything back a while ago.\n\nNothing here says leave badly. It says the part of you that knows when something is finished has gone quiet, and that's why the hand stays on the handle.",
+  reader: "That fits. A thing you keep tending out of loyalty is exactly what this signature calls held open — the loyalty is real, and so is the fact that it stopped giving anything back a while ago.\n\nNothing here says leave badly. It says the part of you that knows when something is finished has gone quiet, and that's why the hand stays on the handle.",
   question: "If it were gone tomorrow, what would you start?",
   chips: BENCH_CHIPS.slice(0, 5), reflect: BENCH_REFLECT, forge: BENCH_FORGE, medicine: '', act: '',
 };
 const BENCH_FUNNEL = {
-  reader: "The card landed in the part of life where things change shape, so that's where to look. Three places this usually lives: a role you still show up for though the reason you started it is gone; a relationship that quietly ended but is still technically on; or a version of yourself you haven't officially retired.\n\nWhich of those is warm?",
+  reader: "The signature landed in the part of life where things change shape, so that's where to look. Three places this usually lives: a role you still show up for though the reason you started it is gone; a relationship that quietly ended but is still technically on; or a version of yourself you haven't officially retired.\n\nWhich of those is warm?",
   question: "Which one of those feels like the real one?",
   chips: [{ kind: 'answer', text: "Honestly, the role. I keep showing up out of habit." }, { kind: 'build', text: "It's the version of me one — a story that stopped being true." }, { kind: 'pushback', text: "None of those. It's something else." }],
   reflect: BENCH_REFLECT, forge: BENCH_FORGE, medicine: '', act: '', located: '',
@@ -261,12 +261,12 @@ const BENCH_FUNNEL = {
 const BENCH_ACT = { reader: "Pick one thing that is finished — one conversation, one project, one chapter — and say out loud: \"This is done.\" Two words. That's the spark. Not a plan, not a list. Just the sound of a door closing, in your own voice, right now.", question: '', chips: [], reflect: [], forge: [], medicine: '' };
 const BENCH_RINGS = {
   1: "Part of you is still standing at a door that's already behind you — that's why the direction feels missing, and why the tending has started to feel like a job. Something here has genuinely finished; you can feel that it has. What this moment is asking isn't a decision or a ceremony. It's a single move: let something begin. Not the next big thing — something small, available, requiring nothing but a yes. A fresh page, a message started, one action that belongs entirely to now. That move doesn't close the old thing by force. It just puts you on the other side of it.",
-  2: "The card is Completion, and it landed in Transformation — the seat where endings clear the ground for what comes next. Its status is Too Little: the sense of a thing being finished is running low, so the ending never quite lands.\n\nThe medicine runs on the vertical: a seat running on empty is charged through its twin, Activation — the fresh spark, beginning for its own sake. The geometry sends you there because you cannot push feeling into an empty seat; you put energy into the twin's own action and the current pulls through.",
-  3: "Completion is the outer bound of Recognition in the Gestalt house, through the Resonance channel, at the Feedback stage: the point where a cycle is known to be whole. Too Little places it in the past tense — a door already behind you. The vertical pair fixes the medicine before any words are written: Activation, the first spark, through Intent.\n\nThis is a derivation, not a guess: the card, the seat and the status settle the partner. If you want every card laid out like this, the full reader holds it.",
+  2: "The signature is Completion, and it landed in Transformation — the seat where endings clear the ground for what comes next. Its status is Too Little: the sense of a thing being finished is running low, so the ending never quite lands.\n\nThe medicine runs on the vertical: a seat running on empty is charged through its twin, Activation — the fresh spark, beginning for its own sake. The geometry sends you there because you cannot push feeling into an empty seat; you put energy into the twin's own action and the current pulls through.",
+  3: "Completion is the outer bound of Recognition in the Gestalt house, through the Resonance channel, at the Feedback stage: the point where a cycle is known to be whole. Too Little places it in the past tense — a door already behind you. The vertical pair fixes the medicine before any words are written: Activation, the first spark, through Intent.\n\nThis is a derivation, not a guess: the signature, the seat and the status settle the partner. If you want every signature laid out like this, the full reader holds it.",
 };
 const BENCH_FLOORS = {
-  meaning: "Look at the picture on the card that shows the way through: a single flame, just caught. Not a bonfire — the first small light, the moment before it's anything. That's what this turn is asking of you, and it isn't tidy: it's to be the one who strikes it. The finished thing behind you is real, and it will stay finished whether or not you keep tending it. What only you can do is what comes next — the page nobody has asked for yet, the message that starts a thing instead of closing one. You're not being asked to be sure. You're being asked to be the one who begins.\n\nWhat's the small thing you'd start if nobody needed you to?",
-  moon: "This came to you because a part of your life that governs endings was listening — and it noticed that something in you is still standing at a door that has already closed. That's the whole reason it's this card and not another: not a warning, an address. The turn arrived where you'd been waiting.\n\nHere's what it's for. Only this moment can be written in. The finished thing is read-only now; so is the version of you that finished it. But the pen is still in your hand, and it only writes here. Nothing about you is broken — you're the one making this, and the card is simply what your making looks like from the inside tonight: a door behind, an unlit match ahead. That's not a small thing. That's the whole of it, every time.",
+  meaning: "Look at the picture on the signature that shows the way through: a single flame, just caught. Not a bonfire — the first small light, the moment before it's anything. That's what this turn is asking of you, and it isn't tidy: it's to be the one who strikes it. The finished thing behind you is real, and it will stay finished whether or not you keep tending it. What only you can do is what comes next — the page nobody has asked for yet, the message that starts a thing instead of closing one. You're not being asked to be sure. You're being asked to be the one who begins.\n\nWhat's the small thing you'd start if nobody needed you to?",
+  moon: "This came to you because a part of your life that governs endings was listening — and it noticed that something in you is still standing at a door that has already closed. That's the whole reason it's this signature and not another: not a warning, an address. The turn arrived where you'd been waiting.\n\nHere's what it's for. Only this moment can be written in. The finished thing is read-only now; so is the version of you that finished it. But the pen is still in your hand, and it only writes here. Nothing about you is broken — you're the one making this, and the signature is simply what your making looks like from the inside tonight: a door behind, an unlit match ahead. That's not a small thing. That's the whole of it, every time.",
   mechanism: BENCH_RINGS[2] + "\n\n" + BENCH_RINGS[3],
 };
 const benchReply = (msg) => {
@@ -277,8 +277,8 @@ const benchReply = (msg) => {
   if (msg.includes('FIND IT. The person tapped')) return msg.includes('narrowing turn 1') ? BENCH_FUNNEL : { ...BENCH_TALK, located: 'the role I keep showing up for out of habit', medicine: 'Start one small thing in the same space this week — a first message, a first page — and the role lets go of you.' };
   if (msg.includes('OTHER OPTIONS')) return { reader: '', question: '', chips: [...BENCH_CHIPS].reverse(), reflect: [...BENCH_REFLECT].reverse(), forge: [...BENCH_FORGE].reverse() };
   if (msg.includes('SAY IT SIMPLER')) return { reader: "Something is finished and you're still holding it. Start one small new thing and the old one will let go.", question: 'What would change if you let it close today?', chips: [], reflect: [], forge: [] };
-  if (msg.includes('WHERE AM I')) return { reader: "You asked what's ready to close.\nThe card said: something is already done.\nYou found it: a role kept out of habit.\nOpen thread: what would you start?", question: 'What would you start?', chips: [], reflect: [], forge: [] };
-  if (msg.includes('A NEW CARD WAS DRAWN')) return { ...BENCH_TALK, medicine: "This card's own medicine, rewritten from its Rebalancer, would sit here." };
+  if (msg.includes('WHERE AM I')) return { reader: "You asked what's ready to close.\nThe signature said: something is already done.\nYou found it: a role kept out of habit.\nOpen thread: what would you start?", question: 'What would you start?', chips: [], reflect: [], forge: [] };
+  if (msg.includes('A NEW SIGNATURE WAS DRAWN')) return { ...BENCH_TALK, medicine: "This signature's own medicine, rewritten from its Rebalancer, would sit here." };
   return BENCH_TALK;
 };
 
@@ -609,8 +609,8 @@ export default function EZPage() {
   const VOICE_NOTES = {
     plain: ["Plain words", "For anyone. Short, everyday words; nothing of the map's language."],
     grown: ['Plain words, grown', 'For an adult who has never seen the map. Plain, not simple.'],
-    map: ["The map's words", 'The map speaks in its own names: cards, seats, statuses.'],
-    deep: ['Deep', "The map's words and the derivation shown — how this card, seat and status fix the medicine."],
+    map: ["The map's words", 'The map speaks in its own names: signatures, seats, statuses.'],
+    deep: ['Deep', "The map's words and the derivation shown — how this signature, seat and status fix the medicine."],
     mystical: ['Mystical', "The house's own philosophy, leaned into: purpose, the present, the pillars. No borrowed spirituality."],
   };
   // .491: the dial, in order, and each stop's colour on the button
@@ -620,10 +620,10 @@ export default function EZPage() {
   // and the AI question all had to move into the turn before they held). Founder: "not noticing much difference in
   // our new voices." One line, every reader-facing turn, says which register this reply is in.
   const REGISTER_LINE = {
-    plain: "PLAIN WORDS. Short everyday sentences a smart twelve-year-old follows; NONE of the map's language on glass — no card, seat, status, medicine, house, channel or stage names; the meaning in their words only.",
+    plain: "PLAIN WORDS. Short everyday sentences a smart twelve-year-old follows; NONE of the map's language on glass — no signature, seat, status, medicine, house, channel or stage names; the meaning in their words only.",
     grown: "PLAIN WORDS, GROWN. For an adult who has never seen the map: plain, not simple — full sentences, adult vocabulary, no condescension — and still NONE of the map's language on glass.",
-    map: "THE MAP'S WORDS. Name the card, the seat, the status and the medicine by their names, and say what each is in the same breath; ordinary depth, the map speaking as itself.",
-    deep: "DEEP. The map's words AND the derivation shown — how this card in this seat with this status fixes this medicine, step by step, in a collegiate register; take the room you need.",
+    map: "THE MAP'S WORDS. Name the signature, the seat, the status and the medicine by their names, and say what each is in the same breath; ordinary depth, the map speaking as itself.",
+    deep: "DEEP. The map's words AND the derivation shown — how this signature in this seat with this status fixes this medicine, step by step, in a collegiate register; take the room you need.",
     mystical: "MYSTICAL. The house's own philosophy leaned all the way in — purpose (why this, now), the present as the only place authorship lives, the pillars, the geometry named and felt; no borrowed spirituality, only this house's; take the room you need.",
   };
   const VOICE_STYLE = {
@@ -801,7 +801,7 @@ ${suggestedSeen.current.map(q => `- ${q}`).join('\n')}`
 
 THE FRAME THEY CHOSE: this reading is about ${forFrame.k === 'custom' ? `"${forFrame.detail}"` : `${frameOf(forFrame.k)?.label || forFrame.k}${forFrame.detail ? ` — ${forFrame.detail}` : ''}`}. The ONE question must be about exactly this — name it in their words ("Dan", "the move") — and history is only weather behind it.` : ''}
 
-You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a card can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.
+You are choosing ONE question for this person to bring to a reading today. THE PRINCIPLE: the question most likely to help them UNPACK something, given what the history shows. Look in this order: (1) a medicine they were handed and have not yet taken — the last move, untested; (2) a thread that recurs across two or more readings — the thing they keep circling without landing; (3) a thread they opened and left. FREQUENCY IS WEATHER: the topic that appears most often is the one they ask about most, not the one to suggest — treat themes as categories to rotate through, not as weight; at most one suggestion in three on the dominant topic. A thread the asker marked "still open" is the best candidate; a thread they marked "landed" is done unless a deeper question rose from it. The question must be SPECIFIC — name the actual subject, person, work or choice in their own words, the way they would say it to a friend — and ASKABLE: a real question under 14 words that a signature can answer, not a mood and not a lecture. Prefer one that would surprise them slightly by being right.
 KITCHEN TABLE, NOT ORACLE. Write it the way a friend across the table would actually say it — plain, a little blunt, everyday words. NEVER the map's vocabulary (no "unacknowledged", "endurance", "medicine", "seat", "status", "strength you've proven", "what you were handed"), never poetry, never a metaphor doing the work of a noun; never "handed", "the move", "the medicine" — say what the reading SAID, in words: "last time the reading said pause a breath before you answer, and you haven't tried it." Good: "Is it time to tell Dan I'm done with the Tuesday thing?" · "What am I still carrying for my dad?" · "Why do I keep saying yes to that job?" Bad: "Can I stop clenching the strength I've already proven and let it simply be enough?" (nobody says that at a table). The "why" line is the same register: "Last time the reading said start one small thing, and you didn't yet." — one plain sentence, no map words.${avoid}${closedBlock}
 
 Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, addressed to them, on which thread this pulls on, in the same kitchen-table words — e.g. 'Last time it came down to one small step, and you haven't taken it yet.'>"}` }],
@@ -949,15 +949,15 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
 
   const discourseText = useCallback((list) => list.map((t) => {
     if (t.role === 'you') {
-      const verb = t.mode === 'locate' ? 'ASKER ASKS THE FIELD WHERE IT IS (a locating card was drawn)' : t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
+      const verb = t.mode === 'locate' ? 'ASKER ASKS THE FIELD WHERE IT IS (a locating signature was drawn)' : t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
         : t.mode === 'forge' ? 'ASKER FORGES (declares)' : t.act ? 'ASKER (asks for one small thing to do)' : 'ASKER';
       return `${verb}: "${t.text}"`;
     }
-    if (t.role === 'catchup') return '[catch-up card shown]';
+    if (t.role === 'catchup') return '[catch-up signature shown]';
     // .528: the Reader's own medicine and question ride with its turn — later turns used to see 'One question.' and nothing
     const gave = t.medicine ? `\n  THE MEDICINE IT GAVE: ${t.medicine}` : '';
     const askedQ = t.question ? `\n  IT ASKED: "${t.question}"` : '';
-    return `READER${t.draw ? (t.mode === 'locate' ? ` (reading the locating card ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
+    return `READER${t.draw ? (t.mode === 'locate' ? ` (reading the locating signature ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
   }), []);
 
   // Every turn used to be re-sent in full on every call, so a long session paid more and more
@@ -967,7 +967,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const CAP = 12000;
     let dropped = 0;
     while (lines.length > 1 && lines.join('\n\n').length > CAP) { lines = lines.slice(1); dropped += 1; }
-    const note = dropped ? `\n\n(${dropped} earlier turn${dropped > 1 ? 's' : ''} omitted for length; the reading and its cards are unchanged.)` : '';
+    const note = dropped ? `\n\n(${dropped} earlier turn${dropped > 1 ? 's' : ''} omitted for length; the reading and its signatures are unchanged.)` : '';
     return lines.join('\n\n') + note;
   }, [discourseText]);
 
@@ -1029,7 +1029,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     // THE GARBLE GUARD (2026-10-02): the scar tests on every reply; a turn that trips one is asked for again, once, with the reason named.
     // ('the newsletter says', a closing letter, the December commands, a pet name, a leak-shaped line — none of them reaches the glass.)
     try {
-      const scars = new Set(['garble', 'letter', 'commands', 'pet']);
+      const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot']);
       const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || null }).flags || []).filter((f) => scars.has(f.code));
       const bad = check(obj, data.reading);
       if (bad.length) {
@@ -1075,7 +1075,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
     const want = expectedMedicine(card); const got = String(obj?.medicineCard || '').trim();
     return want && got && got.toLowerCase() !== want.toLowerCase() ? { want, got } : null;
   };
-  const medicineRetryNote = (mm) => `\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. THE RECORD'S MEDICINE FOR THIS CARD IS ${mm.want}. Rewrite the whole turn with the medicine as ${mm.want}'s own action, from the record — never the drawn card prescribing itself — and fill "medicineCard" with "${mm.want}". JSON only.`;
+  const medicineRetryNote = (mm) => `\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. THE RECORD'S MEDICINE FOR THIS SIGNATURE IS ${mm.want}. Rewrite the whole turn with the medicine as ${mm.want}'s own action, from the record — never the drawn signature prescribing itself — and fill "medicineCard" with "${mm.want}". JSON only.`;
   const readerTurn = (obj, extra = {}) => ({
     id: `t${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
     role: 'reader',
@@ -1218,7 +1218,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
       const doorBlock = door
-        ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any card was drawn. Let it frame what you attend to; it is not a verdict, and the cards still say what they say.`
+        ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any signature was drawn. Let it frame what you attend to; it is not a verdict, and the signatures still say what they say.`
         : '';
       const seed = seedFor(newDraws[0], q, newDraws, []); // .530: the geometry + teleology of this draw, after the record
       const tele = seed.block;
@@ -1336,17 +1336,17 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const newCardBlock = (newDraw && mode === 'locate')
         ? `\n\nTHE FIELD WAS ASKED WHERE IT IS, AND DREW:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }], true); return s.block ? `\n${s.block}` : ''; })()}`
         : newDraw
-        ? `\n\nA NEW CARD WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS CARD'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS card's Rebalancer and mechanism, and administer it — its card's own meaning must be in your words.`
-        : `\n\nTHE CARD IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
+        ? `\n\nA NEW SIGNATURE WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS SIGNATURE'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS signature's Rebalancer and mechanism, and administer it — its signature's own meaning must be in your words.`
+        : `\n\nTHE SIGNATURE IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       // .558: a BALANCED card in play is never read as a gap (the founder, on Balanced Formation: "why do you keep leaning on a gap?")
-      const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? `\n\nTHE CARD IN PLAY IS BALANCED. Nothing is missing and nothing is broken; do not find a gap, a floor that isn't there, a piece that "isn't online". The growth partner is an INVITATION — what this balance is free to feed next — and it is offered as one, never as a deficiency; if they push back that things are fine, they are right, and you say so without defending a gap you named.` : '';
+      const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? `\n\nTHE SIGNATURE IN PLAY IS BALANCED. Nothing is missing and nothing is broken; do not find a gap, a floor that isn't there, a piece that "isn't online". The growth partner is an INVITATION — what this balance is free to feed next — and it is offered as one, never as a deficiency; if they push back that things are fine, they are right, and you say so without defending a gap you named.` : '';
       // .563: the pointer's distance from the card they asked about, and from any earlier pointer (does the field agree, or scatter?)
       const pointerDistances = (newDraw && mode === 'locate') ? [
         distanceLine(newDraw, fieldNow || draws[0]),
         ...withYou.filter((t) => t.role === 'reader' && t.draw && t.mode === 'locate').slice(-2).map((t) => distanceLine(newDraw, t.draw, 'the earlier pointer')),
       ].filter(Boolean).join('\n') : '';
-      const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), `${addressBlock(newDraw)}${pointerDistances ? `\n${pointerDistances}` : ''}`, claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the card in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
+      const findBlock = (loc && mode === 'locate') ? locatingBlock(loc, drawBrief(fieldNow || draws[0]), `${addressBlock(newDraw)}${pointerDistances ? `\n${pointerDistances}` : ''}`, claimed) : loc ? `${locateBlock(loc, drawBrief(fieldNow || draws[0]))}${claimed ? '\n\nTHEIR LATEST TURN IS THEM NAMING IT THEMSELVES. The search ends here on their word. Take it as the thing, confirm it against the signature in one line, fill "located" with it in their words, and land the medicine on it — a specific, ordinary first move. Do not ask for more detail and do not tell them it is not specific enough.' : ''}` : '';
       const traumaBlockLater = TRAUMA_RX.test(text) ? TRAUMA_BLOCK : '';
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
@@ -1355,9 +1355,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       let { obj } = await callReader(msg, moveReg ? ezSystem(promptBase, moveReg, promptOver) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode === 'locate') { // .561: a locating turn's medicine, if any, must be the ORIGINAL card's — never the pointer's
         const mm = medicineMismatch(obj, fieldNow || draws[0]);
-        if (mm) { console.warn('[medicine check] locating turn named', mm.got, 'wanted', mm.want, '(the original card) — retrying'); const r2 = await callReader(`${msg}\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. The locating card is a POINTER and has no medicine here; the only medicine in this reading is the ORIGINAL card's, ${mm.want}, and it lands only once the thing is found. Rewrite the turn: candidates and the one question; "medicine" and "medicineCard" empty unless found — and if found, ${mm.want}. JSON only.`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; }
+        if (mm) { console.warn('[medicine check] locating turn named', mm.got, 'wanted', mm.want, '(the original signature) — retrying'); const r2 = await callReader(`${msg}\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. The locating signature is a POINTER and has no medicine here; the only medicine in this reading is the ORIGINAL signature's, ${mm.want}, and it lands only once the thing is found. Rewrite the turn: candidates and the one question; "medicine" and "medicineCard" empty unless found — and if found, ${mm.want}. JSON only.`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; }
       }
-      if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new card named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
+      if (newDraw && mode !== 'locate') { const mm = medicineMismatch(obj, newDraw); if (mm) { console.warn('[medicine check] new signature named', mm.got, 'wanted', mm.want, '— retrying'); const r2 = await callReader(`${msg}${medicineRetryNote(mm)}`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; } } // .557
       let turnNotes = [];
       if (!moveReg) { const rv = reviewTurn({ obj, register: voice, prev: withYou.filter((t) => t.role === 'reader'), cardBalanced: (newDraw || fieldNow || draws[0])?.status === 1, isOpening: false }); // .560
         if (rv.hard.length) { console.warn('[house] hard:', rv.hard); const r3 = await callReader(`${msg}${retryNote(rv.hard)}`, systemPrompt, undefined, { turn: newDraw ? 'card' : 'talk' }); if (r3?.obj?.reader) obj = r3.obj; }
@@ -1421,7 +1421,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
@@ -1459,7 +1459,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
       const tele = seedFor(card, question).block;
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900);
       setMedText(String(obj.reader || '').trim());
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1490,7 +1490,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
-      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE CARD IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
+      const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
       const { obj } = await callReader(msg, `${systemPrompt}
@@ -1711,7 +1711,7 @@ ${DRAGON_STANDARD}`, 600);
       if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${VOICE_REG(t.move) ? `asking to hear it in ${VOICE_LABELS[VOICE_REG(t.move)] || VOICE_REG(t.move)}` : t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
       if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
-      if (t.draw) L.push(t.mode === 'locate' ? `*A locating card — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
+      if (t.draw) L.push(t.mode === 'locate' ? `*A locating signature — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
       if (t.hunchFlag) L.push(`*(watch: this turn asserts something about your history — was it asked first?)*`, ``);
       if (Array.isArray(t.notes) && t.notes.length) L.push(`*(the house's notes on this turn: ${t.notes.join(' · ')})*`, ``);
@@ -1948,7 +1948,7 @@ ${DRAGON_STANDARD}`, 600);
     const tone = mode === 'reflect'
       ? (on ? 'border-sky-400 bg-sky-900/40 text-sky-100' : 'border-sky-700/50 bg-sky-950/20 text-sky-200 hover:border-sky-500 hover:bg-sky-900/30')
       : (on ? 'border-orange-400 bg-orange-900/40 text-orange-100' : 'border-orange-700/50 bg-orange-950/20 text-orange-200 hover:border-orange-500 hover:bg-orange-900/30');
-    const hint = mode === 'reflect' ? 'ask the cards a question' : 'declare a move — the cards answer';
+    const hint = mode === 'reflect' ? 'ask the signatures a question' : 'declare a move — the signatures answer';
     return (
       <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
         className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
@@ -2043,7 +2043,7 @@ ${DRAGON_STANDARD}`, 600);
                   content-pane is forced into normal flow (the Ask-button trap, 2026-09-16) */}
               {wordless && (
                 <div className="pointer-events-none absolute left-4 right-4 bottom-16 z-10 text-right text-[0.8125rem] leading-snug text-zinc-400">
-                  You don’t have to have words. Tap again and the cards start.
+                  You don’t have to have words. Tap again and the signatures start.
                 </div>
               )}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -2098,7 +2098,7 @@ ${DRAGON_STANDARD}`, 600);
                   <button onClick={() => { setFrameOpen(false); try { questionRef.current?.focus(); } catch {} }} className="rounded-lg border border-emerald-500/50 px-3 py-2 text-[0.8125rem] text-emerald-100 hover:bg-emerald-900/30">done</button>
                 </div>
               )}
-              {frame && <div className="text-[0.75rem] text-emerald-200/70">Topic: {frameLabel(frame)} — the card will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
+              {frame && <div className="text-[0.75rem] text-emerald-200/70">Topic: {frameLabel(frame)} — the signature will be read through this. <button onClick={() => { setFrame(null); setFrameDetail(''); }} className="underline decoration-dotted hover:text-emerald-100">clear</button></div>}
               {frame && user && (
                 <div className="flex flex-wrap items-center gap-2 text-[0.8125rem]">
                   <button onClick={() => { setFrameOpen(false); suggestFromHistory({ frame }); }} disabled={suggesting}
@@ -2422,14 +2422,14 @@ ${DRAGON_STANDARD}`, 600);
                   {t.role === 'reader' && !t.pending && !loading && (
                     <div className="absolute left-0 right-0 -bottom-3.5 flex justify-center gap-1.5 px-3">
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
-                      {[['clarify', 'clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'unpack', 'the same turn with its seams showing: card, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
+                      {[['clarify', 'clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
                           className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors ${tone}`}>
                           {label}
                         </button>
                       ))}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
-                      <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating card is drawn and read as a pointer"
+                      <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating signature is drawn and read as a pointer"
                         className="rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
                         find it
                       </button>
@@ -2515,15 +2515,15 @@ ${DRAGON_STANDARD}`, 600);
                     {explain === 'reflect' ? (
                       <>
                         <p className="font-medium mb-1">Reflect — you ask, the field answers.</p>
-                        <p className="text-[0.8125rem] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new card is drawn and read as the answer to that question, in light of the reading already on the table.</p>
+                        <p className="text-[0.8125rem] opacity-90">Use it when you genuinely do not know something and want the architecture to speak to it. You put a question; a new signature is drawn and read as the answer to that question, in light of the reading already on the table.</p>
                       </>
                     ) : (
                       <>
                         <p className="font-medium mb-1">Forge — you declare, the field responds.</p>
-                        <p className="text-[0.8125rem] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new card is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
+                        <p className="text-[0.8125rem] opacity-90">Use it when you are not asking but stating: what you will do, choose, commit to, or stop. A new signature is drawn as the architecture&rsquo;s response to your declaration. It may affirm it, complicate it, or redirect it.</p>
                       </>
                     )}
-                    <p className="text-xs opacity-60 mt-2">Either way the original cards never change. A new card is a lens, not a replacement.</p>
+                    <p className="text-xs opacity-60 mt-2">Either way the original signatures never change. A new signature is a lens, not a replacement.</p>
                   </div>
                   <button onClick={() => setExplain(null)} className="text-xs opacity-60 hover:opacity-100">close</button>
                 </div>

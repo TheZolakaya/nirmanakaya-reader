@@ -179,7 +179,7 @@ const MinimapModal = ({
 
   // Build the dynamic description (uses "you" voice to make it personal)
   const buildDescription = () => {
-    const cardName = card?.name || 'This card';
+    const cardName = card?.name || 'This signature';
     const fromName = fromArchetype?.name || 'its home';
     const toName = toArchetype?.name || 'this position';
 
@@ -322,7 +322,7 @@ const MinimapModal = ({
               What This Shows
             </h4>
             <p className="text-sm text-zinc-300 leading-relaxed">
-              The minimap displays the geometric relationship between where a card <em>lives</em> in the architecture
+              The minimap displays the geometric relationship between where a signature <em>lives</em> in the architecture
               (its home archetype, shown highlighted) and where it's <em>expressing</em> in this reading (the position archetype).
               The animated arrow traces the path from identity to context.
             </p>
@@ -348,7 +348,7 @@ const MinimapModal = ({
                 {toArchetype.extended || toArchetype.description}
               </p>
               <p className="text-xs text-zinc-500 italic">
-                This position shapes <em>how</em> the card's energy expresses — providing context, direction, and meaning.
+                This position shapes <em>how</em> the signature's energy expresses — providing context, direction, and meaning.
               </p>
             </div>
           )}
@@ -362,7 +362,7 @@ const MinimapModal = ({
               <p className="text-sm text-zinc-300 leading-relaxed">
                 The interpretation emerges from this meeting: <span className="text-amber-300">{card.name}</span> (what you're working with)
                 expressing through <span className="text-cyan-300">{toArchetype.name}</span> (where it's landing in your life).
-                The card brings its essential quality; the position provides the arena of expression.
+                The signature brings its essential quality; the position provides the arena of expression.
                 Together they create something neither could alone — your specific invitation in this moment.
               </p>
             </div>

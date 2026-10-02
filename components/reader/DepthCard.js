@@ -1002,7 +1002,7 @@ const DepthCard = ({
               onClick={() => onRequestLoad?.()}
               className="text-amber-400 hover:text-amber-300 underline decoration-dotted"
             >
-              Load card content →
+              Load signature content →
             </button>
           ) : onRequestLoad ? (
             <div className="flex items-center gap-2">

@@ -511,7 +511,7 @@ const InfoModal = ({ info, onClose, setSelectedInfo, showTraditional, canGoBack,
                 onGoBack();
               }}
               className="flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
-              title="Go back to previous card"
+              title="Go back to previous signature"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

@@ -175,7 +175,7 @@ The Letter opens the reading. It:
 - Hints at the themes the signatures suggest (but doesn't interpret yet)
 - Sets up what's to come
 
-WADE depth means: 3-4 substantive sentences. Specific to THEIR question and cards.
+WADE depth means: 3-4 substantive sentences. Specific to THEIR question and signatures.
 
 IMPORTANT: Match the voice/persona specified in the system prompt. If humor or register settings are specified, apply them fully here.
 

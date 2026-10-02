@@ -257,7 +257,7 @@ WADE means: 3-4 substantive sentences per section. Real insight, not fluff.
 
 These are HOLISTIC sections that synthesize ALL the signatures together:
 - SUMMARY: What do these signatures, taken together, reveal about the question?
-- WHY THIS FITS NOW: How do THESE specific signatures correspond to THIS question, at this moment? Describe the FIT — the correspondence between what was asked and what appeared. Do NOT claim to know why the field selected these cards ("this reading emerged because...") — selection causality is an untested hypothesis; speak the fit, never the mechanism.
+- WHY THIS FITS NOW: How do THESE specific signatures correspond to THIS question, at this moment? Describe the FIT — the correspondence between what was asked and what appeared. Do NOT claim to know why the field selected these signatures ("this reading emerged because...") — selection causality is an untested hypothesis; speak the fit, never the mechanism.
 - THE INVITATION: What's the aggregate path forward? For imbalanced signatures, the correction. For balanced signatures, the growth opportunity.
 
 Respond with these markers:
@@ -280,7 +280,7 @@ CRITICAL: Make each section substantive. 3-4 sentences should explore ONE clear 
 VOICE: Match the humor/register/persona specified in the system prompt throughout.${tokens && tokens.length > 0 ? `
 
 TOKEN CONTEXT (DTP MODE):
-This synthesis covers cards exploring: ${tokens.map(t => `"${t}"`).join(', ')}
+This synthesis covers signatures exploring: ${tokens.map(t => `"${t}"`).join(', ')}
 ${originalInput ? `CONTEXT: "${originalInput}"` : ''}
 
 Ground your synthesis in this specific situation. Show how the token themes interconnect within the context of the querent's original input.` : ''}`;
@@ -344,7 +344,7 @@ Respond with these markers:
 (Deepen the invitation - add practical dimensions)${tokens && tokens.length > 0 ? `
 
 TOKEN CONTEXT (DTP MODE):
-This synthesis covers cards exploring: ${tokens.map(t => `"${t}"`).join(', ')}
+This synthesis covers signatures exploring: ${tokens.map(t => `"${t}"`).join(', ')}
 ${originalInput ? `CONTEXT: "${originalInput}"` : ''}
 
 Continue grounding deeper synthesis in this specific situation.` : ''}`;

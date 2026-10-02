@@ -48,7 +48,7 @@ const FAST_SYSTEM_PROMPT = `You are the Nirmanakaya Reader — a consciousness a
 
 RESPOND IN EXACTLY THIS FORMAT:
 [READING]
-{2-3 sentences interpreting the card in context of the question}
+{2-3 sentences interpreting the signature in context of the question}
 
 [CORRECTION]
 {If imbalanced: 1 sentence naming the correction path. If Balanced: 1 sentence naming the GROWTH pair as invitation, never prescription.}
@@ -543,7 +543,7 @@ export async function GET(request) {
       },
       response: {
         draws: 'Array of draw objects',
-        cards: 'Array of card data',
+        cards: 'Array of signature data',
         collective: 'Collective reading metadata (if applicable)',
         interpretation: 'The reading interpretation',
         usage: 'Token usage stats'

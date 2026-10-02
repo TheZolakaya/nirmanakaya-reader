@@ -59,12 +59,12 @@ export async function POST(request) {
     const dossier = buildCardDossier({ question, cards, index: idx });
     cardDossier = dossier;
     if (dossier) {
-      userMessage += '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS card. '
+      userMessage += '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS signature. '
         + 'Every value is fact, not interpretation: use these relations, do not re-derive or invent arithmetic. '
         + 'State geometry as fact; own synthesis as synthesis. Weave the most meaningful relations naturally.]\n'
         + JSON.stringify(dossier);
     }
-  } catch (e) { console.error('Card dossier skipped:', e?.message); }
+  } catch (e) { console.error('Signature dossier skipped:', e?.message); }
 
   // Split system prompt: stable BASE_SYSTEM core cached (1h TTL, shared across
   // all users/settings), variable dial/persona parts ride uncached after it.
@@ -142,7 +142,7 @@ export async function POST(request) {
     const retryThreshold = LENGTH_RETRY_THRESHOLD[effectiveLength] || 300;
     const readingWordCount = (parsedCard.reading || '').split(/\s+/).filter(w => w).length;
     if (readingWordCount < retryThreshold && parsedCard.reading) {
-      console.log(`[card-depth] Card ${n} reading too short (${readingWordCount} words < ${retryThreshold} threshold, stop: ${stopReason}). Requesting continuation.`);
+      console.log(`[card-depth] Signature ${n} reading too short (${readingWordCount} words < ${retryThreshold} threshold, stop: ${stopReason}). Requesting continuation.`);
 
       try {
         const continuationResponse = await fetchWithRetry("https://api.anthropic.com/v1/messages", {
@@ -257,7 +257,7 @@ function getLengthBlock(length) {
 ⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH OF INSIGHT. Ambassadors and Bounds get the SAME quality as Archetypes. Insight density stays high — word count stays low.
 
 ⚠️ LENGTH: BRIEF MODE ⚠️
-Your TOTAL output for this card should be 300-500 words across all sections. This is NOT optional.
+Your TOTAL output for this signature should be 300-500 words across all sections. This is NOT optional.
 Over 600 words means FAILURE — you are writing too much. BRIEF means concentrated, not shallow.
 
 SECTION TARGETS:
@@ -271,10 +271,10 @@ This is the espresso shot — concentrated, potent, done. Say the true thing abo
 
     standard: `Generate a THOROUGH interpretation of this signature. This is the ONE AND ONLY pass — cover every important facet without over-explaining.
 
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors and Bounds get the SAME treatment as Archetypes. There is no "lesser" card in this system.
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors and Bounds get the SAME treatment as Archetypes. There is no "lesser" signature in this system.
 
 ⚠️ LENGTH: STANDARD MODE ⚠️
-Your TOTAL output for this card should be 800-1200 words across all sections. This is NOT optional.
+Your TOTAL output for this signature should be 800-1200 words across all sections. This is NOT optional.
 Under 400 words means too thin. Over 1500 words means too verbose.
 
 SECTION TARGETS:
@@ -288,10 +288,10 @@ Quality over quantity. A solid, satisfying interpretation that engages THEIR spe
 
     full: `Generate a FULL DEPTH interpretation of this signature. This is the ONE AND ONLY pass — there is no "deeper" version. Everything you have, put it here.
 
-⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors (court cards) and Bounds (minor cards) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" card in this system. An Ambassador IS its archetype in embodied form — interpret with the SAME depth and length.
+⚠️ ALL SIGNATURE TYPES DESERVE EQUAL DEPTH. Ambassadors (court signatures) and Bounds (minor signatures) get the SAME 1500-2500 word treatment as Archetypes (majors). There is no "lesser" signature in this system. An Ambassador IS its archetype in embodied form — interpret with the SAME depth and length.
 
 ⚠️⚠️⚠️ CRITICAL LENGTH REQUIREMENTS — READ THIS CAREFULLY ⚠️⚠️⚠️
-Your TOTAL output for this card should be 1500-2500 words across all sections. This is NOT optional.
+Your TOTAL output for this signature should be 1500-2500 words across all sections. This is NOT optional.
 If your total output is under 800 words, you have FAILED. Start over mentally and write more.
 
 SECTION MINIMUMS (these are MINIMUMS, not targets):
@@ -609,7 +609,7 @@ function generateArchitectureText(draw) {
     lines.push(`**House:** ${arch.house}`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
     if (arch.channel) lines.push(`**Channel:** ${arch.channel}`);
-    lines.push(`**Card Type:** Archetype (Major)`);
+    lines.push(`**Signature Type:** Archetype (Major)`);
 
     const correction = getArchetypeCorrection(transient, status);
     if (correction) {
@@ -633,7 +633,7 @@ function generateArchitectureText(draw) {
     lines.push(`**Channel:** ${bound.channel}`);
     lines.push(`**Number:** ${bound.number} of 10`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**Card Type:** Bound (Minor ${bound.number})`);
+    lines.push(`**Signature Type:** Bound (Minor ${bound.number})`);
     lines.push(`**Expresses:** ${associatedArch.name} — ${associatedArch.house} House`);
 
     const correction = getBoundCorrection(trans, status);
@@ -657,7 +657,7 @@ function generateArchitectureText(draw) {
     lines.push(`**Channel:** ${agent.channel}`);
     lines.push(`**Role:** ${agent.role}`);
     lines.push(`**Status:** ${stat?.name || 'Balanced'} — ${stat?.desc || 'In harmonious expression'}`);
-    lines.push(`**Card Type:** Ambassador (Court)`);
+    lines.push(`**Signature Type:** Ambassador (Court)`);
     lines.push(`**Embodies:** ${associatedArch.name} — ${associatedArch.house} House`);
 
     const correction = getAgentCorrection(trans, status);

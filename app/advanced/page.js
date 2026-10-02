@@ -222,7 +222,7 @@ const PLACEHOLDER_TEXT = {
     6: "What complete transmission is available?"
   },
   explore: {
-    any: "Each key word gets its own card."
+    any: "Each key word gets its own signature."
   },
   forge: {
     1: "What are you creating? State your intention.",
@@ -1671,7 +1671,7 @@ export default function NirmanakaReader() {
       }).then(result => {
         if (result?.data) {
           if (allLoaded) setContentSaved(true); // stop once the complete set is persisted
-          console.log(`[AutoSave] Card interpretations saved (${loadedCount}/${draws.length}${allLoaded ? ', complete' : ''})`);
+          console.log(`[AutoSave] Signature interpretations saved (${loadedCount}/${draws.length}${allLoaded ? ', complete' : ''})`);
         }
       }).catch(err => console.log('[AutoSave] Failed to save interpretations:', err));
     }, 1500);
@@ -2602,7 +2602,7 @@ export default function NirmanakaReader() {
       // Validate that we got actual content (V3: check new flat fields)
       const hasContent = data.cardData && (data.cardData.summary || data.cardData.reading);
       if (!hasContent) {
-        throw new Error('Card generation returned empty content. Please try again.');
+        throw new Error('Signature generation returned empty content. Please try again.');
       }
 
       // V3: Apply content filter to strip prohibited terms (honey, sweetheart, etc.)
@@ -2638,7 +2638,7 @@ export default function NirmanakaReader() {
       // Synthesis check is handled by useEffect watching cardLoaded state
 
     } catch (e) {
-      if (pageMountedRef.current) setError(`Error loading card ${cardIndex + 1}: ${e.message}`);
+      if (pageMountedRef.current) setError(`Error loading signature ${cardIndex + 1}: ${e.message}`);
     }
 
     if (pageMountedRef.current) setCardLoading(prev => ({ ...prev, [cardIndex]: false }));
@@ -2706,7 +2706,7 @@ export default function NirmanakaReader() {
       }
 
     } catch (e) {
-      setError(`Error loading deeper content for card ${cardIndex + 1}: ${e.message}`);
+      setError(`Error loading deeper content for signature ${cardIndex + 1}: ${e.message}`);
     }
   };
 
@@ -3265,7 +3265,7 @@ export default function NirmanakaReader() {
       const parentDraw = draws[cardIndex];
       const parentCard = parsedReading.cards.find(c => c.index === cardIndex);
       if (!parentDraw || !parentCard) {
-        setError('Card not found.');
+        setError('Signature not found.');
         return;
       }
       const parentTrans = getComponent(parentDraw.transient);
@@ -3312,12 +3312,12 @@ export default function NirmanakaReader() {
           if (cardContent) {
             // Include token context for DTP readings
             const cardTokenLabel = card.token ? ` (Regarding: ${card.token})` : '';
-            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}${cardTokenLabel}\n${cardContent}`;
+            let cardSection = `SIGNATURE ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}${cardTokenLabel}\n${cardContent}`;
             // Add Words to the Whys for this card
             if (card.why) {
               const whyContent = typeof card.why === 'string' ? card.why : (card.why.wade || card.why.swim || card.why.surface || card.why.deep);
               if (whyContent) {
-                cardSection += `\n\nWHY THIS CARD (Teleological): ${whyContent}`;
+                cardSection += `\n\nWHY THIS SIGNATURE (Teleological): ${whyContent}`;
               }
             }
             // Add Rebalancer if present
@@ -3380,12 +3380,12 @@ export default function NirmanakaReader() {
     const newCardName = `${newStatusPrefix} ${newTrans.name}`;
     // The thread draw is a transient IN a durable, like every other draw — tell the model the seat.
     const newCardSeat = ARCHETYPES[newDraw.position]?.name || null;
-    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new card through this seat, as you would any signature in a spread.` : '';
+    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new signature through this seat, as you would any signature in a spread.` : '';
 
     // Get correction info if new card is imbalanced
     const newCorrection = newDraw.status !== 1 ? getFullCorrection(newDraw.transient, newDraw.status) : null;
     const correctionInfo = newCorrection ? `
-REBALANCER: This card is imbalanced (${newStat.name}). Include a rebalancer section.
+REBALANCER: This signature is imbalanced (${newStat.name}). Include a rebalancer section.
 Correction archetype: ${getComponent(getCorrectionTargetId(newCorrection, newTrans))?.name || 'Unknown'}
 Correction type: ${newDraw.status === 2 ? 'DIAGONAL (Too Much)' : newDraw.status === 3 ? 'VERTICAL (Too Little)' : 'REDUCTION (Unacknowledged)'}
 ` : '';
@@ -3402,7 +3402,7 @@ Correction type: ${newDraw.status === 2 ? 'DIAGONAL (Too Much)' : newDraw.status
 DTP CONTEXT:
 FOCUS: This thread is exploring "${parentCard.token}"
 ${parsedReading?.originalInput ? `ORIGINAL SITUATION: "${parsedReading.originalInput}"` : ''}
-Ground your response in this specific context — interpret the new card as it relates to "${parentCard.token}" in this situation.`;
+Ground your response in this specific context — interpret the new signature as it relates to "${parentCard.token}" in this situation.`;
         }
       }
       // For section threads in Explore mode, include overall context
@@ -3425,32 +3425,32 @@ ${stancePrompt}
 
 OPERATION: REFLECT (Inquiry/Question)
 The user is asking a question while engaging with a specific part of their reading.
-A new card has been drawn as the architecture's RESPONSE to their inquiry.
+A new signature has been drawn as the architecture's RESPONSE to their inquiry.
 
-CRITICAL: The new card speaks to their question IN THE CONTEXT OF what they were reflecting on.
+CRITICAL: The new signature speaks to their question IN THE CONTEXT OF what they were reflecting on.
 - The parent section (${parentLabel}) is the GROUND
 - Their question arises FROM that ground
-- The new card illuminates their question WITHOUT abandoning that context
-- Connect the new card back to the original card/section being discussed
+- The new signature illuminates their question WITHOUT abandoning that context
+- Connect the new signature back to the original signature/section being discussed
 
 Your job:
 - Acknowledge their question briefly
-- Interpret the NEW CARD as the architecture's answer, but ALWAYS in relation to ${parentLabel}
-- Show how the new card speaks to their inquiry about ${parentLabel}
-- The new card is a LENS on their question, not a replacement for the original context
-- If the card is IMBALANCED, include a REBALANCER section with the correction path
+- Interpret the NEW SIGNATURE as the architecture's answer, but ALWAYS in relation to ${parentLabel}
+- Show how the new signature speaks to their inquiry about ${parentLabel}
+- The new signature is a LENS on their question, not a replacement for the original context
+- If the signature is IMBALANCED, include a REBALANCER section with the correction path
 
 Output structure:
 1. Brief acknowledgment connecting their question to ${parentLabel} (1-2 sentences)
-2. "The architecture responds with [Card Name]..."
-3. How this new card illuminates their question ABOUT ${parentLabel} (2-3 paragraphs)
+2. "The architecture responds with [Signature Name]..."
+3. How this new signature illuminates their question ABOUT ${parentLabel} (2-3 paragraphs)
 4. If imbalanced: "REBALANCER:" followed by the correction path (1-2 paragraphs)
 
 Use paragraph breaks. Max 2-3 sentences per paragraph.`;
 
       userMessage = `ORIGINAL QUESTION: "${safeQuestion}"
 
-PARENT CARD/SECTION BEING REFLECTED ON: ${parentLabel}
+PARENT SIGNATURE/SECTION BEING REFLECTED ON: ${parentLabel}
 ${parentContent}
 
 FULL READING CONTEXT (for background):
@@ -3459,14 +3459,14 @@ ${fullReadingContext}
 ${threadConverseBlock}USER'S INQUIRY/QUESTION (about ${parentLabel}):
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
+NEW SIGNATURE DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 ${newTrans.description}
 ${newTrans.extended || ''}
 ${correctionInfo}${dtpContext}
 
-IMPORTANT: Interpret this new card as the architecture's response to their question ABOUT ${parentLabel}.
-The new card should illuminate their inquiry while staying grounded in the original card they were reflecting on.
-Do NOT interpret the new card in isolation - it speaks to their question about ${parentLabel}.`;
+IMPORTANT: Interpret this new signature as the architecture's response to their question ABOUT ${parentLabel}.
+The new signature should illuminate their inquiry while staying grounded in the original signature they were reflecting on.
+Do NOT interpret the new signature in isolation - it speaks to their question about ${parentLabel}.`;
 
     } else {
       // FORGE: User is ASSERTING - architecture responds to their DECLARATION with a new card
@@ -3477,19 +3477,19 @@ ${stancePrompt}
 OPERATION: FORGE (Create/Assert)
 The user has declared an intention or direction. They're not asking — they're stating what they're going to do or create from this reading.
 
-A new card has been drawn as the architecture's RESPONSE to their declaration.
+A new signature has been drawn as the architecture's RESPONSE to their declaration.
 
 Your job:
 - Acknowledge their declared direction briefly
-- Interpret the NEW CARD as the architecture's response to their assertion
-- This is a SUB-READING: what does this new card reveal about the path they've declared?
-- The new card might affirm, complicate, deepen, or redirect their stated intention
-- Be specific about how the new card speaks to what they said they're doing
-- If the card is IMBALANCED, include a REBALANCER section with the correction path
+- Interpret the NEW SIGNATURE as the architecture's response to their assertion
+- This is a SUB-READING: what does this new signature reveal about the path they've declared?
+- The new signature might affirm, complicate, deepen, or redirect their stated intention
+- Be specific about how the new signature speaks to what they said they're doing
+- If the signature is IMBALANCED, include a REBALANCER section with the correction path
 
 Output structure:
 1. Brief acknowledgment of their direction (1-2 sentences)
-2. The new card's message in context of their declaration (2-3 paragraphs)
+2. The new signature's message in context of their declaration (2-3 paragraphs)
 3. If imbalanced: "REBALANCER:" followed by the correction path (1-2 paragraphs)
 
 Use paragraph breaks. Max 2-3 sentences per paragraph.`;
@@ -3505,11 +3505,11 @@ ${parentContent}
 USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
+NEW SIGNATURE DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 ${newTrans.description}
 ${newTrans.extended || ''}
 ${correctionInfo}${dtpContext}
-Interpret this new card as the architecture's response to their declared direction.`;
+Interpret this new signature as the architecture's response to their declared direction.`;
     }
 
     try {
@@ -3609,7 +3609,7 @@ Interpret this new card as the architecture's response to their declared directi
           const stat = STATUSES[draw.status];
           const cardContent = card.reading || card.wade || card.swim || card.surface;
           if (cardContent) {
-            let cardSection = `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
+            let cardSection = `SIGNATURE ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}`;
             if (card.why) {
               const whyContent = typeof card.why === 'string' ? card.why : (card.why.wade || card.why.swim || card.why.surface || card.why.deep);
               if (whyContent) cardSection += `\n\nWHY THIS CARD: ${whyContent}`;
@@ -3662,7 +3662,7 @@ Interpret this new card as the architecture's response to their declared directi
     const newCardName = `${newStatusPrefix} ${newTrans.name}`;
     // The thread draw is a transient IN a durable, like every other draw — tell the model the seat.
     const newCardSeat = ARCHETYPES[newDraw.position]?.name || null;
-    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new card through this seat, as you would any signature in a spread.` : '';
+    const newCardWhere = newCardSeat ? `\nARRIVING IN THE DURABLE (position): ${newCardSeat} — read the new signature through this seat, as you would any signature in a spread.` : '';
 
     if (operation === 'reflect') {
       // REFLECT: User is INQUIRING - architecture responds to their QUESTION with a new card
@@ -3671,13 +3671,13 @@ Interpret this new card as the architecture's response to their declared directi
 ${stancePrompt}
 
 OPERATION: REFLECT (Inquiry/Question)
-The user is asking a question about the reading. A new card has been drawn as the architecture's response to their inquiry.
+The user is asking a question about the reading. A new signature has been drawn as the architecture's response to their inquiry.
 
 Your job:
 - Acknowledge their question briefly
-- Interpret the NEW CARD as the architecture's answer to what they asked
-- This is a SUB-READING: the drawn card speaks directly to their inquiry
-- The card IS the architecture speaking back to them
+- Interpret the NEW SIGNATURE as the architecture's answer to what they asked
+- This is a SUB-READING: the drawn signature speaks directly to their inquiry
+- The signature IS the architecture speaking back to them
 
 FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
 
@@ -3686,17 +3686,17 @@ FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentence
 FULL READING CONTEXT:
 ${fullReadingContext}
 
-${nestedThreadConverseBlock}CARD BEING DISCUSSED: ${parentCardName}
+${nestedThreadConverseBlock}SIGNATURE BEING DISCUSSED: ${parentCardName}
 ${parentThreadItem.interpretation}
 
 USER'S INQUIRY/QUESTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
+NEW SIGNATURE DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 ${newTrans.description}
 ${newTrans.extended || ''}
 
-Interpret this new card as the architecture's response to their question.`;
+Interpret this new signature as the architecture's response to their question.`;
 
     } else {
       // FORGE: User is ASSERTING - architecture responds to their DECLARATION with a new card
@@ -3705,12 +3705,12 @@ Interpret this new card as the architecture's response to their question.`;
 ${stancePrompt}
 
 OPERATION: FORGE (Create/Assert)
-The user has declared an intention. A new card has been drawn as the architecture's response.
+The user has declared an intention. A new signature has been drawn as the architecture's response.
 
 Your job:
 - Acknowledge their declared direction briefly
-- Interpret the NEW CARD as the architecture's response to their assertion
-- This is a SUB-READING of the new card against their declared direction
+- Interpret the NEW SIGNATURE as the architecture's response to their assertion
+- This is a SUB-READING of the new signature against their declared direction
 
 FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentences per paragraph. Never write walls of text.`;
 
@@ -3719,17 +3719,17 @@ FORMATTING: Use short paragraphs with blank lines between them. Max 2-3 sentence
 FULL READING CONTEXT:
 ${fullReadingContext}
 
-${nestedThreadConverseBlock}CARD THEY'RE FORGING FROM: ${parentCardName}
+${nestedThreadConverseBlock}SIGNATURE THEY'RE FORGING FROM: ${parentCardName}
 ${parentThreadItem.interpretation}
 
 USER'S DECLARATION/ASSERTION:
 "${userInput}"
 
-NEW CARD DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
+NEW SIGNATURE DRAWN IN RESPONSE: ${newCardName}${newCardWhere}
 ${newTrans.description}
 ${newTrans.extended || ''}
 
-Interpret this new card as the architecture's response to their declared direction.`;
+Interpret this new signature as the architecture's response to their declared direction.`;
     }
 
     try {
@@ -3907,7 +3907,7 @@ Interpret this new card as the architecture's response to their declared directi
       if (/^\d+$/.test(k)) return sigLabel(k);
       return { summary: 'The Reading (overview)', whyAppeared: 'Why This Fits Now', path: 'Path to Balance', letter: 'The Letter', 'words-to-whys': 'Words to the Whys', unified: 'the whole reading' }[k] || k;
     };
-    const drawLabel = (d) => d ? `${STATUSES[d.status]?.prefix || 'Balanced'} ${getComponent(d.transient)?.name || '?'}${ARCHETYPES[d.position]?.name ? ` in ${ARCHETYPES[d.position].name}` : ''}` : 'a card';
+    const drawLabel = (d) => d ? `${STATUSES[d.status]?.prefix || 'Balanced'} ${getComponent(d.transient)?.name || '?'}${ARCHETYPES[d.position]?.name ? ` in ${ARCHETYPES[d.position].name}` : ''}` : 'a signature';
     const items = [];
     let order = 0;
     Object.entries(expansions || {}).forEach(([key, exp]) => {
@@ -3994,7 +3994,7 @@ Interpret this new card as the architecture's response to their declared directi
       // SCOPED: Only send this specific card's draw info (prevents mixing with other cards)
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\n${cardSection?.architecture || ''}`;
       sectionContent = cardSection?.wade || cardSection?.surface || cardSection?.content || '';
-      sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
+      sectionContext = `the reading for ${trans.name} (Signature ${cardIndex + 1}) — THIS SIGNATURE ONLY`;
     } else if (sectionKey.startsWith('correction:') || sectionKey.startsWith('rebalancer:') || sectionKey.startsWith('rebalancer-')) {
       const cardIndex = parseInt(sectionKey.split(/[-:]/)[1]);
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
@@ -4005,7 +4005,7 @@ Interpret this new card as the architecture's response to their declared directi
       // SCOPED: Only send this specific card's draw info
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nRebalancer Architecture: ${rebalancer?.architecture || ''}`;
       sectionContent = rebalancer?.wade || rebalancer?.surface || '';
-      sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
+      sectionContext = `the rebalancer path for ${trans.name} (Signature ${cardIndex + 1}) — THIS SIGNATURE ONLY`;
     } else if (sectionKey.startsWith('growth-')) {
       const cardIndex = parseInt(sectionKey.split('-')[1]);
       const cardSection = parsedReading.cards.find(c => c.index === cardIndex);
@@ -4016,7 +4016,7 @@ Interpret this new card as the architecture's response to their declared directi
       // SCOPED: Only send this specific card's draw info
       drawText = `Signature ${cardIndex + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\nStatus: ${stat.name}\nGrowth Architecture: ${growth?.architecture || ''}`;
       sectionContent = growth?.wade || growth?.surface || '';
-      sectionContext = `the growth opportunity for ${trans.name} (Signature ${cardIndex + 1}) — THIS CARD ONLY`;
+      sectionContext = `the growth opportunity for ${trans.name} (Signature ${cardIndex + 1}) — THIS SIGNATURE ONLY`;
     } else if (sectionKey === 'path') {
       drawText = formatDrawForAI(draws, spreadType, spreadKey, false); // Full reading for path synthesis
       sectionContent = parsedReading.path?.wade || parsedReading.rebalancerSummary || '';
@@ -4041,9 +4041,9 @@ Interpret this new card as the architecture's response to their declared directi
       expansionPrompt = pathPrompts[expansionType];
     } else if (sectionKey === 'whyAppeared') {
       const whyAppearedPrompts = {
-        unpack: "Expand on why this reading fits now, with more depth. Go deeper on the correspondence between what was asked and what appeared — fit language, never selection-causality claims (never 'the field chose these cards because').",
+        unpack: "Expand on why this reading fits now, with more depth. Go deeper on the correspondence between what was asked and what appeared — fit language, never selection-causality claims (never 'the field chose these signatures because').",
         clarify: "Restate why this reading fits now in simpler, everyday language. Plain words, short sentences — make the correspondence completely accessible.",
-        example: "Give concrete real-world examples of how this pattern might be showing up in the querent's life. Specific scenarios where this fit would be visible — make it tangible, without claiming the field selected the cards because of them."
+        example: "Give concrete real-world examples of how this pattern might be showing up in the querent's life. Specific scenarios where this fit would be visible — make it tangible, without claiming the field selected the signatures because of them."
       };
       expansionPrompt = whyAppearedPrompts[expansionType];
     } else {
@@ -4079,7 +4079,7 @@ Ground your expansion in this specific situation.`;
         const cardSection = parsedReading?.cards?.find(c => c.index === cardIndex);
         if (cardSection?.token) {
           return `
-DTP CONTEXT: This rebalancer expansion is for the "${cardSection.token}" card${parsedReading?.originalInput ? ` in the context of "${parsedReading.originalInput}"` : ''}
+DTP CONTEXT: This rebalancer expansion is for the "${cardSection.token}" signature${parsedReading?.originalInput ? ` in the context of "${parsedReading.originalInput}"` : ''}
 Ground your expansion in this specific situation.`;
         }
       }
@@ -4353,7 +4353,7 @@ REMINDER: Use SHORT paragraphs (2-3 sentences each) with blank lines between the
         const trans = getComponent(draw.transient);
         const stat = STATUSES[draw.status];
         const cardContent = card.reading || card.wade || card.surface || card.content || '';
-        readingContext += `CARD ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}\n`;
+        readingContext += `SIGNATURE ${i + 1}: ${stat.prefix || 'Balanced'} ${trans.name}\n${cardContent}\n`;
 
         // Words to the Whys for this card
         if (card.why) {
@@ -4620,7 +4620,7 @@ Position: ${posArch.name} — ${posArch.description}
 
 QUESTION BEING EXPLORED: "${sanitizeForAPI(question)}"
 
-Interpret this signature in its position, through the lens of the Ariadne Thread. This card was reached by tracing the archetype root of the previous signature. What does this structural chain reveal? How does arriving at ${posArch.name} through this path illuminate the original question?
+Interpret this signature in its position, through the lens of the Ariadne Thread. This signature was reached by tracing the archetype root of the previous signature. What does this structural chain reveal? How does arriving at ${posArch.name} through this path illuminate the original question?
 
 Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full reading.`;
 
@@ -4795,7 +4795,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
             />
             <button
               className="absolute top-2 right-2 z-20 p-1.5 rounded-md bg-black/40 text-zinc-400 hover:text-white sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
-              title="View card detail"
+              title="View signature detail"
               onClick={(e) => { e.stopPropagation(); openCardDetail(draw.transient); }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
@@ -6122,7 +6122,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                             ? 'bg-emerald-600/20 text-emerald-400'
                             : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
                         }`}
-                        title={showCardImages ? 'Hide card artwork' : 'Show card artwork'}
+                        title={showCardImages ? 'Hide signature artwork' : 'Show signature artwork'}
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -6490,7 +6490,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                         ? 'text-sky-300 border-sky-500/50 bg-sky-600/15'
                         : 'text-zinc-400 border-zinc-700/60 bg-zinc-900/60 hover:text-sky-300 hover:border-sky-600/40'
                     }`}
-                    title="Compare specific options — one card per choice; the panel opens to enter them"
+                    title="Compare specific options — one signature per choice; the panel opens to enter them"
                   >
                     <span>{choicesOpen ? '▾' : '▸'}</span>
                     Choices{choiceInputs.filter(c => c.trim()).length >= 2 ? ` (${choiceInputs.filter(c => c.trim()).length})` : ''}
@@ -6533,7 +6533,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                       )}
                     </div>
                     <div className="mt-2 text-[9px] text-zinc-600 leading-snug">
-                      One card per choice. {posture === 'integrate' ? 'The answer compares them — every branch gets read.' : 'Each is read in its own frame; switch to Integrate (↻) for a compared answer.'}
+                      One signature per choice. {posture === 'integrate' ? 'The answer compares them — every branch gets read.' : 'Each is read in its own frame; switch to Integrate (↻) for a compared answer.'}
                     </div>
                   </div>,
                   document.body
@@ -6551,7 +6551,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 <div className="flex flex-col items-center justify-center pt-2 text-center">
                   {choiceInputs.filter(c => c.trim()).length >= 2 ? (
                     <div className="text-sm text-sky-300">
-                      {choiceInputs.filter(c => c.trim()).length} choices set — one card each
+                      {choiceInputs.filter(c => c.trim()).length} choices set — one signature each
                       <button onClick={() => setChoicesOpen(true)} className="ml-2 text-xs text-zinc-500 hover:text-sky-400 underline underline-offset-2">edit</button>
                     </div>
                   ) : (
@@ -6669,8 +6669,8 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
                 {frameSource === 'dynamic' && 'The architecture emerges from the words you write'}
                 {frameSource === 'custom' && 'Name your own positions and define the frame'}
                 {frameSource === 'choice' && (posture === 'integrate'
-                  ? 'One card per choice — the answer compares them'
-                  : 'One card per choice, each read in its own frame — no verdict outside Integrate')}
+                  ? 'One signature per choice — the answer compares them'
+                  : 'One signature per choice, each read in its own frame — no verdict outside Integrate')}
               </p>
 
               </div>{/* END scrollable mode content */}
@@ -7570,7 +7570,7 @@ Keep it focused: 2-4 paragraphs. This is a single step in a chain, not a full re
               <div className="text-center mb-3">
                 <span className="text-xs text-zinc-500 uppercase tracking-wider whitespace-nowrap">
                   {parsedReading?._isFirstContact
-                    ? 'Single Card Reading'
+                    ? 'Single Signature Reading'
                     : getReadingFrameLabel()} {!parsedReading?._isFirstContact && <>• {getCurrentStanceLabel()}</>}
                 </span>
               </div>
