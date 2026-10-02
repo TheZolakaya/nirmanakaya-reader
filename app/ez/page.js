@@ -776,15 +776,17 @@ export default function EZPage() {
   const [lastClosed, setLastClosed] = useState(null);
   const suggestFromHistory = async (opts = {}) => {
     const forFrame = opts.frame || null; // .546: a question ABOUT the frame they set
+    const quiet = !!opts.quiet; // .591: the automatic ask on page open says nothing when it fails
+    const say = (m) => { if (!quiet) setError(m); };
     if (!user || suggesting) return;
     setSuggesting(true);
     try {
       const session = await getSession();
       const token = session?.session?.access_token;
-      if (!token) { setError('Still signing you in — try that again in a moment.'); return; }
+      if (!token) { say('Still signing you in — try that again in a moment.'); return; }
       const cr = await fetch('/api/user/context?draws=[]', { headers: { Authorization: `Bearer ${token}` } });
       const cj = await cr.json();
-      if (!cj?.contextBlock && !forFrame) { setError('Your history did not come back this time — try again.'); return; }
+      if (!cj?.contextBlock && !forFrame) { say('Your history did not come back this time — try again.'); return; }
       const closed = readClosed(); // .570: threads they marked done
       const closedBlock = closed.length ? `\n\nTOPICS THEY HAVE CLOSED — they marked these threads done. Never suggest anything on these threads again, reworded or from another angle; choose a different part of their life:\n${closed.map((e) => `- ${e.q}${e.why ? ` (${e.why})` : ''}`).join('\n')}` : '';
       const avoid = suggestedSeen.current.length
@@ -813,9 +815,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
       const parsedS = parseJson(rj?.reading) || {};
       const q = parsedS.q;
       const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
-      if (clean) { suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(typeof parsedS.why === 'string' ? parsedS.why.trim() : ''); setSuggestOpen(true); }
-      else setError(rj?.error ? `The suggester could not answer: ${String(rj.error).slice(0, 120)}` : 'The suggester came back empty — try again.');
-    } catch (e) { setError(`The suggester failed: ${e?.message || 'network'}`); } finally { setSuggesting(false); }
+      if (clean) {
+        const why = typeof parsedS.why === 'string' ? parsedS.why.trim() : '';
+        suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(why); setSuggestOpen(true);
+        try { sessionStorage.setItem(`nkya_ez_suggest_${user.id}`, JSON.stringify({ q: clean, why })); } catch {} // .591: once per browser session
+      }
+      else say(rj?.error ? `The suggester could not answer: ${String(rj.error).slice(0, 120)}` : 'The suggester came back empty — try again.');
+    } catch (e) { say(`The suggester failed: ${e?.message || 'network'}`); } finally { setSuggesting(false); }
   };
   const closeTopic = () => {
     if (!suggested || suggesting) return;
@@ -916,6 +922,21 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
         }
       } catch { setAllowed(false); }
   }, []);
+
+  // .591: PERSONALIZED WITHOUT A BUTTON (founder 2026-10-02: "I really like the personalized capability but don't know if it
+  // needs a button"). A signed-in person with history opens the page and the suggestion is simply there, under the box.
+  // One ask per browser session (sessionStorage; a saved reading clears it), never for the bench user, never once a reading is
+  // on the page, quiet when it fails.
+  const autoSuggestedRef = useRef(false);
+  useEffect(() => {
+    if (!user || !allowed || draws || suggested || suggesting || autoSuggestedRef.current || user.id === 'dev-bench') return;
+    autoSuggestedRef.current = true;
+    try {
+      const c = JSON.parse(sessionStorage.getItem(`nkya_ez_suggest_${user.id}`) || 'null');
+      if (c?.q) { suggestedSeen.current.push(c.q); setSuggested(c.q); setSuggestedWhy(c.why || ''); setSuggestOpen(true); return; }
+    } catch {}
+    suggestFromHistory({ quiet: true });
+  }, [user, allowed, draws]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { rememberAuthReturn('/ez'); checkGate(); }, [checkGate]);
 
@@ -1256,6 +1277,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one plain sentence, add
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) setSavedId(data.id);
+        try { sessionStorage.removeItem(`nkya_ez_suggest_${user?.id}`); } catch {} // .591: the history changed
       } catch {}
       if (!willAnimate) scrollToEnd();
     } catch (e) { setError(e.message); readyRef.current = true; setReplyReady(true); setLandedWaiting(false); }
@@ -2056,33 +2078,20 @@ ${DRAGON_STANDARD}`, 600);
             </div>
 
             <div className="flex items-center justify-center gap-7 sm:gap-12 text-[0.8125rem]"> {/* .521: a centred group, evenly spaced — equal thirds crowded on a phone (founder) */}
-              <button onClick={() => { setAreasOpen(false); setSuggestOpen(false); setFrameOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time; .590: Topic too */
+              <button onClick={() => { setAreasOpen(false); setFrameOpen(false); showPast ? setShowPast(false) : loadPastList(); }} /* .526: one fold at a time; .590: Topic too */
                 className="justify-self-center text-zinc-400 hover:text-zinc-200 transition-colors">Load</button>
-              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setFrameOpen(false); setAreasOpen(!areasOpen); }}
+              <button onClick={() => { setShowPast(false); setFrameOpen(false); setAreasOpen(!areasOpen); }}
                 className="justify-self-center flex items-center gap-1 text-amber-400/90 hover:text-amber-300 transition-colors">
                 Unsure
                 <svg className={`w-3.5 h-3.5 transition-transform ${areasOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               {/* .544: THE FRAME — what the reading is about */}
-              <button onClick={() => { setShowPast(false); setSuggestOpen(false); setAreasOpen(false); setFrameOpen(!frameOpen); }}
+              <button onClick={() => { setShowPast(false); setAreasOpen(false); setFrameOpen(!frameOpen); }}
                 className={`justify-self-center flex items-center gap-1 transition-colors ${frame ? 'text-emerald-300' : 'text-emerald-400/80 hover:text-emerald-300'}`} title="the topic of this reading">
                 {frame ? 'Topic ✓' : 'Topic'}
                 <svg className={`w-3.5 h-3.5 transition-transform ${frameOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              {user && hasHistory ? (
-                <div className="justify-self-center flex items-center gap-1.5 text-violet-300/90">
-                  <button onClick={() => { setAreasOpen(false); setShowPast(false); setFrameOpen(false); suggestFromHistory(); }} disabled={suggesting}
-                    className="text-center hover:text-violet-200 transition-colors disabled:opacity-50">
-                    {suggesting ? 'Reading your history…' : suggested ? 'Another' : 'Personalized'}
-                  </button>
-                  {suggested && !suggesting && (
-                    <button onClick={() => { setShowPast(false); setAreasOpen(false); setSuggestOpen(!suggestOpen); }} title={suggestOpen ? 'fold it away' : 'show it again'}
-                      className="hover:text-violet-200 transition-colors">
-                      <svg className={`w-3.5 h-3.5 transition-transform ${suggestOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                  )}
-                </div>
-              ) : <span />}
+              <span />{/* .591: Personalized is no longer a button — the suggestion appears under the box on its own (founder 2026-10-02) */}
             </div>
           </div>
 
@@ -2185,8 +2194,12 @@ ${DRAGON_STANDARD}`, 600);
                     {suggestedWhy && <span className="block mt-1.5 text-[0.75rem] leading-snug text-violet-300/70">{suggestedWhy}</span>}
                   </button>
                 )}
+                {!suggested && suggesting && <p className="text-center text-[0.75rem] text-violet-300/50">Reading your history…</p>}
                 {suggested && suggestOpen && (
-                  <div className="flex justify-center">
+                  <div className="flex justify-center items-center gap-3 text-[0.75rem]">
+                    <button onClick={() => suggestFromHistory()} disabled={suggesting} title="a different thread from your readings"
+                      className="text-violet-300/80 underline decoration-dotted hover:text-violet-100 disabled:opacity-50">{suggesting ? 'reading your history…' : 'another'}</button>
+                    <span className="text-violet-300/40">·</span>
                     <button onClick={closeTopic} disabled={suggesting}
                       className="text-[0.75rem] text-violet-300/80 underline decoration-dotted hover:text-violet-100 disabled:opacity-50">✓ I&apos;m done with this topic</button>
                   </div>
