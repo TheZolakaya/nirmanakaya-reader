@@ -295,6 +295,8 @@ export default function AdminPanel() {
   const [userIsAdmin, setUserIsAdmin] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [floor, setFloor] = useState(null);   // THE FLOOR (the Pour): /api/pour/status, admin-only
+  useEffect(() => { adminFetch('/api/pour/status').then((r) => r.json()).then(setFloor).catch(() => setFloor({ ok: false, error: 'unreachable' })); }, []);
 
   // Testing tab state
   const [mode, setMode] = useState('fullMonty');
@@ -971,6 +973,18 @@ export default function AdminPanel() {
         {/* USERS TAB */}
         {activeTab === 'users' && (
           <div className="space-y-8">
+            {/* THE FLOOR — the poured library under the Reader */}
+            <section>
+              <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">The Floor</h2>
+              {!floor ? <p className="text-sm text-zinc-500">checking the snapshot…</p> : !floor.ok ? <p className="text-sm text-rose-400">the snapshot is not in the deployed function ({floor.error || 'no manifest'})</p> : (
+                <div className="text-sm text-zinc-300 space-y-1">
+                  <p>set <span className="text-amber-400">{floor.snapshot.set}</span> · {floor.snapshot.cells.toLocaleString()} of {floor.snapshot.expected.toLocaleString()} cells · {floor.snapshot.missing} holes · cut {String(floor.snapshot.cut).slice(0, 16).replace('T', ' ')}</p>
+                  <p className="text-zinc-500">on for admins: {String(floor.floor.admins)} · on for everyone: {String(floor.floor.everyone)}</p>
+                  {floor.sample && <p className="text-zinc-400 italic">Executor of Intent in Will, Unacknowledged: “{floor.sample.sheetLine}” — medicine {floor.sample.mechanism} → {floor.sample.partner}</p>}
+                </div>
+              )}
+            </section>
+
             {/* Core Stats */}
             <section>
               <h2 className="text-xs text-zinc-500 uppercase tracking-wider mb-4 font-medium">Overview</h2>
