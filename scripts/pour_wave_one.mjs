@@ -32,6 +32,12 @@ import { writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
 const AUTHOR = process.env.POUR_AUTHOR || 'or-v4.1-flash';   // an Anthropic id (claude-opus-5-5…) or a BENCH_MODELS key (or-v4.1-flash → OpenRouter)
 const SET = process.env.POUR_SET || 'c';   // which wave/prompt this run belongs to: cells land in data/pour/cells_<SET>_<author>, the shelf export is SET <C>
 import { BENCH_MODELS, OPENROUTER_PRICING, callModel } from '../lib/bakeoff/providers.js';
+// 2026-10-03 — THE POUR'S OWN ROUTE. The bench pin (2026-09-30) put every call on production's host, Together, at $0.30/$1.20 per M;
+// DeepSeek's own endpoint and Alibaba serve the same model at $0.15/$0.60. A batch has no one waiting, so it runs on the cheap hosts,
+// in order, and never on the Reader's host unless asked. POUR_PROVIDER_ORDER overrides; OPENROUTER_BATCH=1 lets the whole order be offered.
+process.env.OPENROUTER_PROVIDER_ORDER = process.env.POUR_PROVIDER_ORDER || 'DeepSeek,Alibaba,DeepInfra';
+process.env.OPENROUTER_BATCH = process.env.OPENROUTER_BATCH || '1';
+const POUR_HOSTS = process.env.OPENROUTER_PROVIDER_ORDER.split(',').map((x) => x.trim());
 const BENCH = BENCH_MODELS[AUTHOR] || null;
 const MAX_ATTEMPTS = Number(process.env.POUR_MAX_ATTEMPTS || 5);   // founder 2026-10-01: re-roll until no hard flags, max five; a call that fails five times is logged UNRESOLVED with its flag history   // 2026-10-01, founder: no more testing on Fable — the wave-one run cost far more than the assumed price
 // THE SPEND GUARD (founder, 2026-10-01: "that was like over a hundred dollar mistake"). The runner refuses to author on a model
@@ -222,10 +228,13 @@ if (cmd === 'plan') {
   // openrouter.ai/api/v1/models before any run; refuse to run if it cannot be fetched; and stop the run when the true spend passes a cap.
   if (BENCH) {
     try {
-      const res = await fetch('https://openrouter.ai/api/v1/models'); const j = await res.json();
-      const m = (j.data || []).find((x) => x.id === BENCH.priceKey);
-      if (!m) throw new Error(`no live price for ${BENCH.priceKey}`);
-      PRICE.input = Number(m.pricing.prompt) * 1e6; PRICE.output = Number(m.pricing.completion) * 1e6; PRICE.source = 'OpenRouter live, fetched now';
+      const res = await fetch(`https://openrouter.ai/api/v1/models/${BENCH.priceKey}/endpoints`); const j = await res.json();
+      const eps = j.data?.endpoints || []; const host = POUR_HOSTS[0];
+      const m = eps.find((e) => String(e.provider_name || e.name || '').toLowerCase() === host.toLowerCase()) || eps.sort((x, y) => Number(x.pricing.prompt) - Number(y.pricing.prompt))[0];
+      if (!m) throw new Error(`no live endpoint price for ${BENCH.priceKey}`);
+      const dear = Math.max(...POUR_HOSTS.map((h) => { const e = eps.find((x) => String(x.provider_name || x.name || '').toLowerCase() === h.toLowerCase()); return e ? Number(e.pricing.prompt) * 1e6 : 0; }));
+      PRICE.input = Number(m.pricing.prompt) * 1e6; PRICE.output = Number(m.pricing.completion) * 1e6; PRICE.source = `OpenRouter live, host ${m.provider_name || m.name} (dearest host in the order: $${dear.toFixed(3)}/M in)`;
+      console.log(`route: ${POUR_HOSTS.join(' → ')} (no router fallbacks)`);
       console.log(`live price for ${BENCH.priceKey}: $${PRICE.input.toFixed(3)} / $${PRICE.output.toFixed(3)} per M (fallback table said $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).input} / $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).output})`);
     } catch (e) { console.error(`REFUSED: could not fetch the live price (${e.message}); the fallback table is not trusted`); process.exit(2); }
   }
