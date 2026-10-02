@@ -40,7 +40,7 @@ const MAX_ATTEMPTS = Number(process.env.POUR_MAX_ATTEMPTS || 5);   // founder 20
 import { MODEL_PRICING } from '../lib/modelConfig.js';
 const priceArg = process.argv.find((x) => x.startsWith('--price='));
 const PRICE = priceArg ? (([i, o]) => ({ input: Number(i), output: Number(o), source: 'given on the command line' }))(priceArg.slice(8).split(','))
-  : BENCH ? { ...(OPENROUTER_PRICING[BENCH.priceKey] || { input: NaN, output: NaN }), source: `OpenRouter's list (${BENCH.priceKey})` } : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : /fable/.test(AUTHOR) ? { ...MODEL_PRICING.fable, source: 'the house table (fable — $10/$50, the final-library author only)' } : null);
+  : BENCH ? { ...(OPENROUTER_PRICING[BENCH.priceKey] || { input: NaN, output: NaN }), source: `the FALLBACK table for ${BENCH.priceKey} — replaced by the live price before any run` } : (/opus-5-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus55, source: 'the house table (opus55)' } : /opus-4-8|opus-5/.test(AUTHOR) ? { ...MODEL_PRICING.opus, source: 'the house table (opus)' } : /sonnet/.test(AUTHOR) ? { ...MODEL_PRICING.sonnet, source: 'the house table (sonnet)' } : /haiku/.test(AUTHOR) ? { ...MODEL_PRICING.haiku, source: 'the house table (haiku)' } : /fable/.test(AUTHOR) ? { ...MODEL_PRICING.fable, source: 'the house table (fable — $10/$50, the final-library author only)' } : null);
 const PER_CALL_WORST = { input: MAX_ATTEMPTS * 11500, output: MAX_ATTEMPTS * 2600 };   // every attempt, at the measured wave-one sizes (a re-roll carries the earlier answer)
 const PRICE_ASSUMED = PRICE || { input: NaN, output: NaN, source: 'UNKNOWN' };
 const AUTHOR_KEY = AUTHOR.replace(/[^a-z0-9.]+/gi, '-');
@@ -217,6 +217,20 @@ if (cmd === 'plan') {
   fs.mkdirSync(path.dirname(WAVE), { recursive: true }); fs.writeFileSync(WAVE, JSON.stringify({ date: new Date().toISOString(), author: AUTHOR, schema: SCHEMA_VERSION, prompt: PROMPT_VERSION, sweepSignature: SWEEP_SIGNATURE, calls }, null, 2));
 } else if (cmd === 'run') {
   if (!process.env[BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY']) { console.error(`missing ${BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY'} in .env.local`); process.exit(2); }
+  // 2026-10-03 — THE PRICE IS FETCHED, NEVER ASSUMED. The night of 10-02/03 cost $94 on the key while this runner reported $34: the table
+  // had deepseek-v4.1-flash at half its list price, under a label that said "OpenRouter's list". Now: fetch the live price from
+  // openrouter.ai/api/v1/models before any run; refuse to run if it cannot be fetched; and stop the run when the true spend passes a cap.
+  if (BENCH) {
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/models'); const j = await res.json();
+      const m = (j.data || []).find((x) => x.id === BENCH.priceKey);
+      if (!m) throw new Error(`no live price for ${BENCH.priceKey}`);
+      PRICE.input = Number(m.pricing.prompt) * 1e6; PRICE.output = Number(m.pricing.completion) * 1e6; PRICE.source = 'OpenRouter live, fetched now';
+      console.log(`live price for ${BENCH.priceKey}: $${PRICE.input.toFixed(3)} / $${PRICE.output.toFixed(3)} per M (fallback table said $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).input} / $${(OPENROUTER_PRICING[BENCH.priceKey] || {}).output})`);
+    } catch (e) { console.error(`REFUSED: could not fetch the live price (${e.message}); the fallback table is not trusted`); process.exit(2); }
+  }
+  const CAP = Number((a.find((x) => /^--cap=\d+(\.\d+)?$/.test(x)) || '--cap=5').slice(6));   // dollars; default $5 per run — pass --cap=N on purpose for more
+  let spentSoFar = 0; const stopIfOverCap = (usage) => { spentSoFar += (usage.input * PRICE.input + usage.output * PRICE.output) / 1e6; if (spentSoFar > CAP) { console.error(`STOPPED: true spend $${spentSoFar.toFixed(2)} passed the cap of $${CAP} (raise it with --cap=N on purpose)`); process.exit(3); } };
   const limit = Number(a.find((x) => /^\d+$/.test(x))) || Infinity;
   const onlyStale = a.includes('--stale');   // stored calls whose partner/mechanism no longer match the record
   const onlyRefused = a.includes('--refused') || onlyStale;   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
@@ -232,7 +246,7 @@ if (cmd === 'plan') {
   if (!a.includes('--spend-ok')) { console.log("stopping here: pass --spend-ok to spend it (the founder's word, every run)."); process.exit(0); }
   console.log(`authoring ${todo.length} calls on ${AUTHOR} (${BENCH ? 'OpenRouter, the bench lane' : 'Anthropic lane only'}), ${Number(process.env.POUR_WORKERS || 4)} at a time, up to ${MAX_ATTEMPTS} attempts each…`);
   const t0 = Date.now(); let i = 0, done = 0, failed = 0;
-  const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
+  const worker = async () => { while (i < todo.length) { const c = todo[i++]; try { const r = await author(c, { force: force || onlyRefused }); if (r && r.row && r.row.usage) stopIfOverCap(r.row.usage); if (r.failed) { failed++; console.log(`  FAILED ${c.card} in ${c.seat}: ${r.attempts.map((x) => x.error || x.flags.map((f) => f.code).join(',')).join(' / ')}`); } else if (!r.skipped) { done++; const hard = r.row.hardOpen; console.log(`  ${String(done).padStart(3)} ${c.card} in ${c.seat} — ${r.row.attempts.length} attempt(s), ${hard ? hard + ' hard flag(s) open' : 'clean'}, ${r.row.usage.input}+${r.row.usage.output} tok`); } } catch (e) { failed++; console.log(`  THREW ${c.card} in ${c.seat}: ${e.message}`); } } };
   const WORKERS = Number(process.env.POUR_WORKERS || 4);
   await Promise.all(Array.from({ length: WORKERS }, () => worker()));
   console.log(`done ${done}, failed ${failed} in ${Math.round((Date.now() - t0) / 1000)}s`);
