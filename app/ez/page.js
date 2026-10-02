@@ -2462,23 +2462,23 @@ ${DRAGON_STANDARD}`, 600);
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
-                    <div className="absolute left-0 right-0 -bottom-3.5 flex justify-center gap-1.5 px-3">
+                    <div className="absolute left-0 right-0 -bottom-3.5 flex flex-wrap justify-center gap-1 px-2"> {/* .597: smaller pills, a wrap allowed, capitalised (founder: 'too big, off screen, not capitalised') */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
-                      {[['clarify', 'clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
+                      {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
-                          className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors ${tone}`}>
+                          className={`rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
                           {label}
                         </button>
                       ))}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
                       <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating signature is drawn and read as a pointer"
-                        className="rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
-                        find it
+                        className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
+                        Find it
                       </button>
                       {/* .543: HEAR IT ANOTHER WAY — the same turn in another register; the saved voice is untouched */}
                       <button onClick={() => setVoicePickFor(voicePickFor === t.id ? null : t.id)} title="hear this turn in another voice — your setting stays as it is"
-                        className={`rounded-full border bg-zinc-950 px-3 py-0.5 text-[0.6875rem] tracking-wide transition-colors border-fuchsia-500/60 text-fuchsia-200 hover:bg-fuchsia-950/70 ${voicePickFor === t.id ? 'bg-fuchsia-950/70' : ''}`}>
-                        voice
+                        className={`rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-fuchsia-500/60 text-fuchsia-200 hover:bg-fuchsia-950/70 ${voicePickFor === t.id ? 'bg-fuchsia-950/70' : ''}`}>
+                        Voice
                       </button>
                     </div>
                   )}
