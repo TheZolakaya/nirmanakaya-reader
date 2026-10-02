@@ -65,7 +65,7 @@ export function selection({ includeHeld = false } = {}) {
   for (const [q, card, seat] of HOSTILE) add(idOf(card), seatOf(seat), 'beinghood', q);
   for (let pos = 0; pos < 22; pos++) add(SWEEP_SIGNATURE, pos, 'sweep', 'one signature through all 22 seats');
   const byHouse = Object.fromEntries(HOUSES.map((h) => [h, []]));
-  for (let i = 0; i < 78; i++) { const h = houseOf(i); if (byHouse[h] && !held(i)) byHouse[h].push(i); }
+  for (let i = 0; i < 78; i++) { const h = houseOf(i); if (byHouse[h]) byHouse[h].push(i); }   // the pools never depend on the held set, so the seeded spread is stable across waves
   const r = rng(20260930);
   for (const h of HOUSES) { let n = 0, guard = 0; while (n < 13 && guard++ < 500) { const sig = byHouse[h][Math.floor(r() * byHouse[h].length)]; const pos = Math.floor(r() * 22); if (seen.has(key(sig, pos))) continue; add(sig, pos, 'spread:' + h); n++; } }
   return calls;

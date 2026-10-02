@@ -218,7 +218,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Wands** | 10 of Swords | 10 of Cups | **Ace of Wands** | **Ace of Wands** |
+| **Ace of Wands** | 10 of Swords | 10 of Cups | 9 of Cups (Fulfillment) | 9 of Wands (Resilience) |
 | **2 of Wands** | 9 of Swords | 9 of Pentacles | 6 of Pentacles | **6 of Pentacles** |
 | **3 of Wands** | 8 of Swords | 8 of Pentacles | 7 of Pentacles | **8 of Swords** |
 | **4 of Wands** | 7 of Swords | 7 of Pentacles | 8 of Pentacles | **7 of Cups** |
@@ -227,13 +227,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Wands** | 4 of Swords | 4 of Pentacles | 3 of Pentacles | **4 of Cups** |
 | **8 of Wands** | 3 of Swords | 3 of Pentacles | 4 of Pentacles | **3 of Swords** |
 | **9 of Wands** | 2 of Swords | 2 of Pentacles | 5 of Pentacles | **5 of Pentacles** |
-| **10 of Wands** | Ace of Swords | Ace of Cups | **10 of Wands** | **10 of Wands** |
+| **10 of Wands** | Ace of Swords | Ace of Cups | 2 of Cups (Merge) | 2 of Wands (Orientation) |
 
 ### SWORDS
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Swords** | 10 of Wands | 10 of Pentacles | **Ace of Swords** | **Ace of Swords** |
+| **Ace of Swords** | 10 of Wands | 10 of Pentacles | Source (the portal itself) | 8 of Swords (Immersion) |
 | **2 of Swords** | 9 of Wands | 9 of Cups | 6 of Cups | **8 of Wands** |
 | **3 of Swords** | 8 of Wands | 8 of Cups | 7 of Cups | **7 of Cups** |
 | **4 of Swords** | 7 of Wands | 7 of Cups | 8 of Cups | **8 of Cups** |
@@ -242,13 +242,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Swords** | 4 of Wands | 4 of Cups | 3 of Cups | **3 of Cups** |
 | **8 of Swords** | 3 of Wands | 3 of Cups | 4 of Cups | **4 of Cups** |
 | **9 of Swords** | 2 of Wands | 2 of Cups | 5 of Cups | **3 of Wands** |
-| **10 of Swords** | Ace of Wands | Ace of Pentacles | **10 of Swords** | **10 of Swords** |
+| **10 of Swords** | Ace of Wands | Ace of Pentacles | Source (the portal itself) | 3 of Swords (Calculation) |
 
 ### CUPS
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Cups** | 10 of Pentacles | 10 of Wands | **Ace of Cups** | **Ace of Cups** |
+| **Ace of Cups** | 10 of Pentacles | 10 of Wands | 6 of Cups (Reciprocity) | 7 of Cups (Allure) |
 | **2 of Cups** | 9 of Pentacles | 9 of Swords | 6 of Swords | **7 of Wands** |
 | **3 of Cups** | 8 of Pentacles | 8 of Swords | 7 of Swords | **7 of Swords** |
 | **4 of Cups** | 7 of Pentacles | 7 of Swords | 8 of Swords | **8 of Swords** |
@@ -257,13 +257,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Cups** | 4 of Pentacles | 4 of Swords | 3 of Swords | **3 of Swords** |
 | **8 of Cups** | 3 of Pentacles | 3 of Swords | 4 of Swords | **4 of Swords** |
 | **9 of Cups** | 2 of Pentacles | 2 of Swords | 5 of Swords | **4 of Wands** |
-| **10 of Cups** | Ace of Pentacles | Ace of Wands | **10 of Cups** | **10 of Cups** |
+| **10 of Cups** | Ace of Pentacles | Ace of Wands | 5 of Cups (Conscience) | 4 of Cups (Reverie) |
 
 ### PENTACLES
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Pentacles** | 10 of Cups | 10 of Swords | **Ace of Pentacles** | **Ace of Pentacles** |
+| **Ace of Pentacles** | 10 of Cups | 10 of Swords | 10 of Swords (Clarity) | 6 of Pentacles (Support) |
 | **2 of Pentacles** | 9 of Cups | 9 of Wands | 6 of Wands | **6 of Wands** |
 | **3 of Pentacles** | 8 of Cups | 8 of Wands | 7 of Wands | **6 of Swords** |
 | **4 of Pentacles** | 7 of Cups | 7 of Wands | 8 of Wands | **6 of Cups** |
@@ -272,7 +272,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Pentacles** | 4 of Cups | 4 of Wands | 3 of Wands | **5 of Cups** |
 | **8 of Pentacles** | 3 of Cups | 3 of Wands | 4 of Wands | **5 of Swords** |
 | **9 of Pentacles** | 2 of Cups | 2 of Wands | 5 of Wands | **5 of Wands** |
-| **10 of Pentacles** | Ace of Cups | Ace of Swords | **10 of Pentacles** | **10 of Pentacles** |
+| **10 of Pentacles** | Ace of Cups | Ace of Swords | Ace of Swords (Perception) | 5 of Pentacles (Steadfastness) |
 
 ---
 
@@ -455,4 +455,4 @@ Four rulings, recorded the night of 2026-09-26/27 and held for the founder's res
 
 With these, the whole 22 is derived and no archetype's medicine is itself.
 
-**Still open (not ruled):** the eight Gestalt Bounds (the Aces and Tens: 22, 31, 32, 41, 42, 51, 52, 61) remain their own growth and reduction partners in Part V. Whether they follow the outside-six move or stay self is the founder's ruling to make.
+5. **The Gestalt Bounds follow their families** (founder, 2026-10-02: "they work just like their archetypal families, except they refer to the bounds"). Growth = the family's growth partner, opposite polarity: Activation 22 → Resilience 30; Realization 31 → Orientation 23; Perception 32 → Immersion 39; Clarity 41 → Calculation 34; Receptivity 42 → Allure 48; Completion 51 → Reverie 45; Definition 52 → Support 57; Achievement 61 → Steadfastness 56. Unacknowledged runs through the family's −9 partner with the same flip: Activation → Fulfillment 50; Realization → Merge 43; Receptivity → Reciprocity 47; Completion → Conscience 46; Definition → Clarity 41; Achievement → Perception 32; and the two bounds of Actualization, whose family goes to Source, refer to the portal itself (Perception → Source; Clarity → Source), because the portals are bare. Part V's rows are updated above. No Bound is its own medicine any more; the NOTES ON GESTALT ARCHETYPES paragraph about "no growth opportunity defined" is superseded.
