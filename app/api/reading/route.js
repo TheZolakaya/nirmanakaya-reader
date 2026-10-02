@@ -10,6 +10,7 @@ import { getComponent } from '../../../lib/corrections.js';
 import { callProvider, withholdPersonalContext } from '../../../lib/provider.js';
 import { buildCachedSystem, ANTHROPIC_BETA_HEADERS } from '../../../lib/cachedSystem.js';
 import { buildDossier } from '../../../lib/geometryEngine.js';
+import { appendFloor, FLOOR_ENABLED } from '../../../lib/pour/floorHook.js'; // THE FLOOR (the Pour), founder-flagged: POUR_FLOOR=1
 
 // GEOMETRY ENGINE dossier injection (Reader V2 Layer 2) — kill switch.
 // Set false and redeploy to disable instantly; injection is fail-open (errors skip it).
@@ -263,6 +264,12 @@ export async function POST(request) {
     } catch (e) {
       console.error('Dossier injection skipped:', e?.message);
     }
+  }
+  // THE FLOOR: the poured cell under the Reader, appended after the dossier to the same final user message. Off unless POUR_FLOOR=1.
+  if (FLOOR_ENABLED) {
+    const floored = appendFloor(messagesOut, draws, { turn });
+    messagesOut = floored.messages;
+    if (floored.floors) console.log(`[reading] the floor: ${floored.floors} poured cell(s) under this turn`);
   }
 
   try {

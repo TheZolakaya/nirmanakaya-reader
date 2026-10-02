@@ -23,6 +23,8 @@ import { ARCHETYPES } from '../lib/archetypes.js';
 import { buildKernel } from '../lib/kernel.js';
 import { authoringPackage, provenanceFor } from '../lib/pour/assemble.js';
 import { lintCell, lintQuartet, lintWave } from '../lib/pour/lint.js';
+import { readPlan } from '../lib/pour/assemble.js';
+import { checkProvenance } from '../lib/pour/joins.js';
 import { STATUS_NAMES, SCHEMA_VERSION, PROMPT_VERSION } from '../lib/pour/schema.js';
 import { HOSTILE } from '../lib/bakeoff/presets.js';
 import { writeToShelf, nextShelfName } from '../lib/bakeoff/store.js';
@@ -209,10 +211,13 @@ if (cmd === 'plan') {
 } else if (cmd === 'run') {
   if (!process.env[BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY']) { console.error(`missing ${BENCH ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY'} in .env.local`); process.exit(2); }
   const limit = Number(a.find((x) => /^\d+$/.test(x))) || Infinity;
-  const onlyRefused = a.includes('--refused');   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
+  const onlyStale = a.includes('--stale');   // stored calls whose partner/mechanism no longer match the record
+  const onlyRefused = a.includes('--refused') || onlyStale;   // re-pour exactly the stored calls the current lints refuse (the old cell is kept in data/pour/replaced)
   const wholeLibrary = a.includes('--all');   // founder 2026-10-02: 'are we ready to roll?' — the library is every card in every seat
   let todo = (wholeLibrary ? allCalls() : selection({ includeHeld })).filter((c) => !c.held);
-  if (onlyRefused) { const { refused } = relint({ quiet: true }); const set = new Set(refused.map((x) => key(x.sig, x.pos))); todo = todo.filter((c) => set.has(key(c.sig, c.pos))); fs.mkdirSync('data/pour/replaced', { recursive: true }); for (const c of todo) { const p = cellPath(c.sig, c.pos); if (fs.existsSync(p)) fs.copyFileSync(p, path.join('data/pour/replaced', `${path.basename(p, '.json')}.${Date.now()}.json`)); } }
+  if (onlyRefused) { let refused = relint({ quiet: true }).refused;
+    if (onlyStale) { refused = []; for (const f of fs.readdirSync(CELLS_DIR).filter((x) => x.endsWith('.json'))) { const r = JSON.parse(fs.readFileSync(path.join(CELLS_DIR, f), 'utf8')); const bad = r.cells.some((c) => !checkProvenance(readPlan({ transient: r.signature_id, position: r.position_id, status: c.status }, DEFS), c).ok); if (bad) refused.push({ sig: r.signature_id, pos: r.position_id }); } console.log(`stale against the record: ${refused.length} calls`); }
+    const set = new Set(refused.map((x) => key(x.sig, x.pos))); todo = todo.filter((c) => set.has(key(c.sig, c.pos))); fs.mkdirSync('data/pour/replaced', { recursive: true }); for (const c of todo) { const p = cellPath(c.sig, c.pos); if (fs.existsSync(p)) fs.copyFileSync(p, path.join('data/pour/replaced', `${path.basename(p, '.json')}.${Date.now()}.json`)); } }
   todo = todo.filter((c) => force || onlyRefused || !fs.existsSync(cellPath(c.sig, c.pos))).slice(0, limit);
   if (!PRICE) { console.error(`REFUSED: ${AUTHOR} is not on the house's price table (lib/modelConfig.js MODEL_PRICING). Pass --price=<in>,<out> ($ per million) only with the founder's word.`); process.exit(3); }
   const worst = todo.length * (PER_CALL_WORST.input * PRICE.input + PER_CALL_WORST.output * PRICE.output) / 1e6;
@@ -228,4 +233,4 @@ if (cmd === 'plan') {
 } else if (cmd === 'tally') tally();
 else if (cmd === 'relint') relint();
 else if (cmd === 'shelf') shelf();
-else { console.error('plan | run [limit] [--all] [--include-held] [--force] [--refused] | tally | relint | shelf'); process.exit(2); }
+else { console.error('plan | run [limit] [--all] [--include-held] [--force] [--refused] [--stale] | tally | relint | shelf'); process.exit(2); }
