@@ -580,7 +580,7 @@ export default function EZPage() {
   const [user, setUser] = useState(null);
   // the moving background and the corner controls, shared with the main page
   const chrome = useBackdropPrefs();
-  const audioRef = useRef(null); const speakRun = useRef(0); const [speakingId, setSpeakingId] = useState(null); // THE VOICE (2026-10-03)
+  const audioRef = useRef(null); const speakRun = useRef(0); const [speakingId, setSpeakingId] = useState(null); const [voiceMsg, setVoiceMsg] = useState(''); // THE VOICE (2026-10-03)
   const [allowed, setAllowed] = useState(null); // null = checking
   // THE LANDING in EZ — on for everyone since v0.99.300. ?anim=0 turns it off for a browser,
   // ?anim=1 turns it back on. Reduced-motion users never see it.
@@ -997,7 +997,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
   const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut === true;
-  const voiceName = chrome.prefs.voiceName === 'bm_george' ? 'bm_george' : 'af_heart';
+  const voiceName = chrome.prefs.voiceName === 'af_heart' ? 'af_heart' : 'bm_george';   // .608: George by default (always warm); Heart sleeps when idle
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
@@ -1011,19 +1011,21 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   };
   const speakTurn = async (t) => {
     if (!t || !t.text) return;
-    const run = ++speakRun.current; setSpeakingId(t.id);
+    const run = ++speakRun.current; setSpeakingId(t.id); setVoiceMsg(voiceName === 'af_heart' ? 'Voice: Heart…' : 'Voice: George…');
     const h = await voiceAuth();
     const jobs = piecesOf(t).map((text) => fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName }) }).then((r) => r.json()).catch(() => ({})));
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
     for (const job of jobs) {
       const res = await job; if (run !== speakRun.current) return;
-      if (!res?.url) { if (res?.error) console.warn('[voice]', res.error); continue; }
+      if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } continue; }
+      setVoiceMsg('');
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
-      a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); break; }
+      a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; if (run !== speakRun.current) return;
     }
     if (run === speakRun.current) setSpeakingId(null);
   };
+  useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
   const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
   const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
@@ -2064,6 +2066,9 @@ ${DRAGON_STANDARD}`, 600);
             {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
           </button>
         } />}
+      {voiceMsg && (
+        <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[90vw] rounded-full border border-amber-500/40 bg-zinc-900/95 px-4 py-1.5 text-[0.8125rem] text-amber-100 shadow-xl">{voiceMsg}</div>
+      )}
       {voiceToast && VOICE_NOTES[voiceToast] && (
         <div style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
           <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
@@ -2159,7 +2164,7 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                   else if (v === 'voice') { if (voiceOut) stopVoice(); else unlockAudio(); chrome.set({ voiceOut: !voiceOut }); }
-                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'bm_george' ? 'af_heart' : 'bm_george' }); }
+                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'af_heart' ? 'bm_george' : 'af_heart' }); }
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
                 className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
@@ -2169,7 +2174,7 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
                 {user && isAdmin(user) && <option value="voice">{voiceOut ? 'Stop speaking readings aloud' : 'Speak readings aloud'}</option>}
-                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'bm_george' ? 'George' : 'Heart'} (switch)`}</option>}
+                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'af_heart' ? 'Heart (wakes slowly)' : 'George'} — switch`}</option>}
               </select>
             </div>
 

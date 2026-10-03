@@ -19,6 +19,6 @@ export async function POST(request) {
     const r = await speakPiece(text, body.voice);
     return Response.json({ url: r.url, secs: r.secs });
   } catch (e) {
-    return Response.json({ error: String(e.message || e).slice(0, 200) }, { status: 502 });
+    return Response.json({ error: String(e.message || e).slice(0, 200), waking: !!e.waking }, { status: e.waking ? 503 : 502 });
   }
 }
