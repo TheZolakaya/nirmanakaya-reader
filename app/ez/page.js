@@ -1091,6 +1091,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (pausedRef.current) { try { a?.pause(); } catch {} setVoiceMsg('Voice: paused — tap to continue'); }
     else { setVoiceMsg(''); try { if (a && a.src && !a.ended && a.paused) { const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } } catch {} }
   };
+  const sayLabel = (slug) => { // .644: a stored clip (public/voice/labels/<voice>/<slug>.wav, made by scripts/voice_labels.mjs) — instant, inside the tap
+    if (!voiceOut || !slug) return;
+    try { stopVoice(); if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = `/voice/labels/${voiceName}/${slug}.wav`; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {}
+  };
   const holdWhilePaused = async (run) => { while (pausedRef.current && run === speakRun.current) await new Promise((d) => setTimeout(d, 100)); };
   // .625 CADENCE (founder: "it's the pausing… the whole thing is railroading you"). The pieces used to be 420-character runs joined
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
@@ -1660,14 +1664,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'step', heading: 'One small step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
+      if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setStepBusy(false);
   };
   const toggleStep = () => {
-    const next = !stepOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
+    const next = !stepOpen; if (next && voiceOut) { sayLabel('one-small-step'); warmVoice(); } // THE VOICE (.611; .644 the tap says its name)
     setStepOpen(next);
     if (next) {
       showPanels('step');
@@ -1699,13 +1703,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900);
       setMedText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'medicine', heading: 'The medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
+      if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setMedBusy(false);
   };
   const toggleMedicine = () => {
-    const next = !medOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
+    const next = !medOpen; if (next && voiceOut) { sayLabel('the-medicine'); warmVoice(); } // THE VOICE (.611; .644)
     setMedOpen(next);
     if (next) {
       showPanels('medicine');
@@ -1735,14 +1739,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
 
 ${DRAGON_STANDARD}`, 600);
       setDragonText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'dragon', heading: 'Face the dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
+      if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setDragonBusy(false);
   };
   const toggleDragon = () => {
-    const next = !dragonOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
+    const next = !dragonOpen; if (next && voiceOut) { sayLabel('face-the-dragon'); warmVoice(); } // THE VOICE (.611; .644)
     setDragonOpen(next);
     if (next) {
       showPanels('dragon');
@@ -1783,7 +1787,7 @@ ${DRAGON_STANDARD}`, 600);
   // cannot assume the meaning was read), so only ring 1 is passed as already-seen.
   const fetchFloor = async (floor) => {
     const card = fieldCard(); if (!card || brazierBusy) return;
-    if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.616): inside the tap
+    if (voiceOut) { const lab = FLOOR_LABEL[floor]; sayLabel(lab ? lab.replace(/\s+/g, '-') : 'words-to-the-whys'); warmVoice(); } // THE VOICE (.616; .644 the floor says its name)
     const key = `${card.transient}:${card.position}:${card.status}`;
     if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
     setBrazierBusy(floor); setError('');
@@ -1814,7 +1818,7 @@ ${DRAGON_STANDARD}`, 600);
       }
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
-      if (voiceOut) speakTurn({ id: `floor${floor}`, heading: FLOOR_LABEL[floor] ? FLOOR_LABEL[floor].charAt(0).toUpperCase() + FLOOR_LABEL[floor].slice(1) : '', text: obj.text.trim() }); // THE VOICE (.616; .625 the heading, then a beat)
+      if (voiceOut) speakTurn({ id: `floor${floor}`, text: obj.text.trim() }); // THE VOICE (.616; .625 the heading, then a beat)
       if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
       // no pill regen here (.446): the next real turn already receives every opened floor via brazierBlock
     } catch (e) { setError(e.message); }
@@ -1846,7 +1850,7 @@ ${DRAGON_STANDARD}`, 600);
     setFloorsOpened([]);
   }, [lastReaderId]);
   const toggleBrazier = () => {
-    const next = !brazierOpen;
+    const next = !brazierOpen; if (next) sayLabel('words-to-the-whys'); // .644
     setBrazierOpen(next);
     if (next) {
       showPanels('brazier');
@@ -1908,6 +1912,7 @@ ${DRAGON_STANDARD}`, 600);
   // ---- where am I ----
   const catchUp = async () => {
     if (loading || !draws || turns.length === 0) return;
+    sayLabel('where-am-i'); // .644
     setLoading(true); setError('');
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
@@ -1923,6 +1928,7 @@ ${DRAGON_STANDARD}`, 600);
   // start a new reading. Nothing is locked — the box stays live under it.
   const closeUp = async () => {
     if (loading || !draws || turns.length === 0) return;
+    sayLabel('summarize-and-wrap-up'); // .644
     setLoading(true); setError(''); setFieldMode(null);
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
@@ -2191,7 +2197,7 @@ ${DRAGON_STANDARD}`, 600);
       : (on ? 'border-orange-400 bg-orange-900/40 text-orange-100' : 'border-orange-700/50 bg-orange-950/20 text-orange-200 hover:border-orange-500 hover:bg-orange-900/30');
     const hint = mode === 'reflect' ? 'ask the signatures a question' : 'declare a move — the signatures answer';
     return (
-      <button onClick={() => setFieldMode(on ? null : mode)} disabled={loading}
+      <button onClick={() => { if (!on) sayLabel(mode); setFieldMode(on ? null : mode); }} disabled={loading}
         className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[0.9375rem] font-medium">
           {mode === 'reflect'
@@ -2682,19 +2688,13 @@ ${DRAGON_STANDARD}`, 600);
                     <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2"> {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
-                        <button key={k} onClick={() => move(t.id, k)} title={tip}
+                        <button key={k} onClick={() => { sayLabel(k); move(t.id, k); }} title={tip}
                           className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
                           {label}
                         </button>
                       ))}
-                      {user && (
-                        <button onClick={() => { if (speakingId === t.id) { stopVoice(); return; } unlockAudio(); speakTurn(t); }} title="hear this turn in the Reader's voice"
-                          className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-amber-500/60 text-amber-200 hover:bg-amber-950/70">
-                          {speakingId === t.id ? 'Stop' : 'Listen'}
-                        </button>
-                      )}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
-                      <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating signature is drawn and read as a pointer"
+                      <button onClick={() => { sayLabel('find-it'); send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }); }} title="ask the field where it is — a locating signature is drawn and read as a pointer"
                         className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
                         Find it
                       </button>
@@ -2833,7 +2833,7 @@ ${DRAGON_STANDARD}`, 600);
                   </button>
                 )}
                 {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
-                  <button onClick={() => regenPills()}
+                  <button onClick={() => { sayLabel('more-choices'); regenPills(); }}
                     className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
                     ↻ More choices
                   </button>
