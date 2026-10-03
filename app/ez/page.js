@@ -1253,6 +1253,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot']);
       const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || null }).flags || []).filter((f) => scars.has(f.code));
       const bad = check(obj, data.reading);
+      if (obj.aim === 'thing' && (/^\s*(you\b|your\b|my hunch|the draw)/i.test(String(obj.gist || '')) || /^\s*(you\b|your\b|my hunch)/i.test(String(obj.reader || '')))) bad.push({ code: 'aim', detail: 'the question is about a THING and the opening began on the person — the first words of the gist and of the body are the thing\'s name and what the draw says it is or is for; the person comes second' }); // .638
       { const n = stampOf(obj.reader); if (n > 2) bad.push({ code: 'stamp', detail: `the frame's words ("${stampWords().join('", "')}") appear ${n} times in one turn — name the frame once at the opening, then stay inside it without saying it again` }); } // .612
       if (bad.length) {
         const again = await rawCall(`${userMessage}\n\nYOUR LAST REPLY WAS SET ASIDE: ${bad.map((f) => f.detail).join('; ')}. Answer the turn again, in your own words, without that.`, system, maxTokens, extra);
