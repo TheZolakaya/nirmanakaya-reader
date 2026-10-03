@@ -1525,13 +1525,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
+      if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setStepBusy(false);
   };
   const toggleStep = () => {
-    const next = !stepOpen;
+    const next = !stepOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
     setStepOpen(next);
     if (next) {
       showPanels('step');
@@ -1563,12 +1564,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900);
       setMedText(String(obj.reader || '').trim());
+      if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setMedBusy(false);
   };
   const toggleMedicine = () => {
-    const next = !medOpen;
+    const next = !medOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
     setMedOpen(next);
     if (next) {
       showPanels('medicine');
@@ -1598,13 +1600,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
 
 ${DRAGON_STANDARD}`, 600);
       setDragonText(String(obj.reader || '').trim());
+      if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setDragonBusy(false);
   };
   const toggleDragon = () => {
-    const next = !dragonOpen;
+    const next = !dragonOpen; if (next && voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.611)
     setDragonOpen(next);
     if (next) {
       showPanels('dragon');
@@ -1772,7 +1775,7 @@ ${DRAGON_STANDARD}`, 600);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CATCHUP_RULES}`, 400);
-      setTurns((list) => [...list, { id: `c${Date.now()}`, role: 'catchup', text: obj.reader, question: obj.question || '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
+      { const ct = { id: `c${Date.now()}`, role: 'catchup', text: obj.reader, question: obj.question || '', chips: [], reflect: [], forge: [], ts: Date.now() }; setTurns((list) => [...list, ct]); if (voiceOut) speakTurn(ct); } // THE VOICE (.611)
       scrollToEnd();
     } catch (e) { setError(e.message); }
     setLoading(false);
@@ -1788,7 +1791,7 @@ ${DRAGON_STANDARD}`, 600);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 1000) // 700→1000 with the band (.469);
-      setTurns((list) => [...list, { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }]);
+      { const wt = { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }; setTurns((list) => [...list, wt]); if (voiceOut) speakTurn(wt); } // THE VOICE (.611)
       scrollToEnd();
     } catch (e) { setError(e.message); }
     setLoading(false);
