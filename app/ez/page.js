@@ -149,7 +149,7 @@ const pickFrame = (f) => {
   if (k === 'custom' && !detail) return null;
   return { k, detail, auto: true };
 };
-const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this — WITHOUT repeating its name: say the frame's words once at the opening and at most once more in the turn; after that it is the room you are in, not a word stamped on every paragraph. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
+const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; if (f.k === 'now') return `\n\nTHE FRAME — no question was asked and no subject was chosen: this is a reading of where the person is at this moment. ${f.lens} There is nothing to answer, so there is no verdict, no yes or no, no "the answer is", and no first sentence that names a subject — open on what the draw shows and let it be about them, the way a friend who knows nothing of their day would say what they see. The signature, seat, status and medicine are exactly as drawn.`; // .630 return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this — WITHOUT repeating its name: say the frame's words once at the opening and at most once more in the turn; after that it is the room you are in, not a word stamped on every paragraph. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
 // .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
 const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the signature did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the signature, ask your ordinary question.`;
@@ -1049,7 +1049,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
   // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
   // the question. The hosted model has no pause markup, so the player supplies the silence.
-  const GAP = { sentence: 110, paragraph: 325, heading: 450, beforeQuestion: 475 }; // .629: halved (founder: 'a little too long')
+  const GAP = { sentence: 80, paragraph: 220, heading: 300, beforeQuestion: 320 }; // .629 halved; .630 shorter again (founder: 'maybe we reduce the pause again')
   const piecesOf = (t) => {
     const out = [];
     const pushText = (text, gapAfter) => {
@@ -1408,7 +1408,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const aiBlock = AI_RX.test(q) ? AI_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameInForce ? frameBlock(frameInForce) : FRAME_ASK}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const msg = `${ctx}QUESTION: "${q || '(no question — a draw for where I am right now)'}"${doorBlock}${frameInForce ? frameBlock(frameInForce) : FRAME_ASK}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       let { obj, usage: u } = await callReader(msg);
       let fr = frame; // .569: the frame in force for this reading — chosen by the person, or named by the Reader just now
       if (!fr) { const named = pickFrame(obj?.frame); if (named) { fr = named; setFrame(named); setFrameDetail(named.detail || ''); } }
@@ -2499,8 +2499,8 @@ ${DRAGON_STANDARD}`, 600);
             {/* .486: THE QUESTION, AT SIZE. It was text-xs zinc-500 — the smallest thing on the page — and the
                 founder: "that should be one of the biggest things there, to ground you on what you asked." */}
             <div className="mb-7 text-center">
-              <div className="text-[0.625rem] uppercase tracking-[0.2em] text-amber-300/60 mb-2">You asked</div>
-              <p className="font-serif text-[1.375rem] sm:text-[1.5rem] leading-snug text-amber-100 break-words" style={{ textWrap: 'balance' }}>“{asked || question}”</p>
+              <div className="text-[0.625rem] uppercase tracking-[0.2em] text-amber-300/60 mb-2">{(asked || question) ? 'You asked' : 'Drawn for'}</div>
+              <p className="font-serif text-[1.375rem] sm:text-[1.5rem] leading-snug text-amber-100 break-words" style={{ textWrap: 'balance' }}>{(asked || question) ? `“${asked || question}”` : 'right now'}</p>{/* .630: a wordless reading has no quotation marks to show */}
               {/* .569: THE FRAME, ON THE READING — named by the Reader when none was chosen, or set by the person; change or clear it
                   here and the next turn is read inside the new one. */}
               {!bench && (frame || frameEdit) && (
