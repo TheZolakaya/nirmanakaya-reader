@@ -6,7 +6,7 @@ import fs from 'node:fs';
 const env = Object.fromEntries(fs.readFileSync('.env.local', 'utf8').split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
 const T = env.REPLICATE_API_TOKEN; const VERSION = 'f559560eb822dc509045f3921a1921234918b91739db4bf3daab2169b71c7a13'; const PER_SECOND = 0.000225;
 const out = process.argv[2] || 'G:/My Drive/For Air Review/VOICE_BENCH_KOKORO_2026-10-03'; fs.mkdirSync(out, { recursive: true });
-const VOICES = ['af_bella', 'af_nicole', 'af_sarah', 'af_sky', 'af_nova', 'af_river', 'af_jessica', 'af_kore', 'af_aoede', 'af_alloy', 'bf_emma', 'bf_isabella', 'bf_alice', 'bf_lily'];
+const VOICES = (process.argv[3] ? process.argv[3].split(',') : ['af_bella', 'af_nicole', 'af_sarah', 'af_sky', 'af_nova', 'af_river', 'af_jessica', 'af_kore', 'af_aoede', 'af_alloy', 'bf_emma', 'bf_isabella', 'bf_alice', 'bf_lily']); // a comma list as the 2nd arg picks other voices (2026-10-03: the American men)
 const TEXT = 'What you imagined got made, and it is behind you now. Integrated, completed, done. But you are still treating it as pending. The next thing has not started because part of you is still waiting to be told it is allowed to leave. Satisfaction is on the table and not being picked up.';
 const rows = []; let total = 0;
 for (const voice of VOICES) {
