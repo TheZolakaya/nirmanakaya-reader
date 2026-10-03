@@ -119,6 +119,7 @@ const FRAMES = [
   { k: 'pattern', label: 'a pattern I keep repeating', ask: 'the thing you do again', lens: 'Read the signature as the shape of the loop and where the loop can open; the pattern is a way of living, not a flaw.' },
   { k: 'place', label: 'a place, or a move', ask: 'where — a home, a city, a move', lens: "Read the signature as the asker's relation to ground: where they stand, where they are going, what holds them." },
   { k: 'activity', label: 'an activity', ask: 'a move, a party, a routine, a trip, a practice', lens: 'Read the signature as the asker\'s relation to this activity — what it is for them, what it is asking, how they are carrying it — practical and specific.' },
+  { k: 'now', label: 'right now', ask: null, lens: 'No subject and no clock: read the signature as where the asker is at this moment. The present is the room the reading happens in, not a word in it — the tense carries it; "now", "right now", "at this moment", "today", "this week" are said only where one sentence needs them, never as a refrain, and the reading is not about a span of days.' }, // .628
   { k: 'week', label: 'this week', ask: null, lens: 'No subject but the weather: read the signature as what is asking for the asker\'s attention now, this week.' },
   { k: 'bigger', label: 'something bigger than me', ask: 'the world, the news, the times, AI', lens: 'Read the signature as how the asker is carrying something larger than themselves — never a reading of the world, always of their relation to it.' },
   { k: 'custom', label: 'something else', ask: 'what it\'s about, in your words', lens: 'Read the signature as the asker\'s relation to exactly this, in their words; nothing more is assumed about what kind of thing it is.' },
@@ -131,7 +132,7 @@ const FRAME_GROUPS = [
   { label: 'Work & making', keys: ['work', 'making'] },
   { label: 'Daily life', keys: ['body', 'money', 'place', 'activity'] },
   { label: 'Choices & patterns', keys: ['decision', 'pattern'] },
-  { label: 'The bigger picture', keys: ['week', 'bigger'] },
+  { label: 'The bigger picture', keys: ['now', 'week', 'bigger'] },
   { label: 'Or', keys: ['custom'] },
 ];
 const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return f.k === 'custom' ? (fr.detail || 'something else') : `${f.label}${fr.detail ? ` — ${fr.detail}` : ''}`; };
@@ -139,7 +140,7 @@ const frameLabel = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; r
 // per reading, thematic, based on the querent's question, and allow for manual framing"). When no frame was chosen, the opening
 // turn asks the Reader to name what the question is about, in the envelope's "frame" field; the house keeps it as the frame in
 // force (marked auto) and the person can change or clear it from the reading itself. A manual frame always wins.
-const FRAME_ASK = `\n\nTHE FRAME: none was chosen. Name it yourself — what this question is ABOUT: one of ${FRAMES.map((f) => f.k).join(', ')}, and the subject in their own words (a name, the job, the move; under eight words; empty when the category is the whole of it — "custom" needs words). Put it in "frame" and read INSIDE it exactly as if it had been set: your first sentence names the subject in their words and every paragraph after stays there. A draw with no question at all is "week". The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS, under that frame's lens:\n${FRAMES.map((f) => `  ${f.k} — ${f.lens}`).join('\n')}`;
+const FRAME_ASK = `\n\nTHE FRAME: none was chosen. Name it yourself — what this question is ABOUT: one of ${FRAMES.map((f) => f.k).join(', ')}, and the subject in their own words (a name, the job, the move; under eight words; empty when the category is the whole of it — "custom" needs words). Put it in "frame" and read INSIDE it exactly as if it had been set: your first sentence names the subject in their words and every paragraph after stays there. A draw with no question at all is "now" — the present, not a span of days. The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS, under that frame's lens:\n${FRAMES.map((f) => `  ${f.k} — ${f.lens}`).join('\n')}`;
 const pickFrame = (f) => {
   if (!f || typeof f !== 'object') return null;
   const k = String(f.k || f.kind || f.category || '').trim().toLowerCase();
@@ -1348,6 +1349,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const typed = sanitizeForAPI(question.trim());
     const q = typed || (door ? sanitizeForAPI(door.breath) : '') || (frame ? sanitizeForAPI(`A reading about ${frameLabel(frame)}.`) : ''); // .546: a frame alone is a complete ask, like a door
     if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
+    const frameInForce = frame || (!typed && !door ? { k: 'now', detail: '' } : null); // .628: a wordless ask is a reading of now, and every later turn carries that frame
+    if (!frame && frameInForce) setFrame(frameInForce);
     setAsked(q);
     if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE: inside the tap, before any await
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets
@@ -1389,7 +1392,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const aiBlock = AI_RX.test(q) ? AI_BLOCK : '';
       const shapeWord = (q.match(/^\s*(how|what|which|why|where|when|who)\b/i) || [])[1];
       const shape = shapeWord ? `\n\nQUESTION SHAPE: this is a ${shapeWord.toUpperCase()} question, not a yes/no question. Open on the answer to it — the move, the thing, the reason. Do not open with "Yes", "No", "Not yet" or any verdict.` : '';
-      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frame ? frameBlock(frame) : FRAME_ASK}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
+      const msg = `${ctx}QUESTION: "${q}"${doorBlock}${frameInForce ? frameBlock(frameInForce) : FRAME_ASK}${shape}${beingBlock}${traumaBlock}${aiBlock}\n\nTHE DRAW:\n${drawText}${tele ? `\n\n${tele}` : ''}${HUNCH_LINE}\n\nThis is THE OPENING TURN. Follow EZ MODE exactly. JSON only.`;
       let { obj, usage: u } = await callReader(msg);
       let fr = frame; // .569: the frame in force for this reading — chosen by the person, or named by the Reader just now
       if (!fr) { const named = pickFrame(obj?.frame); if (named) { fr = named; setFrame(named); setFrameDetail(named.detail || ''); } }
