@@ -1028,7 +1028,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
   const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut === true;
-  const voiceName = chrome.prefs.voiceName === 'af_heart' ? 'af_heart' : 'bm_george';   // .608: George by default (always warm); Heart sleeps when idle
+  const voiceName = ['af_heart', 'af_river'].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .608: George by default; .620: River (warm) is the offered second voice; Heart (sleeps) only by an old saved preference
+  const VOICE_LABEL = { bm_george: 'George', af_river: 'River', af_heart: 'Heart' };
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
@@ -1043,7 +1044,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // .609: Replicate holds a new account to one call per ten seconds. Sending every piece at once got most refused and SKIPPED (the founder
     // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
-    const run = ++speakRun.current; setSpeakingId(t.id); setVoiceMsg(voiceName === 'af_heart' ? 'Voice: Heart…' : 'Voice: George…');
+    const run = ++speakRun.current; setSpeakingId(t.id); setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
     const h = await voiceAuth(); const pieces = piecesOf(t);
     const fetchPiece = async (text) => {
       for (let k = 0; k < 8; k++) {
@@ -2218,7 +2219,7 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                   else if (v === 'voice') { if (voiceOut) stopVoice(); else unlockAudio(); chrome.set({ voiceOut: !voiceOut }); }
-                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'af_heart' ? 'bm_george' : 'af_heart' }); }
+                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'af_river' ? 'bm_george' : 'af_river' }); } // .620: George ↔ River
                   else if (v === 'manner') { chrome.set({ manner: quiet ? '' : 'quiet' }); } // .614
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
@@ -2230,7 +2231,7 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
                 {user && isAdmin(user) && <option value="voice">{voiceOut ? '● on · Speak readings aloud — switch off' : '○ off · Speak readings aloud — switch on'}</option>}
                 {user && isAdmin(user) && <option value="manner">{quiet ? '● on · Reader: the quiet manner — switch off' : '○ off · Reader: the quiet manner — try it'}</option>}
-                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'af_heart' ? 'Heart (wakes slowly)' : 'George'} — switch to ${voiceName === 'af_heart' ? 'George' : 'Heart'}`}</option>}
+                {user && isAdmin(user) && <option value="voicename">{`Voice: ${VOICE_LABEL[voiceName] || 'George'} — switch to ${voiceName === 'af_river' ? 'George' : 'River'}`}</option>}
               </select>
             </div>
 
@@ -2821,7 +2822,7 @@ ${DRAGON_STANDARD}`, 600);
                         {voiceSpend.pieces > 0 && ( // .615 THE VOICE ROW: pieces · letters · compute seconds (Replicate T4) · cents
                           <tr className="text-amber-200/80">
                             <td className="pr-3 pt-1 whitespace-nowrap">voice</td>
-                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{voiceName === 'af_heart' ? 'Heart' : 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}</td>
+                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{VOICE_LABEL[voiceName] || 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}</td>
                             <td className="text-right pr-3 pt-1" title="letters spoken">{voiceSpend.chars.toLocaleString()}</td>
                             <td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td>
                             <td className="text-right pr-3 pt-1">{(voiceSpend.usd * 100).toFixed(2)}</td>
