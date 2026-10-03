@@ -280,15 +280,39 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     //   'implode' the seating — the reverse: light gathers INTO the durable as the card lands
     //   (the header has its own, below: a sweep of light across the whole header)
     const FX_ON = () => { try { return typeof window !== 'undefined' && window.localStorage.getItem('nkya_ez_fx') === '1'; } catch { return false; } };
-    const fxClip = (el, src, { scale = 2.8, rate = 1.6 } = {}) => { // .652: a rendered effect over the card's centre, black dropped out by screen blend
-      const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * scale;
-      const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto'; v.setAttribute('data-flash', 'fx');
-      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('autoplay', ''); // .654: iPhone Safari honours these only as ATTRIBUTES — without them a code-made video will not autoplay
-      Object.assign(v.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`, width: `${d}px`, height: `${d}px`, pointerEvents: 'none', zIndex: '250', mixBlendMode: 'screen', objectFit: 'cover' });
-      v.onended = () => v.remove(); v.onerror = () => v.remove();
-      document.body.appendChild(v); try { v.playbackRate = rate; } catch {}
-      const pr = v.play(); if (pr && pr.catch) pr.catch(() => v.remove());
-      window.setTimeout(() => { if (v.isConnected) v.remove(); }, 7000);
+    const fxClip = (el, src, { scale = 1.9, rate = 1.6 } = {}) => { // .652: a rendered effect over the card's centre; .656: its black made transparent per pixel (no CSS blend)
+      // .656: a blended <video> is INVISIBLE — measured on the dev server: the same clip side by side, unblended showed the sparks, screen-blended
+      // showed nothing (the browser drops a blended video element). So the video stays hidden and its frames are drawn to a canvas each frame;
+      // the canvas carries the screen blend, which browsers honour.
+      // .656: sized from the card's on-screen FACE (through its transform chain — the flight clone is far bigger than the map tile) and
+      // layered above the clone (300) so the splash is not hidden behind the card
+      let r; try { const b = faceBox(el); r = { left: b.cx - b.w / 2, top: b.cy - b.h / 2, width: b.w, height: b.h }; } catch { r = el.getBoundingClientRect(); }
+      const d = Math.max(Math.max(r.width, r.height) * scale, Math.min(window.innerWidth, window.innerHeight) * 0.55); // never smaller than half the screen — the choosing can land while the card is still small
+      const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); // .654: iPhone Safari honours these only as ATTRIBUTES
+      v.style.display = 'none';
+      const c = document.createElement('canvas'); c.width = 512; c.height = 512; c.setAttribute('data-flash', 'fx');
+      // .656: NO CSS blend at all — it proved unreliable mid-flight. The clip's black becomes transparency in the canvas itself: each frame is
+      // drawn, then every pixel's alpha is set from its brightness, so only the light remains and it composites normally everywhere.
+      Object.assign(c.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`, width: `${d}px`, height: `${d}px`, pointerEvents: 'none', zIndex: '310' });
+      const ctx = c.getContext('2d', { willReadFrequently: true });
+      const bye = () => { try { v.pause(); } catch {} v.remove(); c.remove(); };
+      v.onended = bye; v.onerror = bye;
+      document.body.appendChild(v); document.body.appendChild(c); try { v.playbackRate = rate; } catch {}
+      const tick = () => {
+        if (!c.isConnected) return;
+        try {
+          if (v.readyState >= 2) {
+            ctx.drawImage(v, 0, 0, 512, 512);
+            const img = ctx.getImageData(0, 0, 512, 512); const p = img.data;
+            for (let i = 0; i < p.length; i += 4) { const m = p[i] > p[i + 1] ? (p[i] > p[i + 2] ? p[i] : p[i + 2]) : (p[i + 1] > p[i + 2] ? p[i + 1] : p[i + 2]); p[i + 3] = m < 24 ? 0 : m; }
+            ctx.putImageData(img, 0, 0);
+          }
+        } catch {}
+        if (!v.ended) requestAnimationFrame(tick);
+      };
+      const pr = v.play(); if (pr && pr.then) pr.then(() => tick()).catch(() => bye()); else tick();
+      window.setTimeout(() => { if (c.isConnected) bye(); }, 7000);
     };
     const burst = (el, color, kind = 'disc') => {
       const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * 1.1;
