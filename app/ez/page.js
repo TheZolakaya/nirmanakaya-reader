@@ -32,7 +32,7 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
-import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
+import { HANDING_SET, QUIET_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -1039,8 +1039,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (run === speakRun.current) setSpeakingId(null);
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
-  const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
-  const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
+  const quiet = handing && isAdmin(user) && chrome.prefs.manner === 'quiet'; // .614 THE QUIET MANNER, admin switch (founder 2026-10-03: the therapist voice's good parts, in EZ)
+  const promptBase = handing ? (quiet ? QUIET_SET : HANDING_SET).BASE_SYSTEM : BASE_SYSTEM;
+  const promptOver = handing ? { rules: (quiet ? QUIET_SET : HANDING_SET).EZ_RULES } : {};
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
 
   const discourseText = useCallback((list) => list.map((t) => {
@@ -2186,6 +2187,7 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                   else if (v === 'voice') { if (voiceOut) stopVoice(); else unlockAudio(); chrome.set({ voiceOut: !voiceOut }); }
                   else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'af_heart' ? 'bm_george' : 'af_heart' }); }
+                  else if (v === 'manner') { chrome.set({ manner: quiet ? '' : 'quiet' }); } // .614
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
                 className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
@@ -2195,6 +2197,7 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
                 {user && isAdmin(user) && <option value="voice">{voiceOut ? 'Stop speaking readings aloud' : 'Speak readings aloud'}</option>}
+                {user && isAdmin(user) && <option value="manner">{quiet ? 'Reader: the quiet manner (on) — switch off' : 'Reader: the quiet manner — try it'}</option>}
                 {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'af_heart' ? 'Heart (wakes slowly)' : 'George'} — switch`}</option>}
               </select>
             </div>
