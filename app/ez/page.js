@@ -1035,12 +1035,21 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
-  const stopVoice = () => { speakRun.current++; setSpeakingId(null); try { audioRef.current?.pause(); } catch {} };
+  const pausedRef = useRef(false); // .629 TAP TO PAUSE
+  const stopVoice = () => { speakRun.current++; setSpeakingId(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
+  const togglePause = () => {
+    if (!speakingId) return;
+    pausedRef.current = !pausedRef.current;
+    const a = audioRef.current;
+    if (pausedRef.current) { try { a?.pause(); } catch {} setVoiceMsg('Voice: paused — tap to continue'); }
+    else { setVoiceMsg(''); try { if (a && a.src && !a.ended && a.paused) { const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } } catch {} }
+  };
+  const holdWhilePaused = async (run) => { while (pausedRef.current && run === speakRun.current) await new Promise((d) => setTimeout(d, 100)); };
   // .625 CADENCE (founder: "it's the pausing… the whole thing is railroading you"). The pieces used to be 420-character runs joined
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
   // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
   // the question. The hosted model has no pause markup, so the player supplies the silence.
-  const GAP = { sentence: 220, paragraph: 650, heading: 900, beforeQuestion: 950 };
+  const GAP = { sentence: 110, paragraph: 325, heading: 450, beforeQuestion: 475 }; // .629: halved (founder: 'a little too long')
   const piecesOf = (t) => {
     const out = [];
     const pushText = (text, gapAfter) => {
@@ -1063,7 +1072,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // .609: Replicate holds a new account to one call per ten seconds. Sending every piece at once got most refused and SKIPPED (the founder
     // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
-    const run = ++speakRun.current; setSpeakingId(t.id); setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
+    const run = ++speakRun.current; pausedRef.current = false; setSpeakingId(t.id); setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
     const h = await voiceAuth(); const pieces = piecesOf(t);
     const fetchPiece = async (text) => {
       for (let k = 0; k < 8; k++) {
@@ -1082,15 +1091,22 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const res = await next; if (run !== speakRun.current) return;
       next = i + 1 < pieces.length ? fetchPiece(pieces[i + 1].text) : null;   // the next piece is fetched while this one plays
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
+      await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
       setVoiceMsg('');
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; if (run !== speakRun.current) return;
-      if (pieces[i].gap) { await new Promise((done) => setTimeout(done, pieces[i].gap)); if (run !== speakRun.current) return; } // .625: the silence after this piece
+      if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused
     }
     if (run === speakRun.current) setSpeakingId(null);
   };
-  useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
+  useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
+  useEffect(() => { // .629 TAP TO PAUSE: while a turn is being read, a tap on the page (not on a button, link, box or menu) pauses it; the next tap resumes
+    if (!speakingId) return;
+    const onTap = (e) => { if (e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]')) return; togglePause(); };
+    document.addEventListener('click', onTap);
+    return () => document.removeEventListener('click', onTap);
+  }, [speakingId]); // eslint-disable-line react-hooks/exhaustive-deps
   const quiet = handing && isAdmin(user) && chrome.prefs.manner === 'quiet'; // .614 THE QUIET MANNER, admin switch (founder 2026-10-03: the therapist voice's good parts, in EZ)
   const promptBase = handing ? (quiet ? QUIET_SET : HANDING_SET).BASE_SYSTEM : BASE_SYSTEM;
   const promptOver = handing ? { rules: (quiet ? QUIET_SET : HANDING_SET).EZ_RULES } : {};
