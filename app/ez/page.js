@@ -906,6 +906,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // out, cents, cold or warm. Visible to admins and on the bench. The purpose is read off the
   // message itself so no caller has to be touched.
   const [ledger, setLedger] = useState([]);
+  const [voiceSpend, setVoiceSpend] = useState({ pieces: 0, chars: 0, secs: 0, usd: 0 }); // .613 THE VOICE ON THE COST LINE (founder: 'a line of accounting … on how much the voice costs')
   const [usd, setUsd] = useState(0); // running cost priced per call by the model that answered (.473)
   const [ledgerOpen, setLedgerOpen] = useState(false);
   const purposeOf = (m) => {
@@ -1018,6 +1019,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       for (let k = 0; k < 8; k++) {
         if (run !== speakRun.current) return {};
         let res = {}; try { const r = await fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName }) }); res = { ...(await r.json()), status: r.status }; } catch { res = { status: 0 }; }
+        if (res.url) setVoiceSpend((v) => ({ pieces: v.pieces + 1, chars: v.chars + (res.chars || text.length), secs: v.secs + (res.secs || 0), usd: v.usd + (res.usd || 0) })); // .613
         if (res.url || res.waking) return res;
         await new Promise((done) => setTimeout(done, 5000));   // throttled or a hiccup: wait, then try the same piece again
       }
@@ -1854,7 +1856,7 @@ ${DRAGON_STANDARD}`, 600);
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false);
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
-    setLedger([]); setUsd(0);
+    setLedger([]); setUsd(0); setVoiceSpend({ pieces: 0, chars: 0, secs: 0, usd: 0 });
   };
 
   // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
@@ -2737,6 +2739,11 @@ ${DRAGON_STANDARD}`, 600);
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>
+              {voiceSpend.pieces > 0 && ( // .613: the voice, priced from the measured compute seconds (Replicate T4), beside the words
+                <span className="font-mono text-zinc-600" title="the voice: letters spoken / seconds of compute (Replicate T4) · pieces">
+                  voice {voiceSpend.chars.toLocaleString()} letters / {voiceSpend.secs.toFixed(1)} s · ~${voiceSpend.usd.toFixed(4)} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}
+                </span>
+              )}
             </div>
 
             {/* THE COST LEDGER (.447) — admins and the bench. One row per call. "cold" = this call
