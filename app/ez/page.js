@@ -2642,7 +2642,13 @@ ${DRAGON_STANDARD}`, 600);
                   {/* .555: THE GIST — the thesis first; the body beneath, open unless folded */}
                   {t.role === 'reader' && t.gist && !t.pending && (
                     <div className="mb-4 flex items-start gap-2 rounded-lg border border-violet-500/30 bg-violet-950/25 px-3 py-2.5"> {/* .641: the gist in its own container, apart from the turn (and not spoken) */}
-                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
+                      <div className="flex-1 min-w-0">
+                        {/* .649: the box says what it is for (founder: "The thing the reading is saying you need to hear about <your topic>") */}
+                        <div className="text-[0.625rem] uppercase tracking-[0.16em] text-violet-300/60 mb-1 break-words">
+                          {`The thing the reading is saying you need to hear${frame && frameLabel(frame) && frame.k !== 'now' ? ` about ${frameLabel(frame)}` : ''}`}
+                        </div>
+                        <p className="text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
+                      </div>
                       <button onClick={() => toggleFold(t.id)} title={folded.has(t.id) ? 'show the whole turn' : 'fold the turn under its gist'} aria-label="fold"
                         className="shrink-0 mt-0.5 rounded-full border border-zinc-700/60 p-1 text-zinc-500 hover:text-zinc-200 hover:border-zinc-500">
                         <svg className={`w-3.5 h-3.5 transition-transform ${folded.has(t.id) ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
