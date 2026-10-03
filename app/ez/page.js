@@ -2544,23 +2544,23 @@ ${DRAGON_STANDARD}`, 600);
                   )}
 
                   {t.role === 'reader' && !t.pending && !loading && (
-                    <div className="mt-4 -mb-4 translate-y-1/2 flex flex-wrap justify-center gap-1 px-2"> {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
+                    <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2"> {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} onClick={() => move(t.id, k)} title={tip}
-                          className={`rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
+                          className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
                           {label}
                         </button>
                       ))}
                       {user && isAdmin(user) && (
                         <button onClick={() => { if (speakingId === t.id) { stopVoice(); return; } unlockAudio(); speakTurn(t); }} title="hear this turn in the Reader's voice"
-                          className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-amber-500/60 text-amber-200 hover:bg-amber-950/70">
+                          className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-amber-500/60 text-amber-200 hover:bg-amber-950/70">
                           {speakingId === t.id ? 'Stop' : 'Listen'}
                         </button>
                       )}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
                       <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating signature is drawn and read as a pointer"
-                        className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
+                        className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
                         Find it
                       </button>
                     </div>
@@ -2751,10 +2751,10 @@ ${DRAGON_STANDARD}`, 600);
 
             {/* THE COST LEDGER (.447) — admins and the bench. One row per call. "cold" = this call
                 had to WRITE the prompt cache (125% of input) instead of reading it (10%). */}
-            {ledger.length > 0 && ( // .520: the cost ledger is open to everyone for now (founder, 2026-09-21) — was admin/bench only
+            {(ledger.length > 0 || voiceSpend.pieces > 0) && ( // .520: the cost ledger is open to everyone for now (founder, 2026-09-21) — was admin/bench only · .615: or the voice alone
               <div className="mt-2 text-xs text-zinc-500">
                 <button onClick={() => setLedgerOpen(!ledgerOpen)} className="underline decoration-dotted hover:text-zinc-300">
-                  {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · {ledger.filter((r) => r.written > 0).length} cold
+                  {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · {ledger.filter((r) => r.written > 0).length} cold{voiceSpend.pieces > 0 ? ` · voice ${voiceSpend.pieces} piece${voiceSpend.pieces === 1 ? '' : 's'} ${(voiceSpend.usd * 100).toFixed(2)}¢` : ''}
                 </button>
                 {ledgerOpen && (
                   <div className="mt-2 overflow-x-auto">
@@ -2786,6 +2786,17 @@ ${DRAGON_STANDARD}`, 600);
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.cents, 0).toFixed(2)}</td>
                           <td></td><td></td>
                         </tr>
+                        {voiceSpend.pieces > 0 && ( // .615 THE VOICE ROW: pieces · letters · compute seconds (Replicate T4) · cents
+                          <tr className="text-amber-200/80">
+                            <td className="pr-3 pt-1 whitespace-nowrap">voice</td>
+                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{voiceName === 'af_heart' ? 'Heart' : 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}</td>
+                            <td className="text-right pr-3 pt-1" title="letters spoken">{voiceSpend.chars.toLocaleString()}</td>
+                            <td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td>
+                            <td className="text-right pr-3 pt-1">{(voiceSpend.usd * 100).toFixed(2)}</td>
+                            <td className="text-right pr-3 pt-1">{voiceSpend.secs.toFixed(1)}</td>
+                            <td className="pt-1">letters</td>
+                          </tr>
+                        )}
                       </tbody>
                     </table>
                   </div>
