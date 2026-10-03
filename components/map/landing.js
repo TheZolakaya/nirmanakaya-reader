@@ -279,6 +279,16 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     //   'ring'    the status — a hard ring thrown off the card as the spin stops
     //   'implode' the seating — the reverse: light gathers INTO the durable as the card lands
     //   (the header has its own, below: a sweep of light across the whole header)
+    const FX_ON = () => { try { return typeof window !== 'undefined' && window.localStorage.getItem('nkya_ez_fx') === '1'; } catch { return false; } };
+    const fxClip = (el, src, { scale = 2.8, rate = 1.6 } = {}) => { // .652: a rendered effect over the card's centre, black dropped out by screen blend
+      const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * scale;
+      const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto'; v.setAttribute('data-flash', 'fx');
+      Object.assign(v.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`, width: `${d}px`, height: `${d}px`, pointerEvents: 'none', zIndex: '250', mixBlendMode: 'screen', objectFit: 'cover' });
+      v.onended = () => v.remove(); v.onerror = () => v.remove();
+      document.body.appendChild(v); try { v.playbackRate = rate; } catch {}
+      const pr = v.play(); if (pr && pr.catch) pr.catch(() => v.remove());
+      window.setTimeout(() => { if (v.isConnected) v.remove(); }, 7000);
+    };
     const burst = (el, color, kind = 'disc') => {
       const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * 1.1;
       const f = document.createElement('div');
@@ -687,7 +697,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     target.closest('.archetype-group')?.style.setProperty('z-index', '100');
     punch(target);
     edgeFlash(target, '#fde68a');
-    window.setTimeout(() => burst(target, '#fde68a', 'disc'), 90);
+    window.setTimeout(() => (FX_ON() ? fxClip(target, '/video/fx/splash.mp4') : burst(target, '#fde68a', 'disc')), 90); // .652: the rendered splash when the flag is on
     plateFor(target, [NAME(cardName)]);
     await wait(700);
     if (selfHomed) makeGhost();   // under the card as it rises, as every other durable's face is

@@ -758,6 +758,10 @@ export default function EZPage() {
       const p = new URLSearchParams(window.location.search).get('anim');
       if (p === '1') localStorage.setItem('nkya_ez_anim', '1');
       if (p === '0') localStorage.setItem('nkya_ez_anim', '0');
+      const fx = new URLSearchParams(window.location.search).get('fx'); // .652: ?fx=1 turns the rendered flash on for this browser, ?fx=0 off
+      if (fx === '1') localStorage.setItem('nkya_ez_fx', '1');
+      if (fx === '0') localStorage.setItem('nkya_ez_fx', '0');
+      if (localStorage.getItem('nkya_ez_fx') === '1') fetch('/video/fx/splash.mp4', { cache: 'force-cache' }).catch(() => {}); // warm the cache so the first landing is not late
       const reduced = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
       // ON for everyone on /ez (founder, 2026-09-14: "let's just push it to prod"); ?anim=0 turns it
       // off for a browser, ?anim=1 turns it back on; reduced-motion users never see it.
