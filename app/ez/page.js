@@ -1102,14 +1102,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!voiceOut || typeof window === 'undefined') return;
     let dead = false;
     const load = async (voice, slugs) => { for (const slug of slugs) { const key = `${voice}/${slug}`; if (clipCache.current.has(key)) continue; try { const r = await fetch(`/voice/labels/${voice}/${slug}.wav`); if (!r.ok || dead) continue; const b = await r.blob(); clipCache.current.set(key, URL.createObjectURL(b)); } catch {} } };
-    load(voiceName, LABEL_SLUGS); load(NARRATOR[voiceName] || 'af_bella', NARRATION_SLUGS);
+    load(NARRATOR[voiceName] || 'af_bella', [...LABEL_SLUGS, ...NARRATION_SLUGS]); // .648: labels and narration both in the narrator's voice
     return () => { dead = true; };
   }, [voiceOut, voiceName]); // eslint-disable-line react-hooks/exhaustive-deps
   const playClip = (voice, slug) => new Promise((resolve) => {
     if (!voiceOut || !slug) return resolve();
     try { if (!labelAudioRef.current) labelAudioRef.current = new Audio(); const a = labelAudioRef.current; a.onended = () => resolve(); a.onerror = () => resolve(); a.src = clipSrc(voice, slug); const pr = a.play(); if (pr && pr.catch) pr.catch(() => resolve()); } catch { resolve(); }
   });
-  const sayLabel = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(voiceName, slug)); };
+  const sayLabel = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); }; // .648: the narrator says the button too — the Reader's voice speaks only the Reader's words
   const sayNarration = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); };
   const holdWhilePaused = async (run) => { while (pausedRef.current && run === speakRun.current) await new Promise((d) => setTimeout(d, 100)); };
   // .625 CADENCE (founder: "it's the pausing… the whole thing is railroading you"). The pieces used to be 420-character runs joined
