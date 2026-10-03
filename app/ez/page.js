@@ -34,7 +34,7 @@ import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CH
 import { parseReaderJson } from '../../lib/readerJson';
 import { HANDING_SET, QUIET_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
-import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn } from '../../lib/supabase';
+import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
 import { getHomeArchetype, getCardType, getCardImagePath, getCardThumbPath } from '../../lib/cardImages';
 import TheMap from '../../components/map/TheMap';
@@ -779,7 +779,21 @@ export default function EZPage() {
   // .570: CLOSED TOPICS (founder, 2026-09-25: "a check mark that says I'm done with this topic when you ask for a suggested reading
   // from your history"). Kept per account on this device and handed to the suggester as threads it must never offer again.
   const closedKey = user?.id ? `nkya_ez_closed_topics_${user.id}` : null;
-  const readClosed = () => { try { const v = closedKey ? JSON.parse(localStorage.getItem(closedKey) || '[]') : []; return Array.isArray(v) ? v : []; } catch { return []; } };
+  // .618: the list lives on the ACCOUNT (ez_closed_topics; founder: "across all devices"); the browser copy is a cache so the
+  // first suggestion after page open still respects it before the account list arrives.
+  const closedRef = useRef(null); // null until the account list has been read once
+  const readLocal = () => { try { const v = closedKey ? JSON.parse(localStorage.getItem(closedKey) || '[]') : []; return Array.isArray(v) ? v : []; } catch { return []; } };
+  const writeLocal = (list) => { try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify(list.slice(-60))); } catch {} };
+  const readClosed = () => (closedRef.current || readLocal());
+  const loadClosed = async () => {
+    if (!user?.id || user.id === 'dev-bench') return;
+    const { data, error } = await getClosedTopics(); if (error) { console.warn('[closed topics]', error); return; }
+    let list = data;
+    // a browser that closed threads before .618 hands them up to the account once, so nothing he already closed is lost
+    const local = readLocal().filter((e) => e && e.q && !e.id && !list.some((r) => r.q === e.q));
+    for (const e of local) { const { data: row } = await addClosedTopic(e); if (row?.id) list = [{ ...e, id: row.id }, ...list]; }
+    closedRef.current = list; writeLocal(list);
+  };
   const [lastClosed, setLastClosed] = useState(null);
   const STOP_WORDS = new Set(['what', 'that', 'this', 'with', 'from', 'have', 'does', 'your', 'into', 'keep', 'still', 'actually', 'really', 'should', 'could', 'would', 'about', 'there', 'their', 'when', 'where', 'which', 'much', 'more', 'enough', 'time', 'right', 'thing', 'things', 'week', 'today', 'next', 'need', 'want', 'doing', 'going', 'make', 'take', 'been', 'being', 'will', 'just', 'like', 'them', 'they', 'then', 'than', 'some', 'ever', 'over', 'back', 'even', 'also', 'most']);
   const topicWords = (t) => new Set(String(t || '').toLowerCase().replace(/[^a-z0-9' ]/g, ' ').split(/\s+/).filter((w) => w.length > 3 && !STOP_WORDS.has(w)));
@@ -865,13 +879,15 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!suggested || suggesting) return;
     const srcM = String(suggestedWhy || '').match(/"([^"]{8,})"|“([^”]{8,})”/); // .617: the ask it quoted ("On Sept 23 you asked …")
     const entry = { q: suggested, why: suggestedWhy || '', src: (srcM && (srcM[1] || srcM[2])) || '', at: Date.now() };
-    try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify([...readClosed(), entry].slice(-40))); } catch {}
+    const list = [entry, ...readClosed()]; closedRef.current = list; writeLocal(list); // .618: on the page at once, on the account right behind
     setLastClosed(entry); setSuggested(''); setSuggestedWhy('');
+    addClosedTopic(entry).then(({ data, error }) => { if (error) { console.warn('[closed topics] not saved to the account:', error); setError('That topic is closed on this device, but it could not be saved to your account — try again later.'); return; } entry.id = data?.id; }).catch(() => {});
     suggestFromHistory();
   };
   const undoClose = () => {
     if (!lastClosed) return;
-    try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify(readClosed().filter((e) => e.at !== lastClosed.at))); } catch {}
+    const list = readClosed().filter((e) => e.at !== lastClosed.at); closedRef.current = list; writeLocal(list);
+    if (lastClosed.id) removeClosedTopic(lastClosed.id).catch(() => {}); // .618
     setLastClosed(null);
   };
   const [selectedInfo, setSelectedInfo] = useState(null); // the main reader's detail modal, reused
@@ -959,6 +975,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         setAllowed(!!u && (isAdmin(u) || flag));
         if (u) {
           setHasHistory(true);
+          loadClosed(); // .618: the closed topics ride with the account
           // (the history question is no longer generated on load — see suggestFromHistory)
         }
       } catch { setAllowed(false); }
