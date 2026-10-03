@@ -1028,8 +1028,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
   const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut !== false; // .624: ON by default, George (founder: "default, without making any selections, to read aloud, and George"); still admins only while benched
-  const voiceName = ['af_heart', 'af_river', 'bf_emma'].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .608: George by default; .620: River (warm) is the offered second voice; Heart (sleeps) only by an old saved preference
-  const VOICE_LABEL = { bm_george: 'George', af_river: 'River', bf_emma: 'Emma', af_heart: 'Heart' };
+  const voiceName = ['af_heart', 'af_bella', 'bf_emma'].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .626: George, Emma (British), Bella (American)   // .608: George by default; .620: River (warm) is the offered second voice; Heart (sleeps) only by an old saved preference
+  const VOICE_LABEL = { bm_george: 'George', bf_emma: 'Emma', af_bella: 'Bella', af_heart: 'Heart' };
+  const VOICE_NEXT = { bm_george: 'bf_emma', bf_emma: 'af_bella', af_bella: 'bm_george', af_heart: 'bm_george' }; // .626: the menu cycles George → Emma → Bella
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
@@ -2238,7 +2239,7 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                   else if (v === 'voice') { if (voiceOut) stopVoice(); else unlockAudio(); chrome.set({ voiceOut: !voiceOut }); }
-                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'bf_emma' ? 'bm_george' : 'bf_emma' }); } // .623: George ↔ Emma (River stays in the library)
+                  else if (v === 'voicename') { chrome.set({ voiceName: VOICE_NEXT[voiceName] || 'bm_george' }); } // .626: George → Emma → Bella → George
                   else if (v === 'manner') { chrome.set({ manner: quiet ? '' : 'quiet' }); } // .614
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
@@ -2250,7 +2251,7 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
                 {user && isAdmin(user) && <option value="voice">{voiceOut ? '● on · Speak readings aloud — switch off' : '○ off · Speak readings aloud — switch on'}</option>}
                 {user && isAdmin(user) && <option value="manner">{quiet ? '● on · Reader: the quiet manner — switch off' : '○ off · Reader: the quiet manner — try it'}</option>}
-                {user && isAdmin(user) && <option value="voicename">{`Voice: ${VOICE_LABEL[voiceName] || 'George'} — switch to ${voiceName === 'bf_emma' ? 'George' : 'Emma'}`}</option>}
+                {user && isAdmin(user) && <option value="voicename">{`Voice: ${VOICE_LABEL[voiceName] || 'George'} — switch to ${VOICE_LABEL[VOICE_NEXT[voiceName] || 'bm_george']}`}</option>}
               </select>
             </div>
 
