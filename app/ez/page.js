@@ -1476,7 +1476,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         openingNotes = rv.soft; if (rv.soft.length) console.warn('[house] opening notes:', rv.soft); }
       const first = readerTurn(obj, { voice, ...(seed.lines ? { geometry: seed.lines } : {}), ...(openingNotes.length ? { notes: openingNotes } : {}) }); // .589: stamped with its voice
       setTurns([first]);
-      if (voiceOut) speakTurn(first); // THE VOICE: the opening, spoken as it lands
+      if (voiceOut) landed.then(() => speakTurn(first)); // THE VOICE: the opening, spoken once the card has LANDED (.642 — founder: "wait to start the voice until everything lands"); with no animation, landed is already resolved
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       if (skipRef.current) skipRef.current.hurry = true; // .549: the reading is ready — hurry the flight along
       try {
