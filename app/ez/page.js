@@ -2645,7 +2645,7 @@ ${DRAGON_STANDARD}`, 600);
                       <div className="flex-1 min-w-0">
                         {/* .649: the box says what it is for (founder: "The thing the reading is saying you need to hear about <your topic>") */}
                         <div className="text-[0.625rem] uppercase tracking-[0.16em] text-violet-300/60 mb-1 break-words">
-                          {`The thing the reading is saying you need to hear${frame && frameLabel(frame) && frame.k !== 'now' ? ` about ${frameLabel(frame)}` : ''}`}
+                          {`What the reading is saying${frame && frameLabel(frame) && frame.k !== 'now' ? ` about ${frameLabel(frame)}` : ''}`} {/* .650: no 'need to' / 'should' — the house's own grammar (Handing rule 2) */}
                         </div>
                         <p className="text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
                       </div>
