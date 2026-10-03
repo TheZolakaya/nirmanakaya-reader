@@ -781,6 +781,10 @@ export default function EZPage() {
   const closedKey = user?.id ? `nkya_ez_closed_topics_${user.id}` : null;
   const readClosed = () => { try { const v = closedKey ? JSON.parse(localStorage.getItem(closedKey) || '[]') : []; return Array.isArray(v) ? v : []; } catch { return []; } };
   const [lastClosed, setLastClosed] = useState(null);
+  const STOP_WORDS = new Set(['what', 'that', 'this', 'with', 'from', 'have', 'does', 'your', 'into', 'keep', 'still', 'actually', 'really', 'should', 'could', 'would', 'about', 'there', 'their', 'when', 'where', 'which', 'much', 'more', 'enough', 'time', 'right', 'thing', 'things', 'week', 'today', 'next', 'need', 'want', 'doing', 'going', 'make', 'take', 'been', 'being', 'will', 'just', 'like', 'them', 'they', 'then', 'than', 'some', 'ever', 'over', 'back', 'even', 'also', 'most']);
+  const topicWords = (t) => new Set(String(t || '').toLowerCase().replace(/[^a-z0-9' ]/g, ' ').split(/\s+/).filter((w) => w.length > 3 && !STOP_WORDS.has(w)));
+  const sameThread = (a, b) => { const A = topicWords(a), B = topicWords(b); if (!A.size || !B.size) return false; let n = 0; for (const w of A) if (B.has(w)) n++; return n >= 2 && n / Math.min(A.size, B.size) >= 0.5; };
+  const closedMatch = (q) => readClosed().some((e) => sameThread(q, e.q) || (e.src && sameThread(q, e.src)));
   const suggestFromHistory = async (opts = {}) => {
     const forFrame = opts.frame || null; // .546: a question ABOUT the frame they set
     const quiet = !!opts.quiet; // .591: the automatic ask on page open says nothing when it fails
@@ -796,9 +800,11 @@ export default function EZPage() {
       // summaries are left out on purpose, so the suggestion can only be the next thing THEY would ask.
       const { data: rows } = await getReadings(60);
       const own = [];
+      let dropped = 0;
       for (const r of rows || []) {
         const asked = String(r.topic || '').trim();
         if (!asked || /^general reading$/i.test(asked)) continue;
+        if (closedMatch(asked)) { dropped++; continue; } // .617: a closed thread's readings never reach the model
         const turns = r.interpretation?.synthesis?._ez?.turns || [];
         // only what they TYPED: a tapped chip, a reflect/forge line or an "act" line was written by the Reader in their voice, not by them
         const offered = new Set();
@@ -811,7 +817,7 @@ export default function EZPage() {
         own.push(`${when} — they asked: "${asked}"${said.length ? `\n   and in that conversation they said: ${said.map((x) => `"${x}"`).join(' · ')}` : ''}`);
         if (own.length >= 14) break;
       }
-      if (!own.length && !forFrame) { say('No questions of yours to draw from yet.'); return; }
+      if (!own.length && !forFrame) { say(dropped ? 'Every thread in your readings is one you closed — ask something new and it will have material.' : 'No questions of yours to draw from yet.'); return; }
       const ownBlock = `THEIR OWN WORDS — what this person has asked and said, newest first. This is the ONLY material. The Reader's answers are left out on purpose: a question built from what a reading concluded is the Reader's question, not theirs.\n${own.join('\n')}`;
       const closed = readClosed(); // .570: threads they marked done
       const closedBlock = closed.length ? `\n\nTOPICS THEY HAVE CLOSED — they marked these threads done. Never suggest anything on these threads again, reworded or from another angle; choose a different part of their life:\n${closed.map((e) => `- ${e.q}${e.why ? ` (${e.why})` : ''}`).join('\n')}` : '';
@@ -841,7 +847,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const rj = await res.json();
       const parsedS = parseJson(rj?.reading) || {};
       const q = parsedS.q;
-      const clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
+      let clean = (q && typeof q === 'string' && q.trim().length > 3) ? q.trim() : '';
+      if (clean && closedMatch(clean)) { // .617: the model reworded a closed thread — refuse it, and try once more with it named
+        console.warn('[suggest] refused, a closed thread:', clean); suggestedSeen.current.push(clean); clean = '';
+        if (!opts._retry) { setSuggesting(false); return suggestFromHistory({ ...opts, _retry: true }); }
+        say('Nothing new to suggest beyond the threads you closed — ask something fresh.'); return;
+      }
       if (clean) {
         const why = typeof parsedS.why === 'string' ? parsedS.why.trim() : '';
         suggestedSeen.current.push(clean); setSuggested(clean); setSuggestedWhy(why); if (!quiet) setSuggestOpen(true);
@@ -852,7 +863,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   };
   const closeTopic = () => {
     if (!suggested || suggesting) return;
-    const entry = { q: suggested, why: suggestedWhy || '', at: Date.now() };
+    const srcM = String(suggestedWhy || '').match(/"([^"]{8,})"|“([^”]{8,})”/); // .617: the ask it quoted ("On Sept 23 you asked …")
+    const entry = { q: suggested, why: suggestedWhy || '', src: (srcM && (srcM[1] || srcM[2])) || '', at: Date.now() };
     try { if (closedKey) localStorage.setItem(closedKey, JSON.stringify([...readClosed(), entry].slice(-40))); } catch {}
     setLastClosed(entry); setSuggested(''); setSuggestedWhy('');
     suggestFromHistory();
