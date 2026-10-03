@@ -1000,24 +1000,35 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const voiceName = chrome.prefs.voiceName === 'af_heart' ? 'af_heart' : 'bm_george';   // .608: George by default (always warm); Heart sleeps when idle
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
-  const warmVoice = async () => { try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
+  const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
   const stopVoice = () => { speakRun.current++; setSpeakingId(null); try { audioRef.current?.pause(); } catch {} };
   const piecesOf = (t) => {
-    const out = [];
-    const push = (txt) => { const str = String(txt || '').trim(); if (!str) return; const sents = str.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [str]; let cur = '';
-      for (const x of sents) { if ((cur + x).length > 420 && cur) { out.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) out.push(cur.trim()); };
-    push(t.gist); ensureParagraphBreaks(t.text || '').split(/\n\n+/).forEach(push); push(t.question);
+    const all = [t.gist, ...ensureParagraphBreaks(t.text || '').split(/\n\n+/), t.question].map((x) => String(x || '').trim()).filter(Boolean).join(' ');
+    const sents = all.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [all]; const out = []; let cur = '';
+    for (const x of sents) { if ((cur + x).length > 420 && cur) { out.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) out.push(cur.trim());
     return out;
   };
   const speakTurn = async (t) => {
+    // .609: Replicate holds a new account to one call per ten seconds. Sending every piece at once got most refused and SKIPPED (the founder
+    // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
     const run = ++speakRun.current; setSpeakingId(t.id); setVoiceMsg(voiceName === 'af_heart' ? 'Voice: Heart…' : 'Voice: George…');
-    const h = await voiceAuth();
-    const jobs = piecesOf(t).map((text) => fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName }) }).then((r) => r.json()).catch(() => ({})));
+    const h = await voiceAuth(); const pieces = piecesOf(t);
+    const fetchPiece = async (text) => {
+      for (let k = 0; k < 8; k++) {
+        if (run !== speakRun.current) return {};
+        let res = {}; try { const r = await fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName }) }); res = { ...(await r.json()), status: r.status }; } catch { res = { status: 0 }; }
+        if (res.url || res.waking) return res;
+        await new Promise((done) => setTimeout(done, 5000));   // throttled or a hiccup: wait, then try the same piece again
+      }
+      return { error: 'the voice service kept refusing — try Listen again in a minute' };
+    };
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
-    for (const job of jobs) {
-      const res = await job; if (run !== speakRun.current) return;
-      if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } continue; }
+    let next = fetchPiece(pieces[0]);
+    for (let i = 0; i < pieces.length; i++) {
+      const res = await next; if (run !== speakRun.current) return;
+      next = i + 1 < pieces.length ? fetchPiece(pieces[i + 1]) : null;   // the next piece is fetched while this one plays
+      if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       setVoiceMsg('');
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
