@@ -1034,10 +1034,27 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
   const stopVoice = () => { speakRun.current++; setSpeakingId(null); try { audioRef.current?.pause(); } catch {} };
+  // .625 CADENCE (founder: "it's the pausing… the whole thing is railroading you"). The pieces used to be 420-character runs joined
+  // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
+  // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
+  // the question. The hosted model has no pause markup, so the player supplies the silence.
+  const GAP = { sentence: 220, paragraph: 650, heading: 900, beforeQuestion: 950 };
   const piecesOf = (t) => {
-    const all = [t.gist, ...ensureParagraphBreaks(t.text || '').split(/\n\n+/), t.medicine, t.question].map((x) => String(x || '').trim()).filter(Boolean).join(' '); // .621: the inline medicine box is spoken too, where it sits — after the prose, before the question
-    const sents = all.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [all]; const out = []; let cur = '';
-    for (const x of sents) { if ((cur + x).length > 420 && cur) { out.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) out.push(cur.trim());
+    const out = [];
+    const pushText = (text, gapAfter) => {
+      const paras = ensureParagraphBreaks(String(text || '')).split(/\n\n+/).map((x) => x.trim()).filter(Boolean);
+      paras.forEach((para, pi) => {
+        const sents = para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [para]; const subs = []; let cur = '';
+        for (const x of sents) { if ((cur + x).length > 420 && cur) { subs.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) subs.push(cur.trim());
+        subs.forEach((sub, si) => out.push({ text: sub, gap: si < subs.length - 1 ? GAP.sentence : (pi < paras.length - 1 ? GAP.paragraph : gapAfter) }));
+      });
+    };
+    if (t.heading) out.push({ text: `${t.heading}.`, gap: GAP.heading });
+    if (t.gist) pushText(t.gist, GAP.heading);
+    pushText(t.text, GAP.paragraph);
+    if (t.medicine) { out.push({ text: 'The medicine.', gap: GAP.heading }); pushText(t.medicine, GAP.paragraph); }
+    if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0); }
+    if (out.length) out[out.length - 1].gap = 0;
     return out;
   };
   const speakTurn = async (t) => {
@@ -1057,15 +1074,17 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       return { error: 'the voice service kept refusing — try Listen again in a minute' };
     };
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
-    let next = fetchPiece(pieces[0]);
+    if (!pieces.length) { setSpeakingId(null); return; }
+    let next = fetchPiece(pieces[0].text);
     for (let i = 0; i < pieces.length; i++) {
       const res = await next; if (run !== speakRun.current) return;
-      next = i + 1 < pieces.length ? fetchPiece(pieces[i + 1]) : null;   // the next piece is fetched while this one plays
+      next = i + 1 < pieces.length ? fetchPiece(pieces[i + 1].text) : null;   // the next piece is fetched while this one plays
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       setVoiceMsg('');
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; if (run !== speakRun.current) return;
+      if (pieces[i].gap) { await new Promise((done) => setTimeout(done, pieces[i].gap)); if (run !== speakRun.current) return; } // .625: the silence after this piece
     }
     if (run === speakRun.current) setSpeakingId(null);
   };
@@ -1564,7 +1583,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500);
       setStepText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
+      if (voiceOut) speakTurn({ id: 'step', heading: 'One small step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
@@ -1603,7 +1622,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900);
       setMedText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
+      if (voiceOut) speakTurn({ id: 'medicine', heading: 'The medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
     setMedBusy(false);
@@ -1639,7 +1658,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
 
 ${DRAGON_STANDARD}`, 600);
       setDragonText(String(obj.reader || '').trim());
-      if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611)
+      if (voiceOut) speakTurn({ id: 'dragon', heading: 'Face the dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
@@ -1718,7 +1737,7 @@ ${DRAGON_STANDARD}`, 600);
       }
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
-      if (voiceOut) speakTurn({ id: `floor${floor}`, text: obj.text.trim() }); // THE VOICE (.616): every floor of the Whys
+      if (voiceOut) speakTurn({ id: `floor${floor}`, heading: FLOOR_LABEL[floor] ? FLOOR_LABEL[floor].charAt(0).toUpperCase() + FLOOR_LABEL[floor].slice(1) : '', text: obj.text.trim() }); // THE VOICE (.616; .625 the heading, then a beat)
       if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
       // no pill regen here (.446): the next real turn already receives every opened floor via brazierBlock
     } catch (e) { setError(e.message); }
