@@ -2809,7 +2809,7 @@ ${DRAGON_STANDARD}`, 600);
                           </tr>
                         ))}
                         <tr className="text-zinc-300 border-t border-zinc-800">
-                          <td className="pr-3 pt-1">total</td>
+                          <td className="pr-3 pt-1 whitespace-nowrap">{voiceSpend.pieces > 0 ? 'total, words' : 'total'}</td>
                           <td></td>
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.fresh, 0).toLocaleString()}</td>
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.written, 0).toLocaleString()}</td>
@@ -2827,6 +2827,14 @@ ${DRAGON_STANDARD}`, 600);
                             <td className="text-right pr-3 pt-1">{(voiceSpend.usd * 100).toFixed(2)}</td>
                             <td className="text-right pr-3 pt-1">{voiceSpend.secs.toFixed(1)}</td>
                             <td className="pt-1">letters</td>
+                          </tr>
+                        )}
+                        {voiceSpend.pieces > 0 && ( // .619 THE WHOLE READING: words + voice on one line (founder: "how much was this reading total, including the voice?")
+                          <tr className="text-zinc-100 border-t border-zinc-800">
+                            <td className="pr-3 pt-1 whitespace-nowrap">total, words + voice</td>
+                            <td></td><td></td><td></td><td></td><td></td>
+                            <td className="text-right pr-3 pt-1">{(ledger.reduce((a, r) => a + r.cents, 0) + voiceSpend.usd * 100).toFixed(2)}</td>
+                            <td></td><td></td>
                           </tr>
                         )}
                       </tbody>
