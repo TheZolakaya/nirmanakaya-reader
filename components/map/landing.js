@@ -279,7 +279,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     //   'ring'    the status — a hard ring thrown off the card as the spin stops
     //   'implode' the seating — the reverse: light gathers INTO the durable as the card lands
     //   (the header has its own, below: a sweep of light across the whole header)
-    const FX_ON = () => { try { return typeof window !== 'undefined' && window.localStorage.getItem('nkya_ez_fx') === '1'; } catch { return false; } };
+    const FX_ON = () => { try { return typeof window === 'undefined' || window.localStorage.getItem('nkya_ez_fx') !== '0'; } catch { return true; } }; // .657: ON for everyone; ?fx=0 turns it off
     const fxClip = (el, src, { scale = 1.9, rate = 1.6 } = {}) => { // .652: a rendered effect over the card's centre; .656: its black made transparent per pixel (no CSS blend)
       // .656: a blended <video> is INVISIBLE — measured on the dev server: the same clip side by side, unblended showed the sparks, screen-blended
       // showed nothing (the browser drops a blended video element). So the video stays hidden and its frames are drawn to a canvas each frame;
