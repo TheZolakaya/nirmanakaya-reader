@@ -1108,16 +1108,22 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const pausedRef = useRef(false); // .629 TAP TO PAUSE
   const [spoken, setSpoken] = useState(null); // .634 FOLLOW THE VOICE: { id, kind, para } of the piece being spoken
   const spokenKey = (id, kind, para) => `${id}:${kind}:${para}`;
-  const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (kind !== 'text' && kind !== 'medicine' || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : ' transition-colors duration-300');
+  const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (kind !== 'text' && kind !== 'medicine' || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : (speakingId && speakingId === id ? ' transition-colors duration-300 cursor-pointer' : ' transition-colors duration-300')); // .653: the rest of the turn being read is tappable (jump)
   useEffect(() => { if (!spoken) return; try { const el = document.querySelector(`[data-spoken="${spokenKey(spoken.id, spoken.kind, spoken.para)}"]`); if (el) { const r = el.getBoundingClientRect(); const vh = window.innerHeight || 800; if (r.top < 80 || r.bottom > vh - 160) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } } catch {} }, [spoken]);
   const stopVoice = () => { speakRun.current++; setSpeakingId(null); setSpoken(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
+  const [paused, setPaused] = useState(false); // .653: mirrors pausedRef for the controls
+  const jumpRef = useRef(null); const voiceSkipRef = useRef(false); const endedRef = useRef(null); const piecesRef = useRef([]); const speakingTurnRef = useRef(null);
   const togglePause = () => {
     if (!speakingId) return;
-    pausedRef.current = !pausedRef.current;
+    pausedRef.current = !pausedRef.current; setPaused(pausedRef.current);
     const a = audioRef.current;
-    if (pausedRef.current) { try { a?.pause(); } catch {} setVoiceMsg('Voice: paused — tap to continue'); }
+    if (pausedRef.current) { try { a?.pause(); } catch {} setVoiceMsg('Voice: paused'); }
     else { setVoiceMsg(''); try { if (a && a.src && !a.ended && a.paused) { const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } } catch {} }
   };
+  const releaseCurrent = () => { try { audioRef.current?.pause(); } catch {} const done = endedRef.current; endedRef.current = null; if (done) done(); }; // ends the piece now so the loop moves on
+  const jumpToPiece = (idx) => { if (idx == null || idx < 0) return; jumpRef.current = idx; pausedRef.current = false; setPaused(false); setVoiceMsg(''); releaseCurrent(); };
+  const skipTurn = () => { voiceSkipRef.current = true; pausedRef.current = false; setPaused(false); setVoiceMsg(''); releaseCurrent(); }; // the rest of this section only; the voice stays on
+  const voiceOff = () => { stopVoice(); setPaused(false); setVoiceMsg(''); chrome.set({ voiceOut: false }); };
   // .644/.647 THE LABELS AND THE NARRATOR — stored clips (public/voice/labels/<voice>/<slug>.wav, scripts/voice_labels.mjs), preloaded,
   // played on their own element in a queue the turn's speech waits for.
   const NARRATOR = { bm_george: 'af_bella', am_michael: 'af_bella', am_puck: 'af_bella', bf_emma: 'bm_george', af_bella: 'bm_george', af_heart: 'bm_george' };
@@ -1170,8 +1176,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // .609: Replicate holds a new account to one call per ten seconds. Sending every piece at once got most refused and SKIPPED (the founder
     // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
-    const run = ++speakRun.current; pausedRef.current = false; setSpeakingId(t.id); setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
-    const h = await voiceAuth(); const pieces = piecesOf(t);
+    const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
+    const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces;
     const fetchPiece = async (text) => {
       for (let k = 0; k < 8; k++) {
         if (run !== speakRun.current) return {};
@@ -1191,23 +1197,34 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) jobs[j] = fetchPiece(pieces[j].text); };
     ensureAhead(0);
     for (let i = 0; i < pieces.length; i++) {
+      if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
+      if (voiceSkipRef.current) break;
       ensureAhead(i + 1);
       const res = await jobs[i]; if (run !== speakRun.current) return;
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
       if (i === 0) { await labelQueue.current; if (run !== speakRun.current) return; } // .647: the label and the narrator finish first
       setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
-      const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
+      const ended = new Promise((done) => { endedRef.current = done; a.onended = done; a.onerror = done; }); // .653: a jump or a skip can end it early
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
-      await ended; if (run !== speakRun.current) return;
-      if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused
+      await ended; endedRef.current = null; if (run !== speakRun.current) return;
+      if (voiceSkipRef.current) break; if (jumpRef.current != null) continue;
+      if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (voiceSkipRef.current || jumpRef.current != null) break; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused; .653: a jump or skip cuts it
     }
-    if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); }
+    if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); speakingTurnRef.current = null; voiceSkipRef.current = false; setPaused(false); setVoiceMsg(''); }
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
   useEffect(() => { // .629 TAP TO PAUSE: while a turn is being read, a tap on the page (not on a button, link, box or menu) pauses it; the next tap resumes
     if (!speakingId) return;
-    const onTap = (e) => { if (e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]')) return; togglePause(); };
+    const onTap = (e) => {
+      if (e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]')) return;
+      const para = e.target?.closest?.('[data-spoken]'); // .653: a tap on a paragraph of the turn being read jumps the voice there
+      if (para) {
+        const key = para.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/);
+        if (m && m[1] === speakingTurnRef.current) { const idx = piecesRef.current.findIndex((pc) => pc.kind === m[2] && pc.para === Number(m[3])); if (idx >= 0) { jumpToPiece(idx); return; } }
+      }
+      togglePause();
+    };
     document.addEventListener('click', onTap);
     return () => document.removeEventListener('click', onTap);
   }, [speakingId]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -2267,7 +2284,13 @@ ${DRAGON_STANDARD}`, 600);
             {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
           </button>
         } />}
-      {voiceMsg && (
+      {paused && speakingId ? ( // .653: while paused — continue, skip the rest of this section, or turn the voice off
+        <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
+          <button onClick={togglePause} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">▶ Continue</button>
+          <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>
+          <button onClick={voiceOff} className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-400 hover:bg-zinc-800">Voice off</button>
+        </div>
+      ) : voiceMsg && (
         <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[90vw] rounded-full border border-amber-500/40 bg-zinc-900/95 px-4 py-1.5 text-[0.8125rem] text-amber-100 shadow-xl">{voiceMsg}</div>
       )}
       {voiceToast && VOICE_NOTES[voiceToast] && (
