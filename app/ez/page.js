@@ -909,6 +909,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const [voiceSpend, setVoiceSpend] = useState({ pieces: 0, chars: 0, secs: 0, usd: 0 }); // .613 THE VOICE ON THE COST LINE (founder: 'a line of accounting … on how much the voice costs')
   const [usd, setUsd] = useState(0); // running cost priced per call by the model that answered (.473)
   const [ledgerOpen, setLedgerOpen] = useState(false);
+  const [menuTick, setMenuTick] = useState(0); // .616: re-key the more ▾ select after each choice so a phone's picker forgets the last row
   const purposeOf = (m) => {
     if (/YOUR LAST RENDER WAS \d+ WORDS/.test(m)) { const g = m.match(/Write the (\w+) floor/); return `${g ? 'the ' + g[1] : 'why (ring 1)'} (rewrite)`; }
     if (/NOT VALID JSON/.test(m)) return 'retry';
@@ -1656,6 +1657,7 @@ ${DRAGON_STANDARD}`, 600);
   // cannot assume the meaning was read), so only ring 1 is passed as already-seen.
   const fetchFloor = async (floor) => {
     const card = fieldCard(); if (!card || brazierBusy) return;
+    if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE (.616): inside the tap
     const key = `${card.transient}:${card.position}:${card.status}`;
     if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
     setBrazierBusy(floor); setError('');
@@ -1686,6 +1688,7 @@ ${DRAGON_STANDARD}`, 600);
       }
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
+      if (voiceOut) speakTurn({ id: `floor${floor}`, text: obj.text.trim() }); // THE VOICE (.616): every floor of the Whys
       if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
       // no pill regen here (.446): the next real turn already receives every opened floor via brazierBlock
     } catch (e) { setError(e.message); }
@@ -2177,9 +2180,9 @@ ${DRAGON_STANDARD}`, 600);
               {/* .592: ONE QUIET MENU (founder 2026-10-02: "we should always just have the google box… load, unsure, topic and from your
                   readings could be a selection menu instead of buttons. I want it to be clear and clean as possible"). A native select: on a
                   phone it opens the system picker, and it cannot wrap or be covered (.576 precedent). Each choice opens one fold, or closes it. */}
-              <select value="" aria-label="more" title="help finding a question, the topic, your readings"
+              <select key={menuTick} value="" aria-label="more" title="help finding a question, the topic, your readings"
                 onChange={(e) => {
-                  const v = e.target.value;
+                  const v = e.target.value; setMenuTick((n) => n + 1);
                   const closeAll = () => { setShowPast(false); setAreasOpen(false); setFrameOpen(false); setSuggestOpen(false); };
                   if (v === 'readings') { const was = suggestOpen; closeAll(); if (!was) { setSuggestOpen(true); if (!suggested && !suggesting) suggestFromHistory(); } }
                   else if (v === 'unsure') { const was = areasOpen; closeAll(); setAreasOpen(!was); }
@@ -2196,9 +2199,9 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
                 <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
-                {user && isAdmin(user) && <option value="voice">{voiceOut ? 'Stop speaking readings aloud' : 'Speak readings aloud'}</option>}
-                {user && isAdmin(user) && <option value="manner">{quiet ? 'Reader: the quiet manner (on) — switch off' : 'Reader: the quiet manner — try it'}</option>}
-                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'af_heart' ? 'Heart (wakes slowly)' : 'George'} — switch`}</option>}
+                {user && isAdmin(user) && <option value="voice">{voiceOut ? '● on · Speak readings aloud — switch off' : '○ off · Speak readings aloud — switch on'}</option>}
+                {user && isAdmin(user) && <option value="manner">{quiet ? '● on · Reader: the quiet manner — switch off' : '○ off · Reader: the quiet manner — try it'}</option>}
+                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'af_heart' ? 'Heart (wakes slowly)' : 'George'} — switch to ${voiceName === 'af_heart' ? 'George' : 'Heart'}`}</option>}
               </select>
             </div>
 
