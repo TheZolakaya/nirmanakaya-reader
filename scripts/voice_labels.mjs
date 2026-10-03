@@ -10,7 +10,7 @@ export const LABELS = {
   'words-to-the-whys': 'Words to the Whys.', 'the-meaning': 'The meaning.', 'the-moon': 'The moon.', 'the-mechanism': 'The mechanism.',
   'face-the-dragon': 'Face the dragon.', 'the-medicine': 'The medicine.', 'where-this-can-grow': 'Where this can grow.', 'one-small-step': 'One small step.',
   'summarize-and-wrap-up': 'Summarize, and wrap it up.', 'more-choices': 'More choices.', 'reflect': 'Reflect.', 'forge': 'Forge.',
-  'clarify': 'Clarify.', 'unpack': 'Unpack.', 'example': 'Example.', 'find-it': 'Find it.', 'where-am-i': 'Where am I?',
+  'clarify': 'Clarify.', 'unpack': 'Unpack.', 'example': 'Example.', 'find-it': 'Find it.', 'where-am-i': 'Where am I?', 'catch-me-up': 'Catch me up.',
 };
 const env = Object.fromEntries(fs.readFileSync('.env.local', 'utf8').split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
 const T = env.REPLICATE_API_TOKEN; const force = process.argv.includes('--force');

@@ -993,7 +993,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (m.includes('OTHER OPTIONS. Do NOT write a new turn')) return 'other options';
     if (m.includes('WRITE THIS UP AND CLOSE')) return 'pull it together';
     if (m.includes('SAY IT SIMPLER')) return 'say it simpler';
-    if (m.includes('WHERE AM I')) return 'where am I';
+    if (m.includes('WHERE AM I')) return 'catch me up';
     if (m.includes('FIND IT. The person tapped')) return 'find it';
     if (m.includes('THE DISCOURSE SO FAR')) return 'turn';
     return 'opening';
@@ -1912,7 +1912,7 @@ ${DRAGON_STANDARD}`, 600);
   // ---- where am I ----
   const catchUp = async () => {
     if (loading || !draws || turns.length === 0) return;
-    sayLabel('where-am-i'); // .644
+    sayLabel('catch-me-up'); // .644; .646 renamed (founder: 'Where am I is confusing')
     setLoading(true); setError('');
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
@@ -1956,7 +1956,7 @@ ${DRAGON_STANDARD}`, 600);
     turns.forEach((t) => {
       if (t.role === 'reader' && t.voice && t.voice !== lastVoice) { L.push(`*Voice: ${VOICES[t.voice]?.label || t.voice}*`, ``); lastVoice = t.voice; }
       if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${VOICE_REG(t.move) ? `asking to hear it in ${VOICE_LABELS[VOICE_REG(t.move)] || VOICE_REG(t.move)}` : t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
-      if (t.role === 'catchup') { L.push(`*Where am I:*`, ``, t.text, ``); return; }
+      if (t.role === 'catchup') { L.push(`*Catch me up:*`, ``, t.text, ``); return; }
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating signature — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
@@ -2850,8 +2850,16 @@ ${DRAGON_STANDARD}`, 600);
 
             {/* SUMMARIZE AND WRAP IT UP — the very bottom of the block (founder, 2026-09-21; was 'pull it together'
                 inline under the latest message). The whole reading written up as one piece, then a clean stop. */}
-            {!wrapped && turns.length > 0 && !loading && (
+            {turns.length > 0 && !loading && ( // .646: CATCH ME UP as a pill above the wrap-up (was the 'Where am I?' link — founder: confusing)
               <div className="mt-6 flex justify-center">
+                <button onClick={catchUp}
+                  className="rounded-full border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors">
+                  Catch me up
+                </button>
+              </div>
+            )}
+            {!wrapped && turns.length > 0 && !loading && (
+              <div className="mt-3 flex justify-center">
                 <button onClick={closeUp}
                   className="rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors">
                   Summarize and wrap it up
@@ -2879,7 +2887,7 @@ ${DRAGON_STANDARD}`, 600);
             )}
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-              <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Where am I?</button>
+              <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Catch me up</button>
               <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
               {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">Summarize &amp; wrap up</button>}
