@@ -1108,7 +1108,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       });
     };
     if (t.heading) out.push({ text: `${t.heading}.`, kind: 'heading', para: 0, gap: GAP.heading });
-    if (t.gist) pushText(t.gist, GAP.heading, 'gist');
+    // .641: the gist is NOT spoken (founder: "the summary at the top… in its own container, and not read back by the voice")
     pushText(t.text, GAP.paragraph, 'text');
     if (t.medicine) { // .639: the spoken heading matches the box — "Where this can grow" on a Balanced draw (founder: "it always says the medicine")
       const field = t.draw ? [t.draw] : (Array.isArray(draws) ? draws : []);
@@ -2618,8 +2618,8 @@ ${DRAGON_STANDARD}`, 600);
 
                   {/* .555: THE GIST — the thesis first; the body beneath, open unless folded */}
                   {t.role === 'reader' && t.gist && !t.pending && (
-                    <div className="mb-3 flex items-start gap-2">
-                      <p data-spoken={spokenKey(t.id, 'gist', 0)} className={'flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words' + litIf(t.id, 'gist', 0)}>{t.gist}</p>
+                    <div className="mb-4 flex items-start gap-2 rounded-lg border border-violet-500/30 bg-violet-950/25 px-3 py-2.5"> {/* .641: the gist in its own container, apart from the turn (and not spoken) */}
+                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
                       <button onClick={() => toggleFold(t.id)} title={folded.has(t.id) ? 'show the whole turn' : 'fold the turn under its gist'} aria-label="fold"
                         className="shrink-0 mt-0.5 rounded-full border border-zinc-700/60 p-1 text-zinc-500 hover:text-zinc-200 hover:border-zinc-500">
                         <svg className={`w-3.5 h-3.5 transition-transform ${folded.has(t.id) ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
