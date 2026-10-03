@@ -44,8 +44,9 @@ export function useBackdropPrefs() {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}');
-      const next = { ...DEFAULTS };
-      for (const k of Object.keys(DEFAULTS)) if (saved[k] !== undefined) next[k] = saved[k];
+      // .610: restore EVERY saved key, not only the ones in DEFAULTS — the voice switch (voiceOut, voiceName) was saved
+      // but dropped on every reload, so "Speak readings aloud" silently turned itself off (founder: "still not hearing anything").
+      const next = { ...DEFAULTS, ...(saved && typeof saved === 'object' ? saved : {}) };
       setPrefsState(next);
     } catch { /* defaults */ }
     setLoaded(true);
