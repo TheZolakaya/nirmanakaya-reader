@@ -1071,7 +1071,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // Kokoro on Replicate (Heart, or George), admin-only while benched. The Ask tap unlocks audio (a browser needs a gesture) and wakes
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
-  const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut !== false; // .624: ON by default, George (founder: "default, without making any selections, to read aloud, and George"); still admins only while benched
+  const voiceOut = !!user && chrome.prefs.voiceOut !== false; // .624: ON by default, George; .637: for everyone signed in (founder: "make that available to all users on production now")
   const READ_BY = [['bm_george', 'George'], ['bf_emma', 'Emma'], ['af_bella', 'Bella'], ['am_michael', 'Michael'], ['am_puck', 'Puck']]; // .627 THE READ-BY LIST (founder: 'all of the voice options in a single selector… and have none as an option')
   const voiceName = ['af_heart', ...READ_BY.map(([k]) => k)].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .608: George by default; .620: River (warm) is the offered second voice; Heart (sleeps) only by an old saved preference
   const VOICE_LABEL = { ...Object.fromEntries(READ_BY), af_heart: 'Heart' };
@@ -2290,7 +2290,7 @@ ${DRAGON_STANDARD}`, 600);
                   You don’t have to have words. Tap again and the signatures start.
                 </div>
               )}
-              {user && isAdmin(user) && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
+              {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Draw for wherever I am' : 'Ask'}</span>
@@ -2321,7 +2321,7 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
                 {user && isAdmin(user) && <option value="manner">{quiet ? '● on · Reader: the quiet manner — switch off' : '○ off · Reader: the quiet manner — try it'}</option>}
               </select>
-              {user && isAdmin(user) && ( // .627 READ BY: one selector for the voice, with "no voice" in it; the value shows what is on
+              {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
                   onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); } }}
                   style={{ width: '8.5rem' }}
@@ -2504,7 +2504,7 @@ ${DRAGON_STANDARD}`, 600);
                     placeholder="Whatever you would actually say out loud. A sentence or two is plenty."
                     className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
                 </div>
-              {user && isAdmin(user) && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { contextRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
+              {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { contextRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
                 <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                   <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Draw'}</span>
@@ -2684,7 +2684,7 @@ ${DRAGON_STANDARD}`, 600);
                           {label}
                         </button>
                       ))}
-                      {user && isAdmin(user) && (
+                      {user && (
                         <button onClick={() => { if (speakingId === t.id) { stopVoice(); return; } unlockAudio(); speakTurn(t); }} title="hear this turn in the Reader's voice"
                           className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-amber-500/60 text-amber-200 hover:bg-amber-950/70">
                           {speakingId === t.id ? 'Stop' : 'Listen'}
@@ -2735,7 +2735,7 @@ ${DRAGON_STANDARD}`, 600);
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
                 placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
                 style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
-              {user && isAdmin(user) && <MicButton className="absolute bottom-3 left-3" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => setInput((v) => (v.trim() ? `${v.trim()} ${txt}` : txt))} />} {/* .635 THE MIC */}
+              {user && <MicButton className="absolute bottom-3 left-3" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => setInput((v) => (v.trim() ? `${v.trim()} ${txt}` : txt))} />} {/* .635 THE MIC */}
               <button onClick={() => { send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); }} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>

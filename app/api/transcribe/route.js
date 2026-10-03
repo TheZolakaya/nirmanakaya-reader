@@ -1,7 +1,7 @@
 // VOICE TO TEXT (2026-10-03). POST multipart { audio } → { text, secs }. The browser records (MediaRecorder works the same everywhere,
 // which is the point — the founder: "we need a system that's going to work regardless of browser"); the clip goes to Groq's
 // Whisper large v3 turbo ($0.04 per hour of audio, fetched 2026-10-03). Admin-only while benched. Needs GROQ_API_KEY.
-import { requireAdmin } from '../../../lib/adminAuth.js';
+import { requireUser } from '../../../lib/requireUser.js'; // .637: every signed-in reader (was admins only while benched)
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -9,8 +9,8 @@ const MODEL = 'whisper-large-v3-turbo';
 const USD_PER_HOUR = 0.04;   // Groq's list price for this model, read from console.groq.com/docs/speech-to-text on 2026-10-03
 
 export async function POST(request) {
-  const gate = await requireAdmin(request);
-  if (!gate.ok) return gate.response;
+  const denied = await requireUser(request);
+  if (denied) return denied;
   const key = process.env.GROQ_API_KEY;
   if (!key) return Response.json({ error: 'voice to text is not configured (no GROQ_API_KEY)' }, { status: 503 });
   let audio = null;
