@@ -2858,6 +2858,14 @@ ${DRAGON_STANDARD}`, 600);
                 </button>
               </div>
             )}
+            {turns.length > 0 && !loading && ( // .645: a New question button beneath the wrap-up (founder)
+              <div className="mt-3 flex justify-center">
+                <button onClick={reset}
+                  className="rounded-full border border-amber-600/50 bg-amber-950/20 px-5 py-2 text-[0.875rem] font-serif text-amber-100 hover:bg-amber-900/30 transition-colors">
+                  New question
+                </button>
+              </div>
+            )}
 
             {wrapped && (
               <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
