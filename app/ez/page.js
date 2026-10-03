@@ -1035,7 +1035,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
   const stopVoice = () => { speakRun.current++; setSpeakingId(null); try { audioRef.current?.pause(); } catch {} };
   const piecesOf = (t) => {
-    const all = [t.gist, ...ensureParagraphBreaks(t.text || '').split(/\n\n+/), t.question].map((x) => String(x || '').trim()).filter(Boolean).join(' ');
+    const all = [t.gist, ...ensureParagraphBreaks(t.text || '').split(/\n\n+/), t.medicine, t.question].map((x) => String(x || '').trim()).filter(Boolean).join(' '); // .621: the inline medicine box is spoken too, where it sits — after the prose, before the question
     const sents = all.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [all]; const out = []; let cur = '';
     for (const x of sents) { if ((cur + x).length > 420 && cur) { out.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) out.push(cur.trim());
     return out;
