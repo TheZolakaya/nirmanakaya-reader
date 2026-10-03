@@ -32,7 +32,7 @@ import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
-import { HANDING_SET, QUIET_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
+import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -1163,9 +1163,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     document.addEventListener('click', onTap);
     return () => document.removeEventListener('click', onTap);
   }, [speakingId]); // eslint-disable-line react-hooks/exhaustive-deps
-  const quiet = handing && isAdmin(user) && chrome.prefs.manner === 'quiet'; // .614 THE QUIET MANNER, admin switch (founder 2026-10-03: the therapist voice's good parts, in EZ)
-  const promptBase = handing ? (quiet ? QUIET_SET : HANDING_SET).BASE_SYSTEM : BASE_SYSTEM;
-  const promptOver = handing ? { rules: (quiet ? QUIET_SET : HANDING_SET).EZ_RULES } : {};
+  // .640: the quiet manner (.614) was judged by the founder — allegory, not directness — and retired; the Handing is the one manner
+  const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
+  const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
 
   const discourseText = useCallback((list) => list.map((t) => {
@@ -2315,7 +2315,6 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'unsure') { const was = areasOpen; closeAll(); setAreasOpen(!was); }
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
-                  else if (v === 'manner') { chrome.set({ manner: quiet ? '' : 'quiet' }); } // .614
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
                 className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
@@ -2324,7 +2323,6 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
                 <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
-                {user && isAdmin(user) && <option value="manner">{quiet ? '● on · Reader: the quiet manner — switch off' : '○ off · Reader: the quiet manner — try it'}</option>}
               </select>
               {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
