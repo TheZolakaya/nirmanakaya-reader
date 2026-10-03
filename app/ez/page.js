@@ -1049,7 +1049,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
   // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
   // the question. The hosted model has no pause markup, so the player supplies the silence.
-  const GAP = { sentence: 80, paragraph: 220, heading: 300, beforeQuestion: 320 }; // .629 halved; .630 shorter again (founder: 'maybe we reduce the pause again')
+  const GAP = { sentence: 60, paragraph: 150, heading: 220, beforeQuestion: 240 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again')
   const piecesOf = (t) => {
     const out = [];
     const pushText = (text, gapAfter) => {
