@@ -848,7 +848,7 @@ export default function EZPage() {
     const quiet = !!opts.quiet; // .591: the automatic ask on page open says nothing when it fails
     const say = (m) => { if (!quiet) setError(m); };
     if (!user || suggesting) return;
-    setSuggesting(true);
+    setSuggesting(true); if (!quiet) sayNarration('the-reader-is-reading-your-history'); // .647
     try {
       const session = await getSession();
       const token = session?.session?.access_token;
@@ -1091,10 +1091,26 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (pausedRef.current) { try { a?.pause(); } catch {} setVoiceMsg('Voice: paused — tap to continue'); }
     else { setVoiceMsg(''); try { if (a && a.src && !a.ended && a.paused) { const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } } catch {} }
   };
-  const sayLabel = (slug) => { // .644: a stored clip (public/voice/labels/<voice>/<slug>.wav, made by scripts/voice_labels.mjs) — instant, inside the tap
-    if (!voiceOut || !slug) return;
-    try { stopVoice(); if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = `/voice/labels/${voiceName}/${slug}.wav`; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {}
-  };
+  // .644/.647 THE LABELS AND THE NARRATOR — stored clips (public/voice/labels/<voice>/<slug>.wav, scripts/voice_labels.mjs), preloaded,
+  // played on their own element in a queue the turn's speech waits for.
+  const NARRATOR = { bm_george: 'af_bella', am_michael: 'af_bella', am_puck: 'af_bella', bf_emma: 'bm_george', af_bella: 'bm_george', af_heart: 'bm_george' };
+  const LABEL_SLUGS = ['words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
+  const NARRATION_SLUGS = ['the-reader-is-writing', 'the-reader-is-naming-it', 'the-reader-is-opening-the-medicine', 'the-reader-is-finding-the-step', 'the-reader-is-finding-more-choices', 'the-reader-is-reading-your-history'];
+  const labelAudioRef = useRef(null); const labelQueue = useRef(Promise.resolve()); const clipCache = useRef(new Map());
+  const clipSrc = (voice, slug) => clipCache.current.get(`${voice}/${slug}`) || `/voice/labels/${voice}/${slug}.wav`;
+  useEffect(() => { // preload the current voice's labels and its narrator's lines once the voice is on (≈3 MB, cached as object URLs)
+    if (!voiceOut || typeof window === 'undefined') return;
+    let dead = false;
+    const load = async (voice, slugs) => { for (const slug of slugs) { const key = `${voice}/${slug}`; if (clipCache.current.has(key)) continue; try { const r = await fetch(`/voice/labels/${voice}/${slug}.wav`); if (!r.ok || dead) continue; const b = await r.blob(); clipCache.current.set(key, URL.createObjectURL(b)); } catch {} } };
+    load(voiceName, LABEL_SLUGS); load(NARRATOR[voiceName] || 'af_bella', NARRATION_SLUGS);
+    return () => { dead = true; };
+  }, [voiceOut, voiceName]); // eslint-disable-line react-hooks/exhaustive-deps
+  const playClip = (voice, slug) => new Promise((resolve) => {
+    if (!voiceOut || !slug) return resolve();
+    try { if (!labelAudioRef.current) labelAudioRef.current = new Audio(); const a = labelAudioRef.current; a.onended = () => resolve(); a.onerror = () => resolve(); a.src = clipSrc(voice, slug); const pr = a.play(); if (pr && pr.catch) pr.catch(() => resolve()); } catch { resolve(); }
+  });
+  const sayLabel = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(voiceName, slug)); };
+  const sayNarration = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); };
   const holdWhilePaused = async (run) => { while (pausedRef.current && run === speakRun.current) await new Promise((d) => setTimeout(d, 100)); };
   // .625 CADENCE (founder: "it's the pausing… the whole thing is railroading you"). The pieces used to be 420-character runs joined
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
@@ -1152,6 +1168,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const res = await jobs[i]; if (run !== speakRun.current) return;
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
+      if (i === 0) { await labelQueue.current; if (run !== speakRun.current) return; } // .647: the label and the narrator finish first
       setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
@@ -1430,7 +1447,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!frame && frameInForce) setFrame(frameInForce);
     setAsked(q);
     if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE: inside the tap, before any await
-    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets
+    setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); sayNarration('the-reader-is-writing'); // .647 the narrator // .516: the Unsure and Another folds close when a reading starts or resets
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
     // one card only, for now; the answer never waits on the motion by more than the last flight
@@ -1529,7 +1546,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const lr = [...turns].reverse().find((t) => t.role === 'reader');
       if (lr?.locating && !lr.located && (claimed || lr.locating.step < (lr.locating.balanced ? 2 : 3))) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
     }
-    setError(''); setLoading(true); setInput('');
+    setError(''); setLoading(true); setInput(''); sayNarration('the-reader-is-writing'); // .647
     const newDraw = mode ? generateSpread(1)[0] : null;
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ts: Date.now() };
     const withYou = [...turns, you];
@@ -1656,7 +1673,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const card = fieldCard(); if (!card || stepBusy) return;
     const k = buildKernel(card, DEFS);
     const line = actLineNow() || `What is one small real thing I can do about this in the next minute?`;
-    setStepBusy(true); setError('');
+    setStepBusy(true); setError(''); sayNarration('the-reader-is-finding-the-step'); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
@@ -1695,7 +1712,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const fetchMedicine = async () => {
     const card = fieldCard(); if (!card || medBusy) return;
     const k = buildKernel(card, DEFS);
-    setMedBusy(true); setError('');
+    setMedBusy(true); setError(''); sayNarration('the-reader-is-opening-the-medicine'); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
@@ -1727,7 +1744,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const fetchDragon = async () => {
     const card = fieldCard(); if (!card || dragonBusy) return;
     const k = buildKernel(card, DEFS);
-    setDragonBusy(true); setError('');
+    setDragonBusy(true); setError(''); sayNarration('the-reader-is-naming-it'); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
@@ -1790,7 +1807,7 @@ ${DRAGON_STANDARD}`, 600);
     if (voiceOut) { const lab = FLOOR_LABEL[floor]; sayLabel(lab ? lab.replace(/\s+/g, '-') : 'words-to-the-whys'); warmVoice(); } // THE VOICE (.616; .644 the floor says its name)
     const key = `${card.transient}:${card.position}:${card.status}`;
     if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
-    setBrazierBusy(floor); setError('');
+    setBrazierBusy(floor); setError(''); sayNarration('the-reader-is-writing'); // .647
     try {
       const k = buildKernel(card, DEFS);
       // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
@@ -1870,7 +1887,7 @@ ${DRAGON_STANDARD}`, 600);
   const [regenning, setRegenning] = useState(false);
   const regenPills = async (over = {}) => {
     if (loading || regenning || !lastReader || !draws) return;
-    setRegenning(true); setError('');
+    setRegenning(true); setError(''); sayNarration('the-reader-is-finding-more-choices'); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
@@ -1913,7 +1930,7 @@ ${DRAGON_STANDARD}`, 600);
   const catchUp = async () => {
     if (loading || !draws || turns.length === 0) return;
     sayLabel('catch-me-up'); // .644; .646 renamed (founder: 'Where am I is confusing')
-    setLoading(true); setError('');
+    setLoading(true); setError(''); sayNarration('the-reader-is-writing'); // .647
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CATCHUP_RULES}`, 400);
@@ -1929,7 +1946,7 @@ ${DRAGON_STANDARD}`, 600);
   const closeUp = async () => {
     if (loading || !draws || turns.length === 0) return;
     sayLabel('summarize-and-wrap-up'); // .644
-    setLoading(true); setError(''); setFieldMode(null);
+    setLoading(true); setError(''); setFieldMode(null); sayNarration('the-reader-is-writing'); // .647
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;

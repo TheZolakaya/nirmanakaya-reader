@@ -9,8 +9,14 @@ import { VOICES, forTheEar } from '../lib/voice/kokoro.js';
 export const LABELS = {
   'words-to-the-whys': 'Words to the Whys.', 'the-meaning': 'The meaning.', 'the-moon': 'The moon.', 'the-mechanism': 'The mechanism.',
   'face-the-dragon': 'Face the dragon.', 'the-medicine': 'The medicine.', 'where-this-can-grow': 'Where this can grow.', 'one-small-step': 'One small step.',
-  'summarize-and-wrap-up': 'Summarize, and wrap it up.', 'more-choices': 'More choices.', 'reflect': 'Reflect.', 'forge': 'Forge.',
-  'clarify': 'Clarify.', 'unpack': 'Unpack.', 'example': 'Example.', 'find-it': 'Find it.', 'where-am-i': 'Where am I?', 'catch-me-up': 'Catch me up.',
+  'summarize-and-wrap-up': 'Summarize, and wrap it up.', 'more-choices': 'More choices.',
+  // one-word clips grow a trailing syllable on this model ("Forge." was heard back as "Vodgi"; .647) — two words come out clean
+  'reflect': 'To reflect.', 'forge': 'Forge ahead.', 'clarify': 'Clarify that.', 'unpack': 'Unpack that.', 'example': 'An example.',
+  'find-it': 'Find it.', 'where-am-i': 'Where am I?', 'catch-me-up': 'Catch me up.',
+  // THE NARRATOR (.647, founder: "an opposite-sex voice, like a narrator, when 'the Reader is…' doing something")
+  'the-reader-is-writing': 'The Reader is writing.', 'the-reader-is-naming-it': 'The Reader is naming it.',
+  'the-reader-is-opening-the-medicine': 'The Reader is opening the medicine.', 'the-reader-is-finding-the-step': 'The Reader is finding the step.',
+  'the-reader-is-finding-more-choices': 'The Reader is finding more choices.', 'the-reader-is-reading-your-history': 'The Reader is reading your history.',
 };
 const env = Object.fromEntries(fs.readFileSync('.env.local', 'utf8').split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
 const T = env.REPLICATE_API_TOKEN; const force = process.argv.includes('--force');
