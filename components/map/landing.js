@@ -283,6 +283,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     const fxClip = (el, src, { scale = 2.8, rate = 1.6 } = {}) => { // .652: a rendered effect over the card's centre, black dropped out by screen blend
       const r = el.getBoundingClientRect(); const d = Math.max(r.width, r.height) * scale;
       const v = document.createElement('video'); v.src = src; v.muted = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto'; v.setAttribute('data-flash', 'fx');
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('autoplay', ''); // .654: iPhone Safari honours these only as ATTRIBUTES — without them a code-made video will not autoplay
       Object.assign(v.style, { position: 'fixed', left: `${r.left + r.width / 2 - d / 2}px`, top: `${r.top + r.height / 2 - d / 2}px`, width: `${d}px`, height: `${d}px`, pointerEvents: 'none', zIndex: '250', mixBlendMode: 'screen', objectFit: 'cover' });
       v.onended = () => v.remove(); v.onerror = () => v.remove();
       document.body.appendChild(v); try { v.playbackRate = rate; } catch {}

@@ -14,7 +14,9 @@ export const LABELS = {
   'reflect': 'To reflect.', 'forge': 'Forge ahead.', 'clarify': 'Clarify that.', 'unpack': 'Unpack that.', 'example': 'An example.',
   'find-it': 'Find it.', 'where-am-i': 'Where am I?', 'catch-me-up': 'Catch me up.',
   // THE NARRATOR (.647, founder: "an opposite-sex voice, like a narrator, when 'the Reader is…' doing something")
-  'the-reader-is-writing': 'The Reader is writing.', 'the-reader-is-naming-it': 'The Reader is naming it.',
+  'the-reader-is-writing': 'The Reader is writing.',
+  // .654 the opening's narration (founder: 'The Nirmanakaya Reader is reading your now'); 'Nir-mana-kaya' transcribed cleanly in both narrator voices — the hyphens steer the syllables
+  'reading-your-now': 'The Nir-mana-kaya Reader is reading your now.', 'the-reader-is-naming-it': 'The Reader is naming it.',
   'the-reader-is-opening-the-medicine': 'The Reader is opening the medicine.', 'the-reader-is-finding-the-step': 'The Reader is finding the step.',
   'the-reader-is-finding-more-choices': 'The Reader is finding more choices.', 'the-reader-is-reading-your-history': 'The Reader is reading your history.',
 };
