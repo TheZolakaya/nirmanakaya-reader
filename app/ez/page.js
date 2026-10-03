@@ -148,7 +148,7 @@ const pickFrame = (f) => {
   if (k === 'custom' && !detail) return null;
   return { k, detail, auto: true };
 };
-const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
+const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; return `\n\nTHE FRAME — this reading is about ${f.k === 'custom' ? `"${fr.detail || 'something else'}"` : `${f.label}${fr.detail ? `: "${fr.detail}"` : ''}`}. ${f.lens} The signature, seat, status and medicine are exactly as drawn; the frame only says what the signature is read AS. OPEN INSIDE THE FRAME: your first sentence names it in their words ("With money, …", "With Dan, …", "About the move, …") and answers the question there, and every paragraph after stays inside it — the seat, the status and the medicine are all read as they show up IN this — WITHOUT repeating its name: say the frame's words once at the opening and at most once more in the turn; after that it is the room you are in, not a word stamped on every paragraph. Never a reading about life in general with the frame mentioned once; if the frame is only a category with no detail, name the category itself.`; };
 
 // .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
 const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the signature did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the signature, ask your ordinary question.`;
@@ -1109,6 +1109,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
 
   // One strict retry before giving up. A dropped brace used to cost the person their turn and
   // the tokens both; now it costs one cheap re-ask.
+  // .612 THE STAMP: how many times a turn says the frame's own words (founder 2026-10-03: "this week" eight times in a turn, four in the
+  // next reading's opening). Once at the opening and once more is the cap; past that the turn is asked for again with the count named.
+  const stampWords = () => { if (!frame) return []; const f = frameOf(frame.k); return [f?.k === 'custom' ? frame.detail : f?.label, f?.k === 'custom' ? null : frame.detail].filter((x) => typeof x === 'string' && x.trim().length > 2).map((x) => x.trim()); };
+  const stampOf = (t) => { let n = 0; for (const w of stampWords()) { const re = new RegExp('(?<![\\w])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w])', 'gi'); n = Math.max(n, (String(t || '').match(re) || []).length); } return n; };
   const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens, extra);
     let obj = parseJson(data.reading);
@@ -1126,10 +1130,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot']);
       const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || null }).flags || []).filter((f) => scars.has(f.code));
       const bad = check(obj, data.reading);
+      { const n = stampOf(obj.reader); if (n > 2) bad.push({ code: 'stamp', detail: `the frame's words ("${stampWords().join('", "')}") appear ${n} times in one turn — name the frame once at the opening, then stay inside it without saying it again` }); } // .612
       if (bad.length) {
         const again = await rawCall(`${userMessage}\n\nYOUR LAST REPLY WAS SET ASIDE: ${bad.map((f) => f.detail).join('; ')}. Answer the turn again, in your own words, without that.`, system, maxTokens, extra);
         const o2 = parseJson(again.reading);
-        if (o2 && o2.reader && !check(o2, again.reading).length) { obj = o2; data = again; }
+        if (o2 && o2.reader && !check(o2, again.reading).length && stampOf(o2.reader) <= 2) { obj = o2; data = again; } // .612: the second try must also keep the stamp under the cap
       }
     } catch {}
     // THE VERDICT, ONCE: the gist opens with it; if the body opens with the same word, the body's copy is dropped (the rule says so, the model sometimes doesn't).
