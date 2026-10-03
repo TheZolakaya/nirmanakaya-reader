@@ -1142,6 +1142,20 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!voiceOut || !slug) return resolve();
     try { if (!labelAudioRef.current) labelAudioRef.current = new Audio(); const a = labelAudioRef.current; a.onended = () => resolve(); a.onerror = () => resolve(); a.src = clipSrc(voice, slug); const pr = a.play(); if (pr && pr.catch) pr.catch(() => resolve()); } catch { resolve(); }
   });
+  const [armed, setArmed] = useState(null); const armedRef = useRef(null); const armTimer = useRef(null); // .655 TWO TAPS
+  const disarm = () => { armedRef.current = null; setArmed(null); if (armTimer.current) { clearTimeout(armTimer.current); armTimer.current = null; } };
+  const twoTap = (key, fn, slug) => () => {
+    if (armedRef.current === key) { disarm(); fn(); return; }
+    armedRef.current = key; setArmed(key); if (slug) sayLabel(slug);
+    if (armTimer.current) clearTimeout(armTimer.current); armTimer.current = setTimeout(disarm, 8000);
+  };
+  const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : '');
+  useEffect(() => { // a tap anywhere but the armed control disarms it
+    if (!armed) return;
+    const off = (e) => { if (!e.target?.closest?.(`[data-arm="${armed}"]`)) disarm(); };
+    const id = setTimeout(() => document.addEventListener('click', off), 0);
+    return () => { clearTimeout(id); document.removeEventListener('click', off); };
+  }, [armed]); // eslint-disable-line react-hooks/exhaustive-deps
   const sayLabel = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); }; // .648: the narrator says the button too — the Reader's voice speaks only the Reader's words
   const sayNarration = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); };
   const playUrl = (url) => new Promise((resolve) => { // .654: a clip made on the fly, on the label player
@@ -1743,7 +1757,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     setStepBusy(false);
   };
   const toggleStep = () => {
-    const next = !stepOpen; if (next && voiceOut) { sayLabel('one-small-step'); warmVoice(); } // THE VOICE (.611; .644 the tap says its name)
+    const next = !stepOpen; if (next && voiceOut) { warmVoice(); } // THE VOICE (.611; .644 the tap says its name)
     setStepOpen(next);
     if (next) {
       showPanels('step');
@@ -1781,7 +1795,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     setMedBusy(false);
   };
   const toggleMedicine = () => {
-    const next = !medOpen; if (next && voiceOut) { sayLabel('the-medicine'); warmVoice(); } // THE VOICE (.611; .644)
+    const next = !medOpen; if (next && voiceOut) { warmVoice(); } // THE VOICE (.611; .644)
     setMedOpen(next);
     if (next) {
       showPanels('medicine');
@@ -1818,7 +1832,7 @@ ${DRAGON_STANDARD}`, 600);
     setDragonBusy(false);
   };
   const toggleDragon = () => {
-    const next = !dragonOpen; if (next && voiceOut) { sayLabel('face-the-dragon'); warmVoice(); } // THE VOICE (.611; .644)
+    const next = !dragonOpen; if (next && voiceOut) { warmVoice(); } // THE VOICE (.611; .644)
     setDragonOpen(next);
     if (next) {
       showPanels('dragon');
@@ -1859,7 +1873,7 @@ ${DRAGON_STANDARD}`, 600);
   // cannot assume the meaning was read), so only ring 1 is passed as already-seen.
   const fetchFloor = async (floor) => {
     const card = fieldCard(); if (!card || brazierBusy) return;
-    if (voiceOut) { const lab = FLOOR_LABEL[floor]; sayLabel(lab ? lab.replace(/\s+/g, '-') : 'words-to-the-whys'); warmVoice(); } // THE VOICE (.616; .644 the floor says its name)
+    if (voiceOut) { warmVoice(); } // THE VOICE (.616; .644 the floor says its name)
     const key = `${card.transient}:${card.position}:${card.status}`;
     if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
     setBrazierBusy(floor); setError(''); sayNarration('the-reader-is-writing'); // .647
@@ -1922,7 +1936,7 @@ ${DRAGON_STANDARD}`, 600);
     setFloorsOpened([]);
   }, [lastReaderId]);
   const toggleBrazier = () => {
-    const next = !brazierOpen; if (next) sayLabel('words-to-the-whys'); // .644
+    const next = !brazierOpen;
     setBrazierOpen(next);
     if (next) {
       showPanels('brazier');
@@ -1984,7 +1998,6 @@ ${DRAGON_STANDARD}`, 600);
   // ---- where am I ----
   const catchUp = async () => {
     if (loading || !draws || turns.length === 0) return;
-    sayLabel('catch-me-up'); // .644; .646 renamed (founder: 'Where am I is confusing')
     setLoading(true); setError(''); sayNarration('the-reader-is-writing'); // .647
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
@@ -2000,7 +2013,6 @@ ${DRAGON_STANDARD}`, 600);
   // start a new reading. Nothing is locked — the box stays live under it.
   const closeUp = async () => {
     if (loading || !draws || turns.length === 0) return;
-    sayLabel('summarize-and-wrap-up'); // .644
     setLoading(true); setError(''); setFieldMode(null); sayNarration('the-reader-is-writing'); // .647
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
@@ -2111,7 +2123,7 @@ ${DRAGON_STANDARD}`, 600);
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
-                  <button onClick={toggleBrazier} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'words-to-the-whys')} className={armedCls('whys') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2119,7 +2131,7 @@ ${DRAGON_STANDARD}`, 600);
                     {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button onClick={toggleDragon} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={armedCls('dragon') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" playing={dragonOpen} className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2127,7 +2139,7 @@ ${DRAGON_STANDARD}`, 600);
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : kind === 'medicine' ? (
-                  <button onClick={toggleMedicine} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={armedCls('medicine') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" playing={medOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2135,7 +2147,7 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
-                  <button onClick={toggleStep} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl" style={{ minHeight: 52 }}>
+                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={armedCls('step') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" playing={stepOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     {stepOpen && <span className="relative z-10">{chev(true)}</span>}
@@ -2175,8 +2187,8 @@ ${DRAGON_STANDARD}`, 600);
                             mechanism: 'border-cyan-400/90 bg-cyan-950/30 text-cyan-100 hover:bg-cyan-900/40',
                           }[f];
                           return (
-                            <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
-                              className={`flex-1 basis-0 min-w-[7rem] max-w-[12rem] rounded-full border px-4 py-2 text-[0.875rem] font-serif transition-colors ${tone} ${brazier[f] ? 'opacity-40 cursor-default' : ''}`}>
+                            <button key={f} data-arm={`floor-${f}`} onClick={twoTap(`floor-${f}`, () => fetchFloor(f), FLOOR_LABEL[f] ? FLOOR_LABEL[f].replace(/\s+/g, '-') : null)} disabled={!!brazier[f]}
+                              className={`flex-1 basis-0 min-w-[7rem] max-w-[12rem] rounded-full border px-4 py-2 text-[0.875rem] font-serif transition-colors ${tone} ${brazier[f] ? 'opacity-40 cursor-default' : ''}${armedCls(`floor-${f}`)}`}>
                               {FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1)} {/* .622: a button is a title — "The meaning", not "the meaning" (the prose keeps the lowercase) */}
                             </button>
                           );
@@ -2269,8 +2281,8 @@ ${DRAGON_STANDARD}`, 600);
       : (on ? 'border-orange-400 bg-orange-900/40 text-orange-100' : 'border-orange-700/50 bg-orange-950/20 text-orange-200 hover:border-orange-500 hover:bg-orange-900/30');
     const hint = mode === 'reflect' ? 'ask the signatures a question' : 'declare a move — the signatures answer';
     return (
-      <button onClick={() => { if (!on) sayLabel(mode); setFieldMode(on ? null : mode); }} disabled={loading}
-        className={`relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
+      <button data-arm={`switch-${mode}`} onClick={twoTap(`switch-${mode}`, () => setFieldMode(on ? null : mode), on ? null : mode)} disabled={loading}
+        className={`${armedCls(`switch-${mode}`)} relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[0.9375rem] font-medium">
           {mode === 'reflect'
             ? <span className="absolute left-0 top-0 h-full w-14 overflow-hidden rounded-l-lg" aria-hidden="true"><HoverVideo src="/video/reflect.mp4" className="w-full h-full object-cover" style={{ mixBlendMode: 'screen' }} /></span>
@@ -2768,18 +2780,18 @@ ${DRAGON_STANDARD}`, 600);
                     </details>
                   )}
 
-                  {t.role === 'reader' && !t.pending && !loading && (
+                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && ( // .655: under every frame the Reader prints
                     <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2"> {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
-                        <button key={k} onClick={() => { sayLabel(k); move(t.id, k); }} title={tip}
-                          className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
+                        <button key={k} data-arm={`${t.id}-${k}`} onClick={twoTap(`${t.id}-${k}`, () => move(t.id, k), k)} title={tip}
+                          className={`${armedCls(`${t.id}-${k}`)} rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
                           {label}
                         </button>
                       ))}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
-                      <button onClick={() => { sayLabel('find-it'); send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }); }} title="ask the field where it is — a locating signature is drawn and read as a pointer"
-                        className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
+                      <button data-arm={`${t.id}-find`} onClick={twoTap(`${t.id}-find`, () => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }), 'find-it')} title="ask the field where it is — a locating signature is drawn and read as a pointer"
+                        className={armedCls(`${t.id}-find`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70"}>
                         Find it
                       </button>
                     </div>
@@ -2870,7 +2882,7 @@ ${DRAGON_STANDARD}`, 600);
             {activePills.length > 0 && !loading && (
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
-                  <button key={i} onClick={() => send(c.text, c.kind === 'locate' ? 'locate' : fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined)} disabled={regenning}
+                  <button key={i} data-arm={`chip-${i}`} onClick={twoTap(`chip-${i}`, () => send(c.text, c.kind === 'locate' ? 'locate' : fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined), null)} disabled={regenning}
                     style={{ '--pill': CHIP_RGB[c.kind] || CHIP_RGB.build }}
                     className={`pill-breathe flex items-baseline gap-2 text-left rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-40 ${CHIP_STYLE[c.kind] || CHIP_STYLE.build}`}>
                     {/* a fixed label column (sized to PUSH BACK) so every pill's text starts at the same x */}
@@ -2917,8 +2929,8 @@ ${DRAGON_STANDARD}`, 600);
                   </button>
                 )}
                 {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
-                  <button onClick={() => { sayLabel('more-choices'); regenPills(); }}
-                    className="self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors">
+                  <button data-arm="more" onClick={twoTap('more', () => regenPills(), 'more-choices')}
+                    className={armedCls('more') + " self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors"}>
                     ↻ More choices
                   </button>
                 )}
@@ -2936,24 +2948,24 @@ ${DRAGON_STANDARD}`, 600);
                 inline under the latest message). The whole reading written up as one piece, then a clean stop. */}
             {turns.length > 0 && !loading && ( // .646: CATCH ME UP as a pill above the wrap-up (was the 'Where am I?' link — founder: confusing)
               <div className="mt-6 flex justify-center">
-                <button onClick={catchUp}
-                  className="rounded-full border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors">
+                <button data-arm="catchup" onClick={twoTap('catchup', catchUp, 'catch-me-up')}
+                  className={armedCls('catchup') + " rounded-full border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors"}>
                   Catch me up
                 </button>
               </div>
             )}
             {!wrapped && turns.length > 0 && !loading && (
               <div className="mt-3 flex justify-center">
-                <button onClick={closeUp}
-                  className="rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors">
+                <button data-arm="wrap" onClick={twoTap('wrap', closeUp, 'summarize-and-wrap-up')}
+                  className={armedCls('wrap') + " rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors"}>
                   Summarize and wrap it up
                 </button>
               </div>
             )}
             {turns.length > 0 && !loading && ( // .645: a New question button beneath the wrap-up (founder)
               <div className="mt-3 flex justify-center">
-                <button onClick={reset}
-                  className="rounded-full border border-amber-600/50 bg-amber-950/20 px-5 py-2 text-[0.875rem] font-serif text-amber-100 hover:bg-amber-900/30 transition-colors">
+                <button data-arm="new" onClick={twoTap('new', reset, null)}
+                  className={armedCls('new') + " rounded-full border border-amber-600/50 bg-amber-950/20 px-5 py-2 text-[0.875rem] font-serif text-amber-100 hover:bg-amber-900/30 transition-colors"}>
                   New question
                 </button>
               </div>
