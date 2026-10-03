@@ -1036,7 +1036,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
   const warmVoice = async () => { if (voiceName !== 'af_heart') return; try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
   const pausedRef = useRef(false); // .629 TAP TO PAUSE
-  const stopVoice = () => { speakRun.current++; setSpeakingId(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
+  const [spoken, setSpoken] = useState(null); // .634 FOLLOW THE VOICE: { id, kind, para } of the piece being spoken
+  const spokenKey = (id, kind, para) => `${id}:${kind}:${para}`;
+  const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (kind !== 'text' && kind !== 'medicine' || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : ' transition-colors duration-300');
+  useEffect(() => { if (!spoken) return; try { const el = document.querySelector(`[data-spoken="${spokenKey(spoken.id, spoken.kind, spoken.para)}"]`); if (el) { const r = el.getBoundingClientRect(); const vh = window.innerHeight || 800; if (r.top < 80 || r.bottom > vh - 160) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } } catch {} }, [spoken]);
+  const stopVoice = () => { speakRun.current++; setSpeakingId(null); setSpoken(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
   const togglePause = () => {
     if (!speakingId) return;
     pausedRef.current = !pausedRef.current;
@@ -1052,19 +1056,19 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const GAP = { sentence: 60, paragraph: 150, heading: 220, beforeQuestion: 240 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again')
   const piecesOf = (t) => {
     const out = [];
-    const pushText = (text, gapAfter) => {
+    const pushText = (text, gapAfter, kind = 'text') => {
       const paras = ensureParagraphBreaks(String(text || '')).split(/\n\n+/).map((x) => x.trim()).filter(Boolean);
       paras.forEach((para, pi) => {
         const sents = para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [para]; const subs = []; let cur = '';
         for (const x of sents) { if ((cur + x).length > 420 && cur) { subs.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) subs.push(cur.trim());
-        subs.forEach((sub, si) => out.push({ text: sub, gap: si < subs.length - 1 ? GAP.sentence : (pi < paras.length - 1 ? GAP.paragraph : gapAfter) }));
+        subs.forEach((sub, si) => out.push({ text: sub, kind, para: pi, gap: si < subs.length - 1 ? GAP.sentence : (pi < paras.length - 1 ? GAP.paragraph : gapAfter) }));
       });
     };
-    if (t.heading) out.push({ text: `${t.heading}.`, gap: GAP.heading });
-    if (t.gist) pushText(t.gist, GAP.heading);
-    pushText(t.text, GAP.paragraph);
-    if (t.medicine) { out.push({ text: 'The medicine.', gap: GAP.heading }); pushText(t.medicine, GAP.paragraph); }
-    if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0); }
+    if (t.heading) out.push({ text: `${t.heading}.`, kind: 'heading', para: 0, gap: GAP.heading });
+    if (t.gist) pushText(t.gist, GAP.heading, 'gist');
+    pushText(t.text, GAP.paragraph, 'text');
+    if (t.medicine) { out.push({ text: 'The medicine.', kind: 'heading', para: 0, gap: GAP.heading }); pushText(t.medicine, GAP.paragraph, 'medicine'); }
+    if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0, 'question'); }
     if (out.length) out[out.length - 1].gap = 0;
     return out;
   };
@@ -1097,13 +1101,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const res = await jobs[i]; if (run !== speakRun.current) return;
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
-      setVoiceMsg('');
+      setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
       const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
       a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; if (run !== speakRun.current) return;
       if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused
     }
-    if (run === speakRun.current) setSpeakingId(null);
+    if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); }
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
   useEffect(() => { // .629 TAP TO PAUSE: while a turn is being read, a tap on the page (not on a button, link, box or menu) pauses it; the next tap resumes
@@ -2022,7 +2026,7 @@ ${DRAGON_STANDARD}`, 600);
                       <div key={f} className="mt-4 pt-4 border-t border-zinc-800/70">
                         <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">{FLOOR_LABEL[f]}</div>
                         {ensureParagraphBreaks(brazier[f]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                          <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                          <p key={xi} data-spoken={spokenKey(`floor${f}`, 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(`floor${f}`, 'text', xi)}>{x.trim()}</p>
                         ))}
                         {f === 'mechanism' && (
                           <p className="mt-3 text-[0.8125rem]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
@@ -2060,7 +2064,7 @@ ${DRAGON_STANDARD}`, 600);
                     <div className="text-[0.6875rem] text-rose-300/70 mb-2">{DRAGON_HINT}</div>
                     {dragonBusy && <Writing scroll={false} label="the Reader is naming it…" />}
                     {!dragonBusy && dragonText && ensureParagraphBreaks(dragonText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                      <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                      <p key={xi} data-spoken={spokenKey('dragon', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('dragon', 'text', xi)}>{x.trim()}</p>
                     ))}
                   </div>
                 )) : kind === 'medicine' ? (medOpen && (
@@ -2071,7 +2075,7 @@ ${DRAGON_STANDARD}`, 600);
                       // split on the three headings; anything before the first heading renders plain
                       const parts = []; let rest = medText;
                       const idx = MEDICINE_PARTS.map(([h]) => rest.indexOf(h));
-                      if (idx.every((i) => i < 0)) return ensureParagraphBreaks(medText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>);
+                      if (idx.every((i) => i < 0)) return ensureParagraphBreaks(medText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} data-spoken={spokenKey('medicine', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('medicine', 'text', xi)}>{x.trim()}</p>);
                       MEDICINE_PARTS.forEach(([h, label], pi) => {
                         const i = rest.indexOf(h); if (i < 0) return;
                         const next = MEDICINE_PARTS.slice(pi + 1).map(([hh]) => rest.indexOf(hh)).filter((j) => j > i);
@@ -2091,7 +2095,7 @@ ${DRAGON_STANDARD}`, 600);
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
                     {stepBusy && <Writing scroll={false} label="the Reader is finding the step…" />}
                     {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                      <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
+                      <p key={xi} data-spoken={spokenKey('step', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('step', 'text', xi)}>{x.trim()}</p>
                     ))}
                   </div>
                 ));
@@ -2567,7 +2571,7 @@ ${DRAGON_STANDARD}`, 600);
                   {/* .555: THE GIST — the thesis first; the body beneath, open unless folded */}
                   {t.role === 'reader' && t.gist && !t.pending && (
                     <div className="mb-3 flex items-start gap-2">
-                      <p className="flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
+                      <p data-spoken={spokenKey(t.id, 'gist', 0)} className={'flex-1 text-[1.0625rem] leading-snug font-medium text-violet-200 break-words' + litIf(t.id, 'gist', 0)}>{t.gist}</p>
                       <button onClick={() => toggleFold(t.id)} title={folded.has(t.id) ? 'show the whole turn' : 'fold the turn under its gist'} aria-label="fold"
                         className="shrink-0 mt-0.5 rounded-full border border-zinc-700/60 p-1 text-zinc-500 hover:text-zinc-200 hover:border-zinc-500">
                         <svg className={`w-3.5 h-3.5 transition-transform ${folded.has(t.id) ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -2575,7 +2579,7 @@ ${DRAGON_STANDARD}`, 600);
                     </div>
                   )}
                   {!(t.role === 'reader' && t.gist && folded.has(t.id)) && ensureParagraphBreaks(t.text).split(/\n\n+/).filter((p) => p.trim()).map((p, i) => (
-                    <p key={i} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{p.trim()}</p>
+                    <p key={i} data-spoken={spokenKey(t.id, 'text', i)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(t.id, 'text', i)}>{p.trim()}</p>
                   ))}
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
@@ -2584,7 +2588,7 @@ ${DRAGON_STANDARD}`, 600);
                     <p className="mt-3 text-xs text-violet-200/90 break-words"><span className="uppercase tracking-wider opacity-70 mr-2">Found</span>{t.located}</p>
                   )}
                   {t.role === 'reader' && t.medicine && !(t.draw || ti === firstReaderIdx) && (
-                    <p className="mt-3 text-xs text-emerald-300/80 italic break-words">◈ {t.medicine}</p>
+                    <p data-spoken={spokenKey(t.id, 'medicine', 0)} className={'mt-3 text-xs text-emerald-300/80 italic break-words' + litIf(t.id, 'medicine', 0)}>◈ {t.medicine}</p>
                   )}
                   {t.role === 'reader' && t.medicine && (t.draw || ti === firstReaderIdx) && (
                     <div className="mt-3 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3">
@@ -2605,7 +2609,7 @@ ${DRAGON_STANDARD}`, 600);
                       </div>
                       <div className="text-sm text-emerald-100/90 leading-relaxed break-words">
                         {ensureParagraphBreaks(t.medicine).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                          <p key={xi} className="mb-2 last:mb-0">{x.trim()}</p>
+                          <p key={xi} data-spoken={spokenKey(t.id, 'medicine', xi)} className={'mb-2 last:mb-0' + litIf(t.id, 'medicine', xi)}>{x.trim()}</p>
                         ))}
                       </div>
                     </div>
@@ -2615,7 +2619,7 @@ ${DRAGON_STANDARD}`, 600);
                       a question composed without the medicine in view ignores the very thing
                       the person just read. */}
                   {t.role === 'reader' && t.question && (
-                    <p className="mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words">{t.question}</p>
+                    <p data-spoken={spokenKey(t.id, 'question', 0)} className={'mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words' + litIf(t.id, 'question', 0)}>{t.question}</p>
                   )}
 
                   {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
