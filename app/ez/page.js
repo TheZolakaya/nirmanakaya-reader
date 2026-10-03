@@ -22,7 +22,7 @@ import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
 import { generateSpread, formatDrawForAI, sanitizeForAPI, ensureParagraphBreaks, stripDirectiveEcho } from '../../lib/utils';
 import { seedParts } from '../../lib/ezSeed'; // .530: the geometry + teleology seed, per card turn
-import { addressBlock, distanceLine } from '../../lib/address'; // .539: the locating card's address as a pointer; .563: its distance from where they were looking
+import { addressBlock, distanceLine, addressOf } from '../../lib/address'; // .651: every draw's address, for the six sentences // .539: the locating card's address as a pointer; .563: its distance from where they were looking
 import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560: the house's notes — the application reviews every turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
@@ -710,11 +710,34 @@ export default function EZPage() {
   // .530: THE SEED. Every draw in the conversation so far (the opening plus every reflect/forge card), and the
   // computed geometry + teleology for the card a turn is about — lines in a never-reproduce wrapper (lib/ezSeed.js).
   const allDrawsSoFar = (base = draws, list = turns) => [...(base || []), ...(list || []).filter((t) => t.draw).map((t) => t.draw)];
+  // .651 THE ADDRESS ON EVERY DRAW (Keel's six sentences): the signature's four coordinates (a Bound's or Ambassador's through its parent) and
+  // the seat's, with the founder-ruled glosses (lib/address.js), so WHERE / HOW / WHAT / WHO / WHEN / HOW CARRIED can each be said.
+  const addressLines = (card) => {
+    try {
+      const G = {
+        practice: { Body: 'the material life', Emotion: 'feeling and relationship', Mind: 'thinking and choosing', Spirit: 'purpose and direction', Gestalt: 'the whole self' },
+        activity: { Intent: 'by wanting (pointing)', Cognition: 'by thinking (distinguishing)', Resonance: 'by attuning (connecting)', Structure: 'by building' },
+        being: { Mantle: 'a force beneath them', Kindle: 'a threshold through them', Vessel: 'a container they hold', Passage: 'something leaving them' },
+        identity: { Composure: 'holding centre', Conviction: 'acting from centre', Exploration: 'venturing out', Intimacy: 'dissolving into another' },
+      };
+      const line = (label, a) => {
+        if (!a) return '';
+        if (!(a.practice && a.activity)) return `  ${label}, ${a.name}: stands outside the sixteen-cell grid (${a.practice || 'Gestalt / Portal'}) — no kind of its own; it is about the whole self, or a threshold the whole self is at. Borrow the seat's WHAT and WHO and say so.`;
+        return `  ${label}, ${a.name}${a.via ? ` (its parent's address, via ${a.via})` : ''}: WHERE ${a.practice} — ${G.practice[a.practice] || a.practice} · HOW ${a.activity} — ${G.activity[a.activity] || a.activity}${a.being ? ` · WHAT ${a.being} — ${G.being[a.being] || a.being}` : ''}${a.identity ? ` · WHO ${a.identity} — ${G.identity[a.identity] || a.identity}` : ''}`;
+      };
+      const sig = addressOf(card.transient); const seat = card.position != null ? addressOf(card.position) : null;
+      const comp = getComponent(card.transient) || {};
+      const rank = comp.type === 'Bound' && comp.number ? `  Rank: ${comp.number} of 10 — how far along the parent's kind this is being expressed (1–3 ground floor, 4–7 in motion, 8–10 at harvest), never which kind.` : comp.type === 'Agent' ? `  Rank: ${comp.role || comp.name} — the role through which the parent's kind is being carried.` : '';
+      return ['THE ADDRESS (the four coordinates; the six sentences are read from these):', line('The signature', sig), seat ? line('The seat', seat) : '', rank].filter(Boolean).join('\n');
+    } catch { return ''; }
+  };
   const seedFor = (card, q, base, list, pointer = false) => {
     try {
       const all = allDrawsSoFar(base, list);
       const i = all.findIndex((d) => d && card && d.transient === card.transient && d.position === card.position);
-      return seedParts({ question: q, draws: all, index: i < 0 ? 0 : i, pointer }); // .561: a pointer's seed carries no medicine
+      const parts = seedParts({ question: q, draws: all, index: i < 0 ? 0 : i, pointer }); // .561: a pointer's seed carries no medicine
+      const addr = addressLines(card);
+      return { ...parts, block: parts.block ? (addr ? `${parts.block}\n\n${addr}` : parts.block) : addr }; // .651
     } catch { return { block: '', lines: '' }; }
   };
   const fmtDraw = (...a) => formatDrawForAI(...a).split('\n').filter(l => !ADVANCED_GRAMMAR.test(l) && !l.includes('MANDATORY:')).join('\n');
@@ -2645,7 +2668,7 @@ ${DRAGON_STANDARD}`, 600);
                       <div className="flex-1 min-w-0">
                         {/* .649: the box says what it is for (founder: "The thing the reading is saying you need to hear about <your topic>") */}
                         <div className="text-[0.625rem] uppercase tracking-[0.16em] text-violet-300/60 mb-1 break-words">
-                          {`What the reading is saying${frame && frameLabel(frame) && frame.k !== 'now' ? ` about ${frameLabel(frame)}` : ''}`} {/* .650: no 'need to' / 'should' — the house's own grammar (Handing rule 2) */}
+                          {`What the reading is saying${frame && frame.k !== 'now' && (frame.detail || frameLabel(frame)) ? ` about ${frame.detail || frameLabel(frame)}` : ''}`} {/* .650: no 'need to' / 'should' — the house's own grammar (Handing rule 2); .651: the subject in their words, not the category */}
                         </div>
                         <p className="text-[1.0625rem] leading-snug font-medium text-violet-200 break-words">{t.gist}</p>
                       </div>
