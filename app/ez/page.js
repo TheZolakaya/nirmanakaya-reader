@@ -1086,10 +1086,15 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     };
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
     if (!pieces.length) { setSpeakingId(null); return; }
-    let next = fetchPiece(pieces[0].text);
+    // .633 THREE AHEAD (founder: "really long pauses between sentences now"). Since .625 a piece is a paragraph — often one sentence,
+    // two or three seconds of audio — and one piece ahead no longer covered the round trip to the voice server, so playback waited on
+    // the network between sentences. The throttle is gone (600/min), so three pieces are kept in flight ahead of the one playing.
+    const AHEAD = 3; const jobs = new Array(pieces.length).fill(null);
+    const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) jobs[j] = fetchPiece(pieces[j].text); };
+    ensureAhead(0);
     for (let i = 0; i < pieces.length; i++) {
-      const res = await next; if (run !== speakRun.current) return;
-      next = i + 1 < pieces.length ? fetchPiece(pieces[i + 1].text) : null;   // the next piece is fetched while this one plays
+      ensureAhead(i + 1);
+      const res = await jobs[i]; if (run !== speakRun.current) return;
       if (!res?.url) { if (res?.error) { console.warn('[voice]', res.error); setVoiceMsg(`Voice: ${res.error}`); } if (res?.waking) break; continue; }
       await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
       setVoiceMsg('');
