@@ -155,6 +155,49 @@ const frameBlock = (fr) => { const f = fr && frameOf(fr.k); if (!f) return ''; i
 const HUNCH_LINE = `\n\nHUNCH CHECK: if this turn rests on anything about their life the signature did not give you — what they have or haven't said or done, who knows, how long — do not state it; make it the ONE question, carrying the guess as a guess with a real exit ("My hunch is … — is that it, or …?"), and make the "answer" chip the yes and the "pushback" chip the no, both in their voice. If the turn rests only on the signature, ask your ordinary question.`;
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
+
+// .635 THE MIC — a button that records and hands back words. Lives outside the page component so both boxes can use it.
+function MicButton({ onText, getAuth, className = '', onStatus }) {
+  const [state, setState] = useState('idle'); // idle | recording | working | denied
+  const recRef = useRef(null); const chunksRef = useRef([]); const streamRef = useRef(null);
+  const say = (m) => { try { onStatus && onStatus(m); } catch {} };
+  const stop = () => { try { recRef.current?.state === 'recording' && recRef.current.stop(); } catch {} };
+  const start = async () => {
+    if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') { say('This browser cannot record audio.'); return; }
+    let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { setState('denied'); say('The microphone was not allowed — check the browser’s permission for this site.'); return; }
+    streamRef.current = stream;
+    const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus', ''].find((m) => !m || (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)));
+    const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined); recRef.current = rec; chunksRef.current = [];
+    rec.ondataavailable = (e) => { if (e.data && e.data.size) chunksRef.current.push(e.data); };
+    rec.onstop = async () => {
+      try { stream.getTracks().forEach((t) => t.stop()); } catch {}
+      const type = rec.mimeType || mime || 'audio/webm'; const blob = new Blob(chunksRef.current, { type });
+      if (blob.size < 1500) { setState('idle'); say(''); return; } // a tap with no speech
+      setState('working'); say('Listening back…');
+      try {
+        const ext = /mp4/.test(type) ? 'mp4' : /ogg/.test(type) ? 'ogg' : 'webm';
+        const form = new FormData(); form.append('audio', blob, `speech.${ext}`);
+        const h = await getAuth();
+        const r = await fetch('/api/transcribe', { method: 'POST', headers: { ...h }, body: form });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.text) { say(`Voice to text: ${j.error || 'nothing came back'}`); setState('idle'); return; }
+        onText(j.text); say('');
+      } catch (e) { say(`Voice to text: ${e?.message || 'failed'}`); }
+      setState('idle');
+    };
+    rec.start(250); setState('recording'); say('Listening… tap the mic again when you are done.');
+  };
+  const busy = state === 'working';
+  return (
+    <button type="button" onClick={() => (state === 'recording' ? stop() : busy ? null : start())} disabled={busy}
+      title={state === 'recording' ? 'stop, and turn it into words' : 'speak instead of typing'} aria-label={state === 'recording' ? 'stop recording' : 'record'}
+      className={`z-10 flex items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 h-9 w-9 ${state === 'recording' ? 'border-rose-400/80 bg-rose-500/20 text-rose-200 animate-pulse' : busy ? 'border-zinc-600 text-zinc-500' : 'border-zinc-700/50 bg-black/20 text-zinc-400 hover:text-zinc-100 hover:border-zinc-500'} ${className}`}>
+      {busy ? <span className="text-xs">…</span> : state === 'recording'
+        ? <span className="block h-3 w-3 rounded-sm bg-rose-300" />
+        : <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" /></svg>}
+    </button>
+  );
+}
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
 const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical' };
@@ -2247,6 +2290,7 @@ ${DRAGON_STANDARD}`, 600);
                   You don’t have to have words. Tap again and the signatures start.
                 </div>
               )}
+              {user && isAdmin(user) && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Draw for wherever I am' : 'Ask'}</span>
@@ -2460,6 +2504,7 @@ ${DRAGON_STANDARD}`, 600);
                     placeholder="Whatever you would actually say out loud. A sentence or two is plenty."
                     className="block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
                 </div>
+              {user && isAdmin(user) && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { contextRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
                 <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                   <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : 'Draw'}</span>
@@ -2690,6 +2735,7 @@ ${DRAGON_STANDARD}`, 600);
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
                 placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
                 style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
+              {user && isAdmin(user) && <MicButton className="absolute bottom-3 left-3" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => setInput((v) => (v.trim() ? `${v.trim()} ${txt}` : txt))} />} {/* .635 THE MIC */}
               <button onClick={() => { send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); }} disabled={loading || !input.trim()} style={{ borderColor: '#2447c9' }} className="group absolute bottom-3 right-3 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border hover:brightness-125 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>{loading ? '...' : fieldMode ? 'Draw' : 'Say it'}</span>
