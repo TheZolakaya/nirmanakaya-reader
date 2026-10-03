@@ -580,6 +580,7 @@ export default function EZPage() {
   const [user, setUser] = useState(null);
   // the moving background and the corner controls, shared with the main page
   const chrome = useBackdropPrefs();
+  const audioRef = useRef(null); const speakRun = useRef(0); const [speakingId, setSpeakingId] = useState(null); // THE VOICE (2026-10-03)
   const [allowed, setAllowed] = useState(null); // null = checking
   // THE LANDING in EZ — on for everyone since v0.99.300. ?anim=0 turns it off for a browser,
   // ?anim=1 turns it back on. Reduced-motion users never see it.
@@ -991,6 +992,38 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
   const handing = !!user && chrome.prefs.handing !== false; // .590: everyone (was admins only, .587–.589); prefs.handing === false opts a device out
+  // THE VOICE (2026-10-03, founder: "roll the voice while the reading is loading and just play it as soon as it's available").
+  // Kokoro on Replicate (Heart, or George), admin-only while benched. The Ask tap unlocks audio (a browser needs a gesture) and wakes
+  // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
+  // as each arrives, so the voice starts with the gist and the rest is ready behind it.
+  const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut === true;
+  const voiceName = chrome.prefs.voiceName === 'bm_george' ? 'bm_george' : 'af_heart';
+  const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
+  const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
+  const warmVoice = async () => { try { const h = await voiceAuth(); fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ warm: true, voice: voiceName }) }).catch(() => {}); } catch {} };
+  const stopVoice = () => { speakRun.current++; setSpeakingId(null); try { audioRef.current?.pause(); } catch {} };
+  const piecesOf = (t) => {
+    const out = [];
+    const push = (txt) => { const str = String(txt || '').trim(); if (!str) return; const sents = str.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [str]; let cur = '';
+      for (const x of sents) { if ((cur + x).length > 420 && cur) { out.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) out.push(cur.trim()); };
+    push(t.gist); ensureParagraphBreaks(t.text || '').split(/\n\n+/).forEach(push); push(t.question);
+    return out;
+  };
+  const speakTurn = async (t) => {
+    if (!t || !t.text) return;
+    const run = ++speakRun.current; setSpeakingId(t.id);
+    const h = await voiceAuth();
+    const jobs = piecesOf(t).map((text) => fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName }) }).then((r) => r.json()).catch(() => ({})));
+    if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
+    for (const job of jobs) {
+      const res = await job; if (run !== speakRun.current) return;
+      if (!res?.url) { if (res?.error) console.warn('[voice]', res.error); continue; }
+      const ended = new Promise((done) => { a.onended = done; a.onerror = done; });
+      a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); break; }
+      await ended; if (run !== speakRun.current) return;
+    }
+    if (run === speakRun.current) setSpeakingId(null);
+  };
   const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
   const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
@@ -1244,6 +1277,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const q = typed || (door ? sanitizeForAPI(door.breath) : '') || (frame ? sanitizeForAPI(`A reading about ${frameLabel(frame)}.`) : ''); // .546: a frame alone is a complete ask, like a door
     if (!q) { if (!wordless) { setWordless(true); return; } setWordless(false); }
     setAsked(q);
+    if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE: inside the tap, before any await
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
@@ -1294,6 +1328,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         openingNotes = rv.soft; if (rv.soft.length) console.warn('[house] opening notes:', rv.soft); }
       const first = readerTurn(obj, { voice, ...(seed.lines ? { geometry: seed.lines } : {}), ...(openingNotes.length ? { notes: openingNotes } : {}) }); // .589: stamped with its voice
       setTurns([first]);
+      if (voiceOut) speakTurn(first); // THE VOICE: the opening, spoken as it lands
       readyRef.current = true; setReplyReady(true); setLandedWaiting(false);
       if (skipRef.current) skipRef.current.hurry = true; // .549: the reading is ready — hurry the flight along
       try {
@@ -1328,6 +1363,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const mode = modeIn !== undefined ? modeIn : fieldMode;
     const text = sanitizeForAPI((textIn ?? input).trim());
     if (!text || loading || !draws) return;
+    if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE
     // FIND IT: a tapped locate chip opens the funnel; a plain talking turn while it is open
     // continues it (up to three rounds, or until the Reader reports the thing located).
     let loc = null;
@@ -1429,6 +1465,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         // the words arrive under the landed card; the same id keeps the card's element in place
         await landed;
         setTurns((list) => list.map((x) => (x.id === pid ? { ...turn, id: pid } : x)));
+        if (voiceOut) speakTurn({ ...turn, id: pid }); // THE VOICE
         setRevealed(true);
         setOverlayIn(false);
         await new Promise(r => setTimeout(r, 700));
@@ -1436,6 +1473,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         setAnimating(false); setAnimPending(false);
       } else {
         setTurns((list) => [...list, turn]);
+        if (voiceOut) speakTurn(turn); // THE VOICE
         scrollToEnd();
       }
     } catch (e) {
@@ -2120,6 +2158,8 @@ ${DRAGON_STANDARD}`, 600);
                   else if (v === 'unsure') { const was = areasOpen; closeAll(); setAreasOpen(!was); }
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
+                  else if (v === 'voice') { if (voiceOut) stopVoice(); else unlockAudio(); chrome.set({ voiceOut: !voiceOut }); }
+                  else if (v === 'voicename') { chrome.set({ voiceName: voiceName === 'bm_george' ? 'af_heart' : 'bm_george' }); }
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
                 className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
@@ -2128,6 +2168,8 @@ ${DRAGON_STANDARD}`, 600);
                 <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
                 <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
+                {user && isAdmin(user) && <option value="voice">{voiceOut ? 'Stop speaking readings aloud' : 'Speak readings aloud'}</option>}
+                {user && isAdmin(user) && <option value="voicename">{`Voice: ${voiceName === 'bm_george' ? 'George' : 'Heart'} (switch)`}</option>}
               </select>
             </div>
 
@@ -2481,6 +2523,12 @@ ${DRAGON_STANDARD}`, 600);
                           {label}
                         </button>
                       ))}
+                      {user && isAdmin(user) && (
+                        <button onClick={() => { if (speakingId === t.id) { stopVoice(); return; } unlockAudio(); speakTurn(t); }} title="hear this turn in the Reader's voice"
+                          className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-amber-500/60 text-amber-200 hover:bg-amber-950/70">
+                          {speakingId === t.id ? 'Stop' : 'Listen'}
+                        </button>
+                      )}
                       {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip */}
                       <button onClick={() => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' })} title="ask the field where it is — a locating signature is drawn and read as a pointer"
                         className="rounded-full border bg-zinc-950 px-2.5 py-0.5 text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">
