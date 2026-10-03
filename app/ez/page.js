@@ -1110,7 +1110,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (t.heading) out.push({ text: `${t.heading}.`, kind: 'heading', para: 0, gap: GAP.heading });
     if (t.gist) pushText(t.gist, GAP.heading, 'gist');
     pushText(t.text, GAP.paragraph, 'text');
-    if (t.medicine) { out.push({ text: 'The medicine.', kind: 'heading', para: 0, gap: GAP.heading }); pushText(t.medicine, GAP.paragraph, 'medicine'); }
+    if (t.medicine) { // .639: the spoken heading matches the box — "Where this can grow" on a Balanced draw (founder: "it always says the medicine")
+      const field = t.draw ? [t.draw] : (Array.isArray(draws) ? draws : []);
+      const grow = field.length > 0 && field.every((d) => Number(d?.status) === 1);
+      out.push({ text: grow ? 'Where this can grow.' : 'The medicine.', kind: 'heading', para: 0, gap: GAP.heading }); pushText(t.medicine, GAP.paragraph, 'medicine');
+    }
     if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0, 'question'); }
     if (out.length) out[out.length - 1].gap = 0;
     return out;
