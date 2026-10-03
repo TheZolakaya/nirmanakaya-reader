@@ -2003,7 +2003,7 @@ ${DRAGON_STANDARD}`, 600);
                           return (
                             <button key={f} onClick={() => fetchFloor(f)} disabled={!!brazier[f]}
                               className={`flex-1 basis-0 min-w-[7rem] max-w-[12rem] rounded-full border px-4 py-2 text-[0.875rem] font-serif transition-colors ${tone} ${brazier[f] ? 'opacity-40 cursor-default' : ''}`}>
-                              {FLOOR_LABEL[f]}
+                              {FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1)} {/* .622: a button is a title — "The meaning", not "the meaning" (the prose keeps the lowercase) */}
                             </button>
                           );
                         })}
