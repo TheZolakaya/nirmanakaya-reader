@@ -1027,7 +1027,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // Kokoro on Replicate (Heart, or George), admin-only while benched. The Ask tap unlocks audio (a browser needs a gesture) and wakes
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
-  const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut === true;
+  const voiceOut = !!user && isAdmin(user) && chrome.prefs.voiceOut !== false; // .624: ON by default, George (founder: "default, without making any selections, to read aloud, and George"); still admins only while benched
   const voiceName = ['af_heart', 'af_river', 'bf_emma'].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .608: George by default; .620: River (warm) is the offered second voice; Heart (sleeps) only by an old saved preference
   const VOICE_LABEL = { bm_george: 'George', af_river: 'River', bf_emma: 'Emma', af_heart: 'Heart' };
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
