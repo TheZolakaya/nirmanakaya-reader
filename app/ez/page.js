@@ -1212,11 +1212,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (out.length) out[out.length - 1].gap = 0;
     return out;
   };
-  const speakTurn = async (t) => {
+  const speakTurn = async (t, startAt = 0) => { // .663: startAt — read from a tapped paragraph
     // .609: Replicate holds a new account to one call per ten seconds. Sending every piece at once got most refused and SKIPPED (the founder
     // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
-    const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
+    const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = startAt > 0 ? startAt : null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
     const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces;
     const fetchPiece = async (text) => {
       for (let k = 0; k < 8; k++) {
@@ -1235,7 +1235,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // the network between sentences. The throttle is gone (600/min), so three pieces are kept in flight ahead of the one playing.
     const AHEAD = 3; const jobs = new Array(pieces.length).fill(null);
     const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) jobs[j] = fetchPiece(pieces[j].text); };
-    ensureAhead(0);
+    ensureAhead(startAt > 0 ? Math.min(pieces.length - 1, startAt) : 0);
     for (let i = 0; i < pieces.length; i++) {
       if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
       if (voiceSkipRef.current) break;
@@ -1254,27 +1254,30 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); speakingTurnRef.current = null; voiceSkipRef.current = false; setPaused(false); setVoiceMsg(''); }
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
-  useEffect(() => { // .629 TAP TO PAUSE: while a turn is being read, a tap on the page (not on a button, link, box or menu) pauses it; the next tap resumes
-    if (!speakingId) return;
-    const jumpFrom = (para) => { // .653: a tap on a paragraph of the turn being read jumps the voice there
-      const key = para.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/);
-      if (m && m[1] === speakingTurnRef.current) { const idx = piecesRef.current.findIndex((pc) => pc.kind === m[2] && pc.para === Number(m[3])); if (idx >= 0) { jumpToPiece(idx); return true; } }
-      return false;
-    };
+  const spokenRef = useRef(null); spokenRef.current = spoken; const turnsRef = useRef([]); turnsRef.current = turns;
+  useEffect(() => { // .629 TAP TO PAUSE; .653 tap a paragraph to jump; .663 (founder): a tap on the paragraph BEING READ pauses and resumes it; a tap on another
+    // paragraph jumps there; when nothing is playing, a tap on a paragraph of the latest turn starts the reading from it — so no standing menu is needed
+    if (!voiceOut) return;
+    const parse = (el) => { const key = el.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/); return m ? { id: m[1], kind: m[2], para: Number(m[3]) } : null; };
     const onTap = (e) => {
+      if (e.target?.closest?.('[data-pause-pop]')) return;
       const control = e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]');
-      if (pausedRef.current) { // .661 (Keel §3): while paused, a tap anywhere outside the pop-up resumes the voice AND dismisses the pop-up — a control tap too
-        if (e.target?.closest?.('[data-pause-pop]')) return;
-        const para = !control && e.target?.closest?.('[data-spoken]'); if (para && jumpFrom(para)) return;
-        togglePause(); return;
+      const paraEl = !control && e.target?.closest?.('[data-spoken]'); const p = paraEl ? parse(paraEl) : null;
+      if (!speakingId) { // idle: a paragraph of the latest reader turn starts the reading there
+        if (!p) return; const t = [...turnsRef.current].reverse().find((x) => x.role === 'reader'); if (!t || p.id !== t.id) return;
+        const idx = piecesOf(t).findIndex((pc) => pc.kind === p.kind && pc.para === p.para); speakTurn(t, Math.max(0, idx)); return;
+      }
+      if (p && p.id === speakingTurnRef.current) {
+        const cur = spokenRef.current; const same = cur && cur.kind === p.kind && (!['text', 'medicine', 'next'].includes(p.kind) || cur.para === p.para);
+        if (same) { togglePause(); return; } // the paragraph being read: pause / resume
+        const idx = piecesRef.current.findIndex((pc) => pc.kind === p.kind && pc.para === p.para); if (idx >= 0) { jumpToPiece(idx); return; }
       }
       if (control) return;
-      const para = e.target?.closest?.('[data-spoken]'); if (para && jumpFrom(para)) return;
-      togglePause();
+      togglePause(); // anywhere else that is not a control: pause / resume
     };
     document.addEventListener('click', onTap);
     return () => document.removeEventListener('click', onTap);
-  }, [speakingId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [speakingId, voiceOut]); // eslint-disable-line react-hooks/exhaustive-deps
   // .640: the quiet manner (.614) was judged by the founder — allegory, not directness — and retired; the Handing is the one manner
   const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
   const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
@@ -2343,11 +2346,10 @@ ${DRAGON_STANDARD}`, 600);
             {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
           </button>
         } />}
-      {voiceOut && user ? ( // .653: while paused — continue, skip the rest of this section, or turn the voice off; .662 the bar is ALWAYS up while the voice is on (founder: 'our play audio tool will always be available' — on a phone every paragraph is a jump, so there is nowhere neutral to tap)
+      {speakingId ? ( // .653/.662/.663: the bar shows WHILE the voice reads — pause / continue, skip this, voice off (founder: no standing menu; a tap on the paragraph being read pauses it, a tap on another jumps, a tap when idle starts there)
         <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
-          <button onClick={() => (speakingId ? togglePause() : (lastReader && speakTurn(lastReader)))} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">{speakingId ? (paused ? '▶ Continue' : '⏸ Pause') : '▶ Read'}</button>
-          {speakingId && <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>}
-          {!speakingId && voiceMsg && <span className="px-1 text-zinc-400">{voiceMsg}</span>}
+          <button onClick={togglePause} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">{paused ? '▶ Continue' : '⏸ Pause'}</button>
+          <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>
           <button onClick={voiceOff} className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-400 hover:bg-zinc-800">Voice off</button>
         </div>
       ) : voiceMsg && (
