@@ -16,6 +16,7 @@ export async function POST(request) {
     const result = await runReading({ ...body, mode: body.mode || 'discover', fast: body.fast !== undefined ? !!body.fast : false });
     return respond(result, body.format);
   } catch (error) {
+    if (error?.status === 409) return Response.json({ success: false, error: error.message, readingId: error.readingId || null }, { status: 409 }); // a requestId bound to another question
     console.error('External reading error:', error);
     return Response.json({ success: false, error: error.message || 'Failed to generate reading' }, { status: 500 });
   }
@@ -54,6 +55,7 @@ export async function GET(request) {
     });
     return respond(result, format);
   } catch (error) {
+    if (error?.status === 409) return Response.json({ success: false, error: error.message, readingId: error.readingId || null }, { status: 409 }); // a requestId bound to another question
     console.error('External reading error:', error);
     return Response.json({ success: false, error: error.message || 'Failed to generate reading' }, { status: 500 });
   }
