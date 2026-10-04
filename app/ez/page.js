@@ -1342,7 +1342,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // THE GARBLE GUARD (2026-10-02): the scar tests on every reply; a turn that trips one is asked for again, once, with the reason named.
     // ('the newsletter says', a closing letter, the December commands, a pet name, a leak-shaped line — none of them reaches the glass.)
     try {
-      const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot']);
+      const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot', 'bothways', 'narrator', 'conduit', 'promise']); // + Keel's plain tests (2026-10-03); 'unnamed' is a lint flag only — the record gives the Reader no nouns yet, so a re-ask could not fix it
       const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || null }).flags || []).filter((f) => scars.has(f.code));
       const bad = check(obj, data.reading);
       if (obj.aim === 'thing' && (/^\s*(you\b|your\b|my hunch|the draw)/i.test(String(obj.gist || '')) || /^\s*(you\b|your\b|my hunch)/i.test(String(obj.reader || '')))) bad.push({ code: 'aim', detail: 'the question is about a THING and the opening began on the person — the first words of the gist and of the body are the thing\'s name and what the draw says it is or is for; the person comes second' }); // .638
