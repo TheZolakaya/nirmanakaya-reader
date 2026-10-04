@@ -18,7 +18,7 @@ const out = { lane: LANE, n: N, cases: {} };
 for (const c of cases) {
   const rows = [];
   for (let i = 0; i < N; i++) {
-    try { const r = await handingReading({ question: c.question, context: '', cardCount: 1, mode: 'discover', fast: true, voice: 'plain', requestId: null }, c.draws); const it = r.interpretation; const lint = lintOutput({ text: '', parsed: { gist: it.gist, reader: it.text, medicine: it.medicine, question: it.question, chips: it.chips, next: it.next }, preset: { kind: 'opening' }, hostile: false, draw: c.draws[0], draws: c.draws }); rows.push({ flags: lint.flags.map((f) => f.code), gist: it.gist, text: it.text, medicine: it.medicine, question: it.question }); }
+    try { const r = await handingReading({ question: c.question, context: '', cardCount: 1, mode: 'discover', fast: true, voice: 'plain', requestId: null }, c.draws); const it = r.interpretation; const lint = lintOutput({ text: '', parsed: { gist: it.gist, reader: it.text, medicine: it.medicine, question: it.question, chips: it.chips, next: it.next }, preset: { kind: 'opening' }, hostile: false, draw: c.draws[0], draws: c.draws }); const nouns = (await import('../lib/nounField.js')).fieldNouns(c.draws[0], c.question).map((n) => n.toLowerCase()); const has = (t) => nouns.some((n) => String(t || '').toLowerCase().includes(n)); const firstPara = String(it.text || '').split(/\n\n+/)[0]; rows.push({ flags: lint.flags.map((f) => f.code), where: { opening: has(it.gist) || has(firstPara), body: has(it.text), ask: has(it.medicine), hunch: has(it.question) }, gist: it.gist, text: it.text, medicine: it.medicine, question: it.question }); }
     catch (e) { rows.push({ flags: ['error'], error: e.message }); }
     process.stdout.write(`${LANE} ${c.key} ${i + 1}/${N}: ${rows[rows.length - 1].flags.join(' ') || 'clean'}\n`);
   }
@@ -27,5 +27,5 @@ for (const c of cases) {
 fs.mkdirSync('data/bakeoff/nounfield', { recursive: true });
 const file = `data/bakeoff/nounfield/${LANE}_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`; fs.writeFileSync(file, JSON.stringify(out, null, 1));
 const tally = (rows, code) => rows.filter((r) => r.flags.includes(code)).length;
-for (const [k, rows] of Object.entries(out.cases)) console.log(`${LANE} ${k}: unnamed ${tally(rows, 'unnamed')}/${rows.length} · listy ${tally(rows, 'listy')}/${rows.length} · bothways ${tally(rows, 'bothways')} · binding ${tally(rows, 'binding')} · promise ${tally(rows, 'promise')}`);
+for (const [k, rows] of Object.entries(out.cases)) { const w = (f) => rows.filter((r) => r.where?.[f]).length; console.log(`${LANE} ${k}: unnamed ${tally(rows, 'unnamed')}/${rows.length} · listy ${tally(rows, 'listy')}/${rows.length} · bothways ${tally(rows, 'bothways')} · binding ${tally(rows, 'binding')} · promise ${tally(rows, 'promise')} · WHERE the field noun lands: opening ${w('opening')} · body ${w('body')} · ask ${w('ask')} · hunch ${w('hunch')}`); }
 console.log('saved', file);
