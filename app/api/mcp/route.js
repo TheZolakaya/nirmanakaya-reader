@@ -56,7 +56,8 @@ async function callTool(name, args = {}) {
   const db = ledger();
   if (name === 'get_reading') {
     if (!args.question) throw new Error('question is required');
-    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: args.cardCount || 1, mode: args.mode || 'discover', fast: args.fast !== false, requestId: args.requestId || null });
+    // parity with the REST GET: the same arguments, the same stance — the transport adds nothing to the reading
+    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
     return text(asText(r), r);
   }
   if (name === 'retrieve_reading' || name === 'fetch') {
