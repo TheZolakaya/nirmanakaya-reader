@@ -803,3 +803,13 @@ textarea.user-input-area::placeholder {
    drawn over the page while iOS reports no top inset, so a floor is set there (a guess to verify on the phone). */
 :root { --safe-top: env(safe-area-inset-top, 0px); }
 @media (display-mode: standalone) and (orientation: landscape) { :root { --safe-top: max(env(safe-area-inset-top, 0px), 28px); } }
+
+/* .662 THE RECOMMENDED DOOR (founder 2026-10-03): "flashing through the full rainbow… all the way to black and all the way up to bright white,
+   really obviously, in a very fast cycle". The outline and its glow run the spectrum together, black → red → … → violet → white, ~1.2 s a lap. */
+@property --rec { syntax: '<color>'; inherits: false; initial-value: #ffffff; }
+@keyframes nkya-rec {
+  0% { --rec: #000000; } 10% { --rec: #ef4444; } 20% { --rec: #f97316; } 30% { --rec: #facc15; } 40% { --rec: #22c55e; }
+  50% { --rec: #06b6d4; } 60% { --rec: #3b82f6; } 70% { --rec: #8b5cf6; } 80% { --rec: #ec4899; } 90% { --rec: #ffffff; } 100% { --rec: #000000; }
+}
+.nkya-rec { outline: 3px solid var(--rec); outline-offset: 2px; box-shadow: 0 0 14px 3px var(--rec); animation: nkya-rec 1.2s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .nkya-rec { animation: none; --rec: #7dd3fc; } }

@@ -1134,7 +1134,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // .644/.647 THE LABELS AND THE NARRATOR — stored clips (public/voice/labels/<voice>/<slug>.wav, scripts/voice_labels.mjs), preloaded,
   // played on their own element in a queue the turn's speech waits for.
   const NARRATOR = { bm_george: 'af_bella', am_michael: 'af_bella', am_puck: 'af_bella', bf_emma: 'bm_george', af_bella: 'bm_george', af_heart: 'bm_george' };
-  const LABEL_SLUGS = ['go-deeper', 'words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
+  const LABEL_SLUGS = ['recommend', 'go-deeper', 'words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
   // .661 (Keel §4): ONE string per stage, for the glass and the narrator both — [printed, clip slug]; the specific printed strings win
   const STAGE = { writing: ['the Reader is writing…', 'the-reader-is-writing'], naming: ['the Reader is naming it…', 'the-reader-is-naming-it'], medicine: ['the Reader is opening the medicine…', 'the-reader-is-opening-the-medicine'], step: ['the Reader is finding the step…', 'the-reader-is-finding-the-step'], choices: ['the Reader is finding more choices…', 'the-reader-is-finding-more-choices'], history: ['the Reader is reading your history…', 'the-reader-is-reading-your-history'], meaning: ['the Reader is opening the meaning…', 'the-reader-is-opening-the-meaning'], moon: ['the Reader is opening the moon…', 'the-reader-is-opening-the-moon'], mechanism: ['the Reader is opening the mechanism…', 'the-reader-is-opening-the-mechanism'] };
   const NARRATION_SLUGS = ['reading-your-now', ...Object.values(STAGE).map((x) => x[1])];
@@ -1161,7 +1161,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (armTimer.current) clearTimeout(armTimer.current); armTimer.current = setTimeout(disarm, 8000);
   };
   const recKeysRef = useRef(new Set()); // .661 (Keel §10): the data-arm keys the latest turn recommends
-  const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : (recKeysRef.current.has(key) ? ' ring-2 ring-sky-300/70 shadow-[0_0_12px_rgba(125,211,252,0.4)]' : ''));
+  const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : (recKeysRef.current.has(key) ? ' nkya-rec' : '')); // .662: a recommended door flashes through the whole spectrum, black to white (founder)
   useEffect(() => { // a tap anywhere but the armed control disarms it
     if (!armed) return;
     const off = (e) => { if (!e.target?.closest?.(`[data-arm="${armed}"]`)) disarm(); };
@@ -1209,7 +1209,6 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       out.push({ text: grow ? 'Where this can grow.' : 'The medicine.', kind: 'heading', para: 0, gap: GAP.heading }); pushText(t.medicine, GAP.paragraph, 'medicine');
     }
     if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0, 'question'); }
-    if (Array.isArray(t.next) && t.next.length) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); t.next.forEach((n, ni) => out.push({ text: `${NEXT_LABEL[n.panel] || n.panel}. ${n.why}`, kind: 'next', para: ni, gap: GAP.paragraph })); } // .661 (Keel §10): the next door, spoken after the question
     if (out.length) out[out.length - 1].gap = 0;
     return out;
   };
@@ -2114,8 +2113,23 @@ ${DRAGON_STANDARD}`, 600);
   // The pills come from the last reader turn that CARRIES pills: an act turn ("one small thing")
   // goes quiet on purpose, but the conversation must still be continuable from where it was
   // (founder, 2026-09-16 night: "after selecting one small thing, the pills are all gone").
+  const [recOpen, setRecOpen] = useState(null); // .662: the turn whose recommendations are revealed
+  const revealNext = (t) => { // .662: Recommend — reveal the doors as buttons, and the Reader's voice says them
+    if (recOpen === t.id) { setRecOpen(null); return; }
+    sayLabel('recommend'); setRecOpen(t.id);
+    if (voiceOut && Array.isArray(t.next) && t.next.length) speakTurn({ id: `${t.id}-next`, text: t.next.map((n) => `${NEXT_LABEL[n.panel] || n.panel}. ${n.why}`).join('\n\n') });
+  };
+  const openDoor = (t, p) => { // .662: a recommended door, opened — the same act as its own pill
+    if (p === 'reflect' || p === 'forge') { sayLabel(p); setFieldMode(p); }
+    else if (p === 'clarify' || p === 'unpack' || p === 'example') { sayLabel(p); move(t.id, p); }
+    else if (p === 'find') { sayLabel('find-it'); send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }); }
+    else if (p === 'medicine') { if (!medOpen) toggleMedicine(); }
+    else if (p === 'dragon') { if (!dragonOpen) toggleDragon(); }
+    else if (p === 'step') { if (!stepOpen) toggleStep(); }
+    else { if (!brazierOpen) toggleBrazier(); if (p !== 'whys') { setDeepTab(p); if (!brazier[p]) setTimeout(() => fetchFloor(p), 400); } }
+  };
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
-  recKeysRef.current = (() => { // .661 (Keel §10): the recommended doors → the pills that light (the latest turn's only)
+  recKeysRef.current = (() => { // .661 (Keel §10): the recommended doors → the pills that light (the latest turn's only); .662 only once Recommend has been tapped
     const t = [...turns].reverse().find((x) => x.role === 'reader'); const out = new Set(); if (!t || !Array.isArray(t.next)) return out;
     for (const n of t.next) { const p = n.panel; if (['moon', 'meaning', 'mechanism'].includes(p)) { out.add('whys'); out.add(`floor-${p}`); } else if (p === 'whys') out.add('whys'); else if (p === 'reflect' || p === 'forge') out.add(`switch-${p}`); else if (['clarify', 'unpack', 'example'].includes(p)) out.add(`${t.id}-${p}`); else if (p === 'find') out.add(`${t.id}-find`); else if (['medicine', 'dragon', 'step'].includes(p)) out.add(p); }
     return out;
@@ -2157,7 +2171,7 @@ ${DRAGON_STANDARD}`, 600);
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
-                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={armedCls('whys') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2165,7 +2179,7 @@ ${DRAGON_STANDARD}`, 600);
                     {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={armedCls('dragon') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" playing={dragonOpen} className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2173,7 +2187,7 @@ ${DRAGON_STANDARD}`, 600);
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : kind === 'medicine' ? (
-                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={armedCls('medicine') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" playing={medOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2181,7 +2195,7 @@ ${DRAGON_STANDARD}`, 600);
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
-                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={armedCls('step') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" playing={stepOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     {stepOpen && <span className="relative z-10">{chev(true)}</span>}
@@ -2274,7 +2288,7 @@ ${DRAGON_STANDARD}`, 600);
                 return (
                   <div className="mt-4 flex flex-wrap items-stretch gap-2">
                     {base.filter((k) => mine.includes(k)).map((k) => (
-                      <div key={k} style={k === 'dragon' ? dragonGlow : k === 'medicine' ? medicineGlow : glow} className={`flex-1 min-w-0 basis-[calc(50%-0.25rem)] sm:basis-0 ${frame}`}>{header(k)}</div>
+                      <div key={k} style={k === 'dragon' ? dragonGlow : k === 'medicine' ? medicineGlow : glow} className={`flex-1 min-w-0 basis-[calc(50%-0.25rem)] sm:basis-0 ${frame}${armedCls(k === 'brazier' ? 'whys' : k)}`}>{header(k)}</div>
                     ))}
                   </div>
                 );
@@ -2282,7 +2296,7 @@ ${DRAGON_STANDARD}`, 600);
               return (
                 <div ref={which === 'open' ? panelsRef : undefined}>
                   {mine.map((kind, i) => (
-                    <div key={kind} data-ez-panel={kind} style={kind === 'dragon' ? { '--pill': '244 63 94', borderColor: '#881337' } : kind === 'medicine' ? { '--pill': '52 211 153', borderColor: '#064e3b' } : glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
+                    <div key={kind} data-ez-panel={kind} style={kind === 'dragon' ? { '--pill': '244 63 94', borderColor: '#881337' } : kind === 'medicine' ? { '--pill': '52 211 153', borderColor: '#064e3b' } : glow} className={`${i === 0 ? 'mt-4' : 'mt-3'} ${frame}${armedCls(kind === 'brazier' ? 'whys' : kind)}`}>{header(kind)}{which === 'open' ? body(kind) : null}</div>
                   ))}
                 </div>
               );
@@ -2329,10 +2343,11 @@ ${DRAGON_STANDARD}`, 600);
             {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
           </button>
         } />}
-      {paused && speakingId ? ( // .653: while paused — continue, skip the rest of this section, or turn the voice off
+      {voiceOut && user ? ( // .653: while paused — continue, skip the rest of this section, or turn the voice off; .662 the bar is ALWAYS up while the voice is on (founder: 'our play audio tool will always be available' — on a phone every paragraph is a jump, so there is nowhere neutral to tap)
         <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
-          <button onClick={togglePause} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">▶ Continue</button>
-          <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>
+          <button onClick={() => (speakingId ? togglePause() : (lastReader && speakTurn(lastReader)))} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">{speakingId ? (paused ? '▶ Continue' : '⏸ Pause') : '▶ Read'}</button>
+          {speakingId && <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>}
+          {!speakingId && voiceMsg && <span className="px-1 text-zinc-400">{voiceMsg}</span>}
           <button onClick={voiceOff} className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-400 hover:bg-zinc-800">Voice off</button>
         </div>
       ) : voiceMsg && (
@@ -2793,9 +2808,14 @@ ${DRAGON_STANDARD}`, 600);
                   {t.role === 'reader' && t.question && (
                     <p data-spoken={spokenKey(t.id, 'question', 0)} className={'mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words' + litIf(t.id, 'question', 0)}>{t.question}</p>
                   )}
-                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && ( // .661 (Keel §10): the next door — spoken, printed, and its pill lit; a recommendation, never an auto-open
-                    <div className="mt-3 space-y-1">
-                      {t.next.map((n, ni) => <p key={ni} data-spoken={spokenKey(t.id, 'next', ni)} className={'text-[0.9375rem] leading-snug text-sky-200/90 break-words' + litIf(t.id, 'next', ni)}><span className="text-sky-300">{NEXT_LABEL[n.panel] || n.panel}</span> — {n.why}</p>)}
+                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && ( // .662 (founder): the recommendations are revealed by the Recommend pill, and they ARE the buttons
+                    <div className="mt-3 flex flex-wrap justify-center gap-2">
+                      {t.next.map((n, ni) => (
+                        <button key={ni} data-arm={`${t.id}-rec-${n.panel}`} onClick={() => openDoor(t, n.panel)} className="max-w-[18rem] rounded-xl border border-sky-500/60 bg-sky-950/30 px-3 py-2 text-left hover:bg-sky-900/40 transition-colors">
+                          <div className="text-[0.9375rem] font-serif text-sky-100">{NEXT_LABEL[n.panel] || n.panel}</div>
+                          <div data-spoken={spokenKey(`${t.id}-next`, 'text', ni)} className={'mt-0.5 text-[0.8125rem] leading-snug text-sky-200/80 break-words' + litIf(`${t.id}-next`, 'text', ni)}>{n.why}</div>
+                        </button>
+                      ))}
                     </div>
                   )}
 
@@ -2821,6 +2841,12 @@ ${DRAGON_STANDARD}`, 600);
                         className={armedCls(`${t.id}-find`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70"}>
                         Find it
                       </button>
+                      {Array.isArray(t.next) && t.next.length > 0 && ( // .662: Recommend — one tap reveals the Reader's recommended doors as buttons (the buttons are the second choice, so no arming)
+                        <button data-arm={`${t.id}-recommend`} onClick={() => revealNext(t)} title="the doors the Reader thinks you would want next, for this draw"
+                          className={armedCls(`${t.id}-recommend`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-sky-500/60 text-sky-200 hover:bg-sky-950/70"}>
+                          {recOpen === t.id ? 'Hide' : 'Recommend'}
+                        </button>
+                      )}
                     </div>
                   )}
 
@@ -3009,10 +3035,7 @@ ${DRAGON_STANDARD}`, 600);
 
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-              <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Catch me up</button>
-              <button onClick={reset} className="underline decoration-dotted hover:text-zinc-300">New question</button>
-              <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button>
-              {!wrapped && <button onClick={closeUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300 disabled:opacity-40">Summarize &amp; wrap up</button>}
+              <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button> {/* .662: Catch me up, New question and Summarize left this row — the pills carry them (founder) */}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
                 {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
               </span>

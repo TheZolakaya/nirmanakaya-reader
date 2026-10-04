@@ -23,7 +23,7 @@ export const LABELS = {
   'the-reader-is-finding-more-choices': 'The Reader is finding more choices.', 'the-reader-is-reading-your-history': 'The Reader is reading your history.',
   // .661 (Keel §4, §11): the floors' own lines, and the renamed parent
   'the-reader-is-opening-the-meaning': 'The Reader is opening the meaning.', 'the-reader-is-opening-the-moon': 'The Reader is opening the moon.', 'the-reader-is-opening-the-mechanism': 'The Reader is opening the mechanism.',
-  'go-deeper': 'Go deeper.',
+  'go-deeper': 'Go deeper.', 'recommend': 'A recommendation.',
 };
 // .661 (Keel §1): THE DRAW'S BEATS — the signature, the status, the seat — spoken by the narrator on the frame each is revealed. Narrator voices only.
 export const NAMES = (() => { const o = {}; for (let i = 0; i < 78; i++) { const n = getComponent(i)?.name; if (n) o[`name-${i}`] = `You drew ${n}.`; } o['status-1'] = 'In balance.'; o['status-2'] = 'Too much.'; o['status-3'] = 'Too little.'; o['status-4'] = 'Unacknowledged.'; for (let i = 0; i < 22; i++) o[`seat-${i}`] = `In ${ARCHETYPES[i].name}.`; o['seat-own'] = 'In its own seat.'; return o; })();
