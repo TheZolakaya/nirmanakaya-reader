@@ -227,6 +227,11 @@ const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer word
 // the meaning, the moon, the mechanism — each a floor of its own; only the mechanism carries the
 // one invitation into the full reader.
 const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the moon', mechanism: 'the mechanism' };
+const OPT = { color: '#d4d4d8', background: '#18181b' };
+// .661 (Keel §10): the doors the Reader may recommend at the close, as the glass names them
+// a door as the model may name it → its key (the model sometimes writes the glass name: 'Find It', 'The moon', 'Words of the Wise')
+const panelKey = (x) => { const k = String(x || '').trim().toLowerCase().replace(/^the\s+/, '').replace(/[^a-z ]/g, '').trim(); return ({ 'words of the wise': 'whys', 'words to the whys': 'whys', 'go deeper': 'whys', why: 'whys', whys: 'whys', meaning: 'meaning', moon: 'moon', mechanism: 'mechanism', reflect: 'reflect', forge: 'forge', clarify: 'clarify', unpack: 'unpack', example: 'example', find: 'find', 'find it': 'find', medicine: 'medicine', dragon: 'dragon', 'face the dragon': 'dragon', step: 'step', 'one small step': 'step', 'small step': 'step' })[k] || null; };
+const NEXT_LABEL = { whys: 'Words to the Whys', meaning: 'The meaning', moon: 'The moon', mechanism: 'The mechanism', reflect: 'Reflect', forge: 'Forge', clarify: 'Clarify', unpack: 'Unpack', example: 'Example', find: 'Find it', medicine: 'The medicine', dragon: 'Face the dragon', step: 'One small step' }; // .661 (Keel §5): an option's own colours — the list no longer goes near-white on click
 // FACE THE DRAGON — Keel's eight, parked here for the CLOSE-row build (.444). Two are
 // opportunity-dragons (B1, B3) so 'dragon' never collapses into 'problem'.
 // GATED UNTIL THEIR EXEMPLARS FREEZE (founder's ruling R6): the meaning waits on his judgment of
@@ -440,7 +445,7 @@ function HoverVideo({ src, className, style, playing = false }) {
       host.removeEventListener('touchstart', play); host.removeEventListener('touchend', stop); host.removeEventListener('touchcancel', stop);
     };
   }, []);
-  return <video ref={ref} src={src} loop muted playsInline preload="auto" className={className} style={style} aria-hidden="true" />;
+  return <video ref={ref} src={src} loop muted playsInline preload="auto" disablePictureInPicture controlsList="nodownload noremoteplayback" className={className} style={style} aria-hidden="true" />; // .661 (Keel §6)
 }
 
 // THE READER IS WRITING — the one waiting indicator for every small wait (founder, 2026-09-17,
@@ -470,7 +475,7 @@ function Writing({ label = 'the Reader is writing…', size = 160, className = '
   return (
     <div ref={ref} className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
       <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
-        <video src={src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+        <video src={src} autoPlay loop muted playsInline disablePictureInPicture controlsList="nodownload noremoteplayback" className="w-full h-full object-cover" />
       </span>
       <span className="font-serif text-[1.0625rem] tracking-wide text-center"
         style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>
@@ -782,6 +787,7 @@ export default function EZPage() {
       await new Promise(r => setTimeout(r, 100));
     }
     if (!surface) return;
+    if (voiceOut) loadClips(NARRATOR[voiceName] || 'af_bella', ['card', 'status', 'seat'].map((b) => beatSlug(draw, b))); // .661: the three beat clips, warmed before the flight
     placeWordmark(surface);
     if (scrollTop) { try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch {} }
     setOverlayIn(true);
@@ -803,7 +809,8 @@ export default function EZPage() {
         runLanding({
           surface, cameraRef,
           draws: { [draw.position]: { transient: draw.transient, status: draw.status } },
-          table: {}, slotsSelector, signal, flyWordmark: false
+          table: {}, slotsSelector, signal, flyWordmark: false,
+          onBeat: (beat) => { try { sayNarration(beatSlug(draw, beat)); } catch {} }, // .661 (Keel §1): spoken on the beat, never before the frame — the same path for the opening and every later draw
         }),
         new Promise((r) => setTimeout(() => { signal.skip = true; r(); }, 25000)),
       ]);
@@ -875,7 +882,7 @@ export default function EZPage() {
     const quiet = !!opts.quiet; // .591: the automatic ask on page open says nothing when it fails
     const say = (m) => { if (!quiet) setError(m); };
     if (!user || suggesting) return;
-    setSuggesting(true); if (!quiet) sayNarration('the-reader-is-reading-your-history'); // .647
+    setSuggesting(true); if (!quiet) sayNarration(STAGE.history[1]); // .647
     try {
       const session = await getSession();
       const token = session?.session?.access_token;
@@ -1108,7 +1115,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const pausedRef = useRef(false); // .629 TAP TO PAUSE
   const [spoken, setSpoken] = useState(null); // .634 FOLLOW THE VOICE: { id, kind, para } of the piece being spoken
   const spokenKey = (id, kind, para) => `${id}:${kind}:${para}`;
-  const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (kind !== 'text' && kind !== 'medicine' || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : (speakingId && speakingId === id ? ' transition-colors duration-300 cursor-pointer' : ' transition-colors duration-300')); // .653: the rest of the turn being read is tappable (jump)
+  const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (!['text', 'medicine', 'next'].includes(kind) || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : (speakingId && speakingId === id ? ' transition-colors duration-300 cursor-pointer' : ' transition-colors duration-300')); // .653: the rest of the turn being read is tappable (jump)
   useEffect(() => { if (!spoken) return; try { const el = document.querySelector(`[data-spoken="${spokenKey(spoken.id, spoken.kind, spoken.para)}"]`); if (el) { const r = el.getBoundingClientRect(); const vh = window.innerHeight || 800; if (r.top < 80 || r.bottom > vh - 160) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } } catch {} }, [spoken]);
   const stopVoice = () => { speakRun.current++; setSpeakingId(null); setSpoken(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
   const [paused, setPaused] = useState(false); // .653: mirrors pausedRef for the controls
@@ -1127,15 +1134,19 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // .644/.647 THE LABELS AND THE NARRATOR — stored clips (public/voice/labels/<voice>/<slug>.wav, scripts/voice_labels.mjs), preloaded,
   // played on their own element in a queue the turn's speech waits for.
   const NARRATOR = { bm_george: 'af_bella', am_michael: 'af_bella', am_puck: 'af_bella', bf_emma: 'bm_george', af_bella: 'bm_george', af_heart: 'bm_george' };
-  const LABEL_SLUGS = ['words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
-  const NARRATION_SLUGS = ['the-reader-is-writing', 'the-reader-is-naming-it', 'the-reader-is-opening-the-medicine', 'the-reader-is-finding-the-step', 'the-reader-is-finding-more-choices', 'the-reader-is-reading-your-history'];
+  const LABEL_SLUGS = ['go-deeper', 'words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
+  // .661 (Keel §4): ONE string per stage, for the glass and the narrator both — [printed, clip slug]; the specific printed strings win
+  const STAGE = { writing: ['the Reader is writing…', 'the-reader-is-writing'], naming: ['the Reader is naming it…', 'the-reader-is-naming-it'], medicine: ['the Reader is opening the medicine…', 'the-reader-is-opening-the-medicine'], step: ['the Reader is finding the step…', 'the-reader-is-finding-the-step'], choices: ['the Reader is finding more choices…', 'the-reader-is-finding-more-choices'], history: ['the Reader is reading your history…', 'the-reader-is-reading-your-history'], meaning: ['the Reader is opening the meaning…', 'the-reader-is-opening-the-meaning'], moon: ['the Reader is opening the moon…', 'the-reader-is-opening-the-moon'], mechanism: ['the Reader is opening the mechanism…', 'the-reader-is-opening-the-mechanism'] };
+  const NARRATION_SLUGS = ['reading-your-now', ...Object.values(STAGE).map((x) => x[1])];
   const labelAudioRef = useRef(null); const labelQueue = useRef(Promise.resolve()); const clipCache = useRef(new Map());
   const clipSrc = (voice, slug) => clipCache.current.get(`${voice}/${slug}`) || `/voice/labels/${voice}/${slug}.wav`;
+  const loadClips = async (voice, slugs) => { for (const slug of slugs) { const key = `${voice}/${slug}`; if (clipCache.current.has(key)) continue; try { const r = await fetch(`/voice/labels/${voice}/${slug}.wav`); if (!r.ok) continue; const b = await r.blob(); clipCache.current.set(key, URL.createObjectURL(b)); } catch {} } };
+  // .661 (Keel §1): the draw's three beats, as stored clips — the signature ("You drew Faith."), the status, the seat ("In Imagination.") — warmed when the draw is made
+  const beatSlug = (draw, beat) => beat === 'card' ? `name-${draw.transient}` : beat === 'status' ? `status-${draw.status}` : (Number(draw.transient) === Number(draw.position) ? 'seat-own' : `seat-${draw.position}`);
   useEffect(() => { // preload the current voice's labels and its narrator's lines once the voice is on (≈3 MB, cached as object URLs)
     if (!voiceOut || typeof window === 'undefined') return;
     let dead = false;
-    const load = async (voice, slugs) => { for (const slug of slugs) { const key = `${voice}/${slug}`; if (clipCache.current.has(key)) continue; try { const r = await fetch(`/voice/labels/${voice}/${slug}.wav`); if (!r.ok || dead) continue; const b = await r.blob(); clipCache.current.set(key, URL.createObjectURL(b)); } catch {} } };
-    load(NARRATOR[voiceName] || 'af_bella', [...LABEL_SLUGS, ...NARRATION_SLUGS]); // .648: labels and narration both in the narrator's voice
+    loadClips(NARRATOR[voiceName] || 'af_bella', [...LABEL_SLUGS, ...NARRATION_SLUGS]); // .648: labels and narration both in the narrator's voice
     return () => { dead = true; };
   }, [voiceOut, voiceName]); // eslint-disable-line react-hooks/exhaustive-deps
   const playClip = (voice, slug) => new Promise((resolve) => {
@@ -1149,7 +1160,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     armedRef.current = key; setArmed(key); if (slug) sayLabel(slug);
     if (armTimer.current) clearTimeout(armTimer.current); armTimer.current = setTimeout(disarm, 8000);
   };
-  const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : '');
+  const recKeysRef = useRef(new Set()); // .661 (Keel §10): the data-arm keys the latest turn recommends
+  const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : (recKeysRef.current.has(key) ? ' ring-2 ring-sky-300/70 shadow-[0_0_12px_rgba(125,211,252,0.4)]' : ''));
   useEffect(() => { // a tap anywhere but the armed control disarms it
     if (!armed) return;
     const off = (e) => { if (!e.target?.closest?.(`[data-arm="${armed}"]`)) disarm(); };
@@ -1172,15 +1184,20 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
   // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
   // the question. The hosted model has no pause markup, so the player supplies the silence.
-  const GAP = { sentence: 60, paragraph: 150, heading: 220, beforeQuestion: 240 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again')
+  const GAP = { sentence: 60, paragraph: 150, heading: 1000, beforeQuestion: 240, colon: 500 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again'); .661 (Keel §7) a title is ~1 s from its text, a colon is a ~500 ms beat
   const piecesOf = (t) => {
     const out = [];
     const pushText = (text, gapAfter, kind = 'text') => {
       const paras = ensureParagraphBreaks(String(text || '')).split(/\n\n+/).map((x) => x.trim()).filter(Boolean);
       paras.forEach((para, pi) => {
         const sents = para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [para]; const subs = []; let cur = '';
-        for (const x of sents) { if ((cur + x).length > 420 && cur) { subs.push(cur.trim()); cur = ''; } cur += x; } if (cur.trim()) subs.push(cur.trim());
-        subs.forEach((sub, si) => out.push({ text: sub, kind, para: pi, gap: si < subs.length - 1 ? GAP.sentence : (pi < paras.length - 1 ? GAP.paragraph : gapAfter) }));
+        const flush = (colon) => { if (cur.trim()) subs.push({ text: cur.trim(), colon }); cur = ''; };
+        for (const x of sents) {
+          const parts = x.split(/:\s+(?=["“A-Za-z])/); // .661 (Keel §7): a colon is a beat — the piece ends there (said as a full stop) and the player holds ~500 ms
+          parts.forEach((p, k) => { const last = k === parts.length - 1; const seg = last ? p : p.trimEnd() + '.'; if ((cur + seg).length > 420 && cur) flush(false); cur += last ? seg : seg + ' '; if (!last) flush(true); });
+        }
+        flush(false);
+        subs.forEach((sub, si) => out.push({ text: sub.text, kind, para: pi, gap: sub.colon ? GAP.colon : (si < subs.length - 1 ? GAP.sentence : (pi < paras.length - 1 ? GAP.paragraph : gapAfter)) }));
       });
     };
     if (t.heading) out.push({ text: `${t.heading}.`, kind: 'heading', para: 0, gap: GAP.heading });
@@ -1192,6 +1209,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       out.push({ text: grow ? 'Where this can grow.' : 'The medicine.', kind: 'heading', para: 0, gap: GAP.heading }); pushText(t.medicine, GAP.paragraph, 'medicine');
     }
     if (t.question) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); pushText(t.question, 0, 'question'); }
+    if (Array.isArray(t.next) && t.next.length) { if (out.length) out[out.length - 1].gap = Math.max(out[out.length - 1].gap, GAP.beforeQuestion); t.next.forEach((n, ni) => out.push({ text: `${NEXT_LABEL[n.panel] || n.panel}. ${n.why}`, kind: 'next', para: ni, gap: GAP.paragraph })); } // .661 (Keel §10): the next door, spoken after the question
     if (out.length) out[out.length - 1].gap = 0;
     return out;
   };
@@ -1239,13 +1257,20 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
   useEffect(() => { // .629 TAP TO PAUSE: while a turn is being read, a tap on the page (not on a button, link, box or menu) pauses it; the next tap resumes
     if (!speakingId) return;
+    const jumpFrom = (para) => { // .653: a tap on a paragraph of the turn being read jumps the voice there
+      const key = para.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/);
+      if (m && m[1] === speakingTurnRef.current) { const idx = piecesRef.current.findIndex((pc) => pc.kind === m[2] && pc.para === Number(m[3])); if (idx >= 0) { jumpToPiece(idx); return true; } }
+      return false;
+    };
     const onTap = (e) => {
-      if (e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]')) return;
-      const para = e.target?.closest?.('[data-spoken]'); // .653: a tap on a paragraph of the turn being read jumps the voice there
-      if (para) {
-        const key = para.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/);
-        if (m && m[1] === speakingTurnRef.current) { const idx = piecesRef.current.findIndex((pc) => pc.kind === m[2] && pc.para === Number(m[3])); if (idx >= 0) { jumpToPiece(idx); return; } }
+      const control = e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]');
+      if (pausedRef.current) { // .661 (Keel §3): while paused, a tap anywhere outside the pop-up resumes the voice AND dismisses the pop-up — a control tap too
+        if (e.target?.closest?.('[data-pause-pop]')) return;
+        const para = !control && e.target?.closest?.('[data-spoken]'); if (para && jumpFrom(para)) return;
+        togglePause(); return;
       }
+      if (control) return;
+      const para = e.target?.closest?.('[data-spoken]'); if (para && jumpFrom(para)) return;
       togglePause();
     };
     document.addEventListener('click', onTap);
@@ -1347,6 +1372,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const bad = check(obj, data.reading);
       if (obj.aim === 'thing' && (/^\s*(you\b|your\b|my hunch|the draw)/i.test(String(obj.gist || '')) || /^\s*(you\b|your\b|my hunch)/i.test(String(obj.reader || '')))) bad.push({ code: 'aim', detail: 'the question is about a THING and the opening began on the person — the first words of the gist and of the body are the thing\'s name and what the draw says it is or is for; the person comes second' }); // .638
       if (/\bweather\b/i.test([obj.gist, obj.reader, obj.medicine, obj.question].map((x) => String(x || '')).join(' '))) bad.push({ code: 'weather', detail: 'the word "weather" reached the glass — it is the house\'s own figure for the past as background, not a word people understand here; say the plain thing (the past, what is around this, the background) instead' }); // .654
+      console.info('[next]', JSON.stringify(obj.next ?? null).slice(0, 300));
+      if (extra?.turn !== 'talk' && !(Array.isArray(obj.next) && obj.next.some((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)))) { console.warn('[next] the reply carried no usable next door; keys:', Object.keys(obj).join(',')); bad.push({ code: 'next', detail: 'the "next" field is empty — after your question, name at least one door this person would want next (whys, meaning, moon, mechanism, reflect, forge, clarify, unpack, example, find, medicine, dragon or step) with one plain line on what opening it will do for THIS draw' }); } // .661 (Keel §10): every reading closes with a recommended door
       { const n = stampOf(obj.reader); if (n > 2) bad.push({ code: 'stamp', detail: `the frame's words ("${stampWords().join('", "')}") appear ${n} times in one turn — name the frame once at the opening, then stay inside it without saying it again` }); } // .612
       if (bad.length) {
         const again = await rawCall(`${userMessage}\n\nYOUR LAST REPLY WAS SET ASIDE: ${bad.map((f) => f.detail).join('; ')}. Answer the turn again, in your own words, without that.`, system, maxTokens, extra);
@@ -1397,6 +1424,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     role: 'reader',
     text: stripDirectiveEcho(stripTrailingQuestion(obj.reader, obj.question)), // .530: no directive echo on glass
     gist: typeof obj.gist === 'string' ? stripDirectiveEcho(obj.gist.trim()) : '', // .555: the thesis, at the top
+    next: Array.isArray(obj.next) ? obj.next.filter((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)).map((n) => ({ panel: panelKey(n.panel), why: n.why.trim() })).slice(0, 4) : [], // .661 (Keel §10): the next door(s), recommended
     medicineCard: typeof obj.medicineCard === 'string' ? obj.medicineCard.trim() : '', // .557: hidden; checked against the record
     hunchFlag: /\byou(?:'ve| have)? (?:never|haven't|not once)\b|without anyone knowing|nobody (?:knows|has heard)|no one (?:knows|has heard)|whole years of this/i.test(String(obj.reader || '')), // .557: a soft watch on biography claims (never on glass)
     question: obj.question || '',
@@ -1518,7 +1546,6 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); sayNarration('reading-your-now'); // .647 the narrator; .654 'The Nirmanakaya Reader is reading your now.' // .516: the Unsure and Another folds close when a reading starts or resets
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
-    sayLine(newDraws.map((d) => drawLabel(d).replace(/ in /, ', in ')).join('. ') + '.'); // .654: the narrator names the draw while the card flies — 'Too much Tune, in Transformation.'
     // one card only, for now; the answer never waits on the motion by more than the last flight
     const willAnimate = animOn && cardCount === 1;
     let landed = Promise.resolve();
@@ -1615,7 +1642,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const lr = [...turns].reverse().find((t) => t.role === 'reader');
       if (lr?.locating && !lr.located && (claimed || lr.locating.step < (lr.locating.balanced ? 2 : 3))) loc = { what: lr.locating.what, step: lr.locating.step + 1 };
     }
-    setError(''); setLoading(true); setInput(''); sayNarration('the-reader-is-writing'); // .647
+    setError(''); setLoading(true); setInput(''); sayNarration(STAGE.writing[1]); // .647
     const newDraw = mode ? generateSpread(1)[0] : null;
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ts: Date.now() };
     const withYou = [...turns, you];
@@ -1742,7 +1769,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const card = fieldCard(); if (!card || stepBusy) return;
     const k = buildKernel(card, DEFS);
     const line = actLineNow() || `What is one small real thing I can do about this in the next minute?`;
-    setStepBusy(true); setError(''); sayNarration('the-reader-is-finding-the-step'); // .647
+    setStepBusy(true); setError(''); sayNarration(STAGE.step[1]); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
@@ -1781,7 +1808,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const fetchMedicine = async () => {
     const card = fieldCard(); if (!card || medBusy) return;
     const k = buildKernel(card, DEFS);
-    setMedBusy(true); setError(''); sayNarration('the-reader-is-opening-the-medicine'); // .647
+    setMedBusy(true); setError(''); sayNarration(STAGE.medicine[1]); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
@@ -1813,7 +1840,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const fetchDragon = async () => {
     const card = fieldCard(); if (!card || dragonBusy) return;
     const k = buildKernel(card, DEFS);
-    setDragonBusy(true); setError(''); sayNarration('the-reader-is-naming-it'); // .647
+    setDragonBusy(true); setError(''); sayNarration(STAGE.naming[1]); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to face the dragon — the thing itself, said straight): "What is the thing I've been walking around, or the thing in front of me I haven't picked up?"`;
@@ -1864,6 +1891,7 @@ ${DRAGON_STANDARD}`, 600);
     return `${step}\n\nWHAT THEY HAVE READ IN "WORDS TO THE WHYS" (they opened these; they are part of the conversation now, so build on them and refer to what they say where it helps — but never repeat them back, and never make the tense line the topic):\n${read.map((r) => `${r === 1 ? 'WHY THIS IS HAPPENING' : String(r).toUpperCase()}:\n${rings[r]}`).join('\n\n')}`;
   };
   const [floorsOpened, setFloorsOpened] = useState([]); // which lanterns they have opened, in order
+  const [deepTab, setDeepTab] = useState('whys'); // .661 (Keel §11): which of Go deeper's four peers is showing
   const [brazierBusy, setBrazierBusy] = useState(0);   // the ring being fetched, or 0
   const [brazierGlow, setBrazierGlow] = useState(false);
   const brazierKeyRef = useRef('');
@@ -1876,7 +1904,7 @@ ${DRAGON_STANDARD}`, 600);
     if (voiceOut) { warmVoice(); } // THE VOICE (.616; .644 the floor says its name)
     const key = `${card.transient}:${card.position}:${card.status}`;
     if (brazierKeyRef.current !== key) { brazierKeyRef.current = key; setBrazier({}); setFloorsOpened([]); }
-    setBrazierBusy(floor); setError(''); sayNarration('the-reader-is-writing'); // .647
+    setBrazierBusy(floor); setError(''); sayNarration((STAGE[floor] || STAGE.writing)[1]); // .647; .661 the floor's own line
     try {
       const k = buildKernel(card, DEFS);
       // the Brazier is the Why derivation in kitchen clothes (Keel's spec §1.2): it gets the kernel,
@@ -1939,6 +1967,7 @@ ${DRAGON_STANDARD}`, 600);
     const next = !brazierOpen;
     setBrazierOpen(next);
     if (next) {
+      setDeepTab('whys'); // .661: the first child is open by default — one tap shows content, not a menu
       showPanels('brazier');
       if (!stepOpen) setPanelFirst('brazier');
       setBrazierGlow(true); setTimeout(() => setBrazierGlow(false), 900);
@@ -1956,7 +1985,7 @@ ${DRAGON_STANDARD}`, 600);
   const [regenning, setRegenning] = useState(false);
   const regenPills = async (over = {}) => {
     if (loading || regenning || !lastReader || !draws) return;
-    setRegenning(true); setError(''); sayNarration('the-reader-is-finding-more-choices'); // .647
+    setRegenning(true); setError(''); sayNarration(STAGE.choices[1]); // .647
     try {
       const drawText = fmtDraw(draws, 'discover', spreadKeyFor(draws.length), false, null, null, null);
       const prior = lastReader.pillsSeen || { chips: lastReader.chips || [], reflect: lastReader.reflect || [], forge: lastReader.forge || [] };
@@ -1998,7 +2027,7 @@ ${DRAGON_STANDARD}`, 600);
   // ---- where am I ----
   const catchUp = async () => {
     if (loading || !draws || turns.length === 0) return;
-    setLoading(true); setError(''); sayNarration('the-reader-is-writing'); // .647
+    setLoading(true); setError(''); sayNarration(STAGE.writing[1]); // .647
     try {
       const msg = `QUESTION: "${sanitizeForAPI(question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' · ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}\n\n${CATCHUP_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CATCHUP_RULES}`, 400);
@@ -2013,7 +2042,7 @@ ${DRAGON_STANDARD}`, 600);
   // start a new reading. Nothing is locked — the box stays live under it.
   const closeUp = async () => {
     if (loading || !draws || turns.length === 0) return;
-    setLoading(true); setError(''); setFieldMode(null); sayNarration('the-reader-is-writing'); // .647
+    setLoading(true); setError(''); setFieldMode(null); sayNarration(STAGE.writing[1]); // .647
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
@@ -2086,6 +2115,11 @@ ${DRAGON_STANDARD}`, 600);
   // goes quiet on purpose, but the conversation must still be continuable from where it was
   // (founder, 2026-09-16 night: "after selecting one small thing, the pills are all gone").
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
+  recKeysRef.current = (() => { // .661 (Keel §10): the recommended doors → the pills that light (the latest turn's only)
+    const t = [...turns].reverse().find((x) => x.role === 'reader'); const out = new Set(); if (!t || !Array.isArray(t.next)) return out;
+    for (const n of t.next) { const p = n.panel; if (['moon', 'meaning', 'mechanism'].includes(p)) { out.add('whys'); out.add(`floor-${p}`); } else if (p === 'whys') out.add('whys'); else if (p === 'reflect' || p === 'forge') out.add(`switch-${p}`); else if (['clarify', 'unpack', 'example'].includes(p)) out.add(`${t.id}-${p}`); else if (p === 'find') out.add(`${t.id}-find`); else if (['medicine', 'dragon', 'step'].includes(p)) out.add(p); }
+    return out;
+  })();
   // THE ENDING: the Reader may say the reading has done its work (closing), and the write-up turn
   // is the stop itself. Neither locks anything — the box stays live under both.
   const wrapped = turns.length > 0 && turns[turns.length - 1]?.role === 'wrap';
@@ -2123,11 +2157,11 @@ ${DRAGON_STANDARD}`, 600);
               const chev = (open) => <svg className={`w-4 h-4 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>;
               const header = (kind) => kind === 'brazier'
                 ? (
-                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'words-to-the-whys')} className={armedCls('whys') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={armedCls('whys') + " relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
-                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Words to the Whys</span>
+                    <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Go deeper</span>
                     {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
@@ -2157,50 +2191,36 @@ ${DRAGON_STANDARD}`, 600);
               const body = (kind) => kind === 'brazier'
                 ? (brazierOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
-                    {brazier[1] && ensureParagraphBreaks(brazier[1]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                    {/* .661 (Keel §11, founder-ruled 2026-10-03): GO DEEPER — four peers as tabs: Words to the Whys · The meaning · The moon · The mechanism.
+                        The first is open by default, so one tap on the door shows content, not another menu. A floor tab fetches its floor the first time. */}
+                    <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
+                      {[['whys', 'Words to the Whys', 'border-zinc-400/80 bg-zinc-800/40 text-zinc-100', 'words-to-the-whys'], ...['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => [f, FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1), { meaning: 'border-amber-400/90 bg-amber-950/30 text-amber-100', moon: 'border-violet-400/90 bg-violet-950/30 text-violet-100', mechanism: 'border-cyan-400/90 bg-cyan-950/30 text-cyan-100' }[f], FLOOR_LABEL[f].replace(/\s+/g, '-')])].map(([f, label, tone, slug]) => (
+                        <button key={f} data-arm={`floor-${f}`} onClick={() => { if (deepTab !== f) sayLabel(slug); setDeepTab(f); if (f !== 'whys' && !brazier[f] && !brazierBusy) fetchFloor(f); }}
+                          className={`rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-serif transition-all ${tone} ${deepTab === f ? 'ring-2 ring-white/70' : 'opacity-70 hover:opacity-100'}${armedCls(`floor-${f}`)}`}>
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                    {deepTab === 'whys' && brazier[1] && ensureParagraphBreaks(brazier[1]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={`r1${xi}`} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>
                     ))}
-                    {floorsOpened.filter((f) => brazier[f]).map((f) => (
-                      <div key={f} className="mt-4 pt-4 border-t border-zinc-800/70">
-                        <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">{FLOOR_LABEL[f]}</div>
-                        {ensureParagraphBreaks(brazier[f]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
-                          <p key={xi} data-spoken={spokenKey(`floor${f}`, 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(`floor${f}`, 'text', xi)}>{x.trim()}</p>
+                    {deepTab !== 'whys' && brazier[deepTab] && (
+                      <div>
+                        {ensureParagraphBreaks(brazier[deepTab]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
+                          <p key={xi} data-spoken={spokenKey(`floor${deepTab}`, 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(`floor${deepTab}`, 'text', xi)}>{x.trim()}</p>
                         ))}
-                        {f === 'mechanism' && (
+                        {deepTab === 'mechanism' && (
                           <p className="mt-3 text-[0.8125rem]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
                         )}
                       </div>
-                    ))}
-                    {!!brazierBusy && <Writing scroll={false} label={brazierBusy === 1 ? 'the Reader is writing…' : `the Reader is opening ${FLOOR_LABEL[brazierBusy] || 'the floor'}…`} />}
-                    {/* THE LANTERNS (Keel's requirements §2; founder 2026-09-19): three destinations, not a
-                        staircase — any one in one tap. Lowercase, quiet, one row. A floor already opened
-                        goes dim. Gated floors appear when their exemplars freeze; the bench shows all three. */}
-                    {!brazierBusy && brazier[1] && (
-                      <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-                        {/* real buttons, equally spaced, centred at the foot of the panel, each in its own
-                            colour (founder, 2026-09-19 night, first look on production) */}
-                        {/* gated floors show for admins too (founder, 2026-09-19 night: "I'm curious if this works before I go to sleep") */}
-                        {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => {
-                          const tone = {
-                            meaning: 'border-amber-400/90 bg-amber-950/30 text-amber-100 hover:bg-amber-900/40',
-                            moon: 'border-violet-400/90 bg-violet-950/30 text-violet-100 hover:bg-violet-900/40',
-                            mechanism: 'border-cyan-400/90 bg-cyan-950/30 text-cyan-100 hover:bg-cyan-900/40',
-                          }[f];
-                          return (
-                            <button key={f} data-arm={`floor-${f}`} onClick={twoTap(`floor-${f}`, () => fetchFloor(f), FLOOR_LABEL[f] ? FLOOR_LABEL[f].replace(/\s+/g, '-') : null)} disabled={!!brazier[f]}
-                              className={`flex-1 basis-0 min-w-[7rem] max-w-[12rem] rounded-full border px-4 py-2 text-[0.875rem] font-serif transition-colors ${tone} ${brazier[f] ? 'opacity-40 cursor-default' : ''}${armedCls(`floor-${f}`)}`}>
-                              {FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1)} {/* .622: a button is a title — "The meaning", not "the meaning" (the prose keeps the lowercase) */}
-                            </button>
-                          );
-                        })}
-                      </div>
                     )}
+                    {!!brazierBusy && (brazierBusy === 1 ? deepTab === 'whys' : brazierBusy === deepTab) && <Writing scroll={false} label={(STAGE[brazierBusy] || STAGE.writing)[0]} />}
                   </div>
                 ))
                 : kind === 'dragon' ? (dragonOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-rose-300/70 mb-2">{DRAGON_HINT}</div>
-                    {dragonBusy && <Writing scroll={false} label="the Reader is naming it…" />}
+                    {dragonBusy && <Writing scroll={false} label={STAGE.naming[0]} />}
                     {!dragonBusy && dragonText && ensureParagraphBreaks(dragonText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} data-spoken={spokenKey('dragon', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('dragon', 'text', xi)}>{x.trim()}</p>
                     ))}
@@ -2208,10 +2228,12 @@ ${DRAGON_STANDARD}`, 600);
                 )) : kind === 'medicine' ? (medOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-emerald-300/70 mb-2">{MEDICINE_HINT}</div>
-                    {medBusy && <Writing scroll={false} label="the Reader is opening the medicine…" />}
+                    {medBusy && <Writing scroll={false} label={STAGE.medicine[0]} />}
                     {!medBusy && medText && (() => {
                       // split on the three headings; anything before the first heading renders plain
                       const parts = []; let rest = medText;
+                      const medParas = ensureParagraphBreaks(medText).split(/\n\n+/).map((p) => p.trim()).filter(Boolean); // .661 (Keel §9): the panel's paragraphs keyed as the voice keys them
+                      const paraIdx = (x) => medParas.findIndex((p) => p === x || p.endsWith(x));
                       const idx = MEDICINE_PARTS.map(([h]) => rest.indexOf(h));
                       if (idx.every((i) => i < 0)) return ensureParagraphBreaks(medText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} data-spoken={spokenKey('medicine', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('medicine', 'text', xi)}>{x.trim()}</p>);
                       MEDICINE_PARTS.forEach(([h, label], pi) => {
@@ -2223,7 +2245,7 @@ ${DRAGON_STANDARD}`, 600);
                       return parts.map(([label, text], pi) => (
                         <div key={label} className={pi ? 'mt-4 pt-4 border-t border-zinc-800/70' : ''}>
                           <div className="text-[0.625rem] uppercase tracking-wider text-emerald-400/70 mb-2">{label}</div>
-                          {ensureParagraphBreaks(text).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} className="mb-3 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>)}
+                          {ensureParagraphBreaks(text).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => { const pi2 = paraIdx(x.trim()); return <p key={xi} data-spoken={pi2 >= 0 ? spokenKey('medicine', 'text', pi2) : undefined} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + (pi2 >= 0 ? litIf('medicine', 'text', pi2) : '')}>{x.trim()}</p>; })}
                         </div>
                       ));
                     })()}
@@ -2231,7 +2253,7 @@ ${DRAGON_STANDARD}`, 600);
                 )) : (stepOpen && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
-                    {stepBusy && <Writing scroll={false} label="the Reader is finding the step…" />}
+                    {stepBusy && <Writing scroll={false} label={STAGE.step[0]} />}
                     {!stepBusy && stepText && ensureParagraphBreaks(stepText).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} data-spoken={spokenKey('step', 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf('step', 'text', xi)}>{x.trim()}</p>
                     ))}
@@ -2281,7 +2303,7 @@ ${DRAGON_STANDARD}`, 600);
       : (on ? 'border-orange-400 bg-orange-900/40 text-orange-100' : 'border-orange-700/50 bg-orange-950/20 text-orange-200 hover:border-orange-500 hover:bg-orange-900/30');
     const hint = mode === 'reflect' ? 'ask the signatures a question' : 'declare a move — the signatures answer';
     return (
-      <button data-arm={`switch-${mode}`} onClick={twoTap(`switch-${mode}`, () => setFieldMode(on ? null : mode), on ? null : mode)} disabled={loading}
+      <button data-arm={`switch-${mode}`} onClick={() => { if (!on) sayLabel(mode); setFieldMode(on ? null : mode); }} disabled={loading}
         className={`${armedCls(`switch-${mode}`)} relative overflow-hidden flex-1 min-w-0 text-center rounded-lg border py-2.5 transition-colors disabled:opacity-40 ${mode === 'reflect' ? 'pl-16 pr-3' : 'pl-3 pr-16'} ${tone}`}>
         <span className="flex items-center justify-center gap-2 text-[0.9375rem] font-medium">
           {mode === 'reflect'
@@ -2308,7 +2330,7 @@ ${DRAGON_STANDARD}`, 600);
           </button>
         } />}
       {paused && speakingId ? ( // .653: while paused — continue, skip the rest of this section, or turn the voice off
-        <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
+        <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
           <button onClick={togglePause} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">▶ Continue</button>
           <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>
           <button onClick={voiceOff} className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-400 hover:bg-zinc-800">Voice off</button>
@@ -2414,20 +2436,20 @@ ${DRAGON_STANDARD}`, 600);
                 }}
                 style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
                 className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
-                <option value="">more ▾</option>
-                {user && hasHistory && <option value="readings">{suggestOpen ? 'Hide the question from my readings' : 'A question from my readings'}</option>}
-                <option value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
-                <option value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
-                <option value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
+                <option style={OPT} value="">more ▾</option>
+                {user && hasHistory && <option style={OPT} value="readings">{suggestOpen ? 'Hide the question from my readings' : 'A question from my readings'}</option>}
+                <option style={OPT} value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
+                <option style={OPT} value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
+                <option style={OPT} value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
               </select>
               {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
                   onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); } }}
                   style={{ width: '8.5rem' }}
                   className="ml-4 appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
-                  <option value="none">Not read aloud ▾</option>
-                  {READ_BY.map(([k, label]) => <option key={k} value={k}>{`Read by ${label} ▾`}</option>)}
-                  {voiceName === 'af_heart' && <option value="af_heart">Read by Heart ▾</option>}
+                  <option style={OPT} value="none">Not read aloud ▾</option>
+                  {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`Read by ${label} ▾`}</option>)}
+                  {voiceName === 'af_heart' && <option style={OPT} value="af_heart">Read by Heart ▾</option>}
                 </select>
               )}
             </div>
@@ -2771,6 +2793,11 @@ ${DRAGON_STANDARD}`, 600);
                   {t.role === 'reader' && t.question && (
                     <p data-spoken={spokenKey(t.id, 'question', 0)} className={'mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words' + litIf(t.id, 'question', 0)}>{t.question}</p>
                   )}
+                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && ( // .661 (Keel §10): the next door — spoken, printed, and its pill lit; a recommendation, never an auto-open
+                    <div className="mt-3 space-y-1">
+                      {t.next.map((n, ni) => <p key={ni} data-spoken={spokenKey(t.id, 'next', ni)} className={'text-[0.9375rem] leading-snug text-sky-200/90 break-words' + litIf(t.id, 'next', ni)}><span className="text-sky-300">{NEXT_LABEL[n.panel] || n.panel}</span> — {n.why}</p>)}
+                    </div>
+                  )}
 
                   {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
                   {t.role === 'reader' && t.geometry && (
@@ -2824,6 +2851,15 @@ ${DRAGON_STANDARD}`, 600);
             {/* .553: AN OPEN DOOR'S ANSWER, RIGHT UNDER THE LAST TURN (founder: 'never end the last post without having some
                 choices underneath it and the capability to enter something custom'). The box and the pills stay the last thing on the page. */}
             {(brazierOpen || stepOpen || dragonOpen || medOpen) && <div className={dimPanels}>{renderPanels('open')}</div>}
+
+            {wrapped && ( // .661 (Keel §8): the wrap-up block sits ABOVE the box, in this order — saved · Keep a copy · Start a new reading · keep talking — so the place you type is beneath its last line
+              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center flex flex-col items-center gap-3">
+                <p className="text-[0.9375rem] text-zinc-300">This reading is saved. You'll find it again any time — tap <span className="text-zinc-100">Load</span> on the first screen.</p>
+                <button onClick={exportMarkdown} className="rounded-lg border border-zinc-700 px-4 py-2 text-[0.9375rem] text-zinc-200 hover:border-zinc-500 transition-colors">Keep a copy</button>
+                <button onClick={reset} className="rounded-lg border border-amber-600/60 px-4 py-2 text-[0.9375rem] text-amber-100 hover:border-amber-400 hover:bg-amber-950/30 transition-colors">Start a new reading</button>
+                <p className="text-xs text-zinc-600">Or keep talking below — nothing is closed off.</p>
+              </div>
+            )}
 
             <div className={dimBox}>
             {/* THE BOX, RIGHT UNDER THE OUTPUT (founder, 2026-09-21): answer in your own words first; the pills,
@@ -2928,7 +2964,7 @@ ${DRAGON_STANDARD}`, 600);
                     Pull it together
                   </button>
                 )}
-                {regenning ? <Writing className="self-center mt-1" label="the Reader is finding more choices…" scroll={false} /> : (
+                {regenning ? <Writing className="self-center mt-1" label={STAGE.choices[0]} scroll={false} /> : (
                   <button data-arm="more" onClick={twoTap('more', () => regenPills(), 'more-choices')}
                     className={armedCls('more') + " self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors"}>
                     ↻ More choices
@@ -2971,16 +3007,6 @@ ${DRAGON_STANDARD}`, 600);
               </div>
             )}
 
-            {wrapped && (
-              <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
-                <p className="text-[0.9375rem] text-zinc-300">This reading is saved. You'll find it again any time — tap <span className="text-zinc-100">Load</span> on the first screen.</p>
-                <div className="mt-3 flex flex-wrap justify-center gap-2">
-                  <button onClick={exportMarkdown} className="rounded-lg border border-zinc-700 px-4 py-2 text-[0.9375rem] text-zinc-200 hover:border-zinc-500 transition-colors">Keep a copy</button>
-                  <button onClick={reset} className="rounded-lg border border-amber-600/60 px-4 py-2 text-[0.9375rem] text-amber-100 hover:border-amber-400 hover:bg-amber-950/30 transition-colors">Start a new reading</button>
-                </div>
-                <p className="mt-3 text-xs text-zinc-600">Or keep talking below — nothing is closed off.</p>
-              </div>
-            )}
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={catchUp} disabled={loading} className="underline decoration-dotted hover:text-zinc-300">Catch me up</button>

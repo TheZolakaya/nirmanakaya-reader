@@ -83,7 +83,7 @@ export function placeWordmark(surface, tries = 40) {
   return el;
 }
 
-export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]', signal = { skip: false }, flyWordmark = true }) {
+export async function runLanding({ surface, cameraRef, draws, table = {}, pace = 160, lift = 1.45, slotsSelector = '[data-header-mock]', signal = { skip: false }, flyWordmark = true, onBeat = null }) { // .661: onBeat('card' | 'status' | 'seat', name) fires on the frame each is revealed
     // Hover scales the card too, and fights every transform we write. Off for the duration.
     const mapEl = surface;
     if (mapEl) mapEl.classList.add('nkya-animating');
@@ -723,6 +723,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     punch(target);
     edgeFlash(target, '#fde68a');
     window.setTimeout(() => (FX_ON() ? fxClip(target, '/video/fx/splash.mp4') : burst(target, '#fde68a', 'disc')), 90); // .652: the rendered splash when the flag is on
+    try { onBeat?.('card', cardName); } catch {}
     plateFor(target, [NAME(cardName)]);
     await wait(700);
     if (selfHomed) makeGhost();   // under the card as it rises, as every other durable's face is
@@ -757,6 +758,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     await wait(2300 + 150);
     const statusColor = draws[targetId] ? (STATUS_GLOW[draws[targetId].status]?.color || '#e4e4e7') : '#e4e4e7';
     burst(target, statusColor, 'ring');
+    try { onBeat?.('status', st ? (st.prefix || 'Balanced') : ''); } catch {}
     plateFor(target, [STATUS(st ? (st.prefix || 'Balanced') : '', statusColor)], 'above');
     await wait(1100);
 
@@ -789,6 +791,7 @@ export async function runLanding({ surface, cameraRef, draws, table = {}, pace =
     });
     const seatFace = selfHomed ? makeGhost() : seatEl;   // the thing the card will land on
     if (selfHomed) ghost.style.opacity = '0.6';
+    try { onBeat?.('seat', seatName); } catch {}
     if (seatName) plateFor(seatFace, [SEATNAME(seatName)]);
     // The minimap rises on a layer above the field, and the two cards that matter must sit
     // above THAT. The hero's house is already raised; the seat's must be raised too, or the
