@@ -5,6 +5,8 @@
 
 import { randomBytes } from 'crypto';
 import Anthropic from '@anthropic-ai/sdk';
+import { createClient } from '@supabase/supabase-js';
+import { VERSION } from '../../../lib/version.js';
 import { createMessage } from '../../../lib/provider.js'; // .475: the one door (client below kept for anything else)
 import { MODEL_IDS } from '../../../lib/modelConfig.js';
 import {
@@ -42,6 +44,18 @@ import {
 } from '../../../lib/index.js';
 
 const client = new Anthropic();
+
+// v3.1.0 (2026-10-04, the recursive-reader commission): THE LEDGER. Every reading is persisted the moment its draw is made, before the
+// interpretation is written, so a retry, a timeout or a lost response can never become a second draw. `requestId` is the caller's
+// idempotency key (one genuine question = one draw); `readingId` is the server's id for retrieval; `format=text` is a plain rendering
+// for fetchers that choke on JSON. The draw and the interpretation stay separate in the payload (the instrument vs the reader's words).
+export const dynamic = 'force-dynamic';
+const API_VERSION = '3.1.0';
+const ARCHITECTURE_VERSION = 'nirmanakaya-78 V1 (22 archetype seats; 78 = 22 + 40 + 16; four statuses; the medicine wheel)';
+const ledger = () => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return url && key ? createClient(url, key, { auth: { persistSession: false } }) : null;
+};
 
 // Fast mode system prompt - minimal but complete (individual)
 const FAST_SYSTEM_PROMPT = `You are the Nirmanakaya Reader — a consciousness architecture oracle.
@@ -253,6 +267,7 @@ async function generateReading({
   fast = false,
   fixedDraw = null,
   voiceConfig = null,
+  presetDraws = null,      // v3.1.0: draws already made and persisted by the ledger (server-side only; never from the client)
   // NEW: Collective reading parameters
   collectiveScope = null,  // 'individual' | 'relationship' | 'group' | 'regional' | 'domain' | 'global'
   monitor = null,          // 'global' | 'power' | 'heart' | 'mind' | 'body'
@@ -281,10 +296,10 @@ async function generateReading({
   // Validate inputs
   const count = Math.min(Math.max(1, cardCount), 5);
   const isForge = mode === 'forge';
-  const actualCount = fixedDraw ? fixedDraw.length : (isForge ? 1 : count);
+  const actualCount = presetDraws ? presetDraws.length : (fixedDraw ? fixedDraw.length : (isForge ? 1 : count));
 
-  // Generate draws server-side — V1: all cards get archetype positions
-  const draws = generateServerDraws(actualCount, fixedDraw);
+  // Generate draws server-side — V1: all cards get archetype positions (or take the ledger's, already made)
+  const draws = presetDraws || generateServerDraws(actualCount, fixedDraw);
 
   // Build card data
   const cards = draws.map(buildCardData);
@@ -469,11 +484,143 @@ async function generateReading({
   };
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------
+// THE LEDGER (v3.1.0)
+// ---------------------------------------------------------------------------------------------------------------------------
+const metadataOf = (row, extra = {}) => ({
+  createdAt: row?.created_at || new Date().toISOString(),
+  completedAt: row?.completed_at || null,
+  readerVersion: row?.reader_version || VERSION,
+  apiVersion: API_VERSION,
+  architectureVersion: row?.architecture_version || ARCHITECTURE_VERSION,
+  ...extra,
+});
+
+// A persisted row → the public payload. The draw (draws + cards) is the instrument's output; interpretation is the reader's words.
+function rowToPayload(row) {
+  const pending = row.status === 'pending';
+  return {
+    success: true,
+    readingId: row.id,
+    requestId: row.request_id || null,
+    status: row.status,
+    pending,
+    request: { question: row.question, context: row.context || '', cardCount: row.card_count, mode: row.mode, fast: !!row.fast },
+    fast: !!row.fast,
+    draws: row.draws,
+    cards: row.cards,
+    mode: row.mode,
+    question: row.question,
+    collective: row.collective || null,
+    interpretation: pending ? null : (row.interpretation ?? null),
+    usage: row.usage || null,
+    error: row.error || null,
+    metadata: metadataOf(row),
+    message: pending
+      ? `The draw is made and persisted; the interpretation is still being written. Poll ?readingId=${row.id} — the same draw will come back, never a new one.`
+      : undefined,
+  };
+}
+
+async function fetchById(db, readingId) {
+  const { data, error } = await db.from('external_readings').select('*').eq('id', readingId).maybeSingle();
+  if (error) throw new Error(`ledger read failed: ${error.message}`);
+  return data ? rowToPayload(data) : null;
+}
+
+async function fetchByRequestId(db, requestId) {
+  const { data, error } = await db.from('external_readings').select('*').eq('request_id', requestId).maybeSingle();
+  if (error) throw new Error(`ledger read failed: ${error.message}`);
+  return data ? rowToPayload(data) : null;
+}
+
+// One reading: look the request up, or make ONE draw, persist it first, then write the interpretation.
+async function runReading(p) {
+  const requestId = (p.requestId && String(p.requestId).trim().slice(0, 200)) || null;
+  const db = ledger();
+  if (requestId && db) {
+    const have = await fetchByRequestId(db, requestId);
+    if (have) return have; // an exact retry: the reading already made (pending or done), never a second draw
+  }
+  const count = Math.min(Math.max(1, Number(p.cardCount) || 1), 5);
+  const actualCount = p.mode === 'forge' ? 1 : count;
+  const draws = generateServerDraws(actualCount);
+  const cards = draws.map(buildCardData);
+  const isCollective = p.monitor || (p.collectiveScope && p.collectiveScope !== 'individual');
+  const collective = isCollective ? { monitor: p.monitor || null, scope: p.collectiveScope || null, subject: p.scopeSubject || null } : null;
+  let row = null;
+  if (db) {
+    const ins = await db.from('external_readings').insert({
+      request_id: requestId, question: p.question, context: p.context || '', card_count: actualCount, mode: p.mode, fast: !!p.fast,
+      collective, draws, cards, status: 'pending', reader_version: VERSION, architecture_version: ARCHITECTURE_VERSION,
+    }).select('*').single();
+    if (ins.error) {
+      if (ins.error.code === '23505' && requestId) { // two identical requests raced: the first one's draw wins
+        const have = await fetchByRequestId(db, requestId); if (have) return have;
+      }
+      console.warn('[external-reading] ledger insert failed:', ins.error.message); // the reading still goes out, unpersisted
+    } else row = ins.data;
+  }
+  let result;
+  try {
+    result = await generateReading({ ...p, cardCount: actualCount, presetDraws: draws });
+  } catch (e) {
+    if (row && db) await db.from('external_readings').update({ status: 'error', error: String(e.message || e).slice(0, 500), completed_at: new Date().toISOString() }).eq('id', row.id);
+    throw e;
+  }
+  if (row && db) {
+    const upd = await db.from('external_readings').update({ interpretation: result.interpretation, usage: result.usage || null, status: 'done', completed_at: new Date().toISOString() }).eq('id', row.id);
+    if (upd.error) console.warn('[external-reading] ledger update failed:', upd.error.message);
+  }
+  return {
+    ...result,
+    readingId: row?.id || null,
+    requestId,
+    status: 'done',
+    pending: false,
+    request: { question: p.question, context: p.context || '', cardCount: actualCount, mode: p.mode, fast: !!p.fast },
+    metadata: metadataOf(row, { persisted: !!row, completedAt: new Date().toISOString() }),
+  };
+}
+
+// A plain-text rendering, for fetchers that cannot take JSON
+function asText(r) {
+  const L = [];
+  L.push(`NIRMANAKAYA READING ${r.readingId || '(not persisted)'}`);
+  if (r.requestId) L.push(`requestId: ${r.requestId}`);
+  L.push(`status: ${r.status}${r.pending ? ' (the draw is made; poll ?readingId=' + r.readingId + ' for the interpretation)' : ''}`);
+  L.push(`question: ${r.question}`);
+  if (r.request?.context) L.push(`context: ${r.request.context}`);
+  L.push(`mode: ${r.mode} · cards: ${r.cards?.length || 0} · fast: ${r.fast}`);
+  L.push('', 'THE DRAW (the instrument):');
+  (r.cards || []).forEach((c, i) => {
+    L.push(`${i + 1}. ${c.signature}`);
+    L.push(`   signature ${c.transient.id} ${c.transient.name} (${c.transient.traditional}; ${c.transient.house} house, ${c.transient.channel} channel) — ${c.transient.description || ''}`);
+    L.push(`   seat ${c.position.id} ${c.position.name} (${c.position.traditional}; ${c.position.house} house, ${c.position.channel} channel)`);
+    L.push(`   status ${c.status.id} ${c.status.name}`);
+    L.push(c.correction ? `   medicine: ${c.correction.target} (${c.correction.type}) — ${c.correction.via}` : '   medicine: none (balanced; its growth pair is an invitation)');
+  });
+  L.push('', 'THE INTERPRETATION (the reader\'s words, as they stand):');
+  const it = r.interpretation;
+  L.push(it == null ? '(pending)' : typeof it === 'string' ? it : (it.raw || JSON.stringify(it, null, 2)));
+  L.push('', `readerVersion ${r.metadata?.readerVersion} · apiVersion ${r.metadata?.apiVersion} · createdAt ${r.metadata?.createdAt}`);
+  return L.join('\n');
+}
+
+const respond = (result, format) => format === 'text'
+  ? new Response(asText(result), { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } })
+  : Response.json(result, { headers: { 'Cache-Control': 'no-store' } });
+
+// A HEAD never draws (a probe used to run a whole reading)
+export async function HEAD() { return new Response(null, { status: 200, headers: { 'Cache-Control': 'no-store' } }); }
+
 export async function POST(request) {
   try {
     const body = await request.json();
-    const result = await generateReading(body);
-    return Response.json(result);
+    if (body.readingId) { const db = ledger(); const have = db ? await fetchById(db, body.readingId) : null; return have ? respond(have, body.format) : Response.json({ success: false, error: 'no reading with that id' }, { status: 404 }); }
+    if (!body.question) return Response.json({ success: false, error: 'question is required' }, { status: 400 });
+    const result = await runReading({ ...body, mode: body.mode || 'discover', fast: body.fast !== undefined ? !!body.fast : false });
+    return respond(result, body.format);
   } catch (error) {
     console.error('External reading error:', error);
     return Response.json({
@@ -487,13 +634,25 @@ export async function POST(request) {
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const question = searchParams.get('question');
+  const format = searchParams.get('format') || 'json';
+
+  // Retrieval by id: the persisted reading, never a new draw
+  const readingId = searchParams.get('readingId');
+  if (readingId) {
+    try {
+      const db = ledger(); if (!db) return Response.json({ success: false, error: 'the ledger is not configured' }, { status: 503 });
+      const have = await fetchById(db, readingId);
+      return have ? respond(have, format) : Response.json({ success: false, error: 'no reading with that id' }, { status: 404 });
+    } catch (error) { return Response.json({ success: false, error: error.message }, { status: 500 }); }
+  }
 
   // If no question, return documentation
   if (!question) {
     return Response.json({
       service: 'Nirmanakaya External Reading API',
-      version: '3.0.0',
-      description: 'Enables Claude chat sessions to receive readings directly from the Reader. Now supports collective consciousness readings.',
+      version: API_VERSION,
+      description: 'A reading from the Nirmanakaya instrument for any AI or client that can make an HTTP call. One genuine question = one draw: pass a requestId and the same request always returns the same reading. The draw (draws, cards) is the instrument; interpretation is the reader\'s current words — read the draw yourself first.',
+      openapi: 'https://www.nirmanakaya.com/openapi/external-reading.json',
       usage: {
         GET: {
           params: {
@@ -502,13 +661,17 @@ export async function GET(request) {
             cardCount: 'number (1-5, default 1)',
             mode: 'discover|reflect|forge (default discover)',
             fast: 'boolean (default true)',
-            // NEW collective params
+            requestId: 'string (optional, recommended) — your idempotency key: the first call with it makes the one draw; every later call with the same requestId returns that same reading',
+            readingId: 'uuid (optional) — alone, retrieves a persisted reading; never draws',
+            format: 'json|text (default json)',
             monitor: 'global|power|heart|mind|body (optional) - Collective reading monitor',
             collectiveScope: 'individual|relationship|group|regional|domain|global (optional)',
             scopeSubject: 'string (optional) - Custom subject for collective readings'
           },
           examples: {
-            individual: '/api/external-reading?question=What%20is%20present',
+            individual: '/api/external-reading?question=What%20is%20present&requestId=my-experiment-cycle-1',
+            retrieve: '/api/external-reading?readingId=<uuid>',
+            text: '/api/external-reading?question=What%20is%20present&requestId=my-experiment-cycle-1&format=text',
             collective_global: '/api/external-reading?question=What%20is%20present&monitor=global',
             collective_power: '/api/external-reading?question=What%20is%20happening&monitor=power',
             collective_custom: '/api/external-reading?question=What%20is%20present&collectiveScope=domain&scopeSubject=AI%20industry'
@@ -522,13 +685,16 @@ export async function GET(request) {
             mode: 'discover|reflect|forge (default discover)',
             model: 'string (optional)',
             fast: 'boolean (default false)',
-            // NEW collective params
+            requestId: 'string (optional, recommended) — idempotency key',
+            readingId: 'uuid (optional) — alone, retrieves',
+            format: 'json|text',
             monitor: 'global|power|heart|mind|body (optional)',
             collectiveScope: 'individual|relationship|group|regional|domain|global (optional)',
             scopeSubject: 'string (optional)'
           }
         }
       },
+      idempotency: 'The draw is persisted before the interpretation is written. A retry, a timeout, a refresh or a lost response with the same requestId returns the same reading (status pending while the words are still being written; poll ?readingId=). Without a requestId every call is a fresh draw, still persisted and retrievable by its readingId.',
       monitors: {
         global: { emoji: '🌍', name: 'Global Field', house: 'Gestalt', subject: 'collective human consciousness' },
         power: { emoji: '🔥', name: 'Monitor of Power', house: 'Spirit', subject: 'global power and governance' },
@@ -542,23 +708,29 @@ export async function GET(request) {
         rule3: 'The map reflects. People decide.'
       },
       response: {
-        draws: 'Array of draw objects',
-        cards: 'Array of signature data',
+        readingId: 'uuid — retrieve it again with ?readingId=',
+        requestId: 'your idempotency key, echoed',
+        status: 'pending|done|error',
+        request: '{question, context, cardCount, mode, fast}',
+        draws: 'Array of draw objects — the instrument: {position 0-21, transient 0-77, status 1-4}',
+        cards: 'Array of signature data — the instrument, named: transient (the signature), position (the seat), status, correction (the medicine), signature string',
         collective: 'Collective reading metadata (if applicable)',
-        interpretation: 'The reading interpretation',
-        usage: 'Token usage stats'
+        interpretation: 'The reading interpretation — the reader\'s current words (null while pending)',
+        usage: 'Token usage stats',
+        metadata: '{createdAt, completedAt, readerVersion, apiVersion, architectureVersion}'
       }
     });
   }
 
   // If question provided, run a reading
   try {
-    const result = await generateReading({
+    const result = await runReading({
       question,
       context: searchParams.get('context') || '',
       cardCount: parseInt(searchParams.get('cardCount')) || 1,
       mode: searchParams.get('mode') || 'discover',
       fast: searchParams.get('fast') !== 'false',
+      requestId: searchParams.get('requestId') || null,
       // Collective params
       monitor: searchParams.get('monitor') || null,
       collectiveScope: searchParams.get('collectiveScope') || null,
@@ -572,7 +744,7 @@ export async function GET(request) {
         seriousness: 'grounded'
       }
     });
-    return Response.json(result);
+    return respond(result, format);
   } catch (error) {
     console.error('External reading error:', error);
     return Response.json({

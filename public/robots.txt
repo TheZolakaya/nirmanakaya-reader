@@ -1,0 +1,23 @@
+# Nirmanakaya — the reading API is open to AI fetchers (2026-10-04)
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /api/external-reading
+Allow: /openapi/
+
+User-agent: ChatGPT-User
+Allow: /api/external-reading
+Allow: /openapi/
+
+User-agent: OAI-SearchBot
+Allow: /api/external-reading
+Allow: /openapi/
+
+User-agent: ClaudeBot
+Allow: /api/external-reading
+Allow: /openapi/
+
+User-agent: Claude-User
+Allow: /api/external-reading
+Allow: /openapi/

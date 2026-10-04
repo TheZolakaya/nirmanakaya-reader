@@ -1,0 +1,81 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nirmanakaya Reading API",
+    "version": "3.1.0",
+    "description": "A reading from the Nirmanakaya instrument. One genuine question = one draw: always send a requestId; the first call with it makes the one draw, and every later call with the same requestId returns that same reading. The response keeps the DRAW (draws, cards — the instrument's output) separate from the INTERPRETATION (the reader's current words). Read the draw yourself before trusting the words."
+  },
+  "servers": [{ "url": "https://www.nirmanakaya.com" }],
+  "paths": {
+    "/api/external-reading": {
+      "get": {
+        "operationId": "getReading",
+        "summary": "Make one reading for a question (idempotent with requestId), or retrieve a persisted reading by readingId.",
+        "parameters": [
+          { "name": "question", "in": "query", "required": false, "schema": { "type": "string" }, "description": "The question. Required unless readingId is given." },
+          { "name": "requestId", "in": "query", "required": false, "schema": { "type": "string", "maxLength": 200 }, "description": "Your idempotency key, e.g. recursive-reader-cycle-7. Same requestId → same reading, never a second draw. Always send one." },
+          { "name": "readingId", "in": "query", "required": false, "schema": { "type": "string", "format": "uuid" }, "description": "Retrieve a persisted reading. Never draws." },
+          { "name": "context", "in": "query", "required": false, "schema": { "type": "string" } },
+          { "name": "cardCount", "in": "query", "required": false, "schema": { "type": "integer", "minimum": 1, "maximum": 5, "default": 1 } },
+          { "name": "mode", "in": "query", "required": false, "schema": { "type": "string", "enum": ["discover", "reflect", "forge"], "default": "discover" } },
+          { "name": "fast", "in": "query", "required": false, "schema": { "type": "boolean", "default": true }, "description": "true = a short interpretation; false = the full reader (slower, longer)." },
+          { "name": "format", "in": "query", "required": false, "schema": { "type": "string", "enum": ["json", "text"], "default": "json" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The reading. If status is pending, the draw is made and persisted and the interpretation is still being written: call again with the same requestId or readingId.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Reading" } }, "text/plain": { "schema": { "type": "string" } } }
+          },
+          "404": { "description": "No reading with that readingId." }
+        }
+      },
+      "post": {
+        "operationId": "postReading",
+        "summary": "Make one reading (idempotent with requestId). Same fields as GET, in the body; fast defaults to false here.",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": {
+            "type": "object",
+            "required": ["question"],
+            "properties": {
+              "question": { "type": "string" },
+              "requestId": { "type": "string", "maxLength": 200 },
+              "context": { "type": "string" },
+              "cardCount": { "type": "integer", "minimum": 1, "maximum": 5, "default": 3 },
+              "mode": { "type": "string", "enum": ["discover", "reflect", "forge"], "default": "discover" },
+              "fast": { "type": "boolean", "default": false },
+              "format": { "type": "string", "enum": ["json", "text"], "default": "json" }
+            }
+          } } }
+        },
+        "responses": { "200": { "description": "The reading.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Reading" } } } } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Reading": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "readingId": { "type": "string", "format": "uuid", "description": "The server's id; retrieve the same reading again with ?readingId=" },
+          "requestId": { "type": ["string", "null"], "description": "Your idempotency key, echoed" },
+          "status": { "type": "string", "enum": ["pending", "done", "error"] },
+          "pending": { "type": "boolean" },
+          "request": { "type": "object", "properties": { "question": { "type": "string" }, "context": { "type": "string" }, "cardCount": { "type": "integer" }, "mode": { "type": "string" }, "fast": { "type": "boolean" } } },
+          "draws": { "type": "array", "description": "THE INSTRUMENT: one object per card — position (the seat, 0-21), transient (the signature, 0-77), status (1 Balanced, 2 Too Much, 3 Too Little, 4 Unacknowledged)", "items": { "type": "object", "properties": { "position": { "type": "integer" }, "transient": { "type": "integer" }, "status": { "type": "integer" }, "isFixed": { "type": "boolean" } } } },
+          "cards": { "type": "array", "description": "THE INSTRUMENT, NAMED: the signature (transient), the seat (position), the status, the medicine (correction) — enough to interpret without the server's prose", "items": { "type": "object", "properties": {
+            "transient": { "type": "object", "properties": { "id": { "type": "integer" }, "name": { "type": "string" }, "traditional": { "type": "string" }, "house": { "type": "string" }, "channel": { "type": "string" }, "description": { "type": "string" } } },
+            "position": { "type": "object", "properties": { "id": { "type": "integer" }, "name": { "type": "string" }, "traditional": { "type": "string" }, "house": { "type": "string" }, "channel": { "type": "string" } } },
+            "status": { "type": "object", "properties": { "id": { "type": "integer" }, "name": { "type": "string" }, "prefix": { "type": "string" } } },
+            "correction": { "type": ["object", "null"], "description": "The medicine: null when Balanced", "properties": { "target": { "type": "string" }, "targetId": { "type": "integer" }, "type": { "type": "string", "enum": ["GROWTH", "DIAGONAL", "VERTICAL", "REDUCTION"] }, "via": { "type": "string" } } },
+            "signature": { "type": "string", "description": "'<Status> <Signature> in <Seat>'" }
+          } } },
+          "interpretation": { "description": "THE READER'S WORDS as they currently stand: a string in fast mode; {raw, parsed} in full mode; null while pending" },
+          "usage": { "type": ["object", "null"] },
+          "metadata": { "type": "object", "properties": { "createdAt": { "type": "string" }, "completedAt": { "type": ["string", "null"] }, "readerVersion": { "type": "string" }, "apiVersion": { "type": "string" }, "architectureVersion": { "type": "string" } } }
+        }
+      }
+    }
+  }
+}

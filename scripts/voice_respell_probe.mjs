@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+import { VOICES, forTheEar } from '../lib/voice/kokoro.js';
+const env = Object.fromEntries(fs.readFileSync('.env.local','utf8').split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim().replace(/^"|"$/g,'')]));
+const T = env.REPLICATE_API_TOKEN, KEY = env.GROQ_API_KEY;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const gen = async (voice, text, file) => { const v = VOICES[voice]; const r = await fetch('https://api.replicate.com/v1/predictions', { method: 'POST', headers: { Authorization: `Bearer ${T}`, 'Content-Type': 'application/json', Prefer: 'wait=60' }, body: JSON.stringify({ version: v.version(), input: v.input(forTheEar(text)) }) }); let p = await r.json(); while (!['succeeded','failed','canceled'].includes(p.status)) { await sleep(600); p = await (await fetch(p.urls.get, { headers: { Authorization: `Bearer ${T}` } })).json(); } if (p.status !== 'succeeded') return null; const url = Array.isArray(p.output) ? p.output[0] : p.output; fs.writeFileSync(file, Buffer.from(await (await fetch(url)).arrayBuffer())); return file; };
+const hear = async (file) => { for (let k = 0; k < 5; k++) { const fd = new FormData(); fd.append('model','whisper-large-v3-turbo'); fd.append('response_format','text'); fd.append('file', new Blob([fs.readFileSync(file)]), 'c.wav'); const r = await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{method:'POST',headers:{Authorization:`Bearer ${KEY}`},body:fd}); const t = (await r.text()).trim(); if (!/rate_limit/.test(t)) return t; await sleep(9000); } return '(rate limited)'; };
+const cands = process.argv.slice(2);
+for (const voice of ['af_bella', 'bm_george']) for (const c of cands) { const f = `data/bakeoff/_respell/${voice}_${c.replace(/[^a-z]/gi,'_')}.wav`; await gen(voice, `You drew ${c}.`, f); await sleep(3200); console.log(`${voice}  "${c}"  →  ${await hear(f)}`); }
