@@ -3,7 +3,7 @@
 // ordinary fresh conversation: no Custom GPT, no copy/paste. Same instrument, same ledger as /api/external-reading.
 // Tools: get_reading (idempotent with requestId) · retrieve_reading (by readingId, never draws) · search / fetch (the connector
 // pair ChatGPT expects: look a reading up in the ledger, fetch one as text).
-import { runReading, fetchById, ledger, asText, API_VERSION } from '../../../lib/externalReading.js';
+import { runReading, fetchById, ledger, asText, asGlass, glassPayload, API_VERSION } from '../../../lib/externalReading.js';
 import { VERSION } from '../../../lib/version.js';
 
 export const dynamic = 'force-dynamic';
@@ -27,6 +27,7 @@ const TOOLS = [
         mode: { type: 'string', enum: ['discover', 'reflect', 'forge'], default: 'discover' },
         fast: { type: 'boolean', default: true, description: 'true = a short interpretation; false = the full reader (slower, longer).' },
         voice: { type: 'string', enum: ['plain', 'grown', 'deep', 'mystical'], default: 'plain', description: "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; pass it to read as a user reads. 'deep' names the map's words and shows the derivation." },
+        glass: { type: 'boolean', default: false, description: 'true = return ONLY what a person sees on the site (the words: gist, prose, the way through, the closing question) — no draw block, no names, no record. For reading as a user reads. false = the instrument (draws, cards, record) plus the words.' },
       },
       required: ['question'],
     },
@@ -35,7 +36,7 @@ const TOOLS = [
     name: 'retrieve_reading',
     title: 'Retrieve a Nirmanakaya reading',
     description: 'Retrieve a reading already made, by readingId. Never draws.',
-    inputSchema: { type: 'object', properties: { readingId: { type: 'string', description: 'The readingId returned by get_reading.' } }, required: ['readingId'] },
+    inputSchema: { type: 'object', properties: { readingId: { type: 'string', description: 'The readingId returned by get_reading.' }, glass: { type: 'boolean', default: false, description: 'true = only what a person sees on the site (the words), no draw block.' } }, required: ['readingId'] },
   },
   {
     name: 'search',
@@ -59,7 +60,7 @@ async function callTool(name, args = {}) {
     if (!args.question) throw new Error('question is required');
     // parity with the REST GET: the same arguments, the same stance — the transport adds nothing to the reading
     const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, voice: ['plain', 'grown', 'deep', 'mystical'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
-    return text(asText(r), r);
+    return args.glass === true ? text(asGlass(r), glassPayload(r)) : text(asText(r), r); // .688: glass = only what a person sees on the site
   }
   if (name === 'retrieve_reading' || name === 'fetch') {
     const id = String(args.readingId || args.id || '');
@@ -67,7 +68,7 @@ async function callTool(name, args = {}) {
     const r = await fetchById(db, id);
     if (!r) return { content: [{ type: 'text', text: `no reading with id ${id}` }], isError: true };
     if (name === 'fetch') return text(JSON.stringify({ id: r.readingId, title: r.question, text: asText(r), url: `https://www.nirmanakaya.com/api/external-reading?readingId=${r.readingId}`, metadata: r.metadata }));
-    return text(asText(r), r);
+    return args.glass === true ? text(asGlass(r), glassPayload(r)) : text(asText(r), r); // .688
   }
   if (name === 'search') {
     if (!db) throw new Error('the ledger is not configured');

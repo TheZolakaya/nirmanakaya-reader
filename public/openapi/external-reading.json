@@ -112,10 +112,12 @@
               "type": "string",
               "enum": [
                 "json",
-                "text"
+                "text",
+                "glass"
               ],
               "default": "json"
-            }
+            },
+            "description": "json = the instrument and the words; text = the same as plain text; glass = ONLY what a person sees on the site (the words: gist, prose, the way through, the closing question), for reading as a user reads."
           }
         ],
         "responses": {
@@ -196,7 +198,8 @@
                     "type": "string",
                     "enum": [
                       "json",
-                      "text"
+                      "text",
+                      "glass"
                     ],
                     "default": "json"
                   }
