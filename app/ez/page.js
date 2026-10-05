@@ -1327,8 +1327,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // next reading's opening). Once at the opening and once more is the cap; past that the turn is asked for again with the count named.
   const stampWords = () => { if (!frame) return []; const f = frameOf(frame.k); return [f?.k === 'custom' ? frame.detail : f?.label, f?.k === 'custom' ? null : frame.detail].filter((x) => typeof x === 'string' && x.trim().length > 2).map((x) => x.trim()); };
   const stampOf = (t) => { let n = 0; for (const w of stampWords()) { const re = new RegExp('(?<![\\w])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w])', 'gi'); n = Math.max(n, (String(t || '').match(re) || []).length); } return n; };
-  // .707 THE PERSON GUARD's provenance: names the ASKER supplied — the question, what was asked, their turns, their journey block. Never the Reader's own words.
-  const askerTexts = () => [question || '', asked || '', userContextRef.current || '', ...(Array.isArray(turnsRef.current) ? turnsRef.current.filter((x) => x.role === 'you').map((x) => String(x.text || '')) : [])];
+  // .707 THE PERSON GUARD's provenance: names the ASKER supplied — the question, what was asked, their turns. Never the Reader's own words.
+  // .708 (Air, provenance contamination): NOT the journey block — its summaries are written by a model from the Reader's turns as well as the asker's,
+  // so a name the Reader suggested in an earlier reading would launder itself into "the asker supplied it".
+  const askerTexts = () => [question || '', asked || '', ...(Array.isArray(turnsRef.current) ? turnsRef.current.filter((x) => x.role === 'you').map((x) => String(x.text || '')) : [])];
   const askerAllowed = () => allowedNamesFrom(askerTexts());
   const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens, extra);
@@ -1357,7 +1359,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           const askerText = [question || '', ...(Array.isArray(turnsRef.current) ? turnsRef.current.filter((x) => x.role === 'you').map((x) => String(x.text || '')) : [])].join(' ').toLowerCase();
           const askerWords = new Set(askerText.split(/[^a-z']+/).filter((w) => w.length >= 4));
           const glass = [o.gist, o.reader, o.medicine, o.question].map((x) => String(x || '')).join(' ');
-          const re = /\byou (?:said|told me|called it|put it|wrote|mentioned)\b([^.!?]{0,80})/gi; let m; let miss = null;
+          const re = /\byou(?:'ve| have| had)? (?:said|told me|called it|put it|wrote|mentioned|named|listed|described)\b([^.!?]{0,80})/gi; let m; let miss = null; // .708: "You've said there are three things…" slipped the .699 pattern
           while ((m = re.exec(glass))) { const tail = String(m[1] || '').toLowerCase().split(/[^a-z']+/).filter((w) => w.length >= 4); const hit = tail.filter((w) => askerWords.has(w)).length; if (tail.length >= 2 && hit < 2) { miss = m[0]; break; } }
           if (miss && askerWords.size) bad.push({ code: 'attribution', detail: `"${miss.trim().slice(0, 90)}" hands the person words they did not type — "you said" is only for what the ASKER wrote; your own earlier step, medicine, dragon or floor is yours ("the step I handed you"), never theirs` });
         }
