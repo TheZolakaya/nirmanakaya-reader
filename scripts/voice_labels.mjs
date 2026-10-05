@@ -28,13 +28,15 @@ export const LABELS = {
 // .661 (Keel §1): THE DRAW'S BEATS — the signature, the status, the seat — spoken by the narrator on the frame each is revealed. Narrator voices only.
 export const NAMES = (() => { const o = {}; for (let i = 0; i < 78; i++) { const n = getComponent(i)?.name; if (n) o[`name-${i}`] = `You drew ${n}.`; } o['status-1'] = 'In balance.'; o['status-2'] = 'Too much.'; o['status-3'] = 'Too little.'; o['status-4'] = 'Unacknowledged.'; for (let i = 0; i < 22; i++) o[`seat-${i}`] = `In ${ARCHETYPES[i].name}.`; o['seat-own'] = 'In its own seat.'; return o; })();
 const NARRATORS = new Set(['af_bella', 'bm_george']);
+// .703 (founder): each voice introduces itself on the front page's prev/next — so you hear it before you choose it
+export const INTROS = { bm_george: "Hello. I'm George. I'd like to read for you.", bf_emma: "Hello. I'm Emma. I'd like to read for you.", af_bella: "Hi. I'm Bella. I'd like to read for you.", am_michael: "Hi. I'm Michael. I'd like to read for you.", am_puck: "Hey. I'm Puck. I'd like to read for you.", af_heart: "Hi. I'm Heart. I'd like to read for you." };
 const env = Object.fromEntries(fs.readFileSync('.env.local', 'utf8').split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
 const T = env.REPLICATE_API_TOKEN; const force = process.argv.includes('--force');
 const out = 'public/voice/labels'; let made = 0, kept = 0, secs = 0;
 for (const [voice, v] of Object.entries(VOICES)) {
   if (voice === 'af_heart') continue; // the sleeping copy; not offered
   fs.mkdirSync(path.join(out, voice), { recursive: true });
-  for (const [slug, text] of Object.entries(NARRATORS.has(voice) ? { ...LABELS, ...NAMES } : LABELS)) {
+  for (const [slug, text] of Object.entries(NARRATORS.has(voice) ? { ...LABELS, ...NAMES, intro: INTROS[voice] } : { ...LABELS, intro: INTROS[voice] })) {
     const file = path.join(out, voice, `${slug}.wav`);
     if (!force && fs.existsSync(file)) { kept++; continue; }
     const r = await fetch('https://api.replicate.com/v1/predictions', { method: 'POST', headers: { Authorization: `Bearer ${T}`, 'Content-Type': 'application/json', Prefer: 'wait=60' }, body: JSON.stringify({ version: v.version(), input: v.input(forTheEar(text)) }) });

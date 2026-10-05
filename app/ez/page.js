@@ -2487,6 +2487,10 @@ ${DRAGON_STANDARD}`, 600);
                 <option style={OPT} value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option style={OPT} value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
               </select>
+              {user && ( // .703 (founder): previous / next voice, and the voice introduces itself — hear it before you choose it
+                <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
+                  className="ml-4 px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">‹</button>
+              )}
               {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
                   onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); } }}
@@ -2496,6 +2500,10 @@ ${DRAGON_STANDARD}`, 600);
                   {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`Read by ${label} ▾`}</option>)}
                   {voiceName === 'af_heart' && <option style={OPT} value="af_heart">Read by Heart ▾</option>}
                 </select>
+              )}
+              {user && ( // .703: next voice, introduced
+                <button type="button" aria-label="next voice" title="the next voice — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i + 1) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
+                  className="px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">›</button>
               )}
             </div>
 
