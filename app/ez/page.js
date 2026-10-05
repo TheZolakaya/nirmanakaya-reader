@@ -1263,7 +1263,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // .528: the Reader's own medicine and question ride with its turn — later turns used to see 'One question.' and nothing
     const gave = t.medicine ? `\n  THE MEDICINE IT GAVE: ${t.medicine}` : '';
     const askedQ = t.question ? `\n  IT ASKED: "${t.question}"` : '';
-    return `READER${t.draw ? (t.mode === 'locate' ? ` (reading the locating signature ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`;
+    return `READER (you — your own earlier words, never the asker's)${t.draw ? (t.mode === 'locate' ? ` (reading the locating signature ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`; // .699: labelled as the Reader's own
   }), []);
 
   // Every turn used to be re-sent in full on every call, so a long session paid more and more
@@ -1346,6 +1346,16 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         const bad = check(o, t);
         if (o.aim === 'thing' && (/^\s*(you\b|your\b|my hunch|the draw)/i.test(String(o.gist || '')) || /^\s*(you\b|your\b|my hunch)/i.test(String(o.reader || '')))) bad.push({ code: 'aim', detail: 'the question is about a THING and the opening began on the person — the first words of the gist and of the body are the thing\'s name and what the draw says it is or is for; the person comes second' }); // .638
         if (/\bweather\b/i.test([o.gist, o.reader, o.medicine, o.question].map((x) => String(x || '')).join(' '))) bad.push({ code: 'weather', detail: 'the word "weather" reached the glass — it is the house\'s own figure for the past as background, not a word people understand here; say the plain thing (the past, what is around this, the background) instead' }); // .654
+        { // .699 THE ATTRIBUTION CHECK (founder: the Reader handed its own step back as "you said the step is not more work"): a "you said / you told me /
+          // you called it" must point at words the person actually typed — the question or an asker turn. Checked by overlap: the eight words after the
+          // phrase share two content words with the asker's text, or the sentence is set aside and asked again.
+          const askerText = [question || '', ...(Array.isArray(turnsRef.current) ? turnsRef.current.filter((x) => x.role === 'you').map((x) => String(x.text || '')) : [])].join(' ').toLowerCase();
+          const askerWords = new Set(askerText.split(/[^a-z']+/).filter((w) => w.length >= 4));
+          const glass = [o.gist, o.reader, o.medicine, o.question].map((x) => String(x || '')).join(' ');
+          const re = /\byou (?:said|told me|called it|put it|wrote|mentioned)\b([^.!?]{0,80})/gi; let m; let miss = null;
+          while ((m = re.exec(glass))) { const tail = String(m[1] || '').toLowerCase().split(/[^a-z']+/).filter((w) => w.length >= 4); const hit = tail.filter((w) => askerWords.has(w)).length; if (tail.length >= 2 && hit < 2) { miss = m[0]; break; } }
+          if (miss && askerWords.size) bad.push({ code: 'attribution', detail: `"${miss.trim().slice(0, 90)}" hands the person words they did not type — "you said" is only for what the ASKER wrote; your own earlier step, medicine, dragon or floor is yours ("the step I handed you"), never theirs` });
+        }
         if (extra?.turn === 'opening' && !String(o.medicine || '').trim()) bad.push({ code: 'medicine', detail: 'the "medicine" field is empty — every opening carries the way through in its own box: on an imbalanced draw the record\'s medicine as the partner signature\'s own action; on a Balanced draw what this capacity is free to feed next; two to four plain sentences' }); // .674: the opening only (talk/card/door turns may carry none — a locating turn keeps it empty by rule); 5 of 42 bench openings on the first lane went out with no medicine and the medicine check only catches a WRONG name
         if (extra?.turn !== 'talk' && !(Array.isArray(o.next) && o.next.some((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)))) bad.push({ code: 'next', detail: 'the "next" field is empty — after your question, name at least one door this person would want next (whys, meaning, moon, mechanism, reflect, forge, clarify, unpack, example, find, medicine, dragon or step) with one plain line on what opening it will do for THIS draw' }); // .661 (Keel §10): every reading closes with a recommended door
         { const n = stampOf(o.reader); if (n > 2) bad.push({ code: 'stamp', detail: `the frame's words ("${stampWords().join('", "')}") appear ${n} times in one turn — name the frame once at the opening, then stay inside it without saying it again` }); } // .612
@@ -1871,13 +1881,14 @@ ${DRAGON_STANDARD}`, 600);
     const dr = over.dragon !== undefined ? over.dragon : dragonText;
     const md = over.medicineTaken !== undefined ? over.medicineTaken : medText;
     const read = [1, 'meaning', 'moon', 'mechanism'].filter((r) => rings[r]);
-    const step = (md ? `\n\nTHE MEDICINE, TAKEN (they opened "the medicine" and read this course — what it is, why, how to take it; it is part of the conversation now: build on it, never repeat it, never hand them a second medicine):\n${md}` : '')
-      + (st ? `\n\nTHE ONE SMALL STEP THEY WERE HANDED (they opened "one small step"; background — do not repeat it, do not turn it into homework, build on it only if they bring it up):\n${st}` : '')
-      + (dr ? `\n\nTHE DRAGON THEY ASKED TO FACE (they tapped "face the dragon" and read this; it is part of the conversation now — you may build on it and refer to it; never repeat it, never soften it back, never pile on):\n${dr}` : '');
+    // .699 (founder): every block below is the READER'S OWN earlier writing — labelled so, because the Reader handed its step back as "you said"
+    const step = (md ? `\n\nTHE MEDICINE COURSE YOU WROTE FOR THEM (YOUR words, not theirs — they opened "the medicine" and read it; it is part of the conversation now: build on it, never repeat it, never hand them a second medicine, never quote it back as something they said):\n${md}` : '')
+      + (st ? `\n\nTHE ONE SMALL STEP YOU HANDED THEM (YOUR words, not theirs — they opened "one small step"; background — do not repeat it, do not turn it into homework, never attribute it to them, build on it only if they bring it up):\n${st}` : '')
+      + (dr ? `\n\nTHE DRAGON YOU NAMED FOR THEM (YOUR words, not theirs — they tapped "face the dragon" and read this; it is part of the conversation now — you may build on it and refer to it as yours; never repeat it, never soften it back, never pile on):\n${dr}` : '');
     if (!read.length) return step;
     // Opened floors ENTER THE CONVERSATION (founder's ruling 2026-09-19: "it's an ongoing
     // conversation") — the Reader may build on them and refer to them; it just never repeats them.
-    return `${step}\n\nWHAT THEY HAVE READ IN "WORDS TO THE WHYS" (they opened these; they are part of the conversation now, so build on them and refer to what they say where it helps — but never repeat them back, and never make the tense line the topic):\n${read.map((r) => `${r === 1 ? 'WHY THIS IS HAPPENING' : String(r).toUpperCase()}:\n${rings[r]}`).join('\n\n')}`;
+    return `${step}\n\nWHAT YOU WROTE IN "WORDS TO THE WHYS" (YOUR words, not theirs — they opened these; they are part of the conversation now, so build on them and refer to what they say where it helps — but never repeat them back, never attribute them to the person, and never make the tense line the topic):\n${read.map((r) => `${r === 1 ? 'WHY THIS IS HAPPENING' : String(r).toUpperCase()}:\n${rings[r]}`).join('\n\n')}`;
   };
   const [floorsOpened, setFloorsOpened] = useState([]); // which lanterns they have opened, in order
   const [deepTab, setDeepTab] = useState('whys'); // .661 (Keel §11): which of Go deeper's four peers is showing
