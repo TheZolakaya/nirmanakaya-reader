@@ -1067,7 +1067,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const SPEEDS = [0.8, 0.95, 1.1, 1.25, 1.4]; // .698 (founder: "we should have a speed control for the read back") — 0.95 is the house default
   const [voiceSpeed, setVoiceSpeed] = useState(() => { try { const v = Number(localStorage.getItem('nkya-voice-speed')); return SPEEDS.includes(v) ? v : 0.95; } catch { return 0.95; } });
   const voiceSpeedRef = useRef(0.95); voiceSpeedRef.current = voiceSpeed;
-  const cycleSpeed = () => { const i = SPEEDS.indexOf(voiceSpeed); const v = SPEEDS[(i + 1) % SPEEDS.length]; setVoiceSpeed(v); try { localStorage.setItem('nkya-voice-speed', String(v)); } catch {} }; // (the voice line above once ended: "…ed second voice; Heart (sleeps) only by an old saved preference")
+  const pieceSpeedRef = useRef(0.95); // .702: the speed the piece now playing was generated at
+  const cycleSpeed = () => { const i = SPEEDS.indexOf(voiceSpeed); const v = SPEEDS[(i + 1) % SPEEDS.length]; setVoiceSpeed(v); voiceSpeedRef.current = v; try { localStorage.setItem('nkya-voice-speed', String(v)); } catch {} try { if (audioRef.current) audioRef.current.playbackRate = Math.max(0.5, Math.min(2, v / (pieceSpeedRef.current || 0.95))); } catch {} }; // .702: takes effect on the piece playing NOW // (the voice line above once ended: "…ed second voice; Heart (sleeps) only by an old saved preference")
   const VOICE_LABEL = { ...Object.fromEntries(READ_BY), af_heart: 'Heart' };
   const voiceAuth = async () => { try { const ss = await getSession(); const tk = ss?.session?.access_token; return tk ? { Authorization: `Bearer ${tk}` } : {}; } catch { return {}; } };
   const unlockAudio = () => { try { if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current; a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch {} };
@@ -1199,8 +1200,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // .633 THREE AHEAD (founder: "really long pauses between sentences now"). Since .625 a piece is a paragraph — often one sentence,
     // two or three seconds of audio — and one piece ahead no longer covered the round trip to the voice server, so playback waited on
     // the network between sentences. The throttle is gone (600/min), so three pieces are kept in flight ahead of the one playing.
-    const AHEAD = 3; const jobs = new Array(pieces.length).fill(null);
-    const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) jobs[j] = fetchPiece(pieces[j].text); };
+    const AHEAD = 3; const jobs = new Array(pieces.length).fill(null); const jobSpeed = new Array(pieces.length).fill(null);
+    const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) { jobSpeed[j] = voiceSpeedRef.current; jobs[j] = fetchPiece(pieces[j].text); } }; // .702: each piece remembers the speed it was made at
     ensureAhead(startAt > 0 ? Math.min(pieces.length - 1, startAt) : 0);
     for (let i = 0; i < pieces.length; i++) {
       if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
@@ -1212,7 +1213,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       if (i === 0) { await labelQueue.current; if (run !== speakRun.current) return; } // .647: the label and the narrator finish first
       setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
       const ended = new Promise((done) => { endedRef.current = done; a.onended = done; a.onerror = done; }); // .653: a jump or a skip can end it early
-      a.src = res.url; try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
+      a.src = res.url; pieceSpeedRef.current = jobSpeed[i] || voiceSpeedRef.current; try { a.playbackRate = Math.max(0.5, Math.min(2, voiceSpeedRef.current / pieceSpeedRef.current)); } catch {} // .702 (founder: "speed adjustments don't take effect until the next full pull"): a piece made at the old speed is played at the new one — the change is immediate, pitch kept by the browser
+      try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; endedRef.current = null; if (run !== speakRun.current) return;
       if (voiceSkipRef.current) break; if (jumpRef.current != null) continue;
       if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (voiceSkipRef.current || jumpRef.current != null) break; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused; .653: a jump or skip cuts it
@@ -2167,8 +2169,8 @@ ${DRAGON_STANDARD}`, 600);
   const panelsRef = useRef(null);
   panelTextRef.current = { dragon: dragonText, medicine: medText, step: stepText, floor1: brazier[1] || '', floormeaning: brazier.meaning || '', floormoon: brazier.moon || '', floormechanism: brazier.mechanism || '' }; // .698
   // .698 (founder: "all the panels should have [the Clarify / Unpack / Example / Find it buttons] at the end"): the same row every Reader turn carries, on a panel's own words
-  const panelMoves = (id, text) => !text ? null : (
-    <div className="mt-4 flex flex-wrap justify-center gap-1 px-1">
+  const panelMoves = (id, text) => !text ? null : ( // .702 (founder): the row sits ON the frame's bottom line, like the turn's — one visual language
+    <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2">
       {[['clarify', 'Clarify', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tone]) => (
         <button key={k} onClick={twoTap(`${id}-${k}`, () => move(id, k, text), k)} className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>{label}</button>
       ))}
@@ -2752,7 +2754,7 @@ ${DRAGON_STANDARD}`, 600);
                     : t.role === 'catchup'
                       ? 'rounded-xl border border-violet-700/40 bg-violet-950/20 p-4 text-sm text-violet-100 break-words'
                     : t.role === 'wrap'
-                      ? 'rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-5 text-[1rem] leading-relaxed text-emerald-50 break-words'
+                      ? 'rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-5 text-[1rem] leading-relaxed text-emerald-50 break-words flex flex-col' /* .702: a flex column so the move row can be ordered last, onto the line */
                       : 'relative rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 text-[0.9375rem] leading-relaxed text-zinc-200 break-words'}>
 
                   {t.role === 'catchup' && <div className="text-[0.625rem] uppercase tracking-wider text-violet-300/70 mb-2">Where you are</div>}
@@ -2855,8 +2857,8 @@ ${DRAGON_STANDARD}`, 600);
                     </details>
                   )}
 
-                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && ( // .655: under every frame the Reader prints
-                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 ${t.role === 'wrap' ? '' : 'sm:-mb-4 sm:translate-y-1/2'}`}> {/* .698 (founder): on the wrap the row sits in flow at the bottom — half-off-the-border it covered the "did it land?" buttons */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
+                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && ( // .655: under every frame the Reader prints; .702: on the wrap the row is ORDERED after the "did it land?" block (the frame is a flex column), so it sits on the line too
+                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} data-arm={`${t.id}-${k}`} onClick={twoTap(`${t.id}-${k}`, () => move(t.id, k), k)} title={tip}
