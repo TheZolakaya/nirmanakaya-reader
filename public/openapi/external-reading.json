@@ -89,6 +89,22 @@
             "description": "true = a short interpretation; false = the full reader (slower, longer)."
           },
           {
+            "name": "voice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "plain",
+                "grown",
+                "deep",
+                "mystical"
+              ],
+              "default": "plain"
+            },
+            "description": "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; it is the default, so an external reader reads what a user reads. 'deep' names the map's words and shows the derivation."
+          },
+          {
             "name": "format",
             "in": "query",
             "required": false,
@@ -164,6 +180,17 @@
                   "fast": {
                     "type": "boolean",
                     "default": false
+                  },
+                  "voice": {
+                    "type": "string",
+                    "enum": [
+                      "plain",
+                      "grown",
+                      "deep",
+                      "mystical"
+                    ],
+                    "default": "plain",
+                    "description": "The register. 'plain' is what people get on the site and the default; 'deep' names the map's words and shows the derivation."
                   },
                   "format": {
                     "type": "string",

@@ -47,6 +47,7 @@ export async function GET(request) {
       cardCount: parseInt(searchParams.get('cardCount')) || 1,
       mode: searchParams.get('mode') || 'discover',
       fast: searchParams.get('fast') !== 'false',
+      voice: searchParams.get('voice') || null, // .685: the register; absent = plain (what a user reads)
       requestId: searchParams.get('requestId') || null,
       monitor: searchParams.get('monitor') || null,
       collectiveScope: searchParams.get('collectiveScope') || null,
