@@ -182,19 +182,18 @@ const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.
 const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same signature, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same signature, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
 // did exactly from the advanced reader"); EZ adds only the envelope: a new turn, then the one question.
+// .700 (founder, on an Unpack that opened with "think of a chair in a room"): the three moves no longer run on the full reader's old instructions
+// ("explore the layers… beneath the surface", "set the scene"), which invited figure and scene; each is written under the voice in force, in the
+// turn's own shape — a gist, a body, one question — and the Handing's rules (literal first; whose words are whose; the medicine as the person's own
+// instance, never the record's line) hold on a move exactly as on a turn.
+const MOVE_SHAPE = `THE SHAPE OF A MOVE: the same JSON as any turn — "gist" (one sentence: what this move adds, in ordinary words), "reader" (the body, 2–4 short paragraphs, a blank line between them), "question" (ONE question, plainly, at the end — never two), "medicine" (empty: the medicine was given on the turn above and is not given twice), chips/reflect/forge as usual. The voice in force governs every word of it.`;
 const MOVE_RULES = {
-  clarify: `THE MOVE — CLARIFY, exactly as the full reader does it:
-${EXPANSION_PROMPTS.clarify.prompt}
-
-This answers as a NEW turn under the turn quoted below — never a rewrite of it. Open the way a person would: "Okay — let me put it to you this way." Same meaning, same verdict, same medicine. Then your one question, plainly.`,
-  unpack: `THE MOVE — UNPACK, exactly as the full reader does it:
-${EXPANSION_PROMPTS.unpack.prompt}
-
-This answers as a NEW turn under the turn quoted below — never a rewrite of it, nothing dropped from it. Then your one question.`,
-  example: `THE MOVE — EXAMPLE, exactly as the full reader does it:
-${EXPANSION_PROMPTS.example.prompt}
-
-This answers as a NEW turn under the turn quoted below. Their own situation if they have named one in this conversation, otherwise a plausible stranger's, said as such. Never claim the field picked the signature because of the scene. Then your one question.`,
+  clarify: `THE MOVE — CLARIFY. Say the turn quoted below again so that it is easier to hold: the same claims, the same verdict, the same way through, in shorter sentences and more ordinary words, nothing added and nothing dropped. No new image — if the turn used one, replace it with the plain statement it stood for. Open the way a person would ("Okay — let me put it to you this way"). This answers as a NEW turn under the one quoted, never a rewrite of it.
+${MOVE_SHAPE}`,
+  unpack: `THE MOVE — UNPACK. Show the turn quoted below with its grounds visible, in ordinary words: for each claim it made — what came up, how they are carrying it, where it shows up, the way through — say what that claim rests on and what it implies for the person, one claim at a time. Grounds, not depth: no new image, no scene, no "think of a…", no metaphor for a thing the turn already said plainly; where the turn used a figure, unpack it into the statement it stood for. Nothing from the turn is dropped and nothing is contradicted. This answers as a NEW turn under the one quoted.
+${MOVE_SHAPE}`,
+  example: `THE MOVE — EXAMPLE. One concrete instance of the turn quoted below, and only one, built from what the person has actually said in this conversation — their nouns, their situation. If they have named nothing concrete, the example stays general ("a decision you have already made", "one thing you keep reopening") rather than inventing a job, a partner, a room or a habit for them; a stranger's scene is allowed only when you say it is a stranger's, in one sentence. Never claim the field drew the signature because of the scene. This answers as a NEW turn under the one quoted.
+${MOVE_SHAPE}`,
 };
 
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a signature's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
@@ -1340,7 +1339,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // THE GARBLE GUARD (2026-10-02): the scar tests on every reply; a turn that trips one is asked for again, once, with the reason named.
     // ('the newsletter says', a closing letter, the December commands, a pet name, a leak-shaped line — none of them reaches the glass.)
     try {
-      const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot', 'bothways', 'narrator', 'conduit', 'promise', 'binding', 'listy', 'destination', 'plainname']); // .678 THE PLAIN NAME — the lint only raises it when voice === 'plain' // + THE BINDING (2026-10-04); + listy now that THE FIELD hands the Reader nouns ('unnamed' stays a flag: benched 2026-10-04, a re-ask did not move it — the record's own "putting something down" is the verb's object) // + Keel's plain tests (2026-10-03); 'unnamed' is a lint flag only — the record gives the Reader no nouns yet, so a re-ask could not fix it
+      const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot', 'bothways', 'narrator', 'conduit', 'promise', 'binding', 'listy', 'destination', 'plainname', 'figure', 'operation']); // .700 + the taught figures and the operation quoted // .678 THE PLAIN NAME — the lint only raises it when voice === 'plain' // + THE BINDING (2026-10-04); + listy now that THE FIELD hands the Reader nouns ('unnamed' stays a flag: benched 2026-10-04, a re-ask did not move it — the record's own "putting something down" is the verb's object) // + Keel's plain tests (2026-10-03); 'unnamed' is a lint flag only — the record gives the Reader no nouns yet, so a re-ask could not fix it
       const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || (Array.isArray(draws) ? draws[0] : null), draws: extra?.draw ? [extra.draw] : (Array.isArray(draws) ? draws : undefined), question: question || '', voice: extra?.register || voice }).flags || []).filter((f) => scars.has(f.code)); // .673: the draws and the question reach the lint (THE DESTINATION); .678: and the voice (THE PLAIN NAME is Plain-gated; a reread rides its own register)
       const faults = (o, t) => { // every reason a reply is set aside, so the retry is judged on ALL of them (.675: the retry used to be accepted by the scars + the stamp alone — an empty medicine or "weather" on the retry went out)
         const bad = check(o, t);
@@ -1915,9 +1914,9 @@ ${DRAGON_STANDARD}`, 600);
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
       const ask = floor === 1 ? 'Write ring 1. JSON only.' : `Write the ${floor} floor. JSON only.`;
       const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}\n\n${ask}`;
-      let data = await rawCall(msg, brazierSystem(floor), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469)
+      let data = await rawCall(msg, brazierSystem(floor, voice), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469); .700 the voice in force reaches the floors
       let obj = parseJson(data.reading);
-      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor), 800); obj = parseJson(data.reading); }
+      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor, voice), 800); obj = parseJson(data.reading); }
       if (!obj?.text) throw new Error('The brazier went out — try again.');
       // the word limits are hard (ring 1 is 90–135 per Keel's spec; the floors 170 / 170 / 240)
       // .448: a 15% overrun is accepted — the ledger showed the moon and the mechanism each
