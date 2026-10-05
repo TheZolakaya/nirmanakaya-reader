@@ -16,7 +16,8 @@ export async function POST(request) {
     const text = forTheEar(body.text);
     if (!text) return Response.json({ error: 'nothing to say' }, { status: 400 });
     if (text.length > MAX_PIECE) return Response.json({ error: `piece too long (${text.length} > ${MAX_PIECE})` }, { status: 400 });
-    const r = await speakPiece(text, body.voice);
+    const sp = Number(body.speed); const speed = Number.isFinite(sp) && sp >= 0.7 && sp <= 1.5 ? sp : undefined; // .698 the readback speed control
+    const r = await speakPiece(text, body.voice, { speed });
     return Response.json({ url: r.url, secs: r.secs, usd: (r.secs || 0) * VOICE_USD_PER_SECOND, chars: text.length }); // .613: the voice is accounted for on the cost line
   } catch (e) {
     return Response.json({ error: String(e.message || e).slice(0, 200), waking: !!e.waking }, { status: e.waking ? 503 : 502 });
