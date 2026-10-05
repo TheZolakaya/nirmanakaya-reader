@@ -26,7 +26,7 @@ const TOOLS = [
         cardCount: { type: 'integer', minimum: 1, maximum: 5, default: 1 },
         mode: { type: 'string', enum: ['discover', 'reflect', 'forge'], default: 'discover' },
         fast: { type: 'boolean', default: true, description: 'true = a short interpretation; false = the full reader (slower, longer).' },
-        voice: { type: 'string', enum: ['plain', 'grown', 'deep', 'mystical'], default: 'plain', description: "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; pass it to read as a user reads. 'deep' names the map's words and shows the derivation." },
+        voice: { type: 'string', enum: ['plain', 'plainlit', 'grown', 'deep', 'mystical'], default: 'plain', description: "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; pass it to read as a user reads. 'plainlit' is Plain with a literal-first rule, a bench register for comparing renderings. 'deep' names the map's words and shows the derivation." },
         glass: { type: 'boolean', default: false, description: 'true = return ONLY what a person sees on the site (the words: gist, prose, the way through, the closing question) — no draw block, no names, no record. For reading as a user reads. false = the instrument (draws, cards, record) plus the words.' },
       },
       required: ['question'],
@@ -59,7 +59,7 @@ async function callTool(name, args = {}) {
   if (name === 'get_reading') {
     if (!args.question) throw new Error('question is required');
     // parity with the REST GET: the same arguments, the same stance — the transport adds nothing to the reading
-    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, voice: ['plain', 'grown', 'deep', 'mystical'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
+    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, voice: ['plain', 'plainlit', 'grown', 'deep', 'mystical'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
     return args.glass === true ? text(asGlass(r), glassPayload(r)) : text(asText(r), r); // .688: glass = only what a person sees on the site
   }
   if (name === 'retrieve_reading' || name === 'fetch') {

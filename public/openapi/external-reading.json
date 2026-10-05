@@ -96,13 +96,14 @@
               "type": "string",
               "enum": [
                 "plain",
+                "plainlit",
                 "grown",
                 "deep",
                 "mystical"
               ],
               "default": "plain"
             },
-            "description": "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; it is the default, so an external reader reads what a user reads. 'deep' names the map's words and shows the derivation."
+            "description": "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; it is the default, so an external reader reads what a user reads. 'deep' names the map's words and shows the derivation. 'plainlit' = Plain with the literal-first rule, a bench register for readers comparing renderings."
           },
           {
             "name": "format",
@@ -187,6 +188,7 @@
                     "type": "string",
                     "enum": [
                       "plain",
+                      "plainlit",
                       "grown",
                       "deep",
                       "mystical"
