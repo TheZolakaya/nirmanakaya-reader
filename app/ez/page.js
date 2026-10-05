@@ -1345,6 +1345,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         const o2 = parseJson(again.reading);
         if (o2 && o2.reader && faults(o2, again.reading).length < bad.length) { obj = o2; data = again; } // the retry replaces the first reply when it carries fewer faults, never more (.612's stamp cap is inside faults)
       }
+      // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
+      { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
     } catch {}
     // THE VERDICT, ONCE: the gist opens with it; if the body opens with the same word, the body's copy is dropped (the rule says so, the model sometimes doesn't).
     try {
