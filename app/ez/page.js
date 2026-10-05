@@ -1112,8 +1112,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   });
   const [armed, setArmed] = useState(null); const armedRef = useRef(null); const armTimer = useRef(null); // .655 TWO TAPS
   const disarm = () => { armedRef.current = null; setArmed(null); if (armTimer.current) { clearTimeout(armTimer.current); armTimer.current = null; } };
+  const recDoneRef = useRef({}); // .696: set below, once the recommendation state exists
   const twoTap = (key, fn, slug) => () => {
     if (armedRef.current === key) { disarm(); fn(); return; }
+    if (recKeysRef.current.has(key) && recDoneRef.current.recOpen) recDoneRef.current.setRecDone?.(recDoneRef.current.recOpen); // .696 (founder): once one recommended pill is chosen, the rest stop flashing
     armedRef.current = key; setArmed(key); if (slug) sayLabel(slug);
     if (armTimer.current) clearTimeout(armTimer.current); armTimer.current = setTimeout(disarm, 8000);
   };
@@ -1141,7 +1143,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // with one space, so every paragraph break vanished for the ear. Now a piece is a paragraph (a long one is cut at sentences), and
   // each piece carries the SILENCE that follows it: a breath between paragraphs, a full beat after a heading or the gist, and before
   // the question. The hosted model has no pause markup, so the player supplies the silence.
-  const GAP = { sentence: 60, paragraph: 150, heading: 1000, beforeQuestion: 240, colon: 500 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again'); .661 (Keel §7) a title is ~1 s from its text, a colon is a ~500 ms beat
+  const GAP = { sentence: 60, paragraph: 150, heading: 1000, beforeQuestion: 240, colon: 250 }; // .629 halved; .630 shorter; .631 shorter again (founder, three times: 'reduce the pauses again'); .661 (Keel §7) a title is ~1 s from its text, a colon is a ~500 ms beat
   const piecesOf = (t) => {
     const out = [];
     const pushText = (text, gapAfter, kind = 'text') => {
@@ -1150,7 +1152,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         const sents = para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [para]; const subs = []; let cur = '';
         const flush = (colon) => { if (cur.trim()) subs.push({ text: cur.trim(), colon }); cur = ''; };
         for (const x of sents) {
-          const parts = x.split(/:\s+(?=["“A-Za-z])/); // .661 (Keel §7): a colon is a beat — the piece ends there (said as a full stop) and the player holds ~500 ms
+          const parts0 = x.split(/:\s+(?=["“A-Za-z])/); // .661 (Keel §7): a colon is a beat — the piece ends there (said as a full stop) and the player holds ~500 ms
+          // .696 (founder: the medicine "comes across as shouting"): a LABEL before a colon — four words or fewer ("WHAT IT IS:", "HOW TO TAKE IT:") — is not cut
+          // into its own piece; said alone as a full stop the model punches it. It stays with its sentence, the colon a comma, no beat.
+          const parts = []; for (const seg of parts0) { if (parts.length && parts[parts.length - 1].trim().split(/\s+/).length <= 4) parts[parts.length - 1] = parts[parts.length - 1].trimEnd() + ', ' + seg; else parts.push(seg); }
           parts.forEach((p, k) => { const last = k === parts.length - 1; const seg = last ? p : p.trimEnd() + '.'; if ((cur + seg).length > 420 && cur) flush(false); cur += last ? seg : seg + ' '; if (!last) flush(true); });
         }
         flush(false);
@@ -2089,12 +2094,15 @@ ${DRAGON_STANDARD}`, 600);
   // goes quiet on purpose, but the conversation must still be continuable from where it was
   // (founder, 2026-09-16 night: "after selecting one small thing, the pills are all gone").
   const [recOpen, setRecOpen] = useState(null); // .662: the turn whose recommendations are revealed
+  const [recDone, setRecDone] = useState(null); // .696: the turn whose recommendation has been chosen — the rest stop flashing
+  recDoneRef.current = { recDone, setRecDone, recOpen };
   const revealNext = (t) => { // .662: Recommend — reveal the doors as buttons, and the Reader's voice says them
     if (recOpen === t.id) { setRecOpen(null); return; }
-    sayLabel('recommend'); setRecOpen(t.id);
+    sayLabel('recommend'); setRecOpen(t.id); setRecDone(null);
     if (voiceOut && Array.isArray(t.next) && t.next.length) speakTurn({ id: `${t.id}-next`, text: t.next.map((n) => `${NEXT_LABEL[n.panel] || n.panel}. ${n.why}`).join('\n\n') });
   };
   const openDoor = (t, p) => { // .662: a recommended door, opened — the same act as its own pill
+    setRecDone(t.id); // .696: one chosen → the others stop flashing
     if (p === 'reflect' || p === 'forge') { sayLabel(p); setFieldMode(p); }
     else if (p === 'clarify' || p === 'unpack' || p === 'example') { sayLabel(p); move(t.id, p); }
     else if (p === 'find') { sayLabel('find-it'); send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }); }
@@ -2106,6 +2114,7 @@ ${DRAGON_STANDARD}`, 600);
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
   recKeysRef.current = (() => { // .661 (Keel §10): the recommended doors → the pills that light (the latest turn's only); .662 only once Recommend has been tapped
     const t = [...turns].reverse().find((x) => x.role === 'reader'); const out = new Set(); if (!t || !Array.isArray(t.next)) return out;
+    if (recOpen !== t.id || recDone === t.id) return out; // .696 (founder): the pills flash only AFTER Recommend is tapped, and stop once one is chosen — the set was filling on every turn with a next[]
     for (const n of t.next) { const p = n.panel; if (['moon', 'meaning', 'mechanism'].includes(p)) { out.add('whys'); out.add(`floor-${p}`); } else if (p === 'whys') out.add('whys'); else if (p === 'reflect' || p === 'forge') out.add(`switch-${p}`); else if (['clarify', 'unpack', 'example'].includes(p)) out.add(`${t.id}-${p}`); else if (p === 'find') out.add(`${t.id}-find`); else if (['medicine', 'dragon', 'step'].includes(p)) out.add(p); }
     return out;
   })();
