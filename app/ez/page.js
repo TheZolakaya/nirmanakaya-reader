@@ -2493,7 +2493,7 @@ ${DRAGON_STANDARD}`, 600);
               )}
               {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
-                  onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); } }}
+                  onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} } }} // .704 (founder): the dropdown introduces the voice too
                   style={{ width: '8.5rem' }}
                   className="ml-4 appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
                   <option style={OPT} value="none">Not read aloud ▾</option>
