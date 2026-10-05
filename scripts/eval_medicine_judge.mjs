@@ -71,11 +71,13 @@ for (const b of boxes) {
 const by = (truth, pred) => rows.filter((r) => r.truth === truth && pred(r.verdict)).length;
 const isFail = (v) => v.startsWith('FAIL');
 const summary = [
-  `drift (${rows.filter((r) => r.truth === 'drift').length}): caught ${by('drift', isFail)} · uncertain ${by('drift', (v) => v === 'UNCERTAIN')} · missed (PASS) ${by('drift', (v) => v === 'PASS')}`,
-  `good (${rows.filter((r) => r.truth === 'good').length}): false positives ${by('good', isFail)} · uncertain ${by('good', (v) => v === 'UNCERTAIN')} · pass ${by('good', (v) => v === 'PASS')}`,
-  `mixed (${rows.filter((r) => r.truth === 'mixed').length}): fail ${by('mixed', isFail)} · uncertain ${by('mixed', (v) => v === 'UNCERTAIN')} · pass ${by('mixed', (v) => v === 'PASS')}`,
+  `drift (${rows.filter((r) => r.truth === 'drift').length}): caught ${by('drift', isFail)} · uncertain ${by('drift', (v) => v === 'UNCERTAIN')} · missed (PASS) ${by('drift', (v) => v === 'PASS')} — uncertain is abstention, not detection: those drifts would receive no intervention`,
+  `good (${rows.filter((r) => r.truth === 'good').length}): false alarms ${by('good', isFail)} · uncertain ${by('good', (v) => v === 'UNCERTAIN')} · pass ${by('good', (v) => v === 'PASS')}`,
+  `mixed — ALLOWED, counted as valid outputs (${rows.filter((r) => r.truth === 'mixed').length}): false alarms ${by('mixed', isFail)} · uncertain ${by('mixed', (v) => v === 'UNCERTAIN')} · pass ${by('mixed', (v) => v === 'PASS')}`,
+  `FALSE ALARMS TOTAL (good + allowed mixed): ${by('good', isFail) + by('mixed', isFail)} — Air's bar: at most 2`,
   `errors: ${rows.filter((r) => r.verdict === 'ERROR').length} · tokens in ${usage.in} out ${usage.out} (the provider log carries each call's live price)`,
 ];
+fs.writeFileSync(DIR + `EVAL_True_Medicine_Act_Judge_Verdicts_2026-10-05${VOTES > 1 ? `_votes${VOTES}` : ''}.json`, JSON.stringify(rows.map((r) => ({ label: r.label, truth: r.truth, verdict: r.verdict, votes: r.raw, pid: r.pid, others: r.others, med: r.med })), null, 1)); // the trigger set for the repair bench
 console.log('\n' + summary.join('\n'));
 const out = [`# EVAL — the medicine-act judge against the frozen 133`, `*True, 2026-10-05. One cheap-lane call per box (lib/bakeoff/medicineJudge.js): the box text, the intended partner and its acts, the other drawn partners. Hand labels from INSPECT_True_Medicine_Text_Vs_Acts: 8 drift, 6 mixed (allowed), the rest good. Air's bar: ≥7/8 caught, ≤2 clear false positives on the good boxes, UNCERTAIN never re-asks.*`, '', '## Summary', ...summary.map((s) => `- ${s}`), '', '## Every box', '', '| truth | verdict | partner | box |', '|---|---|---|---|', ...rows.map((r) => `| ${r.truth} | ${r.verdict} | ${MEDICINE_ACTS[r.pid].name} | ${r.label} |`), '', '## The disagreements (drift not caught, good failed, anything uncertain)', ''];
 for (const r of rows.filter((r) => (r.truth === 'drift' && !isFail(r.verdict)) || (r.truth === 'good' && r.verdict !== 'PASS') || (r.truth === 'mixed' && r.verdict !== 'PASS'))) out.push(`- **${r.truth} → ${r.verdict}** · ${MEDICINE_ACTS[r.pid].name} · ${r.label}${r.others.filter((o) => o != null).length ? ` · others: ${r.others.filter((o) => o != null).map((o) => MEDICINE_ACTS[o]?.name || o).join(', ')}` : ''}`, `  > ${r.med}`, '');
