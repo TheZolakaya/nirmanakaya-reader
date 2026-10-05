@@ -1314,7 +1314,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const stampOf = (t) => { let n = 0; for (const w of stampWords()) { const re = new RegExp('(?<![\\w])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w])', 'gi'); n = Math.max(n, (String(t || '').match(re) || []).length); } return n; };
   const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens, extra);
-    if (data?.medicineVerdict && data.medicineVerdict !== 'PASS') console.info('[medicine-act]', data.medicineVerdict); // .681 THE MEDICINE-ACT JUDGE, flag-only — the route attaches the verdict on an opening; nothing changes on the glass
+    if (data?.medicineVerdict) console.info('[medicine-act]', data.medicineVerdict); // .681/.683 THE MEDICINE-ACT JUDGE — the route attaches the verdict on an opening; a FAIL joins the one re-ask below
     let obj = parseJson(data.reading);
     if (!obj || !obj.reader) {
       data = await rawCall(
@@ -1339,12 +1339,30 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         return bad;
       };
       const bad = faults(obj, data.reading);
+      // .683 THE MEDICINE-ACT JUDGE PROMOTED (Air, 2026-10-05): the route judged this opening's medicine box; FAIL_OTHER_CARD / FAIL_WRONG_ACT joins the ONE
+      // re-ask (budget unchanged); UNCERTAIN never triggers. A medicine-triggered retry replaces the original only when the route's verdict on the
+      // retry is PASS, the box is non-empty, the retry carries no fault code the original lacked, and total faults fall. Otherwise the original stays.
+      const medTriggered = data?.medicineVerdict === 'FAIL_OTHER_CARD' || data?.medicineVerdict === 'FAIL_WRONG_ACT';
+      if (medTriggered) bad.push({ code: 'medicineact', detail: data.medicineNote || 'the medicine box does not do the opening\'s medicine — write it as the record\'s medicine for the signature you drew, its own action, done small, today' });
       console.info('[next]', JSON.stringify(obj.next ?? null).slice(0, 300));
       if (bad.some((f) => f.code === 'next')) console.warn('[next] the reply carried no usable next door; keys:', Object.keys(obj).join(','));
       if (bad.length) {
         const again = await rawCall(`${userMessage}\n\nYOUR LAST REPLY WAS SET ASIDE: ${bad.map((f) => f.detail).join('; ')}. Answer the turn again, in your own words, without that.`, system, maxTokens, extra);
         const o2 = parseJson(again.reading);
-        if (o2 && o2.reader && faults(o2, again.reading).length < bad.length) { obj = o2; data = again; } // the retry replaces the first reply when it carries fewer faults, never more (.612's stamp cap is inside faults)
+        if (o2 && o2.reader) {
+          const f2 = faults(o2, again.reading); const origCodes = new Set(bad.map((f) => f.code)); const newScars = f2.filter((f) => !origCodes.has(f.code));
+          if (medTriggered) {
+            const v2 = String(o2.medicine || '').trim() ? (again?.medicineVerdict || 'UNCERTAIN') : 'EMPTY';
+            const accept = v2 === 'PASS' && newScars.length === 0 && f2.length < bad.length;
+            console.info(`[medicine-act] re-ask: ${data.medicineVerdict} → retry ${v2}${newScars.length ? ' (new: ' + newScars.map((f) => f.code).join(',') + ')' : ''} → ${accept ? 'ACCEPTED' : 'original kept'}`);
+            if (accept) { obj = o2; data = again; }
+          } else { // a scar-only retry: the route judged its medicine too, and a FAIL counts as a fault — a retry that trades a scar for a wrong medicine does not win
+            const v2 = String(o2.medicine || '').trim() ? (again?.medicineVerdict || 'UNCERTAIN') : 'EMPTY';
+            const f2count = f2.length + (v2 === 'FAIL_OTHER_CARD' || v2 === 'FAIL_WRONG_ACT' || v2 === 'EMPTY' ? 1 : 0);
+            console.info(`[medicine-act] scar re-ask: retry medicine ${v2} → ${f2count < bad.length ? 'ACCEPTED' : 'original kept'}`);
+            if (f2count < bad.length) { obj = o2; data = again; } // (.612's stamp cap is inside faults)
+          }
+        }
       }
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
