@@ -27,6 +27,7 @@ import { TRAUMA_RX, TRAUMA_BLOCK, AI_RX, AI_BLOCK, FRAMES, frameOf, FRAME_ASK, f
 import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560: the house's notes — the application reviews every turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
+import { allowedNamesFrom, personFlags, scrubReply } from '../../lib/personGuard'; // .707 THE PERSON GUARD — one implementation for every surface
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
@@ -1326,6 +1327,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // next reading's opening). Once at the opening and once more is the cap; past that the turn is asked for again with the count named.
   const stampWords = () => { if (!frame) return []; const f = frameOf(frame.k); return [f?.k === 'custom' ? frame.detail : f?.label, f?.k === 'custom' ? null : frame.detail].filter((x) => typeof x === 'string' && x.trim().length > 2).map((x) => x.trim()); };
   const stampOf = (t) => { let n = 0; for (const w of stampWords()) { const re = new RegExp('(?<![\\w])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w])', 'gi'); n = Math.max(n, (String(t || '').match(re) || []).length); } return n; };
+  // .707 THE PERSON GUARD's provenance: names the ASKER supplied — the question, what was asked, their turns, their journey block. Never the Reader's own words.
+  const askerTexts = () => [question || '', asked || '', userContextRef.current || '', ...(Array.isArray(turnsRef.current) ? turnsRef.current.filter((x) => x.role === 'you').map((x) => String(x.text || '')) : [])];
+  const askerAllowed = () => allowedNamesFrom(askerTexts());
   const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens, extra);
     if (data?.medicineVerdict) console.info('[medicine-act]', data.medicineVerdict); // .681/.683 THE MEDICINE-ACT JUDGE — the route attaches the verdict on an opening; a FAIL joins the one re-ask below
@@ -1358,7 +1362,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           if (miss && askerWords.size) bad.push({ code: 'attribution', detail: `"${miss.trim().slice(0, 90)}" hands the person words they did not type — "you said" is only for what the ASKER wrote; your own earlier step, medicine, dragon or floor is yours ("the step I handed you"), never theirs` });
         }
         if (extra?.turn === 'opening' && !String(o.medicine || '').trim()) bad.push({ code: 'medicine', detail: 'the "medicine" field is empty — every opening carries the way through in its own box: on an imbalanced draw the record\'s medicine as the partner signature\'s own action; on a Balanced draw what this capacity is free to feed next; two to four plain sentences' }); // .674: the opening only (talk/card/door turns may carry none — a locating turn keeps it empty by rule); 5 of 42 bench openings on the first lane went out with no medicine and the medicine check only catches a WRONG name
-        if (extra?.turn !== 'talk' && !(Array.isArray(o.next) && o.next.some((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)))) bad.push({ code: 'next', detail: 'the "next" field is empty — after your question, name at least one door this person would want next (whys, meaning, moon, mechanism, reflect, forge, clarify, unpack, example, find, medicine, dragon or step) with one plain line on what opening it will do for THIS draw' }); // .661 (Keel §10): every reading closes with a recommended door
+        if (extra?.turn !== 'talk' && !extra?.panel && !(Array.isArray(o.next) && o.next.some((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)))) bad.push({ code: 'next', detail: 'the "next" field is empty — after your question, name at least one door this person would want next (whys, meaning, moon, mechanism, reflect, forge, clarify, unpack, example, find, medicine, dragon or step) with one plain line on what opening it will do for THIS draw' }); // .661 (Keel §10): every reading closes with a recommended door
+        bad.push(...personFlags([o.gist, o.reader, o.medicine, o.question].map((x) => String(x || '')).join(' '), askerAllowed())); // .707 INVENTED_PERSON (Air: 'the Ravi guard') — a hard scar, the existing one re-ask
         { const n = stampOf(o.reader); if (n > 2) bad.push({ code: 'stamp', detail: `the frame's words ("${stampWords().join('", "')}") appear ${n} times in one turn — name the frame once at the opening, then stay inside it without saying it again` }); } // .612
         return bad;
       };
@@ -1384,10 +1389,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
             const v2 = String(o2.medicine || '').trim() ? (again?.medicineVerdict || 'UNCERTAIN') : 'EMPTY';
             const f2count = f2.length + (v2 === 'FAIL_OTHER_CARD' || v2 === 'FAIL_WRONG_ACT' || v2 === 'EMPTY' ? 1 : 0);
             console.info(`[medicine-act] scar re-ask: retry medicine ${v2} → ${f2count < bad.length ? 'ACCEPTED' : 'original kept'}`);
-            if (f2count < bad.length) { obj = o2; data = again; } // (.612's stamp cap is inside faults)
+            const personHeld = bad.some((f) => f.code === 'person') && (f2.some((f) => f.code === 'person') || newScars.length > 0); // .707: a person scar is won only by a retry with the person gone and no new fault
+            if (f2count < bad.length && !personHeld) { obj = o2; data = again; } // (.612's stamp cap is inside faults)
           }
         }
       }
+      // .707 THE PERSON FALLBACK (Air): a named person the asker never supplied that survived the re-ask is removed mechanically — the role kept only if the asker supplied it — and logged.
+      { const ch = scrubReply(obj, askerAllowed(), askerTexts()); if (ch.length) { console.warn('[person] fallback:', ch.join(' | ')); obj.personFallback = ch; } }
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
     } catch {}
@@ -1778,7 +1786,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
-      const { obj } = await callReader(msg, systemPrompt, 500);
+      const { obj } = await callReader(msg, systemPrompt, 500, { panel: 'step' });
       setStepText(String(obj.reader || '').trim());
       if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
@@ -1816,7 +1824,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
       const tele = seedFor(card, question).block;
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
-      const { obj } = await callReader(msg, systemPrompt, 900);
+      const { obj } = await callReader(msg, systemPrompt, 900, { panel: 'medicine' });
       setMedText(String(obj.reader || '').trim());
       if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1851,7 +1859,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
       const { obj } = await callReader(msg, `${systemPrompt}
 
-${DRAGON_STANDARD}`, 600);
+${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
       setDragonText(String(obj.reader || '').trim());
       if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
@@ -1930,6 +1938,13 @@ ${DRAGON_STANDARD}`, 600);
         data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor), 800);
         const again = parseJson(data.reading);
         if (again?.text && words(again.text) <= words(obj.text)) obj = again;
+      }
+      { // .707 THE PERSON GUARD on a floor (the floors call the model raw, outside callReader): one re-ask, then the mechanical fallback, logged
+        const pf = personFlags(obj.text, askerAllowed());
+        if (pf.length) { const d2 = await rawCall(`${msg}
+
+YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same meaning, without that.`, brazierSystem(floor, voice), 1000); const o2 = parseJson(d2.reading); if (o2?.text && !personFlags(o2.text, askerAllowed()).length) obj = o2; }
+        const ch = scrubReply(obj, askerAllowed(), askerTexts(), ['text']); if (ch.length) console.warn('[person] floor fallback:', ch.join(' | '));
       }
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
