@@ -1062,7 +1062,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // the model; when the turn lands, every piece (gist first, then paragraphs, then the question) is sent at once and they play in order
   // as each arrives, so the voice starts with the gist and the rest is ready behind it.
   const voiceOut = !!user && chrome.prefs.voiceOut !== false; // .624: ON by default, George; .637: for everyone signed in (founder: "make that available to all users on production now")
-  const READ_BY = [['bm_george', 'George'], ['bf_emma', 'Emma'], ['af_bella', 'Bella'], ['am_michael', 'Michael'], ['am_puck', 'Puck']]; // .627 THE READ-BY LIST (founder: 'all of the voice options in a single selector… and have none as an option')
+  const READ_BY = [['bm_george', 'George'], ['bf_emma', 'Emma'], ['af_bella', 'Bella'], ['am_michael', 'Michael'], ['am_puck', 'Puck'], ['af_nicole', 'Nicole'], ['af_aoede', 'Aoede'], ['af_kore', 'Kore'], ['af_sarah', 'Sarah'], ['am_fenrir', 'Fenrir'], ['af_alloy', 'Alloy'], ['af_nova', 'Nova'], ['bf_isabella', 'Isabella'], ['bm_fable', 'Fable']]; // .627 THE READ-BY LIST (founder: 'all of the voice options in a single selector… and have none as an option')
   const voiceName = ['af_heart', ...READ_BY.map(([k]) => k)].includes(chrome.prefs.voiceName) ? chrome.prefs.voiceName : 'bm_george';   // .608: George by default; .620: River (warm) is the offer
   const SPEEDS = [0.8, 0.95, 1.1, 1.25, 1.4]; // .698 (founder: "we should have a speed control for the read back") — 0.95 is the house default
   const [voiceSpeed, setVoiceSpeed] = useState(() => { try { const v = Number(localStorage.getItem('nkya-voice-speed')); return SPEEDS.includes(v) ? v : 0.95; } catch { return 0.95; } });
