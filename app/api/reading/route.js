@@ -17,6 +17,9 @@ import { appendFloor, FLOOR_ENABLED } from '../../../lib/pour/floorHook.js'; // 
 const DOSSIER_ENABLED = true;
 import { createClient } from '@supabase/supabase-js';
 import { MODEL_IDS, READER_PROVIDER, DEEPSEEK_MODEL_IDS, thinkingFor } from '../../../lib/modelConfig.js';
+import { judgeMedicineAct } from '../../../lib/bakeoff/medicineJudge.js'; // .681 THE MEDICINE-ACT JUDGE (flag-only)
+import { buildKernel } from '../../../lib/kernel.js';
+import DEFS from '../../../lib/data/nirmanakaya_78_definitions.json';
 
 // THE PROVIDER CALL lives in lib/provider.js since .475 (shared by every route).
 
@@ -305,9 +308,22 @@ export async function POST(request) {
       await recordUsage(userId, totalTokens);
     }
 
+    // .681 THE MEDICINE-ACT JUDGE, flag-only (Air's order from .680: measurement first). On an EZ opening with draws, one cheap-lane call asks
+    // whether the medicine box primarily enacts the first signature's partner's act; the verdict rides back to the page as `medicineVerdict`
+    // (PASS / FAIL_OTHER_CARD / FAIL_WRONG_ACT / UNCERTAIN) for logging. Non-fatal; never changes the reading.
+    let medicineVerdict = null;
+    if (turn === 'opening' && Array.isArray(draws) && draws.length) {
+      try {
+        const s = text.indexOf('{'), e = text.lastIndexOf('}'); const obj = s >= 0 && e > s ? JSON.parse(text.slice(s, e + 1)) : null;
+        const partners = draws.map((d) => { try { return buildKernel({ transient: d.transient, position: d.position, status: d.status }, DEFS)?.partnerId ?? null; } catch { return null; } });
+        if (obj && String(obj.medicine || '').trim() && partners[0] != null) { const j = await judgeMedicineAct({ medicine: obj.medicine, partnerId: partners[0], otherPartnerIds: partners.slice(1) }); medicineVerdict = j.verdict; if (j.verdict !== 'PASS') console.info(`[reading] medicine-act judge: ${j.verdict}`); }
+      } catch (err) { console.warn('[reading] medicine-act judge skipped:', err?.message); }
+    }
+
     // Include cache stats in usage for monitoring
     return Response.json({
       reading: text,
+      medicineVerdict,
       usage: {
         ...data.usage,
         cache_creation_input_tokens: data.usage?.cache_creation_input_tokens || 0,

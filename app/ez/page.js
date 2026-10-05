@@ -1314,6 +1314,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const stampOf = (t) => { let n = 0; for (const w of stampWords()) { const re = new RegExp('(?<![\\w])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w])', 'gi'); n = Math.max(n, (String(t || '').match(re) || []).length); } return n; };
   const callReader = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     let data = await rawCall(userMessage, system, maxTokens, extra);
+    if (data?.medicineVerdict && data.medicineVerdict !== 'PASS') console.info('[medicine-act]', data.medicineVerdict); // .681 THE MEDICINE-ACT JUDGE, flag-only — the route attaches the verdict on an opening; nothing changes on the glass
     let obj = parseJson(data.reading);
     if (!obj || !obj.reader) {
       data = await rawCall(
