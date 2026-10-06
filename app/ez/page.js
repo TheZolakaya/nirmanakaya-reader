@@ -27,6 +27,7 @@ import { TRAUMA_RX, TRAUMA_BLOCK, AI_RX, AI_BLOCK, FRAMES, frameOf, FRAME_ASK, f
 import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560: the house's notes — the application reviews every turn
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
+import { PERSONA_KEYS, PERSONAS_ON, lintVoice } from '../../lib/ezPrompts'; // .712 THE PERSONAS, LIVE
 import { allowedNamesFrom, personFlags, scrubReply } from '../../lib/personGuard'; // .707 THE PERSON GUARD — one implementation for every surface
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
@@ -180,7 +181,7 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
 }
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
-const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical' };
+const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical', friend: 'Friend', coach: 'Coach', storyteller: 'Storyteller', mystic: 'Mystic' }; // .712 + the personas
 const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.`;
 const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same signature, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same signature, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
@@ -632,7 +633,7 @@ export default function EZPage() {
   const [draws, setDraws] = useState(null);
   const [voice, setVoice] = useState('plain');
   const [bench, setBench] = useState(false); // /ez?bench=1 — the layout bench: no API, nothing saved
-  useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v]) setVoice(v); } catch {} }, []);
+  useEffect(() => { try { const v = localStorage.getItem('nkya_ez_voice'); if (v && VOICES[v] && (PERSONAS_ON || !PERSONA_KEYS.includes(v))) setVoice(v); } catch {} }, []); // .712: a saved persona choice stands only while the switch is on
   // .487: the Aa toggle has three stops and no words on it — on a phone there is no hover title, so a
   // tap says what it did: a small card under the corner naming the register, gone after a moment.
   const VOICE_NOTES = {
@@ -641,6 +642,10 @@ export default function EZPage() {
     map: ["The map's words", 'The map speaks in its own names: signatures, seats, statuses.'],
     deep: ['Deep', "The map's words and the derivation shown — how this signature, seat and status fix the medicine."],
     mystical: ['Mystical', "The house's own philosophy, leaned into: purpose, the present, the pillars. No borrowed spirituality."],
+    friend: ['Friend', 'Warm and direct, across the kitchen table. The same reading.'], // .712 THE PERSONAS
+    coach: ['Coach', 'Brisk and practical: what is happening, the move, how you will know. The same reading.'],
+    storyteller: ['Storyteller', 'How this kind of thing tends to go, then back to you. The same reading.'],
+    mystic: ['Mystic', 'With reverence and some weight, never prophecy. The same reading.'],
   };
   // .491: the dial, in order, and each stop's colour on the button
   const VOICE_ORDER = ['plain', 'grown', 'map', 'deep', 'mystical'];
@@ -653,6 +658,10 @@ export default function EZPage() {
     grown: "PLAIN WORDS, GROWN. For an adult who has never seen the map: plain, not simple — full sentences, adult vocabulary, no condescension — and still NONE of the map's language on glass.",
     map: "THE MAP'S WORDS. Name the signature, the seat, the status and the medicine by their names, and say what each is in the same breath; ordinary depth, the map speaking as itself.",
     deep: "DEEP. The map's words AND the derivation shown — how this signature in this seat with this status fixes this medicine, step by step, in a collegiate register; take the room you need.",
+    friend: "FRIEND. The same reading told by a friend across the kitchen table — warm, direct, informal; the voice law and the persona card in the system prompt govern every word; no map's words.", // .712
+    coach: "COACH. The same reading told by a good coach — what is happening in a sentence or two, then the move, what done looks like, how they will know; no map's words.",
+    storyteller: "STORYTELLER. The same reading told as how this kind of thing tends to go, then turned back to them — the pattern, never an invented backstory; no map's words.",
+    mystic: "MYSTIC. The same reading told with reverence and weight — every sentence still checkable, no prophecy, the larger philosophy left to Go deeper; no map's words.",
     mystical: "MYSTICAL. The house's own philosophy leaned all the way in — purpose (why this, now), the present as the only place authorship lives, the pillars, the geometry named and felt; no borrowed spirituality, only this house's; take the room you need.",
   };
   const VOICE_STYLE = {
@@ -661,6 +670,7 @@ export default function EZPage() {
     map: 'bg-zinc-900/80 border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800',
     deep: 'bg-cyan-950/40 border-cyan-500/40 text-cyan-200 hover:bg-cyan-900/40',
     mystical: 'bg-rose-950/40 border-rose-500/40 text-rose-200 hover:bg-rose-900/40',
+    friend: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40', coach: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40', storyteller: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40', mystic: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40', // .712
   };
   const [voiceToast, setVoiceToast] = useState(null);
   const voiceToastTimer = useRef(null);
@@ -1350,7 +1360,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // ('the newsletter says', a closing letter, the December commands, a pet name, a leak-shaped line — none of them reaches the glass.)
     try {
       const scars = new Set(['garble', 'letter', 'commands', 'pet', 'tarot', 'bothways', 'narrator', 'conduit', 'promise', 'binding', 'listy', 'destination', 'plainname', 'figure', 'operation']); // .700 + the taught figures and the operation quoted // .678 THE PLAIN NAME — the lint only raises it when voice === 'plain' // + THE BINDING (2026-10-04); + listy now that THE FIELD hands the Reader nouns ('unnamed' stays a flag: benched 2026-10-04, a re-ask did not move it — the record's own "putting something down" is the verb's object) // + Keel's plain tests (2026-10-03); 'unnamed' is a lint flag only — the record gives the Reader no nouns yet, so a re-ask could not fix it
-      const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || (Array.isArray(draws) ? draws[0] : null), draws: extra?.draw ? [extra.draw] : (Array.isArray(draws) ? draws : undefined), question: question || '', voice: extra?.register || voice }).flags || []).filter((f) => scars.has(f.code)); // .673: the draws and the question reach the lint (THE DESTINATION); .678: and the voice (THE PLAIN NAME is Plain-gated; a reread rides its own register)
+      const check = (o, t) => (lintOutput({ text: t, parsed: o, preset: { kind: extra?.turn === 'talk' ? 'talk' : 'opening' }, hostile: false, draw: extra?.draw || (Array.isArray(draws) ? draws[0] : null), draws: extra?.draw ? [extra.draw] : (Array.isArray(draws) ? draws : undefined), question: question || '', voice: lintVoice(extra?.register || voice) }).flags || []).filter((f) => scars.has(f.code)); // .712: a persona is linted as Plain // .673: the draws and the question reach the lint (THE DESTINATION); .678: and the voice (THE PLAIN NAME is Plain-gated; a reread rides its own register)
       const faults = (o, t) => { // every reason a reply is set aside, so the retry is judged on ALL of them (.675: the retry used to be accepted by the scars + the stamp alone — an empty medicine or "weather" on the retry went out)
         const bad = check(o, t);
         if (o.aim === 'thing' && (/^\s*(you\b|your\b|my hunch|the draw)/i.test(String(o.gist || '')) || /^\s*(you\b|your\b|my hunch)/i.test(String(o.reader || '')))) bad.push({ code: 'aim', detail: 'the question is about a THING and the opening began on the person — the first words of the gist and of the body are the thing\'s name and what the draw says it is or is for; the person comes second' }); // .638
@@ -1400,6 +1410,18 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       }
       // .707 THE PERSON FALLBACK (Air): a named person the asker never supplied that survived the re-ask is removed mechanically — the role kept only if the asker supplied it — and logged.
       { const ch = scrubReply(obj, askerAllowed(), askerTexts()); if (ch.length) { console.warn('[person] fallback:', ch.join(' | ')); obj.personFallback = ch; } }
+      // .712 THE PLAIN FALLBACK FOR A PERSONA (Air: "Plain is the fallback if any persona render fails its guards"): a persona reply that still carries a
+      // hard fault after the one re-ask is rendered once more in Plain, and Plain is what the person sees; logged on the turn.
+      try {
+        const vNow = extra?.register || voice; const HARD = new Set([...scars, 'person', 'attribution']);
+        const left = PERSONA_KEYS.includes(vNow) ? faults(obj, '').filter((f) => HARD.has(f.code)) : [];
+        if (left.length && String(system).startsWith(systemPrompt)) {
+          const plainSys = ezSystem(promptBase, 'plain', promptOver) + String(system).slice(systemPrompt.length);
+          const pd = await rawCall(userMessage, plainSys, maxTokens, { ...extra, register: 'plain' }); const po = parseJson(pd.reading);
+          if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
+        }
+      } catch (e) { console.warn('[persona] fallback skipped:', e?.message); }
+      obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null }; // .712 telemetry, saved on the turn
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
     } catch {}
@@ -1455,7 +1477,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
     medicine: typeof obj.medicine === 'string' ? stripDirectiveEcho(obj.medicine.trim()) : '',
     located: typeof obj.located === 'string' ? obj.located.trim() : '',
-    voice, // .537: the register this turn was written in, so an export shows a mid-read switch
+    voice: obj?._guard?.voice || voice, // .537: the register this turn was written in, so an export shows a mid-read switch (.712: Plain when a persona fell back)
+    guard: obj?._guard || null, // .712 TELEMETRY: the voice, the faults on the first reply, the medicine judge, the persona and person fallbacks
     suggest: (obj.suggest && typeof obj.suggest === 'object' && obj.suggest.text) ? obj.suggest : null,
     closing: obj.closing === true,
     actLine: typeof obj.act === 'string' ? obj.act.trim() : '',
@@ -2506,6 +2529,14 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <option style={OPT} value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option style={OPT} value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
               </select>
+              {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
+                <select value={['plain', ...PERSONA_KEYS].includes(voice) ? voice : 'plain'} aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person"
+                  onChange={(e) => chooseVoice(e.target.value)}
+                  style={{ width: '7.5rem' }}
+                  className="ml-4 appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                  {['plain', ...PERSONA_KEYS].map((k) => <option style={OPT} key={k} value={k}>{`Told ${k === 'plain' ? 'plainly' : `by ${VOICES[k]?.label || k}`} ▾`}</option>)}
+                </select>
+              )}
               {user && ( // .703 (founder): previous / next voice, and the voice introduces itself — hear it before you choose it
                 <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
                   className="ml-4 px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">‹</button>

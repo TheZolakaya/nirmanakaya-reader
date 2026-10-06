@@ -96,6 +96,10 @@
               "type": "string",
               "enum": [
                 "plain",
+                "friend",
+                "coach",
+                "storyteller",
+                "mystic",
                 "plainlit",
                 "plainshort",
                 "plainnouns",
@@ -105,7 +109,7 @@
               ],
               "default": "plain"
             },
-            "description": "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; it is the default, so an external reader reads what a user reads. 'deep' names the map's words and shows the derivation. 'plainlit' = Plain with the literal-first rule, a bench register for readers comparing renderings."
+            "description": "The register. 'plain' is what people get on the site — plain words, none of the map's vocabulary; it is the default, so an external reader reads what a user reads. 'deep' names the map's words and shows the derivation. 'plainlit' = Plain with the literal-first rule, a bench register for readers comparing renderings. Personas (.712): friend, coach, storyteller, mystic — the same reading told by a different person; Plain is the default."
           },
           {
             "name": "format",
@@ -190,6 +194,10 @@
                     "type": "string",
                     "enum": [
                       "plain",
+                      "friend",
+                      "coach",
+                      "storyteller",
+                      "mystic",
                       "plainlit",
                       "plainshort",
                       "plainnouns",
