@@ -17,6 +17,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { VERSION } from '../../lib/version'; // .721 the crash trail records which version was running
 import { STATUSES, STATUS_INFO } from '../../lib/constants';
 import { ARCHETYPES } from '../../lib/archetypes';
 import { getComponent, getFullCorrection, getCorrectionTargetId, getCorrectionText } from '../../lib/corrections';
@@ -432,6 +433,13 @@ function HoverVideo({ src, className, style, playing = false }) {
 // four loops of his own): one of the four loops, chosen at random each time, beside the line in
 // the rainbow that cycles like Say it. Not for the landing flight; for everywhere else we wait on
 // the Reader. (ANIM-18.)
+// .721 THE CRASH TRAIL (founder, 2026-10-06: three readings in a row reset to the main screen right after the first turn, while the voice
+// read it — on 0.99.720 too). A ring of the last 40 page events in localStorage, which survives a reload; a reading in progress is marked
+// "in flight". On the next load, an in-flight mark that was never cleared means the page was reset mid-reading: the trail is attached to
+// that reading (interpretation.crashLog) so the moment it died can be read, not guessed.
+const CRUMBS_KEY = 'nkya_ez_crumbs'; const INFLIGHT_KEY = 'nkya_ez_inflight';
+const crumb = (k, d) => { try { const a = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]'); a.push({ t: Date.now(), k, ...(d !== undefined ? { d: String(d).slice(0, 160) } : {}) }); localStorage.setItem(CRUMBS_KEY, JSON.stringify(a.slice(-40))); } catch {} };
+const markInflight = (v) => { try { if (v === null) { localStorage.removeItem(INFLIGHT_KEY); return; } const cur = JSON.parse(localStorage.getItem(INFLIGHT_KEY) || '{}'); localStorage.setItem(INFLIGHT_KEY, JSON.stringify({ ...cur, ...v })); } catch {} };
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
 function Writing({ label = 'the Reader is writing…', size = 160, className = '', scroll = true }) {
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
@@ -976,6 +984,32 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
+  // .721 THE CRASH TRAIL: the page's own events, and the report of a mid-reading reset on the next load
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    crumb('load', `v${VERSION} ${Math.round((navigator.deviceMemory || 0) * 1024) || '?'}MB ${window.innerWidth}x${window.innerHeight}`);
+    const onErr = (e) => crumb('error', e?.message || e?.error?.message || 'error');
+    const onRej = (e) => crumb('rejection', e?.reason?.message || String(e?.reason || ''));
+    const onVis = () => crumb(document.visibilityState === 'hidden' ? 'hidden' : 'visible');
+    const onHide = (e) => crumb('pagehide', e?.persisted ? 'bfcache' : '');
+    window.addEventListener('error', onErr); window.addEventListener('unhandledrejection', onRej);
+    document.addEventListener('visibilitychange', onVis); window.addEventListener('pagehide', onHide);
+    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); };
+  }, []);
+  const crashReported = useRef(false);
+  useEffect(() => {
+    if (!user || crashReported.current || typeof window === 'undefined') return; crashReported.current = true;
+    try {
+      const inflight = JSON.parse(localStorage.getItem(INFLIGHT_KEY) || 'null'); if (!inflight) return;
+      const trail = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]');
+      const born = Math.floor(performance.timeOrigin || 0); const before = trail.filter((x) => x.t < born); const last = before[before.length - 1]; // the trail up to this page's start
+      const log = { at: Date.now(), version: VERSION, inflight, lastEvent: last?.k || null, leftNormally: last?.k === 'pagehide', trail: before.slice(-30) };
+      markInflight(null);
+      if (log.leftNormally) return; // the page was closed or navigated away from — not a reset
+      if (inflight.savedId) updateReadingContent(inflight.savedId, { crashLog: log }).catch(() => {});
+      else try { localStorage.setItem('nkya_ez_orphan_crash', JSON.stringify(log)); } catch {} // died before the reading was saved: attach to the next saved reading
+    } catch {}
+  }, [user]);
   const [usage, setUsage] = useState({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
   // THE COST LEDGER (.447): one row per API call — purpose, fresh / cache-written / cache-read /
   // out, cents, cold or warm. Visible to admins and on the bench. The purpose is read off the
@@ -1147,7 +1181,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const id = setTimeout(() => document.addEventListener('click', off), 0);
     return () => { clearTimeout(id); document.removeEventListener('click', off); };
   }, [armed]); // eslint-disable-line react-hooks/exhaustive-deps
-  const sayLabel = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); }; // .648: the narrator says the button too — the Reader's voice speaks only the Reader's words
+  const sayLabel = (slug) => { if (!voiceOut) return; crumb('label', slug); /* .721 */labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); }; // .648: the narrator says the button too — the Reader's voice speaks only the Reader's words
   const sayNarration = (slug) => { if (!voiceOut) return; labelQueue.current = labelQueue.current.then(() => playClip(NARRATOR[voiceName] || 'af_bella', slug)); };
   const playUrl = (url) => new Promise((resolve) => { // .654: a clip made on the fly, on the label player
     if (!voiceOut || !url) return resolve();
@@ -1202,7 +1236,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // heard only the second half). Now: one request at a time, fetched while the previous piece plays; a refused piece waits and retries.
     if (!t || !t.text) return;
     const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = startAt > 0 ? startAt : null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
-    const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces;
+    const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces; crumb('voice', `${pieces.length} pieces from ${startAt}`); // .721
     const fetchPiece = async (text) => {
       for (let k = 0; k < 8; k++) {
         if (run !== speakRun.current) return {};
@@ -1221,7 +1255,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const AHEAD = 3; const jobs = new Array(pieces.length).fill(null); const jobSpeed = new Array(pieces.length).fill(null);
     const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) { jobSpeed[j] = voiceSpeedRef.current; jobs[j] = fetchPiece(pieces[j].text); } }; // .702: each piece remembers the speed it was made at
     ensureAhead(startAt > 0 ? Math.min(pieces.length - 1, startAt) : 0);
-    for (let i = 0; i < pieces.length; i++) {
+    for (let i = 0; i < pieces.length; i++) { crumb("piece", i); // .721
       if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
       if (voiceSkipRef.current) break;
       ensureAhead(i + 1);
@@ -1439,6 +1473,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
         }
       } catch (e) { console.warn('[persona] fallback skipped:', e?.message); }
+      crumb('turn', `${extra?.register || voice}${obj.personaFallback ? ' fellback' : ''}${obj.operationRepair ? ' repaired' : ''}`); // .721
       obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, verbalStandin: !!data?.medicineStandin, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null, operationRepair: obj.operationRepair || null, operationRepairTried: obj.operationRepairTried || null }; // .712 telemetry, saved on the turn // .718 + the repair trail
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
@@ -1607,6 +1642,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     setAsked(q);
     if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE: inside the tap, before any await
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); sayNarration('reading-your-now'); // .647 the narrator; .654 'The Nirmanakaya Reader is reading your now.' // .516: the Unsure and Another folds close when a reading starts or resets
+    markInflight(null); markInflight({ started: Date.now(), savedId: null }); crumb('draw', cardCount); // .721
     const newDraws = generateSpread(cardCount);
     setDraws(newDraws);
     // one card only, for now; the answer never waits on the motion by more than the last flight
@@ -1653,7 +1689,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice, ...(fr ? { frame: fr } : {}) } },
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
-        if (data?.id) setSavedId(data.id);
+        if (data?.id) { setSavedId(data.id); markInflight({ savedId: data.id }); crumb('saved'); try { const orphan = localStorage.getItem('nkya_ez_orphan_crash'); if (orphan) { localStorage.removeItem('nkya_ez_orphan_crash'); updateReadingContent(data.id, { crashLog: { ...JSON.parse(orphan), orphan: true } }).catch(() => {}); } } catch {} } // .721 the trail: the reading is in flight; a reset that died before its reading saved rides on this one
         try { sessionStorage.removeItem(`nkya_ez_suggest_${user?.id}`); } catch {} // .591: the history changed
       } catch {}
       if (!willAnimate) scrollToEnd();
@@ -2160,6 +2196,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   };
 
   const reset = () => {
+    markInflight(null); crumb('reset'); // .721 a chosen new question is not a crash
     // .559: NEW QUESTION RESETS EVERYTHING — the founder hit it and found his old question still in the box and the About
     // fold open. The question, the box, the door, the frame and its fold, the folds, the panels, the error: all gone.
     setQuestion(''); setInput(''); setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setFrameEdit(false); setWordless(false); setError('');
