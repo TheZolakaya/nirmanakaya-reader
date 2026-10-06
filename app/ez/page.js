@@ -50,7 +50,7 @@ import MinimapModal from '../../components/reader/MinimapModal';
 import InfoModal from '../../components/shared/InfoModal';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 import BrandHeader from '../../components/layout/BrandHeader';
-import { useBackdropPrefs, Backdrop, CornerControls } from '../../components/shared/SiteChrome';
+import { useBackdropPrefs, Backdrop, CornerControls, isLean } from '../../components/shared/SiteChrome';
 import Footer from '../../components/layout/Footer';
 
 const EZ_VERSION = 'ez-2';
@@ -444,6 +444,7 @@ const markInflight = (v) => { try { if (v === null) { localStorage.removeItem(IN
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
 function Writing({ label = 'the Reader is writing…', size = 160, className = '', scroll = true }) {
   const [src] = useState(() => WRITING_LOOPS[Math.floor(Math.random() * WRITING_LOOPS.length)]);
+  const [lean, setLean] = useState(false); useEffect(() => { setLean(isLean()); }, []); // .724 the lean test switch: no writing loop
   // .541: the seconds show, so a long wait is a long wait and not a dead page
   const [secs, setSecs] = useState(0);
   useEffect(() => { const t0 = Date.now(); const iv = setInterval(() => setSecs(Math.floor((Date.now() - t0) / 1000)), 1000); return () => clearInterval(iv); }, []);
@@ -463,9 +464,9 @@ function Writing({ label = 'the Reader is writing…', size = 160, className = '
   }, []);
   return (
     <div ref={ref} className={`flex flex-col items-center gap-2 py-2 ${className}`} role="status" aria-live="polite">
-      <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
+      {!lean && <span className="shrink-0 rounded-lg overflow-hidden" style={{ width: size, height: size }} aria-hidden="true">
         <video src={src} autoPlay loop muted playsInline disablePictureInPicture controlsList="nodownload noremoteplayback" className="w-full h-full object-cover" />
-      </span>
+      </span>}
       <span className="font-serif text-[1.0625rem] tracking-wide text-center"
         style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite' }}>
         {label}{secs >= 4 ? <span className="opacity-70"> {secs}s</span> : null}
@@ -988,7 +989,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // .721 THE CRASH TRAIL: the page's own events, and the report of a mid-reading reset on the next load
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    crumb('load', `v${VERSION} ${Math.round((navigator.deviceMemory || 0) * 1024) || '?'}MB ${window.innerWidth}x${window.innerHeight}`);
+    crumb('load', `v${VERSION}${isLean() ? ' LEAN' : ''} ${Math.round((navigator.deviceMemory || 0) * 1024) || '?'}MB ${window.innerWidth}x${window.innerHeight}`);
     const onErr = (e) => crumb('error', e?.message || e?.error?.message || 'error');
     const onRej = (e) => crumb('rejection', e?.reason?.message || String(e?.reason || ''));
     const onVis = () => crumb(document.visibilityState === 'hidden' ? 'hidden' : 'visible');

@@ -64,9 +64,16 @@ export function useBackdropPrefs() {
   return { prefs, set, loaded };
 }
 
+// .724 THE LEAN TEST SWITCH (founder, 2026-10-06, the mid-reading resets): ?lean=1 on the reader stores nkya_lean=1 in this browser and
+// the page drops its newer visual weight — no background video, no writing loop, no splash — so a reading can be tried without them.
+// ?lean=0 restores everything. Nobody who has not set it sees any change.
+export const isLean = () => { try { const q = new URLSearchParams(window.location.search).get('lean'); if (q === '1' || q === '0') { localStorage.setItem('nkya_lean', q); if (q === '1') localStorage.setItem('nkya_ez_fx', '0'); else localStorage.removeItem('nkya_ez_fx'); } return localStorage.getItem('nkya_lean') === '1'; } catch { return false; } }; // the address wins on the load that carries it; lean also turns the splash off (and ?lean=0 back on)
+
 // The layer itself: a fixed video or image under everything, at the chosen opacity.
 export function Backdrop({ prefs }) {
   const { backgroundType, selectedVideo, selectedImage, backgroundOpacity } = prefs;
+  const [lean, setLean] = useState(false); useEffect(() => { setLean(isLean()); }, []); // .724 read after mount, so the server render matches
+  if (lean) return null;
   if (backgroundType === 'video') {
     const v = VIDEO_BACKGROUNDS[selectedVideo] || VIDEO_BACKGROUNDS[0];
     return (
