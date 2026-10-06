@@ -438,7 +438,8 @@ function HoverVideo({ src, className, style, playing = false }) {
 // "in flight". On the next load, an in-flight mark that was never cleared means the page was reset mid-reading: the trail is attached to
 // that reading (interpretation.crashLog) so the moment it died can be read, not guessed.
 const CRUMBS_KEY = 'nkya_ez_crumbs'; const INFLIGHT_KEY = 'nkya_ez_inflight';
-const crumb = (k, d) => { try { const a = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]'); a.push({ t: Date.now(), k, ...(d !== undefined ? { d: String(d).slice(0, 160) } : {}) }); localStorage.setItem(CRUMBS_KEY, JSON.stringify(a.slice(-40))); } catch {} };
+const crumb = (k, d) => { try { const a = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]'); a.push({ t: Date.now(), k, ...(d !== undefined ? { d: String(d).slice(0, 160) } : {}) }); localStorage.setItem(CRUMBS_KEY, JSON.stringify(a.slice(-60))); } catch {} };
+const pageSnap = () => { try { const vids = [...document.querySelectorAll('video')]; const imgs = [...document.images]; const px = imgs.reduce((n, im) => n + (im.naturalWidth || 0) * (im.naturalHeight || 0), 0); return `v${vids.length}/${vids.filter((x) => !x.paused).length}p img${imgs.length}:${(px / 1e6).toFixed(1)}MP dom${document.getElementsByTagName('*').length}`; } catch { return ''; } }; // .722 what the page holds
 const markInflight = (v) => { try { if (v === null) { localStorage.removeItem(INFLIGHT_KEY); return; } const cur = JSON.parse(localStorage.getItem(INFLIGHT_KEY) || '{}'); localStorage.setItem(INFLIGHT_KEY, JSON.stringify({ ...cur, ...v })); } catch {} };
 const WRITING_LOOPS = ['/video/writing1.mp4', '/video/writing2.mp4', '/video/writing3.mp4', '/video/writing4.mp4'];
 function Writing({ label = 'the Reader is writing…', size = 160, className = '', scroll = true }) {
@@ -992,9 +993,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const onRej = (e) => crumb('rejection', e?.reason?.message || String(e?.reason || ''));
     const onVis = () => crumb(document.visibilityState === 'hidden' ? 'hidden' : 'visible');
     const onHide = (e) => crumb('pagehide', e?.persisted ? 'bfcache' : '');
+    const tick = setInterval(() => { try { if (localStorage.getItem(INFLIGHT_KEY)) crumb('tick', pageSnap()); } catch {} }, 15000); // .722 every 15 s during a reading
     window.addEventListener('error', onErr); window.addEventListener('unhandledrejection', onRej);
     document.addEventListener('visibilitychange', onVis); window.addEventListener('pagehide', onHide);
-    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); };
+    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); clearInterval(tick); };
   }, []);
   const crashReported = useRef(false);
   useEffect(() => {
@@ -1255,7 +1257,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const AHEAD = 3; const jobs = new Array(pieces.length).fill(null); const jobSpeed = new Array(pieces.length).fill(null);
     const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) { jobSpeed[j] = voiceSpeedRef.current; jobs[j] = fetchPiece(pieces[j].text); } }; // .702: each piece remembers the speed it was made at
     ensureAhead(startAt > 0 ? Math.min(pieces.length - 1, startAt) : 0);
-    for (let i = 0; i < pieces.length; i++) { crumb("piece", i); // .721
+    for (let i = 0; i < pieces.length; i++) { crumb("piece", `${i} ${pageSnap()}`); // .721 / .722 with what the page holds
       if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
       if (voiceSkipRef.current) break;
       ensureAhead(i + 1);
@@ -1473,7 +1475,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
         }
       } catch (e) { console.warn('[persona] fallback skipped:', e?.message); }
-      crumb('turn', `${extra?.register || voice}${obj.personaFallback ? ' fellback' : ''}${obj.operationRepair ? ' repaired' : ''}`); // .721
+      crumb('turn', `${pageSnap()} ${extra?.register || voice}${obj.personaFallback ? ' fellback' : ''}${obj.operationRepair ? ' repaired' : ''}`); // .721
       obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, verbalStandin: !!data?.medicineStandin, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null, operationRepair: obj.operationRepair || null, operationRepairTried: obj.operationRepairTried || null }; // .712 telemetry, saved on the turn // .718 + the repair trail
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
