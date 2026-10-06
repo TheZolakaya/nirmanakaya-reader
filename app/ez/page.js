@@ -999,6 +999,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const onRej = (e) => crumb('rejection', e?.reason?.message || String(e?.reason || ''));
     const onVis = () => crumb(document.visibilityState === 'hidden' ? 'hidden' : 'visible');
     const onHide = (e) => crumb('pagehide', e?.persisted ? 'bfcache' : '');
+    const onUnload = () => crumb('beforeunload'); window.addEventListener('beforeunload', onUnload); // .726 a navigation or reload says so; a killed page cannot
+    const aud = audioRef.current || (audioRef.current = new Audio()); // .726 the voice element's own trouble, as it happens
+    const onAud = (e) => crumb(`audio-${e.type}`, e.type === 'error' ? `code ${aud.error?.code || '?'}` : ''); ['error', 'stalled', 'abort'].forEach((t) => aud.addEventListener(t, onAud));
     const tick = setInterval(() => { try { if (localStorage.getItem(INFLIGHT_KEY)) crumb('tick', pageSnap()); } catch {} }, 15000); // .722 every 15 s during a reading
     // .723 THE HEARTBEAT: once a second, the time is written down (the exact second of death); a beat that comes late means the page FROZE —
     // the main thread was blocked for that long — which is how a page gets replaced by Safari as unresponsive. A freeze over 3 s is a crumb.
@@ -1006,7 +1009,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const beat = setInterval(() => { const now = Date.now(); const gap = now - lastBeat; lastBeat = now; try { if (localStorage.getItem(INFLIGHT_KEY)) { localStorage.setItem('nkya_ez_beat', String(now)); if (gap > 3000) crumb('stall', `${Math.round(gap / 100) / 10}s`); } } catch {} }, 1000);
     window.addEventListener('error', onErr); window.addEventListener('unhandledrejection', onRej);
     document.addEventListener('visibilitychange', onVis); window.addEventListener('pagehide', onHide);
-    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); clearInterval(tick); clearInterval(beat); };
+    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); clearInterval(tick); clearInterval(beat); window.removeEventListener('beforeunload', onUnload); ['error', 'stalled', 'abort'].forEach((t) => aud.removeEventListener(t, onAud)); };
   }, []);
   const crashReported = useRef(false);
   useEffect(() => {
@@ -1279,7 +1282,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
       releaseAudio(a); // .725 let the last piece's media go before the next is loaded (handlers off first, so the emptying is not taken for an end)
       const ended = new Promise((done) => { endedRef.current = done; a.onended = done; a.onerror = done; }); // .653: a jump or a skip can end it early
-      a.src = res.url; pieceSpeedRef.current = jobSpeed[i] || voiceSpeedRef.current; try { a.playbackRate = Math.max(0.5, Math.min(2, voiceSpeedRef.current / pieceSpeedRef.current)); } catch {} // .702 (founder: "speed adjustments don't take effect until the next full pull"): a piece made at the old speed is played at the new one — the change is immediate, pitch kept by the browser
+      a.src = res.url; pieceSpeedRef.current = jobSpeed[i] || voiceSpeedRef.current; try { const rate = Math.max(0.5, Math.min(2, voiceSpeedRef.current / pieceSpeedRef.current)); if (Math.abs(rate - 1) > 0.001 || a.playbackRate !== 1) a.playbackRate = rate; } catch {} /* .726 (founder's hunch, the timing of .698/.702): the rate is touched only when it is not 1x — untouched speed never asks Safari to change it */ // .702 (founder: "speed adjustments don't take effect until the next full pull"): a piece made at the old speed is played at the new one — the change is immediate, pitch kept by the browser
       try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
       await ended; endedRef.current = null; if (run !== speakRun.current) return;
       if (voiceSkipRef.current) break; if (jumpRef.current != null) continue;
