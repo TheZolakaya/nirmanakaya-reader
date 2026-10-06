@@ -2528,7 +2528,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               </button>
             </div>
             {/* .594: the menu sits BENEATH the box (founder), centred, the only thing under it */}
-            <div className="flex justify-center">
+            <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2"> {/* .719 (founder, phone): the row wraps instead of running off both edges */}
               {/* .592: ONE QUIET MENU (founder 2026-10-02: "we should always just have the google box… load, unsure, topic and from your
                   readings could be a selection menu instead of buttons. I want it to be clear and clean as possible"). A native select: on a
                   phone it opens the system picker, and it cannot wrap or be covered (.576 precedent). Each choice opens one fold, or closes it. */}
@@ -2553,27 +2553,28 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <select value={['plain', ...PERSONA_KEYS].includes(voice) ? voice : 'plain'} aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person"
                   onChange={(e) => chooseVoice(e.target.value)}
                   style={{ width: '7.5rem' }}
-                  className="ml-4 appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                  className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
                   {['plain', ...PERSONA_KEYS].map((k) => <option style={OPT} key={k} value={k}>{`Told ${k === 'plain' ? 'plainly' : `by ${VOICES[k]?.label || k}`} ▾`}</option>)}
                 </select>
               )}
-              {user && ( // .703 (founder): previous / next voice, and the voice introduces itself — hear it before you choose it
+              {user && ( // .719 (founder, phone): the voice arrows and the selector are one piece, so the row wraps without splitting them
+                <span className="inline-flex items-center whitespace-nowrap">
+                {/* .703 (founder): previous / next voice, and the voice introduces itself — hear it before you choose it */}
                 <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
-                  className="ml-4 px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">‹</button>
-              )}
-              {user && ( // .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on
+                  className="px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">‹</button>
+                {/* .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on */}
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
                   onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} } }} // .704 (founder): the dropdown introduces the voice too
                   style={{ width: '8.5rem' }}
-                  className="ml-4 appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                  className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
                   <option style={OPT} value="none">Not read aloud ▾</option>
                   {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`Read by ${label} ▾`}</option>)}
                   {voiceName === 'af_heart' && <option style={OPT} value="af_heart">Read by Heart ▾</option>}
                 </select>
-              )}
-              {user && ( // .703: next voice, introduced
+                {/* .703: next voice, introduced */}
                 <button type="button" aria-label="next voice" title="the next voice — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i + 1) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
                   className="px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">›</button>
+                </span>
               )}
             </div>
 
