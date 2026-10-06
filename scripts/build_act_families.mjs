@@ -1,0 +1,27 @@
+// THE GOLD BEHAVIOURAL LAYER (Air, 2026-10-06: "treat the 357 hand-written canonical acts as the gold behavioral layer; everything downstream may
+// contextualize them, but it should not change their modality"). Each canonical act gets its ACTION FAMILY — two independent votes by the cheap lane
+// (different order), a third to break a disagreement — saved to lib/pour/actFamilies.json for the scaffold's operation check and the judge.
+//   npx tsx scripts/build_act_families.mjs
+import fs from 'node:fs';
+const ENV = fs.readFileSync('.env.local', 'utf8'); for (const line of ENV.split(/\r?\n/)) { const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/); if (m && !line.trim().startsWith('#') && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ''); }
+const { MEDICINE_ACTS } = await import('../lib/pour/medicineActs.js');
+const { callProvider } = await import('../lib/provider.js'); const { MODEL_IDS } = await import('../lib/modelConfig.js');
+export const FAMILIES = ['SAY', 'WRITE', 'ASK', 'OBSERVE', 'CHOOSE', 'STOP', 'KEEP', 'RELEASE', 'MAKE', 'MOVE', 'JOIN', 'SEPARATE', 'PROTECT', 'WAIT', 'CHANGE', 'FEEL', 'OTHER'];
+const SYS = `You classify the PRIMARY ACTION a short instruction asks a person to perform — what their body, hands or attention actually do — into exactly one family:
+SAY (speak, tell, name aloud, declare, voice, teach by telling) · WRITE (write, list, note, sketch on paper) · ASK (put a question to someone) · OBSERVE (look, notice, trace, see, examine, sense, attend, listen, recognise, reason it out) · CHOOSE (decide, pick, commit to a direction) · STOP (stop, refuse, drop a behaviour or a condition) · KEEP (keep, hold, maintain, defend, persist, carry, stay with) · RELEASE (let go, put down, end, surrender, close, clear away) · MAKE (build, make, create, finish, practise, tend, refine, do the work) · MOVE (go, step, start, act, charge forward, walk, take the step) · JOIN (be with someone, connect, share, celebrate with, meet in the middle, join a practice) · SEPARATE (sort, divide, distinguish, set apart) · PROTECT (guard, shield, set a boundary) · WAIT (pause, rest, leave undecided, sit still) · CHANGE (adjust, rebalance, alter, calibrate, blend) · FEEL (feel, let yourself feel, enjoy, savour, take in, receive) · OTHER.
+Judge the act itself, not its purpose. Reply ONLY lines "<number> <FAMILY>".`;
+const classify = async (texts) => { const { data } = await callProvider({ model: MODEL_IDS.sonnet, max_tokens: 3000, system: SYS, messages: [{ role: 'user', content: texts.map((t, i) => `${i + 1}. ${t}`).join('\n') }] }, { tag: 'families' }); const raw = data?.content?.map((c) => c.text || '').join('\n') || ''; const out = {}; for (const l of raw.split('\n')) { const m = l.match(/^\s*(\d+)[^A-Z]*([A-Z]+)/); if (m && FAMILIES.includes(m[2])) out[Number(m[1])] = m[2]; } return texts.map((_, i) => out[i + 1] || null); };
+const flat = []; for (const [id, m] of Object.entries(MEDICINE_ACTS)) m.acts.forEach((a, j) => flat.push({ id, name: m.name, j, act: a }));
+const chunks = (arr, n) => { const o = []; for (let i = 0; i < arr.length; i += n) o.push(arr.slice(i, i + n)); return o; };
+const vote = async (order) => { const res = new Array(flat.length); for (const ch of chunks(order, 60)) { const got = await classify(ch.map((k) => flat[k].act)); ch.forEach((k, i) => (res[k] = got[i])); } return res; };
+const idx = flat.map((_, i) => i); const rev = [...idx].reverse();
+const v1 = await vote(idx); const v2 = await vote(rev);
+const split = idx.filter((i) => v1[i] !== v2[i]); const v3 = split.length ? await vote(split.map((i) => i)) : [];
+const out = {}; let agreed = 0, broken = 0, unresolved = [];
+idx.forEach((i) => { let f = v1[i]; if (v1[i] === v2[i] && v1[i]) agreed++; else { const t = v3[i]; f = t && (t === v1[i] || t === v2[i]) ? t : (t || v1[i] || v2[i] || 'OTHER'); broken++; if (!(t && (t === v1[i] || t === v2[i]))) unresolved.push(`${flat[i].name}: "${flat[i].act}" → ${v1[i]}/${v2[i]}/${t}`); } const x = flat[i]; (out[x.id] ||= { name: x.name, acts: [] }).acts.push({ act: x.act, family: f }); });
+for (const s of Object.values(out)) s.families = [...new Set(s.acts.map((a) => a.family))];
+const verbalOnly = Object.values(out).filter((s) => s.acts.some((a) => ['SAY', 'WRITE', 'ASK'].includes(a.family))).map((s) => s.name);
+fs.writeFileSync('lib/pour/actFamilies.json', JSON.stringify({ _meta: { what: 'THE GOLD BEHAVIOURAL LAYER — each of the 357 canonical medicine acts (lib/pour/medicineActs.js) with its action family. Downstream layers may contextualize an act; they may not change its family. Verbalization (SAY / WRITE / ASK) is the operation only where the canonical act is itself verbal.', built: '2026-10-06, two cheap-lane votes in opposite order + a tie-break; disagreements resolved by majority, the residue listed in unresolved', families: FAMILIES, agreed, broken, unresolved }, signatures: out }, null, 2) + '\n');
+const fam = {}; for (const s of Object.values(out)) for (const a of s.acts) fam[a.family] = (fam[a.family] || 0) + 1;
+console.log(`357 acts · agreed ${agreed} · tie-broken ${broken} · unresolved ${unresolved.length}`); console.log('families:', Object.entries(fam).sort((a, b) => b[1] - a[1]).map(([f, n]) => `${f} ${n}`).join(' · '));
+console.log(`signatures with ANY verbal canonical act: ${verbalOnly.length} of 78 — ${verbalOnly.join(', ')}`); unresolved.slice(0, 12).forEach((u) => console.log('  ?', u));

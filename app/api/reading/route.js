@@ -312,12 +312,12 @@ export async function POST(request) {
     // .681 THE MEDICINE-ACT JUDGE, flag-only (Air's order from .680: measurement first). On an EZ opening with draws, one cheap-lane call asks
     // whether the medicine box primarily enacts the first signature's partner's act; the verdict rides back to the page as `medicineVerdict`
     // (PASS / FAIL_OTHER_CARD / FAIL_WRONG_ACT / UNCERTAIN) for logging. Non-fatal; never changes the reading.
-    let medicineVerdict = null, medicineNote = null;
+    let medicineVerdict = null, medicineNote = null, medicineStandin = false; // .713 the verbal-standin flag (observational)
     if (turn === 'opening' && Array.isArray(draws) && draws.length) {
       try {
         const s = text.indexOf('{'), e = text.lastIndexOf('}'); const obj = s >= 0 && e > s ? JSON.parse(text.slice(s, e + 1)) : null;
         const partners = draws.map((d) => { try { return buildKernel({ transient: d.transient, position: d.position, status: d.status }, DEFS)?.partnerId ?? null; } catch { return null; } });
-        if (obj && String(obj.medicine || '').trim() && partners[0] != null) { const j = await judgeMedicineAct({ medicine: obj.medicine, partnerId: partners[0], otherPartnerIds: partners.slice(1) }); medicineVerdict = j.verdict; console.info(`[reading] medicine-act judge: ${j.verdict}`); // .683: every opening's verdict logged, PASS included — the live trigger rate
+        if (obj && String(obj.medicine || '').trim() && partners[0] != null) { const j = await judgeMedicineAct({ medicine: obj.medicine, partnerId: partners[0], otherPartnerIds: partners.slice(1) }); medicineVerdict = j.verdict; medicineStandin = !!j.verbalStandin; console.info(`[reading] medicine-act judge: ${j.verdict}`); // .683: every opening's verdict logged, PASS included — the live trigger rate
           if (j.verdict === 'FAIL_OTHER_CARD' || j.verdict === 'FAIL_WRONG_ACT') { const intended = MEDICINE_ACTS[partners[0]]; medicineNote = `${j.verdict === 'FAIL_OTHER_CARD' ? 'the medicine box does a later signature\'s act in place of the opening\'s' : 'the medicine box does not do the opening\'s medicine'} — the opening's medicine is ${intended.name}'s own action, from the record: ${intended.acts.slice(0, 3).join('; ')}; write the box as that act, done small, today`; } }
         else if (obj && !String(obj.medicine || '').trim()) medicineVerdict = 'EMPTY'; // .683: an empty box is its own outcome, never a PASS
       } catch (err) { console.warn('[reading] medicine-act judge skipped:', err?.message); }
@@ -326,7 +326,7 @@ export async function POST(request) {
     // Include cache stats in usage for monitoring
     return Response.json({
       reading: text,
-      medicineVerdict, medicineNote, // .683: the page folds a FAIL into its one re-ask, with the partner's acts in the set-aside sentence
+      medicineVerdict, medicineNote, medicineStandin, // .683: the page folds a FAIL into its one re-ask, with the partner's acts in the set-aside sentence
       usage: {
         ...data.usage,
         cache_creation_input_tokens: data.usage?.cache_creation_input_tokens || 0,

@@ -1,0 +1,2228 @@
+{
+  "_meta": {
+    "what": "THE GOLD BEHAVIOURAL LAYER — each of the 357 canonical medicine acts (lib/pour/medicineActs.js) with its action family. Downstream layers may contextualize an act; they may not change its family. Verbalization (SAY / WRITE / ASK) is the operation only where the canonical act is itself verbal.",
+    "built": "2026-10-06, two cheap-lane votes in opposite order + a tie-break; disagreements resolved by majority, the residue listed in unresolved",
+    "families": [
+      "SAY",
+      "WRITE",
+      "ASK",
+      "OBSERVE",
+      "CHOOSE",
+      "STOP",
+      "KEEP",
+      "RELEASE",
+      "MAKE",
+      "MOVE",
+      "JOIN",
+      "SEPARATE",
+      "PROTECT",
+      "WAIT",
+      "CHANGE",
+      "FEEL",
+      "OTHER"
+    ],
+    "agreed": 284,
+    "broken": 73,
+    "unresolved": [
+      "Culture: \"hand one thing on in the way you were handed it\" → RELEASE/JOIN/KEEP",
+      "Source: \"meet what is arriving as it arrives\" → OBSERVE/JOIN/KEEP",
+      "Equity: \"give back what is owed, and take what is yours\" → RELEASE/CHANGE/KEEP",
+      "Equity: \"trade one thing for one thing, and keep no score\" → RELEASE/CHANGE/KEEP",
+      "Abstraction: \"draw the shape of it without the details\" → OBSERVE/WRITE/MAKE",
+      "Creation: \"let the finished thing be the start of something\" → MAKE/RELEASE/CHANGE",
+      "Orientation: \"face one way for three days\" → CHOOSE/MOVE/KEEP",
+      "Command: \"let the structure act instead of announcing it\" → MAKE/MOVE/KEEP",
+      "Reconciliation: \"gather the scattered thoughts into one line\" → null/CHANGE/MAKE",
+      "Celebration: \"let the gladness go out to the room\" → JOIN/FEEL/RELEASE",
+      "Conscience: \"return the small thing you owe before anyone asks\" → MAKE/MOVE/KEEP",
+      "Reciprocity: \"return the favour at its true size\" → MAKE/CHANGE/KEEP",
+      "Fulfillment: \"eat the meal you made and leave the kitchen as it is\" → KEEP/FEEL/RELEASE",
+      "Definition: \"define the seed of what will be built, in one line\" → WRITE/SAY/MAKE",
+      "Harvest: \"gather what the change grew\" → MAKE/OBSERVE/RELEASE",
+      "Harvest: \"collect the fruit of the patient wait\" → MAKE/OBSERVE/RELEASE",
+      "Steward of Resonance: \"be present to their feeling without drowning in it\" → KEEP/FEEL/OBSERVE"
+    ]
+  },
+  "signatures": {
+    "0": {
+      "name": "Potential",
+      "acts": [
+        {
+          "act": "leave it undecided a while longer",
+          "family": "WAIT"
+        },
+        {
+          "act": "meet the thing before you know what it is",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "start over as if for the first time",
+          "family": "MOVE"
+        },
+        {
+          "act": "keep more than one door open on purpose",
+          "family": "KEEP"
+        },
+        {
+          "act": "begin without a plan for the end",
+          "family": "MOVE"
+        },
+        {
+          "act": "open the thing you have been assuming you knew and look at it unlabelled",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "WAIT",
+        "OBSERVE",
+        "MOVE",
+        "KEEP"
+      ]
+    },
+    "1": {
+      "name": "Will",
+      "acts": [
+        {
+          "act": "choose this, not that, and mean it",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "point your attention at one thing",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "decide from what is here now, not from habit",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "refuse the second thing so the first can have you",
+          "family": "STOP"
+        },
+        {
+          "act": "set a direction and take the first step in it",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "CHOOSE",
+        "OBSERVE",
+        "STOP",
+        "MOVE"
+      ]
+    },
+    "2": {
+      "name": "Wisdom",
+      "acts": [
+        {
+          "act": "wait until you know which part matters, then begin with that part",
+          "family": "WAIT"
+        },
+        {
+          "act": "notice what you already know before you reason about it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "let a perception land without arguing it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "sit with not knowing for ten minutes instead of filling it",
+          "family": "WAIT"
+        },
+        {
+          "act": "attend to the one thing that is asking for attention and leave the rest",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "write the first thing you knew about it, before the reasons",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "WAIT",
+        "OBSERVE",
+        "WRITE"
+      ]
+    },
+    "3": {
+      "name": "Nurturing",
+      "acts": [
+        {
+          "act": "tend it small and ask nothing of it",
+          "family": "MAKE"
+        },
+        {
+          "act": "give it what it needs today, not what it is scheduled for",
+          "family": "MAKE"
+        },
+        {
+          "act": "make room for it without steering it",
+          "family": "KEEP"
+        },
+        {
+          "act": "keep showing up to it without forcing a result",
+          "family": "KEEP"
+        },
+        {
+          "act": "protect the young thing from being judged early",
+          "family": "PROTECT"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "KEEP",
+        "PROTECT"
+      ]
+    },
+    "4": {
+      "name": "Authority",
+      "acts": [
+        {
+          "act": "give the mess a shape it can be carried in",
+          "family": "MAKE"
+        },
+        {
+          "act": "set one rule that makes the rest easier",
+          "family": "MAKE"
+        },
+        {
+          "act": "put a date, a place, a container on it",
+          "family": "MAKE"
+        },
+        {
+          "act": "write the order things go in",
+          "family": "WRITE"
+        },
+        {
+          "act": "build the smallest structure that holds it",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "WRITE"
+      ]
+    },
+    "5": {
+      "name": "Culture",
+      "acts": [
+        {
+          "act": "hand one thing on in the way you were handed it",
+          "family": "KEEP"
+        },
+        {
+          "act": "join the practice the others keep",
+          "family": "JOIN"
+        },
+        {
+          "act": "teach it the way it was taught to you, with one change",
+          "family": "SAY"
+        },
+        {
+          "act": "keep the ritual and give it room to change",
+          "family": "KEEP"
+        },
+        {
+          "act": "learn how the people before you did it",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "JOIN",
+        "SAY",
+        "OBSERVE"
+      ]
+    },
+    "6": {
+      "name": "Compassion",
+      "acts": [
+        {
+          "act": "sit with someone in it without fixing it",
+          "family": "JOIN"
+        },
+        {
+          "act": "feel it alongside them and keep your own side",
+          "family": "FEEL"
+        },
+        {
+          "act": "let yourself be reached by what they are carrying",
+          "family": "FEEL"
+        },
+        {
+          "act": "stay in contact while it is hard",
+          "family": "KEEP"
+        },
+        {
+          "act": "say what you see in them only if they ask",
+          "family": "SAY"
+        }
+      ],
+      "families": [
+        "JOIN",
+        "FEEL",
+        "KEEP",
+        "SAY"
+      ]
+    },
+    "7": {
+      "name": "Drive",
+      "acts": [
+        {
+          "act": "move toward the thing you want, one step, today",
+          "family": "MOVE"
+        },
+        {
+          "act": "go where the feeling is already pulling",
+          "family": "MOVE"
+        },
+        {
+          "act": "keep going through the next piece of resistance",
+          "family": "KEEP"
+        },
+        {
+          "act": "put the energy you have into the direction you chose",
+          "family": "MOVE"
+        },
+        {
+          "act": "start before you feel ready",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "KEEP"
+      ]
+    },
+    "8": {
+      "name": "Fortitude",
+      "acts": [
+        {
+          "act": "carry it without tightening around it",
+          "family": "KEEP"
+        },
+        {
+          "act": "hold your shape under the weight",
+          "family": "KEEP"
+        },
+        {
+          "act": "keep it at its real size when you are asked to shrink it",
+          "family": "KEEP"
+        },
+        {
+          "act": "bear the next hour of it without deciding anything",
+          "family": "KEEP"
+        },
+        {
+          "act": "stay standing in it a while longer",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "KEEP"
+      ]
+    },
+    "9": {
+      "name": "Discipline",
+      "acts": [
+        {
+          "act": "do the small practice again, alone, today",
+          "family": "MAKE"
+        },
+        {
+          "act": "keep the session even when it feels pointless",
+          "family": "KEEP"
+        },
+        {
+          "act": "refine one piece by repeating it",
+          "family": "MAKE"
+        },
+        {
+          "act": "keep the steady light lit by attention, not flash",
+          "family": "KEEP"
+        },
+        {
+          "act": "do the plain version first, before the plans",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "KEEP"
+      ]
+    },
+    "10": {
+      "name": "Source",
+      "acts": [
+        {
+          "act": "meet what is arriving as it arrives",
+          "family": "KEEP"
+        },
+        {
+          "act": "let this moment be a fresh entry, not a continuation",
+          "family": "CHANGE"
+        },
+        {
+          "act": "notice what is newly here, right now",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "receive the thing that is coming instead of bracing for it",
+          "family": "FEEL"
+        },
+        {
+          "act": "take the turning as it comes",
+          "family": "MOVE"
+        },
+        {
+          "act": "open the door to the next thing on time, not early",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "CHANGE",
+        "OBSERVE",
+        "FEEL",
+        "MOVE"
+      ]
+    },
+    "11": {
+      "name": "Equity",
+      "acts": [
+        {
+          "act": "give back what is owed, and take what is yours",
+          "family": "KEEP"
+        },
+        {
+          "act": "put it in proportion, not in punishment",
+          "family": "CHANGE"
+        },
+        {
+          "act": "trade one thing for one thing, and keep no score",
+          "family": "KEEP"
+        },
+        {
+          "act": "adjust the share until it is fair, then stop",
+          "family": "CHANGE"
+        },
+        {
+          "act": "let an exchange flow both ways",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "CHANGE",
+        "RELEASE"
+      ]
+    },
+    "12": {
+      "name": "Faith",
+      "acts": [
+        {
+          "act": "let go of the thing you are gripping",
+          "family": "RELEASE"
+        },
+        {
+          "act": "release it on purpose, not by losing it",
+          "family": "RELEASE"
+        },
+        {
+          "act": "stop holding what no longer serves",
+          "family": "RELEASE"
+        },
+        {
+          "act": "surrender the outcome and keep the act",
+          "family": "RELEASE"
+        },
+        {
+          "act": "put it down and leave your hands empty a while",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "RELEASE"
+      ]
+    },
+    "13": {
+      "name": "Transformation",
+      "acts": [
+        {
+          "act": "let the thing end that is already over",
+          "family": "RELEASE"
+        },
+        {
+          "act": "close it, honour it, and do not reopen it",
+          "family": "RELEASE"
+        },
+        {
+          "act": "clear the space the ending leaves",
+          "family": "RELEASE"
+        },
+        {
+          "act": "mark the end of it with a plain act",
+          "family": "MAKE"
+        },
+        {
+          "act": "let the old form go so the next one can come",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "RELEASE",
+        "MAKE"
+      ]
+    },
+    "14": {
+      "name": "Tune",
+      "acts": [
+        {
+          "act": "adjust one dial a little, then stop",
+          "family": "CHANGE"
+        },
+        {
+          "act": "add a little or take a little away, and sense the difference",
+          "family": "CHANGE"
+        },
+        {
+          "act": "find the centre and hold it while things move",
+          "family": "KEEP"
+        },
+        {
+          "act": "rebalance by small corrections, not a lurch",
+          "family": "CHANGE"
+        },
+        {
+          "act": "blend the two things instead of choosing one",
+          "family": "CHANGE"
+        }
+      ],
+      "families": [
+        "CHANGE",
+        "KEEP"
+      ]
+    },
+    "15": {
+      "name": "Abstraction",
+      "acts": [
+        {
+          "act": "trace the pattern across the last few times",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "see how it works underneath, apart from this instance",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "draw the shape of it without the details",
+          "family": "MAKE"
+        },
+        {
+          "act": "name the mechanism in one line and change nothing",
+          "family": "SAY"
+        },
+        {
+          "act": "step back far enough to see the whole arrangement",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "MAKE",
+        "SAY"
+      ]
+    },
+    "16": {
+      "name": "Breakthrough",
+      "acts": [
+        {
+          "act": "stop holding up the false thing and watch it come down",
+          "family": "STOP"
+        },
+        {
+          "act": "let one structure collapse that could not hold",
+          "family": "RELEASE"
+        },
+        {
+          "act": "break the habit that was propping it",
+          "family": "STOP"
+        },
+        {
+          "act": "clear the ground of what came down",
+          "family": "RELEASE"
+        },
+        {
+          "act": "stand in the gap it leaves without rebuilding yet",
+          "family": "WAIT"
+        }
+      ],
+      "families": [
+        "STOP",
+        "RELEASE",
+        "WAIT"
+      ]
+    },
+    "17": {
+      "name": "Inspiration",
+      "acts": [
+        {
+          "act": "move toward the thing you actually want",
+          "family": "MOVE"
+        },
+        {
+          "act": "choose the light to steer by and turn toward it",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "pick the one you would be sorriest to lose",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "let yourself want it, plainly, to yourself",
+          "family": "FEEL"
+        },
+        {
+          "act": "remember what drew you and face it again",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "CHOOSE",
+        "FEEL",
+        "OBSERVE"
+      ]
+    },
+    "18": {
+      "name": "Imagination",
+      "acts": [
+        {
+          "act": "picture it a year on, turned out well, and keep the picture",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "take the next step with only enough light for that step",
+          "family": "MOVE"
+        },
+        {
+          "act": "let the path show itself instead of forcing clarity",
+          "family": "WAIT"
+        },
+        {
+          "act": "dream it from what you have already lived",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "move through the fog without demanding the map",
+          "family": "MOVE"
+        },
+        {
+          "act": "sketch the whole of it badly, on one page, and keep the sketch",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "MOVE",
+        "WAIT",
+        "WRITE"
+      ]
+    },
+    "19": {
+      "name": "Actualization",
+      "acts": [
+        {
+          "act": "be what you already are, in your acts",
+          "family": "MAKE"
+        },
+        {
+          "act": "do the thing in your own way, without proving it",
+          "family": "MAKE"
+        },
+        {
+          "act": "let what you are show without dimming it",
+          "family": "RELEASE"
+        },
+        {
+          "act": "stop performing and simply do it",
+          "family": "STOP"
+        },
+        {
+          "act": "put your own name on what is already yours",
+          "family": "WRITE"
+        },
+        {
+          "act": "do one thing today the way only you do it, and do not explain it",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "RELEASE",
+        "STOP",
+        "WRITE"
+      ]
+    },
+    "20": {
+      "name": "Recognition",
+      "acts": [
+        {
+          "act": "look at the same thing longer, until it shows you more",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "see the whole pattern you are standing inside",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "know it more deeply instead of newly",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "notice what is true across every layer of it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "recognise where you are in the whole of it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "draw the whole arrangement you are inside, with yourself marked on it",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "WRITE"
+      ]
+    },
+    "21": {
+      "name": "Creation",
+      "acts": [
+        {
+          "act": "finish the thing that has been waiting on its last step",
+          "family": "MAKE"
+        },
+        {
+          "act": "close the cycle and leave the door open for the next",
+          "family": "RELEASE"
+        },
+        {
+          "act": "complete it without making it final",
+          "family": "MAKE"
+        },
+        {
+          "act": "gather what it became and set it down whole",
+          "family": "RELEASE"
+        },
+        {
+          "act": "let the finished thing be the start of something",
+          "family": "CHANGE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "RELEASE",
+        "CHANGE"
+      ]
+    },
+    "22": {
+      "name": "Activation",
+      "acts": [
+        {
+          "act": "catch the first spark before you point it anywhere",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "begin the thing while it is still nothing in particular",
+          "family": "MOVE"
+        },
+        {
+          "act": "light it and do not decide yet what it is for",
+          "family": "MAKE"
+        },
+        {
+          "act": "let the impulse start without a plan",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "MOVE",
+        "MAKE"
+      ]
+    },
+    "23": {
+      "name": "Orientation",
+      "acts": [
+        {
+          "act": "choose which star to steer by and steer",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "turn toward the one direction and stop surveying",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "decide the heading from what you want, not from logic",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "face one way for three days",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "CHOOSE",
+        "KEEP"
+      ]
+    },
+    "24": {
+      "name": "Assertion",
+      "acts": [
+        {
+          "act": "declare the shape of it outward, plainly",
+          "family": "SAY"
+        },
+        {
+          "act": "claim the structure as yours in the open",
+          "family": "SAY"
+        },
+        {
+          "act": "put the frame on the table before anyone asks",
+          "family": "SAY"
+        },
+        {
+          "act": "state the order of things once, without argument",
+          "family": "SAY"
+        }
+      ],
+      "families": [
+        "SAY"
+      ]
+    },
+    "25": {
+      "name": "Alignment",
+      "acts": [
+        {
+          "act": "move at the pace your feeling can sustain",
+          "family": "MOVE"
+        },
+        {
+          "act": "let the will and the wanting go the same way",
+          "family": "CHANGE"
+        },
+        {
+          "act": "keep the momentum steady instead of surging",
+          "family": "KEEP"
+        },
+        {
+          "act": "find the rhythm and stay in it",
+          "family": "KEEP"
+        },
+        {
+          "act": "do the next piece at the speed you can keep for a month, not the speed you can keep for a day",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "CHANGE",
+        "KEEP",
+        "MAKE"
+      ]
+    },
+    "26": {
+      "name": "Dedication",
+      "acts": [
+        {
+          "act": "let the friction test what you are committed to",
+          "family": "KEEP"
+        },
+        {
+          "act": "drop the wrong approach and keep the commitment",
+          "family": "RELEASE"
+        },
+        {
+          "act": "engage the hard part on purpose and see what holds",
+          "family": "MAKE"
+        },
+        {
+          "act": "release the method, not the purpose",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "RELEASE",
+        "MAKE"
+      ]
+    },
+    "27": {
+      "name": "Honor",
+      "acts": [
+        {
+          "act": "do the giving in the open this time, where it was always done unseen",
+          "family": "MAKE"
+        },
+        {
+          "act": "do the next piece of it in front of the person it is for",
+          "family": "MAKE"
+        },
+        {
+          "act": "stand where the giving can be witnessed",
+          "family": "MOVE"
+        },
+        {
+          "act": "accept the acknowledgment when it comes",
+          "family": "FEEL"
+        },
+        {
+          "act": "let what you gave up be seen by the people it was for, without a word about it",
+          "family": "MAKE"
+        },
+        {
+          "act": "make the sacrifice visible without explaining it",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "MOVE",
+        "FEEL"
+      ]
+    },
+    "28": {
+      "name": "Resolve",
+      "acts": [
+        {
+          "act": "defend the direction you chose against the next push",
+          "family": "PROTECT"
+        },
+        {
+          "act": "gather your determination and hold the line",
+          "family": "KEEP"
+        },
+        {
+          "act": "keep the heading when it is contested",
+          "family": "KEEP"
+        },
+        {
+          "act": "refuse the pull off course, once more",
+          "family": "STOP"
+        }
+      ],
+      "families": [
+        "PROTECT",
+        "KEEP",
+        "STOP"
+      ]
+    },
+    "29": {
+      "name": "Command",
+      "acts": [
+        {
+          "act": "decide it and act the same day, without explaining",
+          "family": "MOVE"
+        },
+        {
+          "act": "move with the clarity that needs no assertion",
+          "family": "MOVE"
+        },
+        {
+          "act": "let the structure act instead of announcing it",
+          "family": "KEEP"
+        },
+        {
+          "act": "make the call and carry it through",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "KEEP"
+      ]
+    },
+    "30": {
+      "name": "Resilience",
+      "acts": [
+        {
+          "act": "keep following the star after everything that has happened",
+          "family": "KEEP"
+        },
+        {
+          "act": "carry on with the version you chose through another week of doubt",
+          "family": "KEEP"
+        },
+        {
+          "act": "persist on hope that has been tested",
+          "family": "KEEP"
+        },
+        {
+          "act": "go on toward it without needing a sign",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "MOVE"
+      ]
+    },
+    "31": {
+      "name": "Realization",
+      "acts": [
+        {
+          "act": "carry what the spark became to its full size",
+          "family": "MAKE"
+        },
+        {
+          "act": "bring the possibility all the way into form",
+          "family": "MAKE"
+        },
+        {
+          "act": "complete what you began by beginning it",
+          "family": "MAKE"
+        },
+        {
+          "act": "let what was only possible stand finished",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE"
+      ]
+    },
+    "32": {
+      "name": "Perception",
+      "acts": [
+        {
+          "act": "look before you interpret",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "see the thing as if for the first time",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "make the first cut of seeing and stop there",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "notice what is before your eyes before naming it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "describe what is in front of your eyes in five plain lines, no conclusions",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "WRITE"
+      ]
+    },
+    "33": {
+      "name": "Reflection",
+      "acts": [
+        {
+          "act": "hold two true things without declaring either",
+          "family": "KEEP"
+        },
+        {
+          "act": "pause before you let it be known",
+          "family": "WAIT"
+        },
+        {
+          "act": "weigh what you know before it leaves you",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "keep the truth a while before saying it",
+          "family": "KEEP"
+        },
+        {
+          "act": "write both sides of it on one page and close the page",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "WAIT",
+        "OBSERVE",
+        "WRITE"
+      ]
+    },
+    "34": {
+      "name": "Calculation",
+      "acts": [
+        {
+          "act": "work the pattern through to its logic",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "cut through the story to what actually follows",
+          "family": "SEPARATE"
+        },
+        {
+          "act": "count it out and read what the numbers show",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "reason it from first principles once",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "SEPARATE"
+      ]
+    },
+    "35": {
+      "name": "Repose",
+      "acts": [
+        {
+          "act": "let the mind rest instead of working the problem",
+          "family": "WAIT"
+        },
+        {
+          "act": "sit still until the calibration settles",
+          "family": "WAIT"
+        },
+        {
+          "act": "stop adjusting for an hour",
+          "family": "STOP"
+        },
+        {
+          "act": "rest in the balance you already have",
+          "family": "WAIT"
+        },
+        {
+          "act": "put the problem down and take a walk with nothing to solve",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "WAIT",
+        "STOP",
+        "RELEASE"
+      ]
+    },
+    "36": {
+      "name": "Honing",
+      "acts": [
+        {
+          "act": "sort what matters from what does not, carefully",
+          "family": "SEPARATE"
+        },
+        {
+          "act": "refine one distinction by close attention",
+          "family": "MAKE"
+        },
+        {
+          "act": "strike one thing from the list that does not serve",
+          "family": "RELEASE"
+        },
+        {
+          "act": "sharpen the one skill by repeating its hardest part",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "SEPARATE",
+        "MAKE",
+        "RELEASE"
+      ]
+    },
+    "37": {
+      "name": "Guidance",
+      "acts": [
+        {
+          "act": "show someone the way you found",
+          "family": "SAY"
+        },
+        {
+          "act": "walk the route with someone who is lost on it",
+          "family": "MOVE"
+        },
+        {
+          "act": "give directions plainly, once, and let them walk",
+          "family": "SAY"
+        },
+        {
+          "act": "point to the passage you can see",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "SAY",
+        "MOVE",
+        "OBSERVE"
+      ]
+    },
+    "38": {
+      "name": "Reconciliation",
+      "acts": [
+        {
+          "act": "gather the scattered thoughts into one line",
+          "family": "MAKE"
+        },
+        {
+          "act": "bring the two sides of your thinking into one plan",
+          "family": "MAKE"
+        },
+        {
+          "act": "reconcile what you know with what you feel about it",
+          "family": "CHANGE"
+        },
+        {
+          "act": "sort the pieces into a shape you can act on",
+          "family": "SEPARATE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "CHANGE",
+        "SEPARATE"
+      ]
+    },
+    "39": {
+      "name": "Immersion",
+      "acts": [
+        {
+          "act": "go all the way into the pattern until you meet its edge",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "follow the thought past where it is comfortable",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "stay in the depth of it instead of surfacing",
+          "family": "KEEP"
+        },
+        {
+          "act": "let the mind find its own limit in the thing",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "read the hardest page of it twice, slowly, before you stop",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "KEEP"
+      ]
+    },
+    "40": {
+      "name": "Discernment",
+      "acts": [
+        {
+          "act": "hold many truths at once without collapsing them",
+          "family": "KEEP"
+        },
+        {
+          "act": "sort the kinds of pull from one another",
+          "family": "SEPARATE"
+        },
+        {
+          "act": "let several things be true and act on one",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "distinguish what is yours from what you borrowed",
+          "family": "SEPARATE"
+        },
+        {
+          "act": "list the pulls on you and mark which are yours",
+          "family": "SEPARATE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "SEPARATE",
+        "CHOOSE"
+      ]
+    },
+    "41": {
+      "name": "Clarity",
+      "acts": [
+        {
+          "act": "see it whole, with nothing hidden",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "see the true thing whole, as the last word on it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "look at the whole of it until nothing is left to see",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "let the seeing be complete",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "lay every piece of it out where you can see all of it at once",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE"
+      ]
+    },
+    "42": {
+      "name": "Receptivity",
+      "acts": [
+        {
+          "act": "open before anything has arrived",
+          "family": "WAIT"
+        },
+        {
+          "act": "let the feeling in without deciding what it is",
+          "family": "FEEL"
+        },
+        {
+          "act": "receive what comes, unprepared",
+          "family": "FEEL"
+        },
+        {
+          "act": "leave the heart open and empty a while",
+          "family": "RELEASE"
+        },
+        {
+          "act": "sit somewhere new with nothing in your hands and let whatever comes, come",
+          "family": "WAIT"
+        }
+      ],
+      "families": [
+        "WAIT",
+        "FEEL",
+        "RELEASE"
+      ]
+    },
+    "43": {
+      "name": "Merge",
+      "acts": [
+        {
+          "act": "choose one connection and flow with it",
+          "family": "JOIN"
+        },
+        {
+          "act": "join someone in the work so the two streams run as one",
+          "family": "JOIN"
+        },
+        {
+          "act": "let the vision be shared with one other",
+          "family": "JOIN"
+        },
+        {
+          "act": "meet someone in the middle and go on together",
+          "family": "JOIN"
+        }
+      ],
+      "families": [
+        "JOIN"
+      ]
+    },
+    "44": {
+      "name": "Celebration",
+      "acts": [
+        {
+          "act": "share the joy with the people it belongs to",
+          "family": "JOIN"
+        },
+        {
+          "act": "mark the good thing together, the day it happens",
+          "family": "JOIN"
+        },
+        {
+          "act": "let the gladness go out to the room",
+          "family": "RELEASE"
+        },
+        {
+          "act": "celebrate with the others, not after them",
+          "family": "JOIN"
+        }
+      ],
+      "families": [
+        "JOIN",
+        "RELEASE"
+      ]
+    },
+    "45": {
+      "name": "Reverie",
+      "acts": [
+        {
+          "act": "sit with what the heart already knows",
+          "family": "WAIT"
+        },
+        {
+          "act": "let the feeling settle into its own depth",
+          "family": "FEEL"
+        },
+        {
+          "act": "rest in the connection without doing anything with it",
+          "family": "KEEP"
+        },
+        {
+          "act": "stay with the quiet of it",
+          "family": "WAIT"
+        },
+        {
+          "act": "spend an hour with the thing you love without a task attached to it",
+          "family": "FEEL"
+        }
+      ],
+      "families": [
+        "WAIT",
+        "FEEL",
+        "KEEP"
+      ]
+    },
+    "46": {
+      "name": "Conscience",
+      "acts": [
+        {
+          "act": "act on the private sense of what is right",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "keep your own count of what is owed, and pay it",
+          "family": "KEEP"
+        },
+        {
+          "act": "do the fair thing where no one will see",
+          "family": "MAKE"
+        },
+        {
+          "act": "let the inner compass decide the small case",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "return the small thing you owe before anyone asks",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "CHOOSE",
+        "KEEP",
+        "MAKE"
+      ]
+    },
+    "47": {
+      "name": "Reciprocity",
+      "acts": [
+        {
+          "act": "give one thing and take one thing, in balance",
+          "family": "CHANGE"
+        },
+        {
+          "act": "accept what is offered for what you gave",
+          "family": "FEEL"
+        },
+        {
+          "act": "return the favour at its true size",
+          "family": "KEEP"
+        },
+        {
+          "act": "let the exchange with someone run both ways",
+          "family": "JOIN"
+        }
+      ],
+      "families": [
+        "CHANGE",
+        "FEEL",
+        "KEEP",
+        "JOIN"
+      ]
+    },
+    "48": {
+      "name": "Allure",
+      "acts": [
+        {
+          "act": "gather the feelings that might be felt and look at them",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "let yourself be drawn before you choose",
+          "family": "FEEL"
+        },
+        {
+          "act": "hold the cloud of possible feeling without picking yet",
+          "family": "WAIT"
+        },
+        {
+          "act": "follow the pull of what might be felt, a little way",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "go once toward the thing that draws you and see what it is up close",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "FEEL",
+        "WAIT",
+        "MOVE"
+      ]
+    },
+    "49": {
+      "name": "Passage",
+      "acts": [
+        {
+          "act": "walk toward what connects, leaving what does not",
+          "family": "MOVE"
+        },
+        {
+          "act": "go deeper into the shared thing than comfort allows",
+          "family": "MOVE"
+        },
+        {
+          "act": "cross over to the people it actually requires",
+          "family": "MOVE"
+        },
+        {
+          "act": "leave the hollow ritual for the living one",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "RELEASE"
+      ]
+    },
+    "50": {
+      "name": "Fulfillment",
+      "acts": [
+        {
+          "act": "let the satisfaction of a finished thing land",
+          "family": "FEEL"
+        },
+        {
+          "act": "enjoy what you imagined now that it is here",
+          "family": "FEEL"
+        },
+        {
+          "act": "be full for an hour with what was already felt",
+          "family": "FEEL"
+        },
+        {
+          "act": "savour the realised thing without reaching past it",
+          "family": "FEEL"
+        },
+        {
+          "act": "use the finished thing for an hour instead of improving it",
+          "family": "KEEP"
+        },
+        {
+          "act": "eat the meal you made and leave the kitchen as it is",
+          "family": "RELEASE"
+        },
+        {
+          "act": "walk through the thing you built and touch nothing",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "FEEL",
+        "KEEP",
+        "RELEASE",
+        "OBSERVE"
+      ]
+    },
+    "51": {
+      "name": "Completion",
+      "acts": [
+        {
+          "act": "feel the whole of it, all the colours at once",
+          "family": "FEEL"
+        },
+        {
+          "act": "let the felt connection be complete",
+          "family": "FEEL"
+        },
+        {
+          "act": "know the feeling fully before you move on",
+          "family": "FEEL"
+        },
+        {
+          "act": "take in the whole rainbow of what you feel",
+          "family": "FEEL"
+        },
+        {
+          "act": "name every feeling in it on one page, none of them crossed out",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "FEEL",
+        "WRITE"
+      ]
+    },
+    "52": {
+      "name": "Definition",
+      "acts": [
+        {
+          "act": "hold the first resource in your hand before investing it",
+          "family": "KEEP"
+        },
+        {
+          "act": "define the seed of what will be built, in one line",
+          "family": "MAKE"
+        },
+        {
+          "act": "decide what this is for before you spend it",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "name the form it will take, and only that",
+          "family": "SAY"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "MAKE",
+        "CHOOSE",
+        "SAY"
+      ]
+    },
+    "53": {
+      "name": "Stewardship",
+      "acts": [
+        {
+          "act": "tend the resource with responsible care",
+          "family": "KEEP"
+        },
+        {
+          "act": "balance the competing demands and keep tending",
+          "family": "CHANGE"
+        },
+        {
+          "act": "look after what grows with a steady hand",
+          "family": "KEEP"
+        },
+        {
+          "act": "steward it without clutching",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "CHANGE"
+      ]
+    },
+    "54": {
+      "name": "Formation",
+      "acts": [
+        {
+          "act": "build the first new thing from what the clearing showed",
+          "family": "MAKE"
+        },
+        {
+          "act": "make something skilled and small on the cleared ground",
+          "family": "MAKE"
+        },
+        {
+          "act": "form the new structure with your hands",
+          "family": "MAKE"
+        },
+        {
+          "act": "start building where the false thing fell",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE"
+      ]
+    },
+    "55": {
+      "name": "Preservation",
+      "acts": [
+        {
+          "act": "keep what the change produced from drifting",
+          "family": "KEEP"
+        },
+        {
+          "act": "hold the new form steady",
+          "family": "KEEP"
+        },
+        {
+          "act": "protect what was won by the ending",
+          "family": "PROTECT"
+        },
+        {
+          "act": "set the finished thing down in a form that keeps",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "PROTECT",
+        "RELEASE"
+      ]
+    },
+    "56": {
+      "name": "Steadfastness",
+      "acts": [
+        {
+          "act": "persist on your own reserves through the pressure",
+          "family": "KEEP"
+        },
+        {
+          "act": "keep going without checking on anyone else",
+          "family": "KEEP"
+        },
+        {
+          "act": "carry your own share, all of it",
+          "family": "KEEP"
+        },
+        {
+          "act": "stand firm in the material hardship",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "KEEP"
+      ]
+    },
+    "57": {
+      "name": "Support",
+      "acts": [
+        {
+          "act": "share your strength where it is needed",
+          "family": "JOIN"
+        },
+        {
+          "act": "give a concrete piece of help and finish it",
+          "family": "MAKE"
+        },
+        {
+          "act": "let resources flow to the person who needs them",
+          "family": "RELEASE"
+        },
+        {
+          "act": "hold someone else up with what you have",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "JOIN",
+        "MAKE",
+        "RELEASE",
+        "KEEP"
+      ]
+    },
+    "58": {
+      "name": "Harvest",
+      "acts": [
+        {
+          "act": "gather what the change grew",
+          "family": "RELEASE"
+        },
+        {
+          "act": "count what the ending gave you",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "take in the yield of what was transformed",
+          "family": "FEEL"
+        },
+        {
+          "act": "collect the fruit of the patient wait",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "RELEASE",
+        "OBSERVE",
+        "FEEL"
+      ]
+    },
+    "59": {
+      "name": "Commitment",
+      "acts": [
+        {
+          "act": "keep building the thing with sustained craft",
+          "family": "MAKE"
+        },
+        {
+          "act": "deepen the mastery by persisting at it",
+          "family": "KEEP"
+        },
+        {
+          "act": "return to the work daily until it is profound",
+          "family": "KEEP"
+        },
+        {
+          "act": "commit to the long build and do today's part",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "KEEP"
+      ]
+    },
+    "60": {
+      "name": "Flourishing",
+      "acts": [
+        {
+          "act": "enjoy what careful tending produced",
+          "family": "FEEL"
+        },
+        {
+          "act": "let the abundance be seen and used",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "take pleasure in the grown thing",
+          "family": "FEEL"
+        },
+        {
+          "act": "rest in the result of the tending",
+          "family": "WAIT"
+        }
+      ],
+      "families": [
+        "FEEL",
+        "OBSERVE",
+        "WAIT"
+      ]
+    },
+    "61": {
+      "name": "Achievement",
+      "acts": [
+        {
+          "act": "establish the thing that lasts",
+          "family": "MAKE"
+        },
+        {
+          "act": "finish the legacy by sustained will",
+          "family": "KEEP"
+        },
+        {
+          "act": "complete the form so it stands without you",
+          "family": "MAKE"
+        },
+        {
+          "act": "bring the directed work to its full standing",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "KEEP"
+      ]
+    },
+    "62": {
+      "name": "Initiate of Intent",
+      "acts": [
+        {
+          "act": "start something for the spark of starting",
+          "family": "MOVE"
+        },
+        {
+          "act": "explore a direction before it has a destination",
+          "family": "MOVE"
+        },
+        {
+          "act": "express yourself freshly, with confidence",
+          "family": "SAY"
+        },
+        {
+          "act": "ask the beginner's question about where to go",
+          "family": "ASK"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "SAY",
+        "ASK"
+      ]
+    },
+    "63": {
+      "name": "Catalyst of Intent",
+      "acts": [
+        {
+          "act": "cut through the inertia with one decisive act",
+          "family": "MOVE"
+        },
+        {
+          "act": "set a boundary and hold it",
+          "family": "PROTECT"
+        },
+        {
+          "act": "charge forward on the decision you made",
+          "family": "MOVE"
+        },
+        {
+          "act": "lead the change by moving first",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "MOVE",
+        "PROTECT"
+      ]
+    },
+    "64": {
+      "name": "Steward of Intent",
+      "acts": [
+        {
+          "act": "tend the fire without burning out",
+          "family": "KEEP"
+        },
+        {
+          "act": "keep the motivation warm with steady care",
+          "family": "KEEP"
+        },
+        {
+          "act": "hold the direction with courage, day after day",
+          "family": "KEEP"
+        },
+        {
+          "act": "feed the drive a little at a time",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "KEEP"
+      ]
+    },
+    "65": {
+      "name": "Executor of Intent",
+      "acts": [
+        {
+          "act": "release what is done and keep what is not",
+          "family": "RELEASE"
+        },
+        {
+          "act": "bear the duty and know when to let go",
+          "family": "RELEASE"
+        },
+        {
+          "act": "drop one condition you set and take the step",
+          "family": "RELEASE"
+        },
+        {
+          "act": "govern by knowing what to surrender",
+          "family": "RELEASE"
+        }
+      ],
+      "families": [
+        "RELEASE"
+      ]
+    },
+    "66": {
+      "name": "Initiate of Cognition",
+      "acts": [
+        {
+          "act": "listen as a student of it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "follow a raw curiosity with no use for it",
+          "family": "MOVE"
+        },
+        {
+          "act": "ask the question you do not know the answer to",
+          "family": "ASK"
+        },
+        {
+          "act": "perceive it with fresh eyes before judging",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "MOVE",
+        "ASK"
+      ]
+    },
+    "67": {
+      "name": "Catalyst of Cognition",
+      "acts": [
+        {
+          "act": "reason it through fast and cleanly",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "cut to the logic and act on it",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "strategise the next three moves",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "think it through to its sharp point",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "CHOOSE"
+      ]
+    },
+    "68": {
+      "name": "Steward of Cognition",
+      "acts": [
+        {
+          "act": "tell the truth with care for when and how",
+          "family": "SAY"
+        },
+        {
+          "act": "calibrate what you say to what can be heard",
+          "family": "CHANGE"
+        },
+        {
+          "act": "hold the clarity steady and tempered",
+          "family": "KEEP"
+        },
+        {
+          "act": "say the hard thing gently, once",
+          "family": "SAY"
+        }
+      ],
+      "families": [
+        "SAY",
+        "CHANGE",
+        "KEEP"
+      ]
+    },
+    "69": {
+      "name": "Executor of Cognition",
+      "acts": [
+        {
+          "act": "write the facts down in order, without feeling words",
+          "family": "WRITE"
+        },
+        {
+          "act": "apply the method rigorously, once",
+          "family": "MAKE"
+        },
+        {
+          "act": "judge it by the discipline, not the mood",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "put the inquiry on paper and follow it",
+          "family": "WRITE"
+        }
+      ],
+      "families": [
+        "WRITE",
+        "MAKE",
+        "CHOOSE"
+      ]
+    },
+    "70": {
+      "name": "Initiate of Resonance",
+      "acts": [
+        {
+          "act": "sense what has not happened yet, with wonder",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "envision it freshly and feel toward it",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "explore the feeling with fresh sensitivity",
+          "family": "FEEL"
+        },
+        {
+          "act": "dream the next step and take it",
+          "family": "MOVE"
+        }
+      ],
+      "families": [
+        "OBSERVE",
+        "FEEL",
+        "MOVE"
+      ]
+    },
+    "71": {
+      "name": "Catalyst of Resonance",
+      "acts": [
+        {
+          "act": "pursue the emotional truth with someone",
+          "family": "JOIN"
+        },
+        {
+          "act": "make a ritual of the shared thing",
+          "family": "MAKE"
+        },
+        {
+          "act": "quest after the connection in the open",
+          "family": "MOVE"
+        },
+        {
+          "act": "teach what you feel by doing it with others",
+          "family": "JOIN"
+        }
+      ],
+      "families": [
+        "JOIN",
+        "MAKE",
+        "MOVE"
+      ]
+    },
+    "72": {
+      "name": "Steward of Resonance",
+      "acts": [
+        {
+          "act": "hold space for what someone feels without fixing it",
+          "family": "KEEP"
+        },
+        {
+          "act": "ask how it feels to them and stay with the answer",
+          "family": "ASK"
+        },
+        {
+          "act": "keep the connection coherent while it is hard",
+          "family": "KEEP"
+        },
+        {
+          "act": "be present to their feeling without drowning in it",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "KEEP",
+        "ASK",
+        "OBSERVE"
+      ]
+    },
+    "73": {
+      "name": "Executor of Resonance",
+      "acts": [
+        {
+          "act": "make the fair call about a feeling, yourself",
+          "family": "CHOOSE"
+        },
+        {
+          "act": "judge the hurt fairly after it has finished",
+          "family": "OBSERVE"
+        },
+        {
+          "act": "govern the feeling with principle, not reaction",
+          "family": "KEEP"
+        },
+        {
+          "act": "weigh what it costs them against what it gives",
+          "family": "OBSERVE"
+        }
+      ],
+      "families": [
+        "CHOOSE",
+        "OBSERVE",
+        "KEEP"
+      ]
+    },
+    "74": {
+      "name": "Initiate of Structure",
+      "acts": [
+        {
+          "act": "learn how it grows by tending it",
+          "family": "MAKE"
+        },
+        {
+          "act": "apprentice yourself to the material thing",
+          "family": "JOIN"
+        },
+        {
+          "act": "care for it with fresh hands and see what it needs",
+          "family": "MAKE"
+        },
+        {
+          "act": "tend the small thing and learn from it",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "JOIN"
+      ]
+    },
+    "75": {
+      "name": "Catalyst of Structure",
+      "acts": [
+        {
+          "act": "force the change into reality by steady effort",
+          "family": "MAKE"
+        },
+        {
+          "act": "pioneer the new ground slowly and without stopping",
+          "family": "MOVE"
+        },
+        {
+          "act": "move the structure one real inch",
+          "family": "MOVE"
+        },
+        {
+          "act": "build the change by persistent work",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "MOVE"
+      ]
+    },
+    "76": {
+      "name": "Steward of Structure",
+      "acts": [
+        {
+          "act": "release what is done and keep what serves",
+          "family": "RELEASE"
+        },
+        {
+          "act": "provide for the growth by knowing what to let go",
+          "family": "RELEASE"
+        },
+        {
+          "act": "maintain the abundance by clearing what is finished",
+          "family": "RELEASE"
+        },
+        {
+          "act": "keep the material thing sustainable",
+          "family": "KEEP"
+        }
+      ],
+      "families": [
+        "RELEASE",
+        "KEEP"
+      ]
+    },
+    "77": {
+      "name": "Executor of Structure",
+      "acts": [
+        {
+          "act": "build the thing that endures",
+          "family": "MAKE"
+        },
+        {
+          "act": "hold the weight as a builder holds stone",
+          "family": "KEEP"
+        },
+        {
+          "act": "stabilise it with embodied strength",
+          "family": "MAKE"
+        },
+        {
+          "act": "lay the one step you can see, solidly",
+          "family": "MAKE"
+        }
+      ],
+      "families": [
+        "MAKE",
+        "KEEP"
+      ]
+    }
+  }
+}

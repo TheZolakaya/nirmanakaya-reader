@@ -28,6 +28,7 @@ import { reviewTurn, notesBlock, retryNote } from '../../lib/ezReview'; // .560:
 import { BASE_SYSTEM, EXPANSION_PROMPTS } from '../../lib/prompts'; // EXPANSION_PROMPTS: the full reader's clarify / unpack / example, lifted verbatim (.500)
 import { VOICES, EZ_RULES, ezSystem, medicineBlock, BRAZIER_HARD_RULE, BRAZIER_RULES, DRAGON_STANDARD, brazierSystem, dragonBlock, doSomethingBlock } from '../../lib/ezPrompts';
 import { PERSONA_KEYS, PERSONAS_ON, lintVoice } from '../../lib/ezPrompts'; // .712 THE PERSONAS, LIVE
+import PLAIN_PROPS from '../../lib/data/plain_propositions.json'; // .713 the panels' source operation, for the saved trace
 import { allowedNamesFrom, personFlags, scrubReply } from '../../lib/personGuard'; // .707 THE PERSON GUARD — one implementation for every surface
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
@@ -1055,17 +1056,22 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       await fetch('/api/user/reading-summary', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ readingId: id, refresh: !!refresh }) });
     } catch {}
   };
+  // .713 THE PANELS, SAVED (Air: "we cannot keep debugging the place users see most of the advice while it disappears from the trace"). Every panel the
+  // Reader writes — the step, the medicine course, the dragon, the floors — is kept with the reading: the surface, the voice, the source operation (the
+  // record's operation line for the partner), the generated text, and the guard / judge result. Saved in _ez.panels; never in the user's export.
+  const [panelLog, setPanelLog] = useState([]);
+  const logPanel = (surface, text, guard = null) => { try { const card = fieldCard(); const k = card ? buildKernel(card, DEFS) : null; const pid = k?.partnerId; setPanelLog((l) => [...l, { surface, voice: guard?.voice || voice, ts: Date.now(), draw: card ? { transient: card.transient, position: card.position, status: card.status } : null, partner: pid != null ? (getComponent(pid)?.name || null) : null, sourceOperation: pid != null ? (PLAIN_PROPS.medicine?.[String(pid)]?.operation || null) : null, text: String(text || '').slice(0, 4000), guard: guard || null }].slice(-40)); } catch {} };
   // Persist the discourse with the reading (debounced), same table as every other reading.
   useEffect(() => {
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}) } }, usage })
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}) } }, usage }) /* .713 + the panels */
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
-  }, [turns, savedId, usage]);
+  }, [turns, savedId, usage, panelLog]);
 
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
@@ -1421,7 +1427,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
         }
       } catch (e) { console.warn('[persona] fallback skipped:', e?.message); }
-      obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null }; // .712 telemetry, saved on the turn
+      obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, verbalStandin: !!data?.medicineStandin, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null }; // .712 telemetry, saved on the turn
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
     } catch {}
@@ -1814,7 +1820,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500, { panel: 'step' });
-      setStepText(String(obj.reader || '').trim());
+      setStepText(String(obj.reader || '').trim()); logPanel('step', obj.reader, obj._guard); // .713
       if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1852,7 +1858,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const tele = seedFor(card, question).block;
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900, { panel: 'medicine' });
-      setMedText(String(obj.reader || '').trim());
+      setMedText(String(obj.reader || '').trim()); logPanel('medicine-course', obj.reader, obj._guard); // .713
       if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
@@ -1887,7 +1893,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const { obj } = await callReader(msg, `${systemPrompt}
 
 ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
-      setDragonText(String(obj.reader || '').trim());
+      setDragonText(String(obj.reader || '').trim()); logPanel('dragon', obj.reader, obj._guard); // .713
       if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1973,6 +1979,7 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
 YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same meaning, without that.`, brazierSystem(floor, voice), 1000); const o2 = parseJson(d2.reading); if (o2?.text && !personFlags(o2.text, askerAllowed()).length) obj = o2; }
         const ch = scrubReply(obj, askerAllowed(), askerTexts(), ['text']); if (ch.length) console.warn('[person] floor fallback:', ch.join(' | '));
       }
+      logPanel(floor === 1 ? 'words-to-the-whys' : `floor-${floor}`, obj.text, { voice }); // .713
       const next = { ...brazier, [floor]: obj.text.trim() };
       setBrazier(next);
       if (voiceOut) speakTurn({ id: `floor${floor}`, text: obj.text.trim() }); // THE VOICE (.616; .625 the heading, then a beat)
@@ -2052,7 +2059,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     setResolution(k);
     if (!savedId) return;
     try {
-      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}) } } });
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
     } catch {}
   };
