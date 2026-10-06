@@ -411,12 +411,10 @@ function HoverVideo({ src, className, style, playing = false }) {
     if (!host) return;
     const play = () => { try { v.play().catch(() => {}); } catch {} };
     const stop = () => { if (playingRef.current) return; try { v.pause(); } catch {} };
-    // PRIME THE FIRST FRAME: a paused video that has never played paints nothing on many phones
-    // (blank until tapped — founder, 2026-09-17). A silent play-then-pause as soon as data arrives
-    // leaves the first frame on screen.
-    let primed = false;
-    const prime = () => { if (primed) return; primed = true; try { const pr = v.play(); if (pr && pr.then) pr.then(() => { if (!host.matches(':hover') && !playingRef.current) v.pause(); }).catch(() => {}); } catch {} };
-    if (v.readyState >= 2) prime(); else v.addEventListener('loadeddata', prime, { once: true });
+    // .720 THE FIRST FRAME IS A STILL (founder, 2026-10-06: the page reloaded itself three times mid-reading on the phone). The old prime —
+    // a silent play-then-pause on load, with preload="auto" — woke every video at once: six ~6 MB loops buffered and decoding after one
+    // turn, which is how a phone tab gets killed. Now each shows a small poster (/video/posters/<name>.jpg, the first frame) and loads
+    // nothing until it is touched, hovered, or its door is open.
     host.addEventListener('mouseenter', play); host.addEventListener('mouseleave', stop);
     host.addEventListener('focus', play); host.addEventListener('blur', stop);
     host.addEventListener('touchstart', play, { passive: true }); host.addEventListener('touchend', stop); host.addEventListener('touchcancel', stop);
@@ -426,7 +424,8 @@ function HoverVideo({ src, className, style, playing = false }) {
       host.removeEventListener('touchstart', play); host.removeEventListener('touchend', stop); host.removeEventListener('touchcancel', stop);
     };
   }, []);
-  return <video ref={ref} src={src} loop muted playsInline preload="auto" disablePictureInPicture controlsList="nodownload noremoteplayback" className={className} style={style} aria-hidden="true" />; // .661 (Keel §6)
+  const poster = String(src || '').replace(/^\/video\/([^/]+)\.mp4$/, '/video/posters/$1.jpg'); // .720 the still for this loop
+  return <video ref={ref} src={src} poster={poster !== src ? poster : undefined} loop muted playsInline preload="none" disablePictureInPicture controlsList="nodownload noremoteplayback" className={className} style={style} aria-hidden="true" />; // .661 (Keel §6)
 }
 
 // THE READER IS WRITING — the one waiting indicator for every small wait (founder, 2026-09-17,
