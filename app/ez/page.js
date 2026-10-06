@@ -437,6 +437,11 @@ function HoverVideo({ src, className, style, playing = false }) {
 // read it — on 0.99.720 too). A ring of the last 40 page events in localStorage, which survives a reload; a reading in progress is marked
 // "in flight". On the next load, an in-flight mark that was never cleared means the page was reset mid-reading: the trail is attached to
 // that reading (interpretation.crashLog) so the moment it died can be read, not guessed.
+// .725 RELEASE THE AUDIO (the resets, found by elimination 2026-10-06: lean on + voice on reset at ~116 s; lean on + voice off ran for as long
+// as the founder liked). One <audio> plays every voice piece by swapping its src, and Safari keeps a finished piece's media buffers until the
+// element is emptied — a dozen pieces in, the page crosses Safari's per-tab limit and is silently replaced. Before each new src (and when the
+// voice stops) the element is emptied: handlers off, paused, src removed, load() — the documented way to make WebKit let the media go.
+const releaseAudio = (a) => { if (!a) return; try { a.onended = null; a.onerror = null; a.pause(); a.removeAttribute('src'); a.load(); } catch {} };
 const CRUMBS_KEY = 'nkya_ez_crumbs'; const INFLIGHT_KEY = 'nkya_ez_inflight';
 const crumb = (k, d) => { try { const a = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]'); a.push({ t: Date.now(), k, ...(d !== undefined ? { d: String(d).slice(0, 160) } : {}) }); localStorage.setItem(CRUMBS_KEY, JSON.stringify(a.slice(-60))); } catch {} };
 const pageSnap = () => { try { const vids = [...document.querySelectorAll('video')]; const imgs = [...document.images]; const px = imgs.reduce((n, im) => n + (im.naturalWidth || 0) * (im.naturalHeight || 0), 0); return `v${vids.length}/${vids.filter((x) => !x.paused).length}p img${imgs.length}:${(px / 1e6).toFixed(1)}MP dom${document.getElementsByTagName('*').length}`; } catch { return ''; } }; // .722 what the page holds
@@ -1138,7 +1143,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const spokenKey = (id, kind, para) => `${id}:${kind}:${para}`;
   const litIf = (id, kind, para) => (spoken && spoken.id === id && spoken.kind === kind && (!['text', 'medicine', 'next'].includes(kind) || spoken.para === para) ? ' rounded-md bg-amber-400/10 ring-1 ring-amber-300/30 transition-colors duration-300' : (speakingId && speakingId === id ? ' transition-colors duration-300 cursor-pointer' : ' transition-colors duration-300')); // .653: the rest of the turn being read is tappable (jump)
   useEffect(() => { if (!spoken) return; try { const el = document.querySelector(`[data-spoken="${spokenKey(spoken.id, spoken.kind, spoken.para)}"]`); if (el) { const r = el.getBoundingClientRect(); const vh = window.innerHeight || 800; if (r.top < 80 || r.bottom > vh - 160) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } } catch {} }, [spoken]);
-  const stopVoice = () => { speakRun.current++; setSpeakingId(null); setSpoken(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} };
+  const stopVoice = () => { speakRun.current++; setSpeakingId(null); setSpoken(null); pausedRef.current = false; try { audioRef.current?.pause(); } catch {} try { endedRef.current?.(); } catch {} releaseAudio(audioRef.current); }; // .725 stopping lets the media go too (the pending piece is resolved first so its loop exits cleanly)
   const [paused, setPaused] = useState(false); // .653: mirrors pausedRef for the controls
   const jumpRef = useRef(null); const voiceSkipRef = useRef(false); const endedRef = useRef(null); const piecesRef = useRef([]); const speakingTurnRef = useRef(null);
   const togglePause = () => {
@@ -1172,7 +1177,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   }, [voiceOut, voiceName]); // eslint-disable-line react-hooks/exhaustive-deps
   const playClip = (voice, slug) => new Promise((resolve) => {
     if (!voiceOut || !slug) return resolve();
-    try { if (!labelAudioRef.current) labelAudioRef.current = new Audio(); const a = labelAudioRef.current; a.onended = () => resolve(); a.onerror = () => resolve(); a.src = clipSrc(voice, slug); const pr = a.play(); if (pr && pr.catch) pr.catch(() => resolve()); } catch { resolve(); }
+    try { if (!labelAudioRef.current) labelAudioRef.current = new Audio(); const a = labelAudioRef.current; releaseAudio(a); /* .725 */ a.onended = () => resolve(); a.onerror = () => resolve(); a.src = clipSrc(voice, slug); const pr = a.play(); if (pr && pr.catch) pr.catch(() => resolve()); } catch { resolve(); }
   });
   const [armed, setArmed] = useState(null); const armedRef = useRef(null); const armTimer = useRef(null); // .655 TWO TAPS
   const disarm = () => { armedRef.current = null; setArmed(null); if (armTimer.current) { clearTimeout(armTimer.current); armTimer.current = null; } };
@@ -1272,6 +1277,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       await holdWhilePaused(run); if (run !== speakRun.current) return; // .629: a tap before this piece holds it
       if (i === 0) { await labelQueue.current; if (run !== speakRun.current) return; } // .647: the label and the narrator finish first
       setVoiceMsg(''); setSpoken({ id: t.id, kind: pieces[i].kind, para: pieces[i].para }); // .634
+      releaseAudio(a); // .725 let the last piece's media go before the next is loaded (handlers off first, so the emptying is not taken for an end)
       const ended = new Promise((done) => { endedRef.current = done; a.onended = done; a.onerror = done; }); // .653: a jump or a skip can end it early
       a.src = res.url; pieceSpeedRef.current = jobSpeed[i] || voiceSpeedRef.current; try { a.playbackRate = Math.max(0.5, Math.min(2, voiceSpeedRef.current / pieceSpeedRef.current)); } catch {} // .702 (founder: "speed adjustments don't take effect until the next full pull"): a piece made at the old speed is played at the new one — the change is immediate, pitch kept by the browser
       try { await a.play(); } catch (e) { console.warn('[voice] play blocked', e?.message); setVoiceMsg('Voice: the browser blocked playback — tap Listen on the turn'); break; }
