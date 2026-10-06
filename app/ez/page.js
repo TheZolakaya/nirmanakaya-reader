@@ -994,9 +994,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const onVis = () => crumb(document.visibilityState === 'hidden' ? 'hidden' : 'visible');
     const onHide = (e) => crumb('pagehide', e?.persisted ? 'bfcache' : '');
     const tick = setInterval(() => { try { if (localStorage.getItem(INFLIGHT_KEY)) crumb('tick', pageSnap()); } catch {} }, 15000); // .722 every 15 s during a reading
+    // .723 THE HEARTBEAT: once a second, the time is written down (the exact second of death); a beat that comes late means the page FROZE —
+    // the main thread was blocked for that long — which is how a page gets replaced by Safari as unresponsive. A freeze over 3 s is a crumb.
+    let lastBeat = Date.now();
+    const beat = setInterval(() => { const now = Date.now(); const gap = now - lastBeat; lastBeat = now; try { if (localStorage.getItem(INFLIGHT_KEY)) { localStorage.setItem('nkya_ez_beat', String(now)); if (gap > 3000) crumb('stall', `${Math.round(gap / 100) / 10}s`); } } catch {} }, 1000);
     window.addEventListener('error', onErr); window.addEventListener('unhandledrejection', onRej);
     document.addEventListener('visibilitychange', onVis); window.addEventListener('pagehide', onHide);
-    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); clearInterval(tick); };
+    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onRej); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('pagehide', onHide); clearInterval(tick); clearInterval(beat); };
   }, []);
   const crashReported = useRef(false);
   useEffect(() => {
@@ -1005,7 +1009,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const inflight = JSON.parse(localStorage.getItem(INFLIGHT_KEY) || 'null'); if (!inflight) return;
       const trail = JSON.parse(localStorage.getItem(CRUMBS_KEY) || '[]');
       const born = Math.floor(performance.timeOrigin || 0); const before = trail.filter((x) => x.t < born); const last = before[before.length - 1]; // the trail up to this page's start
-      const log = { at: Date.now(), version: VERSION, inflight, lastEvent: last?.k || null, leftNormally: last?.k === 'pagehide', trail: before.slice(-30) };
+      const lastBeatAt = Number(localStorage.getItem('nkya_ez_beat') || 0) || null; // .723 the last second the old page was alive
+      const log = { at: Date.now(), version: VERSION, inflight, lastEvent: last?.k || null, leftNormally: last?.k === 'pagehide', lastBeatAt, trail: before.slice(-30) };
       markInflight(null);
       if (log.leftNormally) return; // the page was closed or navigated away from — not a reset
       if (inflight.savedId) updateReadingContent(inflight.savedId, { crashLog: log }).catch(() => {});
