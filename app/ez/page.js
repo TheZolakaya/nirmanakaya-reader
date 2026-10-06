@@ -1420,14 +1420,27 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       // hard fault after the one re-ask is rendered once more in Plain, and Plain is what the person sees; logged on the turn.
       try {
         const vNow = extra?.register || voice; const HARD = new Set([...scars, 'person', 'attribution']);
-        const left = PERSONA_KEYS.includes(vNow) ? faults(obj, '').filter((f) => HARD.has(f.code)) : [];
+        let left = PERSONA_KEYS.includes(vNow) ? faults(obj, '').filter((f) => HARD.has(f.code)) : [];
+        /* .718 THE ONE-SENTENCE OPERATION REPAIR: when the only fault left is a copied operation line, the server rewrites just those sentences;
+           kept only if this page's own guard then finds the whole reply clean and the medicine judge passed any touched box */
+        if (left.length && left.every((f) => f.code === 'operation')) {
+          try {
+            const rr = await fetch('/api/op-repair', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(await readingAuth()) }, body: JSON.stringify({ obj: { gist: obj.gist, reader: obj.reader, medicine: obj.medicine, question: obj.question }, faults: left.map((f) => ({ code: f.code, detail: f.detail })), draws: extra?.draw ? [extra.draw] : (Array.isArray(draws) ? draws : []) }) });
+            const rj = await rr.json();
+            if (rj?.obj) {
+              const cand = { ...obj, ...rj.obj }; const after = faults(cand, '').filter((f) => HARD.has(f.code));
+              if (!after.length && rj.medOk) { console.info('[op-repair] kept:', rj.repaired.length, 'sentence(s)'); obj = cand; obj.operationRepair = { sentences: rj.repaired }; left = []; }
+              else { console.info('[op-repair] not kept:', after.map((f) => f.code).join(',') || 'medicine judge'); obj.operationRepairTried = { left: after.map((f) => f.code), medOk: !!rj.medOk }; }
+            } else if (rj?.located === false) { obj.operationRepairTried = { located: false }; }
+          } catch (e) { console.warn('[op-repair] skipped:', e?.message); }
+        }
         if (left.length && String(system).startsWith(systemPrompt)) {
           const plainSys = ezSystem(promptBase, 'plain', promptOver) + String(system).slice(systemPrompt.length);
           const pd = await rawCall(userMessage, plainSys, maxTokens, { ...extra, register: 'plain' }); const po = parseJson(pd.reading);
           if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
         }
       } catch (e) { console.warn('[persona] fallback skipped:', e?.message); }
-      obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, verbalStandin: !!data?.medicineStandin, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null }; // .712 telemetry, saved on the turn
+      obj._guard = { voice: obj.personaFallback ? 'plain' : (extra?.register || voice), first: bad.map((f) => f.code), medicine: data?.medicineVerdict || null, verbalStandin: !!data?.medicineStandin, personaFallback: obj.personaFallback || null, personFallback: obj.personFallback || null, operationRepair: obj.operationRepair || null, operationRepairTried: obj.operationRepairTried || null }; // .712 telemetry, saved on the turn // .718 + the repair trail
       // .679 THE WEATHER FALLBACK (Air's docket item 2): if the word survived the re-ask, take it off the glass mechanically — the house's figure becomes the plain word. Logged so the rate can be counted. Never the chips.
       { const W = /\bthe weather\b/gi, w = /\bweather\b/gi; let fixed = 0; for (const k of ['gist', 'reader', 'medicine', 'question']) { const s = String(obj[k] || ''); if (/\bweather\b/i.test(s)) { obj[k] = s.replace(W, 'the background').replace(w, 'background'); fixed++; } } if (fixed) console.info(`[weather] → background on ${fixed} field(s) after the re-ask`); }
     } catch {}
