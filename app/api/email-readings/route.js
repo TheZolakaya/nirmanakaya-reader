@@ -3,6 +3,7 @@
 // Schedule: runs after Collective Pulse (e.g., 7am UTC)
 
 import { randomBytes } from 'crypto';
+import { requireAdminOrCron } from '../../../lib/adminAuth';
 import { uniformInt } from '../../../lib/uniformInt.js';
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
@@ -246,12 +247,8 @@ function formatPulseData(data) {
 
 export async function POST(request) {
   try {
-    // Verify cron secret
-    const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET || process.env.CRON_SECRET;
-    if (authHeader !== `Bearer ${cronSecret}`) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const gate = await requireAdminOrCron(request); // .728: a signed-in admin, or the server-only CRON_SECRET
+    if (!gate.ok) return gate.response;
 
     // Check for force parameter (admin trigger)
     const body = await request.json().catch(() => ({}));

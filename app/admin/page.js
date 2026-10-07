@@ -20,11 +20,6 @@ import {
   getSession,
   getUser,
   isAdmin,
-  updateUserBanStatus,
-  updateUserCommunityBan,
-  updateUserAdminStatus,
-  updateUserTokenLimit,
-  resetUserDailyTokens
 } from '../../lib/supabase';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
 
@@ -39,6 +34,15 @@ async function adminFetch(url, options = {}) {
   const headers = { ...(options.headers || {}) };
   if (token) headers['Authorization'] = `Bearer ${token}`;
   return fetch(url, { ...options, headers });
+}
+
+// .728: the per-user buttons write through a server route (a browser can no longer write these columns)
+async function updateUser(userId, action, value) {
+  try {
+    const res = await adminFetch('/api/admin/user-update', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId, action, value }) });
+    const data = await res.json().catch(() => ({}));
+    return { error: res.ok ? null : (data.error || `failed (${res.status})`) };
+  } catch (e) { return { error: e.message }; }
 }
 
 // Stat Card Component
@@ -393,11 +397,9 @@ export default function AdminPanel() {
     setPulseGenerating(true);
     setPulseResult(null);
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/collective-pulse', {
+      const res = await adminFetch('/api/collective-pulse', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${cronSecret}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ force: true })
@@ -433,10 +435,7 @@ export default function AdminPanel() {
   // Load admin pulse settings (frequency, default voice, auto-generate)
   const loadPulseAdminSettings = async () => {
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/collective-pulse/settings', {
-        headers: { 'Authorization': `Bearer ${cronSecret}` }
-      });
+      const res = await adminFetch('/api/collective-pulse/settings');
       const data = await res.json();
       if (data.success) setPulseAdminSettings(data.settings);
     } catch (err) {
@@ -448,11 +447,9 @@ export default function AdminPanel() {
   const savePulseAdminSetting = async (key, value) => {
     setPulseAdminSaving(true);
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/collective-pulse/settings', {
+      const res = await adminFetch('/api/collective-pulse/settings', {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${cronSecret}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ [key]: value })
@@ -469,10 +466,7 @@ export default function AdminPanel() {
   // Load email settings
   const loadEmailSettings = async () => {
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/email-settings', {
-        headers: { 'Authorization': `Bearer ${cronSecret}` }
-      });
+      const res = await adminFetch('/api/email-settings');
       const data = await res.json();
       if (data.success) setEmailSettings(data.settings);
     } catch (err) {
@@ -484,11 +478,9 @@ export default function AdminPanel() {
   const saveEmailSetting = async (key, value) => {
     setEmailSaving(true);
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/email-settings', {
+      const res = await adminFetch('/api/email-settings', {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${cronSecret}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ [key]: value })
@@ -507,11 +499,9 @@ export default function AdminPanel() {
     setEmailSending(true);
     setEmailSendResult(null);
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/email-readings', {
+      const res = await adminFetch('/api/email-readings', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${cronSecret}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ force: true })
@@ -540,11 +530,9 @@ export default function AdminPanel() {
   const toggleFeatureFlag = async (key, value) => {
     setFlagsSaving(true);
     try {
-      const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET;
-      const res = await fetch('/api/feature-flags', {
+      const res = await adminFetch('/api/feature-flags', {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${cronSecret}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ [key]: value })
@@ -679,17 +667,17 @@ export default function AdminPanel() {
   };
 
   async function handleBanToggle(userId, currentStatus) {
-    await updateUserBanStatus(userId, !currentStatus);
+    const { error } = await updateUser(userId, 'ban', !currentStatus); if (error) alert(error);
     loadUsers();
   }
 
   async function handleCommunityBanToggle(userId, currentStatus) {
-    await updateUserCommunityBan(userId, !currentStatus);
+    const { error } = await updateUser(userId, 'community_ban', !currentStatus); if (error) alert(error);
     loadUsers();
   }
 
   async function handleAdminToggle(userId, currentStatus) {
-    const { error } = await updateUserAdminStatus(userId, !currentStatus, user?.email);
+    const { error } = await updateUser(userId, 'admin', !currentStatus);
     if (error) {
       alert(error);
     } else {
@@ -699,14 +687,14 @@ export default function AdminPanel() {
 
   async function handleSetLimit(userId) {
     const limit = limitValue === '' ? null : parseInt(limitValue);
-    await updateUserTokenLimit(userId, limit);
+    const { error } = await updateUser(userId, 'token_limit', Number.isNaN(limit) ? null : limit); if (error) alert(error);
     setEditingLimit(null);
     setLimitValue('');
     loadUsers();
   }
 
   async function handleResetTokens(userId) {
-    await resetUserDailyTokens(userId);
+    const { error } = await updateUser(userId, 'reset_tokens'); if (error) alert(error);
     loadUsers();
   }
 

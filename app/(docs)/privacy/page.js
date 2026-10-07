@@ -49,6 +49,10 @@ export default function PrivacyPage() {
           <li>Reading history and preferences</li>
           <li>Community discussions and replies you create</li>
         </ul>
+        <p className="text-zinc-400 mt-2">
+          Readings requested through our public reading API, or through an AI assistant's connector, are stored
+          too: the question, any context sent with it, the cards drawn and the interpretation.
+        </p>
 
         <h3 className="text-lg text-zinc-300 font-normal mt-4">Technical Information</h3>
         <p className="text-zinc-400">

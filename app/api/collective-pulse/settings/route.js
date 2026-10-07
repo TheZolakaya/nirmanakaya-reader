@@ -2,6 +2,7 @@
 // Read and update pulse_settings (admin only, requires CRON_SECRET)
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdminOrCron } from '../../../../lib/adminAuth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -10,11 +11,8 @@ const supabase = createClient(
 
 // GET — read current pulse settings
 export async function GET(request) {
-  const authHeader = request.headers.get('authorization');
-  const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET || process.env.CRON_SECRET;
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdminOrCron(request); // .728: a signed-in admin, or the server-only CRON_SECRET
+  if (!gate.ok) return gate.response;
 
   try {
     const { data, error } = await supabase
@@ -45,11 +43,8 @@ export async function GET(request) {
 
 // PATCH — update pulse settings
 export async function PATCH(request) {
-  const authHeader = request.headers.get('authorization');
-  const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET || process.env.CRON_SECRET;
-  if (authHeader !== `Bearer ${cronSecret}`) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdminOrCron(request); // .728: a signed-in admin, or the server-only CRON_SECRET
+  if (!gate.ok) return gate.response;
 
   try {
     const body = await request.json();

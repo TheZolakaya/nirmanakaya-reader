@@ -1,23 +1,6 @@
-# Nirmanakaya — the reading API is open to AI fetchers (2026-10-04)
+# 2026-10-07: crawlers stay out of the API (a crawler visit to the reading door was a fresh paid draw).
+# The door is reached through its connector, not by crawling.
 User-agent: *
 Allow: /
-
-User-agent: GPTBot
-Allow: /api/external-reading
-Allow: /openapi/
-
-User-agent: ChatGPT-User
-Allow: /api/external-reading
-Allow: /openapi/
-
-User-agent: OAI-SearchBot
-Allow: /api/external-reading
-Allow: /openapi/
-
-User-agent: ClaudeBot
-Allow: /api/external-reading
-Allow: /openapi/
-
-User-agent: Claude-User
-Allow: /api/external-reading
-Allow: /openapi/
+Disallow: /api/
+Disallow: /openapi/

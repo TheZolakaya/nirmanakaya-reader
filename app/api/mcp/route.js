@@ -4,6 +4,7 @@
 // Tools: get_reading (idempotent with requestId) · retrieve_reading (by readingId, never draws) · search / fetch (the connector
 // pair ChatGPT expects: look a reading up in the ledger, fetch one as text).
 import { runReading, fetchById, ledger, asText, asGlass, glassPayload, API_VERSION } from '../../../lib/externalReading.js';
+import { doorClosed, drawAllowed, CLOSED_MESSAGE } from '../../../lib/externalGate.js'; // .728: the off switch + the daily cap
 import { VERSION } from '../../../lib/version.js';
 
 export const dynamic = 'force-dynamic';
@@ -58,6 +59,7 @@ async function callTool(name, args = {}) {
   const db = ledger();
   if (name === 'get_reading') {
     if (!args.question) throw new Error('question is required');
+    const gate = await drawAllowed(db, args.requestId); if (gate) throw new Error(gate.error);
     // parity with the REST GET: the same arguments, the same stance — the transport adds nothing to the reading
     const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, voice: ['plain', 'plainlit', 'plainshort', 'plainnouns', 'grown', 'deep', 'mystical', 'friend', 'coach', 'storyteller', 'mystic'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
     return args.glass === true ? text(asGlass(r), glassPayload(r)) : text(asText(r), r); // .688: glass = only what a person sees on the site
@@ -74,9 +76,10 @@ async function callTool(name, args = {}) {
     if (!db) throw new Error('the ledger is not configured');
     const q = String(args.query || '').trim();
     const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(q);
-    let query = db.from('external_readings').select('id, request_id, question, status, created_at').order('created_at', { ascending: false }).limit(10);
-    query = uuid ? query.eq('id', q) : query.or(`request_id.eq.${q.replace(/[,()]/g, ' ')},question.ilike.%${q.replace(/[,()%]/g, ' ')}%`);
-    const { data, error } = await query;
+    // .728: an exact readingId only. Free text (and an empty query) used to list the newest 10 of EVERYONE's stored questions;
+    // request_id was matched too, and the docs' own example ids are guessable. readingIds are UUIDs, so they are not.
+    if (!uuid) return text(JSON.stringify({ results: [] }));
+    const { data, error } = await db.from('external_readings').select('id, request_id, question, status, created_at').eq('id', q).limit(1);
     if (error) throw new Error(error.message);
     const results = (data || []).map((row) => ({ id: row.id, title: `${row.question.slice(0, 80)}${row.request_id ? ` [${row.request_id}]` : ''} — ${row.status}`, url: `https://www.nirmanakaya.com/api/external-reading?readingId=${row.id}` }));
     return text(JSON.stringify({ results }));
@@ -107,6 +110,7 @@ export async function OPTIONS() { return new Response(null, { status: 204, heade
 export async function GET() { return new Response('This is the Nirmanakaya MCP endpoint (Streamable HTTP, POST JSON-RPC). Connect it as a connector in ChatGPT (Settings → Connectors, developer mode) or Claude.ai, with no authentication. Docs: https://www.nirmanakaya.com/api/external-reading', { status: 405, headers: { ...CORS, Allow: 'POST, OPTIONS, DELETE', 'Content-Type': 'text/plain; charset=utf-8' } }); }
 export async function DELETE() { return new Response(null, { status: 204, headers: CORS }); }
 export async function POST(request) {
+  if (doorClosed()) return Response.json(err(null, -32000, CLOSED_MESSAGE), { status: 503, headers: CORS });
   let body;
   try { body = await request.json(); } catch { return Response.json(err(null, -32700, 'parse error'), { status: 400, headers: CORS }); }
   const batch = Array.isArray(body);

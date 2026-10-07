@@ -2,6 +2,7 @@
 // External API for any AI or client that can make an HTTP call. The instrument and the ledger live in lib/externalReading.js
 // (shared with /api/mcp, the connector door). v3.1.0: persist-then-interpret, requestId idempotency, readingId retrieval, format=text.
 import { runReading, fetchById, respond, ledger, apiDocs } from '../../../lib/externalReading.js';
+import { doorClosed, drawAllowed, CLOSED_MESSAGE } from '../../../lib/externalGate.js'; // .728: the off switch + the daily cap
 
 export const dynamic = 'force-dynamic';
 
@@ -9,10 +10,12 @@ export const dynamic = 'force-dynamic';
 export async function HEAD() { return new Response(null, { status: 200, headers: { 'Cache-Control': 'no-store' } }); }
 
 export async function POST(request) {
+  if (doorClosed()) return Response.json({ success: false, error: CLOSED_MESSAGE }, { status: 503 });
   try {
     const body = await request.json();
     if (body.readingId) { const db = ledger(); const have = db ? await fetchById(db, body.readingId) : null; return have ? respond(have, body.format) : Response.json({ success: false, error: 'no reading with that id' }, { status: 404 }); }
     if (!body.question) return Response.json({ success: false, error: 'question is required' }, { status: 400 });
+    const gate = await drawAllowed(ledger(), body.requestId); if (gate) return Response.json({ success: false, error: gate.error }, { status: gate.status });
     const result = await runReading({ ...body, mode: body.mode || 'discover', fast: body.fast !== undefined ? !!body.fast : false });
     return respond(result, body.format);
   } catch (error) {
@@ -24,6 +27,7 @@ export async function POST(request) {
 
 // GET endpoint - documentation OR reading via query params
 export async function GET(request) {
+  if (doorClosed()) return Response.json({ success: false, error: CLOSED_MESSAGE }, { status: 503 });
   const { searchParams } = new URL(request.url);
   const question = searchParams.get('question');
   const format = searchParams.get('format') || 'json';
@@ -41,6 +45,7 @@ export async function GET(request) {
   if (!question) return Response.json(apiDocs());
 
   try {
+    const gate = await drawAllowed(ledger(), searchParams.get('requestId')); if (gate) return Response.json({ success: false, error: gate.error }, { status: gate.status });
     const result = await runReading({
       question,
       context: searchParams.get('context') || '',

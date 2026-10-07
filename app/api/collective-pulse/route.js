@@ -7,6 +7,7 @@
 export const maxDuration = 300;
 
 import { createClient } from '@supabase/supabase-js';
+import { requireAdminOrCron } from '../../../lib/adminAuth';
 import Anthropic from '@anthropic-ai/sdk';
 import { createMessage } from '../../../lib/provider.js'; // .475: the one door (client below kept for anything else)
 import { randomBytes } from 'crypto';
@@ -272,12 +273,8 @@ Write a 4-6 sentence throughline paragraph that captures the overall pattern acr
 // POST endpoint - generate all 5 monitor readings (v2: full mode + throughline)
 export async function POST(request) {
   try {
-    // Verify cron secret (supports both old CRON_SECRET and new NEXT_PUBLIC_CRON_SECRET)
-    const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.NEXT_PUBLIC_CRON_SECRET || process.env.CRON_SECRET;
-    if (authHeader !== `Bearer ${cronSecret}`) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const gate = await requireAdminOrCron(request); // .728: a signed-in admin, or the server-only CRON_SECRET
+    if (!gate.ok) return gate.response;
 
     // Check for force parameter and optional targetDate (for backfill)
     let forceGenerate = false;
