@@ -806,13 +806,16 @@ textarea.user-input-area::placeholder {
 
 /* .662 THE RECOMMENDED DOOR (founder 2026-10-03): "flashing through the full rainbow… all the way to black and all the way up to bright white,
    really obviously, in a very fast cycle". The outline and its glow run the spectrum together, black → red → … → violet → white, ~1.2 s a lap. */
-@property --rec { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+@property --rec { syntax: '<color>'; inherits: false; initial-value: #ffffff; }
 @keyframes nkya-rec {
   0% { --rec: #000000; } 10% { --rec: #ef4444; } 20% { --rec: #f97316; } 30% { --rec: #facc15; } 40% { --rec: #22c55e; }
   50% { --rec: #06b6d4; } 60% { --rec: #3b82f6; } 70% { --rec: #8b5cf6; } 80% { --rec: #ec4899; } 90% { --rec: #ffffff; } 100% { --rec: #000000; }
 }
 /* .696 ONE CLOCK (founder 2026-10-05: "they're in different cycles — they all need to be in the same cycle"): the spectrum runs on ONE
    inherited property animated on the body, so every flashing pill — whenever it mounted — reads the same phase. A pill no longer animates itself. */
-body { animation: nkya-rec 1.2s linear infinite; }
-.nkya-rec { outline: 3px solid var(--rec); outline-offset: 2px; box-shadow: 0 0 14px 3px var(--rec); }
-@media (prefers-reduced-motion: reduce) { body { animation: none; --rec: #7dd3fc; } }
+/* .727 THE MID-READING RESETS (2026-10-06): the .696 body animation changed an INHERITED property on the root every frame, so WebKit restyled
+   the whole page ~70 times a second forever, even with no pill flashing — on phones the page's memory climbed past 1.5 GB in about a minute and
+   iOS killed it (Console: WebContent "killed by jetsam reason highwater", 1.69 GB, bmalloc 1.16 GB, JS heap 17 MB). Now the property is not
+   inherited and only the flashing pills animate it; the page aligns their start times to one clock (app/ez/page.js), so the phase stays shared. */
+.nkya-rec { animation: nkya-rec 1.2s linear infinite; outline: 3px solid var(--rec); outline-offset: 2px; box-shadow: 0 0 14px 3px var(--rec); }
+@media (prefers-reduced-motion: reduce) { .nkya-rec { animation: none; --rec: #7dd3fc; } }

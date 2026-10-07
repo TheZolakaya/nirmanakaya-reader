@@ -1191,6 +1191,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   };
   const recKeysRef = useRef(new Set()); // .661 (Keel §10): the data-arm keys the latest turn recommends
   const armedCls = (key) => (armed === key ? ' ring-2 ring-amber-300/80 shadow-[0_0_14px_rgba(252,211,77,0.45)] scale-[1.04]' : (recKeysRef.current.has(key) ? ' nkya-rec' : '')); // .662: a recommended door flashes through the whole spectrum, black to white (founder)
+  // .727 ONE CLOCK, without the body: every flashing pill's own animation starts at the same moment on the document clock, so all pills
+  // show the same colour at the same time however late each one mounted (the .696 intent), and nothing animates when no pill is flashing
+  useEffect(() => { try { for (const a of document.getAnimations()) if (a.animationName === 'nkya-rec' && a.startTime !== 0) a.startTime = 0; } catch {} });
   useEffect(() => { // a tap anywhere but the armed control disarms it
     if (!armed) return;
     const off = (e) => { if (!e.target?.closest?.(`[data-arm="${armed}"]`)) disarm(); };

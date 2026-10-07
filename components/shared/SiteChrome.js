@@ -72,7 +72,16 @@ export const isLean = () => { try { const q = new URLSearchParams(window.locatio
 // The layer itself: a fixed video or image under everything, at the chosen opacity.
 export function Backdrop({ prefs }) {
   const { backgroundType, selectedVideo, selectedImage, backgroundOpacity } = prefs;
-  const [lean, setLean] = useState(false); useEffect(() => { setLean(isLean()); }, []); // .724 read after mount, so the server render matches
+  const [lean, setLean] = useState(false);
+  useEffect(() => { // .724 read after mount, so the server render matches
+    const on = isLean(); setLean(on);
+    // .727 lean also stops every CSS animation and transition on the page (the console showed no code running at idle; the infinite CSS
+    // animations — the ASK gradient, the colour cycles — are what keeps WebKit repainting while the page sits there)
+    try {
+      if (on && !document.getElementById('nkya-lean-style')) { const s = document.createElement('style'); s.id = 'nkya-lean-style'; s.textContent = 'html.nkya-lean *, html.nkya-lean *::before, html.nkya-lean *::after { animation: none !important; transition: none !important; }'; document.head.appendChild(s); }
+      document.documentElement.classList.toggle('nkya-lean', on);
+    } catch {}
+  }, []);
   if (lean) return null;
   if (backgroundType === 'video') {
     const v = VIDEO_BACKGROUNDS[selectedVideo] || VIDEO_BACKGROUNDS[0];
