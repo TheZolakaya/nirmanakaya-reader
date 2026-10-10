@@ -2595,7 +2595,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
           {/* .732 (founder, phone): one light line — Read by · Told by · More — each with its current choice in tiny text above it.
               The ‹ › beside Read by are .703: the voice before / after, and it says hello. Each native select is invisible over its word. */}
-          <div className="flex justify-center items-end gap-7">
+          <div className="flex flex-wrap justify-center items-end gap-x-4 gap-y-2">
             {user && (
               <span className={PICK}>
                 <span className={PICK_LABEL}>{voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'off'}</span>
@@ -2621,13 +2621,20 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
               <span className={PICK}>
                 <span className={PICK_LABEL}>{['plain', ...PERSONA_KEYS].includes(voice) && voice !== 'plain' ? (VOICES[voice]?.label || voice) : 'plainly'}</span>
-                <span className="relative inline-flex">
+                <span className="inline-flex items-center">
+                  {/* .733 (founder): ‹ › on Told by too, for consistency with Read by — the voice before / after, Plain in the ring */}
+                  <button type="button" aria-label="previous teller" title="the teller before this one" onClick={() => { const keys = ['plain', ...PERSONA_KEYS]; const i = Math.max(0, keys.indexOf(keys.includes(voice) ? voice : 'plain')); chooseVoice(keys[(i - 1 + keys.length) % keys.length]); }}
+                    className="relative z-10 pr-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">‹</button>
+                  <span className="relative inline-flex">
                   <span className={PICK_WORD}>Told by ▾</span>
                   <select value="" aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person" className={PICK_SELECT}
                     onChange={(e) => { if (e.target.value) chooseVoice(e.target.value); }}>
                     <option style={OPT} value="">Told by</option>
                     {['plain', ...PERSONA_KEYS].map((k) => { const cur = (['plain', ...PERSONA_KEYS].includes(voice) ? voice : 'plain') === k; return <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${cur ? ' ✓' : ''}`}</option>; })}
                   </select>
+                  </span>
+                  <button type="button" aria-label="next teller" title="the next teller" onClick={() => { const keys = ['plain', ...PERSONA_KEYS]; const i = Math.max(0, keys.indexOf(keys.includes(voice) ? voice : 'plain')); chooseVoice(keys[(i + 1) % keys.length]); }}
+                    className="relative z-10 pl-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">›</button>
                 </span>
               </span>
             )}
