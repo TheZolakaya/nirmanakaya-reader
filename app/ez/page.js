@@ -209,6 +209,9 @@ const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer word
 // the meaning, the moon, the mechanism — each a floor of its own; only the mechanism carries the
 // one invitation into the full reader.
 const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the moon', mechanism: 'the mechanism' };
+// .731 the pickers under the frame: a pill is the Ask button's own quiet style (border-zinc-700/50, black glass), sized by its word
+const PILL = 'inline-flex items-center rounded-full border border-zinc-700/50 bg-black/30 backdrop-blur-md px-3 py-1.5 text-[0.8125rem] text-zinc-300 hover:border-zinc-500 hover:text-zinc-100 transition-colors';
+const PILL_SELECT = 'appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-inherit focus:outline-none cursor-pointer';
 const OPT = { color: '#d4d4d8', background: '#18181b' };
 // .661 (Keel §10): the doors the Reader may recommend at the close, as the glass names them
 // a door as the model may name it → its key (the model sometimes writes the glass name: 'Find It', 'The moon', 'Words of the Wise')
@@ -2547,12 +2550,12 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
         )}
 
         {allowed && !draws && !door && (
-          <div style={{ paddingTop: anchorPad === null ? '20vh' : anchorPad }}>
+          <div className="space-y-3" style={{ paddingTop: anchorPad === null ? '20vh' : anchorPad }}>
           {/* THE ENTRY, like the front page: one frame, the box with Ask inside it, and one quiet
               menu in its corner (.592) — help, topic, past readings, from my readings. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 ${(areasOpen || showPast || (suggested && suggestOpen) || error) ? 'rounded-t-lg' : 'rounded-lg'}`}>
+          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 rounded-lg`}>
             {/* .545: THE FRAME, ON THE BOX — the founder set a frame, hit done, and "nothing happened": the only sign was the small
                 About ✓. Now the frame sits on the question box itself, in words, with a way to change or clear it. */}
             {frame && !draws && (
@@ -2583,11 +2586,16 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
-            {/* .594: the menu sits BENEATH the box (founder), centred, the only thing under it */}
-            <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2"> {/* .719 (founder, phone): the row wraps instead of running off both edges */}
-              {/* .592: ONE QUIET MENU (founder 2026-10-02: "we should always just have the google box… load, unsure, topic and from your
-                  readings could be a selection menu instead of buttons. I want it to be clear and clean as possible"). A native select: on a
-                  phone it opens the system picker, and it cannot wrap or be covered (.576 precedent). Each choice opens one fold, or closes it. */}
+          </div>
+
+          {/* .731 (founder, phone): the pickers sit OUTSIDE the frame, under it — three quiet pills that wrap as a row, each sized to the
+              word it is showing (a native select is sized by its LONGEST option, which cut "Told by Storyteller" off on a phone at .712).
+              Pills, not bare text: on a phone they need a tap target and a ground, because beneath the frame they sit on the clouds. */}
+          <div className="flex flex-wrap justify-center items-center gap-2">
+            {/* .592: ONE QUIET MENU (founder 2026-10-02: "we should always just have the google box… load, unsure, topic and from your
+                readings could be a selection menu instead of buttons. I want it to be clear and clean as possible"). A native select: on a
+                phone it opens the system picker, and it cannot wrap or be covered (.576 precedent). Each choice opens one fold, or closes it. */}
+            <span className={PILL}>
               <select key={menuTick} value="" aria-label="more" title="help finding a question, the topic, your readings"
                 onChange={(e) => {
                   const v = e.target.value; setMenuTick((n) => n + 1);
@@ -2597,43 +2605,41 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   else if (v === 'topic') { const was = frameOpen; closeAll(); setFrameOpen(!was); }
                   else if (v === 'load') { const was = showPast; closeAll(); if (!was) loadPastList(); }
                 }}
-                style={{ width: '4.75rem' }} /* .593: a select is sized by its LONGEST option — fixed width so it is just the word */
-                className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                style={{ width: '7ch' }} className={PILL_SELECT}>
                 <option style={OPT} value="">more ▾</option>
                 {user && hasHistory && <option style={OPT} value="readings">{suggestOpen ? 'Hide the question from my readings' : 'A question from my readings'}</option>}
                 <option style={OPT} value="unsure">{areasOpen ? 'Hide the help' : 'Help me find a question'}</option>
                 <option style={OPT} value="topic">{frameOpen ? 'Hide the topic picker' : frame ? 'Change the topic' : 'Set the topic'}</option>
                 <option style={OPT} value="load">{showPast ? 'Hide my past readings' : 'Load a past reading'}</option>
               </select>
-              {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
+            </span>
+            {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
+              <span className={PILL}>
                 <select value={['plain', ...PERSONA_KEYS].includes(voice) ? voice : 'plain'} aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person"
                   onChange={(e) => chooseVoice(e.target.value)}
-                  style={{ width: '7.5rem' }}
-                  className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                  style={{ width: `${(['plain', ...PERSONA_KEYS].includes(voice) && voice !== 'plain' ? `Told by ${VOICES[voice]?.label || voice}` : 'Told plainly').length + 3}ch` }} className={PILL_SELECT}>
                   {['plain', ...PERSONA_KEYS].map((k) => <option style={OPT} key={k} value={k}>{`Told ${k === 'plain' ? 'plainly' : `by ${VOICES[k]?.label || k}`} ▾`}</option>)}
                 </select>
-              )}
-              {user && ( // .719 (founder, phone): the voice arrows and the selector are one piece, so the row wraps without splitting them
-                <span className="inline-flex items-center whitespace-nowrap">
+              </span>
+            )}
+            {user && ( // .719 (founder, phone): the voice arrows and the selector are one piece, so the row wraps without splitting them
+              <span className={PILL}>
                 {/* .703 (founder): previous / next voice, and the voice introduces itself — hear it before you choose it */}
                 <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
-                  className="px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">‹</button>
+                  className="pr-2 text-[0.9375rem] text-zinc-400 hover:text-zinc-100">‹</button>
                 {/* .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it; the value shows what is on */}
                 <select value={voiceOut ? voiceName : 'none'} aria-label="read by" title="which voice reads the Reader's turns aloud"
                   onChange={(e) => { const v = e.target.value; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} } }} // .704 (founder): the dropdown introduces the voice too
-                  style={{ width: '8.5rem' }}
-                  className="appearance-none bg-transparent border-0 p-0 text-center text-[0.8125rem] text-zinc-500 hover:text-zinc-300 focus:outline-none cursor-pointer">
+                  style={{ width: `${(voiceOut ? `Read by ${voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)}` : 'Not read aloud').length + 3}ch` }} className={PILL_SELECT}>
                   <option style={OPT} value="none">Not read aloud ▾</option>
                   {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`Read by ${label} ▾`}</option>)}
                   {voiceName === 'af_heart' && <option style={OPT} value="af_heart">Read by Heart ▾</option>}
                 </select>
                 {/* .703: next voice, introduced */}
                 <button type="button" aria-label="next voice" title="the next voice — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i + 1) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
-                  className="px-1.5 text-[0.9375rem] text-zinc-500 hover:text-zinc-200">›</button>
-                </span>
-              )}
-            </div>
-
+                  className="pl-2 text-[0.9375rem] text-zinc-400 hover:text-zinc-100">›</button>
+              </span>
+            )}
           </div>
 
           {/* .544: THE FRAME fold — a category, then a detail in their own words */}
@@ -2663,7 +2669,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             </div>
           )}
           {(areasOpen || showPast || (suggested && suggestOpen) || error) && (
-          <div className="content-pane bg-zinc-900/30 border border-t-0 border-zinc-800/50 rounded-b-lg p-4 space-y-3">
+          <div className="content-pane bg-zinc-900/30 border border-zinc-800/50 rounded-lg p-4 space-y-3">
             {areasOpen && (() => {
               const byId = Object.fromEntries(DOORS.map(d => [d.id, d]));
               // the minimap's own house colours (components/reader/Minimap.js CHANNEL_COLORS)
