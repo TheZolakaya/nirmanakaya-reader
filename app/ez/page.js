@@ -142,13 +142,17 @@ const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', ex
 // .635 THE MIC — a button that records and hands back words. Lives outside the page component so both boxes can use it.
 function MicButton({ onText, getAuth, className = '', onStatus }) {
   const [state, setState] = useState('idle'); // idle | recording | working | denied
+  const [hint, setHint] = useState(false); // .747: the iPhone microphone hint
   const recRef = useRef(null); const chunksRef = useRef([]); const streamRef = useRef(null);
+  const isApple = () => { try { return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); } catch { return false; } };
+  const standalone = () => { try { return !!navigator.standalone || window.matchMedia('(display-mode: standalone)').matches; } catch { return false; } };
+  const noteGrant = () => { try { if (!isApple() || localStorage.getItem('nkya_mic_hint') === 'never') return; const n = Number(localStorage.getItem('nkya_mic_grants') || '0') + 1; localStorage.setItem('nkya_mic_grants', String(n)); if (n >= 2 && !sessionStorage.getItem('nkya_mic_hint_later')) setHint(true); } catch {} }; // .747: the second grant in this browser means the Allow did not stick
   const say = (m) => { try { onStatus && onStatus(m); } catch {} };
   const stop = () => { try { recRef.current?.state === 'recording' && recRef.current.stop(); } catch {} };
   const start = async () => {
     if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') { say('This browser cannot record audio.'); return; }
     let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { setState('denied'); say('The microphone was not allowed — check the browser’s permission for this site.'); return; }
-    streamRef.current = stream;
+    streamRef.current = stream; noteGrant(); // .747
     const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus', ''].find((m) => !m || (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)));
     const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined); recRef.current = rec; chunksRef.current = [];
     rec.ondataavailable = (e) => { if (e.data && e.data.size) chunksRef.current.push(e.data); };
@@ -171,7 +175,7 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
     rec.start(250); setState('recording'); say('Listening… tap the mic again when you are done.');
   };
   const busy = state === 'working';
-  return (
+  return (<>
     <button type="button" onClick={() => (state === 'recording' ? stop() : busy ? null : start())} disabled={busy}
       title={state === 'recording' ? 'stop, and turn it into words' : 'speak instead of typing'} aria-label={state === 'recording' ? 'stop recording' : 'record'}
       className={`z-10 flex items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 h-9 w-9 ${state === 'recording' ? 'border-rose-400/80 bg-rose-500/20 text-rose-200 animate-pulse' : busy ? 'border-zinc-600 text-zinc-500' : 'border-zinc-700/50 bg-black/20 text-zinc-400 hover:text-zinc-100 hover:border-zinc-500'} ${className}`}>
@@ -179,6 +183,19 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
         ? <span className="block h-3 w-3 rounded-sm bg-rose-300" />
         : <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" /></svg>}
     </button>
+    {hint && ( // .747: how to make the microphone Allow stick on an iPhone — a page cannot open that setting, so it says where it is
+      <div role="status" className="absolute left-0 right-0 bottom-14 z-20 mx-3 rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 text-[0.8125rem] leading-snug text-zinc-300 shadow-2xl">
+        <div className="text-zinc-100 font-medium">Tired of the microphone question?</div>
+        <div className="mt-1">{standalone()
+          ? 'This phone asks every time unless you allow it once in Settings: open the Settings app, tap Safari, then Microphone under Settings for Websites, and set it to Allow.'
+          : 'Safari asks every time unless you allow it once for this site: tap the aA at the left of the address bar, tap Website Settings, and set Microphone to Allow.'}</div>
+        <div className="mt-2 flex justify-end gap-4 text-zinc-400">
+          <button type="button" className="hover:text-zinc-100" onClick={() => { setHint(false); try { sessionStorage.setItem('nkya_mic_hint_later', '1'); } catch {} }}>Later</button>
+          <button type="button" className="hover:text-zinc-100" onClick={() => { setHint(false); try { localStorage.setItem('nkya_mic_hint', 'never'); } catch {} }}>Don’t show again</button>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
