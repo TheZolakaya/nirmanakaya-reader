@@ -1321,7 +1321,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       if (voiceSkipRef.current) break; if (jumpRef.current != null) continue;
       if (pieces[i].gap) { let left = pieces[i].gap; while (left > 0) { if (run !== speakRun.current) return; if (voiceSkipRef.current || jumpRef.current != null) break; if (pausedRef.current) { await new Promise((d) => setTimeout(d, 100)); continue; } await new Promise((d) => setTimeout(d, 50)); left -= 50; } } // .625: the silence after this piece; .629: it holds while paused; .653: a jump or skip cuts it
     }
-    if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); speakingTurnRef.current = null; voiceSkipRef.current = false; setPaused(false); setVoiceMsg(''); }
+    if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); speakingTurnRef.current = null; voiceSkipRef.current = false; setPaused(false); setVoiceMsg('');
+      // .748: the voice finished this turn on its own (or Skip this) — if it was the latest turn, land on the question with the box under it
+      try { const latest = [...turnsRef.current].reverse().find((x) => x.role !== 'you' && x.role !== 'user'); if (latest && latest.id === t.id) setTimeout(() => { const q = document.querySelector('[data-question-frame]') || document.querySelector('textarea[placeholder^="Answer"]'); q?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 150); } catch {}
+    }
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
   const spokenRef = useRef(null); spokenRef.current = spoken; const turnsRef = useRef([]); turnsRef.current = turns;
@@ -3134,7 +3137,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {/* .698 (founder): THE QUESTION, IN ITS OWN FRAME, ALWAYS RIGHT ABOVE THE BOX — once the open doors push the turn up the page, the
                 suggested answers make no sense without the question they answer. The turn still shows it in place; this copy is not spoken. */}
             {lastReader?.question && !wrapped && (
-              <div className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
+              <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p className="text-[1.0625rem] leading-snug text-amber-200/95 break-words">{lastReader.question}</p>
               </div>
