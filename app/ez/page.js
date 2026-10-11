@@ -2490,6 +2490,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
   // .736 (founder, phone): "Voice off" in the reading bar hid the only voice control — the pickers are the way back, so the same two
   // (Read by, Told by) sit under the reply box in the reading view as well as under the ask box on the front.
+  const pickReadBy = (v) => { if (!v) return; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} } }; // .745: shared by the front picker and the corner
+  const readByName = voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'nobody';
   const readByPick = (<>
             {user && (
               <span className={PICK}>
@@ -2501,7 +2503,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     <span className={PICK_WORD}>Read by ▾</span>
                     {/* .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it (.704: the dropdown introduces the voice too) */}
                     <select value="" aria-label="read by" title="which voice reads the Reader's turns aloud" className={PICK_SELECT}
-                      onChange={(e) => { const v = e.target.value; if (!v) return; if (v === 'none') { stopVoice(); chrome.set({ voiceOut: false }); } else { unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} } }}>
+                      onChange={(e) => pickReadBy(e.target.value)}>
                       <option style={OPT} value="">Read by</option>
                       <option style={OPT} value="none">{`Not read aloud${voiceOut ? '' : ' ✓'}`}</option>
                       {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`${label}${voiceOut && voiceName === k ? ' ✓' : ''}`}</option>)}
@@ -2542,13 +2544,30 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
       {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u && user?.id !== 'dev-bench') setUser(null); }}
-        rightExtra={
-          // the voice, as one toggle under the text size (founder, 2026-09-16): plain words / the map's words
-          <button onClick={() => chooseVoice(VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length])}
-            title={`${VOICE_NOTES[voice]?.[0] || voice} — tap for ${VOICE_NOTES[VOICE_ORDER[(VOICE_ORDER.indexOf(voice) + 1) % VOICE_ORDER.length]]?.[0]}`}
-            className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${VOICE_STYLE[voice] || VOICE_STYLE.map}`}>
-            {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : '◈'}
-          </button>
+        rightExtra={ // .745 (founder, phone): Read by and Told by live here too, so both can be changed during a reading — each a native select over its button (the Aa toggle's registers are in the Told by list)
+          <>
+            <span className="relative inline-flex" title={`Read by ${readByName} — tap to choose the voice`}>
+              <span aria-hidden="true" className={`w-8 h-8 rounded-lg border backdrop-blur-sm flex items-center justify-center transition-all ${voiceOut ? 'text-amber-300 border-amber-500/40 bg-zinc-900/80' : 'text-zinc-500 border-zinc-700/50 bg-zinc-900/80'}`}>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H2v6h4l5 4V5z" />{voiceOut && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.5 8.5a5 5 0 010 7M19 5a9 9 0 010 14" />}</svg>
+              </span>
+              <select value="" aria-label="read by" className={PICK_SELECT} onChange={(e) => pickReadBy(e.target.value)}>
+                <option style={OPT} value="">Read by</option>
+                <option style={OPT} value="none">{`Not read aloud${voiceOut ? '' : ' ✓'}`}</option>
+                {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`${label}${voiceOut && voiceName === k ? ' ✓' : ''}`}</option>)}
+                {voiceName === 'af_heart' && <option style={OPT} value="af_heart">{`Heart${voiceOut ? ' ✓' : ''}`}</option>}
+              </select>
+            </span>
+            <span className="relative inline-flex" title={`Told by ${PERSONA_KEYS.includes(voice) ? (VOICES[voice]?.label || voice) : (VOICE_NOTES[voice]?.[0] || 'plainly')} — tap to choose who tells it`}>
+              <span aria-hidden="true" className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${VOICE_STYLE[voice] || VOICE_STYLE.map}`}>
+                {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : PERSONA_KEYS.includes(voice) ? (VOICES[voice]?.label || voice).charAt(0) : '◈'}
+              </span>
+              <select value="" aria-label="told by" className={PICK_SELECT} onChange={(e) => { if (e.target.value) chooseVoice(e.target.value); }}>
+                <option style={OPT} value="">Told by</option>
+                <optgroup label="Told by">{['plain', ...(PERSONAS_ON ? PERSONA_KEYS : [])].map((k) => <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${voice === k ? ' ✓' : ''}`}</option>)}</optgroup>
+                <optgroup label="In other words">{VOICE_ORDER.filter((k) => k !== 'plain').map((k) => <option style={OPT} key={k} value={k}>{`${VOICE_NOTES[k]?.[0] || k}${voice === k ? ' ✓' : ''}`}</option>)}</optgroup>
+              </select>
+            </span>
+          </>
         } />}
       {speakingId ? ( // .653/.662/.663: the bar shows WHILE the voice reads — pause / continue, skip this, voice off (founder: no standing menu; a tap on the paragraph being read pauses it, a tap on another jumps, a tap when idle starts there)
         <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
