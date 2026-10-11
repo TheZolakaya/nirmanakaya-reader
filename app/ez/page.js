@@ -3114,7 +3114,19 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
-            <div className="mt-2 flex flex-wrap justify-center items-end gap-x-4 gap-y-2">{readByPick}{toldByPick}</div> {/* .736: the way back after Voice off */}
+            {user && ( // .744 THE STANDING VOICE LINE (founder, phone): the pickers don't belong inline; a control that is there whether or not the voice is reading
+              <div className="mt-2 flex justify-center items-center gap-x-5 text-[0.8125rem] font-light text-zinc-400">
+                {speakingId ? (<>
+                  <button type="button" onClick={togglePause} className="hover:text-zinc-100">{paused ? '▶ Continue' : '⏸ Pause'}</button>
+                  <button type="button" onClick={voiceOff} className="text-zinc-500 hover:text-zinc-200">Voice off</button>
+                </>) : voiceOut ? (<>
+                  <button type="button" title="read the latest turn aloud" onClick={() => { const t = [...turns].reverse().find((x) => x.role !== 'you' && x.role !== 'user' && x.text); if (t) { unlockAudio(); speakTurn(t); } }} className="hover:text-zinc-100">▶ Read this</button>
+                  <button type="button" onClick={voiceOff} className="text-zinc-500 hover:text-zinc-200">Voice off</button>
+                </>) : (
+                  <button type="button" title="turn the voice on and read the latest turn" onClick={() => { unlockAudio(); chrome.set({ voiceOut: true }); const t = [...turns].reverse().find((x) => x.role !== 'you' && x.role !== 'user' && x.text); if (t) speakTurn(t); }} className="hover:text-zinc-100">Voice on</button>
+                )}
+              </div>
+            )}
 
             </div>
             <div className={dimTop}>
