@@ -2313,13 +2313,13 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               const FLOOR_TONE = { meaning: ['text-amber-100', { '--pill': '251 191 36', borderColor: '#78350f' }], moon: ['text-violet-100', { '--pill': '167 139 250', borderColor: '#4c1d95' }], mechanism: ['text-cyan-100', { '--pill': '34 211 238', borderColor: '#164e63' }] };
               const header = (kind) => kind.startsWith('floor-') // .698: a floor's own panel — its name, and a chevron that closes it
                 ? (() => { const f = kind.slice(6); return (
-                  <button onClick={() => closeFloor(f)} className="relative w-full flex items-center justify-center sm:justify-start gap-3 px-4 py-3 text-center sm:text-left rounded-xl" style={{ minHeight: 52 }}>
+                  <button onClick={() => closeFloor(f)} className="relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-4 py-3 text-center sm:text-left rounded-xl" style={{ minHeight: 52 }}>
                     <span className={`relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight break-words ${FLOOR_TONE[f]?.[0] || 'text-zinc-100'}`}>{FLOOR_LABEL[f] ? FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1) : f}</span>
                     <span className="relative z-10 sm:ml-auto">{chev(true)}</span>
                   </button>); })()
                 : kind === 'brazier'
                 ? (
-                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2327,7 +2327,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" playing={dragonOpen} className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2335,7 +2335,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
                   </button>
                 ) : kind === 'medicine' ? (
-                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" playing={medOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
@@ -2343,7 +2343,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
-                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={"relative w-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" playing={stepOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     {stepOpen && <span className="relative z-10">{chev(true)}</span>}
@@ -2441,6 +2441,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               if (which === 'closed' && mine.length > 1) {
                 const dragonGlow = { '--pill': '244 63 94', borderColor: '#881337' }; // dark rose at rest; breathes red on hover
                 const medicineGlow = { '--pill': '52 211 153', borderColor: '#064e3b' }; // dark emerald at rest; breathes green on hover
+                // .734 (founder, phone): the bordered wrapper stretches to the row, but the BUTTON inside only ever took its own one-line height —
+                // beside a two-line neighbour its loop stopped three-quarters of the way down. The door buttons are h-full now.
                 return (
                   <div className="mt-4 flex flex-wrap items-stretch gap-2">
                     {base.filter((k) => mine.includes(k)).map((k) => (
