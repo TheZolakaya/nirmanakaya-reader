@@ -8,7 +8,7 @@ const ENV = fs.readFileSync('.env.local', 'utf8'); for (const line of ENV.split(
 const [LABEL = 'scale730', NDRAWS = '3', SEED = '11'] = process.argv.slice(2);
 const { handingReading } = await import('../lib/externalReading.js');
 const { lintOutput } = await import('../lib/bakeoff/lint.js');
-const BEFORE = await import('../lib/_bench_before_handingPrompt_729.js'); // the old text, for `over`
+const BEFORE = process.env.SKIP_BEFORE === '1' ? null : await import('../lib/_bench_before_handingPrompt_729.js'); // the old text, for `over`; SKIP_BEFORE=1 runs the after side only (step-2 bench: before = the other checkout)
 const QS = [
   { k: 'today',    q: 'Why did the app crash right after today\'s deploy?' },
   { k: 'work',     q: 'Why does this keep happening in my engineering work?' },
@@ -28,6 +28,7 @@ const PRIOR = process.env.AFTER_ONLY === '1' && fs.existsSync('data/bakeoff/scal
 const PRICE = { in: Number(process.env.PRICE_IN || '0.30'), out: Number(process.env.PRICE_OUT || '1.20') }; // per 1M tokens, fetched live before the run
 let lanes = {};
 const one = async (d, q, which) => {
+  if (which === 'before' && process.env.SKIP_BEFORE === '1') return { which, text: '', gist: '', medicine: '', flags: [], phrases: [] };
   if (PRIOR && which === 'before') { const prev = PRIOR.rows.find((r) => r.k === QS.find((x) => x.q === q)?.k && r.d.transient === d.transient && r.d.position === d.position && r.d.status === d.status); if (prev) return prev.before; }
   const over = which === 'before' ? { base: BEFORE.HANDING_SET.BASE_SYSTEM, rules: BEFORE.HANDING_SET.EZ_RULES } : {};
   let it, res; try { res = await handingReading({ question: q, context: '', cardCount: 1, mode: 'discover', fast: true, voice: 'friend', requestId: null }, [d], over); it = res.interpretation; } catch (e) { it = { error: e.message }; res = {}; }
