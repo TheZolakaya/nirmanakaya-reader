@@ -1039,6 +1039,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // out, cents, cold or warm. Visible to admins and on the bench. The purpose is read off the
   // message itself so no caller has to be touched.
   const [ledger, setLedger] = useState([]);
+  const [voiceLog, setVoiceLog] = useState([]); // .746: one row per piece — wall ms from request to URL, tries, letters, compute secs, cents — saved with the reading
   const [voiceSpend, setVoiceSpend] = useState({ pieces: 0, chars: 0, secs: 0, usd: 0 }); // .613 THE VOICE ON THE COST LINE (founder: 'a line of accounting … on how much the voice costs')
   const [usd, setUsd] = useState(0); // running cost priced per call by the model that answered (.473)
   const [ledgerOpen, setLedgerOpen] = useState(false);
@@ -1123,12 +1124,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}) } }, usage }) /* .713 + the panels */
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } }, usage }) /* .713 + the panels · .746 + the voice ledger */
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
-  }, [turns, savedId, usage, panelLog]);
+  }, [turns, savedId, usage, panelLog, voiceSpend.pieces]); // .746: a finished piece saves too (debounced)
 
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
@@ -1265,13 +1266,17 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = startAt > 0 ? startAt : null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
     const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces; crumb('voice', `${pieces.length} pieces from ${startAt}`); // .721
     const fetchPiece = async (text) => {
+      const t0 = Date.now(); // .746
       for (let k = 0; k < 8; k++) {
         if (run !== speakRun.current) return {};
         let res = {}; try { const r = await fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName, speed: voiceSpeedRef.current }) }); res = { ...(await r.json()), status: r.status }; } catch { res = { status: 0 }; } // .698 the readback speed rides with every piece
         if (res.url) setVoiceSpend((v) => ({ pieces: v.pieces + 1, chars: v.chars + (res.chars || text.length), secs: v.secs + (res.secs || 0), usd: v.usd + (res.usd || 0) })); // .613
+        if (res.url) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: res.chars || text.length, secs: res.secs || 0, usd: res.usd || 0, voice: voiceName, speed: voiceSpeedRef.current }].slice(-300)); // .746
+        else if (res.status && res.status !== 429 && !res.waking) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: text.length, status: res.status, error: String(res.error || '').slice(0, 80), voice: voiceName }].slice(-300)); // .746: a refusal is a row too
         if (res.url || res.waking) return res;
         await new Promise((done) => setTimeout(done, 5000));   // throttled or a hiccup: wait, then try the same piece again
       }
+      setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: 8, chars: text.length, gaveUp: true, voice: voiceName }].slice(-300)); // .746
       return { error: 'the voice service kept refusing — try Listen again in a minute' };
     };
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
@@ -2135,7 +2140,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     setResolution(k);
     if (!savedId) return;
     try {
-      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}) } } });
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
     } catch {}
   };
@@ -2231,7 +2236,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false);
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
-    setLedger([]); setUsd(0); setVoiceSpend({ pieces: 0, chars: 0, secs: 0, usd: 0 });
+    setLedger([]); setUsd(0); setVoiceSpend({ pieces: 0, chars: 0, secs: 0, usd: 0 }); setVoiceLog([]);
   };
 
   // Sonnet list price: $3/M in, $15/M out; cache reads at 10%, cache writes at 125% of input.
@@ -3280,11 +3285,11 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button> {/* .662: Catch me up, New question and Summarize left this row — the pills carry them (founder) */}
               <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
-                {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~${estCost.toFixed(3)}{savedId ? ' · saved' : ''}
+                {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~{(estCost * 100).toFixed(2)}¢{savedId ? ' · saved' : ''}
               </span>
               {voiceSpend.pieces > 0 && ( // .613: the voice, priced from the measured compute seconds (Replicate T4), beside the words
                 <span className="font-mono text-zinc-600" title="the voice: letters spoken / seconds of compute (Replicate T4) · pieces">
-                  voice {voiceSpend.chars.toLocaleString()} letters / {voiceSpend.secs.toFixed(1)} s · ~${voiceSpend.usd.toFixed(4)} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}
+                  voice {voiceSpend.chars.toLocaleString()} letters / {voiceSpend.secs.toFixed(1)} s · ~{(voiceSpend.usd * 100).toFixed(2)}¢ · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}
                 </span>
               )}
             </div>
@@ -3329,7 +3334,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                         {voiceSpend.pieces > 0 && ( // .615 THE VOICE ROW: pieces · letters · compute seconds (Replicate T4) · cents
                           <tr className="text-amber-200/80">
                             <td className="pr-3 pt-1 whitespace-nowrap">voice</td>
-                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{VOICE_LABEL[voiceName] || 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}</td>
+                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{VOICE_LABEL[voiceName] || 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}{voiceLog.length ? ` · ${(voiceLog.filter((r) => r.ms).reduce((a, r) => a + r.ms, 0) / 1000 / Math.max(1, voiceLog.filter((r) => r.ms).length)).toFixed(1)} s wait each` : ''}</td>
                             <td className="text-right pr-3 pt-1" title="letters spoken">{voiceSpend.chars.toLocaleString()}</td>
                             <td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td>
                             <td className="text-right pr-3 pt-1">{(voiceSpend.usd * 100).toFixed(2)}</td>
