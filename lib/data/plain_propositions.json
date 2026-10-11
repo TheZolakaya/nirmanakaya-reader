@@ -1,860 +1,931 @@
 {
-  "_meta": {
-    "what": "THE PROPOSITION LAYER — a translation surface on the record (Air, 2026-10-05: 'we are not simplifying canon; we are adding a translation surface to canon'). For each status field the Reader is handed, a parallel human-facing proposition that says exactly what the canonical line entails and nothing more: no new facts, causes, destinations, history, people or advice. The canonical line stays beside each for derivation, Deep, audit and provenance; the Reader's draw block carries the plain line (lib/record.js). Kill switch: PLAIN_PROPOSITIONS=0 restores the canonical lines.",
-    "written": "2026-10-05, True, by hand, from lib/data/nirmanakaya_78_definitions.json signatures[0..21].states and lib/constants.js STATUS_INFO; the ten bench cells (scripts/status_propositions_2026-10-05.json, scripts/propositions_back_and_medicine_2026-10-05.json) carried over unchanged. The Unacknowledged lines were already in the gaveled plain form (.659) and are kept as written except where a figure stood (the wheel, unsigned, a structure).",
-    "tests": "1. Could an ordinary reader paraphrase it without knowing Nirmanakaya? 2. Does every claim map back to the canonical line beside it?",
-    "shipped": "0.99.697 — + the medicine block: the way through as an OPERATION (78, by hand) + the mechanism (4) + the medicine's face (= the parent's Balanced line). Air's rule rides in the Handing: instantiate inside the person's own problem; add a circumstance only when their words carry it or the act needs it.",
-    "splice": "Lines use no free-standing \"something\" except where the canonical line has it (the Unacknowledged lines), where THE SPLICE fills it from the field by design; elsewhere a spliced noun broke the grammar on the first dump (.695), so those lines were rewritten without it.",
-    "v710": "0.99.710 — the 22 Unacknowledged lines say the structure directly and the inner state as a possibility (\"it may feel like…\"), never what the person calls it as fact; no free \"something\" left in any plain line (the splice turned one into \"the vow\").",
-    "v713": "0.99.713 — Inspiration's operation no longer asks the person to name the want (its canonical acts turn toward it and face it); the panels are saved with the reading; the judge flags a verbal stand-in for a non-verbal act (observational).",
-    "v730": "0.99.730 — THE SIZE OF THE CLAIM: the general Too Little line said \"You have pulled back from it\" and the Reader quoted it (5 of 6 Too Little openings on the bench said \"you've pulled back\"); the perfect tense is a duration, and a duration is history the person did not give. Now \"You are holding back from it\" — the same canonical (withdrawn, not fully arriving in the present), said as a present stance. The other three general lines were already present tense."
+ "_meta": {
+  "what": "THE PROPOSITION LAYER — a translation surface on the record (Air, 2026-10-05: 'we are not simplifying canon; we are adding a translation surface to canon'). For each status field the Reader is handed, a parallel human-facing proposition that says exactly what the canonical line entails and nothing more: no new facts, causes, destinations, history, people or advice. The canonical line stays beside each for derivation, Deep, audit and provenance; the Reader's draw block carries the plain line (lib/record.js). Kill switch: PLAIN_PROPOSITIONS=0 restores the canonical lines.",
+  "written": "2026-10-05, True, by hand, from lib/data/nirmanakaya_78_definitions.json signatures[0..21].states and lib/constants.js STATUS_INFO; the ten bench cells (scripts/status_propositions_2026-10-05.json, scripts/propositions_back_and_medicine_2026-10-05.json) carried over unchanged. The Unacknowledged lines were already in the gaveled plain form (.659) and are kept as written except where a figure stood (the wheel, unsigned, a structure).",
+  "tests": "1. Could an ordinary reader paraphrase it without knowing Nirmanakaya? 2. Does every claim map back to the canonical line beside it?",
+  "shipped": "0.99.697 — + the medicine block: the way through as an OPERATION (78, by hand) + the mechanism (4) + the medicine's face (= the parent's Balanced line). Air's rule rides in the Handing: instantiate inside the person's own problem; add a circumstance only when their words carry it or the act needs it.",
+  "splice": "Lines use no free-standing \"something\" except where the canonical line has it (the Unacknowledged lines), where THE SPLICE fills it from the field by design; elsewhere a spliced noun broke the grammar on the first dump (.695), so those lines were rewritten without it.",
+  "v710": "0.99.710 — the 22 Unacknowledged lines say the structure directly and the inner state as a possibility (\"it may feel like…\"), never what the person calls it as fact; no free \"something\" left in any plain line (the splice turned one into \"the vow\").",
+  "v713": "0.99.713 — Inspiration's operation no longer asks the person to name the want (its canonical acts turn toward it and face it); the panels are saved with the reading; the judge flags a verbal stand-in for a non-verbal act (observational).",
+  "v730": "0.99.730 — THE SIZE OF THE CLAIM: the general Too Little line said \"You have pulled back from it\" and the Reader quoted it (5 of 6 Too Little openings on the bench said \"you've pulled back\"); the perfect tense is a duration, and a duration is history the person did not give. Now \"You are holding back from it\" — the same canonical (withdrawn, not fully arriving in the present), said as a present stance. The other three general lines were already present tense.",
+  "structural": "2026-10-11, True (Pass Two of the restructure): general[s].structural and states[id][k].look — the status as structure and the state as a pattern that CAN look a certain way, beside the canonical and plain lines; handed only when a prompt set asks (lib/record.js opts.statusLines = \"structural\"). Reason: the seven poolside readings rendered the plain \"You are…\" lines as facts about the person."
+ },
+ "general": {
+  "1": {
+   "canonical": "Authentic expression — the function is operating correctly, present-centered, integrated.",
+   "plain": "You are doing this now, it is working, and it is part of you. Nothing about it needs fixing.",
+   "structural": "This capacity is working here, now, as the person's own. Nothing about it needs fixing."
   },
-  "general": {
-    "1": {
-      "canonical": "Authentic expression — the function is operating correctly, present-centered, integrated.",
-      "plain": "You are doing this now, it is working, and it is part of you. Nothing about it needs fixing."
-    },
-    "2": {
-      "canonical": "Over-expressing — anxiety, control, pushing ahead of natural timing.",
-      "plain": "You are doing more of this than the situation needs right now. You are pushing ahead of where things actually are, and it shows up as worry, or as trying to control how things turn out."
-    },
-    "3": {
-      "canonical": "Under-expressing — withdrawn, avoidant, not fully arriving in the present.",
-      "plain": "You are doing less of this than the situation needs right now. You are holding back from it, and part of you is still with how things were instead of how they are."
-    },
-    "4": {
-      "canonical": "Acting now, but not as the author — the doing is the person's own and they are not holding it as theirs.",
-      "plain": "You are doing this, right now, and you do not see it as your own doing. It is yours, and you are not treating it as yours."
-    }
+  "2": {
+   "canonical": "Over-expressing — anxiety, control, pushing ahead of natural timing.",
+   "plain": "You are doing more of this than the situation needs right now. You are pushing ahead of where things actually are, and it shows up as worry, or as trying to control how things turn out.",
+   "structural": "More of this than the moment needs, reaching ahead of where things are. It can show up as planning, bracing, precaution, or an attempt to settle how things turn out before they do; whether any fear sits in it, and how much, is the person's to say."
   },
-  "states": {
-    "0": {
-      "name": "Potential",
-      "balanced": {
-        "canonical": "Pure presence — open, available, ready. Beginner's mind. Every moment fresh",
-        "plain": "Being fully here, open and ready, meeting each moment as if for the first time."
-      },
-      "tooMuch": {
-        "canonical": "Hovering in endless possibility, never landing. All potential, no actualization",
-        "plain": "You are staying in what could be and never settling on one thing; everything stays possible and nothing becomes real."
-      },
-      "tooLittle": {
-        "canonical": "Past wounds have sealed the opening. Creating from constriction",
-        "plain": "You have closed off to what could be, and you make things from a cramped place. Sometimes that comes from old hurt; whether it does here is yours to say."
-      },
-      "unacknowledged": {
-        "canonical": "You are choosing among open options every day and calling it \"there was no choice.\"",
-        "plain": "You are choosing among open options every day. It may not feel like choosing — it can look as if there was no choice — but the choosing is yours."
-      }
-    },
-    "1": {
-      "name": "Will",
-      "balanced": {
-        "canonical": "Conscious direction aligned with Now — choosing from clarity, not compulsion",
-        "plain": "You choose your direction on purpose, from a clear head, not because you are being driven."
-      },
-      "tooMuch": {
-        "canonical": "Future-projected control — manipulation, forcing outcomes, white-knuckling reality",
-        "plain": "You are trying to force how things turn out: controlling, pushing, gripping hard to make reality go your way."
-      },
-      "tooLittle": {
-        "canonical": "Past-anchored defeat — passivity, \"what's the point,\" learned helplessness",
-        "plain": "You have given up on steering: going along with things, \"what's the point\", feeling that nothing you do makes a difference."
-      },
-      "unacknowledged": {
-        "canonical": "You are setting the direction and calling it momentum, habit, or how things went.",
-        "plain": "You are setting the direction. It may look like momentum, habit, or just how things went, but the direction is yours."
-      }
-    },
-    "2": {
-      "name": "Wisdom",
-      "balanced": {
-        "canonical": "Direct knowing that proves accurate — comfort with not-knowing; perceptions land without argument",
-        "plain": "What you sense turns out to be right, you are at ease not knowing yet, and what you notice is taken as it is, without you having to argue for it."
-      },
-      "tooMuch": {
-        "canonical": "Information hoarding, analysis paralysis — the veil becomes a wall",
-        "plain": "You keep gathering information and thinking it over without ever deciding; the thinking has become a wall instead of a window."
-      },
-      "tooLittle": {
-        "canonical": "Chronic confusion, lost faith in perception — seeking external validation for what you already know",
-        "plain": "You feel confused most of the time and have stopped trusting what you perceive; you look to other people to confirm what you already know."
-      },
-      "unacknowledged": {
-        "canonical": "You are knowing what to attend to, your calls keep proving right, and you are crediting luck.",
-        "plain": "You are knowing what to attend to, and your calls keep proving right. It may feel like luck; the knowing is yours."
-      }
-    },
-    "3": {
-      "name": "Nurturing",
-      "balanced": {
-        "canonical": "Growth happening without forcing — care that doesn't exhaust; holding space without clutching",
-        "plain": "Things grow without being forced; care that does not wear you out; making room for someone without gripping."
-      },
-      "tooMuch": {
-        "canonical": "Controlling under the guise of care — smothering, martyrdom, boundary dissolution",
-        "plain": "You are controlling in the form of care: smothering, giving yourself up for others, losing the line between you and them. It may not look like control from the inside."
-      },
-      "tooLittle": {
-        "canonical": "Chronic creative block, nothing grows — emotional unavailability disguised as independence",
-        "plain": "Nothing you tend grows; you keep yourself emotionally out of reach. It may look like independence."
-      },
-      "unacknowledged": {
-        "canonical": "You are tending what grows and calling it a role you never chose; the care is yours, credited to obligation.",
-        "plain": "You are tending what grows. It may feel like a role you never chose, or an obligation; the care is yours."
-      }
-    },
-    "4": {
-      "name": "Authority",
-      "balanced": {
-        "canonical": "Structure that serves what it organizes — clear, reliable; things make sense in your presence",
-        "plain": "The order you bring serves what it organizes; it is clear and reliable, and things make sense when you are there."
-      },
-      "tooMuch": {
-        "canonical": "Rigid over-organization, control — mistaking the structure for the thing it was built to hold",
-        "plain": "You are over-organizing and controlling, treating the system as more important than the thing it was built to hold."
-      },
-      "tooLittle": {
-        "canonical": "Chronic disorganization — can't prioritize, can't sequence; the pieces never assemble",
-        "plain": "You cannot get things in order: you cannot pick what matters first or put the steps in sequence, and the pieces never come together."
-      },
-      "unacknowledged": {
-        "canonical": "You are putting things in order, people rely on it, and you are calling it things \"just working out.\"",
-        "plain": "You are putting things in order, and people rely on it. It may look like things just working out; the order is yours."
-      }
-    },
-    "5": {
-      "name": "Culture",
-      "balanced": {
-        "canonical": "Living transmission of meaning — teaching that adapts; tradition that breathes; belonging without conformity",
-        "plain": "You pass meaning on in a way that stays alive: teaching that adapts, tradition that breathes, belonging without having to conform."
-      },
-      "tooMuch": {
-        "canonical": "Rigid orthodoxy, dogma — conformity demanded; the letter kills the spirit; windows sealed",
-        "plain": "You are insisting on the rules as written and demanding that people conform; the rule has killed the point of it."
-      },
-      "tooLittle": {
-        "canonical": "Rootless, no shared framework — every generation reinventing the wheel; lonely intelligence",
-        "plain": "You have no shared framework with anyone, so everything has to be worked out from scratch; you are intelligent and alone with it."
-      },
-      "unacknowledged": {
-        "canonical": "You are teaching, people are learning from you, and you are calling it just talking.",
-        "plain": "You are teaching, and people are learning from you. It may feel like just talking; the teaching is yours."
-      }
-    },
-    "6": {
-      "name": "Compassion",
-      "balanced": {
-        "canonical": "Felt recognition that honors both self and other — connection without fusion",
-        "plain": "Being close to someone while both of you stay yourselves."
-      },
-      "tooMuch": {
-        "canonical": "Emotional fusion, boundary dissolution — can't tell where you end and others begin",
-        "plain": "You are so merged with other people's feelings that you cannot tell where you end and they begin."
-      },
-      "tooLittle": {
-        "canonical": "Emotional numbness, disconnection — relationships stay surface",
-        "plain": "You feel numb and cut off; your relationships stay on the surface."
-      },
-      "unacknowledged": {
-        "canonical": "You are connecting, others feel your care, and you are calling it indifference.",
-        "plain": "You are connecting, and others feel your care. From the inside it may not feel like caring at all; the connection is yours."
-      }
-    },
-    "7": {
-      "name": "Drive",
-      "balanced": {
-        "canonical": "Movement from feeling — direction from genuine engagement",
-        "plain": "You move because you feel it; your direction comes from being really involved."
-      },
-      "tooMuch": {
-        "canonical": "Driving past the destination — momentum that can't stop",
-        "plain": "You keep going past the point you were going for; the momentum cannot stop."
-      },
-      "tooLittle": {
-        "canonical": "Stalled at the threshold — feeling without forward motion",
-        "plain": "You feel it but you are not moving; you are stuck at the starting line."
-      },
-      "unacknowledged": {
-        "canonical": "You are moving toward something and calling it being carried along.",
-        "plain": "You are moving toward where you are headed. It may feel like being carried along; the moving is yours."
-      }
-    },
-    "8": {
-      "name": "Fortitude",
-      "balanced": {
-        "canonical": "Holding without forcing — capacity that contains rather than crushes",
-        "plain": "You can hold what you carry steady without squeezing it; what you hold is kept safe, not crushed."
-      },
-      "tooMuch": {
-        "canonical": "Gripping past necessity — strength becoming rigidity",
-        "plain": "You are gripping harder than the situation needs; your strength has turned stiff."
-      },
-      "tooLittle": {
-        "canonical": "Collapse under pressure — holding feels too dangerous",
-        "plain": "You give way under pressure; holding anything up feels too dangerous."
-      },
-      "unacknowledged": {
-        "canonical": "You are holding something up and calling it just how things are; the strength is yours, credited to necessity.",
-        "plain": "You are holding up what needs holding. It may look like just how things are, or like necessity; the strength is yours."
-      }
-    },
-    "9": {
-      "name": "Discipline",
-      "balanced": {
-        "canonical": "Practice flows without force — solitude connects rather than isolates; refinement serves growth, not anxiety",
-        "plain": "Practising without strain; time alone that connects you rather than cuts you off; getting better at what you practise because it helps you grow, not because you are anxious."
-      },
-      "tooMuch": {
-        "canonical": "Practice becomes perfectionism — isolation feels necessary rather than chosen; refining compulsively, fearing what happens if you stop",
-        "plain": "Your practice has become perfectionism: being alone has become the rule rather than a choice, and the refining does not stop. Sometimes that runs on fear of what happens if you stop."
-      },
-      "tooLittle": {
-        "canonical": "Past experiences have made practice feel dangerous — chronic inability to sustain cultivation",
-        "plain": "You cannot keep at anything long enough for it to grow; practising has started to feel risky. Sometimes that comes from what happened before."
-      },
-      "unacknowledged": {
-        "canonical": "You are practicing and calling the result talent or \"it came without trying.\"",
-        "plain": "You are practising, and it shows. The result may look like talent, or like it came without trying; the practice is yours."
-      }
-    },
-    "10": {
-      "name": "Source",
-      "balanced": {
-        "canonical": "You recognize yourself as the turning — each moment is fresh entry. Present-moment awareness as natural state",
-        "plain": "You know that you are the one making things turn, and each moment is a fresh start; being here, now, is your normal state."
-      },
-      "tooMuch": {
-        "canonical": "Carried by the current instead of meeting it — fate replaces choice; patterns repeat without awareness; the cause is always somewhere else",
-        "plain": "You are being carried along instead of meeting what comes: things feel fated, the same patterns repeat without your noticing, and the cause is always somewhere else."
-      },
-      "tooLittle": {
-        "canonical": "Trying to step off the Wheel — spiritual bypassing, rejecting manifestation, clinging to fixed states",
-        "plain": "You are trying to get off the ride altogether: avoiding real life through spiritual ideas, refusing to let things take form, clinging to a fixed state."
-      },
-      "unacknowledged": {
-        "canonical": "You are turning the wheel and calling it fate; the consequences are yours, credited to what happens to you.",
-        "plain": "You are the one making things turn out the way they do. It may look like fate, or like what happens to you; the consequences are yours."
-      }
-    },
-    "11": {
-      "name": "Equity",
-      "balanced": {
-        "canonical": "Fairness flows naturally — clear sense of what's right without obsessive calculation; give and receive in flowing exchange",
-        "plain": "A clear sense of what is fair without working it out obsessively; giving and receiving that balances on its own."
-      },
-      "tooMuch": {
-        "canonical": "Fairness becomes accounting — obsessive tracking of who owes what; relationships reduced to exchange calculations",
-        "plain": "Fairness has become bookkeeping: you keep obsessive track of who owes what, and your relationships have shrunk to a ledger."
-      },
-      "tooLittle": {
-        "canonical": "Chronic inability to claim what's owed — tolerance of unfair treatment; past experiences have made fairness feel dangerous",
-        "plain": "You cannot claim what you are owed, and you put up with unfair treatment. Asking for fairness may have come to feel risky."
-      },
-      "unacknowledged": {
-        "canonical": "You are keeping score and calling it just noticing; the tally is yours, credited to how others behave.",
-        "plain": "You are keeping score. It may feel like just noticing, or like a response to how others behave; the tally is yours."
-      }
-    },
-    "12": {
-      "name": "Faith",
-      "balanced": {
-        "canonical": "Release flows naturally from completion — surrender as fulfillment, not defeat",
-        "plain": "You let go of a thing because it is finished, and letting go feels like completing it, not like losing."
-      },
-      "tooMuch": {
-        "canonical": "Releasing before completion — martyrdom, premature surrender, performative self-denial",
-        "plain": "You are letting go before the thing is finished: giving yourself up, surrendering too early, denying yourself for show."
-      },
-      "tooLittle": {
-        "canonical": "Inability to let go — exhaustion from chronic holding, controlling grip",
-        "plain": "You cannot let go; you are exhausted from holding on, and the grip is about control."
-      },
-      "unacknowledged": {
-        "canonical": "You have put something down and are telling yourself it was taken; the release is yours, unsigned.",
-        "plain": "You have let go of what you were holding. It may feel as if it was taken from you; the letting go was yours."
-      }
-    },
-    "13": {
-      "name": "Transformation",
-      "balanced": {
-        "canonical": "Transformation flows from felt necessity — endings honored, renewal trusted",
-        "plain": "You change when you can feel it is needed; endings are respected and what comes next is trusted."
-      },
-      "tooMuch": {
-        "canonical": "Constant upheaval — ending things before they've lived, fear disguised as liberation",
-        "plain": "You keep upending things, ending them before they have lived. It may feel like freedom; sometimes it is fear in freedom's clothes."
-      },
-      "tooLittle": {
-        "canonical": "Clinging to what's dead — stagnation disguised as loyalty, fear of all endings",
-        "plain": "You are holding on to what is over. It may feel like loyalty; endings may have come to feel frightening."
-      },
-      "unacknowledged": {
-        "canonical": "You are ending something and calling it running its course; the ending is yours, credited to time.",
-        "plain": "You are bringing an ending about. It may look as if it simply ran its course; the ending is yours."
-      }
-    },
-    "14": {
-      "name": "Tune",
-      "balanced": {
-        "canonical": "Equilibrium flows from genuine integration — centered presence holding complexity",
-        "plain": "Your balance comes from real integration; you stay centred while holding a lot at once."
-      },
-      "tooMuch": {
-        "canonical": "Premature harmony — conflict avoidance, suppressing necessary distinctions",
-        "plain": "You are making peace too early: avoiding conflict, smoothing over differences that needed to stand."
-      },
-      "tooLittle": {
-        "canonical": "Chronic fragmentation — inability to find center, scattered by every engagement",
-        "plain": "You are scattered; you cannot find your centre, and every encounter pulls you apart."
-      },
-      "unacknowledged": {
-        "canonical": "You are holding things in balance and calling it luck that nothing has tipped.",
-        "plain": "You are holding things in balance. It may look like luck that nothing has tipped; the balance is yours."
-      }
-    },
-    "15": {
-      "name": "Abstraction",
-      "balanced": {
-        "canonical": "Conceptual depth flows from genuine understanding — seeing patterns that liberate",
-        "plain": "You understand how things work because you really looked, and seeing the pattern sets you free rather than trapping you."
-      },
-      "tooMuch": {
-        "canonical": "Over-intellectualization — pattern-seeing that becomes paranoia, analysis without end",
-        "plain": "You are thinking about everything instead of living it; seeing patterns has tipped into suspicion, and the analysing never ends."
-      },
-      "tooLittle": {
-        "canonical": "Avoidance of depth — literalism, refusal of symbol, willful naivety",
-        "plain": "You are avoiding depth: taking everything at face value, refusing to see what a thing stands for, choosing not to know."
-      },
-      "unacknowledged": {
-        "canonical": "You are living by a pattern you built and calling it the way things are.",
-        "plain": "You made the way you see this. It may look like simply how things are; the way of seeing is yours."
-      }
-    },
-    "16": {
-      "name": "Breakthrough",
-      "balanced": {
-        "canonical": "Breakthrough flows from genuine insight — structures fall that needed to fall",
-        "plain": "What you have built comes down only when you have seen clearly that it needs to, and then it does."
-      },
-      "tooMuch": {
-        "canonical": "Premature shattering — chaos disguised as liberation, unable to let anything stand",
-        "plain": "You are smashing things too early, unable to let anything stand. It may feel like freedom from the inside."
-      },
-      "tooLittle": {
-        "canonical": "Clinging to dead structures — holding up what has already stopped holding",
-        "plain": "You are propping up a structure that has already stopped holding; it is over, and you are still holding it up."
-      },
-      "unacknowledged": {
-        "canonical": "You are pulling a structure down and calling it collapse; the clearing is yours, credited to failure.",
-        "plain": "You are taking a structure down yourself. It may feel like a collapse, or a failure; the clearing is yours."
-      }
-    },
-    "17": {
-      "name": "Inspiration",
-      "balanced": {
-        "canonical": "Radiance flows from genuine development — shining because what was cultivated reached completion",
-        "plain": "What you give off now comes from what you grew over time and brought to completion."
-      },
-      "tooMuch": {
-        "canonical": "Chronic ungrounded optimism — projecting light forward in anxiety, dazzling rather than illuminating",
-        "plain": "You are relentlessly hopeful with nothing under it, shining the light ahead out of anxiety; it dazzles people instead of helping them see."
-      },
-      "tooLittle": {
-        "canonical": "Spiritual exhaustion — cultivation that never flowers, hope defeated by experience",
-        "plain": "You are worn out; what you cultivated has not flowered, and the hope has gone thin."
-      },
-      "unacknowledged": {
-        "canonical": "You are drawing people toward something and calling it their idea.",
-        "plain": "You are drawing people toward where you are headed. It may look as if it was their idea; the pull is yours."
-      }
-    },
-    "18": {
-      "name": "Imagination",
-      "balanced": {
-        "canonical": "Vision flows from genuine integration — dreaming because experience has been fully processed",
-        "plain": "Your vision comes from having fully taken in what you have lived; you dream because the experience has been digested."
-      },
-      "tooMuch": {
-        "canonical": "Chronic illusion — confusing dream with reality, lost in symbolic depth",
-        "plain": "You are confusing the dream with what is real; you are lost in the symbols."
-      },
-      "tooLittle": {
-        "canonical": "Spiritual literalism — refusing depth, distrusting intuition, cutting off the symbolic",
-        "plain": "You take everything literally: refusing depth, distrusting your intuition, cutting yourself off from what things mean."
-      },
-      "unacknowledged": {
-        "canonical": "You are steering by a picture of what could be and calling it realism; the picture is yours, credited to the facts.",
-        "plain": "You are steering by a picture of what could be. It may feel like realism, or like just the facts; the picture is yours."
-      }
-    },
-    "19": {
-      "name": "Actualization",
-      "balanced": {
-        "canonical": "Radiance without ego — shining because you ARE light, not to prove it",
-        "plain": "You shine without needing to prove anything, because you are what you are, not to show it."
-      },
-      "tooMuch": {
-        "canonical": "Solar inflation — mistaking the ray for the source, blinding others",
-        "plain": "You are inflated: mistaking your own light for where it comes from, and blinding people with it."
-      },
-      "tooLittle": {
-        "canonical": "Solar eclipse — dimming what has been actualized, false modesty",
-        "plain": "You are dimming what you have actually become; it is false modesty."
-      },
-      "unacknowledged": {
-        "canonical": "You are becoming what you are and calling it just getting by.",
-        "plain": "You are becoming what you are. It may feel like just getting by; the becoming is yours."
-      }
-    },
-    "20": {
-      "name": "Recognition",
-      "balanced": {
-        "canonical": "Recognition without finality — knowing that continues to deepen",
-        "plain": "What you know, you stay open to knowing better; nothing you understand is treated as the last word."
-      },
-      "tooMuch": {
-        "canonical": "Rigid judgement — recognition becoming condemnation, spiritual arrogance",
-        "plain": "Your judgement has gone rigid: recognising has become condemning, with a spiritual superiority to it."
-      },
-      "tooLittle": {
-        "canonical": "Spiritual sleep — refusing the call, perpetual seeking that never lands",
-        "plain": "You are not answering what is calling for your attention, and you keep searching without ever letting the search arrive anywhere."
-      },
-      "unacknowledged": {
-        "canonical": "You already know, and you are calling it not being sure.",
-        "plain": "You already know. It may feel like not being sure; the knowing is yours."
-      }
-    },
-    "21": {
-      "name": "Creation",
-      "balanced": {
-        "canonical": "Completion without finality — recognizing the cycle closes while remaining open to new cycles",
-        "plain": "You can see that a cycle has closed without treating it as the end; you stay open to the next one."
-      },
-      "tooMuch": {
-        "canonical": "Premature completion — claiming arrival before the journey is done",
-        "plain": "You are claiming to have arrived before the journey is done."
-      },
-      "tooLittle": {
-        "canonical": "Perpetual incompletion — refusing to let cycles close, endless seeking",
-        "plain": "You never let anything finish; you refuse to let a cycle close, and you keep on seeking."
-      },
-      "unacknowledged": {
-        "canonical": "You have finished a cycle and are calling it still in progress.",
-        "plain": "You have finished a cycle. It may still feel as if it is in progress; the finishing is yours."
-      }
-    }
+  "3": {
+   "canonical": "Under-expressing — withdrawn, avoidant, not fully arriving in the present.",
+   "plain": "You are doing less of this than the situation needs right now. You are holding back from it, and part of you is still with how things were instead of how they are.",
+   "structural": "Less of this than the moment asks, still with how things were rather than how they are now. It can show up as hesitation, an old assumption kept, a part not played; whether regret or shame sits in it is the person's to say."
   },
-  "medicine": {
-    "0": {
-      "name": "Potential",
-      "canonical": "Pure possibility before differentiation",
-      "operation": "Leave it undecided a while longer: meet the thing before you know what it is, and look at it without the name you have been giving it."
-    },
-    "1": {
-      "name": "Will",
-      "canonical": "Directed agency, choosing direction",
-      "operation": "Choose this and not that, and mean it: point your attention at one thing and take the first step in that direction."
-    },
-    "2": {
-      "name": "Wisdom",
-      "canonical": "Knowing what to attend to",
-      "operation": "Go with what you already know before you reason about it: notice which part matters, begin with that part, and let the rest wait."
-    },
-    "3": {
-      "name": "Nurturing",
-      "canonical": "Care for what is growing",
-      "operation": "Tend the growing thing a little, today, and ask nothing of it yet: give it what it needs now, without steering it toward a result."
-    },
-    "4": {
-      "name": "Authority",
-      "canonical": "Establishing pattern and structure",
-      "operation": "Give the mess a shape it can be carried in: one rule, a time, a place, or the order things go in; the smallest structure that holds it."
-    },
-    "5": {
-      "name": "Culture",
-      "canonical": "Shared meaning and tradition",
-      "operation": "Hand one thing on the way it was handed to you, or join the practice other people keep; learn how it was done before you."
-    },
-    "6": {
-      "name": "Compassion",
-      "canonical": "Relational connection and alignment",
-      "operation": "Be with the person in it without fixing it: feel it alongside them, keep your own side, and stay in contact while it is hard."
-    },
-    "7": {
-      "name": "Drive",
-      "canonical": "Directed momentum toward goals",
-      "operation": "Move toward what you want, one step, today, in the direction you chose; keep going through the next bit of resistance."
-    },
-    "8": {
-      "name": "Fortitude",
-      "canonical": "Endurance and holding capacity",
-      "operation": "Carry it without tightening around it: keep your shape under the weight, keep the thing its real size, and bear the next stretch without deciding anything."
-    },
-    "9": {
-      "name": "Discipline",
-      "canonical": "Focused practice and refinement",
-      "operation": "Do the small practice again, alone, today, even when it feels pointless; repeat one piece of it until it improves."
-    },
-    "10": {
-      "name": "Source",
-      "canonical": "What is entering now",
-      "operation": "Meet what is arriving as it arrives: notice what is newly here right now and receive it, instead of bracing for it or opening the door early."
-    },
-    "11": {
-      "name": "Equity",
-      "canonical": "Fair calibration and balance",
-      "operation": "Put it back in proportion: give back what is owed and take what is yours, adjust the share until it is fair, then stop keeping score."
-    },
-    "12": {
-      "name": "Faith",
-      "canonical": "Purposeful release",
-      "operation": "Let go of the thing you are gripping, on purpose: put it down, leave your hands empty a while, and keep the act while giving up the outcome."
-    },
-    "13": {
-      "name": "Transformation",
-      "canonical": "Necessary endings and clearing",
-      "operation": "Let the thing end that is already over: close it, honour it, mark the ending with a plain act, and do not reopen it."
-    },
-    "14": {
-      "name": "Tune",
-      "canonical": "Dynamic equilibrium",
-      "operation": "Adjust one thing a little and then stop: add or take away a small amount, feel the difference, and find the centre by small corrections, not a lurch."
-    },
-    "15": {
-      "name": "Abstraction",
-      "canonical": "Pure pattern, freed from literal",
-      "operation": "Look at how it works underneath this one case: trace the pattern across the last few times, say the mechanism in one line, and change nothing yet."
-    },
-    "16": {
-      "name": "Breakthrough",
-      "canonical": "Sudden clearing of false structure",
-      "operation": "Stop holding up the thing that cannot hold and let it come down; clear what fell, and stand in the gap without rebuilding yet."
-    },
-    "17": {
-      "name": "Inspiration",
-      "canonical": "Aspirational pull toward light",
-      "operation": "Turn toward what you actually want: let yourself want it, plainly, pick the one you would be sorriest to lose, and face it again."
-    },
-    "18": {
-      "name": "Imagination",
-      "canonical": "Navigating ambiguity",
-      "operation": "Take the next step with only enough light for that step: picture how it could turn out well, keep the picture, and do not demand the whole road."
-    },
-    "19": {
-      "name": "Actualization",
-      "canonical": "Becoming what you are",
-      "operation": "Do the thing in your own way without proving anything: let what you are show, stop performing it, and put your own name on what is already yours."
-    },
-    "20": {
-      "name": "Recognition",
-      "canonical": "Seeing the whole pattern",
-      "operation": "Look at the same thing longer until it shows you more: see the whole pattern you are standing inside, with yourself marked on it."
-    },
-    "21": {
-      "name": "Creation",
-      "canonical": "Integration and completion",
-      "operation": "Finish the thing that has been waiting on its last step: close it, gather what it became, and leave the door open for what comes next."
-    },
-    "22": {
-      "name": "Activation",
-      "canonical": "Beginning of pure potential through Intent. The spark before direction.",
-      "operation": "Begin while it is still nothing in particular: catch the first spark, start without deciding what it is for, and let the impulse move before there is a plan."
-    },
-    "23": {
-      "name": "Orientation",
-      "canonical": "Decisive direction through aspiration. Choosing which star to steer by.",
-      "operation": "Choose one direction because it is what you want, and go that way: stop surveying, decide from the wanting rather than the logic, and face one way for a while."
-    },
-    "24": {
-      "name": "Assertion",
-      "canonical": "Primal claim of structure through Intent. Expansive declaration outward.",
-      "operation": "Say the shape of it out loud, in the open, before anyone asks: claim the structure as yours and state the order of things once, without arguing it."
-    },
-    "25": {
-      "name": "Alignment",
-      "canonical": "Peaceful momentum, stable drive. Intent finding its natural rhythm.",
-      "operation": "Move at the pace your feeling can sustain: let what you want and what you will do go the same way, and keep a steady rhythm rather than a surge."
-    },
-    "26": {
-      "name": "Dedication",
-      "canonical": "Internal practical release through Intent. Testing commitment through engagement.",
-      "operation": "Let the hard part test what you are committed to: engage it on purpose, drop the approach that is not working, and keep the purpose."
-    },
-    "27": {
-      "name": "Honor",
-      "canonical": "External acknowledgment of sacrifice. Intent visible and honored.",
-      "operation": "Do the giving where it can be seen by the people it is for, this time, without a word about it; and accept the acknowledgment when it comes."
-    },
-    "28": {
-      "name": "Resolve",
-      "canonical": "Gathered determination, harvested momentum. Defending chosen direction.",
-      "operation": "Defend the direction you chose against the next push: gather your determination, keep the heading when it is contested, and refuse the pull off course once more."
-    },
-    "29": {
-      "name": "Command",
-      "canonical": "Deep authority, threshold structure. Intent moving with unstoppable clarity.",
-      "operation": "Decide it and act on it the same day, without explaining: let the decision act instead of announcing it, and carry it through."
-    },
-    "30": {
-      "name": "Resilience",
-      "canonical": "Abundant persistence through aspiration. Strength from continued hoping.",
-      "operation": "Keep going toward what you chose after everything that has happened: carry on through another stretch of doubt without needing a sign."
-    },
-    "31": {
-      "name": "Realization",
-      "canonical": "Completion of potential through Intent. Carrying what pure possibility became.",
-      "operation": "Carry what you began all the way into form: bring the possibility to its full size and let what was only possible stand finished."
-    },
-    "32": {
-      "name": "Perception",
-      "canonical": "Beginning of clear seeing. The first cut of clarity arising.",
-      "operation": "Look before you interpret: see the thing as if for the first time, describe what is in front of you in plain lines, and draw no conclusions yet."
-    },
-    "33": {
-      "name": "Reflection",
-      "canonical": "Decisive inner knowing. Mind holding truth before declaring it.",
-      "operation": "Hold what you know a while before saying it: weigh it, keep two true things without declaring either, and write both sides down before you speak."
-    },
-    "34": {
-      "name": "Calculation",
-      "canonical": "Primal analysis, expansive thought. Pattern recognition at work.",
-      "operation": "Work it through to what actually follows: cut through the story, count it out, read what the numbers or the facts show, and reason it from the start once."
-    },
-    "35": {
-      "name": "Repose",
-      "canonical": "Peaceful stability through cognition. Mind at rest, calibrating.",
-      "operation": "Put the problem down and let your mind rest: stop adjusting for an hour, sit still until things settle, and rest in the balance you already have."
-    },
-    "36": {
-      "name": "Honing",
-      "canonical": "Internal practical cognition. Refining perception through careful distinction.",
-      "operation": "Sort what matters from what does not, carefully: strike one thing from the list that does not serve, and sharpen one skill by repeating its hardest part."
-    },
-    "37": {
-      "name": "Guidance",
-      "canonical": "External direction through discipline. Mind finding passage, showing the way.",
-      "operation": "Show someone the way you found: walk the route with a person who is lost on it, give directions plainly once, and let them walk it."
-    },
-    "38": {
-      "name": "Reconciliation",
-      "canonical": "Gathering thoughts into alignment. Strategic mental integration.",
-      "operation": "Gather your scattered thoughts into one line: bring the two sides of your thinking into one plan, and sort the pieces into a shape you can act on."
-    },
-    "39": {
-      "name": "Immersion",
-      "canonical": "Deep threshold of abstraction. Mind exploring its own depths.",
-      "operation": "Go all the way into it until you meet its edge: follow the thought past where it is comfortable, stay in the depth, and read the hardest part twice before stopping."
-    },
-    "40": {
-      "name": "Discernment",
-      "canonical": "Abundant knowing, many truths held. The fullness of perception.",
-      "operation": "Let several things be true at once and act on one: sort the pulls on you from each other, and mark which of them are actually yours."
-    },
-    "41": {
-      "name": "Clarity",
-      "canonical": "Completion of cognition. Full seeing, nothing hidden.",
-      "operation": "See the whole of it with nothing hidden: lay every piece out where you can see them at once, and look until there is nothing left to see."
-    },
-    "42": {
-      "name": "Receptivity",
-      "canonical": "Beginning of felt awareness. Heart open, ready to receive.",
-      "operation": "Open before anything has arrived: let the feeling in without deciding what it is, and sit with nothing in your hands and let what comes, come."
-    },
-    "43": {
-      "name": "Merge",
-      "canonical": "Decisive connection through vision. Two becoming one flow.",
-      "operation": "Choose one connection and go with it: join the other person in the work so the two of you move as one, and meet them in the middle."
-    },
-    "44": {
-      "name": "Celebration",
-      "canonical": "Primal joy through shared meaning. Community in celebration.",
-      "operation": "Share the good thing with the people it belongs to, on the day it happens: let the gladness go out to the room, and celebrate with them, not after them."
-    },
-    "45": {
-      "name": "Reverie",
-      "canonical": "Peaceful connection, stable feeling. Sitting with what the heart knows.",
-      "operation": "Sit with what your heart already knows: let the feeling settle, rest in the connection without doing anything with it, and spend time with what you love with no task attached."
-    },
-    "46": {
-      "name": "Conscience",
-      "canonical": "Internal felt-sense of fairness. The private moral compass that knows what's right.",
-      "operation": "Act on your private sense of what is right: do the fair thing where no one will see, and return the small thing you owe before anyone asks."
-    },
-    "47": {
-      "name": "Reciprocity",
-      "canonical": "External fair exchange. Giving and receiving in balance.",
-      "operation": "Give one thing and take one thing, in balance: accept what is offered for what you gave, return the favour at its true size, and let the exchange run both ways."
-    },
-    "48": {
-      "name": "Allure",
-      "canonical": "Gathering emotional possibilities. The pull of what might be felt.",
-      "operation": "Let yourself be drawn before you choose: look at the feelings that might be felt, follow the pull a little way, and go once toward the thing that draws you to see it up close."
-    },
-    "49": {
-      "name": "Passage",
-      "canonical": "Deep threshold of shared meaning. Walking toward what connects.",
-      "operation": "Walk toward what truly connects and leave what does not: go deeper into the shared thing than is comfortable, and leave the hollow ritual for the living one."
-    },
-    "50": {
-      "name": "Fulfillment",
-      "canonical": "Abundant vision realized. Deep satisfaction in what was imagined.",
-      "operation": "Let the satisfaction of a finished thing land: enjoy what you imagined now that it is here, use it for a while instead of improving it, and reach for nothing past it."
-    },
-    "51": {
-      "name": "Completion",
-      "canonical": "Emotional wholeness achieved. Full awareness of felt connection.",
-      "operation": "Feel the whole of it: name every feeling in it, none crossed out, and know the feeling fully before you move on."
-    },
-    "52": {
-      "name": "Definition",
-      "canonical": "Beginning of directed form. The seed of what will be built.",
-      "operation": "Decide what this is for before you spend it: hold the first resource in your hand, say in one line what will be built, and name only that."
-    },
-    "53": {
-      "name": "Stewardship",
-      "canonical": "Decisive cultivation through form. Tending what grows with responsible care.",
-      "operation": "Tend what grows with a steady, responsible hand: balance the competing demands and keep tending, without clutching."
-    },
-    "54": {
-      "name": "Formation",
-      "canonical": "Primal structure emerging. Skilled work building something new.",
-      "operation": "Build the first new thing on the cleared ground: make it small and skilled, with your own hands, where the false thing fell."
-    },
-    "55": {
-      "name": "Preservation",
-      "canonical": "Peaceful stability through form. Holding what transformation produced.",
-      "operation": "Keep what the change produced as it is: hold the new form steady instead of reopening it, protect what the ending won, and set the finished thing down in a form that keeps."
-    },
-    "56": {
-      "name": "Steadfastness",
-      "canonical": "Internal practical strength. Persisting through material pressure.",
-      "operation": "Keep going on your own reserves through the pressure: carry your own share, all of it, without checking on anyone else, and stand firm."
-    },
-    "57": {
-      "name": "Support",
-      "canonical": "External strength shared. Resources flowing where needed.",
-      "operation": "Share your strength where it is needed: give one concrete piece of help and finish it, and hold the other person up with what you have."
-    },
-    "58": {
-      "name": "Harvest",
-      "canonical": "Gathering what transformation grew. Patient waiting rewarded.",
-      "operation": "Gather what the change grew: count what the ending gave you, take in the yield, and collect the fruit of the patient wait."
-    },
-    "59": {
-      "name": "Commitment",
-      "canonical": "Deep threshold of new structure. Dedicated craft, persistent building.",
-      "operation": "Keep building with sustained craft: return to the work daily, do today's part of the long build, and deepen the mastery by persisting."
-    },
-    "60": {
-      "name": "Flourishing",
-      "canonical": "Abundant growth achieved. Enjoying what careful tending produced.",
-      "operation": "Enjoy what careful tending has grown: let the abundance be seen and used, take pleasure in the grown thing, and rest in the result."
-    },
-    "61": {
-      "name": "Achievement",
-      "canonical": "Completion of directed form. Legacy established through sustained will.",
-      "operation": "Establish the thing that lasts: finish it by sustained will, and complete the form so it stands without you."
-    },
-    "62": {
-      "name": "Initiate of Intent",
-      "canonical": "Inspiration-as-behavior: radiant confidence, authentic self-expression.",
-      "operation": "Start the thing for the spark of starting: explore a direction before it has a destination, and ask the beginner's question about where to go."
-    },
-    "63": {
-      "name": "Catalyst of Intent",
-      "canonical": "Authority-as-behavior: decisive leadership, boundary-setting, charging forward.",
-      "operation": "Cut through the inertia with one decisive act: set a boundary and hold it, charge forward on the decision you made, and lead the change by moving first."
-    },
-    "64": {
-      "name": "Steward of Intent",
-      "canonical": "Drive-as-behavior: sustained motivation, courage, tending the fire without burning out.",
-      "operation": "Tend the fire without burning out: keep the motivation warm with steady care, feed the drive a little at a time, and hold the direction day after day."
-    },
-    "65": {
-      "name": "Executor of Intent",
-      "canonical": "Faith-as-behavior: surrender, duty-bearing, knowing when to release as well as push.",
-      "operation": "Release what is done and keep what is not: bear the duty, drop one condition you set, take the step, and know what to let go of."
-    },
-    "66": {
-      "name": "Initiate of Cognition",
-      "canonical": "Wisdom-as-behavior: listening, discerning, perceiving with fresh curiosity.",
-      "operation": "Listen as a student of it: ask the question you do not know the answer to, follow a raw curiosity, and look with fresh eyes before judging."
-    },
-    "67": {
-      "name": "Catalyst of Cognition",
-      "canonical": "Abstraction-as-behavior: strategic reasoning, cutting through to pure logic.",
-      "operation": "Reason it through fast and cleanly: cut to the logic, think it to its sharp point, plan the next three moves, and act on it."
-    },
-    "68": {
-      "name": "Steward of Cognition",
-      "canonical": "Tune-as-behavior: calibration, truth-telling tempered with discernment.",
-      "operation": "Tell the truth with care for when and how: say the hard thing gently, once, in the form the other person can hear, and keep the clarity steady."
-    },
-    "69": {
-      "name": "Executor of Cognition",
-      "canonical": "Discipline-as-behavior: rigorous inquiry, method, embodied clarity.",
-      "operation": "Write the facts down in order, without feeling words: apply the method once, rigorously, and judge it by the discipline, not the mood."
-    },
-    "70": {
-      "name": "Initiate of Resonance",
-      "canonical": "Imagination-as-behavior: sensing, envisioning, navigating ambiguity with fresh wonder.",
-      "operation": "Sense what has not happened yet, with wonder: envision it freshly, feel toward it with fresh sensitivity, dream the next step and take it."
-    },
-    "71": {
-      "name": "Catalyst of Resonance",
-      "canonical": "Culture-as-behavior: teaching, ritualizing, pursuing emotional truth through meaning.",
-      "operation": "Pursue the emotional truth with someone, in the open: make a ritual of the shared thing, and teach what you feel by doing it with others."
-    },
-    "72": {
-      "name": "Steward of Resonance",
-      "canonical": "Compassion-as-behavior: relational coherence, empathy, holding space for feeling.",
-      "operation": "Make room for what the other person feels without fixing it: ask how it feels to them, stay with the answer, and keep the connection while it is hard without drowning in it."
-    },
-    "73": {
-      "name": "Executor of Resonance",
-      "canonical": "Equity-as-behavior: fair emotional judgment, principled governance of feeling.",
-      "operation": "Make the fair call about a feeling, yourself: judge the hurt fairly after it has finished, by principle rather than reaction, and weigh what it costs them against what it gives."
-    },
-    "74": {
-      "name": "Initiate of Structure",
-      "canonical": "Nurturing-as-behavior: tending, growing, learning how material things flourish.",
-      "operation": "Learn how the thing grows by tending it: apprentice yourself to it, care for it with fresh hands, and see what it needs."
-    },
-    "75": {
-      "name": "Catalyst of Structure",
-      "canonical": "Breakthrough-as-behavior: forcing structural change into reality, slow but unstoppable.",
-      "operation": "Force the change into reality by steady effort: move the structure one real inch, slowly and without stopping, and build the change by persistent work."
-    },
-    "76": {
-      "name": "Steward of Structure",
-      "canonical": "Transformation-as-behavior: releasing, transforming, creating conditions for sustainable material growth.",
-      "operation": "Release what is done and keep what serves: clear what is finished so the rest can grow, and keep the material thing sustainable."
-    },
-    "77": {
-      "name": "Executor of Structure",
-      "canonical": "Fortitude-as-behavior: embodied strength, stabilizing power, building that endures.",
-      "operation": "Build the thing that endures: hold the weight as a builder holds stone, and lay the one step you can see, solidly."
-    }
-  },
-  "mechanism": {
-    "1": {
-      "canonical": "GROWTH (Balanced): an invitation, optional by definition; what this balance is free to feed next.",
-      "plain": "This is an invitation, not a fix: what this working part of you could feed next, if you want it to."
-    },
-    "2": {
-      "canonical": "DIAGONAL (Too Much): the capacity in excess crosses the map to the opposite element; the medicine is the partner's own action.",
-      "plain": "The way through is to do what this other capacity does. It is the opposite kind of thing from what you are doing too much of."
-    },
-    "3": {
-      "canonical": "VERTICAL (Too Little): the seat is running on empty; the medicine is to charge its vertical twin — energy into the partner's own action pulls the current through the starved seat. Never push effort or feeling into the empty seat directly.",
-      "plain": "The way through is not to push harder at the thing you are doing too little of. It is to do this other capacity's own action; doing that is what brings the first one back."
-    },
-    "4": {
-      "canonical": "REDUCTION (Unacknowledged): authorship misattributed; the medicine returns toward the simpler, earlier form of the same line.",
-      "plain": "The way through is a simpler, earlier version of the same thing you are already doing, done as your own."
-    }
+  "4": {
+   "canonical": "Acting now, but not as the author — the doing is the person's own and they are not holding it as theirs.",
+   "plain": "You are doing this, right now, and you do not see it as your own doing. It is yours, and you are not treating it as yours.",
+   "structural": "Something is already operating here, and its source, ownership or relationship is not being recognized. Who or what goes unrecognized in this situation is open until the person's words settle it; the structure says only that the doing is real and the credit is not landing where the doing is."
   }
+ },
+ "states": {
+  "0": {
+   "name": "Potential",
+   "balanced": {
+    "canonical": "Pure presence — open, available, ready. Beginner's mind. Every moment fresh",
+    "plain": "Being fully here, open and ready, meeting each moment as if for the first time."
+   },
+   "tooMuch": {
+    "canonical": "Hovering in endless possibility, never landing. All potential, no actualization",
+    "plain": "You are staying in what could be and never settling on one thing; everything stays possible and nothing becomes real.",
+    "look": "staying in what could be; everything kept possible, nothing made real"
+   },
+   "tooLittle": {
+    "canonical": "Past wounds have sealed the opening. Creating from constriction",
+    "plain": "You have closed off to what could be, and you make things from a cramped place. Sometimes that comes from old hurt; whether it does here is yours to say.",
+    "look": "the field of what could be closed off; making from a cramped place"
+   },
+   "unacknowledged": {
+    "canonical": "You are choosing among open options every day and calling it \"there was no choice.\"",
+    "plain": "You are choosing among open options every day. It may not feel like choosing — it can look as if there was no choice — but the choosing is yours.",
+    "look": "a choosing among open options that passes for no choice at all"
+   }
+  },
+  "1": {
+   "name": "Will",
+   "balanced": {
+    "canonical": "Conscious direction aligned with Now — choosing from clarity, not compulsion",
+    "plain": "You choose your direction on purpose, from a clear head, not because you are being driven."
+   },
+   "tooMuch": {
+    "canonical": "Future-projected control — manipulation, forcing outcomes, white-knuckling reality",
+    "plain": "You are trying to force how things turn out: controlling, pushing, gripping hard to make reality go your way.",
+    "look": "forcing the outcome: controlling, pushing, gripping"
+   },
+   "tooLittle": {
+    "canonical": "Past-anchored defeat — passivity, \"what's the point,\" learned helplessness",
+    "plain": "You have given up on steering: going along with things, \"what's the point\", feeling that nothing you do makes a difference.",
+    "look": "steering given up: going along, 'what's the point', nothing one does seeming to matter"
+   },
+   "unacknowledged": {
+    "canonical": "You are setting the direction and calling it momentum, habit, or how things went.",
+    "plain": "You are setting the direction. It may look like momentum, habit, or just how things went, but the direction is yours.",
+    "look": "a direction being set that reads as momentum, habit, or how things went"
+   }
+  },
+  "2": {
+   "name": "Wisdom",
+   "balanced": {
+    "canonical": "Direct knowing that proves accurate — comfort with not-knowing; perceptions land without argument",
+    "plain": "What you sense turns out to be right, you are at ease not knowing yet, and what you notice is taken as it is, without you having to argue for it."
+   },
+   "tooMuch": {
+    "canonical": "Information hoarding, analysis paralysis — the veil becomes a wall",
+    "plain": "You keep gathering information and thinking it over without ever deciding; the thinking has become a wall instead of a window.",
+    "look": "gathering and weighing without deciding; the thinking a wall instead of a window"
+   },
+   "tooLittle": {
+    "canonical": "Chronic confusion, lost faith in perception — seeking external validation for what you already know",
+    "plain": "You feel confused most of the time and have stopped trusting what you perceive; you look to other people to confirm what you already know.",
+    "look": "trust in one's own perception gone; others asked to confirm what is already known"
+   },
+   "unacknowledged": {
+    "canonical": "You are knowing what to attend to, your calls keep proving right, and you are crediting luck.",
+    "plain": "You are knowing what to attend to, and your calls keep proving right. It may feel like luck; the knowing is yours.",
+    "look": "a knowing what to attend to whose calls keep proving right, taken for luck"
+   }
+  },
+  "3": {
+   "name": "Nurturing",
+   "balanced": {
+    "canonical": "Growth happening without forcing — care that doesn't exhaust; holding space without clutching",
+    "plain": "Things grow without being forced; care that does not wear you out; making room for someone without gripping."
+   },
+   "tooMuch": {
+    "canonical": "Controlling under the guise of care — smothering, martyrdom, boundary dissolution",
+    "plain": "You are controlling in the form of care: smothering, giving yourself up for others, losing the line between you and them. It may not look like control from the inside.",
+    "look": "care as control: smothering, the self given up for others, the line between self and them blurred"
+   },
+   "tooLittle": {
+    "canonical": "Chronic creative block, nothing grows — emotional unavailability disguised as independence",
+    "plain": "Nothing you tend grows; you keep yourself emotionally out of reach. It may look like independence.",
+    "look": "nothing tended grows; the self kept emotionally out of reach, which can pass for independence"
+   },
+   "unacknowledged": {
+    "canonical": "You are tending what grows and calling it a role you never chose; the care is yours, credited to obligation.",
+    "plain": "You are tending what grows. It may feel like a role you never chose, or an obligation; the care is yours.",
+    "look": "tending that reads as an unchosen role or an obligation"
+   }
+  },
+  "4": {
+   "name": "Authority",
+   "balanced": {
+    "canonical": "Structure that serves what it organizes — clear, reliable; things make sense in your presence",
+    "plain": "The order you bring serves what it organizes; it is clear and reliable, and things make sense when you are there."
+   },
+   "tooMuch": {
+    "canonical": "Rigid over-organization, control — mistaking the structure for the thing it was built to hold",
+    "plain": "You are over-organizing and controlling, treating the system as more important than the thing it was built to hold.",
+    "look": "over-organizing: the system treated as more important than what it was built to hold"
+   },
+   "tooLittle": {
+    "canonical": "Chronic disorganization — can't prioritize, can't sequence; the pieces never assemble",
+    "plain": "You cannot get things in order: you cannot pick what matters first or put the steps in sequence, and the pieces never come together.",
+    "look": "no order: what matters first and what follows never settling, the pieces not coming together"
+   },
+   "unacknowledged": {
+    "canonical": "You are putting things in order, people rely on it, and you are calling it things \"just working out.\"",
+    "plain": "You are putting things in order, and people rely on it. It may look like things just working out; the order is yours.",
+    "look": "an order that others rely on, taken for things just working out"
+   }
+  },
+  "5": {
+   "name": "Culture",
+   "balanced": {
+    "canonical": "Living transmission of meaning — teaching that adapts; tradition that breathes; belonging without conformity",
+    "plain": "You pass meaning on in a way that stays alive: teaching that adapts, tradition that breathes, belonging without having to conform."
+   },
+   "tooMuch": {
+    "canonical": "Rigid orthodoxy, dogma — conformity demanded; the letter kills the spirit; windows sealed",
+    "plain": "You are insisting on the rules as written and demanding that people conform; the rule has killed the point of it.",
+    "look": "the rule held as written and conformity asked for; the letter kept and the point lost"
+   },
+   "tooLittle": {
+    "canonical": "Rootless, no shared framework — every generation reinventing the wheel; lonely intelligence",
+    "plain": "You have no shared framework with anyone, so everything has to be worked out from scratch; you are intelligent and alone with it.",
+    "look": "no shared framework; everything worked out from scratch, alone with it"
+   },
+   "unacknowledged": {
+    "canonical": "You are teaching, people are learning from you, and you are calling it just talking.",
+    "plain": "You are teaching, and people are learning from you. It may feel like just talking; the teaching is yours.",
+    "look": "a teaching others are learning from, taken for just talking"
+   }
+  },
+  "6": {
+   "name": "Compassion",
+   "balanced": {
+    "canonical": "Felt recognition that honors both self and other — connection without fusion",
+    "plain": "Being close to someone while both of you stay yourselves."
+   },
+   "tooMuch": {
+    "canonical": "Emotional fusion, boundary dissolution — can't tell where you end and others begin",
+    "plain": "You are so merged with other people's feelings that you cannot tell where you end and they begin.",
+    "look": "merged with others' feelings; where one ends and they begin unclear"
+   },
+   "tooLittle": {
+    "canonical": "Emotional numbness, disconnection — relationships stay surface",
+    "plain": "You feel numb and cut off; your relationships stay on the surface.",
+    "look": "cut off; relationships kept on the surface"
+   },
+   "unacknowledged": {
+    "canonical": "You are connecting, others feel your care, and you are calling it indifference.",
+    "plain": "You are connecting, and others feel your care. From the inside it may not feel like caring at all; the connection is yours.",
+    "look": "a connecting others feel, which from inside does not feel like caring"
+   }
+  },
+  "7": {
+   "name": "Drive",
+   "balanced": {
+    "canonical": "Movement from feeling — direction from genuine engagement",
+    "plain": "You move because you feel it; your direction comes from being really involved."
+   },
+   "tooMuch": {
+    "canonical": "Driving past the destination — momentum that can't stop",
+    "plain": "You keep going past the point you were going for; the momentum cannot stop.",
+    "look": "going past the point aimed for; momentum that does not stop"
+   },
+   "tooLittle": {
+    "canonical": "Stalled at the threshold — feeling without forward motion",
+    "plain": "You feel it but you are not moving; you are stuck at the starting line.",
+    "look": "the pull felt and no movement; stuck at the start"
+   },
+   "unacknowledged": {
+    "canonical": "You are moving toward something and calling it being carried along.",
+    "plain": "You are moving toward where you are headed. It may feel like being carried along; the moving is yours.",
+    "look": "a moving toward where one is headed, taken for being carried along"
+   }
+  },
+  "8": {
+   "name": "Fortitude",
+   "balanced": {
+    "canonical": "Holding without forcing — capacity that contains rather than crushes",
+    "plain": "You can hold what you carry steady without squeezing it; what you hold is kept safe, not crushed."
+   },
+   "tooMuch": {
+    "canonical": "Gripping past necessity — strength becoming rigidity",
+    "plain": "You are gripping harder than the situation needs; your strength has turned stiff.",
+    "look": "gripping harder than the situation needs; strength gone stiff"
+   },
+   "tooLittle": {
+    "canonical": "Collapse under pressure — holding feels too dangerous",
+    "plain": "You give way under pressure; holding anything up feels too dangerous.",
+    "look": "giving way under pressure; holding anything up feeling unsafe"
+   },
+   "unacknowledged": {
+    "canonical": "You are holding something up and calling it just how things are; the strength is yours, credited to necessity.",
+    "plain": "You are holding up what needs holding. It may look like just how things are, or like necessity; the strength is yours.",
+    "look": "a holding-up of what needs holding, taken for necessity or for just how things are"
+   }
+  },
+  "9": {
+   "name": "Discipline",
+   "balanced": {
+    "canonical": "Practice flows without force — solitude connects rather than isolates; refinement serves growth, not anxiety",
+    "plain": "Practising without strain; time alone that connects you rather than cuts you off; getting better at what you practise because it helps you grow, not because you are anxious."
+   },
+   "tooMuch": {
+    "canonical": "Practice becomes perfectionism — isolation feels necessary rather than chosen; refining compulsively, fearing what happens if you stop",
+    "plain": "Your practice has become perfectionism: being alone has become the rule rather than a choice, and the refining does not stop. Sometimes that runs on fear of what happens if you stop.",
+    "look": "practice become perfectionism; refining that does not stop; being alone become the rule"
+   },
+   "tooLittle": {
+    "canonical": "Past experiences have made practice feel dangerous — chronic inability to sustain cultivation",
+    "plain": "You cannot keep at anything long enough for it to grow; practising has started to feel risky. Sometimes that comes from what happened before.",
+    "look": "nothing kept at long enough to grow; practising come to feel risky"
+   },
+   "unacknowledged": {
+    "canonical": "You are practicing and calling the result talent or \"it came without trying.\"",
+    "plain": "You are practising, and it shows. The result may look like talent, or like it came without trying; the practice is yours.",
+    "look": "a practice that shows, taken for talent or for no effort at all"
+   }
+  },
+  "10": {
+   "name": "Source",
+   "balanced": {
+    "canonical": "You recognize yourself as the turning — each moment is fresh entry. Present-moment awareness as natural state",
+    "plain": "You know that you are the one making things turn, and each moment is a fresh start; being here, now, is your normal state."
+   },
+   "tooMuch": {
+    "canonical": "Carried by the current instead of meeting it — fate replaces choice; patterns repeat without awareness; the cause is always somewhere else",
+    "plain": "You are being carried along instead of meeting what comes: things feel fated, the same patterns repeat without your noticing, and the cause is always somewhere else.",
+    "look": "being carried along instead of meeting what comes; patterns repeating, the cause always elsewhere"
+   },
+   "tooLittle": {
+    "canonical": "Trying to step off the Wheel — spiritual bypassing, rejecting manifestation, clinging to fixed states",
+    "plain": "You are trying to get off the ride altogether: avoiding real life through spiritual ideas, refusing to let things take form, clinging to a fixed state.",
+    "look": "getting off the ride altogether: life avoided through ideas, nothing allowed to take form"
+   },
+   "unacknowledged": {
+    "canonical": "You are turning the wheel and calling it fate; the consequences are yours, credited to what happens to you.",
+    "plain": "You are the one making things turn out the way they do. It may look like fate, or like what happens to you; the consequences are yours.",
+    "look": "outcomes one is making, taken for fate or for what happens to one"
+   }
+  },
+  "11": {
+   "name": "Equity",
+   "balanced": {
+    "canonical": "Fairness flows naturally — clear sense of what's right without obsessive calculation; give and receive in flowing exchange",
+    "plain": "A clear sense of what is fair without working it out obsessively; giving and receiving that balances on its own."
+   },
+   "tooMuch": {
+    "canonical": "Fairness becomes accounting — obsessive tracking of who owes what; relationships reduced to exchange calculations",
+    "plain": "Fairness has become bookkeeping: you keep obsessive track of who owes what, and your relationships have shrunk to a ledger.",
+    "look": "fairness as bookkeeping; who owes what tracked until the bond is a ledger"
+   },
+   "tooLittle": {
+    "canonical": "Chronic inability to claim what's owed — tolerance of unfair treatment; past experiences have made fairness feel dangerous",
+    "plain": "You cannot claim what you are owed, and you put up with unfair treatment. Asking for fairness may have come to feel risky.",
+    "look": "what is owed left unclaimed; unfair treatment put up with"
+   },
+   "unacknowledged": {
+    "canonical": "You are keeping score and calling it just noticing; the tally is yours, credited to how others behave.",
+    "plain": "You are keeping score. It may feel like just noticing, or like a response to how others behave; the tally is yours.",
+    "look": "a score being kept, taken for just noticing or for a response to others"
+   }
+  },
+  "12": {
+   "name": "Faith",
+   "balanced": {
+    "canonical": "Release flows naturally from completion — surrender as fulfillment, not defeat",
+    "plain": "You let go of a thing because it is finished, and letting go feels like completing it, not like losing."
+   },
+   "tooMuch": {
+    "canonical": "Releasing before completion — martyrdom, premature surrender, performative self-denial",
+    "plain": "You are letting go before the thing is finished: giving yourself up, surrendering too early, denying yourself for show.",
+    "look": "letting go before the thing is finished; surrender too early, or for show"
+   },
+   "tooLittle": {
+    "canonical": "Inability to let go — exhaustion from chronic holding, controlling grip",
+    "plain": "You cannot let go; you are exhausted from holding on, and the grip is about control.",
+    "look": "unable to let go; exhausted from holding on"
+   },
+   "unacknowledged": {
+    "canonical": "You have put something down and are telling yourself it was taken; the release is yours, unsigned.",
+    "plain": "You have let go of what you were holding. It may feel as if it was taken from you; the letting go was yours.",
+    "look": "a letting-go already done, taken for something taken away"
+   }
+  },
+  "13": {
+   "name": "Transformation",
+   "balanced": {
+    "canonical": "Transformation flows from felt necessity — endings honored, renewal trusted",
+    "plain": "You change when you can feel it is needed; endings are respected and what comes next is trusted."
+   },
+   "tooMuch": {
+    "canonical": "Constant upheaval — ending things before they've lived, fear disguised as liberation",
+    "plain": "You keep upending things, ending them before they have lived. It may feel like freedom; sometimes it is fear in freedom's clothes.",
+    "look": "upending things, ending them before they have lived; can pass for freedom"
+   },
+   "tooLittle": {
+    "canonical": "Clinging to what's dead — stagnation disguised as loyalty, fear of all endings",
+    "plain": "You are holding on to what is over. It may feel like loyalty; endings may have come to feel frightening.",
+    "look": "holding on to what is over; can pass for loyalty"
+   },
+   "unacknowledged": {
+    "canonical": "You are ending something and calling it running its course; the ending is yours, credited to time.",
+    "plain": "You are bringing an ending about. It may look as if it simply ran its course; the ending is yours.",
+    "look": "an ending being brought about, taken for something that ran its course"
+   }
+  },
+  "14": {
+   "name": "Tune",
+   "balanced": {
+    "canonical": "Equilibrium flows from genuine integration — centered presence holding complexity",
+    "plain": "Your balance comes from real integration; you stay centred while holding a lot at once."
+   },
+   "tooMuch": {
+    "canonical": "Premature harmony — conflict avoidance, suppressing necessary distinctions",
+    "plain": "You are making peace too early: avoiding conflict, smoothing over differences that needed to stand.",
+    "look": "peace made too early; conflict avoided, differences smoothed that needed to stand"
+   },
+   "tooLittle": {
+    "canonical": "Chronic fragmentation — inability to find center, scattered by every engagement",
+    "plain": "You are scattered; you cannot find your centre, and every encounter pulls you apart.",
+    "look": "scattered; no centre found, every encounter pulling apart"
+   },
+   "unacknowledged": {
+    "canonical": "You are holding things in balance and calling it luck that nothing has tipped.",
+    "plain": "You are holding things in balance. It may look like luck that nothing has tipped; the balance is yours.",
+    "look": "a balance being held, taken for luck that nothing tipped"
+   }
+  },
+  "15": {
+   "name": "Abstraction",
+   "balanced": {
+    "canonical": "Conceptual depth flows from genuine understanding — seeing patterns that liberate",
+    "plain": "You understand how things work because you really looked, and seeing the pattern sets you free rather than trapping you."
+   },
+   "tooMuch": {
+    "canonical": "Over-intellectualization — pattern-seeing that becomes paranoia, analysis without end",
+    "plain": "You are thinking about everything instead of living it; seeing patterns has tipped into suspicion, and the analysing never ends.",
+    "look": "thinking about everything instead of living it; pattern-seeing tipped into suspicion"
+   },
+   "tooLittle": {
+    "canonical": "Avoidance of depth — literalism, refusal of symbol, willful naivety",
+    "plain": "You are avoiding depth: taking everything at face value, refusing to see what a thing stands for, choosing not to know.",
+    "look": "depth avoided; everything taken at face value, what things stand for refused"
+   },
+   "unacknowledged": {
+    "canonical": "You are living by a pattern you built and calling it the way things are.",
+    "plain": "You made the way you see this. It may look like simply how things are; the way of seeing is yours.",
+    "look": "a way of seeing that was made, taken for simply how things are"
+   }
+  },
+  "16": {
+   "name": "Breakthrough",
+   "balanced": {
+    "canonical": "Breakthrough flows from genuine insight — structures fall that needed to fall",
+    "plain": "What you have built comes down only when you have seen clearly that it needs to, and then it does."
+   },
+   "tooMuch": {
+    "canonical": "Premature shattering — chaos disguised as liberation, unable to let anything stand",
+    "plain": "You are smashing things too early, unable to let anything stand. It may feel like freedom from the inside.",
+    "look": "things smashed too early, nothing let stand; can feel like freedom"
+   },
+   "tooLittle": {
+    "canonical": "Clinging to dead structures — holding up what has already stopped holding",
+    "plain": "You are propping up a structure that has already stopped holding; it is over, and you are still holding it up.",
+    "look": "a structure propped up that has already stopped holding"
+   },
+   "unacknowledged": {
+    "canonical": "You are pulling a structure down and calling it collapse; the clearing is yours, credited to failure.",
+    "plain": "You are taking a structure down yourself. It may feel like a collapse, or a failure; the clearing is yours.",
+    "look": "a structure being taken down by one's own hand, taken for collapse or failure"
+   }
+  },
+  "17": {
+   "name": "Inspiration",
+   "balanced": {
+    "canonical": "Radiance flows from genuine development — shining because what was cultivated reached completion",
+    "plain": "What you give off now comes from what you grew over time and brought to completion."
+   },
+   "tooMuch": {
+    "canonical": "Chronic ungrounded optimism — projecting light forward in anxiety, dazzling rather than illuminating",
+    "plain": "You are relentlessly hopeful with nothing under it, shining the light ahead out of anxiety; it dazzles people instead of helping them see.",
+    "look": "relentless hope with nothing under it; a light shone ahead that dazzles instead of helping"
+   },
+   "tooLittle": {
+    "canonical": "Spiritual exhaustion — cultivation that never flowers, hope defeated by experience",
+    "plain": "You are worn out; what you cultivated has not flowered, and the hope has gone thin.",
+    "look": "worn out; what was cultivated not flowered, the hope thin"
+   },
+   "unacknowledged": {
+    "canonical": "You are drawing people toward something and calling it their idea.",
+    "plain": "You are drawing people toward where you are headed. It may look as if it was their idea; the pull is yours.",
+    "look": "a pull others follow toward where one is headed, taken for their own idea"
+   }
+  },
+  "18": {
+   "name": "Imagination",
+   "balanced": {
+    "canonical": "Vision flows from genuine integration — dreaming because experience has been fully processed",
+    "plain": "Your vision comes from having fully taken in what you have lived; you dream because the experience has been digested."
+   },
+   "tooMuch": {
+    "canonical": "Chronic illusion — confusing dream with reality, lost in symbolic depth",
+    "plain": "You are confusing the dream with what is real; you are lost in the symbols.",
+    "look": "the dream confused with what is real; lost in the symbols"
+   },
+   "tooLittle": {
+    "canonical": "Spiritual literalism — refusing depth, distrusting intuition, cutting off the symbolic",
+    "plain": "You take everything literally: refusing depth, distrusting your intuition, cutting yourself off from what things mean.",
+    "look": "everything taken literally; intuition distrusted, meaning cut off"
+   },
+   "unacknowledged": {
+    "canonical": "You are steering by a picture of what could be and calling it realism; the picture is yours, credited to the facts.",
+    "plain": "You are steering by a picture of what could be. It may feel like realism, or like just the facts; the picture is yours.",
+    "look": "steering by a picture of what could be, taken for realism or for the facts"
+   }
+  },
+  "19": {
+   "name": "Actualization",
+   "balanced": {
+    "canonical": "Radiance without ego — shining because you ARE light, not to prove it",
+    "plain": "You shine without needing to prove anything, because you are what you are, not to show it."
+   },
+   "tooMuch": {
+    "canonical": "Solar inflation — mistaking the ray for the source, blinding others",
+    "plain": "You are inflated: mistaking your own light for where it comes from, and blinding people with it.",
+    "look": "inflation: one's light mistaken for its source, others blinded by it"
+   },
+   "tooLittle": {
+    "canonical": "Solar eclipse — dimming what has been actualized, false modesty",
+    "plain": "You are dimming what you have actually become; it is false modesty.",
+    "look": "what one has become, dimmed; false modesty"
+   },
+   "unacknowledged": {
+    "canonical": "You are becoming what you are and calling it just getting by.",
+    "plain": "You are becoming what you are. It may feel like just getting by; the becoming is yours.",
+    "look": "a becoming under way, taken for just getting by"
+   }
+  },
+  "20": {
+   "name": "Recognition",
+   "balanced": {
+    "canonical": "Recognition without finality — knowing that continues to deepen",
+    "plain": "What you know, you stay open to knowing better; nothing you understand is treated as the last word."
+   },
+   "tooMuch": {
+    "canonical": "Rigid judgement — recognition becoming condemnation, spiritual arrogance",
+    "plain": "Your judgement has gone rigid: recognising has become condemning, with a spiritual superiority to it.",
+    "look": "judgement gone rigid; recognising become condemning, with a superiority to it"
+   },
+   "tooLittle": {
+    "canonical": "Spiritual sleep — refusing the call, perpetual seeking that never lands",
+    "plain": "You are not answering what is calling for your attention, and you keep searching without ever letting the search arrive anywhere.",
+    "look": "what calls for attention left unanswered; a search that never arrives"
+   },
+   "unacknowledged": {
+    "canonical": "You already know, and you are calling it not being sure.",
+    "plain": "You already know. It may feel like not being sure; the knowing is yours.",
+    "look": "a knowing already there, taken for not being sure"
+   }
+  },
+  "21": {
+   "name": "Creation",
+   "balanced": {
+    "canonical": "Completion without finality — recognizing the cycle closes while remaining open to new cycles",
+    "plain": "You can see that a cycle has closed without treating it as the end; you stay open to the next one."
+   },
+   "tooMuch": {
+    "canonical": "Premature completion — claiming arrival before the journey is done",
+    "plain": "You are claiming to have arrived before the journey is done.",
+    "look": "arrival claimed before the journey is done"
+   },
+   "tooLittle": {
+    "canonical": "Perpetual incompletion — refusing to let cycles close, endless seeking",
+    "plain": "You never let anything finish; you refuse to let a cycle close, and you keep on seeking.",
+    "look": "nothing let finish; a cycle refused its close, the seeking kept on"
+   },
+   "unacknowledged": {
+    "canonical": "You have finished a cycle and are calling it still in progress.",
+    "plain": "You have finished a cycle. It may still feel as if it is in progress; the finishing is yours.",
+    "look": "a cycle already finished, taken for still in progress"
+   }
+  }
+ },
+ "medicine": {
+  "0": {
+   "name": "Potential",
+   "canonical": "Pure possibility before differentiation",
+   "operation": "Leave it undecided a while longer: meet the thing before you know what it is, and look at it without the name you have been giving it."
+  },
+  "1": {
+   "name": "Will",
+   "canonical": "Directed agency, choosing direction",
+   "operation": "Choose this and not that, and mean it: point your attention at one thing and take the first step in that direction."
+  },
+  "2": {
+   "name": "Wisdom",
+   "canonical": "Knowing what to attend to",
+   "operation": "Go with what you already know before you reason about it: notice which part matters, begin with that part, and let the rest wait."
+  },
+  "3": {
+   "name": "Nurturing",
+   "canonical": "Care for what is growing",
+   "operation": "Tend the growing thing a little, today, and ask nothing of it yet: give it what it needs now, without steering it toward a result."
+  },
+  "4": {
+   "name": "Authority",
+   "canonical": "Establishing pattern and structure",
+   "operation": "Give the mess a shape it can be carried in: one rule, a time, a place, or the order things go in; the smallest structure that holds it."
+  },
+  "5": {
+   "name": "Culture",
+   "canonical": "Shared meaning and tradition",
+   "operation": "Hand one thing on the way it was handed to you, or join the practice other people keep; learn how it was done before you."
+  },
+  "6": {
+   "name": "Compassion",
+   "canonical": "Relational connection and alignment",
+   "operation": "Be with the person in it without fixing it: feel it alongside them, keep your own side, and stay in contact while it is hard."
+  },
+  "7": {
+   "name": "Drive",
+   "canonical": "Directed momentum toward goals",
+   "operation": "Move toward what you want, one step, today, in the direction you chose; keep going through the next bit of resistance."
+  },
+  "8": {
+   "name": "Fortitude",
+   "canonical": "Endurance and holding capacity",
+   "operation": "Carry it without tightening around it: keep your shape under the weight, keep the thing its real size, and bear the next stretch without deciding anything."
+  },
+  "9": {
+   "name": "Discipline",
+   "canonical": "Focused practice and refinement",
+   "operation": "Do the small practice again, alone, today, even when it feels pointless; repeat one piece of it until it improves."
+  },
+  "10": {
+   "name": "Source",
+   "canonical": "What is entering now",
+   "operation": "Meet what is arriving as it arrives: notice what is newly here right now and receive it, instead of bracing for it or opening the door early."
+  },
+  "11": {
+   "name": "Equity",
+   "canonical": "Fair calibration and balance",
+   "operation": "Put it back in proportion: give back what is owed and take what is yours, adjust the share until it is fair, then stop keeping score."
+  },
+  "12": {
+   "name": "Faith",
+   "canonical": "Purposeful release",
+   "operation": "Let go of the thing you are gripping, on purpose: put it down, leave your hands empty a while, and keep the act while giving up the outcome."
+  },
+  "13": {
+   "name": "Transformation",
+   "canonical": "Necessary endings and clearing",
+   "operation": "Let the thing end that is already over: close it, honour it, mark the ending with a plain act, and do not reopen it."
+  },
+  "14": {
+   "name": "Tune",
+   "canonical": "Dynamic equilibrium",
+   "operation": "Adjust one thing a little and then stop: add or take away a small amount, feel the difference, and find the centre by small corrections, not a lurch."
+  },
+  "15": {
+   "name": "Abstraction",
+   "canonical": "Pure pattern, freed from literal",
+   "operation": "Look at how it works underneath this one case: trace the pattern across the last few times, say the mechanism in one line, and change nothing yet."
+  },
+  "16": {
+   "name": "Breakthrough",
+   "canonical": "Sudden clearing of false structure",
+   "operation": "Stop holding up the thing that cannot hold and let it come down; clear what fell, and stand in the gap without rebuilding yet."
+  },
+  "17": {
+   "name": "Inspiration",
+   "canonical": "Aspirational pull toward light",
+   "operation": "Turn toward what you actually want: let yourself want it, plainly, pick the one you would be sorriest to lose, and face it again."
+  },
+  "18": {
+   "name": "Imagination",
+   "canonical": "Navigating ambiguity",
+   "operation": "Take the next step with only enough light for that step: picture how it could turn out well, keep the picture, and do not demand the whole road."
+  },
+  "19": {
+   "name": "Actualization",
+   "canonical": "Becoming what you are",
+   "operation": "Do the thing in your own way without proving anything: let what you are show, stop performing it, and put your own name on what is already yours."
+  },
+  "20": {
+   "name": "Recognition",
+   "canonical": "Seeing the whole pattern",
+   "operation": "Look at the same thing longer until it shows you more: see the whole pattern you are standing inside, with yourself marked on it."
+  },
+  "21": {
+   "name": "Creation",
+   "canonical": "Integration and completion",
+   "operation": "Finish the thing that has been waiting on its last step: close it, gather what it became, and leave the door open for what comes next."
+  },
+  "22": {
+   "name": "Activation",
+   "canonical": "Beginning of pure potential through Intent. The spark before direction.",
+   "operation": "Begin while it is still nothing in particular: catch the first spark, start without deciding what it is for, and let the impulse move before there is a plan."
+  },
+  "23": {
+   "name": "Orientation",
+   "canonical": "Decisive direction through aspiration. Choosing which star to steer by.",
+   "operation": "Choose one direction because it is what you want, and go that way: stop surveying, decide from the wanting rather than the logic, and face one way for a while."
+  },
+  "24": {
+   "name": "Assertion",
+   "canonical": "Primal claim of structure through Intent. Expansive declaration outward.",
+   "operation": "Say the shape of it out loud, in the open, before anyone asks: claim the structure as yours and state the order of things once, without arguing it."
+  },
+  "25": {
+   "name": "Alignment",
+   "canonical": "Peaceful momentum, stable drive. Intent finding its natural rhythm.",
+   "operation": "Move at the pace your feeling can sustain: let what you want and what you will do go the same way, and keep a steady rhythm rather than a surge."
+  },
+  "26": {
+   "name": "Dedication",
+   "canonical": "Internal practical release through Intent. Testing commitment through engagement.",
+   "operation": "Let the hard part test what you are committed to: engage it on purpose, drop the approach that is not working, and keep the purpose."
+  },
+  "27": {
+   "name": "Honor",
+   "canonical": "External acknowledgment of sacrifice. Intent visible and honored.",
+   "operation": "Do the giving where it can be seen by the people it is for, this time, without a word about it; and accept the acknowledgment when it comes."
+  },
+  "28": {
+   "name": "Resolve",
+   "canonical": "Gathered determination, harvested momentum. Defending chosen direction.",
+   "operation": "Defend the direction you chose against the next push: gather your determination, keep the heading when it is contested, and refuse the pull off course once more."
+  },
+  "29": {
+   "name": "Command",
+   "canonical": "Deep authority, threshold structure. Intent moving with unstoppable clarity.",
+   "operation": "Decide it and act on it the same day, without explaining: let the decision act instead of announcing it, and carry it through."
+  },
+  "30": {
+   "name": "Resilience",
+   "canonical": "Abundant persistence through aspiration. Strength from continued hoping.",
+   "operation": "Keep going toward what you chose after everything that has happened: carry on through another stretch of doubt without needing a sign."
+  },
+  "31": {
+   "name": "Realization",
+   "canonical": "Completion of potential through Intent. Carrying what pure possibility became.",
+   "operation": "Carry what you began all the way into form: bring the possibility to its full size and let what was only possible stand finished."
+  },
+  "32": {
+   "name": "Perception",
+   "canonical": "Beginning of clear seeing. The first cut of clarity arising.",
+   "operation": "Look before you interpret: see the thing as if for the first time, describe what is in front of you in plain lines, and draw no conclusions yet."
+  },
+  "33": {
+   "name": "Reflection",
+   "canonical": "Decisive inner knowing. Mind holding truth before declaring it.",
+   "operation": "Hold what you know a while before saying it: weigh it, keep two true things without declaring either, and write both sides down before you speak."
+  },
+  "34": {
+   "name": "Calculation",
+   "canonical": "Primal analysis, expansive thought. Pattern recognition at work.",
+   "operation": "Work it through to what actually follows: cut through the story, count it out, read what the numbers or the facts show, and reason it from the start once."
+  },
+  "35": {
+   "name": "Repose",
+   "canonical": "Peaceful stability through cognition. Mind at rest, calibrating.",
+   "operation": "Put the problem down and let your mind rest: stop adjusting for an hour, sit still until things settle, and rest in the balance you already have."
+  },
+  "36": {
+   "name": "Honing",
+   "canonical": "Internal practical cognition. Refining perception through careful distinction.",
+   "operation": "Sort what matters from what does not, carefully: strike one thing from the list that does not serve, and sharpen one skill by repeating its hardest part."
+  },
+  "37": {
+   "name": "Guidance",
+   "canonical": "External direction through discipline. Mind finding passage, showing the way.",
+   "operation": "Show someone the way you found: walk the route with a person who is lost on it, give directions plainly once, and let them walk it."
+  },
+  "38": {
+   "name": "Reconciliation",
+   "canonical": "Gathering thoughts into alignment. Strategic mental integration.",
+   "operation": "Gather your scattered thoughts into one line: bring the two sides of your thinking into one plan, and sort the pieces into a shape you can act on."
+  },
+  "39": {
+   "name": "Immersion",
+   "canonical": "Deep threshold of abstraction. Mind exploring its own depths.",
+   "operation": "Go all the way into it until you meet its edge: follow the thought past where it is comfortable, stay in the depth, and read the hardest part twice before stopping."
+  },
+  "40": {
+   "name": "Discernment",
+   "canonical": "Abundant knowing, many truths held. The fullness of perception.",
+   "operation": "Let several things be true at once and act on one: sort the pulls on you from each other, and mark which of them are actually yours."
+  },
+  "41": {
+   "name": "Clarity",
+   "canonical": "Completion of cognition. Full seeing, nothing hidden.",
+   "operation": "See the whole of it with nothing hidden: lay every piece out where you can see them at once, and look until there is nothing left to see."
+  },
+  "42": {
+   "name": "Receptivity",
+   "canonical": "Beginning of felt awareness. Heart open, ready to receive.",
+   "operation": "Open before anything has arrived: let the feeling in without deciding what it is, and sit with nothing in your hands and let what comes, come."
+  },
+  "43": {
+   "name": "Merge",
+   "canonical": "Decisive connection through vision. Two becoming one flow.",
+   "operation": "Choose one connection and go with it: join the other person in the work so the two of you move as one, and meet them in the middle."
+  },
+  "44": {
+   "name": "Celebration",
+   "canonical": "Primal joy through shared meaning. Community in celebration.",
+   "operation": "Share the good thing with the people it belongs to, on the day it happens: let the gladness go out to the room, and celebrate with them, not after them."
+  },
+  "45": {
+   "name": "Reverie",
+   "canonical": "Peaceful connection, stable feeling. Sitting with what the heart knows.",
+   "operation": "Sit with what your heart already knows: let the feeling settle, rest in the connection without doing anything with it, and spend time with what you love with no task attached."
+  },
+  "46": {
+   "name": "Conscience",
+   "canonical": "Internal felt-sense of fairness. The private moral compass that knows what's right.",
+   "operation": "Act on your private sense of what is right: do the fair thing where no one will see, and return the small thing you owe before anyone asks."
+  },
+  "47": {
+   "name": "Reciprocity",
+   "canonical": "External fair exchange. Giving and receiving in balance.",
+   "operation": "Give one thing and take one thing, in balance: accept what is offered for what you gave, return the favour at its true size, and let the exchange run both ways."
+  },
+  "48": {
+   "name": "Allure",
+   "canonical": "Gathering emotional possibilities. The pull of what might be felt.",
+   "operation": "Let yourself be drawn before you choose: look at the feelings that might be felt, follow the pull a little way, and go once toward the thing that draws you to see it up close."
+  },
+  "49": {
+   "name": "Passage",
+   "canonical": "Deep threshold of shared meaning. Walking toward what connects.",
+   "operation": "Walk toward what truly connects and leave what does not: go deeper into the shared thing than is comfortable, and leave the hollow ritual for the living one."
+  },
+  "50": {
+   "name": "Fulfillment",
+   "canonical": "Abundant vision realized. Deep satisfaction in what was imagined.",
+   "operation": "Let the satisfaction of a finished thing land: enjoy what you imagined now that it is here, use it for a while instead of improving it, and reach for nothing past it."
+  },
+  "51": {
+   "name": "Completion",
+   "canonical": "Emotional wholeness achieved. Full awareness of felt connection.",
+   "operation": "Feel the whole of it: name every feeling in it, none crossed out, and know the feeling fully before you move on."
+  },
+  "52": {
+   "name": "Definition",
+   "canonical": "Beginning of directed form. The seed of what will be built.",
+   "operation": "Decide what this is for before you spend it: hold the first resource in your hand, say in one line what will be built, and name only that."
+  },
+  "53": {
+   "name": "Stewardship",
+   "canonical": "Decisive cultivation through form. Tending what grows with responsible care.",
+   "operation": "Tend what grows with a steady, responsible hand: balance the competing demands and keep tending, without clutching."
+  },
+  "54": {
+   "name": "Formation",
+   "canonical": "Primal structure emerging. Skilled work building something new.",
+   "operation": "Build the first new thing on the cleared ground: make it small and skilled, with your own hands, where the false thing fell."
+  },
+  "55": {
+   "name": "Preservation",
+   "canonical": "Peaceful stability through form. Holding what transformation produced.",
+   "operation": "Keep what the change produced as it is: hold the new form steady instead of reopening it, protect what the ending won, and set the finished thing down in a form that keeps."
+  },
+  "56": {
+   "name": "Steadfastness",
+   "canonical": "Internal practical strength. Persisting through material pressure.",
+   "operation": "Keep going on your own reserves through the pressure: carry your own share, all of it, without checking on anyone else, and stand firm."
+  },
+  "57": {
+   "name": "Support",
+   "canonical": "External strength shared. Resources flowing where needed.",
+   "operation": "Share your strength where it is needed: give one concrete piece of help and finish it, and hold the other person up with what you have."
+  },
+  "58": {
+   "name": "Harvest",
+   "canonical": "Gathering what transformation grew. Patient waiting rewarded.",
+   "operation": "Gather what the change grew: count what the ending gave you, take in the yield, and collect the fruit of the patient wait."
+  },
+  "59": {
+   "name": "Commitment",
+   "canonical": "Deep threshold of new structure. Dedicated craft, persistent building.",
+   "operation": "Keep building with sustained craft: return to the work daily, do today's part of the long build, and deepen the mastery by persisting."
+  },
+  "60": {
+   "name": "Flourishing",
+   "canonical": "Abundant growth achieved. Enjoying what careful tending produced.",
+   "operation": "Enjoy what careful tending has grown: let the abundance be seen and used, take pleasure in the grown thing, and rest in the result."
+  },
+  "61": {
+   "name": "Achievement",
+   "canonical": "Completion of directed form. Legacy established through sustained will.",
+   "operation": "Establish the thing that lasts: finish it by sustained will, and complete the form so it stands without you."
+  },
+  "62": {
+   "name": "Initiate of Intent",
+   "canonical": "Inspiration-as-behavior: radiant confidence, authentic self-expression.",
+   "operation": "Start the thing for the spark of starting: explore a direction before it has a destination, and ask the beginner's question about where to go."
+  },
+  "63": {
+   "name": "Catalyst of Intent",
+   "canonical": "Authority-as-behavior: decisive leadership, boundary-setting, charging forward.",
+   "operation": "Cut through the inertia with one decisive act: set a boundary and hold it, charge forward on the decision you made, and lead the change by moving first."
+  },
+  "64": {
+   "name": "Steward of Intent",
+   "canonical": "Drive-as-behavior: sustained motivation, courage, tending the fire without burning out.",
+   "operation": "Tend the fire without burning out: keep the motivation warm with steady care, feed the drive a little at a time, and hold the direction day after day."
+  },
+  "65": {
+   "name": "Executor of Intent",
+   "canonical": "Faith-as-behavior: surrender, duty-bearing, knowing when to release as well as push.",
+   "operation": "Release what is done and keep what is not: bear the duty, drop one condition you set, take the step, and know what to let go of."
+  },
+  "66": {
+   "name": "Initiate of Cognition",
+   "canonical": "Wisdom-as-behavior: listening, discerning, perceiving with fresh curiosity.",
+   "operation": "Listen as a student of it: ask the question you do not know the answer to, follow a raw curiosity, and look with fresh eyes before judging."
+  },
+  "67": {
+   "name": "Catalyst of Cognition",
+   "canonical": "Abstraction-as-behavior: strategic reasoning, cutting through to pure logic.",
+   "operation": "Reason it through fast and cleanly: cut to the logic, think it to its sharp point, plan the next three moves, and act on it."
+  },
+  "68": {
+   "name": "Steward of Cognition",
+   "canonical": "Tune-as-behavior: calibration, truth-telling tempered with discernment.",
+   "operation": "Tell the truth with care for when and how: say the hard thing gently, once, in the form the other person can hear, and keep the clarity steady."
+  },
+  "69": {
+   "name": "Executor of Cognition",
+   "canonical": "Discipline-as-behavior: rigorous inquiry, method, embodied clarity.",
+   "operation": "Write the facts down in order, without feeling words: apply the method once, rigorously, and judge it by the discipline, not the mood."
+  },
+  "70": {
+   "name": "Initiate of Resonance",
+   "canonical": "Imagination-as-behavior: sensing, envisioning, navigating ambiguity with fresh wonder.",
+   "operation": "Sense what has not happened yet, with wonder: envision it freshly, feel toward it with fresh sensitivity, dream the next step and take it."
+  },
+  "71": {
+   "name": "Catalyst of Resonance",
+   "canonical": "Culture-as-behavior: teaching, ritualizing, pursuing emotional truth through meaning.",
+   "operation": "Pursue the emotional truth with someone, in the open: make a ritual of the shared thing, and teach what you feel by doing it with others."
+  },
+  "72": {
+   "name": "Steward of Resonance",
+   "canonical": "Compassion-as-behavior: relational coherence, empathy, holding space for feeling.",
+   "operation": "Make room for what the other person feels without fixing it: ask how it feels to them, stay with the answer, and keep the connection while it is hard without drowning in it."
+  },
+  "73": {
+   "name": "Executor of Resonance",
+   "canonical": "Equity-as-behavior: fair emotional judgment, principled governance of feeling.",
+   "operation": "Make the fair call about a feeling, yourself: judge the hurt fairly after it has finished, by principle rather than reaction, and weigh what it costs them against what it gives."
+  },
+  "74": {
+   "name": "Initiate of Structure",
+   "canonical": "Nurturing-as-behavior: tending, growing, learning how material things flourish.",
+   "operation": "Learn how the thing grows by tending it: apprentice yourself to it, care for it with fresh hands, and see what it needs."
+  },
+  "75": {
+   "name": "Catalyst of Structure",
+   "canonical": "Breakthrough-as-behavior: forcing structural change into reality, slow but unstoppable.",
+   "operation": "Force the change into reality by steady effort: move the structure one real inch, slowly and without stopping, and build the change by persistent work."
+  },
+  "76": {
+   "name": "Steward of Structure",
+   "canonical": "Transformation-as-behavior: releasing, transforming, creating conditions for sustainable material growth.",
+   "operation": "Release what is done and keep what serves: clear what is finished so the rest can grow, and keep the material thing sustainable."
+  },
+  "77": {
+   "name": "Executor of Structure",
+   "canonical": "Fortitude-as-behavior: embodied strength, stabilizing power, building that endures.",
+   "operation": "Build the thing that endures: hold the weight as a builder holds stone, and lay the one step you can see, solidly."
+  }
+ },
+ "mechanism": {
+  "1": {
+   "canonical": "GROWTH (Balanced): an invitation, optional by definition; what this balance is free to feed next.",
+   "plain": "This is an invitation, not a fix: what this working part of you could feed next, if you want it to."
+  },
+  "2": {
+   "canonical": "DIAGONAL (Too Much): the capacity in excess crosses the map to the opposite element; the medicine is the partner's own action.",
+   "plain": "The way through is to do what this other capacity does. It is the opposite kind of thing from what you are doing too much of."
+  },
+  "3": {
+   "canonical": "VERTICAL (Too Little): the seat is running on empty; the medicine is to charge its vertical twin — energy into the partner's own action pulls the current through the starved seat. Never push effort or feeling into the empty seat directly.",
+   "plain": "The way through is not to push harder at the thing you are doing too little of. It is to do this other capacity's own action; doing that is what brings the first one back."
+  },
+  "4": {
+   "canonical": "REDUCTION (Unacknowledged): authorship misattributed; the medicine returns toward the simpler, earlier form of the same line.",
+   "plain": "The way through is a simpler, earlier version of the same thing you are already doing, done as your own."
+  }
+ }
 }

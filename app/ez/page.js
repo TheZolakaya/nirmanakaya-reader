@@ -32,12 +32,14 @@ import { PERSONA_KEYS, PERSONAS_ON, lintVoice } from '../../lib/ezPrompts'; // .
 import PLAIN_PROPS from '../../lib/data/plain_propositions.json'; // .713 the panels' source operation, for the saved trace
 import { allowedNamesFrom, personFlags, scrubReply } from '../../lib/personGuard'; // .707 THE PERSON GUARD — one implementation for every surface
 import DEFS from '../../lib/data/nirmanakaya_78_definitions.json';
+import { drawLabel, drawBrief, discourseBlock, REGISTER_LINE, BALANCED_LINE, signatureInPlayBlock, talkHead, TALK_TAIL } from '../../lib/ezTalk'; // Pass Two (2026-10-11): the later turn's composition, shared with the bench
 import { STARTER_KINDS, DOOR_SUBS, STARTERS, dailyPoolFor } from '../../lib/starters';
 import { buildKernel, kernelBlock } from '../../lib/kernel';
 import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record';
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
+import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets'; // Pass Two (2026-10-11): the prompt-set flag — NEXT_PUBLIC_READER_PROMPT_SET, or ?prompt= for an admin; 'handing' = today's bytes
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -342,13 +344,6 @@ const benchReply = (msg) => {
 // fences and trailing commas before giving up. Same parser the Bake-off uses.
 function parseJson(text) { return parseReaderJson(text); }
 
-function drawLabel(d) {
-  if (!d) return '';
-  const t = getComponent(d.transient);
-  const s = STATUSES[d.status];
-  const seat = ARCHETYPES[d.position]?.name;
-  return `${s?.prefix || 'Balanced'} ${t?.name || '?'}${seat ? ` in ${seat}` : ''}`;
-}
 
 // THE BRIEF for a card drawn mid-conversation. Until 2026-09-15 the Reader was told six words
 // about a reflect or forge card ("Too Little Completion in Drive") and nothing about its
@@ -363,12 +358,6 @@ const MECHANISM = {
 };
 const medicineRecord = (d) => medicineRecordOf(d, DEFS);
 
-// THE DRAW, FROM THE RECORD — the same full record the advanced reader works from (founder,
-// 2026-09-17: "the easy reader is easy on the user, not on the Reader API"). Used on every
-// card-carrying turn; the opening adds the teleology block as well.
-function drawBrief(d) {
-  return drawRecord(d, DEFS);
-}
 
 // The medicine is computed, not generated: every imbalanced card already knows its
 // correction card and the geometry that gets there.
@@ -689,21 +678,6 @@ export default function EZPage() {
   };
   // .491: the dial, in order, and each stop's colour on the button
   const VOICE_ORDER = ['plain', 'grown', 'map', 'deep', 'mystical'];
-  // .536: THE REGISTER RIDES IN THE TURN. The five voices lived only at the tail of an ~18k-token system prompt, and
-  // flash weighs the turn far more than the system prompt (the question shape, the beinghood verdict, the trauma line
-  // and the AI question all had to move into the turn before they held). Founder: "not noticing much difference in
-  // our new voices." One line, every reader-facing turn, says which register this reply is in.
-  const REGISTER_LINE = {
-    plain: "PLAIN WORDS. Short everyday sentences a smart twelve-year-old follows; NONE of the map's language on glass — no signature, seat, status, medicine, house, channel or stage names; the meaning in their words only.",
-    grown: "PLAIN WORDS, GROWN. For an adult who has never seen the map: plain, not simple — full sentences, adult vocabulary, no condescension — and still NONE of the map's language on glass.",
-    map: "THE MAP'S WORDS. Name the signature, the seat, the status and the medicine by their names, and say what each is in the same breath; ordinary depth, the map speaking as itself.",
-    deep: "DEEP. The map's words AND the derivation shown — how this signature in this seat with this status fixes this medicine, step by step, in a collegiate register; take the room you need.",
-    friend: "FRIEND. The same reading told by a friend across the kitchen table — warm, direct, informal; the voice law and the persona card in the system prompt govern every word; no map's words.", // .712
-    coach: "COACH. The same reading told by a good coach — what is happening in a sentence or two, then the move, what done looks like, how they will know; no map's words.",
-    storyteller: "STORYTELLER. The same reading told as how this kind of thing tends to go, then turned back to them — the pattern, never an invented backstory; no map's words.",
-    mystic: "MYSTIC. The same reading told with reverence and weight — every sentence still checkable, no prophecy, the larger philosophy left to Go deeper; no map's words.",
-    mystical: "MYSTICAL. The house's own philosophy leaned all the way in — purpose (why this, now), the present as the only place authorship lives, the pillars, the geometry named and felt; no borrowed spirituality, only this house's; take the room you need.",
-  };
   const VOICE_STYLE = {
     plain: 'bg-amber-950/40 border-amber-600/40 text-amber-300 hover:bg-amber-900/40',
     grown: 'bg-violet-950/40 border-violet-500/40 text-violet-200 hover:bg-violet-900/40',
@@ -1141,7 +1115,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } }, usage }) /* .713 + the panels · .746 + the voice ledger */
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } }, usage }) /* .713 + the panels · .746 + the voice ledger */
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
@@ -1355,33 +1329,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     return () => document.removeEventListener('click', onTap);
   }, [speakingId, voiceOut]); // eslint-disable-line react-hooks/exhaustive-deps
   // .640: the quiet manner (.614) was judged by the founder — allegory, not directness — and retired; the Handing is the one manner
-  const promptBase = handing ? HANDING_SET.BASE_SYSTEM : BASE_SYSTEM;
-  const promptOver = handing ? { rules: HANDING_SET.EZ_RULES } : {};
+  // Pass Two: the prompt set in force — the client default, or ?prompt=<name> for a signed-in admin (the flag stays invisible to everyone else)
+  const promptSet = promptSetFor((() => { try { const q = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('prompt') : null; return q && isAdmin(user) ? q : null; } catch { return null; } })());
+  const promptBaseFor = (v) => (handing ? baseFor(promptSet, v) : BASE_SYSTEM);
+  const promptOverFor = (v) => { if (!handing) return {}; const vr = promptSet.voiceRules(v); return { rules: promptSet.EZ_RULES, ...(typeof vr === 'string' ? { voiceRules: vr } : {}) }; };
+  const promptBase = promptBaseFor(voice);
+  const promptOver = promptOverFor(voice);
   const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
 
-  const discourseText = useCallback((list) => list.map((t) => {
-    if (t.role === 'you') {
-      const verb = t.mode === 'locate' ? 'ASKER ASKS THE FIELD WHERE IT IS (a locating signature was drawn)' : t.mode === 'reflect' ? 'ASKER REFLECTS (puts a question to the field)'
-        : t.mode === 'forge' ? 'ASKER FORGES (declares)' : t.act ? 'ASKER (asks for one small thing to do)' : 'ASKER';
-      return `${verb}: "${t.text}"`;
-    }
-    if (t.role === 'catchup') return '[catch-up signature shown]';
-    // .528: the Reader's own medicine and question ride with its turn — later turns used to see 'One question.' and nothing
-    const gave = t.medicine ? `\n  THE MEDICINE IT GAVE: ${t.medicine}` : '';
-    const askedQ = t.question ? `\n  IT ASKED: "${t.question}"` : '';
-    return `READER (you — your own earlier words, never the asker's)${t.draw ? (t.mode === 'locate' ? ` (reading the locating signature ${drawLabel(t.draw)} as a pointer)` : ` (on the newly drawn ${drawLabel(t.draw)})`) : t.act ? ' (one small act, then quiet)' : ''}: ${t.text}${gave}${askedQ}`; // .699: labelled as the Reader's own
-  }), []);
-
-  // Every turn used to be re-sent in full on every call, so a long session paid more and more
-  // for its own history. Keep the newest within a budget and say how much was dropped.
-  const discourseBlock = useCallback((list) => {
-    let lines = discourseText(list);
-    const CAP = 12000;
-    let dropped = 0;
-    while (lines.length > 1 && lines.join('\n\n').length > CAP) { lines = lines.slice(1); dropped += 1; }
-    const note = dropped ? `\n\n(${dropped} earlier turn${dropped > 1 ? 's' : ''} omitted for length; the reading and its signatures are unchanged.)` : '';
-    return lines.join('\n\n') + note;
-  }, [discourseText]);
 
   const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // .507: extra rides in the body (turn: 'talk' | 'card' | 'door') // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
     const t0 = Date.now();
@@ -1521,7 +1476,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
           } catch (e) { console.warn('[op-repair] skipped:', e?.message); }
         }
         if (left.length && String(system).startsWith(systemPrompt)) {
-          const plainSys = ezSystem(promptBase, 'plain', promptOver) + String(system).slice(systemPrompt.length);
+          const plainSys = ezSystem(promptBaseFor('plain'), 'plain', promptOverFor('plain')) + String(system).slice(systemPrompt.length);
           const pd = await rawCall(userMessage, plainSys, maxTokens, { ...extra, register: 'plain' }); const po = parseJson(pd.reading);
           if (po?.reader) { console.warn('[persona] fallback to Plain:', vNow, left.map((f) => f.code).join(',')); obj = po; data = pd; obj.personaFallback = { from: vNow, faults: left.map((f) => f.code) }; }
         }
@@ -1713,7 +1668,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     }
     try {
       const sk = spreadKeyFor(cardCount);
-      const drawText = fmtDraw(newDraws, 'discover', sk, false, null, null, null, true, q); // 2026-10-04: the question reaches the record's FIELD line
+      const drawText = fmtDraw(newDraws, 'discover', sk, false, null, null, null, true, q, '', handing ? recordOpts(promptSet) : null); // 2026-10-04: the question reaches the record's FIELD line; Pass Two: the set's record options
       const history = await loadHistory(newDraws);
       userContextRef.current = history;
       const ctx = history ? `${history}\n\n` : '';
@@ -1721,8 +1676,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         ? `\n\nTHE DOOR THEY CAME THROUGH: ${door.label} — "${door.breath}" (the ${door.house} house)${door.viaDaily ? ' — CHOSEN FOR THEM AT RANDOM as a daily reading; they brought no question of their own.' : ''}. This is where they located themselves before any signature was drawn. Let it frame what you attend to; it is not a verdict, and the signatures still say what they say.`
         : '';
       const seed = seedFor(newDraws[0], q, newDraws, []); // .530: the geometry + teleology of this draw, after the record
-      const tele = seed.block;
-      const msg = buildOpeningMessage({ ctx, question: q, doorBlock, frame: frameInForce, drawText, tele }); // 2026-10-04 ONE READER: the same composition the API uses (lib/ezOpening.js)
+      const tele = handing && !wantsTele(promptSet, voice) ? '' : seed.block; // Pass Two: the geometry block only for the voices the set names
+      const msg = buildOpeningMessage({ ctx, question: q, doorBlock, frame: frameInForce, drawText, tele, ...(handing ? openingOpts(promptSet) : {}) }); // 2026-10-04 ONE READER: the same composition the API uses (lib/ezOpening.js)
       let { obj, usage: u } = await callReader(msg, undefined, undefined, { turn: 'opening' }); // .674: the opening names itself so the empty-medicine guard fires here and nowhere else (the floor hook and the route branch only on 'talk')
       let fr = frame; // .569: the frame in force for this reading — chosen by the person, or named by the Reader just now
       if (!fr) { const named = pickFrame(obj?.frame); if (named) { fr = named; setFrame(named); setFrameDetail(named.detail || ''); } }
@@ -1739,7 +1694,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       try {
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
-          synthesis: { _ez: { version: EZ_VERSION, turns: [first], voice, ...(fr ? { frame: fr } : {}) } },
+          synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns: [first], voice, ...(fr ? { frame: fr } : {}) } },
           mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
         });
         if (data?.id) { setSavedId(data.id); markInflight({ savedId: data.id }); crumb('saved'); try { const orphan = localStorage.getItem('nkya_ez_orphan_crash'); if (orphan) { localStorage.removeItem('nkya_ez_orphan_crash'); updateReadingContent(data.id, { crashLog: { ...JSON.parse(orphan), orphan: true } }).catch(() => {}); } } catch {} } // .721 the trail: the reading is in flight; a reset that died before its reading saved rides on this one
@@ -1828,10 +1783,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         ? `\n\nTHE FIELD WAS ASKED WHERE IT IS, AND DREW:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }], true); return s.block ? `\n${s.block}` : ''; })()}`
         : newDraw
         ? `\n\nA NEW SIGNATURE WAS DRAWN IN RESPONSE:\n${drawBrief(newDraw)}${(() => { const s = seedFor(newDraw, question, draws, [...withYou, { draw: newDraw }]); return s.block ? `\n${s.block}` : ''; })()}\nInterpret it as the field's answer to what they just ${mode === 'reflect' ? 'asked' : 'declared'}, in relation to the reading already on the table. THIS SIGNATURE'S MEDICINE LEADS NOW. The opening draw's medicine is at most secondary from here; do not call it the way through. Fill "medicine" from THIS signature's Rebalancer and mechanism, and administer it — its signature's own meaning must be in your words.`
-        : `\n\nTHE SIGNATURE IN PLAY (its medicine governs this turn):\n${drawBrief(fieldNow || draws[0])}`;
+        : signatureInPlayBlock(fieldNow || draws[0]); // lib/ezTalk
       if (loc) loc.balanced = (fieldNow || draws[0])?.status === 1; // Balanced → the invitation only needs an address
       // .558: a BALANCED card in play is never read as a gap (the founder, on Balanced Formation: "why do you keep leaning on a gap?")
-      const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? `\n\nTHE SIGNATURE IN PLAY IS BALANCED. Nothing is missing and nothing is broken; do not find a gap, a floor that isn't there, a piece that "isn't online". The growth partner is an INVITATION — what this balance is free to feed next — and it is offered as one, never as a deficiency; if they push back that things are fine, they are right, and you say so without defending a gap you named.` : '';
+      const balancedLine = !newDraw && (fieldNow || draws[0])?.status === 1 ? BALANCED_LINE : ''; // lib/ezTalk
       // .563: the pointer's distance from the card they asked about, and from any earlier pointer (does the field agree, or scatter?)
       const pointerDistances = (newDraw && mode === 'locate') ? [
         distanceLine(newDraw, fieldNow || draws[0]),
@@ -1842,8 +1797,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${ctx}QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}\n\nRespond to the asker's latest turn. Follow EZ MODE (a later turn). JSON only.`;
-      let { obj } = await callReader(msg, moveReg ? ezSystem(promptBase, moveReg, promptOver) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
+      const msg = `${talkHead({ ctx, question: sanitizeForAPI(question), frame, drawText })}${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}${TALK_TAIL}`; // Pass Two: head and tail from lib/ezTalk, the same bytes the bench composes
+      let { obj } = await callReader(msg, moveReg ? ezSystem(promptBaseFor(moveReg), moveReg, promptOverFor(moveReg)) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode === 'locate') { // .561: a locating turn's medicine, if any, must be the ORIGINAL card's — never the pointer's
         const mm = medicineMismatch(obj, fieldNow || draws[0]);
         if (mm) { console.warn('[medicine check] locating turn named', mm.got, 'wanted', mm.want, '(the original signature) — retrying'); const r2 = await callReader(`${msg}\n\nYOUR TURN NAMED "${mm.got}" AS THE MEDICINE. The locating signature is a POINTER and has no medicine here; the only medicine in this reading is the ORIGINAL signature's, ${mm.want}, and it lands only once the thing is found. Rewrite the turn: candidates and the one question; "medicine" and "medicineCard" empty unless found — and if found, ${mm.want}. JSON only.`, systemPrompt, undefined, { turn: 'card' }); if (r2?.obj?.reader) obj = r2.obj; }
@@ -2058,9 +2013,9 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
       const ask = floor === 1 ? 'Write ring 1. JSON only.' : `Write the ${floor} floor. JSON only.`;
       const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}\n\n${ask}`;
-      let data = await rawCall(msg, brazierSystem(floor, voice), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469); .700 the voice in force reaches the floors
+      let data = await rawCall(msg, brazierSystem(floor, voice, handing ? promptSet : null), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469); .700 the voice in force reaches the floors
       let obj = parseJson(data.reading);
-      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor, voice), 800); obj = parseJson(data.reading); }
+      if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor, voice, handing ? promptSet : null), 800); obj = parseJson(data.reading); }
       if (!obj?.text) throw new Error('The brazier went out — try again.');
       // the word limits are hard (ring 1 is 90–135 per Keel's spec; the floors 170 / 170 / 240)
       // .448: a 15% overrun is accepted — the ledger showed the moon and the mechanism each
@@ -2069,7 +2024,7 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
       const LIMIT = { 1: 135, meaning: 250, moon: 250, mechanism: 300 }[floor]; // meaning/moon 170→250 (.469)
       const words = (t) => String(t).split(/\s+/).filter(Boolean).length;
       if (words(obj.text) > LIMIT * 1.15) {
-        data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor), 800);
+        data = await rawCall(`${msg}\n\nYOUR LAST RENDER WAS ${words(obj.text)} WORDS; THE HARD LIMIT IS ${LIMIT}. Rewrite it under the limit, same facts, same mechanism:\n${obj.text}`, brazierSystem(floor, null, handing ? promptSet : null), 800);
         const again = parseJson(data.reading);
         if (again?.text && words(again.text) <= words(obj.text)) obj = again;
       }
@@ -2077,7 +2032,7 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
         const pf = personFlags(obj.text, askerAllowed());
         if (pf.length) { const d2 = await rawCall(`${msg}
 
-YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same meaning, without that.`, brazierSystem(floor, voice), 1000); const o2 = parseJson(d2.reading); if (o2?.text && !personFlags(o2.text, askerAllowed()).length) obj = o2; }
+YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same meaning, without that.`, brazierSystem(floor, voice, handing ? promptSet : null), 1000); const o2 = parseJson(d2.reading); if (o2?.text && !personFlags(o2.text, askerAllowed()).length) obj = o2; }
         const ch = scrubReply(obj, askerAllowed(), askerTexts(), ['text']); if (ch.length) console.warn('[person] floor fallback:', ch.join(' | '));
       }
       logPanel(floor === 1 ? 'words-to-the-whys' : `floor-${floor}`, obj.text, { voice }); // .713
@@ -2160,7 +2115,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     setResolution(k);
     if (!savedId) return;
     try {
-      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } } });
+      await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
     } catch {}
   };

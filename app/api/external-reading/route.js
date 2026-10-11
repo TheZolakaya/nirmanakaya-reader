@@ -53,6 +53,7 @@ export async function GET(request) {
       mode: searchParams.get('mode') || 'discover',
       fast: searchParams.get('fast') !== 'false',
       voice: searchParams.get('voice') || null, // .685: the register; absent = plain (what a user reads)
+      prompt_set: searchParams.get('prompt_set') || searchParams.get('promptSet') || null, // Pass Two: a named prompt set (handing | merge | constitution | constitution-short); absent = the server's default
       requestId: searchParams.get('requestId') || null,
       monitor: searchParams.get('monitor') || null,
       collectiveScope: searchParams.get('collectiveScope') || null,
