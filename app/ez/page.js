@@ -208,7 +208,7 @@ const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer word
 // prompt renders it in the KITCHEN register. Ring 1 is all kitchen; beneath it, three lanterns —
 // the meaning, the moon, the mechanism — each a floor of its own; only the mechanism carries the
 // one invitation into the full reader.
-const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the moon', mechanism: 'the mechanism' };
+const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the sky', mechanism: 'the mechanism' }; // .743: the key stays `moon` (saved readings, door slugs); the glass says the sky
 // .732 THE PICKERS (founder, phone): one light line under the frame — Read by · Told by · More — the current choice in tiny
 // text above each word. The WORD is drawn by us (a span), and an invisible native <select> lies over it to catch the tap and open
 // the system picker: iOS draws a native select's own text at its own size (the .730/.731 screenshots: "more ▾" at ~22px beside a
@@ -220,8 +220,8 @@ const PICK_SELECT = 'absolute inset-0 w-full h-full opacity-0 cursor-pointer';
 const OPT = { color: '#d4d4d8', background: '#18181b' };
 // .661 (Keel §10): the doors the Reader may recommend at the close, as the glass names them
 // a door as the model may name it → its key (the model sometimes writes the glass name: 'Find It', 'The moon', 'Words of the Wise')
-const panelKey = (x) => { const k = String(x || '').trim().toLowerCase().replace(/^the\s+/, '').replace(/[^a-z ]/g, '').trim(); return ({ 'words of the wise': 'whys', 'words to the whys': 'whys', 'go deeper': 'whys', why: 'whys', whys: 'whys', meaning: 'meaning', moon: 'moon', mechanism: 'mechanism', reflect: 'reflect', forge: 'forge', clarify: 'clarify', unpack: 'unpack', example: 'example', find: 'find', 'find it': 'find', medicine: 'medicine', dragon: 'dragon', 'face the dragon': 'dragon', step: 'step', 'one small step': 'step', 'small step': 'step' })[k] || null; };
-const NEXT_LABEL = { whys: 'Words to the Whys', meaning: 'The meaning', moon: 'The moon', mechanism: 'The mechanism', reflect: 'Reflect', forge: 'Forge', clarify: 'Clarify', unpack: 'Unpack', example: 'Example', find: 'Find it', medicine: 'The medicine', dragon: 'Face the dragon', step: 'One small step' }; // .661 (Keel §5): an option's own colours — the list no longer goes near-white on click
+const panelKey = (x) => { const k = String(x || '').trim().toLowerCase().replace(/^the\s+/, '').replace(/[^a-z ]/g, '').trim(); return ({ 'words of the wise': 'whys', 'words to the whys': 'whys', 'go deeper': 'whys', why: 'whys', whys: 'whys', meaning: 'meaning', moon: 'moon', sky: 'moon', 'the sky': 'moon', mechanism: 'mechanism', reflect: 'reflect', forge: 'forge', clarify: 'clarify', unpack: 'unpack', example: 'example', find: 'find', 'find it': 'find', medicine: 'medicine', dragon: 'dragon', 'face the dragon': 'dragon', step: 'step', 'one small step': 'step', 'small step': 'step' })[k] || null; };
+const NEXT_LABEL = { whys: 'Words to the Whys', meaning: 'The meaning', moon: 'The sky', mechanism: 'The mechanism', reflect: 'Reflect', forge: 'Forge', clarify: 'Clarify', unpack: 'Unpack', example: 'Example', find: 'Find it', medicine: 'The medicine', dragon: 'Face the dragon', step: 'One small step' }; // .661 (Keel §5): an option's own colours — the list no longer goes near-white on click
 // FACE THE DRAGON — Keel's eight, parked here for the CLOSE-row build (.444). Two are
 // opportunity-dragons (B1, B3) so 'dragon' never collapses into 'problem'.
 // GATED UNTIL THEIR EXEMPLARS FREEZE (founder's ruling R6): the meaning waits on his judgment of
@@ -1047,7 +1047,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (/YOUR LAST RENDER WAS \d+ WORDS/.test(m)) { const g = m.match(/Write the (\w+) floor/); return `${g ? 'the ' + g[1] : 'why (ring 1)'} (rewrite)`; }
     if (/NOT VALID JSON/.test(m)) return 'retry';
     if (/Write ring 1\. JSON only\./.test(m)) return 'why (ring 1)';
-    const f = m.match(/Write the (meaning|moon|mechanism) floor\. JSON only\./); if (f) return `the ${f[1]}`;
+    const f = m.match(/Write the (meaning|moon|mechanism) floor\. JSON only\./); if (f) return FLOOR_LABEL[f[1]];
     if (m.includes('FACE THE DRAGON.')) return 'face the dragon';
     if (m.includes('ONE SMALL REAL ACT')) return 'one small step';
     if (m.includes('THE MEDICINE, TAKEN.')) return 'the medicine';
@@ -1171,9 +1171,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // .644/.647 THE LABELS AND THE NARRATOR — stored clips (public/voice/labels/<voice>/<slug>.wav, scripts/voice_labels.mjs), preloaded,
   // played on their own element in a queue the turn's speech waits for.
   const NARRATOR = { bm_george: 'af_bella', am_michael: 'af_bella', am_puck: 'af_bella', bf_emma: 'bm_george', af_bella: 'bm_george', af_heart: 'bm_george' };
-  const LABEL_SLUGS = ['recommend', 'go-deeper', 'words-to-the-whys', 'the-meaning', 'the-moon', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
+  const LABEL_SLUGS = ['recommend', 'go-deeper', 'words-to-the-whys', 'the-meaning', 'the-moon', 'the-sky', 'the-mechanism', 'face-the-dragon', 'the-medicine', 'where-this-can-grow', 'one-small-step', 'summarize-and-wrap-up', 'more-choices', 'reflect', 'forge', 'clarify', 'unpack', 'example', 'find-it', 'catch-me-up'];
   // .661 (Keel §4): ONE string per stage, for the glass and the narrator both — [printed, clip slug]; the specific printed strings win
-  const STAGE = { writing: ['the Reader is writing…', 'the-reader-is-writing'], naming: ['the Reader is naming it…', 'the-reader-is-naming-it'], medicine: ['the Reader is opening the medicine…', 'the-reader-is-opening-the-medicine'], step: ['the Reader is finding the step…', 'the-reader-is-finding-the-step'], choices: ['the Reader is finding more choices…', 'the-reader-is-finding-more-choices'], history: ['the Reader is reading your history…', 'the-reader-is-reading-your-history'], meaning: ['the Reader is opening the meaning…', 'the-reader-is-opening-the-meaning'], moon: ['the Reader is opening the moon…', 'the-reader-is-opening-the-moon'], mechanism: ['the Reader is opening the mechanism…', 'the-reader-is-opening-the-mechanism'] };
+  const STAGE = { writing: ['the Reader is writing…', 'the-reader-is-writing'], naming: ['the Reader is naming it…', 'the-reader-is-naming-it'], medicine: ['the Reader is opening the medicine…', 'the-reader-is-opening-the-medicine'], step: ['the Reader is finding the step…', 'the-reader-is-finding-the-step'], choices: ['the Reader is finding more choices…', 'the-reader-is-finding-more-choices'], history: ['the Reader is reading your history…', 'the-reader-is-reading-your-history'], meaning: ['the Reader is opening the meaning…', 'the-reader-is-opening-the-meaning'], moon: ['the Reader is opening the sky…', 'the-reader-is-opening-the-sky'], mechanism: ['the Reader is opening the mechanism…', 'the-reader-is-opening-the-mechanism'] };
   const NARRATION_SLUGS = ['reading-your-now', ...Object.values(STAGE).map((x) => x[1])];
   const labelAudioRef = useRef(null); const labelQueue = useRef(Promise.resolve()); const clipCache = useRef(new Map());
   const clipSrc = (voice, slug) => clipCache.current.get(`${voice}/${slug}`) || `/voice/labels/${voice}/${slug}.wav`;
