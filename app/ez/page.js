@@ -2564,6 +2564,41 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             )}
   </>);
 
+  // .749 (founder): ONE QUESTION — for the latest turn with a question, the turn's frame hands its question, its moves row and its Recommend
+  // reveal to THE QUESTION frame above the box, so landing on the question shows the moves too. Once answered, the turn shows them again.
+  const hoisted = (t) => !!(lastReader && t.id === lastReader.id && lastReader.question && !wrapped);
+  const movesRow = (t) => (
+                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
+                      {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
+                      {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
+                        <button key={k} data-arm={`${t.id}-${k}`} onClick={twoTap(`${t.id}-${k}`, () => move(t.id, k), k)} title={tip}
+                          className={`${armedCls(`${t.id}-${k}`)} rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
+                          {label}
+                        </button>
+                      ))}
+                      {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip; .698 not on the wrap (founder: "contextually not relevant" there) */}
+                      {t.role !== 'wrap' && <button data-arm={`${t.id}-find`} onClick={twoTap(`${t.id}-find`, () => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }), 'find-it')} title="ask the field where it is — a locating signature is drawn and read as a pointer"
+                        className={armedCls(`${t.id}-find`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70"}>
+                        Find it
+                      </button>}
+                      {Array.isArray(t.next) && t.next.length > 0 && ( // .662: Recommend — one tap reveals the Reader's recommended doors as buttons (the buttons are the second choice, so no arming)
+                        <button data-arm={`${t.id}-recommend`} onClick={() => revealNext(t)} title="the doors the Reader thinks you would want next, for this draw"
+                          className={armedCls(`${t.id}-recommend`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-sky-500/60 text-sky-200 hover:bg-sky-950/70"}>
+                          {recOpen === t.id ? 'Hide' : 'Recommend'}
+                        </button>
+                      )}
+                    </div>
+  );
+  const recBlock = (t) => (
+                    <div className="mt-3 flex flex-wrap justify-center gap-2">
+                      {t.next.map((n, ni) => (
+                        <button key={ni} data-arm={`${t.id}-rec-${n.panel}`} onClick={() => openDoor(t, n.panel)} className="max-w-[18rem] rounded-xl border border-sky-500/60 bg-sky-950/30 px-3 py-2 text-left hover:bg-sky-900/40 transition-colors">
+                          <div className="text-[0.9375rem] font-serif text-sky-100">{NEXT_LABEL[n.panel] || n.panel}</div>
+                          <div data-spoken={spokenKey(`${t.id}-next`, 'text', ni)} className={'mt-0.5 text-[0.8125rem] leading-snug text-sky-200/80 break-words' + litIf(`${t.id}-next`, 'text', ni)}>{n.why}</div>
+                        </button>
+                      ))}
+                    </div>
+  );
   return (
     <div className={`relative min-h-screen flex flex-col overflow-x-hidden ${chrome.prefs.theme === 'light' ? 'bg-stone-200 text-stone-900' : 'bg-zinc-950 text-zinc-100'}`}
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
@@ -3052,19 +3087,10 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {/* The question, handed over AFTER the move. Founder's ruling 2026-09-14:
                       a question composed without the medicine in view ignores the very thing
                       the person just read. */}
-                  {t.role === 'reader' && t.question && (
+                  {t.role === 'reader' && t.question && !hoisted(t) && ( // .749: the latest turn's question is printed once, above the box
                     <p data-spoken={spokenKey(t.id, 'question', 0)} className={'mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words' + litIf(t.id, 'question', 0)}>{t.question}</p>
                   )}
-                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && ( // .662 (founder): the recommendations are revealed by the Recommend pill, and they ARE the buttons
-                    <div className="mt-3 flex flex-wrap justify-center gap-2">
-                      {t.next.map((n, ni) => (
-                        <button key={ni} data-arm={`${t.id}-rec-${n.panel}`} onClick={() => openDoor(t, n.panel)} className="max-w-[18rem] rounded-xl border border-sky-500/60 bg-sky-950/30 px-3 py-2 text-left hover:bg-sky-900/40 transition-colors">
-                          <div className="text-[0.9375rem] font-serif text-sky-100">{NEXT_LABEL[n.panel] || n.panel}</div>
-                          <div data-spoken={spokenKey(`${t.id}-next`, 'text', ni)} className={'mt-0.5 text-[0.8125rem] leading-snug text-sky-200/80 break-words' + litIf(`${t.id}-next`, 'text', ni)}>{n.why}</div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && !hoisted(t) && recBlock(t)}
 
                   {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
                   {t.role === 'reader' && t.geometry && (
@@ -3074,28 +3100,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     </details>
                   )}
 
-                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && ( // .655: under every frame the Reader prints; .702: on the wrap the row is ORDERED after the "did it land?" block (the frame is a flex column), so it sits on the line too
-                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
-                      {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
-                      {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
-                        <button key={k} data-arm={`${t.id}-${k}`} onClick={twoTap(`${t.id}-${k}`, () => move(t.id, k), k)} title={tip}
-                          className={`${armedCls(`${t.id}-${k}`)} rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>
-                          {label}
-                        </button>
-                      ))}
-                      {/* .554: FIND IT, ON DEMAND — the field points whenever they ask, not only when the Reader offers a chip; .698 not on the wrap (founder: "contextually not relevant" there) */}
-                      {t.role !== 'wrap' && <button data-arm={`${t.id}-find`} onClick={twoTap(`${t.id}-find`, () => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }), 'find-it')} title="ask the field where it is — a locating signature is drawn and read as a pointer"
-                        className={armedCls(`${t.id}-find`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70"}>
-                        Find it
-                      </button>}
-                      {Array.isArray(t.next) && t.next.length > 0 && ( // .662: Recommend — one tap reveals the Reader's recommended doors as buttons (the buttons are the second choice, so no arming)
-                        <button data-arm={`${t.id}-recommend`} onClick={() => revealNext(t)} title="the doors the Reader thinks you would want next, for this draw"
-                          className={armedCls(`${t.id}-recommend`) + " rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-sky-500/60 text-sky-200 hover:bg-sky-950/70"}>
-                          {recOpen === t.id ? 'Hide' : 'Recommend'}
-                        </button>
-                      )}
-                    </div>
-                  )}
+                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && !hoisted(t) && movesRow(t)} {/* .749: the latest turn's row sits under THE QUESTION frame instead */}
 
                   {/* DID IT LAND? (.511) — after the write-up, three taps in the reading's own voice. Not a survey:
                       did you figure it out? The mark is saved with the reading, carried into its summary, and the
@@ -3139,7 +3144,9 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {lastReader?.question && !wrapped && (
               <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
-                <p className="text-[1.0625rem] leading-snug text-amber-200/95 break-words">{lastReader.question}</p>
+                <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
+                {!lastReader.pending && !loading && movesRow(lastReader)} {/* .749 (founder): the moves live under the question, not in the turn's frame */}
+                {Array.isArray(lastReader.next) && lastReader.next.length > 0 && recOpen === lastReader.id && recBlock(lastReader)}
               </div>
             )}
             <div className={dimBox}>
