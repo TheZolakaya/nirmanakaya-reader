@@ -1,0 +1,1477 @@
+{
+ "draws": [
+  {
+   "transient": 50,
+   "position": 8,
+   "status": 2
+  },
+  {
+   "transient": 64,
+   "position": 7,
+   "status": 3
+  },
+  {
+   "transient": 30,
+   "position": 14,
+   "status": 4
+  }
+ ],
+ "rows": [
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "on",
+   "text": "Today's deploy crashed, and you want to know why. Fair question — but the draw isn't a stack trace. It's showing me how you're carrying this, and that's where the answer starts.\n\nWhat came up is the deep satisfaction of having imagined a thing and fully felt it — the good version, the one where the work lands and you know it landed. In the hands-on, practical side of this, the side that holds weight and bears it, that satisfaction is being run ahead of schedule. You're doing more of it than this moment needs. It shows up as worry, or as reaching for control over how the deploys turns out before it has turned out at all. You're bracing against a verdict that hasn't come in, and the bracing is what's tiring you — not the bug, not the fix. You're living in the outcome that isn't written yet instead of standing in the one that is: today, the deploy, the thing in front of you.\n\nThe way through is to hand over the same care but to something that actually needs tending — the fix, the check, the smaller real thing — with a steady hand and a loosened grip rather than a white-knuckled one. Balance the competing demands, keep looking after what's growing, don't clutch. You get back a version of the satisfaction that isn't borrowed from the future: the calm that comes from having fully lived what you're actually inside of.\n\nSo: what part of this crash are you gripping hardest — and is it the code, or what it says about you if it stays broken?",
+   "gist": "The crash is real and worth fixing, but the reading isn't about the bug — it's that you've been living in how it turns out, ahead of where it actually is, and that bracing is doing its own damage.",
+   "medicine": "The way through is to tend what's actually in front of you with a steady hand — the logs, the fix, the check — and keep looking after it without gripping the outcome. It's not a pass on the work; it's the same care, aimed at today instead of at a future you can't write.",
+   "flags": [
+    "repeat",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "a future you can't write",
+    "in and the bracing is",
+    "and the bracing is what's",
+    "the bracing is what's tiring",
+    "bracing is what's tiring you",
+    "and keep looking after it"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 271
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "off",
+   "text": "So the app came up and fell over right after you shipped — that's the thing on the table.\n\nThe draw says it's about finishing. Not finishing the feature — finishing *feeling* it. There's a satisfaction that comes when what you pictured is finally real and whole, and it's a good thing to have; it's what makes the work worth doing. That part isn't the problem.\n\nThe problem is which side of today that satisfaction is standing on. It arrived early, from the future, before the deploy landed. Which is what worry looks like when it's wearing the face of done. The picture of \"it's shipped, it's good\" got built before the running thing did, and a crash is the flight recorder saying the two don't match yet.\n\nTwo things live here and they aren't the same — the actual fault (an env var, a migration, a cache, a dependency, the one thing the box does on first boot that nobody remembers), and the fact that you already experienced the finished version in your head. The second one is why the first one stings.\n\nThe way through is to go tend the thing instead of defend the picture. Not fix the app — check it. Read the logs like a careful gardener checks the soil: slow, boring, no conclusions until you've looked. And don't grip it so hard that the looking becomes an argument about who's right. The crash is data. The app is telling you where the picture and the wire disagree.\n\nThe thing that comes back when the tending is steady is that things grow without being forced. You don't have to *feel* done for the deploy to be done. You just have to look.\n\nWhat's the actual error in the logs? Or is the picture in your head still louder than the evidence?",
+   "gist": "A deploy crash is almost never a mystery; the change is the prime suspect. What the draw says is that a complete, satisfying picture of the finished thing ran ahead of where the running system actually is — which is exactly the gap a crash exposes.",
+   "medicine": "The move is to tend this with a steady hand — go to the logs and the running version and look, without clutching your picture of it. That's the difference between fixing the app and defending your satisfaction with it.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 306
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "scaffold",
+   "text": "Today's deploy crashing is the thing to look at, and the reading points straight at how it went out.\n\nWhat came up is a real capacity: the pull to reach for the full, finished picture of how this is supposed to work — the satisfying version, the one where everything clicks. That's not a flaw. It's what lets you see the end state and build toward it. But it's landing in the hands-on, practical side of the work, the part that has to hold up under real load, and it's running hotter than the moment needs. You're out past where the deploy actually is: holding the outcome you want, bracing against what might break, trying to force the thing toward the picture in your head instead of watching what the boxes are actually doing.\n\nThat's usually enough on its own to explain a crash. A deploy fails because the thing that was tested and the thing that shipped weren't the same thing — a config the picture didn't include, a branch that looked right, an edge the imagined version had smoothed over. No mystery, no bad luck. Just a picture that got ahead of the ground.\n\nThe move is to pick up the version you actually built and treat it like something alive — check the logs and the diffs against what's running, not against what you meant, and fix the next small real thing. That's not a retreat from the vision; it's what keeps it fed, so it comes from what you've lived rather than what you've imagined.\n\nOne plain question underneath: is today's crash something you're carrying alone, or is a team watching the same pager with you?",
+   "gist": "The crash isn't bad luck or a mystery — it's the signature of a deploy shipped from the imagined version of how it should go rather than the one you actually ran. The way back is tending what's actually live, with a steady hand.",
+   "medicine": "The way back is to tend what's actually there — the running service, the real logs, the broken config — with a steady hand, fixing the one next thing instead of forcing the whole picture to be true. Do that and the vision stops being ahead of you and starts coming from what you've lived.",
+   "flags": [
+    "repeat",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 280
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "on",
+   "text": "You asked why this keeps happening in your engineering work. So let's look at the loop itself, not the last time it fired.\n\nWhat's showing up is the appetite for the finished thing — the deep satisfaction of a solution fully imagined, fully felt, the moment you can already see how it all fits and how good it'll be when it lands. That's a real capacity, and it's the reason you're good at this. It's arriving on the body's side of the work: the part of you that bears weight, that endures under pressure and keeps holding form. That's where it's landing — endurance carrying a vision. Not a bad pairing. It's what lets an engineer hold a hard problem long enough to solve it.\n\nThe problem is the amount. You're doing more of this than the situation is actually asking for yet — running ahead of where the work really is, into how it should look when it's done: the shape it'll take, the way it'll be received, the fights it might cause. That's future-bracing. It shows up as worry, or as reaching for control over how it turns out — steering the thing toward the ending you've already felt. The work in front of you is at a different stage than the version in your head. You're carrying the end of the project while it's still at the beginning.\n\nSo the loop keeps firing because the reaching keeps outrunning the evidence. You're tired, and the tiredness isn't proof you're doing too much engineering — it's the bracing.\n\nThe way through isn't to want it less. It's to tend what's actually growing with a steady hand, one notch less gripped than now, and keep tending it — balancing the real competing demands without clutching the outcome. One thing you can do today: pick the piece you're gripping hardest, loosen your hold by a notch, and look after it the same way you already do the rest.\n\nMy guess is this happens most when the work is genuinely close to something good — that the bracing shows up right before the thing is ready. Is that where it bites, or somewhere else?",
+   "gist": "The repeat isn't bad luck or a broken process — it's vision running ahead of what the work has actually shown, and the fatigue you're calling the problem is the bracing. The way out runs through tending what's already growing instead of pushing the finished picture.",
+   "medicine": "Pick the piece of work you're gripping hardest right now and keep looking after it — just with your hold loosened a notch. Not letting go, not caring less; a notch. What comes back is vision that's earned from what the work has actually shown you, rather than from the version you felt out ahead of it.",
+   "flags": [
+    "repeat",
+    "hedge",
+    "nominal",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "and keep looking after it"
+   ],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 362
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "off",
+   "text": "Engineering work — where the thing either compiles or it doesn't, where the code either does what you said or it doesn't. That's the room this is happening in, and it's a good room to ask a why in, because engineering doesn't flatter anyone. It just tells you what's true.\n\nHere's what came up. The capacity is one you'll recognise: the deep satisfaction of having imagined something fully and felt it fully — the moment the picture of the thing lands, and it's good, and you know it's good. That capacity is real and it's yours, and it's not a flaw. But in this draw it's running hot. Too much of it for where the work actually is. So it shows up as getting out ahead of the build — designing the next three systems before the first one has users, or rewriting the module that works because in your head the rewrite is already finished and beautiful. My guess is the dissatisfaction you feel isn't with the work — it's that the real thing keeps lagging behind the thing you can already see.\n\nAnd it's landed in the side of you that endures. Your holding capacity — the part that can sit with a half-built thing without flinching, that can be in the middle of something ugly and unfinished and not need it to be beautiful yet. That part is under pressure, and the pressure is coming from the seeing. The vision is pulling the endurance along faster than endurance can actually go, and endurance doesn't speed up by being pulled. It speeds up by being given something to hold that isn't already trying to escape into the next version.\n\nThe way through is a different kind of thing entirely. It's the steady hand that tends what's growing without gripping it. Balance the competing demands — the ones in front of you now, not the ones you can see coming. Keep tending. Don't clutch. For an engineer that might look like: pick the one thing that's actually in front of you, decide what it needs this week, and give it that — not a redesign, not a better architecture, just the tending. Let the picture you can see stay in your head, where it's useful, while your hands work on what exists.\n\nThe why, then: it keeps happening because the same appetite that makes you good at this — the one that sees the finished thing before anyone else does — is the one that keeps spending your endurance on a version of the work that hasn't arrived. The fix isn't to stop seeing. It's to stop making the seeing do the holding.\n\nWhat's actually in front of you right now — the thing that's real and unfinished?",
+   "gist": "What keeps happening is that your imagination runs ahead of what's actually been built, and your capacity to bear it gets spent getting out in front of reality instead of holding space for it. The way through isn't less vision — it's the steady hand that tends what's growing instead of gripping it.",
+   "medicine": "Tend what's actually in front of you with a steady hand — pick the one thing in progress, decide what it needs this week, and give it that, no redesign. The point is to get your endurance back on something real, so the seeing can stay in your head where it's useful instead of spending your capacity to hold.",
+   "flags": [
+    "repeat",
+    "nominal",
+    "unnamed",
+    "words"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 459
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "scaffold",
+   "text": "You're asking why it keeps happening — the same shape, again and again, in your engineering work. So let me say what the reading shows, and then we'll get to why it repeats.\n\nWhat came up is the part of you that imagines the thing finished — the clean version, the version where it all works — and the satisfaction of having already seen it. That's a real capacity, and a good one. Engineers live on it. But it's landing in the hands-on side of the work, which is where things get built and held and made to last, and you're carrying it pushed too far forward: living in how it's going to turn out before it has actually gotten there. That's the repetitive part. Not the engineering. The thing you keep doing is bracing — worrying the outcome, trying to steer it before it exists to be steered.\n\nSo the pattern isn't a failure of skill. It's that the imagining runs ahead of the building, and the gap between them is where the repeated frustration lives. You already know what the finished thing looks like. The work can't be hurried to meet it.\n\nThe way through is not to stop seeing the finished version. It's to put your hands on what's already there and keep tending it — the half-built thing, the test that fails, the small piece that's actually working — steadily, without clutching. That's the move. Tending, not forcing. Keeping at it with a calm hand rather than a braced one.\n\nWhen the imagining is fed by what you've actually built and lived through, instead of by what you're afraid is coming, it stops being a source of strain — and the vision gets stronger, not weaker. You dream better from digested experience than from dread.\n\nMy guess is this shows up as the sprint you keep planning before the last one's really landed — but tell me if that's not it.",
+   "gist": "This keeps happening because the picture of the finished thing is running ahead of what you've actually built and lived — and the strain isn't the work, it's the bracing for how it turns out. The way through is to keep tending what's already in front of you with a steady hand, not to grip the outcome.",
+   "medicine": "Keep tending what's already growing — the half-done thing, the small piece that works — with a steady hand, without gripping the result. The purpose of that move is to get your vision back on the ground it can actually stand on: built from what you've lived, not from what you're bracing for.",
+   "flags": [
+    "scope",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 325
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "on",
+   "text": "You asked why this one has run your whole life, so let's take the why first.\n\nWhat came up is the capacity for deep satisfaction — arriving at the good thing, feeling it fully, wanting it. That's not a small thing to have. It's the part of you that knows what a full moment tastes like. And it's showing up on the side of you that endures: the hands-on, physical side, where you bear weight and keep going. So the wanting isn't living in your imagination where it could play; it's living in your back, your shoulders, your long tolerance.\n\nHere's the why, as straight as I can put it. That appetite for the good ending is pointed at a future you can't write in yet. You are already feeling the satisfaction of something before it has arrived — not hoping for it, feeling it — and every time it doesn't land the way you already felt it, you don't conclude that the feeling was early. You conclude you must not have earned it yet. So you do more. You hold harder. The pattern isn't that you keep choosing badly. It's that you keep pre-living the good version and then treating your own life as behind schedule.\n\nThat's why it repeats. Not because of what you keep walking into, but because the appetite keeps outrunning the moment, and you're strong enough to keep carrying that gap for decades.\n\nWhat gets you out is a different kind of move: pick one thing you are gripping too hard — one — and keep looking after it with your grip loosened a notch. Same care, less clutch.",
+   "gist": "The pattern isn't a flaw — it's your sense of what a good thing feels like, dragged forward ahead of where your life actually is, and carried in the body as a weight that never quite gets set down.",
+   "medicine": "The way through is to tend one thing you're gripping, with the grip loosened a notch — same care, less clutch. What you get back is a vision that comes from what you've actually lived, so what you imagine stops being a debt you're behind on and starts being something the experience paid for.",
+   "flags": [
+    "must",
+    "scope",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "a future you can't write",
+    "future you can't write in",
+    "and keep looking after it",
+    "keep looking after it with",
+    "looking after it with your",
+    "after it with your grip",
+    "it with your grip loosened",
+    "with your grip loosened a",
+    "your grip loosened a notch"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 274
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "off",
+   "text": "You're asking why the same loop keeps coming back around, your whole life.\n\nHere's what the reading says. There's a capacity in you for deep satisfaction — the good feeling of having imagined something and fully felt it. That's a real strength. But right now you're doing more of it than the moment is asking for. You're running the satisfaction ahead of the thing itself: you picture how it will feel, you hold on to that picture tightly, and you push forward past where things actually are yet. That pushing shows up as worry, or as trying to control how it all turns out. You're bracing for an outcome that hasn't arrived.\n\nThat is where the repetition lives. You imagine the ending, feel it early, grip it — and then real life walks in at its own pace, slower than the picture. The gap between the two reads as letdown. So you imagine the next good thing to get the feeling back. Same loop, new object.\n\nThere's an old steady strength in you too — the ability to hold and carry things under pressure without breaking. The trouble isn't that strength. It's that right now you're holding the imagined version instead of the real one.\n\nThe way through isn't to stop imagining. It's to tend what's actually in front of you with a steady, responsible hand — keep working with what's real, balance the demands pulling on you, and loosen your grip on the outcome you've already pictured. Satisfaction lands when the imagining has been lived first, not raced past.",
+   "gist": "The pattern repeats because you finish the good thing in your head first — you imagine the satisfaction fully, hold on to it hard, and push past where things actually are, so the real version keeps arriving as a letdown you then imagine your way past again. The way through is to tend what's actually growing with a steady hand instead of clutching the imagined harvest.",
+   "medicine": "What you'd do is tend what's actually growing in front of you — keep working at it with a steady hand, balance the things pulling on you, and don't clutch the outcome you've already pictured. Do that and the good feeling can come from living the thing instead of imagining past it — and the care stops wearing you out.",
+   "flags": [
+    "operation",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 260
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "scaffold",
+   "text": "Why have you repeated this pattern your whole life — that's what you're asking. The draw doesn't show a flaw. It shows a way of living that has been running a long time.\n\nWhat's showing up is deep satisfaction in what you've imagined. Not a plan, not a hope — the full, felt sense of how it could go, imagined all the way through until it already feels true. That capacity is real and it's yours. It shows up in the side of you that endures, the part that holds form under pressure and doesn't break.\n\nAnd here's the trouble. You're doing more of it than the moment needs. You're pushing ahead of where things actually are. The satisfaction you feel is in the version that hasn't happened yet — so you keep reaching for it, bracing for it, checking whether it's landed. Worry and control are the same reaching from the other side. You have been trying to get to the end of something before you've lived the middle of it.\n\nThat's the loop. The dream gets fed by what's ahead. But this thing you carry only ever comes from what's already been lived through and digested. Not from the next version.\n\nThe way through is different kind of move. Tend what already grows — not the imagined crop, the real one in front of you. Balance what's actually competing for your care, and keep tending it without gripping. The same hand you've used to push outcomes into place gets used to steady something that's already alive.",
+   "gist": "The pattern is not a flaw — it's the shape of how you've been carrying vision, and it keeps coming back because you keep dreaming ahead of what's real. The way through starts by tending what already grows, with a steady hand.",
+   "medicine": "Tend what already grows in your life — the real thing in front of you, not the imagined one ahead. Balance what's actually competing for your care and keep tending without gripping, so the vision gets fed by what you've lived rather than by what you're bracing for.",
+   "flags": [
+    "scale",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 258
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "now",
+   "q": "",
+   "arm": "on",
+   "text": "Here's where you are in this moment, as the draw has it: there is something you have already imagined all the way through, and have felt the satisfaction of. That's real — not a someday, not a hope. What you picture for the thing, you've pictured full.\n\nAnd the interesting part is where that satisfaction sits in you: in the side of things that's about bearing weight. Carrying what has to be carried, and not breaking under it. When a fully realized picture meets the part of you built for endurance, it doesn't stay settled. It starts reaching forward — testing how it'll land, rehearsing how it holds up, half-carrying the outcome before it has arrived. That's what the draw names: you're doing more of this holding than the moment is asking for.\n\nWhich sounds strange, because holding is a strength. But the load you're holding is a picture of a future you can't write in yet. The now is where you make things. The then is where the worry lives. That's the whole trap — you're carrying tomorrow, and it has no weight to give, so you supply it yourself.\n\nMy guess is there's something specific this is about. Something you see clearly and are already gripping, protecting, checking on.\n\nThe move here isn't to drop it. It's to keep tending it — with a looser hand. Stewardship: the thing you're caring for keeps growing without being force-held. Not letting go — loosening one notch. That's what's asked, and it's the opposite kind of move to what you're doing too much of.\n\nWhat you get back: satisfaction that's actually here, instead of satisfaction held an arm's length away, waiting for the future to catch up.",
+   "gist": "The reading shows deep satisfaction in what you've imagined and felt, and you're doing more of it than right now asks — bracing ahead of how it lands — with the way through being to tend what's good with a looser grip.",
+   "medicine": "Keep holding it — but with one notch of slack. Whatever you're gripping, it doesn't need the force. Stewardship is tending that trusts the thing to grow.",
+   "flags": [
+    "vocab",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "a future you can't write",
+    "future you can't write in"
+   ],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 286
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "now",
+   "q": "",
+   "arm": "off",
+   "text": "There's no question on the table, so this is about where you are right now — and what came up is a full, vivid thing you already have in your hands. The capacity here is the satisfaction of having imagined something and fully felt it: not because everything is perfect, but because what you pictured has met your own experience. It's deep and it's wide. The ground it lands on is endurance — the plain ability to bear weight and hold your shape under pressure without stiffening.\n\nPut together, they say something specific: you're carrying more of this vision than today is asking for. That looks like bracing. Planning around how it turns out. Trying to lock the outcome down before it actually arrives. My guess is the good thing isn't the problem — the grip is.\n\nHere's the way through, and it's the diagonal: tend it. Not clutch it, not freeze it — steward it. Balance the competing demands the way you'd hold two plates and still walk, keep putting your hands back to it, and let it grow at the pace things actually grow. That gives you back the thing the grip can't: something that moves and lives without your forcing it, and care that doesn't burn you out.\n\nSo what you're holding — the one thing you keep reaching back to check on — what happens in your body when you leave it alone for a day?",
+   "gist": "You're holding a big, good, fully-felt thing — and squeezing it harder than now asks. The way back is tending it with an open hand, not a grip.",
+   "medicine": "Tend what's growing with a steady, balanced hand — hold the competing demands without clutching, and let it grow at its own pace. When this is back in balance, your vision comes from having digested what you've actually lived, so you dream without bracing.",
+   "flags": [
+    "repeat",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 240
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "now",
+   "q": "",
+   "arm": "scaffold",
+   "text": "You didn't bring a question — just wanting to know where you are. So here's what's on the table.\n\nThe thing that's showing up is satisfaction of a particular kind: the deep good feeling of something you imagined, fully pictured, fully felt. It's the warm part of you that can already taste how a thing turns out — a plan, a hope, a picture of your life going right. In itself that's not a problem. It's a real capacity, and it lives on the meaning side of you, in what things are for.\n\nAnd it's landing in your endurance — the part of you that holds form under pressure. The two together would normally be a good pairing: you can picture what you want and you can carry it.\n\nBut right now you're doing more of this than the moment calls for. You're living a little ahead of where things actually are. Not in a dramatic way — in the ordinary way it turns up: rehearsing how the conversation goes, running ahead to the outcome and quietly guarding it, getting tense about whether it'll land the way you've pictured. The imagining hasn't stayed where it started. It's been pulled forward into the future, and the future is where the worry lives.\n\nThe way through isn't to stop dreaming. It's to tend what's already growing — with a steady hand, not a tight one. You know what's in front of you right now that needs looking after: it may be something practical, it may be a person, it may be something you're making. Whatever it is, the move is to give it steady attention today and let go of the outcome you've been gripping.\n\nThe vision is meant to be fed by what you've actually lived. It gets thin when it's fed by what you're imagining ahead.",
+   "gist": "Right now you're running a vision ahead of what's actually here — dreaming forward into how it should go, and bracing over it. The way back is tending what's already growing, with a steady hand instead of a tight one.",
+   "medicine": "Tend what's already growing with a steady hand — the practical thing in front of you today, not the version of it you've been picturing — and let the care be regular rather than tight. What that gives back is the good feeling you've been chasing, arriving on its own instead of being forced.",
+   "flags": [
+    "scale",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 306
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "on",
+   "text": "I don't know what the incident is yet — you haven't told me, and I'm not going to guess it into the reading.\n\nWhat came up is a deep satisfaction — the feeling of something imagined and fully felt, arrived at, complete. That's the capacity in play, and it's a good one: it's the sense that the thing you pictured is real and yours. Where it's landing is in your capacity to bear weight — the part of you that holds up under load without snapping or going rigid. And you are doing more of that satisfaction-seeking than this moment actually holds. Not feeling it less — reaching for it ahead of where things are, trying to bring the ending forward, and the reaching is what's wearing you out.\n\nHere's the shape of it. That complete, satisfied feeling is a real thing and it's available to you, but it comes after experience has been digested, not before. When you run ahead to it, you go looking for the ending of a story that hasn't finished happening — and your body, the part that endures, carries the strain of that sprint. My guess is it looks like worry, or like steering outcomes you don't actually control, or like needing to know how it turns out right now. Does that fit, or is it more that you're just worn down and reading it as something worse?\n\nThere's a way through, and it's not about wanting the good feeling less. It's about picking up something you're gripping too hard and looking after it with the grip eased a notch — steady, responsible, without clutching. Care that doesn't wear you out, things growing because you tended them rather than because you forced them.\n\nWhat does this incident show you about where your grip is?",
+   "gist": "What you're doing more of than this needs is reaching for the finished feeling before it's here — and the way back runs through tending something with a loosened grip.",
+   "medicine": "Pick up something you're holding too hard — a task, a conversation you're steering, an outcome you keep checking on — and look after it with your grip loosened a notch. Tending it steadily, without clutching, is what lets the satisfaction arrive on its own instead of being chased.",
+   "flags": [
+    "repeat",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "something you're gripping too hard",
+    "you're gripping too hard and",
+    "after it with your grip",
+    "it with your grip loosened",
+    "with your grip loosened a",
+    "your grip loosened a notch"
+   ],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 300
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "off",
+   "text": "What this shows you is a fullness that's gotten out in front of where things actually are.\n\nThe reading that came up is about deep satisfaction — the kind that's real, imaginatively complete, the sense of having *already felt how good this could be*. That's not a small thing and it's not fake. But it's arrived too early. You're carrying the ending before the middle has happened. And the place it's sitting is your endurance — your capacity to hold up under pressure, the part of you that just keeps bearing weight. So the fullness isn't resting anywhere. It's pressing on the thing that holds you up.\n\nHere's what that looks like in a body: you're bracing. My guess is the incident made something feel settled that isn't settled yet — and you know it isn't, which is why you're holding on so hard. The wanting has become managing. You're trying to control how it lands because if you let go of the wheel it might land somewhere you didn't picture. That's the excess. Not greedy — scared. Full of something great and gripping it at the same time.\n\nThe way through isn't to want it less. It's to tend it with a steady hand and a real sense of responsibility — keep showing up for the thing, keep carrying what's yours to carry, and set down the guarantee. You keep the tending. You don't keep the outcome.\n\nWhat you get back is the funny relief of it: things grow fine without being driven, and you stop being the one who has to push.",
+   "gist": "What came up is a fullness that's running ahead of the moment it belongs to — you're living at the end of something before you're in it. The way back through is steady tending, not more gripping.",
+   "medicine": "The move here is to keep showing up for this — steady, present, responsible — while letting go of how it turns out. Tending without clutching is what gives it room to actually grow.",
+   "flags": [
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 264
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "scaffold",
+   "text": "You're asking what this incident shows you — and the reading doesn't put a verdict on the incident.\n\nWhat's showing up is a deep satisfaction — the good feeling of something imagined that has come true, the fullness of it. That part is real and it's yours; it's not manufactured. But it's running ahead of what's actually happened. You're already feeling how it lands before it has landed. And that shows up in your ability to stay steady — the part of you that can hold something under pressure without either breaking or going rigid. Right now that steadiness is carrying more than the moment is asking of it. It's bracing for an outcome, holding hard to keep it from going wrong, worrying the thing into a shape. My guess is the incident is small and specific, and the feeling it's behind is bigger than the incident.\n\nThe way in isn't to talk yourself out of the satisfaction. It's to keep tending what already grows. One real thing, with a steady hand — a responsibility you've already taken on, a person or a piece of work that's alive — and tend it without clutching it. The grip isn't the tending. The grip is what the worry adds to it.\n\nWhat comes back when this settles is the good thing itself: a vision that's fed by what you've actually lived, not by what you're imagining ahead. That's not a smaller version of the satisfaction. It's the version that stays.",
+   "gist": "What this shows is a satisfaction that has outrun what you've actually lived — and it's landing on your steadiness as worry about how it turns out. The way back in is tending one real thing with a steady hand instead of holding it still.",
+   "medicine": "Tend one real thing with a steady hand — a person, a piece of work, a responsibility you've already taken — and let it grow at its own pace without gripping it. That's what gives the satisfaction back its ground: you get to feel it because you've lived what led to it, not because you're protecting how it comes out.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [
+    "keep tending what already grows"
+   ],
+   "guess": true,
+   "words": 248
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "on",
+   "text": "Something good is happening, or has happened, and you're already out in front of it — spending it in advance. That's what's going on.\n\nThe capacity underneath this is one most people spend a lifetime trying to get: the deep, satisfied feeling of what you imagined for yourself actually arriving, being felt, being lived. It's the feeling of a thing you wanted becoming real in your hands. This is not a mood; it's a whole way of knowing — the imagination completed, the feeling finished. When it lands clean, it's one of the best things a person gets.\n\nWhere it's landing today is your capacity for endurance — the part of you that holds form under pressure, that bears what has to be borne without hardening and without breaking. That part is not weak. But here's what the draw actually shows: you're pushing ahead of where things actually are. Not that you're wrong to want what you want — the wanting is real, the vision is real — but you are doing more anticipating, more pre-spending, more steering-the-outcome than the present moment is asking. That shows up as worry, or as reaching for control you don't actually have. You are carrying a load that today doesn't require you to carry.\n\nMy guess is it's a specific thing you're watching the result of — a decision, an offer, a yes from someone or something, a thing that's in the air. If that's it, the load is real; the strain is the pre-spending, not the weight.\n\nThe way through is not to stop caring about the outcome. It is to keep looking after the thing — practically, responsibly, on the ground — but with your grip loosened a notch. Continue the tending. Stop the clutching. Same hand, less squeeze.\n\nSo: is there a specific result you're waiting on right now?",
+   "gist": "Something good is happening and you're already spending it in advance — living in how it will land instead of what it is now. Your body's been doing the holding, and it's tired from the grip, not from the load. The way through is to keep looking after what you're carrying, with your hand loosened a notch.",
+   "medicine": "The move here is to keep looking after what you're carrying — on the ground, in real time — but with your grip loosened a notch. Same hand, less squeeze. What that's for: you stop dragging a future you can't write, and the capacity that's backing you up stops working overtime.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "a future you can't write",
+    "with your grip loosened a",
+    "your grip loosened a notch"
+   ],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 308
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "off",
+   "text": "There's no question under this one, just the standing one — so I'll read where you're at.\n\nWhat's showing up is that you have something you genuinely imagined, and you already feel how good it would be if it landed. That's real, and it's not small — it's the deep satisfaction that comes from having fully pictured and fully felt a thing. The catch is where it's sitting: in the side of you that endures and holds. So the good vision is being carried like a weight. You find yourself bracing, running ahead of where things actually are, trying to steer how it comes out — and that's the part that's tipped over. More holding than the moment is asking for. It shows up as worry, or as a grip on the outcome that nothing has actually given you yet.\n\nHere's the honest shape of it: the same energy that lets you see the whole thing is the energy now spending itself on a finish line that isn't here. The picture's already filled in; your hands are already on it. My guess is some of this is showing up around something bodily — sleep, tension, the clock — or around a thing you keep almost starting and don't. Does that fit, or is it something else?\n\nFortitude — that's not the word to say out loud, so here it is plainly: you can take a lot. That's the strength in the room. And the way it goes wrong isn't breaking — it's holding on past the point where holding helps.\n\nThe way through is quieter and more physical than the vision. Tend what's actually growing: the thing in front of you, today, with a steady hand — give it attention the way you'd water something, not the way you'd grip a rail. Tend, don't clutch. What you get back on the other side is work that moves without being forced, and care that doesn't grind you down.",
+   "gist": "What's going on is that you're holding something real under load — and part of the holding has tipped into getting ahead of it: bracing for how it turns out. The way back is tending what's actually in front of you with a steady hand instead of gripping the outcome.",
+   "medicine": "The move is small and physical: take one real thing you're growing — a body, a build, a relationship — and tend it today calmly and with care instead of gripping how it turns out. Fish it out of the worry and give it the ordinary attention it asked for. What you get back is movement that doesn't need forcing, and care that doesn't wear you out.",
+   "flags": [
+    "vocab",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 327
+  },
+  {
+   "draw": 0,
+   "d": {
+    "transient": 50,
+    "position": 8,
+    "status": 2
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "scaffold",
+   "text": "You asked what's going on, so let me say what the reading says and you can tell me if it fits.\n\nSomething in you is already feeling the end of a thing — the good version of it — before it's here. The reading calls this a fullness that's ahead of its time: a warm picture of how it could go, felt strongly and early. It's real. It's genuine contentment aimed at something you haven't gotten to yet.\n\nAnd underneath it, in the hands-on side of your life — the practical, day-by-day part — you're holding on hard. There's endurance in you. You can carry weight. But right now that strength is braced, not settled: you're steadying yourself against an outcome that hasn't arrived, and the bracing is what's starting to feel like anxiety. Worry is just your holding-on, pointed at a future you can't write yet.\n\nHere's the turn. The way through is a smaller move than you might expect: tend what's already growing. Not the dream ahead of you — the thing on the table in front of you today. Steady hand, no clutching, no forcing. The vision you're carrying stays fed by what you've actually lived and felt, not by what you're imagining will come.\n\nThat's the whole reading. Your feeling isn't wrong — it's just arriving too soon.",
+   "gist": "What's going on is that a big, warm sense of how things could be is running ahead of what's actually here right now, and the endurance you're giving it is starting to feel like worry. The way through isn't to feel less — it's to put the energy down into what's already in front of you, steadily, without gripping.",
+   "medicine": "The move is to pick one thing that's already in motion — a project, a person, a habit that's genuinely growing — and give it a steady hand today: a small, real tending, no grip on how it turns out. What you get back is care that doesn't wear you out, and permission to let things grow without forcing them.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [
+    "a future you can't write",
+    "and the bracing is what's"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 222
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "on",
+   "text": "Today's deploy went out, and then the app fell over, and the question under your question is really: what did I miss, and why now, right when I finally pushed it.\n\nWhat came up is the kind of motion that keeps a thing pointed at a goal and keeps feeding it after the hard part. In the place a deploy lives — the middle stretch, where the work is out in the world and still needs tending — that motion is running low. You are doing less of it than this moment asks. Part of the attention is still back at the moment before the push: what was on the branch, what you decided, whether you should have waited. That's a stance, not a fact about you, and it doesn't mean the deploy was wrong or that you did too little.\n\nThe gap that matters isn't in the code. A crash right after a deploy is usually just the moment the new thing met the real thing — and the tending that would normally carry you through that meeting has gone quiet. You're standing at the edge of the work looking backward instead of forward.\n\nThe way through isn't pushing harder at the thing you feel you under-did. It comes from the other side of this: clear what's done. Name what's finished — this build, this version, the decision that's already made — and keep the piece that still serves. Try one small version of that today: a single sentence in your notes about what this release settled, then close the tab on it.\n\nThe why is here: direction needs force to become real, and force you've been withholding. Not discipline — the readiness to be in the thing you already started.",
+   "gist": "The reading isn't about the code as much as it is about the tending that stopped the moment it shipped — after a deploy, the thing that keeps a direction going isn't restarted, and the crash gets read as a verdict instead of as a step still in progress.",
+   "medicine": "Clear what's finished so the rest can grow. Name one thing this release already settled, set it down, and keep only what still serves the work — that is what makes you able to move because you're actually in it, not because you're still bracing.",
+   "flags": [
+    "operation",
+    "scale",
+    "must",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 292
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "off",
+   "text": "So you shipped, and it broke — and now you're asking why, standing in the wreckage of it.\n\nWhat came up is a drive to keep going that has gone quiet. Not ambition — the plain forward motion that gets a thing from finished-code to running-in-the-world, the wanting that says *move, close the gap*. You have it, or you wouldn't have shipped. But today it's running low, and the way it's running low is specific: you're held back in the past tense of the incident. Some part of you is still back at the moment it went red, replaying the sequence, still inside the crash instead of standing in front of the fix. That's not the same as not knowing what to do — it's the doer not fully showing up yet.\n\nThe way through isn't to force the engine back on. It's to finish the thing that's actually done — the deploy that broke, the version you no longer trust — and clear it off the table. Close the incident out in your head as closed. Keep what serves (the logs, the lesson, the one thing you learned about the pipeline), let the rest go. When you've properly ended it, the wanting comes back on its own, and it comes back pointed at the fix instead of the failure.\n\nMy guess is the app is up, the crash is contained, and you're the one still sitting in it. Is that it, or is there something the crash is still actively costing you?",
+   "gist": "",
+   "medicine": "The move here isn't to push the drive back on — it's to finish what's already done: close the incident out cleanly, keep the one thing that serves, let the rest go. That's what gets the wanting pointed forward again, at the fix.",
+   "flags": [
+    "repeat",
+    "scale",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 253
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "scaffold",
+   "text": "You shipped it this morning and it fell over — and the question you're really asking is what that crash says about the thing you built. So let me start with what the build itself is. The capacity that came up for it is the one that holds momentum: the thing that keeps the fire going, that stays with a direction through resistance without burning itself out. Doing that well for a project means the project keeps its forward lean even when something breaks — the failure gets treated as work, not as a stop. That's the part that's running low. Some of the energy that would go into keeping the thing moving is still with how it was before the crash: the version that worked, the state you thought you'd shipped, the shape you had in your head. You're less in it than the moment is asking. The draw says settling this comes through a different action — not trying harder to re-motivate, but closing out what's already done in the build. The parts of the code, the config, the assumptions a deploy just proved wrong — those are finished, and they're holding space where the next thing goes. Let the finished parts end. Keep the material that's still load-bearing. That clearing is what lets the momentum come back on its own, because the direction starts to feel worth moving again once the dead weight stops taking up room.",
+   "gist": "The draw doesn't show you the bug; the build I read here is the thing that was supposed to keep moving, and right now you're doing less of that holding-it-moving than this needs — some of you is still standing where it worked before it broke. The way through isn't pushing harder at the thing that stopped. It's closing out what's already finished in it, so what still serves the next version stays.",
+   "medicine": "Close out what today's deploy already proved wrong: pull the spent config, the dead branch, the assumption that no longer holds, and keep the parts still holding load. Clearing the finished thing is what lets the next push start pulling again.",
+   "flags": [
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 240
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "on",
+   "text": "You've noticed the loop, and you're asking the right question about your engineering work — not what's wrong with me, but what keeps holding this shape.\n\nWhat came up is this: the energy that keeps a direction moving — the warmth that makes a piece of work worth showing up to, that makes it feel like it's going somewhere rather than just being a task. That energy is a real thing, and it has a role. It doesn't charge in and muscle the work forward. It holds the fire, keeps the conditions right, makes the direction feel alive enough that you actually keep going. When it's working well in your engineering work, that looks like a piece of work you're committed to because you can feel why it matters — you move because you feel it, not because you're pushing against resistance.\n\nRight now, less of that is in play than the situation asks for. You're holding back from it, and part of you is still with how things were rather than how they are. That's the specific shape: the tending energy is pointed somewhere behind you. Something old is still keeping a light on — you're standing at the threshold of work you haven't fully left, and the motivation for the next thing keeps getting spent on the previous thing.\n\nMy guess is that it's not laziness and not a skill gap — it's that some piece of engineering work you've already finished, or already decided about, hasn't been released. You're still tending it. Is that it, or is it something else still holding your attention?\n\nOne move that would change the picture: name one thing you're done with — a piece of work, a track, a direction you've stopped believing in — and actually clear it. Not re-examine, not keep it warm. Let it close so the energy goes somewhere it can move.",
+   "gist": "You keep showing up for a push that's already over — the motivation that would carry new work is going into a direction you're still holding open, and releasing what's finished is what frees it.",
+   "medicine": "Release what's finished — name one thing you're done with and actually let it close, so the motivation that belongs to the next stretch of work has somewhere to go.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "that keeps a direction moving"
+   ],
+   "copiedScaffold": [
+    "still with how things were"
+   ],
+   "guess": true,
+   "words": 315
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "off",
+   "text": "You're asking why the same thing keeps happening in your engineering work — the project that stalls, the direction that fizzles, the moment it should pick up and doesn't.\n\nWhat's drawn here is the part of you that keeps a fire going. It's the capacity to hold a direction not just in a burst but across the weeks it takes for a piece of engineering to go from idea to something that runs. That capacity lives on the feeling side of things — not the spreadsheets, not the architecture diagram, the part of you that has to *want* the destination enough to keep walking toward it through the boring middle. It shows up as behavior: how you sustain motivation, whether you can stay lit without burning yourself down.\n\nAnd it's running low. Not broken — low. You're doing less of this than the moment needs, and the reason is that part of your attention is still parked in how things were rather than how they are. Maybe a version of the work that used to make sense, a draft you didn't let go of, an assumption that stopped being true three sprints ago. When you're half in the past, the fire has nothing fresh to burn.\n\nHere's the move: clear what's actually done. Not the big sweeping rewrite — the smaller thing: the branch nobody merged, the ticket everyone knows is dead, the old plan you're still quietly measuring against. Release what's finished and keep what serves. That's not tidying; it's what lets the momentum come back, because right now you're spending forward energy maintaining a shape the work has already outgrown.\n\nSo — why does it keep happening? Because you're trying to relight a fire while still holding the ash. What would it look like to set one finished thing down before you pick anything else up?",
+   "gist": "It keeps happening because the thing that carries a direction through resistance is running low, and part of you is still anchored in how the work used to be rather than how it is — not because the work is beyond you. The way back is through the other capacity: clearing what's finished so what's next can take root.",
+   "medicine": "Clear one thing that's finished — the old plan, the abandoned branch, the assumption you're still building on — so the momentum has somewhere fresh to go. It's not about doing more; it's about letting the work catch up to where it actually is, so you can move because you feel it again.",
+   "flags": [
+    "scope"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 308
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "scaffold",
+   "text": "You asked why it keeps happening in your engineering work — the same pattern showing up again, whatever the project is.\n\nWhat came up is this: the part of you that holds and sustains direction — the wanting that points somewhere and keeps the fire going — is running low in your work right now. Not the thinking. The wanting-to-move. In the practical, feeling side of it, where the drive to keep going actually lives, you're doing less of this than the situation is asking for. You're holding back. And here's the part that explains the \"keeps happening\": part of you is still with how things were — an earlier version of the work, something that's already done and finished — instead of with how things are now.\n\nSo the loop runs like this. Something ends in engineering — a project ships, a direction changes, a thing you helped build gets handed off or replaced. Instead of letting that close, the energy that should fuel the next push stays tied to the thing that's already finished. The motivation doesn't run out. It can't start, because it's still attached to something that's already over. And because it can't start, it looks like it keeps happening — the same stall, the same stuck point, different project, same shape.\n\nThis isn't a willpower problem. You haven't lost the ability. My guess — and tell me if this is off — is that somewhere in the work you're holding onto something that's already wrapped: a way it used to be, a direction you were partway down, a version of how it should have gone. Is that it, or is it something else?",
+   "gist": "The pattern repeats because the wanting is real but it isn't being turned into motion — something finished is still being held onto, keeping the direction from starting. The way through isn't pushing the stalled thing; it's releasing what's complete so the next move can begin.",
+   "medicine": "The way through isn't to push harder at the stall. It's to clear out what's already finished — the old direction, the completed phase, the thing that's done — so the wanting has somewhere to go. Letting go of what's complete is what lets your drive come back to life and start moving from what's actually here now.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [
+    "still with how things were"
+   ],
+   "guess": false,
+   "words": 278
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "on",
+   "text": "The pattern you've been circling your whole life — here's what the reading shows underneath it: what's low isn't your capacity to want something or to stay loyal to it. It's the part that turns wanting into movement — the push that actually gets you from the decision to the arrival.\n\nThat capacity lives on the feeling side of a life: it's your own drive, and it runs on wanting, on being genuinely pulled rather than talked into it. When it's working, you don't have to manufacture momentum — you feel the direction and you go. When it's low, you're not lazy or broken; you're standing in the stretch between setting out and getting there, and that stretch has gone quiet. And the why you asked is sitting in the tense: you're holding part of yourself in how things were, not how they are right now. Not a memory you chose — a direction still pointing backward.\n\nThat's why it repeats. It isn't a flaw that keeps returning; it's a fire you keep leaving untended in the same spot of the road.\n\nThe way through isn't to push harder at the wanting — you can't force the wanting to fire. It's the opposite move: go through and clear what's already done. Release what's finished — a push that's over, a version of the plan that already played out — and keep only what actually still serves you. The loop opens when you stop tending what has already ended, and the direction comes back by itself, from feeling rather than force.\n\nMy guess is there's something specific you're still keeping the lights on for that you already know is over — a job, a direction, a version of yourself. Is that it, or is it more like something else?",
+   "gist": "The repeating pattern isn't a flaw stuck in you; it's one capacity going quiet in the same place every time — the wanting that moves you, running low once the middle stretch begins. The loop opens by clearing what's already finished, not by pushing harder at the wanting.",
+   "medicine": "Clear out one thing that's already finished — say its name, then leave it alone for a week — so what's next can actually grow. Not a push, a letting-go; the direction comes back on its own once the dead weight's gone.",
+   "flags": [
+    "scale",
+    "scope",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "then leave it alone for"
+   ],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 298
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "off",
+   "text": "A pattern you've lived with your whole life, and you're asking why — not what to do about it. So here's what the draw says about the shape of the loop itself.\n\nWhat showed up is your capacity to want something and stay pointed at it — sustained pull toward a direction, the warmth that keeps a fire going without burning yourself down. Not drive as force. Drive as tending: holding a direction long enough that it actually goes somewhere. That capacity has a home, and its home is feeling — how you're connected, who's in it, what you care about. It runs on the wanting, not on ought.\n\nAnd the draw says you're doing less of it than this moment needs. You're holding back from it, and part of you is still parked back where things were, before they changed. The wanting is not turned up. That's the loop you've been walking: not that you have no direction, but that you keep the direction at arm's length — over there, unlit, so it never has to be tested against how it actually turns out.\n\nWhy the whole life version, then? Because that distance doesn't need a new occasion. It travels. Each new room asks the same thing — want something, stay with it — and each time you meet it the same way, so the shape repeats without anyone deciding it should.\n\nThe way through isn't wanting harder. It's the opposite move: finish what's already finished. My guess is there's something in your hands right now that is actually done — or nearly — and you've kept it open because closing it would mean the next thing has to start.",
+   "gist": "You haven't repeated a failure — you've repeated a distance: you keep the wanting over there, where it can't be tested, so the same no-fire shows up in new rooms. The way through isn't to want harder; it's to finish clearing what's already done so the wanting has somewhere to land.",
+   "medicine": "The way through isn't to force the wanting — it's to close out what's already done. Pick the one thing that's finished or nearly finished and actually end it: say it's over, hand it in, delete it, put it on the shelf. Clearing that space is what lets the wanting have somewhere to go.",
+   "flags": [
+    "vocab",
+    "scale",
+    "scope",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 281
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "scaffold",
+   "text": "You're asking why the same thing keeps happening — why the pattern has your whole life in it, not just this year.\n\nHere's what the reading says, plainly. What came up is your drive: the part of you that keeps a direction going, that keeps wanting something and moving toward it. It's landing on the side of you that runs on feeling and relationship — how you want, who's in it, what you care about. Not a flaw in your character. A motor sitting in the emotional part of your life, which means every time it stalls, it stalls in a place that hurts.\n\nAnd it's running low. Not broken — undersupplied. Right now you're doing less of this than the moment actually asks, and part of you is still standing in how things were rather than how they are. That's the repetition. You keep getting to the starting line and not crossing, because some of you never left the previous version of the situation. My guess is you can name the feeling that shows up right before you don't move — longing, jealousy, fear, some old relief — and it feels like a reason to hold still. Does that fit, or is it more like the wanting itself has gone quiet?\n\nSo no, this isn't who you are. It's a direction that keeps getting its fuel from a moment that's already over.\n\nThe way through isn't to push harder at the wanting. It's the other thing: look at what in this situation is finished and let it be finished — the part that's actually done, the version of it you keep re-running — and keep the piece that still serves where you're actually headed. Close the account. Then notice that when you move, it comes from being involved, not from bracing.",
+   "gist": "The repetition isn't a flaw in you — it's a direction that keeps losing its pull because it keeps starting from an old feeling instead of a live one. The way out is small and backward from where you'd expect: let go of what's already finished before reaching for the next push.",
+   "medicine": "Release what's done — the version of this you keep running back through — and keep only the part that still serves where you're headed. Do that and your direction comes back to you: not from pressure, but from being genuinely in it again.",
+   "flags": [
+    "scale",
+    "scope",
+    "nominal"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 302
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "now",
+   "q": "",
+   "arm": "on",
+   "text": "What's sitting low in you right now is the tending kind of drive — the part that holds a direction warm and keeps it moving, not with force but by staying with it. That's a real capacity, and it's the one that turns wanting something into actually going after it. It runs on feeling: you move because you feel it, not because you decided to.\n\nRight now it's running under the situation. Not gone — under. You're doing less of it than this moment asks, and the reason isn't laziness. Some part of you is still standing where things already are, the way they were, holding a fire for something that has moved on without you noticing. My guess is there's a push you're still tending — keeping the lights on for it, checking it, not letting it go — while the thing that would actually move you sits untouched. Does that land, or is it more that the wanting itself has gone quiet?\n\nHere's the way through, and it's not to push harder at the drive. It's to do the other thing: look at what's finished, name it, and let it be finished. Clear the ground so the thing that's still alive in you has somewhere to grow. Not a grand goodbye — just one push you stop keeping the lights on for.\n\nThe feeling you're missing comes back on the other side of that. You move because you feel it — but you can't feel it while you're standing in a room that's already over.",
+   "gist": "What's running low right now isn't your care or your warmth — it's the part of you that keeps a direction moving. The way back is to stop tending one thing and let it finish.",
+   "medicine": "Let one push go — name it once, out loud or on paper, and leave it alone for a week. Not because it's wrong, but because the space it's taking is the space the next thing needs.",
+   "flags": [
+    "nominal",
+    "refrain",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 257
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "now",
+   "q": "",
+   "arm": "off",
+   "text": "Right now, on the feeling side of things, the wanting has gone quiet. Not gone — quiet.\n\nHere's what I'm looking at. There's a kind of energy in a life that's just sustained wanting: the momentum that keeps you pointed at something, that tends the fire instead of letting it go out. It's not force and it's not gritting your teeth. It's the plain, warm drive that keeps a person moving toward what they care about. That's what's on the table. And it's landed in how you feel about things — the relationship side, the emotional side, where connection and warmth live. It isn't showing up in what you're doing day to day; it's showing up in what you want.\n\nAnd you're doing less of it than this moment is asking for. That's the read: you're holding back from wanting something, and part of you is still with how things were instead of how they are now. Not gone — held. There's a tiredness in that, maybe, or a caution — I don't know which from here, and you can tell me.\n\nHere's the thing I want you to hear. The way through isn't to push harder at the wanting. It's to turn to the practical side — take stock of what's actually finished, clear it out, keep what still serves. Endings, respected. The wanting comes back on its own once the ground is clear. That's the move.\n\nWhat's holding the wanting back?",
+   "gist": "You're in a moment where the wanting has gone quiet — not gone, just held back, sitting with how things were. The way back isn't to force the wanting; it's to close out what's finished so what's alive can move again.",
+   "medicine": "The move is earthy and practical: take stock of what's actually finished — a project, an arrangement, a version of how things were — and clear it out. Keep only what's still alive. That's what lets the wanting move again.",
+   "flags": [
+    "repeat",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [
+    "still with how things were"
+   ],
+   "guess": true,
+   "words": 243
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "now",
+   "q": "",
+   "arm": "scaffold",
+   "text": "Where you are right now has a shape, and the shape is this: something you want is not moving.\n\nThe wanting is there. This isn't numbness and it isn't apathy — the drive is real, it's the kind that tends things, keeps them warm, holds the door open for other people's momentum too. That capacity is yours and it's whole. What's off is the follow-through. You're doing less with it than this moment actually calls for, and part of you knows it — there's a low hum of regret under the day, the sense that you should already be further along. Some of you is still standing in how things were rather than in how they are.\n\nThe place it lands is the feeling side of your life — who's in it, what you want from it, what you actually care about. The wanting points there. So the stuckness isn't in your head and it isn't in your calendar. It's that the feeling is present and the motion isn't, which is its own kind of tired. Being at the starting line with your heart already running is exhausting in a way that looks like nothing from the outside.\n\nHere's what I'd put down: the way out isn't to push harder at the thing that won't move. Push a vacuum and nothing comes back. The way out is to clear what's actually finished — a version of this, a hope you've been carrying past its date, a thing you keep tending out of habit — and keep the part that still serves where you're going. Let the done thing be done.\n\nYou move when you can feel it. That's the whole mechanism, and it's not broken.",
+   "gist": "Something you care about is sitting still right now — not because the wanting is gone, but because part of you is still standing where things were. The way forward isn't to force the momentum; it's to let what's finished be finished, and keep what actually still serves you.",
+   "medicine": "Clear what's actually done — a version of this, a hope you've carried past its date — and keep the piece that still serves where you're headed. You get your motion back when the direction comes from what you're really involved in, not from what you're still mourning.",
+   "flags": [
+    "story",
+    "scale",
+    "must",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 285
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "on",
+   "text": "What the incident shows, at least as this comes through: you are keeping something warm that you are not walking toward. Not coldness — the opposite. You're tending it. You're staying ready. You're holding the thing in a good light. And you are not moving, and haven't been, and the incident brought that out.\n\nThere's a kind of energy this reading is pointing at — the capacity to keep a direction going, to hold courage and momentum steady through resistance, to be the one who keeps the fire lit so the thing can keep moving. That's what's coming up short here. Not willpower. Not wanting. The maintaining. The daily, unglamorous, keep-going part.\n\nWhere it lands: the stretch between setting out and arriving. That's the ground you're on — not starting, not finishing, but the long middle. And in a middle, momentum doesn't arrive from feeling; it comes from being genuinely in the thing. The shortfall is that you're still partly with how things were, and you've been holding position instead of walking.\n\nSo the incident isn't showing you a failure. It's showing you what you're already carrying: a fire you keep lit for a direction that hasn't been moving, and a part of you still standing where that direction used to point.\n\nThe way through is sideways from what it sounds like. Not more push. The next real move is finishing something and clearing it — finding the piece of this that's actually over, and letting it be over, so you're not carrying it forward into whatever comes next. That's what frees the direction: not adding heat, but removing what's done.",
+   "gist": "The incident shows you holding warmth and readiness toward something that isn't moving — you're keeping the fire for a direction you're not actually walking. The way through isn't more effort on that thing; it's finishing what's done and clearing it, so the next direction has room to start.",
+   "medicine": "The move is to find the piece of this that's already over — the part that has run its course — and let it close, cleanly, so you are not carrying it into the next thing. Not because it failed; because it's done. What you get back from that is the ability to feel your direction again instead of holding it.",
+   "flags": [
+    "scale",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [
+    "between setting out and arriving"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 271
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "off",
+   "text": "What this incident shows is where your fire has gone quiet. That's the honest read — not that you've lost the capacity for momentum, but that right now you're holding back from it. Part of you is still standing in how things were before this happened, and that half-turn matters more than it looks like.\n\nThe thing underneath is what I'll call tending — the steady, warm, sustained work of keeping your own motivation alive. It's not a burst of energy or a charge into something new. It's the unglamorous work of staying with a direction long enough that it actually becomes real. You do this by wanting things, not by forcing them; the wanting is the fuel. When it's running well, your momentum comes out of how genuinely involved you are — you move because you feel it, because you're actually in it, not because you decided you should be.\n\nWhat I'm reading is that the wanting has cooled. Not gone — cooled. And the reason isn't laziness or lack of will; it's that a piece of you is still parked in the before. Whatever this incident is, it happened, and something in you hasn't quite agreed to that yet. The way forward isn't to push harder at the thing that isn't moving — that just burns you out trying to light wet wood. It's the opposite move: clear out what's actually finished, so what's still alive has room to breathe. Look at what's done and let it be done. Keep the parts that still have heat. That clearing is what lets your drive come back on its own, because it stops asking you to drag the old thing forward while you're also trying to walk.\n\nI don't know what's specifically finished here — my guess is there's at least one thing you already know is over, and you've been holding it because letting it go feels like giving up on something that mattered. Does that fit, or is it something else?",
+   "gist": "The incident is showing you a place where your drive has gone quiet — you're still half-turned toward how things were, and the way back is through letting go of what's already finished rather than pushing harder at what isn't moving.",
+   "medicine": "Set down what's already finished. Not everything — just the piece you keep picking back up to see if it's still warm. Clearing it is what makes room for the wanting to come back on its own.",
+   "flags": [
+    "scale",
+    "must",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 333
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "scaffold",
+   "text": "You asked what an incident shows you right now — so that's what I'll read.\n\nWhat came up is about wanting something and not moving on it. The capacity here is drive: the thing that keeps you pointed at a goal and keeps you going through resistance, not the hot version of it but the steady tending kind. The sort of energy someone uses to hold a fire lit over a long haul rather than to make one big flame. That's the function in question. Where it's landing is the feeling side of your life — the part where what you want and how you feel about who's in it with you live. So the whole reading is this: your wanting, in how you feel about something, and the wanting has gone quiet.\n\nAnd the read on it is that you're doing less of this than the moment is asking for. You're holding back — and it looks like part of you is still back with how things were, not with how they are now.\n\nAn incident is handy like that. It breaks the ordinary surface, and what's underneath shows up, and what's underneath for you right now is that your wanting is present but not moving. Feeling something isn't the same as moving on it, and that gap is what this is pointing at.\n\nOne thing: I don't know what the incident was, or whether you've tried to move and it didn't take. My guess is that something ended recently — or is trying to — and you haven't quite agreed to let it.\n\nIs that it, or is it more that you've moved and it hasn't landed yet?",
+   "gist": "The incident is showing you a place where the feeling is all there and the movement isn't — you're still partly standing where things were, and the way out isn't more pushing, it's clearing what's already finished so the direction can carry you again.",
+   "medicine": "The way out isn't to push harder at the wanting — it's to clear something. Take the one thing you keep reopening and decide it's finished: say so, close it, stop re-litigating it. Keep what still serves and let the rest go, so what's left can move on its own. That's what brings your direction back — moving because you feel it, from real involvement, instead of from something you're still arguing with.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 280
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "on",
+   "text": "You didn't ask about anything in particular, so I'll read what's in front of you right now: the wanting side of your life, the part that decides what you're moving toward — and what I see is that it's underfed, not absent.\n\nHere's the shape of it. There's a capacity in you that keeps a direction alive — the thing that wakes up in the morning still pointed at something, that can hold a course through resistance without burning itself out. It's not force. It's tending: keeping the fire going so the movement stays yours. And when it's working, you move because you feel the thing, not because you've decided you should.\n\nWhat's happening is you're doing less of that than the moment is asking for. You're holding back from it, and some part of you is still standing where the earlier thing was, instead of where you actually are. That's the whole reading: not a verdict on you, just where your energy is aimed. My guess is there's a push you're still keeping the lights on for — something finished, or something you stopped moving toward, and you're still tending it. If that's not it, say so and I'll read it differently.\n\nHere's the way through, and it's going the other direction from what you'd expect. It isn't more drive, more grit, more pushing at the thing you're underdoing. It's clearing. Look at what's done and what's finished and actually release it — set it down, stop feeding it — and keep what still serves. That's not quitting. That's how the material for what comes next stays sustainable.\n\nThe payoff: you start moving because you feel it again, and the direction comes from being really in it, not from gritting toward something that already ended.",
+   "gist": "What's going on is that your direction has gone quiet — not lost, not broken, but running on something that already finished. The way back is through clearing, not through pushing harder.",
+   "medicine": "The way through isn't more drive — it's clearing. Look at what's done and finished, release it, and keep what still serves. This isn't pushing at the thing you're underdoing; it's doing the clearing instead.",
+   "flags": [
+    "must",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 296
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "off",
+   "text": "What's going on, from what I can see: some of the drive that usually carries you — the wanting, the pull toward something you actually care about — is running low right now. The kind of motivation that doesn't just flash but holds, that keeps the fire going and gives you a direction to point in. And where it's showing up is how you feel about things and who's in them with you. Not what you're thinking through, not what you've decided — the feeling side of it.\n\nHere's the thing: this isn't a flatline. It's not that the drive is gone. It's more like you're holding back from it — part of you still standing in how things were instead of how they are. Too little, not none. You're doing less of this than the moment is actually asking for, and I think you can feel the gap.\n\nAnd that's the strange part — the thing that's low isn't the thing that needs the work. You don't fix this by pushing harder at \"wanting to want it.\" You fix it by clearing what's already finished. Setting down what's done, letting the rest have room to grow. It's the opposite of forcing.\n\nSo — what's going on is that something in you is waiting, holding a direction that's already been chosen, and the way back isn't more drive. It's permission to let something end. Then the direction comes back on its own — you move because you feel it, not because you told yourself to.\n\nMy guess is there's a specific thing you've already half-decided is over, and you just haven't let yourself say it. Does that land, or is it something else?",
+   "gist": "What's going on is a waning of the drive that usually carries you — and it hasn't gone out, it's being held back. Direction comes back when you clear what's finished, not by pushing harder at what you're already doing too little of.",
+   "medicine": "The way through isn't to force the wanting back — it's to clear what's done. Set down the finished thing so the live one has room, and stay in what you actually have today, not what was.",
+   "flags": [
+    "nominal",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 283
+  },
+  {
+   "draw": 1,
+   "d": {
+    "transient": 64,
+    "position": 7,
+    "status": 3
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "scaffold",
+   "text": "What's going on is that you feel it — and you're not moving on it yet.\n\nLet me say what came up, plainly. There's a kind of momentum in you that runs on warmth and care: the part of you that tends a fire, keeps something going, holds the space for a direction to actually get somewhere. Not force. Sustained wanting. And the reading says this is *under*-exercised right now — you're doing less of it than the moment is asking for. You're at the starting line. Part of you is still back with how things were, and while it's there, the wanting hasn't turned into moving.\n\nWhat's interesting is where it landed. It's not a stranger in your house — it's right in your own kitchen, at the bench where your feelings about things live. So this isn't about technique or strategy. It's about how you *feel* about it, which is where direction actually starts for you. You move because you feel it; when you're really in something, the direction comes on its own.\n\nThe way through isn't to grit your teeth at the thing you're not doing. It's the opposite. It's going through what's finished — the version that's already run its course, the old shape of it — and letting that go, keeping only what still serves where you're headed. Clear the ground and the momentum comes back on its own, because you'll finally have somewhere to put it.\n\nSo: what's the thing you feel strongly about and haven't started moving on? I don't know it yet. Tell me what it is.",
+   "gist": "You're standing at a starting line — feeling very much alive in this, but not moving on it — and the way out isn't pushing harder at the thing itself; it's clearing out what's already finished so the rest has room to grow.",
+   "medicine": "It means going through what's finished — the old shape of this, the version that's already run its course — and letting that go, keeping only what still serves the direction you're actually headed. Not pushing harder at the thing you're not doing; clearing the ground so what's alive in it has somewhere to grow. What you get back is the moving itself: you move because you feel it, rather than waiting to feel ready.",
+   "flags": [
+    "vocab",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [
+    "at the starting line part"
+   ],
+   "guess": false,
+   "words": 265
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "on",
+   "text": "Today's deploy crashed, and you want to know why.\n\nThe reading doesn't put the crash in your code. What it puts in front of you is the part of you that was still standing after it — the thing that let you look at a broken release and keep working instead of folding. That capacity has a long history in you. It's the same one that carried you through every bad night before this one, and the whole strength of it is that it doesn't announce itself. It just keeps going.\n\nWhere it's showing up right now is in how you're thinking about the deploy — in how you're working out what happened, what it means, what to do next. It's the steady hand between you and the situation.\n\nWhat's off is not that you have it. It's that you're not counting it as yours. You did the work that got you here — the years of practice, the patience, the showing up — and somewhere in all of it you started filing it under \"that's just how I am\" instead of \"that's mine.\" The skill is real. The credit just isn't going where it belongs.\n\nWhat actually gets you out is simpler and smaller than what you've been doing. You don't need to feel stronger about this. You need to stop carrying the whole thing alone and honor what you've carried — one hard stretch you've been through, written down in one line, then closed. Nobody reads it. That's the small act. It's not about the deploy. It's about the part of you that got through it.",
+   "gist": "The crash isn't the story the reading tells; it's the moment something you've been carrying on your own strength got seen. You've been keeping this running for a long while and calling it nothing special.",
+   "medicine": "Write down one hard stretch you've already been through, in one line, and close the page. No one reads it, and the point isn't the stretch — it's that you did that, and it was yours.",
+   "flags": [
+    "scale",
+    "must",
+    "destination"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 268
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "off",
+   "text": "Today's deploy went out and the app came down right after it, and you want to know why.\n\nThe work here is not a thing that gets built once; it is a thing that keeps getting held up. In this draw, that capacity shows up on the feeling-and-relationship side of the work — the side that reads who is affected and what the team and the users are carrying. It is about something leaving you: steadiness you put out that isn't yours by the glow. And it's at the far end. Not a fresh start. The late harvest of something you have kept going past the point where a single choice was made.\n\nThat combination is where the crash comes from. Push a deploy out and it can look like one act, the moment the thing ships. But it is sitting on a long, held-together stack of adjustments that never got logged as yours. What holds a live system up is not the release itself — it's the countless corrections, the patch-after-patch, the small fixes you made because someone had to and the log was the log. All of it is real work. None of it was ever named as yours.\n\nSo there is no single culprit line for the crash, because the thing you're reading is a pattern of how the work is held, not the last commit. The move is not more of the same steadying. It's a smaller relative of it — an earlier, plainer keeping: you carry the part of this that is yours, all of it, without waiting to see who else is standing, and you stand on it. Not the whole ceiling. Your share of it, and your name on it.",
+   "gist": "The deploy didn't fail from a lack of effort — the reading shows a codebase kept standing by persistence that no one is crediting, least of all you. The crash is the moment the standing stopped being invisible, and the way through is a smaller, earlier version of that same keeping, signed in your own name.",
+   "medicine": "It asks you to carry your own share of the work all the way, without checking over your shoulder to see who else will catch it, and to keep standing there. Not more of everything — just your part, named.",
+   "flags": [
+    "scope",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 287
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "today",
+   "q": "Why did the app crash right after today's deploy?",
+   "arm": "scaffold",
+   "text": "Why did the app crash right after today's deploy — that's the question in front of you, and it's a good one.\n\nWhat came up is something that keeps going long after it should have given up. That's the shape of it: persistence through wanting. Nine of ten on the way through — mature, tested, still standing. In the language of this map it's a *force leaving you* — something moving out of you, into the world, carried by wanting. It arrived from where purpose lives, not where the crash does. That's the displacement: the answer to your question sits in how you've been holding the thing, not in the deploy itself.\n\nThe seat it landed in is Tune — dynamic equilibrium, the part the map calls *Emotion, by thinking*: the continuous adjustment that keeps a system in flow. Add, subtract, blend. Not a static middle, an active calibration. That's the part that was supposed to be watching.\n\nAnd this is what the map calls *unacknowledged*: you are doing the thing, now, and you are not treating it as your own. You're the one holding the line on this system — the person who keeps it up — and you read that holding as something that happens *to* you rather than something you *do*. The crash isn't the story. The holding is.\n\nThe way back is a simpler version of what you already do, done as yours. Steadfastness. Not the persistence that keeps going past the point of giving — *this* persistence. Carry your own share through the pressure without checking whether anyone else is carrying theirs. Stand in your part of it. That's what brings the tuning back: what you give off comes from what you built and finished, not from what you keep proving under load.\n\nThere's a thing here you may already know the shape of without naming it. If you'd like, we can find which one it is.",
+   "gist": "The crash is the edge of something that has been carrying load for a long time — Resilience wore through, and the part that would have caught that, the continuous re-tuning, went unread. The way back isn't more force on the crash; it's steadying your own part of it under pressure, quietly, before you go looking at anything else.",
+   "medicine": "Carry your share of this system through the pressure without going to check whether anyone else is carrying theirs — and treat your share as yours, plainly, not as something that caught you. That's what puts the steady adjustment back in your own hands.",
+   "flags": [
+    "vocab",
+    "plainname",
+    "scale",
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 322
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "on",
+   "text": "In your engineering work, something keeps happening, and you are asking why. The reading says the reason is not the thing you think it is.\n\nThere is a way of carrying something that just doesn't quit. You keep going back to the problem. You keep showing up to the code. You keep the commitment long after it stops being fresh. That persistence is drawn here as tested — it has been through pressure many times and is still standing. That is what the draw shows showing up in your work.\n\nWhere it shows up is in the small adjustments. Not the big decisions — the tiny calibrations between you and the people you work with, between you and the systems you maintain. You sense when something needs a little more, a little less. That is what's holding the shape of your engineering day.\n\nBut you are the one doing it, and you are not treating it as yours. That is the whole of what the draw says about how you're carrying it. The persistence is yours. The calibration is yours. Something about how you're reading the situation keeps filing it elsewhere — as just how things are, as the job, as the way the work runs, as something that happens to you rather than something you produce. You are authoring the outcome and giving the credit to the circumstances.\n\nSo the question isn't why the thing keeps happening. The question is why you keep not counting yourself as the one making it stop, or keep, or shift. The persistence is real and it's yours. What's missing isn't the strength. It's the signature on it.\n\nThe way through is smaller than you'd expect and earlier than where you're standing now. Not a new system. Not a grand resolution. A single line on paper about one hard stretch you came through in this work — a real one, not a small one — and then you close the page. Nobody reads it. The point isn't the record. The point is that you are the one who wrote it down.",
+   "gist": "The thing that keeps happening in your engineering work is the same thing you've been carrying it with — stubborn, practiced persistence — and you have not been counting it as yours. When it goes back in balance, what you give off comes from what you grew over time and brought to completion.",
+   "medicine": "The move is to keep going on your own reserves through the pressure — carry your own share of this engineering work, all of it, without checking whether anyone else is carrying theirs, and stand firm. What you get back is a steadiness that holds without squeezing, and a body of work you can hold as yours.",
+   "flags": [
+    "operation",
+    "destination",
+    "destination",
+    "unnamed",
+    "conduit"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [
+    "hard stretch you came through",
+    "close the page nobody reads",
+    "the page nobody reads it"
+   ],
+   "copiedScaffold": [
+    "on your own reserves through",
+    "your own reserves through the",
+    "own reserves through the pressure"
+   ],
+   "guess": false,
+   "words": 347
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "off",
+   "text": "You're asking why the same thing keeps showing up in your engineering work — the same shape of problem, the same cycle, and it keeps landing on you.\n\nThe reading says you keep going. That's the thing that's showing up. Not a flaw in your process, not bad luck with projects — persistence itself is what's recurring. You hope, you keep following the thing you set out to do, and you're still following it after every rewrite, every shifted requirement, every thing that went sideways. Of all the strengths you've gathered in this work, this is the one you actually lean on. It's weathered. It's held.\n\nAnd where it's landing is the part of your work that's about keeping the flow going — the constant recalibration. Knowing when to add, when to subtract, how to blend what people need with what's actually buildable. That's not a static thing you get right once. It's active, continuous sensing. So the persistence is meeting the calibration, over and over, and that's the loop you're in.\n\nHere's what the draw says about how you're carrying it: you're doing this, and you're not treating it as yours. The steadiness, the endurance, the sheer keeping-at-it — that's you, and somewhere along the way the credit for it went somewhere else. Maybe to the project, to the team, to the fact that there was no other option. The draw doesn't say where. But it says the doing is yours.\n\nWhy it keeps happening: because the one thing that never wavers in your engineering work is the part of you that keeps going — and you've been counting it as nothing.",
+   "gist": "What keeps happening in your engineering work is that you're the one absorbing the churn and keeping it moving — and you're reading that as something that happens to you, not something you're doing.",
+   "medicine": "The move here is to keep pulling your own weight — every bit of it — and to carry it without looking sideways to check what anyone else is doing with theirs. That's not more work piled on; it's a simpler version of what you're already doing, done as your own. Concretely: you finish what's yours to finish, without re-checking whether someone else is going to pick it up. You stand by what you've decided. What you get back is this — you can hold what you're carrying steady without having to grip it. What's in your hands stays safe in your hands. It doesn't get crushed by the holding.",
+   "flags": [
+    "scale",
+    "scope",
+    "nominal",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 273
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "work",
+   "q": "Why does this keep happening in my engineering work?",
+   "arm": "scaffold",
+   "text": "The thing that keeps happening in your engineering work — you're asking why it's a loop, not an incident.\n\nHere's what the draw says. The strength at the centre of this is a kind of staying power: you keep going on hope long after the first push is spent. That capacity is not a mood, it's a practice — and it's one you've run so many times it now does itself. When you're in the middle of the work, you don't decide to be durable. You just are, and the work keeps moving.\n\nWhere it lands is the side of you that keeps things in balance — the adjustment work, the calibration, the sensing of when to push the build and when to sit back, when to add scope and when to cut. That part is steady. That part is doing its job.\n\nWhat the draw adds is the fine print: you're doing this, and it isn't registering as yours. The endurance is handed off somewhere — to the log, to the fact that it's just how the work goes, to the team, to the timeline. From the inside it can feel like the work is happening and you're the surface it runs across. That's what makes it a loop: the thing that ends the cycle is your own persistent hand, and you keep not filing the receipt.\n\nThe move is to keep doing exactly what you've been doing, as your own. Same strength, smaller frame, signed. Not a new technique — the older, simpler version of what's already working.\n\nMy guess, and it's only a guess: the recurring thing is the same patch of problem each time — the same flaky test, the same class of regression, the same rework. Does that fit, or is it something else?",
+   "gist": "It keeps happening because you are the one holding it together, every time, and treating that as something that just happens to you. The strength is yours; it's the sense that it's yours that's gone missing.",
+   "medicine": "Same strength, smaller frame, signed — keep the push you already make, treat it as your own, and stand behind it instead of letting it look like something the work did to you.",
+   "flags": [
+    "vocab",
+    "scale",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 299
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "on",
+   "text": "You asked why this pattern has followed you your whole life. Here is what came up.\n\nThere's a kind of strength that keeps going after the thing it was hoping for has stopped giving reasons. Not stubbornness. Loyalty with its coat still on. In you it lives in what your life is for — the direction you picked and never walked away from — and it works the way wanting works: you lean toward it, again, after everything. The picture on it is a figure still standing at the end of a long road, and that figure is standing on purpose, not by accident.\n\nWhere it shows up is not in your plans. It's in how you handle the people you love. The small daily adjustments — sensing when to give more, when to pull back, how to keep the temperature level between you and someone else. You have done that so long it feels like personality. It isn't. It's a skill, and it's running constantly.\n\nSo why the repetition? Because you are the one holding all of it steady, and you file it under how you happen to be. As temperament, as what you do, as just the kind of person you are. That is the pattern: not that you keep ending up here, but that every time you arrive, you leave the credit at the door. You do the work, and it gets recorded as background.\n\nThe thing is, the same strength that keeps you going is the thing you're not taking ownership of. And the way it comes back to you is smaller than you'd expect. A hard stretch you already came through — not the story of it, just one line on a page, then close the page. Nobody reads it. The point isn't the record. It's your own hand, writing down once that you were the one who carried it.",
+   "gist": "You've been living the steadying of a relationship as your background rather than your work. The reason the loop repeats is that nobody — starting with you — has ever signed this endurance to your name. The way through starts smaller: one hard stretch you already came through, put on a page and closed.",
+   "medicine": "The way through is to keep going on your own reserves through the pressure — your share, all of it, without checking on anyone else — and here that means one line on paper about a hard stretch you came through, then close the page, no one reads it. What you get back is a steady hand: what you're carrying stays safe, and it stops being squeezed.",
+   "flags": [
+    "vocab",
+    "operation",
+    "scope",
+    "unnamed",
+    "conduit"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [
+    "it under how you happen",
+    "under how you happen to",
+    "how you happen to be",
+    "a hard stretch you came",
+    "hard stretch you came through",
+    "then close the page nobody",
+    "close the page nobody reads",
+    "the page nobody reads it"
+   ],
+   "copiedScaffold": [
+    "on your own reserves through",
+    "your own reserves through the",
+    "own reserves through the pressure"
+   ],
+   "guess": false,
+   "words": 315
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "off",
+   "text": "You asked why the same thing keeps happening, across your whole life.\n\nWhat came up is the strength you have been showing inside it. There is a kind of staying power that keeps going after everything that has already happened — you keep hoping even when the reasons to have stopped are all around you, and you keep going anyway. That is not a small thing. It is real, and it is yours.\n\nWhere it is showing up is in how you feel about this and who is in it. Not the facts of the situation — the pull. The sense of who matters, what you promised, what you would not walk away from.\n\nAnd here is the part that matters for your question. You are doing this. You are the one keeping it going, day after day. But you are not holding it as your own doing. Somewhere along the way the credit went to something else — the situation, the other person, the way things are, luck, whatever it is — and so the pattern keeps happening to you instead of being something you are choosing. That is why it repeats. Nothing is being decided. The strength is running on its own.\n\nThe way through is to keep going, but to carry it as yours. All of it. Your share, no more and no less, without checking over your shoulder to see if anyone else is carrying theirs. Not asking permission, not waiting to be told it is allowed. Standing in it because you are the one standing.\n\nThat does not stop the pattern. It puts you back inside it, so you can choose what happens next.",
+   "gist": "The pattern keeps repeating because the strength that gets you through it is real and yours — and you have been handing the credit to something else, so you never get to decide whether to keep it.",
+   "medicine": "The way through is simpler than it sounds: keep going, but do it as your own decision. Carry your part of it — all of it — without checking whether anyone else is carrying theirs. What you hold steady stays safe; it does not need to be squeezed.",
+   "flags": [
+    "operation",
+    "scale",
+    "scope",
+    "destination",
+    "destination",
+    "destination",
+    "unnamed",
+    "narrator"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 279
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "life",
+   "q": "Why have I repeated this pattern my whole life?",
+   "arm": "scaffold",
+   "text": "You've asked why this pattern keeps coming back your whole life, and you're asking it straight — not for comfort, for the mechanism.\n\nWhat came up is a kind of staying power. Not grit through the teeth — something closer to hope that keeps pointed in one direction long after it would have been reasonable to turn. It isn't new. The reading says it's at its harvest: tested many times over, still standing. That's what has made the loop possible. Whatever the pattern is, it has lasted because you last.\n\nWhere it's showing up is the feeling side of this — the people in it, and how you keep things level between you and them. And you keep that level by thinking: adjusting, sensing when to give more and when to give less, blending yourself into whatever the moment needs. That's a real skill. It's also the place where the loop gets fed.\n\nHere's the part worth sitting with. You are doing this, now, and you are not holding it as yours. The persistence running the pattern is your own doing, and somewhere along the way it stopped counting as yours — it became just the way things are, or just who you are, or just what that situation demands. So the loop keeps running because nobody is claiming the hand that runs it.\n\nThe way out isn't to stop. It's an older, simpler version of the same thing, done as your own act: keep going on what you already have, carry your own share of it — all of it — without checking on anyone else, and stand firm. That's the whole move. It is what makes what you carry stay safe in your hands instead of getting crushed by the constant adjusting.",
+   "gist": "The pattern repeats because your persistence is real and running — and you are not counting it as yours. It shows up in how you keep the balance among the people this touches. The way through is simpler and older than what you are already doing: keep going on what you have, hold your own share of it steady, and set it down as your own act.",
+   "medicine": "Keep going on what you already have, hold your own share of this steady — all of it — without checking on anyone else, and stand firm. What you carry that way stays safe in your hands; it doesn't have to be squeezed to be kept.",
+   "flags": [
+    "operation",
+    "destination",
+    "narrator"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 294
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "now",
+   "q": "",
+   "arm": "on",
+   "text": "There's a kind of keeping-going that doesn't look like anything while it's happening — small adjustments, made continuously, that keep something running between two people.\n\nWhat came up is a persistence that's already been tested and held. Not brute force: the continued hoping underneath it, the thing you kept pointing yourself at even after the reasons got thinner. It's at its most mature here, which in plain terms means it's weathered. It shows up in the side of a life that's about how you feel about things and who's in them with you, and it does its work by constant small calibration — sensing when to add, when to pull back, when to hold still so the thing doesn't tip. That's not passivity. It's work, and it never announces itself.\n\nHere's the part worth sitting with. You're doing this now, and you're not treating it as yours. It's happening through you and getting filed as your temperament, your nature, how you just are — when it's actually a choice you keep making, at cost, on purpose. Nobody's signing the work.\n\nThe way through is smaller and older than what you're already doing: hold out using what you have yourself while it's hard, carry your full share of it without checking whether anyone's coming to help, and stand firm. Not a grander version of holding things up — a humbler one, done as your own. What you get back when you do: you can hold what you're carrying steady without squeezing it. Kept safe, not crushed.",
+   "gist": "You keep the thing steady — between you and whoever this is for — and you file that under how you happen to be, not under a choice you made. It's yours, and you're not counting it.",
+   "medicine": "Hold out using what you have yourself while it's hard — your share of it, the whole thing, and don't look for anyone to come and take part of it off you. It's the same steadiness you already have, just done as something you chose.",
+   "flags": [
+    "scope",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 255
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "now",
+   "q": "",
+   "arm": "off",
+   "text": "There's a steadiness in you right now, and you're not treating it as yours.\n\nWhat came up is persistence — the kind that keeps going after the first enthusiasm is gone, the kind that's been through things and is still standing. It's not grit you perform. It's the strength you actually lean on. That capacity is real and it's yours, and the reading shows you're living it without giving yourself credit for it. It's like background that happens to you rather than a choice you keep making.\n\nIt's showing up in the side of you that feels things and stays in balance with people. That's the part that quietly adjusts — sensing when to give more, when to pull back, how to keep things flowing between you and someone else. You do that ceaselessly, and almost none of it gets counted.\n\nSo there's a split: you're doing the steadying, and you're handing the credit away — to circumstance, to \"that's just how it is,\" to the other people involved. It's happening right now, not in the past.\n\nThe way through is quieter than effort. Keep going on your own reserves — carry your own share, all of it, and stop checking on everyone else's. Standing firm, but only over what's actually yours to hold. When you do that, you get back the thing you've been missing: the ability to hold what you carry without squeezing it, and to know the strength was yours all along.",
+   "gist": "There's a persistence in you that has held through a lot and keeps holding, and you're not counting it as yours. The way back isn't more effort — it's setting down the part you've been carrying for someone else and standing with your own share.",
+   "medicine": "Carry your own share, all of it — keep going on your own reserves through the pressure, without checking on anyone else's part of it — and stand firm in that. It's not more effort; it's a smaller, truer version of what you're already doing, done as yours.",
+   "flags": [
+    "operation",
+    "scale",
+    "scope",
+    "refrain"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [
+    "on your own reserves through",
+    "your own reserves through the",
+    "own reserves through the pressure"
+   ],
+   "guess": false,
+   "words": 245
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "now",
+   "q": "",
+   "arm": "scaffold",
+   "text": "What's running in you right now is a kind of staying power — the thing that keeps going after the honeymoon part is over, when the reasons to keep hoping have thinned out and you're still standing anyway. It's not hype and it's not grit-your-teeth. It's the strength of someone who kept believing past the point where it would've been reasonable to stop.\n\nWhere it's showing up is in how you feel your way through things — the daily read on the people around you and what the room needs. That side of you is always adjusting: more of this, less of that, add warmth here, back off there. Not some frozen calm — an active, ongoing correction. Sensing when to pour in and when to pull back.\n\nAnd here's the thing the reading won't let go of: you're doing it, and you're not counting it as something you're doing. It runs, it holds, and it registers as just how things are — not as your hand on the dial. Maybe it looks like \"anyone would.\" It doesn't read like a choice because it never announced itself as one.\n\nThe move is smaller than it sounds. It's to keep carrying your own share of this and to stop going around checking whether everyone else is okay, whether they noticed, whether it landed. Stand firm in your own part of it. You can hold what you're holding steady without squeezing it — what you've got is safe in your hands, not crushed by them.\n\nSo: the persistence is real, and it's yours. When you let yourself own it as yours, what you give off stops being a mystery and starts being something you grew and finished.",
+   "gist": "The persistence holding things together in how you feel and who's around you is real and it's yours — and you're treating it like something that just happens. Keeping your own share steady, without checking on everyone else, is what hands it back to you.",
+   "medicine": "You carry your own share of this all the way through — no checking over your shoulder at whether everyone else is holding up, no waiting for a signal that it landed. Carry your own load and stand firm. You can hold what you're carrying steady without crushing it; what's in your hands stays safe in your hands.",
+   "flags": [
+    "vocab",
+    "scope",
+    "premise",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 285
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "on",
+   "text": "You want to know what this incident shows you. What shows up is that you kept going — and that you have not been counting the keeping going as yours.\n\nThere are two different things here, and they are easy to mix up. One is the strength itself: not a burst of energy, but the long kind. The willingness to keep hoping after a thing has been hard for a while. Not a decision you made once — a decision you keep making. The other is where it is showing up: in how you hold the balance between you and someone else. The small adjustments, the reading of a room, the sense of when to add and when to pull back. That part is not passive. It is work, and it is running.\n\nThat is what the incident shows you. You are carrying something through, in the middle of a situation, and you are filing it under how you happen to be. You are not holding it as something you are doing.\n\nThere is no flaw in the strength. It is simply not on the books. And when a thing isn't on the books, you can't lean on it, can't spend it, can't say what it has cost. It just keeps running in the background.\n\nHere is the smaller move, and it is yours: take one hard stretch you came through — it may be this one — and put a single line about it on paper. Then close the page. Nobody reads it. Not the person you're balancing with. Not anyone checking on you. This is about getting one true thing onto a page without asking anyone to approve it.",
+   "gist": "What the incident shows you is steady — you kept the thing level and kept going, and you are reading that as just how you are rather than as something you did. The way through is smaller and yours: pick one hard stretch you came through, put a single line about it on paper, close the page.",
+   "medicine": "The way through is smaller and earlier than what you are already doing: pick one hard stretch you came through and put a single line about it on paper, then close the page. No one checks it, no one approves it — the point is that you can hold what you carry steady without squeezing it, and what you hold stays safe instead of getting crushed.",
+   "flags": [
+    "unnamed",
+    "conduit"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [
+    "filing it under how you",
+    "it under how you happen",
+    "under how you happen to",
+    "how you happen to be",
+    "hard stretch you came through",
+    "put a single line about",
+    "a single line about it",
+    "single line about it on",
+    "line about it on paper",
+    "about it on paper then",
+    "it on paper then close",
+    "on paper then close the",
+    "paper then close the page",
+    "then close the page nobody",
+    "close the page nobody reads",
+    "the page nobody reads it"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 281
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "off",
+   "text": "You want to know what this incident shows you, so here is what the reading says it shows: you are still going.\n\nYou have been doing the hardest kind of work in this — hoping and persisting at the same time, after a lot has already happened. That strength doesn't show up in the moment it's used. It shows up in the fact that you are still here, still pointing yourself at something, still not broken. That is what's in the air around this incident. It's not a verdict on it. It's the picture of you inside it.\n\nAnd it's sitting in how you feel about this and who's in it with you — the side of this where you keep adjusting. Noticing when to add, when to hold back, how to keep it moving. You're not standing still. You're actively keeping something steady, and the incident didn't stop that. It might be why you can't see it — you're too busy doing it.\n\nYou are doing this and you are not holding it as your own. That's the thing. The persistence, the adjustment, the not-quitting — the incident may have made you feel it was happening to you, or through you, or because you had no choice. It isn't. It's yours. You are the person doing this, right now, and somewhere along the line the credit got handed off.\n\nThe way through is not a bigger effort. It's a simpler, earlier version of the same thing, done as yours: keep going on your own strength, carry your full part of this without checking on anyone else, and hold it steady. What that gives back is that you can carry what matters without crushing it, and what you're carrying stays safe.",
+   "gist": "The incident doesn't show you at fault — it shows you still going, and giving something else the credit for it. The way through is to keep carrying your own part as your own: steady, without asking anyone to confirm it.",
+   "medicine": "Keep going on what you already have. Carry your full share of this and don't run it past anyone for confirmation — hold it steady on your own. The point isn't bigger effort; it's you treating the carrying as yours.",
+   "flags": [
+    "operation",
+    "scale",
+    "nominal",
+    "destination",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": true,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 291
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "incident",
+   "q": "What does this incident show me right now?",
+   "arm": "scaffold",
+   "text": "What you're asking about is one incident, and you're asking what it shows you.\n\nHere's what it shows. There's a persistence in you that comes out of hoping — not a blind hope, one that's been tested — and a lot of it has clearly been tested. It shows up in how you feel about things and about the people in them, which is the part of you that's constantly adjusting: sensing when to press and when to ease off, when to say the thing and when to let it sit. That adjusting rarely looks like anything. There's no moment where you can point and say *there, that's what I did*. It just keeps the whole thing level, day to day. The reading says you are doing that right now, and the credit isn't landing where it belongs. Not that you're lying to yourself about it — you're just not counting it. It reads as background noise, something that happens, rather than something you're doing. But you're doing it. It's yours.\n\nAnd the way through here is the plain version of exactly that: keep carrying your own part of this, all of it, without looking over at anyone else to see how they're bearing up or whether it's time to put it down. Stand in what's yours and stay there.\n\nThe thing it gives back is this: you can hold what you're holding without squeezing it. Nothing in your grip has to be crushed to keep it safe — least of all you.\n\nMy guess is this incident landed as one more thing to get through, and you've already absorbed it as if that's just what you do. Does that fit?",
+   "gist": "What the incident shows is a steadiness in you that runs on hope and has taken a battering, and you are looking right past it as if it weren't yours. It is yours, and the way back is to keep carrying your own part of it — plainly, as your own.",
+   "medicine": "The way through is plain: hold out on your own stores, carry your own share of this without glancing sideways at anyone else to gauge how it's going, and stand firm in it. Done as your own, that's what returns what you give off to its true source — what you built over time, brought to completion, finally credited to you.",
+   "flags": [
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": true,
+   "words": 281
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "on",
+   "text": "You're asking what's going on, so here's what the draw says.\n\nThere's a kind of strength in you that has been tested and has not broken — the steady, choosing-to-keep-going kind. Not dramatic. Not the strength that gets noticed. The kind that looked at everything going on and stayed pointed the same direction anyway, day after day. It's the same muscle you built when you decided which way you were going in the first place; you're still following that direction, only now it has mileage on it.\n\nAnd here's where it's showing up: in how you feel about things and who's in them. That side of you is the part doing the constant small adjusting — noticing when to give more, when to pull back, when to let something settle before you touch it again. Holding things level between you and the people around you. That's real work. It just doesn't look like work, because it's the background hum.\n\nSo what's going on is this: you're doing that, faithfully, and you're not counting it as yours. That's the one thing worth naming. You keep the promise you made to yourself when you picked your direction — the showing up, the staying steady, the not dropping anyone or anything you said you'd carry — and somewhere along the line it stopped feeling like a decision. It's just your personality now. It's just how you handle things.\n\nBut it is a decision. It gets remade constantly, and you are the one remaking it.\n\nThe path through is a lighter version of the same thing you're already doing — and the key word is *your own*. Carry your own share of this and don't keep checking over your shoulder for whether someone else is matching you. The steadiness doesn't need to be monitored to be real. It can just be yours.",
+   "gist": "You are still holding the line — still showing up, still doing the small adjusting that keeps things level — and you're treating all of it as just how you are, not as a choice you made and keep making. The way through isn't to keep bracing harder; it's a smaller, plainer version of the same thing, done as yours.",
+   "medicine": "The move is smaller and more literal than it might sound: take one hard stretch you've already come through, put a single line about it on paper, and close the page. Nobody reads it. It's not a ritual — it's you setting down proof that you were the one making it through, so you stop filing it under 'just how I am.'",
+   "flags": [
+    "nominal",
+    "refrain"
+   ],
+   "judge": "UNCERTAIN",
+   "fallback": false,
+   "copiedCell": [
+    "keep the promise you made",
+    "through put a single line",
+    "put a single line about",
+    "a single line about it",
+    "single line about it on",
+    "line about it on paper",
+    "close the page nobody reads",
+    "the page nobody reads it"
+   ],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 308
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "off",
+   "text": "I don't know what made you ask that, and I'm not going to guess at your Tuesday. What the draw shows is narrower and plainer: you're holding on to someone or something, still, past the point where holding on should be easy.\n\nThat capacity — call it keeping your word to something even after it stopped being simple — is what's showing up here. It's a strength that has been tested multiple times, and it's still standing. Fresh hope, the kind you can just decide to have. This is that hope weathered, and unbroken.\n\nWhere it lands is the part that keeps a relationship in balance. The continuous adjusting — when to bring more, when to step back, when to say something and when to leave it — the low-grade homework of staying connected. That's a good place for a tested persistence to sit, honestly. It has something to do.\n\nThe catch: you're not treating any of this as your doing. You're holding something steady without giving yourself credit for holding it. The tending you keep doing — nobody's signing it.\n\nWhat's going on is that you're in the middle of it, still loyal, and you've stopped counting the loyalty as yours. Before anything gets solved, that's the thing worth seeing.\n\nMy question is about your end of it, not theirs.",
+   "gist": "What's going on is that you're still keeping faith with someone or something, and it hasn't cost you nothing — and you're not treating any of it as your own. Not yet, anyway.",
+   "medicine": "The way through is smaller than it sounds: push ahead, on your own fuel, without checking the room for permission or for whether anyone else is doing their part — shoulder your part, the whole thing, and stand in it. Not loudly. Steadily. You get back the sense that what you're holding is held safe, by you, not crushed under the weight of not being counted.",
+   "flags": [
+    "nominal",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 221
+  },
+  {
+   "draw": 2,
+   "d": {
+    "transient": 30,
+    "position": 14,
+    "status": 4
+   },
+   "k": "vague",
+   "q": "What is going on?",
+   "arm": "scaffold",
+   "text": "What's going on is that you're still going, and you haven't given yourself credit for it.\n\nThere's a kind of persistence that comes out of hope — not gritted-teeth endurance, but strength from still wanting the thing you're headed toward. That's what's showing up here. It's the strength gathered over time, tested more than once, still standing. Where it's landing is in how you feel about this and who's in it with you — the emotional side of your life, the side where connection and flow and the people in it live. And that's interesting, because what's running there isn't static — it's constant small adjustment. Not the middle, but the active work of sensing when to add and when to pull back, how to blend, how to keep the thing flowing. You're doing that calibration. By thinking about it, by distinguishing one thing from another, holding it as something you carry.\n\nAnd here's the part that's worth sitting with: you're doing it, and you're not treating it as your own doing. The persistent thing, the staying, the still-here-after-everything — that's you. But somewhere along the way it got filed as just how things are, or as something that happens to you, or as no big deal. It is a big deal, and it's yours.\n\nThe thing about you that holds steady — the part that keeps carrying the weight — is holding, not forcing. That's the pull. Keep going on what you've got, carry your own share of it, and stop looking over your shoulder to see whether anyone else is going to step in. Not out of pride. Because checking is what's draining you, not the carrying.\n\nSo: what's the thing you're keeping alive right now that you haven't been calling your own?",
+   "gist": "You're keeping something going through a long stretch, and the keeping is yours — you just haven't been treating it as yours. The way through is a smaller, plainer version of the same steadiness, this time owned.",
+   "medicine": "The move: keep going on what you've already got, carry your own share of it fully, and stop checking whether someone else will step in — the steadiness stays, the draining stops, and what you hold stays safe in your hands instead of squeezed.",
+   "flags": [
+    "scale",
+    "nominal",
+    "refrain",
+    "unnamed"
+   ],
+   "judge": "PASS",
+   "fallback": false,
+   "copiedCell": [],
+   "copiedScaffold": [],
+   "guess": false,
+   "words": 295
+  }
+ ],
+ "cost": 0.20176890000000003
+}

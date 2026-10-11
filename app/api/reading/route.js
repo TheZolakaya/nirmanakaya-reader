@@ -160,7 +160,7 @@ export async function POST(request) {
   // Check if user is banned or throttled
   let floorForThisUser = false; // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
   {
-    const access = await checkUserAccess(userId); const { canRead, reason } = access; floorForThisUser = process.env.POUR_FLOOR !== '0'; // .590 (founder: 'release this to everyone'): the floor is on for every reader unless POUR_FLOOR=0 (admin-only was .583–.589) // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
+    const access = await checkUserAccess(userId); const { canRead, reason } = access; floorForThisUser = process.env.POUR_FLOOR === '1'; // .742: OFF by default (the sitting's step 5); POUR_FLOOR=1 brings the poured cell back // .590 (founder: 'release this to everyone'): the floor is on for every reader unless POUR_FLOOR=0 (admin-only was .583–.589) // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
     if (!canRead) {
       return Response.json({ error: reason }, { status: 403 });
     }

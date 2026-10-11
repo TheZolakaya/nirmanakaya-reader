@@ -11,7 +11,7 @@ export async function GET(request) {
   const manifest = snapshotManifest();
   const sample = lookupCell(65, 1, 4);   // Executor of Intent in Will, Unacknowledged — the founder's own draw from the first night
   return Response.json({
-    floor: { admins: process.env.POUR_FLOOR !== '0', everyone: process.env.POUR_FLOOR === '1' },
+    floor: { admins: process.env.POUR_FLOOR === '1', everyone: process.env.POUR_FLOOR === '1' }, // .742: off unless POUR_FLOOR=1
     snapshot: manifest ? { set: manifest.set, author: manifest.author, cut: manifest.cut, cells: manifest.cells, expected: manifest.expected, missing: manifest.missing, prompts: manifest.prompts } : null,
     sample: sample ? { sheetLine: sample.sheetLine, ask: sample.ask, partner: sample.provenance?.partner, mechanism: sample.provenance?.mechanism } : null,
     ok: !!manifest && !!sample,
