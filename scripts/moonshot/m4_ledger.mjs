@@ -17,8 +17,8 @@ const ROLE_OF_K = Object.fromEntries(Object.entries(ROLE_K).map(([r, k]) => [k, 
 const f = (m, [a, b]) => add(frob(b), mul(m, a)); // the input-side functional of slope m
 const log2 = (x) => Math.log2(x);
 
-console.log('== S1 the side: forced by the shared alphabet (24/24 input, 0/24 output) → 0 bits ==');
-console.log('== S2 the slopes: Stage/Being/Identity ↔ 1/ω/ω² forced by the involution fixed points under the alphabet → 0 bits ==');
+console.log('== S1 the side: the input side matches the TARGET in 24/24 alphabets and the output side in 0/24 — a target comparison, not a derivation (GPT validation): 1 bit unless a bridge is stated ==');
+console.log('== S2 the slopes: naming the Γ-fixed direction Stage and the conjugate pair Being/Identity is a bridge; given the names, the assignment is forced by the involution fixed points: log2(6) = 2.58 bits unless the bridge is antecedent ==');
 
 console.log('\n== S3 the label rule: uniform affine rules  E_m = λ(m)·f_m + β(m)  with λ ∈ {1, m, m²}, β ∈ {0, 1, m, m²} ==');
 const LAMS = { '1': () => 1, 'm': (m) => m, 'm²': (m) => mul(m, m) }, BETAS = { '0': () => 0, '1': () => 1, 'm': (m) => m, 'm²': (m) => mul(m, m) };
@@ -28,7 +28,8 @@ for (const r of rules) { const sc = score(r); r.sc = sc; console.log(`  ${r.labe
 const stageFit = rules.filter((r) => r.sc.s === 16), full = rules.filter((r) => r.sc.s === 16 && r.sc.b === 16 && r.sc.i === 16);
 console.log(`  rules fitting the Stage roles (the Soul row): ${stageFit.length} of 12 → ${stageFit.map((r) => r.label).join(' | ')}`);
 console.log(`  of those, rules also reproducing all 32 Being/Identity ruled elements: ${full.length} → ${full.map((r) => r.label).join(' | ')}`);
-console.log(`  selector cost of the label rule after the Stage fit: log2(${stageFit.length}) = ${log2(stageFit.length).toFixed(2)} bits; data reproduced: 32 labels × 2 bits = 64 bits`);
+console.log(`  selector cost of the label rule after the Stage fit, if chosen by fit: log2(${stageFit.length}) = ${log2(stageFit.length).toFixed(2)} bits; the label data it reproduces is two bijections of four line-labels = 2·log2(24) = ${(2 * log2(24)).toFixed(2)} bits (NOT 64: the 32 printed labels repeat)`);
+console.log('  AFTER THE GPT VALIDATION: the rule is selected by the antecedent Reflexive Grounding law (a group\'s element = its Seed member\'s Practice element), uniquely among all 576 label pairs → 0 new bits; the grounding law is charged as an antecedent dictionary (m2 §8.3b)');
 // the independent-relabeling baseline: per readout, the 24 relabelings of 4 lines; 12 are affine in the line coordinate
 const affineRelabelings = []; for (const lam of KSTAR) for (const bet of K) affineRelabelings.push((x) => add(mul(lam, x), bet));
 const perReadout = { Being: W2, Identity: W }; const affineHits = {};
@@ -38,7 +39,7 @@ console.log(`  chance that a random uniform rule among ${stageFit.length} reprod
 
 console.log('\n== S4 the alphabet: 24 bijections elements → K; the Soul row (antecedent, 2026-08-10) selects one; without it the geometry alone leaves all 24 ==');
 console.log(`  cost if the Soul row were a free selector: log2(24) = ${log2(24).toFixed(2)} bits; it is an antecedent dictionary, so it is charged as a DICTIONARY, not a selector`);
-console.log('== S5 orientation: σ vs σ⁻¹ (ω vs ω² = which conjugate is Will/Earth): 1 bit, used three times (the clock direction; V among {ωΓ, ω²Γ}; R among {ωTr, ω²Tr}) ==');
+console.log('== S5 orientation: the kernel names the order V→I→A→F, so the step is I = Will = ω by definition and the reversal is the gauge twin: 0 additional bits (the earlier "1 bit used three times" double-charged K0.cycle — GPT validation) ==');
 console.log('== S6 the origin of the role chart (which role is 0) and the unit (= σ²): gauge, 0 bits (Aut(Q,σ) = Z4 is transitive) ==');
 
 console.log('\n== DICTIONARIES (supplied, charged) ==');
@@ -77,8 +78,11 @@ const kernelSide = {
   'Soul Reduction + portal Reduction (supplied map: 6 targets among 22)': 6 * log2(22),
 };
 const kernelTotal = Object.values(kernelSide).reduce((p, q) => p + q, 0);
-for (const [k, v] of Object.entries(kernelSide)) console.log(`  kernel  ${k}: ${v.toFixed(2)} bits`); console.log(`  KERNEL + SELECTORS + DICTIONARIES ≈ ${kernelTotal.toFixed(1)} bits of target-dependent choice, plus a fixed program (F4 arithmetic, End(T), the five functionals, three catalog rules) that contains no table`);
-console.log(`  ratio of target-dependent bits: ${(directTotal / kernelTotal).toFixed(1)} : 1  (the program's own length is not a table and is the same for every target of this type)`);
+for (const [k, v] of Object.entries(kernelSide)) console.log(`  kernel  ${k}: ${v.toFixed(2)} bits`); console.log(`  (original ledger) KERNEL + SELECTORS + DICTIONARIES ≈ ${kernelTotal.toFixed(1)} bits of target-dependent choice WITH THE CONSTRUCTOR FREE`);
+console.log('  THE RATIO IS WITHDRAWN (GPT compression audit, 2026-10-12): the 862-bit baseline encodes dependent tables independently (e.g. a correction is a 4-bit translation, not a 64-bit permutation; bounds and agents are generated by C2/C3), and the constructor is set to zero while it carries load-bearing choices. Fair accounting needs a common construction language charged on both sides.');
+const revised = { 'orientation (named order given): 0': 0, 'label rule (Reflexive Grounding, antecedent): 0 new': 0, 'side (target comparison unless bridged)': 1, 'slope naming (bridge unless antecedent)': log2(6), 'Soul row + two element dictionaries': 3 * log2(24), 'Reflexive Grounding law (antecedent dictionary)': 1, 'bound numbering': log2(120) + 1, 'Reduction off the manifest': 6 * log2(22) };
+const revisedTotal = Object.values(revised).reduce((p, q) => p + q, 0);
+console.log(`  REVISED residual choice (constructor still free, GPT corrections applied): ${Object.entries(revised).map(([k, v]) => `${k} ${v.toFixed(2)}`).join('; ')} → ≈ ${revisedTotal.toFixed(1)} bits. The GPT's broader selector codebook gives ≈ 102 bits plus the construction language. Verdict: MODERATE demonstrated structural compression; possibly HIGH; no invariant ratio.`);
 
 // ---- the derivation graph ----
 const N = (id, label, status, inputs = [], note = '') => ({ id, label, status, inputs, note });

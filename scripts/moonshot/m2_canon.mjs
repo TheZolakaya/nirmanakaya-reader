@@ -72,6 +72,18 @@ const soulRowHolds = (al) => al.Fire === ROLE_K.Seed && al.Earth === ROLE_K.Brid
 ok(perfect.length === 2 && perfect.some((x) => ELEMENTS.every((e) => x.al[e] === alpha[e])) && perfect.filter((x) => soulRowHolds(x.al)).length === 1, `alphabets under which the one formula reproduces all 48 labels (16 Stage roles + 16 Being + 16 Identity elements), with the role chart fixed: ${perfect.length} of 24 — the Soul row, and its shift by 1 (Fire↔Air, i.e. Fire = Fruition), which the Soul row's own identification Seed = Fire excludes. The Γ-conjugate alphabets score 40 only because the role chart was held fixed (they are the orientation gauge). Score distribution: ${[...new Set(scores.map((x) => x.s))].sort((p, q) => q - p).map((v) => `${v}×${scores.filter((x) => x.s === v).length}`).join(' ')}`);
 console.log('  the two perfect alphabets:', perfect.map((x) => ELEMENTS.map((e) => `${e}=${name(x.al[e])}`).join(' ') + (soulRowHolds(x.al) ? '  ← the Soul row' : '  ← Fire = Fruition, Air = Seed: excluded by the Soul row')).join(' | '));
 
+console.log('\n== 8.3b  THE LABEL RULE DERIVED (after the GPT validation, 2026-10-12): Reflexive Grounding selects it among all 576 label pairs ==');
+// Antecedent rule (FINDING_Elemental_Governance_Mapping, Sept 1 gaveled amendment; residual self-seeding, March/Aug 2026): a Being or Identity
+// group's element is the Practice element of its unique Seed member. With Stage = b² + a + 1 fixed, the Seed cards satisfy b² = a + 1, so on the
+// Seed transversal f_m = (m+1)a + 1; demanding label(f_m) = a for all four a forces label(z) = m(z+1), i.e. E_m = m(f_m + 1). No target label used.
+const permsK = (arr) => (arr.length <= 1 ? [arr] : arr.flatMap((x, i) => permsK([...arr.slice(0, i), ...arr.slice(i + 1)]).map((p) => [x, ...p])));
+const allLabelings = permsK(K); // 24 bijections K → K, as arrays indexed by the functional value
+let survivors = [];
+for (const rB of allLabelings) for (const rI of allLabelings) { const r = { [W2]: rB, [W]: rI }; let good = true; for (const m of [W, W2]) for (const a of K) { const seedB2 = add(a, 1); const fm = add(seedB2, mul(m, a)); if (r[m][fm] !== a) { good = false; break; } } if (good) survivors.push(r); }
+ok(survivors.length === 1 && [W, W2].every((m) => K.every((z) => survivors[0][m][z] === mul(m, add(z, 1)))), `of 576 label pairs for Being and Identity, exactly ${survivors.length} satisfies "the group's element = its Seed member's Practice element", and it is E_m = m·(f_m + 1) — the rule is a CONSEQUENCE of the antecedent grounding law, not a fit (GPT self_seeding.py reproduced)`);
+// and the same rule applied to Stage (m = 1) gives the Soul row normalization S = f_1 + 1 — consistent, though the Stage instance is an input here
+ok(K.every((a) => { const s = add(add(add(a, 1), a), 1); return s === 0; }), 'with the same normalization at m = 1 every Seed card has Stage value 0: the Stage line through Γ is Seed (the Soul row\'s 0 = Fire = Potential)');
+
 console.log('\n== 8.4  Rank classes under the Soul row ==');
 const zero = CARDS.find((c) => coord(c).join('') === '00'); const inv6 = CARDS.filter((c) => rank(coord(c)) === 2).map((c) => c.name); const r1 = CARDS.filter((c) => rank(coord(c)) === 1).map((c) => c.name);
 console.log(`  zero law: ${zero.name} (${zero.P}/${zero.A})  — Air's calibrated chart had the same (Inspiration = 0000)`);
@@ -126,7 +138,7 @@ ok(gov.every((g) => alpha[PE[g.house]] === g.k), `Gestalt governance: ${gov.map(
 const soulGrowth = [0, 1, 19, 20].map((id) => { const t = byId[GROWTH_PAIRS[id]]; const k = { 0: 0, 1: W, 19: 1, 20: W2 }[id]; return { id, name: getComponent(id).name, k, target: t ? t.name : GROWTH_PAIRS[id], ab: t ? coord(t) : null }; });
 ok(soulGrowth.every((g) => g.ab && g.ab[0] === g.k && g.ab[1] === g.k), `current Soul Growth: ${soulGrowth.map((g) => `${g.name}(${name(g.k)}) → ${g.target} = ${name(g.k)}·Tr`).join(', ')} — the scalar k sent to the pure law k·Tr, the unique law with scalar part k fixed by Γ-precomposition (the Growth hunt's H3, now as a formula)`);
 const portalStage = [10, 21].map((id) => `${getComponent(id).name}: ${JSON.parse(fs.readFileSync('D:/NKYAWebApp/nirmanakaya-reader/lib/data/nirmanakaya_78_definitions.json', 'utf8')).signatures[id].stage}`);
-console.log(`  the portals are typed in the record as ${portalStage.join(' / ')}: the two sides of the whole; under V, D, R and Growth they only exchange (10↔21) — the one nontrivial permutation of a 2-set`);
+console.log(`  the portals are typed in the record as ${portalStage.join(' / ')}: the two sides of the whole; under V, D and Growth they only exchange (10↔21) — the one nontrivial permutation of a 2-set; Reduction leaves them by the digit rule (10→1, 21→12), which the kernel does not give`);
 
 if (ALL) { console.log('\n== every alphabet (for the selector ledger) =='); for (const r of summary) console.log(`  ${ELEMENTS.map((e) => `${e[0]}=${name(r.alpha[e])}`).join(' ')}  right:${JSON.stringify(r.matches.right)}  labels ${labelScore(r.alpha)}/48`); }
 fs.writeFileSync('data/bakeoff/pass3/moonshot_m2.json', JSON.stringify({ cards: CARDS, soulAlphabet: alpha, matches: soul.matches, V, D, R: Rr, growth: Gm }, null, 1));
