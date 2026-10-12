@@ -4,7 +4,7 @@
 // circle Spirit-Emotion-Soul-Mind-Body is s²; (3) inserting the Soul into the inverse clock at each of its four gaps gives four pentagons;
 // their stars restricted to K give four cooling orders; the Seal is magic for exactly two of them, and "Fire first" picks the canonical one;
 // (4) with cooling and columns canonical, the Seal is magic for exactly the four translates of the Soul-row alphabet, and "the Veil is Fire"
-// (0 ↦ Fire) picks the Soul row — so the Soul row is DERIVED from kernel + Seal + Veil=Fire, and January's two rules become theorems.
+// (0 ↦ Fire) picks the Soul row — so GIVEN the pentagon's two orderings (cooling, columns), the Seal + Seed = Fire pin the Soul row, and January's two rules hold as consequences.
 //   npx tsx scripts/moonshot/m8_pentagon.mjs
 import fs from 'node:fs';
 import { K, W, W2, add, mul, frob, inv, name, SOUL_ALPHABET, ROLE_K, ELEMENTS, perms, clock } from './f4.mjs';
@@ -59,7 +59,7 @@ const fireFirst = results.filter((r) => r.magic && r.coolingOrder[0] === alpha.F
 ok(fireFirst.length === 1 && fireFirst[0].coolingOrder.join() === cooling.join(), `"Fire first" (the Veil leads) picks one: the Soul between Emotion and Mind, cooling Fire-Air-Water-Earth — the canonical pentagon`);
 ok(fireFirst[0].five.join() === [0, W2, INF, 1, W].join(), 'and that pentagon is the founder\'s: Spirit, Emotion, Soul, Mind, Body counterclockwise; forward (the clock) the Soul sits between Fruition and Feedback');
 
-console.log('\n== 4. the Seal and "the Veil is Fire" select the alphabet: the Soul row is derived ==');
+console.log('\n== 4. the Seal and "the Veil is Fire" select the alphabet, GIVEN the cooling order and the columns ==');
 // vary the alphabet (elements → K); build Stage from the kernel; the numbering by the formula; test the canonical Seal
 const sealForAlphabet = (al) => { const INNER = new Set([ROLE_K.Seed, ROLE_K.Bridge]), T1 = new Set([ROLE_K.Bridge, ROLE_K.Fruition]); const coolE = ['Fire', 'Air', 'Water', 'Earth'], colsE = ['Fire', 'Water', 'Air', 'Earth']; const rank = Object.fromEntries(coolE.map((e, i) => [e, i + 1])); const num = {}; for (const h of ELEMENTS) for (const ch of ELEMENTS) { const st = add(add(frob(al[ch]), al[h]), 1); const t = T1.has(st) ? 1 : 0; const N = 2 * rank[h] + t; num[`${h}|${ch}`] = INNER.has(st) ? N : 20 - N; } const g = coolE.map((ch) => colsE.map((h) => num[`${h}|${ch}`])); const sums = []; for (let i = 0; i < 4; i++) sums.push(g[i].reduce((p, q) => p + q, 0)); for (let j = 0; j < 4; j++) sums.push(g.map((r) => r[j]).reduce((p, q) => p + q, 0)); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) sums.push(g[i][j] + g[i][(j + 1) % 4] + g[(i + 1) % 4][j] + g[(i + 1) % 4][(j + 1) % 4]); return sums.every((x) => x === 40); };
 const alphabets = perms(K).map((p) => Object.fromEntries(ELEMENTS.map((e, i) => [e, p[i]])));
@@ -69,7 +69,7 @@ ok(magicAlphas.length === 4 && magicAlphas.every(isTranslate), `with the canonic
 const veilFire = magicAlphas.filter((al) => al.Fire === 0);
 ok(veilFire.length === 1 && ELEMENTS.every((e) => veilFire[0][e] === alpha[e]), '"the Veil is Fire" (0 ↦ Fire, i.e. Potential wears Fire) picks the Soul row: Fire 0, Air 1, Earth ω, Water ω²');
 const soulRow = Object.fromEntries(Object.entries(ROLE_K).map(([role, k]) => [role, el[k]]));
-ok(soulRow.Seed === 'Fire' && soulRow.Bridge === 'Earth' && soulRow.Fruition === 'Air' && soulRow.Feedback === 'Water', `the Soul row follows: Seed ${soulRow.Seed}, Bridge ${soulRow.Bridge}, Fruition ${soulRow.Fruition}, Feedback ${soulRow.Feedback} — January's derivation becomes a theorem of this one`);
+ok(soulRow.Seed === 'Fire' && soulRow.Bridge === 'Earth' && soulRow.Fruition === 'Air' && soulRow.Feedback === 'Water', `the Soul row follows: Seed ${soulRow.Seed}, Bridge ${soulRow.Bridge}, Fruition ${soulRow.Fruition}, Feedback ${soulRow.Feedback} — given the pentagon's two orderings, January's constraints hold as consequences`);
 // January's two rules as theorems: Soul node channel pairs bracket (ranks sum 4 and 6); Soul diagonal channel sums 3 and 7
 const rankOf = { Fire: 1, Air: 2, Water: 3, Earth: 4 };
 const nodeA = rankOf[soulRow.Seed] + rankOf[soulRow.Feedback], nodeB = rankOf[soulRow.Bridge] + rankOf[soulRow.Fruition], diagA = rankOf[soulRow.Seed] + rankOf[soulRow.Fruition], diagB = rankOf[soulRow.Bridge] + rankOf[soulRow.Feedback];
