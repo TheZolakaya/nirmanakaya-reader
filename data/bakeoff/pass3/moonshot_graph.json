@@ -1,0 +1,355 @@
+{
+ "generated": "2026-10-12T11:43:13.311Z",
+ "legend": {
+  "SUPPLIED": "in the kernel K0",
+  "ANTECEDENT": "older canon used as a dictionary or premise",
+  "GENERATED": "theorem from its inputs (checked by enumeration in scripts/moonshot)",
+  "CALIBRATED": "selected because it matches the target; priced in SELECTOR_LEDGER",
+  "CORRESPONDENCE": "a held-out canon fact the construction reproduces",
+  "FAILURE": "not generated; remains supplied",
+  "OPEN": "not attempted or not decidable here"
+ },
+ "nodes": [
+  {
+   "id": "K0.roles",
+   "label": "four typed interfaces V, I, A, F",
+   "status": "SUPPLIED",
+   "inputs": [],
+   "note": "Four is received (firing squad 2026-10-12: not forced by the functional semantics)"
+  },
+  {
+   "id": "K0.cycle",
+   "label": "the oriented cycle V→I→A→F→V",
+   "status": "SUPPLIED",
+   "inputs": [
+    "K0.roles"
+   ],
+   "note": "orientation = selector S5 (1 bit)"
+  },
+  {
+   "id": "K0.gamma",
+   "label": "Γ: relational consequence (consequence respects the difference structure)",
+   "status": "SUPPLIED",
+   "inputs": [],
+   "note": "formalized as additivity of the consequence law; its algebraic shadow is the Galois automorphism"
+  },
+  {
+   "id": "K0.recursion",
+   "label": "recursion with consequence h_{n+1} = U(h_n, outcome), H = T",
+   "status": "SUPPLIED",
+   "inputs": [
+    "K0.roles"
+   ],
+   "note": "consequence carried in the role carrier (minimal: no new type)"
+  },
+  {
+   "id": "T",
+   "label": "the three matchings + identity = Klein group T; Q a torsor",
+   "status": "GENERATED",
+   "inputs": [
+    "K0.roles"
+   ],
+   "note": ""
+  },
+  {
+   "id": "K",
+   "label": "the field K = {0,1,ω,ω²} as the scalar subalgebra of End(T)",
+   "status": "GENERATED",
+   "inputs": [
+    "T"
+   ],
+   "note": ""
+  },
+  {
+   "id": "clock",
+   "label": "every four-cycle is x ↦ x² + c; linear part = Frobenius = Γ; σ² = +1 = the unit",
+   "status": "GENERATED",
+   "inputs": [
+    "K0.cycle",
+    "K"
+   ],
+   "note": ""
+  },
+  {
+   "id": "D4",
+   "label": "⟨σ, Γ⟩ = D4 = T ⋊ ⟨Γ⟩: one over four",
+   "status": "GENERATED",
+   "inputs": [
+    "clock"
+   ],
+   "note": ""
+  },
+  {
+   "id": "A16",
+   "label": "End_F2(T) = K ⊕ KΓ = K ∗ Gal ≅ M2(F2): sixteen laws; 256 → 16 by additivity",
+   "status": "GENERATED",
+   "inputs": [
+    "K",
+    "clock",
+    "K0.gamma",
+    "K0.recursion"
+   ],
+   "note": ""
+  },
+  {
+   "id": "manifest-as-law",
+   "label": "a manifest archetype is a consequence law (a verb)",
+   "status": "ANTECEDENT",
+   "inputs": [
+    "A16"
+   ],
+   "note": "the Verb Shift doctrine: archetypes are verbs/processes; bounds nouns; agents gerunds"
+  },
+  {
+   "id": "rank",
+   "label": "rank census 1/9/6",
+   "status": "GENERATED",
+   "inputs": [
+    "A16"
+   ],
+   "note": "NO antecedent partition in canon (LOOKUP 2026-10-12): a prediction without a meaning yet"
+  },
+  {
+   "id": "spreads",
+   "label": "two scalar actions → two AG(2,4) spreads; five readouts; exactly-once crossing automatic; no sixth",
+   "status": "GENERATED",
+   "inputs": [
+    "A16"
+   ],
+   "note": ""
+  },
+  {
+   "id": "galois-2-1-2",
+   "label": "Γ on the five input-side directions: two axes fixed, one mixed fixed, two swapped",
+   "status": "GENERATED",
+   "inputs": [
+    "spreads"
+   ],
+   "note": ""
+  },
+  {
+   "id": "side",
+   "label": "the input side (right action) is the one that matches, in all 24 shared alphabets",
+   "status": "GENERATED",
+   "inputs": [
+    "spreads",
+    "alphabet-shared"
+   ],
+   "note": "replication finding 1; 0 bits"
+  },
+  {
+   "id": "alphabet-shared",
+   "label": "Practice and Activity read in one alphabet (both coefficients live in K)",
+   "status": "ANTECEDENT",
+   "inputs": [],
+   "note": "canon: one element alphabet on houses and channels"
+  },
+  {
+   "id": "soul-row",
+   "label": "Seed Fire · Bridge Earth · Fruition Air · Feedback Water",
+   "status": "ANTECEDENT",
+   "inputs": [],
+   "note": "Generator brief 2026-08-10; fixes the alphabet; log2(24) bits if it were free"
+  },
+  {
+   "id": "slopes",
+   "label": "Stage = slope 1 (Γ-fixed), Identity = ω, Being = ω²",
+   "status": "GENERATED",
+   "inputs": [
+    "side",
+    "soul-row"
+   ],
+   "note": "CORRESPONDENCE: canon singles out Stage and pairs Being/Identity"
+  },
+  {
+   "id": "labels",
+   "label": "E_m = m·(f_m + 1) reproduces 16 Stage roles + 32 ruled Being/Identity elements",
+   "status": "CALIBRATED",
+   "inputs": [
+    "slopes",
+    "soul-row"
+   ],
+   "note": "1 of 9 uniform rules after the Stage fit (3.17 bits) → 64 bits of label data; the Being/Identity elements were ruled 2026-10-04 from a different derivation"
+  },
+  {
+   "id": "ops-translations",
+   "label": "V = +ωΓ, D = +Γ, R = +ωTr: three translations",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "A16",
+    "labels"
+   ],
+   "note": ""
+  },
+  {
+   "id": "D=sigma2",
+   "label": "Diagonal = σ² = the clock-fixed translation (Seed↔Fruition)",
+   "status": "GENERATED",
+   "inputs": [
+    "clock",
+    "ops-translations"
+   ],
+   "note": ""
+  },
+  {
+   "id": "orientation-use",
+   "label": "V and R are the ω-multiples; VD and +ω²Tr unnamed: one orientation bit used thrice",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "ops-translations",
+    "K0.cycle"
+   ],
+   "note": ""
+  },
+  {
+   "id": "growth",
+   "label": "current Growth = L∘Γ on the twelve, +Tr (Γ-fixed) on the pures; old = Reduction; Soul Growth k ↦ k·Tr",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "A16",
+    "labels"
+   ],
+   "note": "the Growth hunt's unlocated privilege is Γ-invariance"
+  },
+  {
+   "id": "cuts",
+   "label": "Fire/Earth and Fire/Water cuts complete (ω, ω²), Fire/Air incomplete (Γ-fixed 1)",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "labels",
+    "galois-2-1-2"
+   ],
+   "note": "Fresh Mind 2026-10-04 reproduced and explained"
+  },
+  {
+   "id": "coarse-flips",
+   "label": "V flips I, D flips A+B, R flips B",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "ops-translations",
+    "cuts"
+   ],
+   "note": ""
+  },
+  {
+   "id": "horizons",
+   "label": "Wheel/World = Tr(Stage); inner/outer = cut ω of Stage; Vertical = cut ω²",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "labels"
+   ],
+   "note": ""
+  },
+  {
+   "id": "stage-clock-16",
+   "label": "σ on the Stage coordinate = the within-house Stage order on all sixteen",
+   "status": "GENERATED",
+   "inputs": [
+    "clock",
+    "labels"
+   ],
+   "note": ""
+  },
+  {
+   "id": "gestalt=K",
+   "label": "the Gestalt four are K at the Soul scale (RPA statements; governance of own-element house; own-suit bounds)",
+   "status": "ANTECEDENT",
+   "inputs": [
+    "soul-row"
+   ],
+   "note": "identification of the Gestalt with the four roles: June–August 2026 canon"
+  },
+  {
+   "id": "C1",
+   "label": "archetype catalog = F2 ⊔ K ⊔ A (three scales as types) → 22",
+   "status": "SUPPLIED",
+   "inputs": [
+    "A16",
+    "K",
+    "gestalt=K"
+   ],
+   "note": "catalog rule"
+  },
+  {
+   "id": "C2",
+   "label": "bound = an oriented side of a non-ground law → 40",
+   "status": "SUPPLIED",
+   "inputs": [
+    "C1"
+   ],
+   "note": "catalog rule; antecedent flavour: Bounds = nouns (the two nouns a verb connects); portals typed Ingress/Egress in the record"
+  },
+  {
+   "id": "C3",
+   "label": "agent = a manifest law acting (A on itself by addition) → 16",
+   "status": "SUPPLIED",
+   "inputs": [
+    "C1"
+   ],
+   "note": "catalog rule; antecedent flavour: Agents = gerunds, \"X-as-behavior\""
+  },
+  {
+   "id": "78",
+   "label": "22 + 40 + 16 = 78",
+   "status": "GENERATED",
+   "inputs": [
+    "C1",
+    "C2",
+    "C3"
+   ],
+   "note": ""
+  },
+  {
+   "id": "portals-F2",
+   "label": "V, D, G exchange the portals; the portals are the two sides of the whole",
+   "status": "CORRESPONDENCE",
+   "inputs": [
+    "C1"
+   ],
+   "note": ""
+  },
+  {
+   "id": "reduction-outside",
+   "label": "Reduction on 0, 1, 19, 20, 10, 21 (±9/+18 digit rule)",
+   "status": "FAILURE",
+   "inputs": [],
+   "note": "supplied numbering rule"
+  },
+  {
+   "id": "numbering",
+   "label": "the numbering 0–21, the Seal, the bound numbers",
+   "status": "OPEN",
+   "inputs": [],
+   "note": "excluded from this kernel's claim"
+  },
+  {
+   "id": "fivefold",
+   "label": "the five directions carry A5; a 5-cycle needs F16 (the second Γ-extension) and a 6-way + 1-bit selector",
+   "status": "GENERATED",
+   "inputs": [
+    "spreads"
+   ],
+   "note": "pentagram not forced; metric/φ not supplied"
+  },
+  {
+   "id": "lemniscate",
+   "label": "T/Γ is a wedge of two circles: lobes V and A, crossing {I,F}, branch bit = the quotient's lost bit",
+   "status": "GENERATED",
+   "inputs": [
+    "clock",
+    "K0.gamma"
+   ],
+   "note": "a canonical quotient; whether it is THE lemniscate is semantics"
+  },
+  {
+   "id": "agency",
+   "label": "alternatives (A) and effect (the update) are present; selection is not",
+   "status": "OPEN",
+   "inputs": [
+    "A16",
+    "K0.recursion"
+   ],
+   "note": ""
+  }
+ ]
+}
