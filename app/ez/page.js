@@ -221,6 +221,13 @@ ${MOVE_SHAPE}`,
 ${MOVE_SHAPE}`,
 };
 
+// .750 FORM-1 — THE FIT ROW. Under a turn that made a hunch, four taps; three arrive here as the person's word on that hunch. No new draw;
+// the Reader adapts once and never explains itself (Air's amendment 3 contract, pointed at fit instead of depth). The fourth tap is Clarify.
+const FIT_RULES = {
+  it: `\n\nTHE FIT ROW: they tapped THAT'S IT. The hunch landed and is theirs now. Go one step further along that line — what it asks of them this week — and do not re-prove it, praise them for confirming it, or add a second hunch.`,
+  close: `\n\nTHE FIT ROW: they tapped CLOSE, BUT NOT IT. The map's fact stands; the hunch as you worded it is not right and you do not defend it or rewrite the draw. Say in one line what you are setting down, keep what the draw and the medicine give, and ask one plain question about what is off. No new hunch this turn: "hunch" is false.`,
+  no: `\n\nTHE FIT ROW: they tapped THAT'S NOT ME. Drop the hunch entirely and do not replace it with another. Stay with their words, the draw and the medicine, say so in one line without explaining why you guessed, and ask one open question. "hunch" is false.`,
+};
 const SIMPLER_RULES = `SAY IT SIMPLER — rewrite the turn below in plainer words, for someone who wants it easier to hold. Same meaning, same verdict. Nothing softened, nothing added, nothing dropped. Shorter sentences, kitchen words, no architecture vocabulary except a signature's name where it is needed. Keep the one question at the end, rephrased just as plainly. Respond with ONLY a JSON object: {"reader": "<the simpler version>", "question": "<the question, plainly>", "chips": [], "reflect": [], "forge": []}`;
 
 // THE BRAZIER — "why is this happening?" (Keel's spec, 2026-09-16). The kernel is data; this
@@ -1532,6 +1539,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     next: Array.isArray(obj.next) ? obj.next.filter((n) => n && typeof n.panel === 'string' && typeof n.why === 'string' && panelKey(n.panel)).map((n) => ({ panel: panelKey(n.panel), why: n.why.trim() })).slice(0, 4) : [], // .661 (Keel §10): the next door(s), recommended
     medicineCard: typeof obj.medicineCard === 'string' ? obj.medicineCard.trim() : '', // .557: hidden; checked against the record
     hunchFlag: /\byou(?:'ve| have)? (?:never|haven't|not once)\b|without anyone knowing|nobody (?:knows|has heard)|no one (?:knows|has heard)|whole years of this/i.test(String(obj.reader || '')), // .557: a soft watch on biography claims (never on glass)
+    hunch: obj.hunch === true, // .750 FORM-1: the turn says whether it made a hunch about the person's life; the fit row shows only then
     question: obj.question || '',
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
@@ -1739,9 +1747,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     }
     setError(''); setLoading(true); setInput(''); sayNarration(STAGE.writing[1]); // .647
     const newDraw = mode ? generateSpread(1)[0] : null;
-    const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ts: Date.now() };
+    const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ...(opts?.fit ? { fit: opts.fit } : {}), ts: Date.now() }; // .750: a fit-row tap is recorded as such (counted later)
     const withYou = [...turns, you];
-    setFieldMode(null);
+    setFieldMode(null); setWaysOpen(false); // .750: the caret closes on every new turn
     // any new turn folds the panels (founder, 2026-09-17: "I'd rather have it minimized"); their answers
     // are kept for the same card, so reopening is free
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
@@ -1797,7 +1805,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const aiBlockLater = AI_RX.test(text) ? AI_BLOCK : '';
       const moveReg = opts?.move?.register || null; // .543: a reread in another voice
       const moveBlock = opts?.move ? `\n\n${moveReg ? voiceMoveRule(moveReg, REGISTER_LINE[moveReg], opts.move.srcMedicine) : MOVE_RULES[opts.move.kind]}\nTHE REGISTER IN FORCE: ${VOICE_NOTES[moveReg || voice]?.[0] || moveReg || voice}.\n\nTHE TURN THEY MEAN:\n${opts.move.src}` : '';
-      const msg = `${talkHead({ ctx, question: sanitizeForAPI(question), frame, drawText })}${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.move ? '' : HUNCH_LINE}${TALK_TAIL}`; // Pass Two: head and tail from lib/ezTalk, the same bytes the bench composes
+      const msg = `${talkHead({ ctx, question: sanitizeForAPI(question), frame, drawText })}${discourseBlock(withYou)}${newCardBlock}${findBlock}${brazierBlock()}${balancedLine}${opts?.move ? '' : notesBlock([...withYou].reverse().find((t) => t.role === 'reader' && t.notes)?.notes)}${moveBlock}${traumaBlockLater}${aiBlockLater}${opts?.fit ? FIT_RULES[opts.fit] || '' : ''}${opts?.move || opts?.fit ? '' : HUNCH_LINE}${TALK_TAIL}`; // Pass Two: head and tail from lib/ezTalk, the same bytes the bench composes // .750: a fit tap carries its own rule and no invitation to a new hunch
       let { obj } = await callReader(msg, moveReg ? ezSystem(promptBaseFor(moveReg), moveReg, promptOverFor(moveReg)) : systemPrompt, moveReg ? ((moveReg === 'deep' || moveReg === 'mystical') ? 2400 : 1500) : undefined, { turn: newDraw ? 'card' : 'talk', ...(moveReg ? { register: moveReg } : {}) }); // .507 lane; .543 a reread rides its own register
       if (newDraw && mode === 'locate') { // .561: a locating turn's medicine, if any, must be the ORIGINAL card's — never the pointer's
         const mm = medicineMismatch(obj, fieldNow || draws[0]);
@@ -1899,6 +1907,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // card in play. Follows the register (the REGISTER line rides on the main system prompt).
   const [voicePickFor, setVoicePickFor] = useState(null); // .543: which turn's 'voice' row is open
   const [folded, setFolded] = useState(() => new Set()); // .555: reader turns whose body is folded under the gist
+  const [waysOpen, setWaysOpen] = useState(false); // .750 FORM-1: the chips fold under "Ways to answer" (closed by default)
+  const formRow = promptSet.name === 'form-1'; // .750: the fit row and the caret, admin-only behind the flag
   const toggleFold = (id) => setFolded((f) => { const n = new Set(f); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const [medOpen, setMedOpen] = useState(false);
   const [medText, setMedText] = useState('');
@@ -3005,6 +3015,16 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {!(t.role === 'reader' && t.gist && folded.has(t.id)) && ensureParagraphBreaks(t.text).split(/\n\n+/).filter((p) => p.trim()).map((p, i) => (
                     <p key={i} data-spoken={spokenKey(t.id, 'text', i)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(t.id, 'text', i)}>{p.trim()}</p>
                   ))}
+                  {/* .750 FORM-1 — THE FIT ROW: under the latest turn that made a hunch, four taps. The first three go to the Reader as the
+                      person's word on the hunch; the fourth is the Clarify move (the same turn, plainer). Admin-only behind the flag. */}
+                  {formRow && t.role === 'reader' && t.hunch && !t.pending && lastReader && t.id === lastReader.id && !wrapped && !loading && (
+                    <div data-fit-row className="mt-4 flex flex-wrap justify-center gap-1.5">
+                      {[['it', "That's it", 'border-emerald-500/60 text-emerald-200 hover:bg-emerald-950/60', "That's it."], ['close', 'Close, not it', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/60', 'Close, but not it.'], ['no', "That's not me", 'border-rose-500/60 text-rose-200 hover:bg-rose-950/60', "That's not me."]].map(([k, label, tone, said]) => (
+                        <button key={k} onClick={() => send(said, null, { fit: k })} className={`rounded-full border bg-zinc-950 px-3 py-1 text-[0.8125rem] whitespace-nowrap transition-colors ${tone}`}>{label}</button>
+                      ))}
+                      <button onClick={() => move(t.id, 'clarify')} className="rounded-full border border-sky-500/60 bg-zinc-950 px-3 py-1 text-[0.8125rem] text-sky-200 whitespace-nowrap transition-colors hover:bg-sky-950/60">I don't understand</button>
+                    </div>
+                  )}
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
                       The path is computed from the draw; the words come from the Reader. */}
@@ -3171,7 +3191,15 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
             <div className={dimPills}>
             {/* Tier 1: the pills. Talk by default; questions under Reflect; declarations under Forge. */}
-            {activePills.length > 0 && !loading && (
+            {/* .750 FORM-1: the chips fold under one caret, "Ways to answer", closed by default (founder: they come after the fit is nailed) */}
+            {formRow && !fieldMode && activePills.length > 0 && !loading && (
+              <button type="button" onClick={() => setWaysOpen((o) => !o)} aria-expanded={waysOpen}
+                className="mt-3 inline-flex items-center gap-1.5 text-[0.8125rem] text-zinc-400 hover:text-zinc-200">
+                <svg className={`w-3.5 h-3.5 transition-transform ${waysOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                Ways to answer
+              </button>
+            )}
+            {activePills.length > 0 && !loading && (!formRow || fieldMode || waysOpen) && (
               <div className="mt-3 flex flex-col gap-2">
                 {activePills.filter((c) => c?.text).map((c, i) => (
                   <button key={i} data-arm={`chip-${i}`} onClick={twoTap(`chip-${i}`, () => send(c.text, c.kind === 'locate' ? 'locate' : fieldMode, c.kind === 'locate' ? { locate: c.what || c.text } : undefined), null)} disabled={regenning}
