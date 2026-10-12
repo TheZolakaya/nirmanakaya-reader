@@ -1,0 +1,117 @@
+{
+ "rowRule": "inner-coset houses have ranks summing to 5",
+ "cycle": "Fire-Earth-Air-Water",
+ "magicAlphas": [
+  {
+   "Fire": 0,
+   "Air": 1,
+   "Water": 3,
+   "Earth": 2
+  },
+  {
+   "Fire": 1,
+   "Air": 0,
+   "Water": 2,
+   "Earth": 3
+  },
+  {
+   "Fire": 2,
+   "Air": 3,
+   "Water": 1,
+   "Earth": 0
+  },
+  {
+   "Fire": 3,
+   "Air": 2,
+   "Water": 0,
+   "Earth": 1
+  }
+ ],
+ "magicCools": [
+  [
+   "Fire",
+   "Air",
+   "Water",
+   "Earth"
+  ],
+  [
+   "Air",
+   "Fire",
+   "Earth",
+   "Water"
+  ],
+  [
+   "Water",
+   "Earth",
+   "Fire",
+   "Air"
+  ],
+  [
+   "Earth",
+   "Water",
+   "Air",
+   "Fire"
+  ]
+ ],
+ "perAlpha": [
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4
+ ],
+ "anchors": {
+  "all": 32,
+  "fire0": 8,
+  "fireFirst": 8,
+  "both": [
+   {
+    "al": {
+     "Fire": 0,
+     "Air": 1,
+     "Water": 2,
+     "Earth": 3
+    },
+    "cool": [
+     "Fire",
+     "Air",
+     "Earth",
+     "Water"
+    ]
+   },
+   {
+    "al": {
+     "Fire": 0,
+     "Air": 1,
+     "Water": 3,
+     "Earth": 2
+    },
+    "cool": [
+     "Fire",
+     "Air",
+     "Water",
+     "Earth"
+    ]
+   }
+  ]
+ }
+}
