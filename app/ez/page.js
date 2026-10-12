@@ -1749,7 +1749,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const newDraw = mode ? generateSpread(1)[0] : null;
     const you = { id: `y${Date.now()}`, role: 'you', text, mode: mode || null, move: opts?.move?.kind || null, ...(opts?.fit ? { fit: opts.fit } : {}), ts: Date.now() }; // .750: a fit-row tap is recorded as such (counted later)
     const withYou = [...turns, you];
-    setFieldMode(null); setWaysOpen(false); // .750: the caret closes on every new turn
+    setFieldMode(null); setWaysOpen(true); // .750/.751: the caret resets open on every new turn
     // any new turn folds the panels (founder, 2026-09-17: "I'd rather have it minimized"); their answers
     // are kept for the same card, so reopening is free
     setBrazierOpen(false); setStepOpen(false); setDragonOpen(false);
@@ -1907,7 +1907,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // card in play. Follows the register (the REGISTER line rides on the main system prompt).
   const [voicePickFor, setVoicePickFor] = useState(null); // .543: which turn's 'voice' row is open
   const [folded, setFolded] = useState(() => new Set()); // .555: reader turns whose body is folded under the gist
-  const [waysOpen, setWaysOpen] = useState(false); // .750 FORM-1: the chips fold under "Ways to answer" (closed by default)
+  const [waysOpen, setWaysOpen] = useState(true); // .750 FORM-1: the chips under a "Ways to answer" caret · .751 (founder): open by default — below the fold is hiding enough, and he missed them
   const formRow = promptSet.name === 'form-1'; // .750: the fit row and the caret, admin-only behind the flag
   const toggleFold = (id) => setFolded((f) => { const n = new Set(f); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const [medOpen, setMedOpen] = useState(false);
@@ -2532,6 +2532,17 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   // .749 (founder): ONE QUESTION — for the latest turn with a question, the turn's frame hands its question, its moves row and its Recommend
   // reveal to THE QUESTION frame above the box, so landing on the question shows the moves too. Once answered, the turn shows them again.
   const hoisted = (t) => !!(lastReader && t.id === lastReader.id && lastReader.question && !wrapped);
+  // .750/.751 FORM-1 — THE FIT ROW: four taps on the bar just above the box, after the question (founder, iPad, 2026-10-12: "I was ready to
+  // answer the question it gave me"). The first three go to the Reader as the person's word on the hunch; the fourth is the Clarify move.
+  // Shown only for the latest turn, and only when that turn marked a hunch. Admin-only behind the flag.
+  const fitRow = (t) => (formRow && t && t.role === 'reader' && t.hunch && !t.pending && lastReader && t.id === lastReader.id && !wrapped && !loading ? (
+                    <div data-fit-row className="mt-3 flex flex-wrap justify-center gap-1.5">
+                      {[['it', "That's it", 'border-emerald-500/60 text-emerald-200 hover:bg-emerald-950/60', "That's it."], ['close', 'Close, not it', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/60', 'Close, but not it.'], ['no', "That's not me", 'border-rose-500/60 text-rose-200 hover:bg-rose-950/60', "That's not me."]].map(([k, label, tone, said]) => (
+                        <button key={k} onClick={() => send(said, null, { fit: k })} className={`rounded-full border bg-zinc-950 px-3 py-1 text-[0.8125rem] whitespace-nowrap transition-colors ${tone}`}>{label}</button>
+                      ))}
+                      <button onClick={() => move(t.id, 'clarify')} className="rounded-full border border-sky-500/60 bg-zinc-950 px-3 py-1 text-[0.8125rem] text-sky-200 whitespace-nowrap transition-colors hover:bg-sky-950/60">I don't understand</button>
+                    </div>
+  ) : null);
   const movesRow = (t) => (
                     <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
@@ -3017,14 +3028,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   ))}
                   {/* .750 FORM-1 — THE FIT ROW: under the latest turn that made a hunch, four taps. The first three go to the Reader as the
                       person's word on the hunch; the fourth is the Clarify move (the same turn, plainer). Admin-only behind the flag. */}
-                  {formRow && t.role === 'reader' && t.hunch && !t.pending && lastReader && t.id === lastReader.id && !wrapped && !loading && (
-                    <div data-fit-row className="mt-4 flex flex-wrap justify-center gap-1.5">
-                      {[['it', "That's it", 'border-emerald-500/60 text-emerald-200 hover:bg-emerald-950/60', "That's it."], ['close', 'Close, not it', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/60', 'Close, but not it.'], ['no', "That's not me", 'border-rose-500/60 text-rose-200 hover:bg-rose-950/60', "That's not me."]].map(([k, label, tone, said]) => (
-                        <button key={k} onClick={() => send(said, null, { fit: k })} className={`rounded-full border bg-zinc-950 px-3 py-1 text-[0.8125rem] whitespace-nowrap transition-colors ${tone}`}>{label}</button>
-                      ))}
-                      <button onClick={() => move(t.id, 'clarify')} className="rounded-full border border-sky-500/60 bg-zinc-950 px-3 py-1 text-[0.8125rem] text-sky-200 whitespace-nowrap transition-colors hover:bg-sky-950/60">I don't understand</button>
-                    </div>
-                  )}
+                  {!t.question && fitRow(t)} {/* .751: the row lives in THE QUESTION frame above the box; only a turn with no question shows it here */}
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
                       The path is computed from the draw; the words come from the Reader. */}
@@ -3120,6 +3124,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
+                {fitRow(lastReader)} {/* .751 (founder): the fit row on the bar above the box, right after the question */}
                 {!lastReader.pending && !loading && movesRow(lastReader)} {/* .749 (founder): the moves live under the question, not in the turn's frame */}
                 {Array.isArray(lastReader.next) && lastReader.next.length > 0 && recOpen === lastReader.id && recBlock(lastReader)}
               </div>
