@@ -39,7 +39,8 @@ import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
-import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets'; // Pass Two (2026-10-11): the prompt-set flag — NEXT_PUBLIC_READER_PROMPT_SET, or ?prompt= for an admin; 'handing' = today's bytes
+import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets'; // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
+const EZ_DEFAULT_SET = 'form-1'; // .758: what you get when you go to Nirmanakaya (founder, 2026-10-13); the Handing is behind ?prompt=handing (admin)
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
 import AuthModal from '../../components/auth/AuthModal';
@@ -659,6 +660,7 @@ export default function EZPage() {
   // "only allow tap to skip if the reading is ready" — a skip with nothing to skip to is a freeze
   const [replyReady, setReplyReady] = useState(false);
   const readyRef = useRef(false);
+  const servedRef = useRef(''); // .758: the last provider + model that answered a call
   const cameraRef = useRef(null);
   const skipRef = useRef(null);
   const [question, setQuestion] = useState('');
@@ -1336,8 +1338,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     return () => document.removeEventListener('click', onTap);
   }, [speakingId, voiceOut]); // eslint-disable-line react-hooks/exhaustive-deps
   // .640: the quiet manner (.614) was judged by the founder — allegory, not directness — and retired; the Handing is the one manner
-  // Pass Two: the prompt set in force — the client default, or ?prompt=<name> for a signed-in admin (the flag stays invisible to everyone else)
-  const promptSet = promptSetFor((() => { try { const q = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('prompt') : null; return q && isAdmin(user) ? q : null; } catch { return null; } })());
+  // .758 (founder, 2026-10-13: "we put it there for everyone"): FORM-1 is the Reader everyone gets at /ez — the gist with a source, the hunch flag, the fit row, the state paragraph, the gesture lint. The Handing (the old prompt) stays reachable behind the flag: ?prompt=handing for a signed-in admin. Any other set likewise. The flag stays invisible to everyone else.
+  // Pass Two (2026-10-11): ?prompt=<name> for a signed-in admin
+  const promptSet = promptSetFor((() => { try { const q = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('prompt') : null; return q && isAdmin(user) ? q : EZ_DEFAULT_SET; } catch { return EZ_DEFAULT_SET; } })());
   // .752: the composition instrument (True's FINDING "What the seed produces", 2026-10-12) — ?compose=1 for a signed-in admin puts "Q then P" for every pair of drawn cards into the dossier; invisible to everyone else; the route checks admin again
   const composeFlag = (() => { try { return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('compose') === '1' && isAdmin(user); } catch { return false; } })();
   const promptBaseFor = (v) => (handing ? baseFor(promptSet, v) : BASE_SYSTEM);
@@ -1372,6 +1375,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       throw e;
     } finally { clearTimeout(clock); }
     if (data.error) throw new Error(data.error);
+    if (data.model) servedRef.current = `${data.provider ? `${data.provider} ` : ''}${data.model}`; // .758: who actually answered, for the reading's model column (it said 'sonnet' by hand)
     if (data.usage) setLedger((L) => [...L, {
       t: Date.now(), purpose: purposeOf(userMessage), ms: Date.now() - t0,
       fresh: data.usage.input_tokens || 0, written: data.usage.cache_creation_input_tokens || 0,
@@ -1705,7 +1709,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         const { data } = await saveReading({
           question: q, cards: newDraws, letter: null,
           synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns: [first], voice, ...(fr ? { frame: fr } : {}) } },
-          mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: 'sonnet', tokenUsage: u, voice: 'friend'
+          mode: 'ez', spreadType: door ? `ez-${sk}-${door.id}` : `ez-${sk}`, model: servedRef.current || 'sonnet', tokenUsage: u, voice: 'friend' // .758: the model that answered (provider + id), not the tier label
         });
         if (data?.id) { setSavedId(data.id); markInflight({ savedId: data.id }); crumb('saved'); try { const orphan = localStorage.getItem('nkya_ez_orphan_crash'); if (orphan) { localStorage.removeItem('nkya_ez_orphan_crash'); updateReadingContent(data.id, { crashLog: { ...JSON.parse(orphan), orphan: true } }).catch(() => {}); } } catch {} } // .721 the trail: the reading is in flight; a reset that died before its reading saved rides on this one
         try { sessionStorage.removeItem(`nkya_ez_suggest_${user?.id}`); } catch {} // .591: the history changed
