@@ -2543,11 +2543,11 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   // answer the question it gave me"). The first three go to the Reader as the person's word on the hunch; the fourth is the Clarify move.
   // Shown only for the latest turn, and only when that turn marked a hunch. Admin-only behind the flag.
   const fitRow = (t) => (formRow && t && t.role === 'reader' && t.hunch && !t.pending && lastReader && t.id === lastReader.id && !wrapped && !loading ? (
-                    <div data-fit-row className="mt-3 flex flex-wrap justify-center gap-1.5">
+                    <div data-fit-row className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-1.5 px-1 sm:px-2"> {/* .760 (founder, desktop): four EQUAL widths ("our whole thing is about balance and symmetry"), the moves row's type size, inside the reading's frame between the geometry and the moves */}
                       {[['it', "That's it", 'border-emerald-500/60 text-emerald-200 hover:bg-emerald-950/60', "That's it."], ['close', 'Close, not it', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/60', 'Close, but not it.'], ['no', "That's not me", 'border-rose-500/60 text-rose-200 hover:bg-rose-950/60', "That's not me."]].map(([k, label, tone, said]) => (
-                        <button key={k} onClick={() => send(said, null, { fit: k })} className={`rounded-full border bg-zinc-950 px-3 py-1 text-[0.8125rem] whitespace-nowrap transition-colors ${tone}`}>{label}</button>
+                        <button key={k} onClick={() => send(said, null, { fit: k })} className={`w-full rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>{label}</button>
                       ))}
-                      <button onClick={() => move(t.id, 'clarify')} className="rounded-full border border-sky-500/60 bg-zinc-950 px-3 py-1 text-[0.8125rem] text-sky-200 whitespace-nowrap transition-colors hover:bg-sky-950/60">I don't understand</button>
+                      <button onClick={() => move(t.id, 'clarify')} className="w-full rounded-full border border-sky-500/60 bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:text-[0.6875rem] tracking-wide text-sky-200 whitespace-nowrap transition-colors hover:bg-sky-950/60">I don't understand</button>
                     </div>
   ) : null);
   const movesRow = (t) => (
@@ -3035,7 +3035,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   ))}
                   {/* .750 FORM-1 — THE FIT ROW: under the latest turn that made a hunch, four taps. The first three go to the Reader as the
                       person's word on the hunch; the fourth is the Clarify move (the same turn, plainer). Admin-only behind the flag. */}
-                  {!t.question && fitRow(t)} {/* .751: the row lives in THE QUESTION frame above the box; only a turn with no question shows it here */}
+                  {/* .760: the fit row moved below, between the geometry and the moves (it sat here for a turn with no question, .751) */}
 
                   {/* THE MEDICINE — its own container, because it is half the answer, not an aside.
                       The path is computed from the draw; the words come from the Reader. */}
@@ -3086,6 +3086,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     </details>
                   )}
 
+                  {fitRow(t)} {/* .760 (founder, 2026-10-13): THE FIT ROW — under the geometry disclosure, above the moves, inside the reading's frame; only the latest turn that made a hunch shows it (fitRow checks) */}
                   {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && movesRow(t)} {/* .755 (founder): the moves sit on the reading's own bottom line, latest turn included; the .749 hoist is retired */}
 
                   {/* DID IT LAND? (.511) — after the write-up, three taps in the reading's own voice. Not a survey:
@@ -3131,11 +3132,11 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 suggested answers make no sense without the question they answer. The turn still shows it in place; this copy is not spoken. */}
             {lastReader?.question && !wrapped && (<>
               {/* .753/.755 (founder, from the iPad): the moves (Clarify, Unpack, Example, Find it, Recommend) apply to the READING — they sit on the
-                  bottom line of the reading's own frame (the turn renders them; the hoist of .749 is retired); only the fit row stays with the question */}
+                  bottom line of the reading's own frame (the turn renders them; the hoist of .749 is retired); .760: the fit row went with them — the question frame holds the question alone */}
               <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-8 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
-                {fitRow(lastReader)} {/* .751 (founder): the fit row on the bar above the box, right after the question */}
+                {/* .760 (founder): the fit row no longer lives here — it sits in the reading's frame between the geometry and the moves */}
               </div>
             </>)}
             <div className={dimBox}>
