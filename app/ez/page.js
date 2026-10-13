@@ -3133,7 +3133,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {lastReader?.question && !wrapped && (<>
               {/* .753/.755 (founder, from the iPad): the moves (Clarify, Unpack, Example, Find it, Recommend) apply to the READING — they sit on the
                   bottom line of the reading's own frame (the turn renders them; the hoist of .749 is retired); .760: the fit row went with them — the question frame holds the question alone */}
-              <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-8 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
+              <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className={`mt-8 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3 ${dimBox}`}> {/* .761 (founder): while the Reader is writing, the question fades with everything else */}
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
                 {/* .760 (founder): the fit row no longer lives here — it sits in the reading's frame between the geometry and the moves */}
