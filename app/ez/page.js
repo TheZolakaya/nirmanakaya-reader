@@ -170,6 +170,7 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
         const h = await getAuth();
         const r = await fetch('/api/transcribe', { method: 'POST', headers: { ...h }, body: form });
         const j = await r.json().catch(() => ({}));
+        if (r.ok && j.heard === false) { say('The microphone heard nothing. Check which mic the browser is using, then try again.'); setState('idle'); return; } // .759: a silent clip (Whisper had echoed its hint into the box)
         if (!r.ok || !j.text) { say(`Voice to text: ${j.error || 'nothing came back'}`); setState('idle'); return; }
         onText(j.text); say('');
       } catch (e) { say(`Voice to text: ${e?.message || 'failed'}`); }
