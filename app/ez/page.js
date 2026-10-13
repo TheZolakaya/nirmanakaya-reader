@@ -1359,12 +1359,11 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const clock = setTimeout(() => ac.abort(new Error('the Reader did not answer in time — the connection or the host stalled. Ask again.')), 100000);
     let res, data;
     try {
-      res = await fetch('/api/reading', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
-        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet /* EZ reads on Standard (2026-10-02) */ || MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...(composeFlag ? { compose: true } : {}), ...extra }),   // 2026-09-30: the person's chosen Reader // .752: the composition flag rides for an admin who asked
-        signal: ac.signal,
-      });
+      const body = JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet /* EZ reads on Standard (2026-10-02) */ || MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...(composeFlag ? { compose: true } : {}), ...extra });   // 2026-09-30: the person's chosen Reader // .752: the composition flag rides for an admin who asked
+      res = await fetch('/api/reading', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(await readingAuth()) }, body, signal: ac.signal });
+      if (res.status === 401 && user) { // .756: a stale token on a signed-in page — refresh once and ask again before telling the person to sign in
+        res = await fetch('/api/reading', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(await readingAuth({ force: true })) }, body, signal: ac.signal });
+      }
       const raw = await res.text();
       try { data = JSON.parse(raw); } catch { throw new Error(`the Reader's door answered ${res.status} without a reading (${raw.slice(0, 80).replace(/\s+/g, ' ')}…). Ask again.`); }
     } catch (e) {
