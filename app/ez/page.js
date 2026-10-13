@@ -3071,7 +3071,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {t.role === 'reader' && t.question && !hoisted(t) && ( // .749: the latest turn's question is printed once, above the box
                     <p data-spoken={spokenKey(t.id, 'question', 0)} className={'mt-4 text-[1.0625rem] leading-snug text-amber-300/90 break-words' + litIf(t.id, 'question', 0)}>{t.question}</p>
                   )}
-                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && !hoisted(t) && recBlock(t)}
+                  {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && recBlock(t)} {/* .755: the Recommend reveal opens in the reading's frame with its moves */}
 
                   {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
                   {t.role === 'reader' && t.geometry && (
@@ -3081,7 +3081,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     </details>
                   )}
 
-                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && !hoisted(t) && movesRow(t)} {/* .749: the latest turn's row sits under THE QUESTION frame instead */}
+                  {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && movesRow(t)} {/* .755 (founder): the moves sit on the reading's own bottom line, latest turn included; the .749 hoist is retired */}
 
                   {/* DID IT LAND? (.511) — after the write-up, three taps in the reading's own voice. Not a survey:
                       did you figure it out? The mark is saved with the reading, carried into its summary, and the
@@ -3123,11 +3123,9 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {/* .698 (founder): THE QUESTION, IN ITS OWN FRAME, ALWAYS RIGHT ABOVE THE BOX — once the open doors push the turn up the page, the
                 suggested answers make no sense without the question they answer. The turn still shows it in place; this copy is not spoken. */}
             {lastReader?.question && !wrapped && (<>
-              {/* .753 (founder, from the iPad): the moves (Clarify, Unpack, Example, Find it, Recommend) apply to the READING, not to the question —
-                  they sit between the reading's frame and THE QUESTION frame, above it; only the fit row stays with the question */}
-              {!lastReader.pending && !loading && movesRow(lastReader)}
-              {Array.isArray(lastReader.next) && lastReader.next.length > 0 && recOpen === lastReader.id && recBlock(lastReader)}
-              <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
+              {/* .753/.755 (founder, from the iPad): the moves (Clarify, Unpack, Example, Find it, Recommend) apply to the READING — they sit on the
+                  bottom line of the reading's own frame (the turn renders them; the hoist of .749 is retired); only the fit row stays with the question */}
+              <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-8 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
                 {fitRow(lastReader)} {/* .751 (founder): the fit row on the bar above the box, right after the question */}
