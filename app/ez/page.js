@@ -3122,15 +3122,17 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
             {/* .698 (founder): THE QUESTION, IN ITS OWN FRAME, ALWAYS RIGHT ABOVE THE BOX — once the open doors push the turn up the page, the
                 suggested answers make no sense without the question they answer. The turn still shows it in place; this copy is not spoken. */}
-            {lastReader?.question && !wrapped && (
+            {lastReader?.question && !wrapped && (<>
+              {/* .753 (founder, from the iPad): the moves (Clarify, Unpack, Example, Find it, Recommend) apply to the READING, not to the question —
+                  they sit between the reading's frame and THE QUESTION frame, above it; only the fit row stays with the question */}
+              {!lastReader.pending && !loading && movesRow(lastReader)}
+              {Array.isArray(lastReader.next) && lastReader.next.length > 0 && recOpen === lastReader.id && recBlock(lastReader)}
               <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className="mt-4 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3">
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
                 <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
                 {fitRow(lastReader)} {/* .751 (founder): the fit row on the bar above the box, right after the question */}
-                {!lastReader.pending && !loading && movesRow(lastReader)} {/* .749 (founder): the moves live under the question, not in the turn's frame */}
-                {Array.isArray(lastReader.next) && lastReader.next.length > 0 && recOpen === lastReader.id && recBlock(lastReader)}
               </div>
-            )}
+            </>)}
             <div className={dimBox}>
             {/* THE BOX, RIGHT UNDER THE OUTPUT (founder, 2026-09-21): answer in your own words first; the pills,
                 the doors and the wrap-up follow below. Say sits INSIDE the box, bottom-right, the rainbow word
