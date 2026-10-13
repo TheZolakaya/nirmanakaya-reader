@@ -149,7 +149,7 @@ const ALLOWED_MODELS = new Set(Object.values(MODEL_IDS));
 const MAX_TOKENS_CAP = 8000;
 
 export async function POST(request) {
-  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, turn } = await request.json(); // .507: turn = 'talk' | 'card' | 'door' (EZ)
+  const { messages, system, model, isFirstContact, max_tokens, isDTP, dtpInput, draws, turn, compose } = await request.json(); // .507: turn = 'talk' | 'card' | 'door' (EZ) · .752: compose = the composition instrument (admin flag ?compose=1)
 
   const authUser = await getAuthUser(request);
   if (!authUser) {
@@ -159,8 +159,9 @@ export async function POST(request) {
 
   // Check if user is banned or throttled
   let floorForThisUser = false; // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
+  let composeForThisUser = false; // .752: the composition instrument rides in the dossier for an admin who asked (?compose=1); invisible to everyone else
   {
-    const access = await checkUserAccess(userId); const { canRead, reason } = access; floorForThisUser = process.env.POUR_FLOOR === '1'; // .742: OFF by default (the sitting's step 5); POUR_FLOOR=1 brings the poured cell back // .590 (founder: 'release this to everyone'): the floor is on for every reader unless POUR_FLOOR=0 (admin-only was .583–.589) // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
+    const access = await checkUserAccess(userId); const { canRead, reason } = access; floorForThisUser = process.env.POUR_FLOOR === '1'; composeForThisUser = compose === true && !!access.isAdmin; // .742: OFF by default (the sitting's step 5); POUR_FLOOR=1 brings the poured cell back // .590 (founder: 'release this to everyone'): the floor is on for every reader unless POUR_FLOOR=0 (admin-only was .583–.589) // THE FLOOR: admins (the founder) first; POUR_FLOOR=1 for all, 0 for none
     if (!canRead) {
       return Response.json({ error: reason }, { status: 403 });
     }
@@ -258,7 +259,8 @@ export async function POST(request) {
       if (cards.length && lastUserIdx >= 0 && typeof messages[lastUserIdx].content === 'string') {
         const dossier = buildDossier({
           question: messages.find((m) => m.role === 'user')?.content?.slice(0, 500) ?? null,
-          cards
+          cards,
+          composition: composeForThisUser // .752: admin flag only
         });
         const block = '\n\n[STRUCTURAL DOSSIER — computed deterministically by the Geometry Engine for THIS draw. '
           + 'Every value below is fact, not interpretation: use these relations, do not re-derive or invent arithmetic. '

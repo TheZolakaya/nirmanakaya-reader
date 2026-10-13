@@ -1338,6 +1338,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // .640: the quiet manner (.614) was judged by the founder — allegory, not directness — and retired; the Handing is the one manner
   // Pass Two: the prompt set in force — the client default, or ?prompt=<name> for a signed-in admin (the flag stays invisible to everyone else)
   const promptSet = promptSetFor((() => { try { const q = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('prompt') : null; return q && isAdmin(user) ? q : null; } catch { return null; } })());
+  // .752: the composition instrument (True's FINDING "What the seed produces", 2026-10-12) — ?compose=1 for a signed-in admin puts "Q then P" for every pair of drawn cards into the dossier; invisible to everyone else; the route checks admin again
+  const composeFlag = (() => { try { return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('compose') === '1' && isAdmin(user); } catch { return false; } })();
   const promptBaseFor = (v) => (handing ? baseFor(promptSet, v) : BASE_SYSTEM);
   const promptOverFor = (v) => { if (!handing) return {}; const vr = promptSet.voiceRules(v); return { rules: promptSet.EZ_RULES, ...(typeof vr === 'string' ? { voiceRules: vr } : {}) }; };
   const promptBase = promptBaseFor(voice);
@@ -1360,7 +1362,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       res = await fetch('/api/reading', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...(await readingAuth()) },
-        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet /* EZ reads on Standard (2026-10-02) */ || MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...extra }),   // 2026-09-30: the person's chosen Reader
+        body: JSON.stringify({ messages: [{ role: 'user', content: sent }], system, model: MODEL_IDS.sonnet /* EZ reads on Standard (2026-10-02) */ || MODEL_IDS[chrome.prefs.selectedModel] || MODEL_IDS.sonnet, max_tokens: maxTokens, userId: user?.id, ...(composeFlag ? { compose: true } : {}), ...extra }),   // 2026-09-30: the person's chosen Reader // .752: the composition flag rides for an admin who asked
         signal: ac.signal,
       });
       const raw = await res.text();
