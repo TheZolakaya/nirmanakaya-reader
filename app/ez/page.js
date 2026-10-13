@@ -1648,7 +1648,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const spreadKeyFor = (n) => (n === 1 ? 'one' : n === 2 ? 'two' : n === 3 ? 'three' : n === 4 ? 'four' : 'five');
 
   // ---- the opening turn ----
-  const begin = async () => {
+  const begin = async (opts = {}) => { // .757: opts.keep re-asks the opening with the cards already on the page (a failed opening keeps its draw)
+    const keep = opts && opts.keep === true && Array.isArray(draws) && draws.length > 0;
     // A door with no added context is a complete question on its own — tap-and-draw must always
     // work. Added context, when there is any, IS the question; the door only frames it.
     const typed = sanitizeForAPI(question.trim());
@@ -1660,7 +1661,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE: inside the tap, before any await
     setError(''); setLoading(true); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); sayNarration('reading-your-now'); // .647 the narrator; .654 'The Nirmanakaya Reader is reading your now.' // .516: the Unsure and Another folds close when a reading starts or resets
     markInflight(null); markInflight({ started: Date.now(), savedId: null }); crumb('draw', cardCount); // .721
-    const newDraws = generateSpread(cardCount);
+    const newDraws = keep ? draws : generateSpread(cardCount); // .757: the same cards when asked to keep them
     setDraws(newDraws);
     // one card only, for now; the answer never waits on the motion by more than the last flight
     const willAnimate = animOn && cardCount === 1;
@@ -3102,7 +3103,9 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 </div>
               ))}
               {loading && <Writing scroll={!animating && !animPending} />}
-              {error && <div className="text-xs text-red-400 pl-2 break-words">{error}</div>}
+              {error && <div className="text-xs text-red-400 pl-2 break-words">{error}{turns.length === 0 && Array.isArray(draws) && draws.length > 0 && !loading && ( // .757: the opening never came back — ask again with the same cards, nothing lost
+                <button type="button" onClick={() => begin({ keep: true })} className="ml-2 rounded-full border border-amber-500/60 bg-zinc-950 px-3 py-0.5 text-[0.8125rem] text-amber-200 hover:bg-amber-950/60">Ask again with these cards</button>
+              )}</div>}
               <div ref={endRef} />
             </div>
 
