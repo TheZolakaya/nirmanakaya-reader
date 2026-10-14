@@ -19,17 +19,14 @@ export default function Footer() {
         {/* 1. THE SYSTEM AXIOM (The Soul of the Machine) */}
         <div className="space-y-1.5 select-none group cursor-default">
           {/* Version & Name */}
-          <h4 className="text-[11px] font-mono uppercase tracking-[0.3em] text-zinc-500 group-hover:text-zinc-300 transition-colors duration-500">
-            Nirmanakaya <span className="text-emerald-500/50 mx-2">::</span> v{VERSION}
+          {/* .765 (founder): the footer was four lines of caps and five on a phone — now the name, the law, the links.
+              The name (founder, 2026-09-23): "Nirmanakaya — the map of awakened consciousness." */}
+          <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400 group-hover:text-zinc-300 transition-colors duration-500">
+            Nirmanakaya <span className="text-emerald-500/50 mx-2">::</span> the map of awakened consciousness <span className="text-zinc-600 mx-2">::</span> <span className="text-zinc-500">v{VERSION}</span>
           </h4>
-
-          {/* The name (founder, 2026-09-23): "Nirmanakaya — the map of awakened consciousness." */}
-          <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-400 group-hover:text-zinc-300 transition-colors duration-500">
-            The map of awakened consciousness
-          </p>
-          {/* The Law */}
+          {/* The Law — one line from sm up; two clean lines on a phone, no pipe */}
           <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 group-hover:text-zinc-400 transition-colors duration-500">
-            Consciousness is Primary <span className="mx-2 text-zinc-600">|</span> Encounter Precedes Understanding
+            <span className="block sm:inline">Consciousness is Primary</span><span className="hidden sm:inline mx-2 text-zinc-600">|</span><span className="block sm:inline">Encounter Precedes Understanding</span>
           </p>
         </div>
 

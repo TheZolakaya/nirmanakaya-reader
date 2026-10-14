@@ -241,9 +241,11 @@ const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the sky', mechanism: 'the m
 // text above each word. The WORD is drawn by us (a span), and an invisible native <select> lies over it to catch the tap and open
 // the system picker: iOS draws a native select's own text at its own size (the .730/.731 screenshots: "more ▾" at ~22px beside a
 // 13px Ask), and no CSS of ours was doing it. The select is kept at value="" so it never shows a choice itself.
+// .765 (founder): "the Read by, Told by and More totally don't fit the design ethic, and they're really loud" — the pickers now speak in the
+// site's own voice: the nav's small tracked monospace caps, dim, with only the current choice lit; the ‹ › arrows are quiet, and hidden on the front
 const PICK = 'relative inline-flex flex-col items-center';
-const PICK_LABEL = 'h-3 text-[0.625rem] uppercase tracking-[0.15em] text-zinc-500 whitespace-nowrap';
-const PICK_WORD = 'text-[0.8125rem] font-light text-zinc-300 whitespace-nowrap';
+const PICK_LABEL = 'h-3 text-[0.625rem] font-mono uppercase tracking-[0.15em] text-amber-300/80 whitespace-nowrap';
+const PICK_WORD = 'text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-zinc-300 transition-colors whitespace-nowrap';
 const PICK_SELECT = 'absolute inset-0 w-full h-full opacity-0 cursor-pointer';
 const OPT = { color: '#d4d4d8', background: '#18181b' };
 // .661 (Keel §10): the doors the Reader may recommend at the close, as the glass names them
@@ -2521,7 +2523,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <span className={PICK_LABEL}>{voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'off'}</span>
                 <span className="inline-flex items-center">
                   <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
-                    className="relative z-10 pr-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">‹</button>
+                    className="pick-arrow relative z-10 pr-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">‹</button>
                   <span className="relative inline-flex">
                     <span className={PICK_WORD}>Read by ▾</span>
                     {/* .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it (.704: the dropdown introduces the voice too) */}
@@ -2534,7 +2536,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     </select>
                   </span>
                   <button type="button" aria-label="next voice" title="the next voice — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i + 1) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
-                    className="relative z-10 pl-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">›</button>
+                    className="pick-arrow relative z-10 pl-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">›</button>
                 </span>
               </span>
             )}
@@ -2546,7 +2548,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <span className="inline-flex items-center">
                   {/* .733 (founder): ‹ › on Told by too, for consistency with Read by — the voice before / after, Plain in the ring */}
                   <button type="button" aria-label="previous teller" title="the teller before this one" onClick={() => { const keys = ['plain', ...PERSONA_KEYS]; const i = Math.max(0, keys.indexOf(keys.includes(voice) ? voice : 'plain')); chooseVoice(keys[(i - 1 + keys.length) % keys.length]); }}
-                    className="relative z-10 pr-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">‹</button>
+                    className="pick-arrow relative z-10 pr-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">‹</button>
                   <span className="relative inline-flex">
                   <span className={PICK_WORD}>Told by ▾</span>
                   <select value="" aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person" className={PICK_SELECT}
@@ -2556,7 +2558,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   </select>
                   </span>
                   <button type="button" aria-label="next teller" title="the next teller" onClick={() => { const keys = ['plain', ...PERSONA_KEYS]; const i = Math.max(0, keys.indexOf(keys.includes(voice) ? voice : 'plain')); chooseVoice(keys[(i + 1) % keys.length]); }}
-                    className="relative z-10 pl-2 text-[0.9375rem] font-light text-zinc-500 hover:text-zinc-200">›</button>
+                    className="pick-arrow relative z-10 pl-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">›</button>
                 </span>
               </span>
             )}
@@ -2667,7 +2669,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
         {allowed === null && <p className="text-zinc-500 text-sm">Checking the door…</p>}
         {allowed === false && !user && (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 space-y-4">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 space-y-4" style={{ marginTop: '18vh' }}> {/* .765 (founder): centred in the viewport, where the ask box sits once signed in */}
             <div>
               <p className="text-base text-zinc-200 mb-1">Sign in to begin.</p>
               <p className="text-sm text-zinc-500">Your readings are saved to your account so you can come back to them.</p>
@@ -2698,7 +2700,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               menu in its corner (.592) — help, topic, past readings, from my readings. Everything else folds.
               The frame sits in the middle of the screen (founder: "like Bing or Google, right
               there in the middle, very simple"). */}
-          <div ref={anchorRef} className={`content-pane bg-zinc-900/30 border border-zinc-800/50 p-4 space-y-3 rounded-lg`}>
+          <div ref={anchorRef} className={`content-pane p-0 space-y-3 rounded-xl`}> {/* .765 (founder): ONE frame — the box's own rainbow edge; the outer border and fill are gone */}
             {/* .545: THE FRAME, ON THE BOX — the founder set a frame, hit done, and "nothing happened": the only sign was the small
                 About ✓. Now the frame sits on the question box itself, in words, with a way to change or clear it. */}
             {frame && !draws && (
@@ -2733,7 +2735,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
           {/* .732 (founder, phone): one light line — Read by · Told by · More — each with its current choice in tiny text above it.
               The ‹ › beside Read by are .703: the voice before / after, and it says hello. Each native select is invisible over its word. */}
-          <div className="flex flex-wrap justify-center items-end gap-x-4 gap-y-2">
+          <div className="flex flex-wrap justify-center items-end gap-x-5 gap-y-2 [&_.pick-arrow]:hidden"> {/* .765: on the front the arrows stay out of sight — the words alone, in the nav's voice */}
             {readByPick}
             {toldByPick}
             {/* .592: ONE QUIET MENU (founder 2026-10-02: "load, unsure, topic and from your readings could be a selection menu instead of

@@ -37,10 +37,10 @@ export default function Header({ hasActivity = false }) {
     <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-14 md:px-4" style={{ paddingTop: 'calc(0.5rem + var(--safe-top, 0px))' }}>
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
-        {/* HOME - Nirmanakaya wordmark */}
+        {/* HOME - Nirmanakaya wordmark · .765 (founder): hidden on phones — the wordmark right under the nav is the same link, and the nav fits one line without it */}
         <Link
           href="/"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-colors duration-300 whitespace-nowrap ${
+          className={`hidden sm:inline text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-colors duration-300 whitespace-nowrap ${
             isHome ? 'text-amber-400' : 'text-zinc-500 hover:text-amber-400'
           }`}
         >

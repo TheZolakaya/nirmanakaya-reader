@@ -1206,10 +1206,10 @@ export default function LoungePage() {
                 <p className="text-zinc-500 text-sm mb-4">Sign in to send messages and connect with others</p>
                 <button
                   onClick={() => window.dispatchEvent(new Event('open-auth-modal'))}
-                  className="px-6 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium transition-colors"
+                  className="px-5 py-2.5 rounded-lg bg-[#021810] text-[#f59e0b] border border-emerald-700/50 hover:bg-[#052e23] text-sm font-medium transition-colors"
                 >
-                  Sign In
-                </button>
+                  Sign in
+                </button>{/* .765 (founder): the one Sign in the site has (the front page's), not the only orange fill on the site */}
               </div>
             ) : messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center p-8">
