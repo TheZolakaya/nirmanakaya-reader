@@ -1266,18 +1266,18 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!t || !t.text) return;
     const run = ++speakRun.current; pausedRef.current = false; setPaused(false); jumpRef.current = startAt > 0 ? startAt : null; voiceSkipRef.current = false; setSpeakingId(t.id); speakingTurnRef.current = t.id; setVoiceMsg(`Voice: ${VOICE_LABEL[voiceName] || 'George'}…`);
     const h = await voiceAuth(); const pieces = piecesOf(t); piecesRef.current = pieces; crumb('voice', `${pieces.length} pieces from ${startAt}`); // .721
-    const fetchPiece = async (text) => {
+    const fetchPiece = async (text, pieceIdx = -1) => { // .763: the row knows its turn and piece
       const t0 = Date.now(); // .746
       for (let k = 0; k < 8; k++) {
         if (run !== speakRun.current) return {};
         let res = {}; try { const r = await fetch('/api/voice', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ text, voice: voiceName, speed: voiceSpeedRef.current }) }); res = { ...(await r.json()), status: r.status }; } catch { res = { status: 0 }; } // .698 the readback speed rides with every piece
         if (res.url) setVoiceSpend((v) => ({ pieces: v.pieces + 1, chars: v.chars + (res.chars || text.length), secs: v.secs + (res.secs || 0), usd: v.usd + (res.usd || 0) })); // .613
-        if (res.url) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: res.chars || text.length, secs: res.secs || 0, usd: res.usd || 0, voice: voiceName, speed: voiceSpeedRef.current }].slice(-300)); // .746
-        else if (res.status && res.status !== 429 && !res.waking) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: text.length, status: res.status, error: String(res.error || '').slice(0, 80), voice: voiceName }].slice(-300)); // .746: a refusal is a row too
+        if (res.url) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: res.chars || text.length, secs: res.secs || 0, usd: res.usd || 0, voice: voiceName, speed: voiceSpeedRef.current, turn: t.id, piece: pieceIdx }].slice(-300)); // .746 · .763 turn + piece
+        else if (res.status && res.status !== 429 && !res.waking) setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: k + 1, chars: text.length, status: res.status, error: String(res.error || '').slice(0, 80), voice: voiceName, turn: t.id, piece: pieceIdx }].slice(-300)); // .746: a refusal is a row too
         if (res.url || res.waking) return res;
         await new Promise((done) => setTimeout(done, 5000));   // throttled or a hiccup: wait, then try the same piece again
       }
-      setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: 8, chars: text.length, gaveUp: true, voice: voiceName }].slice(-300)); // .746
+      setVoiceLog((l) => [...l, { t: Date.now(), ms: Date.now() - t0, tries: 8, chars: text.length, gaveUp: true, voice: voiceName, turn: t.id, piece: pieceIdx }].slice(-300)); // .746
       return { error: 'the voice service kept refusing — try Listen again in a minute' };
     };
     if (!audioRef.current) audioRef.current = new Audio(); const a = audioRef.current;
@@ -1286,7 +1286,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     // two or three seconds of audio — and one piece ahead no longer covered the round trip to the voice server, so playback waited on
     // the network between sentences. The throttle is gone (600/min), so three pieces are kept in flight ahead of the one playing.
     const AHEAD = 3; const jobs = new Array(pieces.length).fill(null); const jobSpeed = new Array(pieces.length).fill(null);
-    const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) { jobSpeed[j] = voiceSpeedRef.current; jobs[j] = fetchPiece(pieces[j].text); } }; // .702: each piece remembers the speed it was made at
+    const ensureAhead = (from) => { for (let j = from; j < Math.min(pieces.length, from + AHEAD); j++) if (!jobs[j]) { jobSpeed[j] = voiceSpeedRef.current; jobs[j] = fetchPiece(pieces[j].text, j); } }; // .702: each piece remembers the speed it was made at
     ensureAhead(startAt > 0 ? Math.min(pieces.length - 1, startAt) : 0);
     for (let i = 0; i < pieces.length; i++) { crumb("piece", `${i} ${pageSnap()}`); // .721 / .722 with what the page holds
       if (jumpRef.current != null) { i = Math.min(pieces.length - 1, jumpRef.current); jumpRef.current = null; ensureAhead(i); } // .653: a tapped paragraph
@@ -1307,7 +1307,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     }
     if (run === speakRun.current) { setSpeakingId(null); setSpoken(null); speakingTurnRef.current = null; voiceSkipRef.current = false; setPaused(false); setVoiceMsg('');
       // .748: the voice finished this turn on its own (or Skip this) — if it was the latest turn, land on the question with the box under it
-      try { const latest = [...turnsRef.current].reverse().find((x) => x.role !== 'you' && x.role !== 'user'); if (latest && latest.id === t.id) setTimeout(() => { const q = document.querySelector('[data-question-frame]') || document.querySelector('textarea[placeholder^="Answer"]'); q?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 150); } catch {}
+      try { const latest = [...turnsRef.current].reverse().find((x) => x.role !== 'you' && x.role !== 'user'); if (latest && latest.id === t.id) setTimeout(landOnQuestion, 150); } catch {} // .763: one landing for the page
     }
   };
   useEffect(() => { if (!voiceMsg || /…$/.test(voiceMsg) || /paused/.test(voiceMsg)) return; const id = setTimeout(() => setVoiceMsg(''), 9000); return () => clearTimeout(id); }, [voiceMsg]);
@@ -1882,6 +1882,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
   // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
   const [panelAsk, setPanelAsk] = useState(null); // { text, at }
+  // .763 (founder) 19: the panels (Go deeper, the meaning, the dragon…) were closing with the previous question word for word — the questions
+  // already on the page ride in the panel's message, and an exact repeat is re-asked once (the lint's manner: one re-ask, then let it stand)
+  const normQ = (q) => String(q || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const lastQuestionOf = (text) => { const parts = String(text || '').trim().split(/(?<=[.!?])\s+/); const last = (parts[parts.length - 1] || '').trim(); return /\?$/.test(last) ? last : ''; };
+  const askedSoFar = () => [...turns.filter((x) => x.role === 'reader' && x.question).map((x) => x.question), ...(panelAsk?.text ? [panelAsk.text] : [])];
+  const repeatsAsk = (text) => { const q = normQ(lastQuestionOf(text)); return !!q && askedSoFar().some((a) => normQ(a) === q); };
+  const askedBlock = () => { const list = askedSoFar(); return list.length ? `\n\nQUESTIONS ALREADY ASKED ON THIS PAGE — never ask any of these again, in these words or in words close to them; end with a NEW question, or with none:\n${list.map((q) => `- ${q}`).join('\n')}` : ''; };
+  const REASK_ASK = 'YOUR LAST REPLY ENDED WITH A QUESTION THAT IS ALREADY ON THE PAGE. Write it again, same meaning, ending with a different question or with none.';
   const noteAsk = (text) => { try { const parts = String(text || '').trim().split(/(?<=[.!?])\s+/); const last = (parts[parts.length - 1] || '').trim(); if (/\?$/.test(last) && last.length > 12) setPanelAsk({ text: last, at: Date.now() }); } catch {} };
   const openFloor = (f) => { if (!f || f === 'whys') return; setFloorsOpened((list) => (list.includes(f) ? list : [...list, f])); markOpen(`floor-${f}`, true); showPanels(`floor-${f}`); sayLabel(FLOOR_LABEL[f].replace(/\s+/g, '-')); if (!brazier[f] && !brazierBusy) fetchFloor(f); };
   const closeFloor = (f) => { setFloorsOpened((list) => list.filter((x) => x !== f)); markOpen(`floor-${f}`, false); };
@@ -1898,7 +1906,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const asked = `${discourseBlock(turns)}\n\nASKER (asks for one small thing to do): "${line}"`;
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
-      const { obj } = await callReader(msg, systemPrompt, 500, { panel: 'step' });
+      let { obj } = await callReader(msg + askedBlock(), systemPrompt, 500, { panel: 'step' });
+      if (repeatsAsk(obj?.reader)) { const again = await callReader(`${msg}${askedBlock()}\n\n${REASK_ASK}\n${String(obj.reader || '')}`, systemPrompt, 500, { panel: 'step' }).catch(() => null); if (again?.obj?.reader && !repeatsAsk(again.obj.reader)) obj = again.obj; } // .763 item 19
       setStepText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('step', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
@@ -1938,7 +1947,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const asked = `${discourseBlock(turns)}\n\nASKER (asks to understand the medicine — what it is, why, and how to take it): "Help me understand the way through — what it actually is, why it is the medicine for this, and how I take it."`;
       const tele = seedFor(card, question).block;
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
-      const { obj } = await callReader(msg, systemPrompt, 900, { panel: 'medicine' });
+      let { obj } = await callReader(msg + askedBlock(), systemPrompt, 900, { panel: 'medicine' });
+      if (repeatsAsk(obj?.reader)) { const again = await callReader(`${msg}${askedBlock()}\n\n${REASK_ASK}\n${String(obj.reader || '')}`, systemPrompt, 900, { panel: 'medicine' }).catch(() => null); if (again?.obj?.reader && !repeatsAsk(again.obj.reader)) obj = again.obj; } // .763 item 19
       setMedText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('medicine-course', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1971,9 +1981,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${dragonBlock(k)}`;
       // the eight exemplars ride in the SYSTEM prompt so they are cached (.448: the ledger showed the
       // dragon's message at 4,040 fresh tokens, double any floor, because they rode in the message)
-      const { obj } = await callReader(msg, `${systemPrompt}
+      let { obj } = await callReader(msg + askedBlock(), `${systemPrompt}
 
 ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
+      if (repeatsAsk(obj?.reader)) { const again = await callReader(`${msg}${askedBlock()}\n\n${REASK_ASK}\n${String(obj.reader || '')}`, `${systemPrompt}\n\n${DRAGON_STANDARD}`, 600, { panel: 'dragon' }).catch(() => null); if (again?.obj?.reader && !repeatsAsk(again.obj.reader)) obj = again.obj; } // .763 item 19
       setDragonText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('dragon', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
@@ -2037,7 +2048,7 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
       const turnBlock = (floor !== 1 && lastTurn?.text) ? `\n\nTHE TURN TO DEEPEN (the Reader's latest words to them — deepen THIS, never change the subject):\n${lastTurn.text}${lastTurn.medicine ? `\n\n${lastTurn.medicine}` : ''}` : '';
       const ring1 = (floor !== 1 && brazier[1]) ? `\n\nWHY THIS IS HAPPENING, already shown to them (do not repeat it):\n${brazier[1]}` : '';
       const ask = floor === 1 ? 'Write ring 1. JSON only.' : `Write the ${floor} floor. JSON only.`;
-      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}\n\n${ask}`;
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\n${kernelBlock(k)}\n\n${drawRecord(card, DEFS)}${tele ? `\n\n${tele}` : ''}${turnBlock}${ring1}${askedBlock()}\n\n${ask}`; // .763: the questions already asked ride along
       let data = await rawCall(msg, brazierSystem(floor, voice, handing ? promptSet : null), floor === 1 ? 500 : 1000); // floors 800→1000 with the band (.469); .700 the voice in force reaches the floors
       let obj = parseJson(data.reading);
       if (!obj?.text) { data = await rawCall(`${msg}\n\nYOUR LAST REPLY WAS NOT VALID JSON. Send ONE JSON object and nothing else.`, brazierSystem(floor, voice, handing ? promptSet : null), 800); obj = parseJson(data.reading); }
@@ -2060,6 +2071,7 @@ ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
 YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same meaning, without that.`, brazierSystem(floor, voice, handing ? promptSet : null), 1000); const o2 = parseJson(d2.reading); if (o2?.text && !personFlags(o2.text, askerAllowed()).length) obj = o2; }
         const ch = scrubReply(obj, askerAllowed(), askerTexts(), ['text']); if (ch.length) console.warn('[person] floor fallback:', ch.join(' | '));
       }
+      if (repeatsAsk(obj.text)) { const d3 = await rawCall(`${msg}\n\n${REASK_ASK}\n${obj.text}`, brazierSystem(floor, voice, handing ? promptSet : null), 1000).catch(() => null); const o3 = d3 ? parseJson(d3.reading) : null; if (o3?.text && !repeatsAsk(o3.text)) obj = o3; } // .763 item 19: one re-ask on an exact repeat
       logPanel(floor === 1 ? 'words-to-the-whys' : `floor-${floor}`, obj.text, { voice }); // .713
       const next = { ...brazier, [floor]: obj.text.trim() }; noteAsk(obj.text); // .762: a floor's closing question reaches THE QUESTION frame
       setBrazier(next);
@@ -2306,8 +2318,14 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
         <button key={k} onClick={twoTap(`${id}-${k}`, () => move(id, k, text), k)} className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>{label}</button>
       ))}
       <button onClick={twoTap(`${id}-find`, () => send('Help me find which thing this is.', 'locate', { locate: 'the thing this turn is pointing at' }), 'find-it')} className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-violet-500/60 text-violet-200 hover:bg-violet-950/70">Find it</button>
+      {/* .763 (founder, item 20): from a floor, the other doors are one tap away; from any panel, "Answer ↓" lands on the question and the box */}
+      {/^floor/.test(id) && ['meaning', 'moon', 'mechanism'].filter((f) => (FLOORS_OPEN[f] || bench || isAdmin(user)) && `floor${f}` !== id).map((f) => (
+        <button key={f} onClick={() => (floorsOpened.includes(f) ? revealPanel(`floor-${f}`) : openFloor(f))} className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${f === 'meaning' ? 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70' : f === 'moon' ? 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70' : 'border-cyan-500/60 text-cyan-200 hover:bg-cyan-950/70'}`}>{FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1)}</button>
+      ))}
+      <button onClick={landOnQuestion} title="down to the question and the box" className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-zinc-600 text-zinc-300 hover:bg-zinc-800">Answer ↓</button>
     </div>
   );
+  const landOnQuestion = () => { try { const q = document.querySelector('[data-question-frame]') || document.querySelector('textarea[placeholder^="Answer"]'); q?.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch {} }; // .763 (founder, item 20): the one way down to the question and the box
   const showPanels = (kind) => { setTimeout(() => { try {
     const el = (kind && document.querySelector(`[data-ez-panel="${kind}"]`)) || panelsRef.current;
     if (!el) return;
@@ -2620,7 +2638,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
           </>
         } />}
       {speakingId ? ( // .653/.662/.663: the bar shows WHILE the voice reads — pause / continue, skip this, voice off (founder: no standing menu; a tap on the paragraph being read pauses it, a tap on another jumps, a tap when idle starts there)
-        <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl">
+        <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl"> {/* .763 (founder): the bar sat on top of the moves row — from sm up it lives in the bottom-right corner, beside the column, not over it */}
           <button onClick={togglePause} className="rounded-full border border-amber-400/60 bg-amber-950/40 px-3 py-1 hover:bg-amber-900/50">{paused ? '▶ Continue' : '⏸ Pause'}</button>
           <button onClick={skipTurn} className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800">Skip this</button>
           <button onClick={cycleSpeed} title="readback speed — tap to cycle; the next piece takes it" className="rounded-full border border-zinc-600 px-3 py-1 text-zinc-200 hover:bg-zinc-800 tabular-nums">{voiceSpeed}×</button> {/* .698 */}
@@ -3352,17 +3370,21 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                           <td className="text-right pr-3 pt-1">{ledger.reduce((a, r) => a + r.cents, 0).toFixed(2)}</td>
                           <td></td><td></td>
                         </tr>
-                        {voiceSpend.pieces > 0 && ( // .615 THE VOICE ROW: pieces · letters · compute seconds (Replicate T4) · cents
-                          <tr className="text-amber-200/80">
-                            <td className="pr-3 pt-1 whitespace-nowrap">voice</td>
-                            <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{VOICE_LABEL[voiceName] || 'George'} · {voiceSpend.pieces} piece{voiceSpend.pieces === 1 ? '' : 's'}{voiceLog.length ? ` · ${(voiceLog.filter((r) => r.ms).reduce((a, r) => a + r.ms, 0) / 1000 / Math.max(1, voiceLog.filter((r) => r.ms).length)).toFixed(1)} s wait each` : ''}</td>
-                            <td className="text-right pr-3 pt-1" title="letters spoken">{voiceSpend.chars.toLocaleString()}</td>
-                            <td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td>
-                            <td className="text-right pr-3 pt-1">{(voiceSpend.usd * 100).toFixed(2)}</td>
-                            <td className="text-right pr-3 pt-1">{voiceSpend.secs.toFixed(1)}</td>
-                            <td className="pt-1">letters</td>
-                          </tr>
-                        )}
+                        {voiceSpend.pieces > 0 && (() => { // .763 (founder): ONE ROW PER SPOKEN TURN — pieces, letters, time to first sound, total wait, compute seconds, cents — so a slow turn can be told from a fast one (.615's single row retired)
+                          const groups = []; for (const r of voiceLog) { const k = r.turn || '?'; let g = groups.find((x) => x.id === k); if (!g) { g = { id: k, rows: [] }; groups.push(g); } g.rows.push(r); }
+                          const spoken = turns.filter((x) => x.role !== 'you' && x.role !== 'user');
+                          const label = (id) => id === 'dragon' ? 'the dragon' : id === 'step' ? 'one small step' : id === 'medicine' ? 'the medicine' : id === 'floor1' ? 'go deeper' : /^floor/.test(id) ? (FLOOR_LABEL[id.slice(5)] || id) : (() => { const i = spoken.findIndex((x) => x.id === id); return i < 0 ? 'turn' : i === 0 ? 'opening' : `turn ${i + 1}`; })();
+                          return groups.map((g) => { const ok = g.rows.filter((r) => !r.status && !r.gaveUp); const fails = g.rows.length - ok.length; const wait = ok.reduce((a, r) => a + (r.ms || 0), 0); const first = ok[0]?.ms || 0; return (
+                            <tr key={g.id} className={fails ? 'text-rose-300/80' : 'text-amber-200/80'}>
+                              <td className="pr-3 pt-1 whitespace-nowrap">voice · {label(g.id)}</td>
+                              <td className="pr-3 pt-1 whitespace-nowrap text-zinc-500">{VOICE_LABEL[ok[0]?.voice || voiceName] || 'George'} · {ok.length} piece{ok.length === 1 ? '' : 's'} · first sound {(first / 1000).toFixed(1)} s{fails ? ` · ${fails} refused` : ''}</td>
+                              <td className="text-right pr-3 pt-1" title="letters spoken">{ok.reduce((a, r) => a + (r.chars || 0), 0).toLocaleString()}</td>
+                              <td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td><td className="text-right pr-3 pt-1"></td>
+                              <td className="text-right pr-3 pt-1">{(ok.reduce((a, r) => a + (r.usd || 0), 0) * 100).toFixed(2)}</td>
+                              <td className="text-right pr-3 pt-1" title="seconds waited on the voice server, all pieces">{(wait / 1000).toFixed(1)}</td>
+                              <td className="pt-1 whitespace-nowrap" title="compute seconds billed">{ok.reduce((a, r) => a + (r.secs || 0), 0).toFixed(1)} s compute</td>
+                            </tr>); });
+                        })()}
                         {voiceSpend.pieces > 0 && ( // .619 THE WHOLE READING: words + voice on one line (founder: "how much was this reading total, including the voice?")
                           <tr className="text-zinc-100 border-t border-zinc-800">
                             <td className="pr-3 pt-1 whitespace-nowrap">total, words + voice</td>
