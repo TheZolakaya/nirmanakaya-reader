@@ -1985,6 +1985,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       if (!text) throw new Error('nothing came back');
       setHow((h) => ({ ...h, [t.id]: { text } }));
       setTurns((ts) => ts.map((x) => (x.id === t.id ? { ...x, how: text } : x))); // saved with the reading
+      if (voiceOut) { try { unlockAudio(); speakTurn({ id: `how-${t.id}`, text: `Here's how I knew.
+
+${text}` }); } catch {} } // .786 (founder): read aloud by the voice when it lands
       logPanel('how', text, null); // .713
     } catch (e) { setHow((h) => ({ ...h, [t.id]: { error: e?.message || 'failed' } })); }
   };
@@ -3348,8 +3351,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {/* .776 HOW DO YOU KNOW? — one tap: the four facts from the record (no call), then the Reader accounts for its turn (one call,
                       kept with the turn); the raw geometry (.530) folds under it for the ones who want it */}
                   {t.role === 'reader' && t.geometry && (() => { const f = howFacts(ti); const h = how[t.id] || {}; const text = t.how || h.text; return (
-                    <details className="mt-3" onToggle={(e) => { if (e.currentTarget.open && !text && !h.busy) fetchHow(t, ti); }}>
-                      <summary className="cursor-pointer select-none text-[0.6875rem] uppercase tracking-wider text-zinc-400 hover:text-zinc-200">How do you know?</summary>
+                    <details className="mt-3">
+                      <summary onClick={(e) => { if (!e.currentTarget.parentElement?.open && !text && !h.busy) fetchHow(t, ti); }} className="cursor-pointer select-none text-[0.6875rem] uppercase tracking-wider text-zinc-400 hover:text-zinc-200">How do you know?</summary> {/* .786 (founder): the call fires ONLY on a person's tap on this line — never on render, never on a toggle the page makes */}
                       <div className="mt-2 rounded-lg border border-zinc-800 bg-zinc-950/40 p-3 text-[0.8125rem] leading-relaxed text-zinc-300">
                         <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">What the map says — the record, not the Reader</div>
                         {f && (
