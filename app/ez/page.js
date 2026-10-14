@@ -3312,10 +3312,10 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
             {/* SUMMARIZE AND WRAP IT UP — the very bottom of the block (founder, 2026-09-21; was 'pull it together'
                 inline under the latest message). The whole reading written up as one piece, then a clean stop. */}
-            {turns.length > 0 && !loading && ( // .646: CATCH ME UP as a pill above the wrap-up (was the 'Where am I?' link — founder: confusing)
+            {turns.length > 0 && !loading && ( // .769 (founder): the three bottom buttons squared to rounded-lg like the site's other buttons (were full pills) // .646: CATCH ME UP as a pill above the wrap-up (was the 'Where am I?' link — founder: confusing)
               <div className="mt-6 flex justify-center">
                 <button data-arm="catchup" onClick={twoTap('catchup', catchUp, 'catch-me-up')}
-                  className={armedCls('catchup') + " rounded-full border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors"}>
+                  className={armedCls('catchup') + " rounded-lg border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors"}>
                   Refresh my memory {/* .762 (founder): was "Catch me up" */}
                 </button>
               </div>
@@ -3323,7 +3323,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {!wrapped && turns.length > 0 && !loading && (
               <div className="mt-3 flex justify-center">
                 <button data-arm="wrap" onClick={twoTap('wrap', closeUp, 'summarize-and-wrap-up')}
-                  className={armedCls('wrap') + " rounded-full border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors"}>
+                  className={armedCls('wrap') + " rounded-lg border border-emerald-600/50 bg-emerald-950/20 px-5 py-2 text-[0.875rem] font-serif text-emerald-100 hover:bg-emerald-900/30 transition-colors"}>
                   Summarize and wrap it up
                 </button>
               </div>
@@ -3331,7 +3331,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {turns.length > 0 && !loading && ( // .645: a New question button beneath the wrap-up (founder)
               <div className="mt-3 flex justify-center">
                 <button data-arm="new" onClick={twoTap('new', reset, null)}
-                  className={armedCls('new') + " rounded-full border border-amber-600/50 bg-amber-950/20 px-5 py-2 text-[0.875rem] font-serif text-amber-100 hover:bg-amber-900/30 transition-colors"}>
+                  className={armedCls('new') + " rounded-lg border border-amber-600/50 bg-amber-950/20 px-5 py-2 text-[0.875rem] font-serif text-amber-100 hover:bg-amber-900/30 transition-colors"}>
                   New question
                 </button>
               </div>
