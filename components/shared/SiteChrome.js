@@ -205,6 +205,7 @@ export function CornerControls({ prefs, set, onAuthChange, rightExtra = null, co
           return (
             <div key={g.cap} className="flex items-center justify-end gap-1" style={{ pointerEvents: fly ? 'auto' : 'none' }}> {/* .765 (founder): tightened — one label column, the controls flush right, every row the same width */}
               <span className="w-14 text-right pr-1 text-[0.5625rem] font-mono tracking-[0.15em] uppercase text-zinc-500 transition-opacity duration-150 motion-reduce:transition-none" style={{ opacity: fly ? 1 : 0, transitionDelay: fly ? `${(before + g.items.length) * 40}ms` : '0ms' }}>{g.cap}</span>
+              {Array.from({ length: Math.max(0, 3 - g.items.length) }).map((_, i) => <span key={`pad${i}`} aria-hidden="true" className="w-8 h-8" />)} {/* .771: three slots per row, the empty ones first, so the labels and the controls line up */}
               {g.items.map((it, i) => {
                 const n = before + i; const total = 6;
                 return (
