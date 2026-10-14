@@ -142,6 +142,11 @@ const pickFrame = (f) => {
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 
+// .776 HOW DO YOU KNOW? (founder, 2026-10-14: "how did you derive that from Fulfillment and Transformation?" — the reading is forbidden to explain
+// itself; this one call is licensed to). The four facts come from the record with no model; this asks the Reader to account for its own turn.
+const HOW_SYSTEM = `You are the Reader of the Nirmanakaya instrument, and you are being asked to SHOW YOUR WORK. You wrote the turn below for this person from the draw below. Explain, in plain words and in the second person, how what you said came from the map: which fact produced which sentence. Here, and only here, you may use the map's own names — the signature, its status, the seat, the medicine — and say them plainly.
+Rules: account only for claims already in the turn; add no new reading, no advice, no new guess about their life. Where a sentence in the turn is not supported by the four facts, say so plainly ("this one was my guess, not the map's"). Where the turn named the way through, say which fact made it the way through. 120–220 words, plain prose, no headings, no lists, no JSON. Do not restate the whole turn; point at it.`;
+
 // .635 THE MIC — a button that records and hands back words. Lives outside the page component so both boxes can use it.
 function MicButton({ onText, getAuth, className = '', onStatus }) {
   const [state, setState] = useState('idle'); // idle | recording | working | denied
@@ -1880,6 +1885,35 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const isCollapsed = (kind) => collapsed.has(kind);
   const toggleCollapsed = (kind) => setCollapsed((c) => { const n = new Set(c); if (n.has(kind)) n.delete(kind); else n.add(kind); return n; });
   const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
+  // .776 HOW DO YOU KNOW? — per turn: { busy, text, error }. The text is also written onto the turn (t.how) so it saves with the reading and reopens free.
+  const [how, setHow] = useState({});
+  const howFacts = (ti) => { // the four facts, from the record alone
+    const d = fieldAt(ti)[0]; if (!d) return null;
+    const trans = getComponent(d.transient) || {}; const seat = ARCHETYPES[d.position] || {}; const st = STATUSES[d.status] || {}; const info = STATUS_INFO[d.status] || {};
+    const m = medicineFor([d])[0] || null; const target = m ? (getComponent(m.toId) || {}) : {};
+    return { d, trans, seat, st, info, m, target };
+  };
+  const fetchHow = async (t, ti) => {
+    if (!t || how[t.id]?.busy || how[t.id]?.text || t.how) return;
+    const f = howFacts(ti); if (!f) return;
+    setHow((h) => ({ ...h, [t.id]: { busy: true } }));
+    try {
+      const facts = [
+        `1. the signature — ${f.trans.name}: ${f.trans.description || ''}`,
+        `2. its status — ${f.st.name}: ${f.info.description || ''}`,
+        `3. the seat — ${f.seat.name}: ${f.seat.description || ''}`,
+        f.m ? `4. the medicine — ${f.m.to}${f.m.path ? `, ${f.m.path}` : ''}: ${f.target.description || ''}` : '4. the medicine — none (the card is balanced; what is shown is where it can grow)',
+      ].join('\n');
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\nTHE FOUR FACTS (the record):\n${facts}${t.geometry ? `\n\n${t.geometry}` : ''}\n\nTHE TURN YOU WROTE:\n${t.text}${t.medicine ? `\n\nThe way through, as you put it: ${t.medicine}` : ''}${t.question ? `\n\nYour closing question: ${t.question}` : ''}\n\nShow your work.`;
+      const data = await rawCall(msg, HOW_SYSTEM, 700, { turn: 'talk' });
+      let text = String(data?.reading || '').trim().replace(/^```[a-z]*\s*|```$/g, '').trim();
+      try { const j = JSON.parse(text); if (j && typeof j === 'object') text = String(j.text || j.reader || j.reading || text); } catch {}
+      if (!text) throw new Error('nothing came back');
+      setHow((h) => ({ ...h, [t.id]: { text } }));
+      setTurns((ts) => ts.map((x) => (x.id === t.id ? { ...x, how: text } : x))); // saved with the reading
+      logPanel('how', text, null); // .713
+    } catch (e) { setHow((h) => ({ ...h, [t.id]: { error: e?.message || 'failed' } })); }
+  };
   // .767 (founder): the medicine's mini map is a button — it opens the same MinimapModal the full reader opens for a correction (card's home → seat, the second arrow to the medicine's home, the target card's own words), colour emerald
   const [medMap, setMedMap] = useState(null); // { fromT, toId, draw }
   // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
@@ -3121,13 +3155,37 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   )}
                   {t.role === 'reader' && Array.isArray(t.next) && t.next.length > 0 && recOpen === t.id && recBlock(t)} {/* .755: the Recommend reveal opens in the reading's frame with its moves */}
 
-                  {/* .530: the geometry the Reader was handed — held from display until tapped (Keel) */}
-                  {t.role === 'reader' && t.geometry && (
-                    <details className="mt-3">
-                      <summary className="cursor-pointer select-none text-[0.6875rem] uppercase tracking-wider text-zinc-500 hover:text-zinc-300">the geometry</summary>
-                      <pre className="mt-2 whitespace-pre-wrap break-words text-[0.75rem] leading-relaxed text-zinc-400 font-mono">{t.geometry}</pre>
+                  {/* .776 HOW DO YOU KNOW? — one tap: the four facts from the record (no call), then the Reader accounts for its turn (one call,
+                      kept with the turn); the raw geometry (.530) folds under it for the ones who want it */}
+                  {t.role === 'reader' && t.geometry && (() => { const f = howFacts(ti); const h = how[t.id] || {}; const text = t.how || h.text; return (
+                    <details className="mt-3" onToggle={(e) => { if (e.currentTarget.open && !text && !h.busy) fetchHow(t, ti); }}>
+                      <summary className="cursor-pointer select-none text-[0.6875rem] uppercase tracking-wider text-zinc-400 hover:text-zinc-200">How do you know?</summary>
+                      <div className="mt-2 rounded-lg border border-zinc-800 bg-zinc-950/40 p-3 text-[0.8125rem] leading-relaxed text-zinc-300">
+                        <div className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">What the map says — the record, not the Reader</div>
+                        {f && (
+                          <div className="space-y-1.5">
+                            <p><span className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mr-2">what</span><span className="text-amber-200">{f.trans.name}</span>{f.trans.description ? <span className="text-zinc-400"> — {f.trans.description}</span> : null}</p>
+                            <p><span className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mr-2">how much</span><span className="text-amber-200">{f.st.name}</span>{f.info.description ? <span className="text-zinc-400"> — {f.info.description}</span> : null}</p>
+                            <p><span className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mr-2">where</span><span className="text-amber-200">{f.seat.name}</span>{f.seat.description ? <span className="text-zinc-400"> — {f.seat.description}</span> : null}</p>
+                            {f.m ? (
+                              <p><span className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mr-2">the way through</span><span className="text-emerald-200">{f.m.to}</span>{f.m.path ? <span className="text-zinc-500"> · {f.m.path}</span> : null}{f.target.description ? <span className="text-zinc-400"> — {f.target.description}</span> : null}</p>
+                            ) : (
+                              <p><span className="text-[0.625rem] uppercase tracking-wider text-zinc-500 mr-2">the way through</span><span className="text-zinc-400">none needed — the card is balanced; what is shown is where it can grow</span></p>
+                            )}
+                          </div>
+                        )}
+                        <div className="mt-3 text-[0.625rem] uppercase tracking-wider text-zinc-500 mb-2">How the Reader read it — in your situation</div>
+                        {h.busy && <Writing scroll={false} label="showing the work" />}
+                        {!h.busy && text && ensureParagraphBreaks(text).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => <p key={xi} className="mb-2 last:mb-0 whitespace-pre-wrap break-words">{x.trim()}</p>)}
+                        {!h.busy && !text && h.error && <p className="text-rose-300/80">{h.error} — <button type="button" className="underline decoration-dotted" onClick={() => { setHow((H) => ({ ...H, [t.id]: {} })); fetchHow(t, ti); }}>try again</button></p>}
+                        <p className="mt-3 text-[0.6875rem] text-zinc-500 italic">The facts are the map's. The reading is the Reader's reading of them.</p>
+                        <details className="mt-3">
+                          <summary className="cursor-pointer select-none text-[0.625rem] uppercase tracking-wider text-zinc-600 hover:text-zinc-400">the geometry</summary>
+                          <pre className="mt-2 whitespace-pre-wrap break-words text-[0.75rem] leading-relaxed text-zinc-400 font-mono">{t.geometry}</pre>
+                        </details>
+                      </div>
                     </details>
-                  )}
+                  ); })()}
 
                   {fitRow(t)} {/* .760 (founder, 2026-10-13): THE FIT ROW — under the geometry disclosure, above the moves, inside the reading's frame; only the latest turn that made a hunch shows it (fitRow checks) */}
                   {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && movesRow(t)} {/* .755 (founder): the moves sit on the reading's own bottom line, latest turn included; the .749 hoist is retired */}
