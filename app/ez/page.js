@@ -471,17 +471,47 @@ const DOORS = [
 
 // A loop that plays only while its parent (the button it sits in) is hovered, focused or
 // touched (founder, 2026-09-16 night). Paused it shows its first frame, so it still reads as an icon.
+// .788 THE AMBIENT FIRE (founder, 2026-10-15: "I miss the animations firing on the buttons… having them all running at once was crazy… randomly fire
+// a full sequence… it goes to completion and then it stops… some time between… we don't have them all fire at once"). ONE loop at a time, chosen at
+// random among the doors on screen, plays through ONCE, then rests; the next fires AMBIENT_GAP_MIN–MAX ms after the last ended. After its run a loop
+// is unloaded back to its poster (the .720 lesson: six buffered loops kill a phone tab). Off under prefers-reduced-motion and while the tab is hidden.
+const AMBIENT_GAP_MIN = 5000;   // the soonest the next fires after the last ended (ms) — ask True to change
+const AMBIENT_GAP_MAX = 18000;  // the latest (ms)
+const AMBIENT_FIRST = 2500;     // the first one, after the page settles (ms)
+const ambient = { videos: new Set(), timer: null, busy: false };
+function ambientSchedule(delay) {
+  if (typeof window === 'undefined') return;
+  clearTimeout(ambient.timer);
+  const ms = delay ?? (AMBIENT_GAP_MIN + Math.random() * (AMBIENT_GAP_MAX - AMBIENT_GAP_MIN));
+  ambient.timer = setTimeout(ambientFire, ms);
+}
+function ambientFire() {
+  try {
+    if (ambient.busy || document.hidden || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) { ambientSchedule(); return; }
+    const vh = window.innerHeight || 800;
+    const ready = [...ambient.videos].filter((x) => { const v = x.ref.current; if (!v || x.playingRef.current || x.hovered) return false; const r = v.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < vh; });
+    if (!ready.length) { ambientSchedule(); return; }
+    const x = ready[Math.floor(Math.random() * ready.length)]; const v = x.ref.current;
+    ambient.busy = true;
+    const done = () => { v.removeEventListener('ended', done); clearTimeout(guard); ambient.busy = false; if (!x.playingRef.current && !x.hovered) { try { v.pause(); v.loop = true; v.removeAttribute('src'); v.load(); x.unloaded = true; } catch {} } else { v.loop = true; } ambientSchedule(); };
+    const guard = setTimeout(done, 20000); // a loop that never ends (or fails to load) cannot hold the stage
+    if (x.unloaded) { v.src = x.src; x.unloaded = false; }
+    v.loop = false; v.currentTime = 0; v.addEventListener('ended', done);
+    v.play().catch(() => done());
+  } catch { ambient.busy = false; ambientSchedule(); }
+}
 function HoverVideo({ src, className, style, playing = false }) {
   const ref = useRef(null);
   // .552: an OPEN door keeps its loop running for as long as it is open (founder) — playing overrides hover/touch
   const playingRef = useRef(playing);
-  useEffect(() => { playingRef.current = playing; const v = ref.current; if (!v) return; try { if (playing) v.play().catch(() => {}); else v.pause(); } catch {} }, [playing]);
+  useEffect(() => { playingRef.current = playing; const v = ref.current; if (!v) return; try { if (playing) { if (!v.getAttribute('src')) v.src = src; v.loop = true; v.play().catch(() => {}); } else v.pause(); } catch {} }, [playing]); // .788 an open door's loop restores its src if the ambient fire had unloaded it
   useEffect(() => {
     const v = ref.current; if (!v) return;
     const host = v.closest('button') || v.parentElement?.parentElement || v.parentElement;
     if (!host) return;
-    const play = () => { try { v.play().catch(() => {}); } catch {} };
-    const stop = () => { if (playingRef.current) return; try { v.pause(); } catch {} };
+    const me = { ref, playingRef, src, hovered: false, unloaded: false }; ambient.videos.add(me); if (ambient.videos.size === 1) ambientSchedule(AMBIENT_FIRST); // .788
+    const play = () => { me.hovered = true; try { if (me.unloaded) { v.src = src; me.unloaded = false; } v.loop = true; v.play().catch(() => {}); } catch {} };
+    const stop = () => { me.hovered = false; if (playingRef.current) return; try { v.pause(); } catch {} };
     // .720 THE FIRST FRAME IS A STILL (founder, 2026-10-06: the page reloaded itself three times mid-reading on the phone). The old prime —
     // a silent play-then-pause on load, with preload="auto" — woke every video at once: six ~6 MB loops buffered and decoding after one
     // turn, which is how a phone tab gets killed. Now each shows a small poster (/video/posters/<name>.jpg, the first frame) and loads
@@ -490,6 +520,7 @@ function HoverVideo({ src, className, style, playing = false }) {
     host.addEventListener('focus', play); host.addEventListener('blur', stop);
     host.addEventListener('touchstart', play, { passive: true }); host.addEventListener('touchend', stop); host.addEventListener('touchcancel', stop);
     return () => {
+      ambient.videos.delete(me); // .788
       host.removeEventListener('mouseenter', play); host.removeEventListener('mouseleave', stop);
       host.removeEventListener('focus', play); host.removeEventListener('blur', stop);
       host.removeEventListener('touchstart', play); host.removeEventListener('touchend', stop); host.removeEventListener('touchcancel', stop);
@@ -1168,12 +1199,12 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } }, usage }) /* .713 + the panels · .746 + the voice ledger */
+      updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}), ...(ledger.length ? { ledger: ledger.slice(-200), cents: Math.round(usd * 1e5) / 1e3 } : {}) } }, usage, ...(ledger.length ? { estimatedCost: usd + (voiceSpend.usd || 0) } : {}) }) /* .788: the per-call ledger + the cost priced by the model that answered, words + voice */ /* .713 + the panels · .746 + the voice ledger */
         .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
-  }, [turns, savedId, usage, panelLog, voiceSpend.pieces]); // .746: a finished piece saves too (debounced)
+  }, [turns, savedId, usage, panelLog, voiceSpend.pieces, ledger.length]); // .746: a finished piece saves too (debounced) · .788 and a new ledger row
 
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
