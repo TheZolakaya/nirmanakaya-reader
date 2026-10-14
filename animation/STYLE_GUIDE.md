@@ -4,8 +4,9 @@ _v0 draft, 2026-10-14. Proposals until the style test is approved. Items marked 
 
 ## 1. The look in one sentence
 
-A single continuous line draws an exact structure that anyone can count. It starts as felt-pen
-ink on notebook paper, becomes light in the dark, and at the highest moments turns to pearl.
+A single continuous line draws an exact structure that anyone can count. It starts as Chris's own
+fine-tip felt-pen line from the 1995 hand-drawn map, becomes light in the dark, and at the highest
+moments turns to pearl.
 The cosmos grows out of the structure and never covers it.
 
 **Words to test every frame against:** intriguing · simple · beautiful · transcendent · meaningful ·
@@ -17,12 +18,12 @@ The line never breaks between registers. When the register changes, the line car
 
 | Register | Feels | Used for | Surface |
 |---|---|---|---|
-| **Steno** | grounded, human, true | memory, 1991, the hand at work | warm steno paper, faint ruling, the steno pad's center rule, felt-pen ink |
+| **Hand** | grounded, human, true | memory, 1991–95, the hand at work | the 1995 map: fine black felt pen on white paper under laminate |
 | **Night** | clear, exact, vast | the derivation, the counting, the structure | deep indigo-black, lines of light, faint cosmic dust at the edges only |
 | **Pearl** | transcendent | the tunnel, the beam, the final reveal | iridescent mother-of-pearl, oil-on-water sheen, soft bloom |
 
 - **Pearl budget:** no more than about 10% of any film. It has to stay rare to stay holy.
-- **Handoff from Steno to Night:** the paper darkens and its fibers become stars, while the pen stroke keeps
+- **Handoff from Hand to Night:** the paper darkens and its fibers become stars, while the pen stroke keeps
   drawing as light.
 - **Handoff from Night to Pearl:** the line's glow widens until it becomes the light itself.
 
@@ -34,8 +35,7 @@ The line never breaks between registers. When the register changes, the line car
 |---|---|---|
 | Night | `#0a0a14` | background, Night register |
 | Deep | `#14142a` | vignette, depth |
-| Paper | `#f2ecdf` | Steno background |
-| Rule | `#b7c4b0` | steno ruling, about 25% opacity |
+| Paper | `#eeebe4` | Hand background (sampled feel of the 1995 laminate) |
 | Ink | `#1d1b22` | felt-pen stroke |
 | Light | `#f6e7c1` | lines of light, numbers in Night |
 | Gold | `#c9a24a` | portals (the Wheel and the World), sums that resolve |
@@ -62,7 +62,7 @@ Tailwind 400s so they glow on Night without looking neon.
 
 The structure is the main character. The cast:
 
-- **The Line.** About 2.5 px at 1080p. In Steno it is ink with a slight bleed and a round cap. In Night it is a light
+- **The Line.** About 2.5 px at 1080p. In Hand it is ink with a slight bleed and a round cap. In Night it is a light
   core with a soft glow (core 2 px, glow about 12 px at 35%). It always has a leading point that
   feels alive.
 - **The Card Glyph.** A tall rounded rectangle at a 7:12 ratio, drawn by the Line. A Roman numeral
@@ -73,8 +73,30 @@ The structure is the main character. The cast:
   styles (art nouveau, painterly, photographic, fresco, gilded relief), so a uniform frame is what
   keeps the film consistent.
 - **The Number.** Numbers are physical. They lift off cards, travel, and add up.
-- **The Hand (optional).** Chris's own hand or handwriting, from real scans only
-  **[decide: do 1991 notebook pages or drawings survive?]**. Never fake handwriting with a font.
+- **The Hand.** Chris's own drawing and lettering, from real scans of the 1995 map
+  (`PROVENANCE_1995_Hand_Drawn_Original_Laminate.jpeg` in Drive). Never fake handwriting with a font.
+
+## 4a. Iconography — taken from the 1995 map, not invented
+
+The 1995 map already has a complete pictogram language. We animate it instead of inventing one.
+
+| Glyph | Meaning on the 1995 map |
+|---|---|
+| ⊛ wheel | Soul |
+| ▽ | Fire · Spirit |
+| ○ | Air · Mind |
+| ◡ cup | Water · Emotions |
+| □ | Earth · Body |
+| • | 1 (between the Fool and the Magician) |
+| — two points | 2 · Princess |
+| △ three points | 3 · Knight |
+| ◇ four points | 4 · Queen |
+| ★ five points | 5 · King |
+| ☯ in the pentagram's apex, a cross at its center, ◐ below | the Soul's crown and the center of the figure |
+| trigrams, dot groups, small sun, moon and eye marks | per-card markings |
+
+The **point → line → triangle → square → star** progression is a ready-made animation: each
+form grows out of the previous one, drawn by the one line.
 
 ## 5. Typography
 
@@ -160,4 +182,4 @@ written after the style test.
 2. Card names: traditional name first, then the modern name? When does the modern name appear?
 3. 1991 designator language (Fire, Air, Water, Earth) vs today's Channels. Probably tell it in 1991 terms, then bridge to today's names.
 4. Narrator: Chris's voice?
-5. Do real 1991 artifacts survive (steno notebook, taped-paper map, handwriting)?
+5. ~~Do real artifacts survive?~~ Yes: the 1995 hand-drawn laminate. Can a clean, flat, high-resolution scan be made (no glare, no hand)?
