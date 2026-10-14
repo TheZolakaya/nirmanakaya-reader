@@ -2622,8 +2622,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
       {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u && user?.id !== 'dev-bench') setUser(null); }}
         rightExtra={ // .745 (founder, phone): Read by and Told by live here too, so both can be changed during a reading — each a native select over its button (the Aa toggle's registers are in the Told by list)
-          <>
-            <span className="relative inline-flex" title={`Read by ${readByName} — tap to choose the voice`}>
+          <span className="flex items-center gap-1"> {/* .772 (founder): the two were inline in one slot and sat on the text baseline, a few px above the row — flex items now, spaced like the rest */}
+            <span className="relative flex" title={`Read by ${readByName} — tap to choose the voice`}>
               <span aria-hidden="true" className={`w-8 h-8 rounded-lg border backdrop-blur-sm flex items-center justify-center transition-all ${voiceOut ? 'text-amber-300 border-amber-500/40 bg-zinc-900/80' : 'text-zinc-500 border-zinc-700/50 bg-zinc-900/80'}`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5L6 9H2v6h4l5 4V5z" />{voiceOut && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.5 8.5a5 5 0 010 7M19 5a9 9 0 010 14" />}</svg>
               </span>
@@ -2634,7 +2634,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 {voiceName === 'af_heart' && <option style={OPT} value="af_heart">{`Heart${voiceOut ? ' ✓' : ''}`}</option>}
               </select>
             </span>
-            <span className="relative inline-flex" title={`Told by ${PERSONA_KEYS.includes(voice) ? (VOICES[voice]?.label || voice) : (VOICE_NOTES[voice]?.[0] || 'plainly')} — tap to choose who tells it`}>
+            <span className="relative flex" title={`Told by ${PERSONA_KEYS.includes(voice) ? (VOICES[voice]?.label || voice) : (VOICE_NOTES[voice]?.[0] || 'plainly')} — tap to choose who tells it`}>
               <span aria-hidden="true" className={`w-8 h-8 rounded-lg border backdrop-blur-sm text-[0.8125rem] font-medium flex items-center justify-center transition-all ${VOICE_STYLE[voice] || VOICE_STYLE.map}`}>
                 {voice === 'plain' ? 'Aa' : voice === 'grown' ? <span className="font-serif italic">Aa</span> : voice === 'deep' ? '∴' : voice === 'mystical' ? '☾' : PERSONA_KEYS.includes(voice) ? (VOICES[voice]?.label || voice).charAt(0) : '◈'}
               </span>
@@ -2643,7 +2643,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 {['plain', ...(PERSONAS_ON ? PERSONA_KEYS : [])].map((k) => <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${voice === k ? ' ✓' : ''}`}</option>)} {/* .762 (founder): the same tellers the front picker cycles; the old registers (grown / deep / mystical) left this list */}
               </select>
             </span>
-          </>
+          </span>
         } />}
       {speakingId ? ( // .653/.662/.663: the bar shows WHILE the voice reads — pause / continue, skip this, voice off (founder: no standing menu; a tap on the paragraph being read pauses it, a tap on another jumps, a tap when idle starts there)
         <div data-pause-pop role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 z-50 max-w-[94vw] flex items-center gap-2 rounded-full border border-amber-500/40 bg-zinc-900/95 px-2 py-1 text-[0.8125rem] text-amber-100 shadow-xl"> {/* .763 (founder): the bar sat on top of the moves row — from sm up it lives in the bottom-right corner, beside the column, not over it */}
