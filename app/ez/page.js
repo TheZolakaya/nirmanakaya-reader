@@ -39,7 +39,8 @@ import { drawRecord, medicineRecord as medicineRecordOf } from '../../lib/record
 import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CHOICES } from '../../lib/modelConfig';
 import { parseReaderJson } from '../../lib/readerJson';
 import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
-import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets'; // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
+import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets';
+import { soulBlock } from '../../lib/readerSoul'; // .777 THE READER'S SOUL FILE (pure: the block the page appends from /api/reader/soul) // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
 const EZ_DEFAULT_SET = 'form-1'; // .758: what you get when you go to Nirmanakaya (founder, 2026-10-13); the Handing is behind ?prompt=handing (admin)
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
@@ -144,6 +145,9 @@ const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', ex
 
 // .776 HOW DO YOU KNOW? (founder, 2026-10-14: "how did you derive that from Fulfillment and Transformation?" — the reading is forbidden to explain
 // itself; this one call is licensed to). The four facts come from the record with no model; this asks the Reader to account for its own turn.
+// .777 THE NOTE (founder, 2026-10-14: "the reader writes notes… only appends when it learned something new… what landed and what didn't"):
+// after Summarize and wrap it up, one line about READING, tied to a tap or a thing the person said — or NONE. Staged in the ledger; the founder promotes.
+const NOTE_SYSTEM = `You have just finished a reading and the person has closed it. Write ONE line, at most thirty words, about READING ITSELF — what you did in this reading that served this person or did not — tied to a tap on the fit row (That's it / Close, not it / That's not me / I don't understand) or to a thing the person said back. A case, not a rule: what you did, what came back. Not advice to the person. If nothing was learned, answer exactly: NONE. Plain text, no quotes, no JSON.`;
 const HOW_SYSTEM = `You are the Reader of the Nirmanakaya instrument, and you are being asked to SHOW YOUR WORK. You wrote the turn below for this person from the draw below. Explain, in plain words and in the second person, how what you said came from the map: which fact produced which sentence. Here, and only here, you may use the map's own names — the signature, its status, the seat, the medicine — and say them plainly.
 Rules: account only for claims already in the turn; add no new reading, no advice, no new guess about their life. Where a sentence in the turn is not supported by the four facts, say so plainly ("this one was my guess, not the map's"). Where the turn named the way through, say which fact made it the way through. 120–220 words, plain prose, no headings, no lists, no JSON. Do not restate the whole turn; point at it.`;
 
@@ -1353,7 +1357,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const promptOverFor = (v) => { if (!handing) return {}; const vr = promptSet.voiceRules(v); return { rules: promptSet.EZ_RULES, ...(typeof vr === 'string' ? { voiceRules: vr } : {}) }; };
   const promptBase = promptBaseFor(voice);
   const promptOver = promptOverFor(voice);
-  const systemPrompt = ezSystem(promptBase, voice, promptOver); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once
+  // .777 THE SOUL FILE: the live lines, fetched once (public, cached a minute); empty until the founder promotes one
+  const [soulLines, setSoulLines] = useState([]);
+  useEffect(() => { let on = true; fetch('/api/reader/soul').then((r) => r.json()).then((j) => { if (on && Array.isArray(j?.lines)) setSoulLines(j.lines.filter((x) => typeof x === 'string' && x.trim())); }).catch(() => {}); return () => { on = false; }; }, []);
+  const systemPrompt = ezSystem(promptBase, voice, promptOver) + (soulLines.length ? `\n\n${soulBlock(soulLines)}` : ''); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once · .777: the Reader's own notes ride under the rules
 
 
   const rawCall = async (userMessage, system = systemPrompt, maxTokens = (voice === 'deep' || voice === 'mystical') ? 2400 : 1500, extra = {}) => { // .507: extra rides in the body (turn: 'talk' | 'card' | 'door') // .491: the deep and mystical registers are given room // 1100→1500 (.469): a 340-word opening plus its envelope on Sonnet 5's tokenizer sits right at 1100
@@ -1885,6 +1892,20 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const isCollapsed = (kind) => collapsed.has(kind);
   const toggleCollapsed = (kind) => setCollapsed((c) => { const n = new Set(c); if (n.has(kind)) n.delete(kind); else n.add(kind); return n; });
   const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
+  // .777 THE NOTE + THE SELF-READING, after the wrap: one line from the Reader (or NONE) → the ledger; the route counts the closed reading and, every Nth, makes the self-reading
+  const writeNote = async (allTurns) => {
+    try {
+      if (bench || !user || user.id === 'dev-bench') return;
+      const fits = []; for (let i = 0; i < allTurns.length; i++) { const t = allTurns[i]; if (t.role === 'you' && t.fit) { const prev = [...allTurns.slice(0, i)].reverse().find((x) => x.role === 'reader'); fits.push({ fit: t.fit, said: t.text, answering: prev?.question || '' }); } }
+      const transcript = discourseBlock(allTurns);
+      const msg = `THE PERSON'S QUESTION: "${sanitizeForAPI(asked || question)}"\n\nTHE READING, in order:\n${transcript}\n\nTHE FIT TAPS: ${fits.length ? fits.map((f) => `${f.fit}${f.said ? ` ("${String(f.said).slice(0, 80)}")` : ''}`).join(' · ') : 'none'}\n\nYour one line, or NONE.`;
+      const data = await rawCall(msg, NOTE_SYSTEM, 120, { turn: 'talk' });
+      let note = String(data?.reading || '').trim().replace(/^```[a-z]*\s*|```$/g, '').replace(/^["'\u201c]|["'\u201d]$/g, '').trim();
+      try { const j = JSON.parse(note); if (j && typeof j === 'object') note = String(j.text || j.reader || j.note || ''); } catch {}
+      const h = await readingAuth();
+      await fetch('/api/reader/notes', { method: 'POST', headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ readingId: savedId, note, question: asked || question, evidence: { fits }, transcript }) });
+    } catch (e) { console.warn('[soul] note skipped:', e?.message); }
+  };
   // .776 HOW DO YOU KNOW? — per turn: { busy, text, error }. The text is also written onto the turn (t.how) so it saves with the reading and reopens free.
   const [how, setHow] = useState({});
   const howFacts = (ti) => { // the four facts, from the record alone
@@ -2225,7 +2246,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     try {
       const msg = `QUESTION: "${sanitizeForAPI(asked || question)}"\nTHE DRAW: ${draws.map(drawLabel).join(' ' + '\u00b7' + ' ')}\n\nTHE DISCOURSE SO FAR:\n${discourseBlock(turns)}${brazierBlock()}\n\n${CLOSING_RULES}`;
       const { obj } = await callReader(msg, `${BASE_SYSTEM}\n\n${CLOSING_RULES}`, 1000) // 700→1000 with the band (.469);
-      { const wt = { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }; setTurns((list) => [...list, wt]); if (voiceOut) speakTurn(wt); } // THE VOICE (.611)
+      { const wt = { id: `w${Date.now()}`, role: 'wrap', text: obj.reader, question: '', chips: [], reflect: [], forge: [], ts: Date.now() }; setTurns((list) => [...list, wt]); if (voiceOut) speakTurn(wt); writeNote([...turns, wt]); } // THE VOICE (.611) · .777 the note, in the background
       scrollToEnd();
     } catch (e) { setError(e.message); }
     setLoading(false);
