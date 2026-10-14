@@ -28,7 +28,7 @@ export default function ReaderSoulAdmin() {
   const [edit, setEdit] = useState({}); // id → line being edited
   const [ask, setAsk] = useState(''); const [askReading, setAskReading] = useState(''); const [answer, setAnswer] = useState(''); const [asking, setAsking] = useState(false);
 
-  useEffect(() => { (async () => { const u = await getUser(); setUser(u); setAllowed(!!u && isAdmin(u)); })(); }, []);
+  useEffect(() => { (async () => { const { user: u } = await getUser(); setUser(u); setAllowed(!!u && isAdmin(u)); })(); }, []); // getUser() returns { user }
   const load = async () => { setErr(''); const r = await adminFetch(`/api/reader/notes?status=all`); const j = await r.json().catch(() => ({})); if (!r.ok) { setErr(j.error || 'failed'); return; } setData(j); };
   useEffect(() => { if (allowed) load(); }, [allowed]); // eslint-disable-line react-hooks/exhaustive-deps
 
