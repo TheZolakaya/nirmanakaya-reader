@@ -20,6 +20,7 @@ export const metadata = {
   },
 };
 
+import DesktopModeNotice from '../components/shared/DesktopModeNotice';
 export const viewport = { themeColor: '#09090b', viewportFit: 'cover', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }) {
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
+        <DesktopModeNotice /> {/* .790: a phone drawn as a desktop says where the switch is */}
         {children}
       </body>
     </html>
