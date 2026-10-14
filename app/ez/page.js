@@ -243,8 +243,10 @@ const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the sky', mechanism: 'the m
 // 13px Ask), and no CSS of ours was doing it. The select is kept at value="" so it never shows a choice itself.
 // .765 (founder): "the Read by, Told by and More totally don't fit the design ethic, and they're really loud" — the pickers now speak in the
 // site's own voice: the nav's small tracked monospace caps, dim, with only the current choice lit; the ‹ › arrows are quiet, and hidden on the front
-const PICK = 'relative inline-flex flex-col items-center';
-const PICK_LABEL = 'h-3 text-[0.625rem] font-mono uppercase tracking-[0.15em] text-amber-300/80 whitespace-nowrap';
+// .770 (founder): on a phone the choice sits ABOVE its word (it reads better there); from sm up the three are ONE LINE — READ BY MICHAEL ▾ · TOLD BY FRIEND ▾ · MORE ▾
+const PICK = 'relative inline-flex flex-col items-center sm:flex-row sm:items-center sm:gap-x-1.5';
+const PICK_LABEL = 'h-3 sm:h-auto sm:order-2 text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-amber-300/80 whitespace-nowrap';
+const PICK_CARET = 'hidden sm:inline sm:order-3 text-[0.625rem] text-zinc-500'; // the caret after the choice on the one-line form
 const PICK_WORD = 'text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-zinc-300 transition-colors whitespace-nowrap';
 const PICK_SELECT = 'absolute inset-0 w-full h-full opacity-0 cursor-pointer';
 const OPT = { color: '#d4d4d8', background: '#18181b' };
@@ -2523,11 +2525,12 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {user && (
               <span className={PICK}>
                 <span className={PICK_LABEL}>{voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'off'}</span>
-                <span className="inline-flex items-center">
+                <span aria-hidden="true" className={PICK_CARET}>▾</span>
+                <span className="inline-flex items-center sm:order-1">
                   <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
                     className="pick-arrow relative z-10 pr-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">‹</button>
                   <span className="relative inline-flex">
-                    <span className={PICK_WORD}>Read by ▾</span>
+                    <span className={PICK_WORD}>Read by<span className="sm:hidden"> ▾</span></span>
                     {/* .627 READ BY (.637: everyone): one selector for the voice, with "no voice" in it (.704: the dropdown introduces the voice too) */}
                     <select value="" aria-label="read by" title="which voice reads the Reader's turns aloud" className={PICK_SELECT}
                       onChange={(e) => pickReadBy(e.target.value)}>
@@ -2547,12 +2550,13 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
               <span className={PICK}>
                 <span className={PICK_LABEL}>{['plain', ...PERSONA_KEYS].includes(voice) && voice !== 'plain' ? (VOICES[voice]?.label || voice) : 'plainly'}</span>
-                <span className="inline-flex items-center">
+                <span aria-hidden="true" className={PICK_CARET}>▾</span>
+                <span className="inline-flex items-center sm:order-1">
                   {/* .733 (founder): ‹ › on Told by too, for consistency with Read by — the voice before / after, Plain in the ring */}
                   <button type="button" aria-label="previous teller" title="the teller before this one" onClick={() => { const keys = ['plain', ...PERSONA_KEYS]; const i = Math.max(0, keys.indexOf(keys.includes(voice) ? voice : 'plain')); chooseVoice(keys[(i - 1 + keys.length) % keys.length]); }}
                     className="pick-arrow relative z-10 pr-2 text-[0.75rem] font-light text-zinc-600 hover:text-zinc-300">‹</button>
                   <span className="relative inline-flex">
-                  <span className={PICK_WORD}>Told by ▾</span>
+                  <span className={PICK_WORD}>Told by<span className="sm:hidden"> ▾</span></span>
                   <select value="" aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person" className={PICK_SELECT}
                     onChange={(e) => { if (e.target.value) chooseVoice(e.target.value); }}>
                     <option style={OPT} value="">Told by</option>
@@ -2744,8 +2748,9 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 buttons. I want it to be clear and clean as possible"). A native select: on a phone it opens the system picker (.576). */}
             <span className={PICK}>
               <span className={PICK_LABEL}>{frame ? frameLabel(frame) : ''}</span>
-              <span className="relative inline-flex">
-                <span className={PICK_WORD}>More ▾</span>
+              <span aria-hidden="true" className={PICK_CARET}>▾</span>
+              <span className="relative inline-flex sm:order-1">
+                <span className={PICK_WORD}>More<span className="sm:hidden"> ▾</span></span>
                 <select key={menuTick} value="" aria-label="more" title="help finding a question, the topic, your readings" className={PICK_SELECT}
                   onChange={(e) => {
                     const v = e.target.value; setMenuTick((n) => n + 1);
