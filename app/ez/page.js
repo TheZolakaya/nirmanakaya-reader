@@ -2715,21 +2715,21 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (wordless) setWordless(false); }} onFocus={() => setWordless(false)} rows={4}
-                  placeholder={frame ? `Ask about ${frameLabel(frame)} — the way you would say it out loud.` : "What's on your mind? Ask it the way you would say it out loud."}
+                  placeholder={wordless ? '' : frame ? `Ask about ${frameLabel(frame)} — the way you would say it out loud.` : "What's on your mind? Ask it the way you would say it out loud."}
                   style={{ animationDuration: '16s' }}
                   className={`animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
               </div>
               {/* the offer sits INSIDE the box, outside the content-pane wrapper: a direct child of a
                   content-pane is forced into normal flow (the Ask-button trap, 2026-09-16) */}
               {wordless && (
-                <div className="pointer-events-none absolute left-4 right-4 bottom-16 z-10 text-right text-[0.8125rem] leading-snug text-zinc-400">
-                  You don’t have to have words. Tap again and the signatures start.
+                <div className="pointer-events-none absolute left-4 right-4 bottom-[4.25rem] z-10 text-right text-[0.8125rem] leading-snug text-zinc-400"> {/* .768 (founder, iPhone): the long button had wrapped under this line */}
+                  No words needed. Tap again and the signatures start.
                 </div>
               )}
               {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center"
-                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Draw for wherever I am' : 'Ask'}</span>
+                <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center whitespace-nowrap"
+                  style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Just draw' : 'Ask'}{/* .768 (founder, iPhone): 'Draw for wherever I am' wrapped to two lines and swallowed the box */}</span>
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
