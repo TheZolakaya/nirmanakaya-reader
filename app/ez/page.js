@@ -3647,7 +3647,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {(ledger.length > 0 || voiceSpend.pieces > 0) && ( // .520: the cost ledger is open to everyone for now (founder, 2026-09-21) — was admin/bench only · .615: or the voice alone
               <div className="mt-2 text-xs text-zinc-500">
                 <button onClick={() => setLedgerOpen(!ledgerOpen)} className="underline decoration-dotted hover:text-zinc-300">
-                  {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · {ledger.filter((r) => r.written > 0).length} cold{voiceSpend.pieces > 0 ? ` · voice ${voiceSpend.pieces} piece${voiceSpend.pieces === 1 ? '' : 's'} ${(voiceSpend.usd * 100).toFixed(2)}¢` : ''}
+                  {(() => { const words = ledger.reduce((a, r) => a + (r.cents || 0), 0); const voiceC = (voiceSpend.usd || 0) * 100; return <>{(words + voiceC).toFixed(2)}¢ in all · {ledgerOpen ? 'hide' : 'show'} the cost ledger · {ledger.length} call{ledger.length === 1 ? '' : 's'} · words {words.toFixed(2)}¢{voiceSpend.pieces > 0 ? ` + voice ${voiceC.toFixed(2)}¢ (${voiceSpend.pieces} piece${voiceSpend.pieces === 1 ? '' : 's'})` : ''}</>; })()} {/* .789 (founder): the summary carries the WHOLE cost first — the ledger's own bottom line — then words and voice apart */}
                 </button>
                 {ledgerOpen && (
                   <div className="mt-2 overflow-x-auto">
