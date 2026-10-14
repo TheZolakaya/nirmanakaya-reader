@@ -2862,7 +2862,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 </div>
               )}
               {/* .779 THE GLISTENER (tier 2): the ghost stream over the box while it works; the component's own controls sit bottom-left while it is open */}
-              {/* .784 THE GHOST STREAM, whole (the full reader's): the loading stack, then the rainbow stream scrolling through the story, then the crystal typing */}
+              {/* .784 THE GHOST STREAM, whole (the full reader's) · .785: z-20, above the textarea (the content-pane lifts the textarea to z-2, which had been laying its 70% fill over the stream and dimming it): the loading stack, then the rainbow stream scrolling through the story, then the crystal typing */}
               {can('glisten') && (<AnimatePresence>
 {/* Ghost Stream content from Glistener - Loading messages */}
                         {glistenerContent && glistenerContent.type === 'loading' && (
@@ -2871,7 +2871,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
+                            className="absolute inset-0 z-20 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
                           >
                             {/* Scrolling message stack - starts at bottom, scrolls up */}
                             <div className="flex flex-col-reverse items-center w-full">
@@ -2917,7 +2917,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                             }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
-                            className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
+                            className={`absolute inset-0 z-20 pt-5 px-4 pb-[4.5rem] pr-12 ${
                               glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-clip text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
                               glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
                               glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
@@ -2928,7 +2928,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                             }}
                           >
                             {glistenerContent.text}
-                            {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
+                            {/* .785: no caret — on a centred, wrapping line it sat alone at the right edge (founder: 'some artifact that stays on the right') */}
                           </motion.div>
                         )}
               </AnimatePresence>)}
