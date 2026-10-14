@@ -1882,6 +1882,8 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const isCollapsed = (kind) => collapsed.has(kind);
   const toggleCollapsed = (kind) => setCollapsed((c) => { const n = new Set(c); if (n.has(kind)) n.delete(kind); else n.add(kind); return n; });
   const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
+  // .767 (founder): the medicine's mini map is a button — it opens the same MinimapModal the full reader opens for a correction (card's home → seat, the second arrow to the medicine's home, the target card's own words), colour emerald
+  const [medMap, setMedMap] = useState(null); // { fromT, toId, draw }
   // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
   const [panelAsk, setPanelAsk] = useState(null); // { text, at }
   // .763 (founder) 19: the panels (Go deeper, the meaning, the dragon…) were closing with the previous question word for word — the questions
@@ -3091,13 +3093,13 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                               {m.path && <span className="text-[0.625rem] text-emerald-500/60 text-center break-words">{m.path}</span>}
                             </div>
                             {fromT != null && (
-                              <div title={`how this medicine is derived: ${m.from}'s home on the map, and ${m.to}'s — the line between them is the path`}
-                                className="w-[150px] h-[150px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
-                                style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 46, 22, 0.3) 100%)', border: '1px solid rgba(16, 185, 129, 0.3)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)' }}>
+                              <button type="button" onClick={() => setMedMap({ fromT, toId: m.toId, draw: m.fromDraw })} title={`how this medicine is derived: ${m.from}'s home on the map, and ${m.to}'s — tap to open the map and the explanation`}
+                                className="w-[150px] h-[150px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all hover:scale-[1.03] cursor-pointer"
+                                style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 46, 22, 0.3) 100%)', border: '1px solid rgba(16, 185, 129, 0.3)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)' }}> {/* .767: clickable, like the full reader's */}
                                 <Minimap fromId={getHomeArchetype(fromT)} toId={getHomeArchetype(m.toId)} size="md" singleMode={true}
                                   fromCardType={fromType} boundIsInner={fromType === 'bound' && (getComponent(fromT)?.number || 0) <= 5}
                                   toCardType={toType} toBoundIsInner={toType === 'bound' && (getComponent(m.toId)?.number || 0) <= 5} />
-                              </div>
+                              </button>
                             )}
                           </div>);
                         })}
@@ -3426,6 +3428,27 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
         initialMode={authMode}
       />
 
+      {medMap && (() => { // .767: the medicine's map, explained — the full reader's correction modal (DepthCard: home → seat, the second arrow to the medicine's home, the target's own words)
+        const ft = getCardType(medMap.fromT); const tc = getComponent(medMap.toId); const tt = getCardType(medMap.toId);
+        return (
+          <MinimapModal
+            isOpen={true}
+            onClose={() => setMedMap(null)}
+            onReopen={() => {}}
+            fromId={getHomeArchetype(medMap.fromT)}
+            toId={medMap.draw?.position ?? null}
+            transient={medMap.fromT}
+            cardType={ft}
+            boundIsInner={ft === 'bound' && (getComponent(medMap.fromT)?.number || 0) <= 5}
+            setSelectedInfo={(info) => { setMedMap(null); openInfo(info); }}
+            colorTheme="emerald"
+            toTransient={medMap.toId}
+            secondToId={getHomeArchetype(medMap.toId)}
+            secondToCardType={tt}
+            secondToBoundIsInner={tt === 'bound' && (tc?.number || 0) <= 5}
+          />
+        );
+      })()}
       {selectedInfo && (
         <InfoModal
           info={selectedInfo}
