@@ -285,7 +285,7 @@ const FLOOR_LABEL = { meaning: 'the meaning', moon: 'the sky', mechanism: 'the m
 // 13px Ask), and no CSS of ours was doing it. The select is kept at value="" so it never shows a choice itself.
 // .765 (founder): "the Read by, Told by and More totally don't fit the design ethic, and they're really loud" — the pickers now speak in the
 // site's own voice: the nav's small tracked monospace caps, dim, with only the current choice lit; the ‹ › arrows are quiet, and hidden on the front
-// .770 (founder): on a phone the choice sits ABOVE its word (it reads better there); from sm up the three are ONE LINE — READ BY MICHAEL ▾ · TOLD BY FRIEND ▾ · MORE ▾
+// .783 (founder): the choice itself is a hot area too — the same select lies over it. .770 (founder): on a phone the choice sits ABOVE its word (it reads better there); from sm up the three are ONE LINE — READ BY MICHAEL ▾ · TOLD BY FRIEND ▾ · MORE ▾
 const PICK = 'relative inline-flex flex-col items-center sm:flex-row sm:items-center sm:gap-x-1.5';
 const PICK_LABEL = 'h-3 sm:h-auto sm:order-2 text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-amber-300/80 whitespace-nowrap';
 const PICK_CARET = 'hidden sm:inline sm:order-3 text-[0.625rem] text-zinc-500'; // the caret after the choice on the one-line form
@@ -2633,7 +2633,13 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   const readByPick = (<>
             {user && (
               <span className={PICK}>
-                <span className={PICK_LABEL}>{voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'off'}</span>
+                <span className={`relative ${PICK_LABEL}`}>{voiceOut ? (voiceName === 'af_heart' ? 'Heart' : (READ_BY.find(([k]) => k === voiceName)?.[1] || voiceName)) : 'off'}<select value="" aria-label="read by" title="which voice reads the Reader's turns aloud" className={PICK_SELECT}
+                      onChange={(e) => pickReadBy(e.target.value)}>
+                      <option style={OPT} value="">Read by</option>
+                      <option style={OPT} value="none">{`Not read aloud${voiceOut ? '' : ' ✓'}`}</option>
+                      {READ_BY.map(([k, label]) => <option style={OPT} key={k} value={k}>{`${label}${voiceOut && voiceName === k ? ' ✓' : ''}`}</option>)}
+                      {voiceName === 'af_heart' && <option style={OPT} value="af_heart">{`Heart${voiceOut ? ' ✓' : ''}`}</option>}
+                    </select></span>
                 <span aria-hidden="true" className={PICK_CARET}>▾</span>
                 <span className="inline-flex items-center sm:order-1">
                   <button type="button" aria-label="previous voice" title="the voice before this one — it says hello" onClick={() => { const keys = READ_BY.map(([k]) => k); const i = Math.max(0, keys.indexOf(voiceName)); const v = keys[(i - 1 + keys.length) % keys.length]; unlockAudio(); chrome.set({ voiceOut: true, voiceName: v }); try { const hello = new Audio(`/voice/labels/${v}/intro.wav`); hello.play().catch(() => {}); } catch {} }}
@@ -2658,7 +2664,11 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   const toldByPick = (<>
             {PERSONAS_ON && ( // .712 THE PERSONAS (Air + the founder): "How do you want to hear it?" — the same reading told by a different person; Plain the default
               <span className={PICK}>
-                <span className={PICK_LABEL}>{['plain', ...PERSONA_KEYS].includes(voice) && voice !== 'plain' ? (VOICES[voice]?.label || voice) : 'plainly'}</span>
+                <span className={`relative ${PICK_LABEL}`}>{['plain', ...PERSONA_KEYS].includes(voice) && voice !== 'plain' ? (VOICES[voice]?.label || voice) : 'plainly'}<select value="" aria-label="told by" title="how you want to hear the reading — the same reading, told by a different person" className={PICK_SELECT}
+                    onChange={(e) => { if (e.target.value) chooseVoice(e.target.value); }}>
+                    <option style={OPT} value="">Told by</option>
+                    {['plain', ...PERSONA_KEYS].map((k) => { const cur = (['plain', ...PERSONA_KEYS].includes(voice) ? voice : 'plain') === k; return <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${cur ? ' ✓' : ''}`}</option>; })}
+                  </select></span>
                 <span aria-hidden="true" className={PICK_CARET}>▾</span>
                 <span className="inline-flex items-center sm:order-1">
                   {/* .733 (founder): ‹ › on Told by too, for consistency with Read by — the voice before / after, Plain in the ring */}
@@ -2845,25 +2855,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {glistenerContent.type === 'loading' ? ((glistenerContent.messages || []).find((m) => m.position === 0)?.text || '…') : glistenerContent.text}{glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
                 </div>
               )}
-              {can('glisten') && showGlistener && (
-                <Glistener
-                  onTransfer={(crystal) => { setQuestion(crystal || ''); setGlistenerContent(null); setWordless(false); }}
-                  onClose={() => { setShowGlistener(false); setGlistenerContent(null); setGlistenerPhase('idle'); }}
-                  onDisplayContent={setGlistenerContent}
-                  onPhaseChange={setGlistenerPhase}
-                  onGlistenComplete={() => {}} />
-              )}
-              {user && !showGlistener && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
-              {user && !showGlistener && !wordless && (can('glisten') ? (
-                <button type="button" onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }} title={FEATURES.glisten.line}
-                  className="absolute bottom-[1.4rem] left-[4.25rem] z-10 flex items-center gap-1.5 text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-amber-300 transition-colors">
-                  <span className="text-amber-500/70">◇</span><span>Glisten</span>
-                </button>
-              ) : (
-                <span title={`${FEATURES.glisten.line} — ${opensHow('glisten', tierInfo.closed)}`} className="absolute bottom-[1.4rem] left-[4.25rem] z-10 hidden sm:flex items-center gap-1.5 text-[0.625rem] font-mono uppercase tracking-[0.15em] text-zinc-700 whitespace-nowrap">
-                  <span>◇</span><span>Glisten</span><span className="text-zinc-700/80 normal-case tracking-normal">· {opensHow('glisten', tierInfo.closed)}</span>
-                </span>
-              ))}
+              {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center whitespace-nowrap"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Just draw' : 'Ask'}{/* .768 (founder, iPhone): 'Draw for wherever I am' wrapped to two lines and swallowed the box */}</span>
@@ -2902,6 +2894,24 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               </span>
             </span>
           </div>
+          {/* .783 (founder, phone): THE GLISTENER'S CONTROLS LEAVE THE BOX — centred under the picker row; the ghost stream still plays in the box */}
+          {user && can('glisten') && !wordless && (
+            <div className="relative mt-1 flex justify-center min-h-[1.75rem] [&>div.absolute]:!static [&>div.absolute]:!justify-center">
+              {showGlistener ? (
+                <Glistener
+                  onTransfer={(crystal) => { setQuestion(crystal || ''); setGlistenerContent(null); setWordless(false); }}
+                  onClose={() => { setShowGlistener(false); setGlistenerContent(null); setGlistenerPhase('idle'); }}
+                  onDisplayContent={setGlistenerContent}
+                  onPhaseChange={setGlistenerPhase}
+                  onGlistenComplete={() => {}} />
+              ) : (
+                <button type="button" onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }} title={FEATURES.glisten.line}
+                  className="flex items-center gap-1.5 text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-amber-300 transition-colors">
+                  <span className="text-amber-500/70">◇</span><span>Glisten</span>
+                </button>
+              )}
+            </div>
+          )}
 
           {/* .544: THE FRAME fold — a category, then a detail in their own words */}
           {frameOpen && !draws && (
