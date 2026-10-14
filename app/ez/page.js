@@ -145,6 +145,20 @@ const pickFrame = (f) => {
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
 
+// .782 THE TOOLS, HEARD AND OFFERED (founder, 2026-10-15): "I asked it if it could do a reflect for me, and I don't think it understood." The page hears
+// a typed ask for a tool and asks once — "Yes, do it · No, just talk"; the Reader may also offer one (turn.offer). Nothing runs without the tap.
+const TOOL_INFO = { reflect: ['Reflect', 'ask the signatures a question — a new card answers'], forge: ['Forge', 'declare a move — a new card answers'], find: ['Find it', 'narrow down which thing in your life this is'], whys: ['Go deeper', 'why this is happening'], dragon: ['Face the dragon', 'the thing itself, said straight'], medicine: ['The medicine', 'the way through, step by step'], step: ['One small step', 'one thing to do in the next minute'] };
+function toolAsked(text) { // a typed request for a tool → { tool, text } or null; conservative: the verb must be asked for, not merely mentioned
+  const t = String(text || '').trim(); if (!t || t.length > 600) return null;
+  const ask = /\b(can you|could you|would you|will you|let'?s|lets|please|i want(?: to)?|i'?d like(?: to)?|do|run|try|make|give me|pull|draw)\b/i;
+  const m = t.match(/\b(reflect(?:ion)?|forge|find it|go deeper|face the dragon|the dragon|one small step|small step|(?:open|take|do|run) the medicine)\b/i); if (!m || !ask.test(t)) return null;
+  const w = m[1].toLowerCase();
+  const tool = w.startsWith('reflect') ? 'reflect' : w === 'forge' ? 'forge' : w === 'find it' ? 'find' : w === 'go deeper' ? 'whys' : w.includes('dragon') ? 'dragon' : w.includes('step') ? 'step' : 'medicine';
+  // for reflect / forge, whatever follows "on/about/that/:" is the question or the declaration; else the whole line stands
+  const tail = t.replace(/^[\s\S]*?\b(?:reflect(?:ion)?|forge)\b\s*/i, '').replace(/^(?:(?:it|this|for me|please|on|about|for|that|with|whether)\b[\s,:—-]*|[:—-]\s*)+/i, '').trim();
+  return { tool, text: (tool === 'reflect' || tool === 'forge') ? (tail.length > 8 ? tail : '') : t };
+}
+
 // .779 THE LOCKED FACE (founder: "packages of capabilities that are enticing to users and also unpack as they go"): a feature a person does not
 // hold yet is not hidden — its name and its line show dimmed, with how it opens (a tier, or N closed readings).
 function LockedLine({ k, closed = null, className = '' }) {
@@ -172,13 +186,18 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
   const recRef = useRef(null); const chunksRef = useRef([]); const streamRef = useRef(null);
   const isApple = () => { try { return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); } catch { return false; } };
   const standalone = () => { try { return !!navigator.standalone || window.matchMedia('(display-mode: standalone)').matches; } catch { return false; } };
-  const noteGrant = () => { try { if (!isApple() || localStorage.getItem('nkya_mic_hint') === 'never') return; const n = Number(localStorage.getItem('nkya_mic_grants') || '0') + 1; localStorage.setItem('nkya_mic_grants', String(n)); if (n >= 2 && !sessionStorage.getItem('nkya_mic_hint_later')) setHint(true); } catch {} }; // .747: the second grant in this browser means the Allow did not stick
+  // .782 (founder: "I'd already set the permissions and it asked me again"): count a grant ONLY when the browser actually prompted — the permission
+  // state before the call was 'prompt' (Permissions API), or, where that is unknown, the grant took long enough that a person had to tap Allow.
+  // A persistent Allow (state 'granted', or an instant grant) retires the hint for good.
+  const noteGrant = (prompted) => { try { if (!isApple() || localStorage.getItem('nkya_mic_hint') === 'never') return; if (!prompted) { localStorage.setItem('nkya_mic_grants', '0'); return; } const n = Number(localStorage.getItem('nkya_mic_grants') || '0') + 1; localStorage.setItem('nkya_mic_grants', String(n)); if (n >= 2 && !sessionStorage.getItem('nkya_mic_hint_later')) setHint(true); } catch {} }; // .747 the second PROMPTED grant means the Allow did not stick
   const say = (m) => { try { onStatus && onStatus(m); } catch {} };
   const stop = () => { try { recRef.current?.state === 'recording' && recRef.current.stop(); } catch {} };
   const start = async () => {
     if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') { say('This browser cannot record audio.'); return; }
+    let before = null; try { before = (await navigator.permissions?.query?.({ name: 'microphone' }))?.state || null; } catch {} // .782
+    const tAsk = Date.now();
     let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { setState('denied'); say('The microphone was not allowed — check the browser’s permission for this site.'); return; }
-    streamRef.current = stream; noteGrant(); // .747
+    streamRef.current = stream; noteGrant(before ? before === 'prompt' : Date.now() - tAsk > 600); // .747 · .782 only a real prompt counts
     const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus', ''].find((m) => !m || (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)));
     const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined); recRef.current = rec; chunksRef.current = [];
     rec.ondataavailable = (e) => { if (e.data && e.data.size) chunksRef.current.push(e.data); };
@@ -1581,6 +1600,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     hunchFlag: /\byou(?:'ve| have)? (?:never|haven't|not once)\b|without anyone knowing|nobody (?:knows|has heard)|no one (?:knows|has heard)|whole years of this/i.test(String(obj.reader || '')), // .557: a soft watch on biography claims (never on glass)
     hunch: obj.hunch === true, // .750 FORM-1: the turn says whether it made a hunch about the person's life; the fit row shows only then
     question: obj.question || '',
+    offer: obj.offer && typeof obj.offer === 'object' && TOOL_INFO[String(obj.offer.tool || '').toLowerCase()] ? { tool: String(obj.offer.tool).toLowerCase(), text: String(obj.offer.text || '').slice(0, 400) } : null, // .782 the Reader offers a tool
     chips: Array.isArray(obj.chips) ? obj.chips.slice(0, 7) : [], // answer, build, pushback, clarify, stair, and up to two locate chips (a cap of 5 was silently dropping Find it)
     reflect: Array.isArray(obj.reflect) ? obj.reflect.slice(0, 4) : [],
     forge: Array.isArray(obj.forge) ? obj.forge.slice(0, 4) : [],
@@ -1772,6 +1792,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const mode = modeIn !== undefined ? modeIn : fieldMode;
     const text = sanitizeForAPI((textIn ?? input).trim());
     if (!text || loading || !draws) return;
+    if (textIn === undefined && modeIn === undefined && !mode && !opts) { const asked = toolAsked(text); if (asked) { setOffer({ ...asked, from: 'you', said: text }); return; } } // .782: a typed ask for a tool asks once
     if (voiceOut) { stopVoice(); unlockAudio(); warmVoice(); } // THE VOICE
     // FIND IT: a tapped locate chip opens the funnel; a plain talking turn while it is open
     // continues it (up to three rounds, or until the Reader reports the thing located).
@@ -1914,6 +1935,15 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const isCollapsed = (kind) => collapsed.has(kind);
   const toggleCollapsed = (kind) => setCollapsed((c) => { const n = new Set(c); if (n.has(kind)) n.delete(kind); else n.add(kind); return n; });
   const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
+  // .782 THE OFFER: { tool, text, from: 'you' | 'reader', said } — the confirm row above the box
+  const [offer, setOffer] = useState(null);
+  const runOffer = (o) => {
+    if (!o) return; setOffer(null); setInput('');
+    const words = String(o.text || '').trim();
+    if (o.tool === 'reflect' || o.tool === 'forge') { sayLabel(o.tool); setFieldMode(o.tool); if (words) send(words, o.tool); else { try { setTimeout(() => document.querySelector('textarea[placeholder^="Ask the field"], textarea[placeholder^="Declare"], textarea[placeholder^="Answer"]')?.focus(), 120); } catch {} } return; }
+    if (o.tool === 'find') { sayLabel('find-it'); send(words && o.from === 'you' ? words : 'Help me find which thing this is.', 'locate', { locate: words || 'the thing this turn is pointing at' }); return; }
+    if (lastReader) openDoor(lastReader, o.tool);
+  };
   // .777 THE NOTE + THE SELF-READING, after the wrap: one line from the Reader (or NONE) → the ledger; the route counts the closed reading and, every Nth, makes the self-reading
   const writeNote = async (allTurns) => {
     try {
@@ -2359,6 +2389,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     else { if (!brazierOpen) toggleBrazier(); if (p !== 'whys') setTimeout(() => openFloor(p), 400); } // .698: a floor opens as its own panel
   };
   const lastReader = [...turns].reverse().find((t) => t.role === 'reader' && !t.act) || [...turns].reverse().find((t) => t.role === 'reader');
+  const offerShown = offer || (lastReader?.offer && !loading && turns[turns.length - 1]?.id === lastReader.id ? { ...lastReader.offer, from: 'reader', turnId: lastReader.id } : null); // .782
+  const [offerSeen, setOfferSeen] = useState(''); // a reader offer declined stays declined
   recKeysRef.current = (() => { // .661 (Keel §10): the recommended doors → the pills that light (the latest turn's only); .662 only once Recommend has been tapped
     const t = [...turns].reverse().find((x) => x.role === 'reader'); const out = new Set(); if (!t || !Array.isArray(t.next)) return out;
     if (recOpen !== t.id || recDone === t.id) return out; // .696 (founder): the pills flash only AFTER Recommend is tapped, and stop once one is chosen — the set was filling on every turn with a next[]
@@ -3315,6 +3347,15 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             {/* THE BOX, RIGHT UNDER THE OUTPUT (founder, 2026-09-21): answer in your own words first; the pills,
                 the doors and the wrap-up follow below. Say sits INSIDE the box, bottom-right, the rainbow word
                 with the chevron — the same treatment as Ask on the front box (founder, 2026-09-16 night) */}
+            {offerShown && offerShown.turnId !== offerSeen && TOOL_INFO[offerShown.tool] && ( // .782 THE OFFER — the person's ask heard, or the Reader's offer; nothing runs without the tap
+              <div data-offer className="mt-4 rounded-lg border border-violet-600/40 bg-violet-950/20 px-3 py-2.5 text-[0.875rem]">
+                <div className="text-violet-100"><span className="font-mono uppercase tracking-[0.15em] text-[0.6875rem] text-violet-300 mr-2">{TOOL_INFO[offerShown.tool][0]}</span>{offerShown.text && (offerShown.tool === 'reflect' || offerShown.tool === 'forge') ? <>“{offerShown.text}”</> : <span className="text-zinc-400">{TOOL_INFO[offerShown.tool][1]}</span>}</div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <button type="button" onClick={() => runOffer(offerShown)} className="rounded-lg border border-violet-400/70 bg-violet-900/40 px-3 py-1 text-[0.8125rem] text-violet-50 hover:bg-violet-800/50">{offerShown.tool === 'reflect' || offerShown.tool === 'forge' ? (offerShown.text ? 'Yes, draw' : `Yes, open ${TOOL_INFO[offerShown.tool][0]}`) : 'Yes, do it'}</button>
+                  <button type="button" onClick={() => { if (offerShown.from === 'you') { const said = offerShown.said; setOffer(null); send(said, null, { noTool: true }); } else { setOfferSeen(offerShown.turnId); } }} className="rounded-lg border border-zinc-700 px-3 py-1 text-[0.8125rem] text-zinc-300 hover:border-zinc-500">{offerShown.from === 'you' ? 'No, just talk' : 'Not now'}</button>
+                </div>
+              </div>
+            )}
             <div className="mt-4 relative">
               <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
