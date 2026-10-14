@@ -34,13 +34,13 @@ export default function Header({ hasActivity = false }) {
   return (
     // px reserves the corner lanes on mobile so the wrapping nav pill can't slide
     // under the floating icon buttons (blur-over-icons bug, founder 2026-08-18)
-    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-14 md:px-4" style={{ paddingTop: 'calc(0.5rem + var(--safe-top, 0px))' }}>
-      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
+    <nav className="w-full flex justify-center items-center py-2 z-50 relative pointer-events-none px-11 md:px-4" style={{ paddingTop: 'calc(0.5rem + var(--safe-top, 0px))' }}>
+      <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-x-6 md:gap-x-10 backdrop-blur-sm px-3 sm:px-6 py-2 rounded-2xl sm:rounded-full border border-white/0 hover:border-white/5 transition-all duration-500 pointer-events-auto">
 
         {/* HOME - Nirmanakaya wordmark · .765 (founder): hidden on phones — the wordmark right under the nav is the same link, and the nav fits one line without it */}
         <Link
           href="/"
-          className={`hidden sm:inline text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-colors duration-300 whitespace-nowrap ${
+          className={`hidden sm:inline text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.2em] transition-colors duration-300 whitespace-nowrap ${
             isHome ? 'text-amber-400' : 'text-zinc-500 hover:text-amber-400'
           }`}
         >
@@ -52,7 +52,7 @@ export default function Header({ hasActivity = false }) {
         {!installed && (
           <Link
             href="/phone"
-            className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+            className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
               isPhoneActive ? 'text-amber-300' : 'text-zinc-500 hover:text-amber-300'
             }`}
           >
@@ -63,7 +63,7 @@ export default function Header({ hasActivity = false }) {
         {/* COMMUNITY - dot on right for centering */}
         <Link
           href="/hub"
-          className={`group flex items-center gap-1 sm:gap-2 text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+          className={`group flex items-center gap-1 sm:gap-2 text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
             isCommunityActive ? 'text-emerald-400' : 'text-zinc-400 hover:text-emerald-400'
           }`}
         >
@@ -79,7 +79,7 @@ export default function Header({ hasActivity = false }) {
         {/* JOURNEY (Stats / Collection) */}
         <Link
           href="/stats"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
             isJourneyActive ? 'text-violet-400' : 'text-zinc-500 hover:text-violet-400'
           }`}
         >
@@ -89,7 +89,7 @@ export default function Header({ hasActivity = false }) {
         {/* 4. MAP (The Coordinates) */}
         <Link
           href="/22-reader"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
             isMapActive ? 'text-white' : 'text-zinc-500 hover:text-white'
           }`}
         >
@@ -99,7 +99,7 @@ export default function Header({ hasActivity = false }) {
         {/* 5. EXPLORE (The Architecture) */}
         <Link
           href="/explore"
-          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
+          className={`text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.05em] sm:tracking-[0.15em] transition-colors duration-300 whitespace-nowrap ${
             isExploreActive ? 'text-cyan-300' : 'text-zinc-500 hover:text-cyan-300'
           }`}
         >
