@@ -3076,16 +3076,29 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                         {medicineFor(fieldAt(ti)).some((m) => m && !m.balanced) ? '◈ The medicine' : '◈ Where this can grow'}
                       </div>
                       <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
-                        {medicineFor(fieldAt(ti)).map((m, mi) => (
-                          <div key={mi} className="flex flex-col items-center max-w-full">
-                            <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true}
-                              onImageClick={() => openInfo({ type: 'card', id: m.toId, data: getComponent(m.toId) })} />
-                            <span className="text-[0.6875rem] text-emerald-300/90 mt-1 text-center break-words">
-                              {m.from} → {m.to}
-                            </span>
-                            {m.path && <span className="text-[0.625rem] text-emerald-500/60 text-center break-words">{m.path}</span>}
-                          </div>
-                        ))}
+                        {medicineFor(fieldAt(ti)).map((m, mi) => { // .764 (founder): THE MINI MAP beside the medicine card — the card's home to the medicine's home, the same map the full reader draws, "so people understand how structurally this medicine is being derived"
+                          const fromT = m.fromDraw?.transient; const fromType = fromT != null ? getCardType(fromT) : null; const toType = getCardType(m.toId);
+                          return (
+                          <div key={mi} className="flex flex-wrap items-center justify-center gap-3 max-w-full">
+                            <div className="flex flex-col items-center max-w-full">
+                              <CardImage transient={m.toId} status={1} cardName={m.to} size="compact" showFrame={true}
+                                onImageClick={() => openInfo({ type: 'card', id: m.toId, data: getComponent(m.toId) })} />
+                              <span className="text-[0.6875rem] text-emerald-300/90 mt-1 text-center break-words">
+                                {m.from} → {m.to}
+                              </span>
+                              {m.path && <span className="text-[0.625rem] text-emerald-500/60 text-center break-words">{m.path}</span>}
+                            </div>
+                            {fromT != null && (
+                              <div title={`how this medicine is derived: ${m.from}'s home on the map, and ${m.to}'s — the line between them is the path`}
+                                className="w-[150px] h-[150px] shrink-0 rounded-lg overflow-hidden flex items-center justify-center"
+                                style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 46, 22, 0.3) 100%)', border: '1px solid rgba(16, 185, 129, 0.3)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(16, 185, 129, 0.1)' }}>
+                                <Minimap fromId={getHomeArchetype(fromT)} toId={getHomeArchetype(m.toId)} size="md" singleMode={true}
+                                  fromCardType={fromType} boundIsInner={fromType === 'bound' && (getComponent(fromT)?.number || 0) <= 5}
+                                  toCardType={toType} toBoundIsInner={toType === 'bound' && (getComponent(m.toId)?.number || 0) <= 5} />
+                              </div>
+                            )}
+                          </div>);
+                        })}
                       </div>
                       <div className="text-sm text-emerald-100/90 leading-relaxed break-words">
                         {ensureParagraphBreaks(t.medicine).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
