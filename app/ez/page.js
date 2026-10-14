@@ -1319,7 +1319,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     const parse = (el) => { const key = el.getAttribute('data-spoken') || ''; const m = key.match(/^(.*):([a-z]+):(\d+)$/); return m ? { id: m[1], kind: m[2], para: Number(m[3]) } : null; };
     const onTap = (e) => {
       if (e.target?.closest?.('[data-pause-pop]')) return;
-      const control = e.target?.closest?.('button, a, input, select, textarea, label, [role="button"], [contenteditable]');
+      const control = e.target?.closest?.('button, a, input, select, textarea, label, summary, details, [role="button"], [contenteditable]'); // .762 (founder): a disclosure (THE GEOMETRY) is a control, not "anywhere"
       const paraEl = !control && e.target?.closest?.('[data-spoken]'); const p = paraEl ? parse(paraEl) : null;
       if (!speakingId) { // idle: a paragraph of the latest reader turn starts the reading there; .698 (founder): a panel's paragraph too
         if (!p) return;
@@ -1875,6 +1875,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   // DEDICATED PANELS of their own, in that same order — the Go deeper door is the selector, and stays the selector
   const [openOrder, setOpenOrder] = useState([]);
   const markOpen = (kind, on) => setOpenOrder((o) => (on ? (o.includes(kind) ? o : [...o, kind]) : o.filter((k) => k !== kind)));
+  // .762 (founder) 21: a panel's chevron FOLDS it to its header instead of making it vanish — the header stays, with a caret to open it again
+  const [collapsed, setCollapsed] = useState(() => new Set());
+  const isCollapsed = (kind) => collapsed.has(kind);
+  const toggleCollapsed = (kind) => setCollapsed((c) => { const n = new Set(c); if (n.has(kind)) n.delete(kind); else n.add(kind); return n; });
+  const revealPanel = (kind) => { setCollapsed((c) => { if (!c.has(kind)) return c; const n = new Set(c); n.delete(kind); return n; }); showPanels(kind); };
+  // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
+  const [panelAsk, setPanelAsk] = useState(null); // { text, at }
+  const noteAsk = (text) => { try { const parts = String(text || '').trim().split(/(?<=[.!?])\s+/); const last = (parts[parts.length - 1] || '').trim(); if (/\?$/.test(last) && last.length > 12) setPanelAsk({ text: last, at: Date.now() }); } catch {} };
   const openFloor = (f) => { if (!f || f === 'whys') return; setFloorsOpened((list) => (list.includes(f) ? list : [...list, f])); markOpen(`floor-${f}`, true); showPanels(`floor-${f}`); sayLabel(FLOOR_LABEL[f].replace(/\s+/g, '-')); if (!brazier[f] && !brazierBusy) fetchFloor(f); };
   const closeFloor = (f) => { setFloorsOpened((list) => list.filter((x) => x !== f)); markOpen(`floor-${f}`, false); };
   const [stepText, setStepText] = useState('');
@@ -1891,7 +1899,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const tele = seedFor(card, question).block; // .530: the seed for the card in play
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${doSomethingBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 500, { panel: 'step' });
-      setStepText(String(obj.reader || '').trim()); logPanel('step', obj.reader, obj._guard); // .713
+      setStepText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('step', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'step', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the step via brazierBlock; the regen was a second full call per door
       stepKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -1931,7 +1939,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const tele = seedFor(card, question).block;
       const msg = `QUESTION: "${sanitizeForAPI(question)}"${frameBlock(frame)}\n\nTHE ORIGINAL DRAW (unchanged):\n${drawText}\n\nTHE DISCOURSE SO FAR, in order:\n${asked}\n\nTHE SIGNATURE IN PLAY:\n${drawBrief(card)}${tele ? `\n\n${tele}` : ''}${medicineBlock(k)}`;
       const { obj } = await callReader(msg, systemPrompt, 900, { panel: 'medicine' });
-      setMedText(String(obj.reader || '').trim()); logPanel('medicine-course', obj.reader, obj._guard); // .713
+      setMedText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('medicine-course', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'medicine', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       medKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
     } catch (e) { setError(e.message); }
@@ -1966,7 +1974,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       const { obj } = await callReader(msg, `${systemPrompt}
 
 ${DRAGON_STANDARD}`, 600, { panel: 'dragon' });
-      setDragonText(String(obj.reader || '').trim()); logPanel('dragon', obj.reader, obj._guard); // .713
+      setDragonText(String(obj.reader || '').trim()); noteAsk(obj.reader); logPanel('dragon', obj.reader, obj._guard); // .713 · .762 noteAsk
       if (voiceOut) speakTurn({ id: 'dragon', text: String(obj.reader || '').trim() }); // THE VOICE (.611; .625 the heading, then a beat)
       // no pill regen here (.446): the next real turn already receives the dragon via brazierBlock
       dragonKeyRef.current = `${card.transient}:${card.position}:${card.status}`;
@@ -2053,7 +2061,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
         const ch = scrubReply(obj, askerAllowed(), askerTexts(), ['text']); if (ch.length) console.warn('[person] floor fallback:', ch.join(' | '));
       }
       logPanel(floor === 1 ? 'words-to-the-whys' : `floor-${floor}`, obj.text, { voice }); // .713
-      const next = { ...brazier, [floor]: obj.text.trim() };
+      const next = { ...brazier, [floor]: obj.text.trim() }; noteAsk(obj.text); // .762: a floor's closing question reaches THE QUESTION frame
       setBrazier(next);
       if (voiceOut) speakTurn({ id: `floor${floor}`, text: obj.text.trim() }); // THE VOICE (.616; .625 the heading, then a beat)
       if (floor !== 1) setFloorsOpened((f) => (f.includes(floor) ? f : [...f, floor]));
@@ -2191,7 +2199,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     turns.forEach((t) => {
       if (t.role === 'reader' && t.voice && t.voice !== lastVoice) { L.push(`*Voice: ${VOICES[t.voice]?.label || t.voice}*`, ``); lastVoice = t.voice; }
       if (t.role === 'you') { L.push(`**You${t.mode === 'reflect' ? ' (reflecting)' : t.mode === 'forge' ? ' (forging)' : t.mode === 'locate' ? ' (finding it — asking the field)' : t.move ? ` (${VOICE_REG(t.move) ? `asking to hear it in ${VOICE_LABELS[VOICE_REG(t.move)] || VOICE_REG(t.move)}` : t.move === 'example' ? 'asking for an example' : t.move === 'unpack' ? 'asking to unpack' : 'asking to clarify'})` : t.act ? ' (asking for one small thing)' : ''}:** ${t.text}`, ``); return; }
-      if (t.role === 'catchup') { L.push(`*Catch me up:*`, ``, t.text, ``); return; }
+      if (t.role === 'catchup') { L.push(`*Refresh my memory:*`, ``, t.text, ``); return; } // .762: the pill's new name
       if (t.role === 'wrap') { L.push(`## The reading, written up`, ``, t.text, ``); return; }
       if (t.draw) L.push(t.mode === 'locate' ? `*A locating signature — the field points: ${drawLabel(t.draw)}*` : `*A new card: ${drawLabel(t.draw)}*`, ``);
       L.push(`**Reader:**`, ``, ...(t.gist ? [`*${t.gist}*`, ``] : []), t.text, ``);
@@ -2225,7 +2233,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     // .559: NEW QUESTION RESETS EVERYTHING — the founder hit it and found his old question still in the box and the About
     // fold open. The question, the box, the door, the frame and its fold, the folds, the panels, the error: all gone.
     setQuestion(''); setInput(''); setDoor(null); setFrame(null); setFrameOpen(false); setFrameDetail(''); setFrameEdit(false); setWordless(false); setError('');
-    setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false);
+    setBrazierOpen(false); setStepOpen(false); setDragonOpen(false); setMedOpen(false); setVoicePickFor(null); setClaiming(false); setCollapsed(new Set()); setPanelAsk(null); // .762
     setDraws(null); setTurns([]); setSavedId(null); setFieldMode(null); setResolution(null); setAreasOpen(false); setSuggestOpen(false); // .516: the Unsure and Another folds close when a reading starts or resets setError(''); setDoor(null); setQuestion('');
     setUsage({ input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 });
     setLedger([]); setUsd(0); setVoiceSpend({ pieces: 0, chars: 0, secs: 0, usd: 0 }); setVoiceLog([]);
@@ -2293,7 +2301,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
   panelTextRef.current = { dragon: dragonText, medicine: medText, step: stepText, floor1: brazier[1] || '', floormeaning: brazier.meaning || '', floormoon: brazier.moon || '', floormechanism: brazier.mechanism || '' }; // .698
   // .698 (founder: "all the panels should have [the Clarify / Unpack / Example / Find it buttons] at the end"): the same row every Reader turn carries, on a panel's own words
   const panelMoves = (id, text) => !text ? null : ( // .702 (founder): the row sits ON the frame's bottom line, like the turn's — one visual language
-    <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2">
+    <div className="mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:grid sm:grid-flow-col sm:auto-cols-fr sm:w-fit sm:mx-auto sm:-mb-4 sm:translate-y-1/2"> {/* .762: equal widths, like the turn's row */}
       {[['clarify', 'Clarify', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tone]) => (
         <button key={k} onClick={twoTap(`${id}-${k}`, () => move(id, k, text), k)} className={`rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors ${tone}`}>{label}</button>
       ))}
@@ -2310,45 +2318,45 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               const FLOOR_TONE = { meaning: ['text-amber-100', { '--pill': '251 191 36', borderColor: '#78350f' }], moon: ['text-violet-100', { '--pill': '167 139 250', borderColor: '#4c1d95' }], mechanism: ['text-cyan-100', { '--pill': '34 211 238', borderColor: '#164e63' }] };
               const header = (kind) => kind.startsWith('floor-') // .698: a floor's own panel — its name, and a chevron that closes it
                 ? (() => { const f = kind.slice(6); return (
-                  <button onClick={() => closeFloor(f)} className="relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-4 py-3 text-center sm:text-left rounded-xl" style={{ minHeight: 52 }}>
+                  <button onClick={() => toggleCollapsed(`floor-${f}`)} className="relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-4 py-3 text-center sm:text-left rounded-xl" style={{ minHeight: 52 }}> {/* .762: folds, never vanishes */}
                     <span className={`relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight break-words ${FLOOR_TONE[f]?.[0] || 'text-zinc-100'}`}>{FLOOR_LABEL[f] ? FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1) : f}</span>
-                    <span className="relative z-10 sm:ml-auto">{chev(true)}</span>
+                    <span className="relative z-10 sm:ml-auto">{chev(!isCollapsed(`floor-${f}`))}</span>
                   </button>); })()
                 : kind === 'brazier'
                 ? (
-                  <button data-arm="whys" onClick={twoTap('whys', toggleBrazier, brazierOpen ? null : 'go-deeper')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="whys" onClick={brazierOpen ? () => toggleCollapsed('brazier') : twoTap('whys', toggleBrazier, 'go-deeper')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .519: on a phone the loop fills the door and the words sit on top of it; from sm up it is the side strip */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/brazier.mp4" playing={brazierOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">Go deeper</span>
-                    {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(true)}</span>}
+                    {brazierOpen && <span className="relative z-10 sm:ml-auto">{chev(!isCollapsed('brazier'))}</span>}
                   </button>
                 ) : kind === 'dragon' ? (
-                  <button data-arm="dragon" onClick={twoTap('dragon', toggleDragon, dragonOpen ? null : 'face-the-dragon')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="dragon" onClick={dragonOpen ? () => toggleCollapsed('dragon') : twoTap('dragon', toggleDragon, 'face-the-dragon')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-16 sm:pr-3 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .513: the dragon's own loop (the founder's clip, 2026-09-21) — the mists waver, the dragon */}
                     <span className="absolute inset-0 sm:inset-auto sm:left-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-r-none" aria-hidden="true"><HoverVideo src="/video/dragon.mp4" playing={dragonOpen} className="h-full w-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-rose-100 sm:text-rose-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DRAGON_LABEL}</span>
-                    {dragonOpen && <span className="relative z-10">{chev(true)}</span>}
+                    {dragonOpen && <span className="relative z-10">{chev(!isCollapsed('dragon'))}</span>}
                   </button>
                 ) : kind === 'medicine' ? (
-                  <button data-arm="medicine" onClick={twoTap('medicine', toggleMedicine, medOpen ? null : 'the-medicine')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="medicine" onClick={medOpen ? () => toggleCollapsed('medicine') : twoTap('medicine', toggleMedicine, 'the-medicine')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     {/* .548: the loop on the RIGHT, like the step's — whys and dragon carry theirs on the left, so the row balances (founder) */}
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/rainbow.mp4" playing={medOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
-                    {medOpen && <span className="relative z-10">{chev(true)}</span>}
+                    {medOpen && <span className="relative z-10">{chev(!isCollapsed('medicine'))}</span>}
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-emerald-100 sm:text-emerald-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{MEDICINE_LABEL}</span>
                   </button>
                 ) : (
-                  <button data-arm="step" onClick={twoTap('step', toggleStep, stepOpen ? null : 'one-small-step')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
+                  <button data-arm="step" onClick={stepOpen ? () => toggleCollapsed('step') : twoTap('step', toggleStep, 'one-small-step')} className={"relative w-full h-full flex items-center justify-center sm:justify-start gap-3 px-3 sm:pl-3 sm:pr-16 py-3 text-center sm:text-left overflow-hidden rounded-xl"} style={{ minHeight: 52 }}>
                     <span className="absolute inset-0 sm:inset-auto sm:right-0 sm:top-0 sm:h-full sm:w-14 overflow-hidden rounded-xl sm:rounded-l-none" aria-hidden="true"><HoverVideo src="/video/step.mp4" playing={stepOpen} className="w-full h-full object-cover" /></span>
                     <span className="absolute inset-0 bg-black/50 sm:hidden" aria-hidden="true" />
-                    {stepOpen && <span className="relative z-10">{chev(true)}</span>}
+                    {stepOpen && <span className="relative z-10">{chev(!isCollapsed('step'))}</span>}
                     <span className="relative z-10 font-serif text-[1rem] sm:text-[1.1875rem] leading-tight text-zinc-100 sm:text-zinc-200 break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{DO_SOMETHING_LABEL}</span>
                   </button>
                 );
               const body = (kind) => kind.startsWith('floor-') // .698: a floor's own panel, read-along and the moves like every other
-                ? (() => { const f = kind.slice(6); return (
+                ? (() => { const f = kind.slice(6); if (isCollapsed(kind)) return null; return (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     {brazierBusy === f && <Writing scroll={false} label={(STAGE[f] || STAGE.writing)[0]} />}
                     {brazier[f] && ensureParagraphBreaks(brazier[f]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
@@ -2360,13 +2368,13 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     {panelMoves(`floor${f}`, brazier[f])}
                   </div>); })()
                 : kind === 'brazier'
-                ? (brazierOpen && (
+                ? (brazierOpen && !isCollapsed('brazier') && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     {/* .661 (Keel §11): GO DEEPER's four peers. .698 (founder): the door is the SELECTOR — Words to the Whys shows here; the meaning, the moon and
                         the mechanism each open as a dedicated panel of their own, in the order they were opened; the selector stays open. */}
                     <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
                       {['meaning', 'moon', 'mechanism'].filter((f) => FLOORS_OPEN[f] || bench || isAdmin(user)).map((f) => [f, FLOOR_LABEL[f].charAt(0).toUpperCase() + FLOOR_LABEL[f].slice(1), { meaning: 'border-amber-400/90 bg-amber-950/30 text-amber-100', moon: 'border-violet-400/90 bg-violet-950/30 text-violet-100', mechanism: 'border-cyan-400/90 bg-cyan-950/30 text-cyan-100' }[f]]).map(([f, label, tone]) => (
-                        <button key={f} data-arm={`floor-${f}`} onClick={() => (floorsOpened.includes(f) ? closeFloor(f) : openFloor(f))}
+                        <button key={f} data-arm={`floor-${f}`} onClick={() => (floorsOpened.includes(f) ? revealPanel(`floor-${f}`) : openFloor(f))}
                           className={`rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-serif transition-all ${tone} ${floorsOpened.includes(f) ? 'ring-2 ring-white/70' : 'opacity-70 hover:opacity-100'}${armedCls(`floor-${f}`)}`}>
                           {label}
                         </button>
@@ -2379,7 +2387,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     {panelMoves('floor1', brazier[1])}
                   </div>
                 ))
-                : kind === 'dragon' ? (dragonOpen && (
+                : kind === 'dragon' ? (dragonOpen && !isCollapsed('dragon') && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-rose-300/70 mb-2">{DRAGON_HINT}</div>
                     {dragonBusy && <Writing scroll={false} label={STAGE.naming[0]} />}
@@ -2388,7 +2396,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     ))}
                     {!dragonBusy && panelMoves('dragon', dragonText)}
                   </div>
-                )) : kind === 'medicine' ? (medOpen && (
+                )) : kind === 'medicine' ? (medOpen && !isCollapsed('medicine') && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-emerald-300/70 mb-2">{MEDICINE_HINT}</div>
                     {medBusy && <Writing scroll={false} label={STAGE.medicine[0]} />}
@@ -2414,7 +2422,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     })()}
                     {!medBusy && panelMoves('medicine', medText)}
                   </div>
-                )) : (stepOpen && (
+                )) : (stepOpen && !isCollapsed('step') && (
                   <div className="px-4 pb-4 text-[0.9375rem] leading-relaxed text-zinc-300">
                     <div className="text-[0.6875rem] text-zinc-500 mb-2">{DO_SOMETHING_HINT}</div>
                     {stepBusy && <Writing scroll={false} label={STAGE.step[0]} />}
@@ -2551,7 +2559,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     </div>
   ) : null);
   const movesRow = (t) => (
-                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
+                    <div className={`mt-4 flex flex-wrap justify-center gap-1 px-1 sm:px-2 sm:grid sm:grid-flow-col sm:auto-cols-fr sm:w-fit sm:mx-auto sm:-mb-4 sm:translate-y-1/2 ${t.role === 'wrap' ? 'order-last' : ''}`}> {/* .762 (founder): the moves are equal widths to one another (a grid sized by the widest), still small, still on the rail */} {/* .702 (founder): ONE visual language — every row sits ON the frame's bottom line; the wrap's frame is a flex column so the row is ordered last */} {/* .615: in the frame on a phone (a wrap stays inside the bubble); half off the border from sm up */} {/* .599: HALF OFF THE BORDER again (founder) — in normal flow, pulled onto the border and shifted down by half its own height, so a wrap grows DOWNWARD and stays centred on the edge (the .517 absolute straddle grew upward) */}
                       {/* .517: small, coloured, straddling the bottom border — half in, half out (founder, 2026-09-21) */}
                       {[['clarify', 'Clarify', 'say it so I can hold it — a register plainer, nothing lost', 'border-sky-500/60 text-sky-200 hover:bg-sky-950/70'], ['unpack', 'Unpack', 'the same turn with its seams showing: signature, seat, status, medicine', 'border-violet-500/60 text-violet-200 hover:bg-violet-950/70'], ['example', 'Example', 'one concrete scene where this shows up', 'border-amber-500/60 text-amber-200 hover:bg-amber-950/70']].map(([k, label, tip, tone]) => (
                         <button key={k} data-arm={`${t.id}-${k}`} onClick={twoTap(`${t.id}-${k}`, () => move(t.id, k), k)} title={tip}
@@ -2606,8 +2614,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               </span>
               <select value="" aria-label="told by" className={PICK_SELECT} onChange={(e) => { if (e.target.value) chooseVoice(e.target.value); }}>
                 <option style={OPT} value="">Told by</option>
-                <optgroup label="Told by">{['plain', ...(PERSONAS_ON ? PERSONA_KEYS : [])].map((k) => <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${voice === k ? ' ✓' : ''}`}</option>)}</optgroup>
-                <optgroup label="In other words">{VOICE_ORDER.filter((k) => k !== 'plain').map((k) => <option style={OPT} key={k} value={k}>{`${VOICE_NOTES[k]?.[0] || k}${voice === k ? ' ✓' : ''}`}</option>)}</optgroup>
+                {['plain', ...(PERSONAS_ON ? PERSONA_KEYS : [])].map((k) => <option style={OPT} key={k} value={k}>{`${k === 'plain' ? 'Plainly' : (VOICES[k]?.label || k)}${voice === k ? ' ✓' : ''}`}</option>)} {/* .762 (founder): the same tellers the front picker cycles; the old registers (grown / deep / mystical) left this list */}
               </select>
             </span>
           </>
@@ -3135,7 +3142,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   bottom line of the reading's own frame (the turn renders them; the hoist of .749 is retired); .760: the fit row went with them — the question frame holds the question alone */}
               <div data-question-frame style={{ scrollMarginTop: '4.5rem' }} className={`mt-8 rounded-xl border border-amber-500/40 bg-amber-950/15 px-4 py-3 ${dimBox}`}> {/* .761 (founder): while the Reader is writing, the question fades with everything else */}
                 <div className="text-[0.625rem] uppercase tracking-[0.16em] text-amber-300/60 mb-1">The question</div>
-                <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{lastReader.question}</p> {/* .749: the one copy — the voice lights it here */}
+                <p data-spoken={spokenKey(lastReader.id, 'question', 0)} className={'text-[1.0625rem] leading-snug text-amber-200/95 break-words' + litIf(lastReader.id, 'question', 0)}>{panelAsk && panelAsk.at > (lastReader.ts || 0) ? panelAsk.text : lastReader.question}</p> {/* .749: the one copy — the voice lights it here · .762: a panel's later question takes the frame */}
                 {/* .760 (founder): the fit row no longer lives here — it sits in the reading's frame between the geometry and the moves */}
               </div>
             </>)}
@@ -3155,19 +3162,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 <svg className="w-3.5 h-3.5 text-white/60 group-hover:text-white/90 group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
-            {user && ( // .744 THE STANDING VOICE LINE (founder, phone): the pickers don't belong inline; a control that is there whether or not the voice is reading
-              <div className="mt-2 flex justify-center items-center gap-x-5 text-[0.8125rem] font-light text-zinc-400">
-                {speakingId ? (<>
-                  <button type="button" onClick={togglePause} className="hover:text-zinc-100">{paused ? '▶ Continue' : '⏸ Pause'}</button>
-                  <button type="button" onClick={voiceOff} className="text-zinc-500 hover:text-zinc-200">Voice off</button>
-                </>) : voiceOut ? (<>
-                  <button type="button" title="read the latest turn aloud" onClick={() => { const t = [...turns].reverse().find((x) => x.role !== 'you' && x.role !== 'user' && x.text); if (t) { unlockAudio(); speakTurn(t); } }} className="hover:text-zinc-100">▶ Read this</button>
-                  <button type="button" onClick={voiceOff} className="text-zinc-500 hover:text-zinc-200">Voice off</button>
-                </>) : (
-                  <button type="button" title="turn the voice on and read the latest turn" onClick={() => { unlockAudio(); chrome.set({ voiceOut: true }); const t = [...turns].reverse().find((x) => x.role !== 'you' && x.role !== 'user' && x.text); if (t) speakTurn(t); }} className="hover:text-zinc-100">Voice on</button>
-                )}
-              </div>
-            )}
+            {/* .762 (founder): the standing voice line (.744: Continue / Voice off / Read this / Voice on) is gone — Read by carries the voice on and off,
+                the paragraph tap and the reading bar carry pause and resume, and an idle tap on a paragraph starts the reading there */}
 
             </div>
             <div className={dimTop}>
@@ -3265,8 +3261,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 )}
                 {regenning ? <Writing className="self-center mt-1" label={STAGE.choices[0]} scroll={false} /> : (
                   <button data-arm="more" onClick={twoTap('more', () => regenPills(), 'more-choices')}
-                    className={armedCls('more') + " self-center mt-1 px-4 py-2 rounded-full border border-amber-500/40 text-sm text-amber-300 hover:bg-amber-900/20 hover:border-amber-400 transition-colors"}>
-                    ↻ More choices
+                    className={armedCls('more') + " self-center mt-2 inline-flex items-center gap-1.5 text-[0.8125rem] text-zinc-400 hover:text-zinc-200"}> {/* .762 (founder): one word, one voice — the reroll speaks like the "Ways to answer" caret above it */}
+                    <span aria-hidden="true" className="text-[0.75rem]">↻</span>{formRow ? 'More ways to answer' : 'More choices'}
                   </button>
                 )}
               </div>
@@ -3285,7 +3281,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               <div className="mt-6 flex justify-center">
                 <button data-arm="catchup" onClick={twoTap('catchup', catchUp, 'catch-me-up')}
                   className={armedCls('catchup') + " rounded-full border border-sky-600/50 bg-sky-950/20 px-5 py-2 text-[0.875rem] font-serif text-sky-100 hover:bg-sky-900/30 transition-colors"}>
-                  Catch me up
+                  Refresh my memory {/* .762 (founder): was "Catch me up" */}
                 </button>
               </div>
             )}
@@ -3309,8 +3305,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
               <button onClick={exportMarkdown} className="underline decoration-dotted hover:text-zinc-300">Export</button> {/* .662: Catch me up, New question and Summarize left this row — the pills carry them (founder) */}
-              <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output">
-                {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~{(estCost * 100).toFixed(2)}¢{savedId ? ' · saved' : ''}
+              <span className="ml-auto font-mono text-zinc-600" title="fresh input / cached input (billed at 10%) / output · the cost is words + voice (.762)">
+                {(usage.input_tokens || 0).toLocaleString()} + {((usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0)).toLocaleString()} cached / {(usage.output_tokens || 0).toLocaleString()} out · ~{((estCost + (voiceSpend.usd || 0)) * 100).toFixed(2)}¢{voiceSpend.pieces > 0 ? ' with voice' : ''}{savedId ? ' · saved' : ''}
               </span>
               {voiceSpend.pieces > 0 && ( // .613: the voice, priced from the measured compute seconds (Replicate T4), beside the words
                 <span className="font-mono text-zinc-600" title="the voice: letters spoken / seconds of compute (Replicate T4) · pieces">
