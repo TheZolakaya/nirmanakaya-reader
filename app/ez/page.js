@@ -40,7 +40,9 @@ import { MODEL_IDS, MODEL_PRICING, CACHE_READ, CACHE_WRITE_1H, usdFor, READER_CH
 import { parseReaderJson } from '../../lib/readerJson';
 import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-30→10-02): the rewritten prompt set, admins first
 import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets';
-import { soulBlock } from '../../lib/readerSoul'; // .777 THE READER'S SOUL FILE (pure: the block the page appends from /api/reader/soul) // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
+import { soulBlock } from '../../lib/readerSoul'; // .777 THE READER'S SOUL FILE (pure: the block the page appends from /api/reader/soul)
+import { FEATURES, has as hasFeature, opensHow } from '../../lib/features'; // .779 THE TIERS — every capability belongs to a tier; the page asks
+import Glistener from '../../components/reader/Glistener'; // .779: the Glistener, ported from the full reader (tier 2) // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
 const EZ_DEFAULT_SET = 'form-1'; // .758: what you get when you go to Nirmanakaya (founder, 2026-10-13); the Handing is behind ?prompt=handing (admin)
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
@@ -142,6 +144,18 @@ const pickFrame = (f) => {
 // .557: the hunch check, stated in the turn (flash follows the turn): a guess about the person's life is asked, never asserted
 
 const MOVE_LABEL = { clarify: 'Clarify that for me.', unpack: 'Unpack that.', example: 'Give me an example.' };
+
+// .779 THE LOCKED FACE (founder: "packages of capabilities that are enticing to users and also unpack as they go"): a feature a person does not
+// hold yet is not hidden — its name and its line show dimmed, with how it opens (a tier, or N closed readings).
+function LockedLine({ k, closed = null, className = '' }) {
+  const f = FEATURES[k]; if (!f) return null;
+  return (
+    <span className={`inline-flex flex-col items-center opacity-70 ${className}`} title={f.line}>
+      <span className="h-3 text-[0.5625rem] font-mono uppercase tracking-[0.15em] text-zinc-600 whitespace-nowrap">{opensHow(k, closed)}</span>
+      <span className="text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-600 whitespace-nowrap">◇ {f.name}</span>
+    </span>
+  );
+}
 
 // .776 HOW DO YOU KNOW? (founder, 2026-10-14: "how did you derive that from Fulfillment and Transformation?" — the reading is forbidden to explain
 // itself; this one call is licensed to). The four facts come from the record with no model; this asks the Reader to account for its own turn.
@@ -1357,9 +1371,17 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const promptOverFor = (v) => { if (!handing) return {}; const vr = promptSet.voiceRules(v); return { rules: promptSet.EZ_RULES, ...(typeof vr === 'string' ? { voiceRules: vr } : {}) }; };
   const promptBase = promptBaseFor(voice);
   const promptOver = promptOverFor(voice);
+  // .779 THE TIER this person holds (admins 9; else the greater of the granted and the earned) — fetched once the user is known
+  const [tierInfo, setTierInfo] = useState({ tier: 1, closed: 0, loaded: false });
+  const tierRef = useRef(1);
+  useEffect(() => { let on = true; if (!user || user.id === 'dev-bench') { setTierInfo({ tier: user?.id === 'dev-bench' ? 9 : 1, closed: 0, loaded: !!user }); tierRef.current = user?.id === 'dev-bench' ? 9 : 1; return; }
+    (async () => { try { const h = await readingAuth(); const r = await fetch('/api/user/tier', { headers: { ...h } }); const j = await r.json(); if (on && j && typeof j.tier === 'number') { setTierInfo({ tier: j.tier, closed: j.closed || 0, loaded: true }); tierRef.current = j.tier; } } catch { if (on) setTierInfo((t) => ({ ...t, loaded: true })); } })();
+    return () => { on = false; }; }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  const can = (k) => hasFeature(k, tierInfo.tier);
   // .777 THE SOUL FILE: the live lines, fetched once (public, cached a minute); empty until the founder promotes one
   const [soulLines, setSoulLines] = useState([]);
   useEffect(() => { let on = true; fetch('/api/reader/soul').then((r) => r.json()).then((j) => { if (on && Array.isArray(j?.lines)) setSoulLines(j.lines.filter((x) => typeof x === 'string' && x.trim())); }).catch(() => {}); return () => { on = false; }; }, []);
+  useEffect(() => { if (!tierInfo.loaded) return; if (!hasFeature('toldBy', tierInfo.tier) && voice !== 'plain') setVoice('plain'); if (!hasFeature('readBy', tierInfo.tier) && voiceOut) { try { stopVoice(); } catch {} chrome.set({ voiceOut: false }); } }, [tierInfo.loaded, tierInfo.tier]); // eslint-disable-line react-hooks/exhaustive-deps
   const systemPrompt = ezSystem(promptBase, voice, promptOver) + (soulLines.length ? `\n\n${soulBlock(soulLines)}` : ''); // .528: no hardcoded FRIEND persona; the kernel's rails that the discourse rules already carry are stripped once · .777: the Reader's own notes ride under the rules
 
 
@@ -1935,6 +1957,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       logPanel('how', text, null); // .713
     } catch (e) { setHow((h) => ({ ...h, [t.id]: { error: e?.message || 'failed' } })); }
   };
+  // .779 THE GLISTENER in the ask box (tier 2) — the ghost stream renders here, over the textarea; the component renders its own idle/complete controls
+  const [showGlistener, setShowGlistener] = useState(false);
+  const [glistenerContent, setGlistenerContent] = useState(null);
+  const [glistenerPhase, setGlistenerPhase] = useState('idle');
   // .767 (founder): the medicine's mini map is a button — it opens the same MinimapModal the full reader opens for a correction (card's home → seat, the second arrow to the medicine's home, the target card's own words), colour emerald
   const [medMap, setMedMap] = useState(null); // { fromT, toId, draw }
   // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
@@ -2437,7 +2463,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                     {brazier[f] && ensureParagraphBreaks(brazier[f]).split(/\n\n+/).filter((x) => x.trim()).map((x, xi) => (
                       <p key={xi} data-spoken={spokenKey(`floor${f}`, 'text', xi)} className={'mb-3 last:mb-0 whitespace-pre-wrap break-words' + litIf(`floor${f}`, 'text', xi)}>{x.trim()}</p>
                     ))}
-                    {f === 'mechanism' && brazier[f] && (
+                    {f === 'mechanism' && brazier[f] && can('fullReader') && ( // .779: tier 3
                       <p className="mt-3 text-[0.8125rem]"><Link href={savedId ? `/advanced?load=${savedId}&bridge=1` : '/advanced'} className="text-cyan-300/90 underline decoration-dotted hover:text-cyan-200">open this reading in the full reader</Link> <span className="text-zinc-500">— your conversation stays saved here; there is a way back at the top of that page</span></p>
                     )}
                     {panelMoves(`floor${f}`, brazier[f])}
@@ -2672,7 +2698,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       data-theme={chrome.prefs.theme} style={{ '--content-dim': chrome.prefs.contentDim / 100 }}>
       {chrome.loaded && <Backdrop prefs={chrome.prefs} />}
       {user && <CornerControls collapsed prefs={chrome.prefs} set={chrome.set} onAuthChange={(u) => { if (!u && user?.id !== 'dev-bench') setUser(null); }}
-        rightExtra={ // .745 (founder, phone): Read by and Told by live here too, so both can be changed during a reading — each a native select over its button (the Aa toggle's registers are in the Told by list)
+        rightExtra={!can('toldBy') ? null : // .779: tier 2 · .745 (founder, phone): Read by and Told by live here too, so both can be changed during a reading — each a native select over its button
           <span className="flex items-center gap-1"> {/* .772 (founder): the two were inline in one slot and sat on the text baseline, a few px above the row — flex items now, spaced like the rest */}
             <span className="relative flex" title={`Read by ${readByName} — tap to choose the voice`}>
               <span aria-hidden="true" className={`w-8 h-8 rounded-lg border backdrop-blur-sm flex items-center justify-center transition-all ${voiceOut ? 'text-amber-300 border-amber-500/40 bg-zinc-900/80' : 'text-zinc-500 border-zinc-700/50 bg-zinc-900/80'}`}>
@@ -2770,7 +2796,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
             <div className="relative">
               <div className="content-pane rounded-xl">
                 <textarea ref={questionRef} value={question} onChange={(e) => { setQuestion(e.target.value); if (wordless) setWordless(false); }} onFocus={() => setWordless(false)} rows={4}
-                  placeholder={wordless ? '' : frame ? `Ask about ${frameLabel(frame)} — the way you would say it out loud.` : "What's on your mind? Ask it the way you would say it out loud."}
+                  placeholder={wordless || glistenerContent || showGlistener ? '' : frame ? `Ask about ${frameLabel(frame)} — the way you would say it out loud.` : "What's on your mind? Ask it the way you would say it out loud."}
                   style={{ animationDuration: '16s' }}
                   className={`animate-border-rainbow block w-full rounded-xl bg-zinc-900/70 border border-zinc-700/60 p-4 pb-16 text-base text-zinc-100 placeholder-zinc-600 focus:outline-none`} />
               </div>
@@ -2781,7 +2807,31 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   No words needed. Tap again and the signatures start.
                 </div>
               )}
-              {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
+              {/* .779 THE GLISTENER (tier 2): the ghost stream over the box while it works; the component's own controls sit bottom-left while it is open */}
+              {can('glisten') && glistenerContent && (
+                <div className={`pointer-events-none absolute inset-0 px-4 pt-4 pb-16 pr-12 overflow-hidden ${glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap text-[1.05rem] font-light tracking-wide text-zinc-300' : glistenerContent.type === 'loading' ? 'flex items-center justify-center text-amber-200/80 italic text-base' : 'flex items-center justify-center text-amber-300 italic text-lg'}`} style={{ opacity: glistenerContent.type === 'loading' ? 1 : (glistenerContent.opacity ?? 1) }}>
+                  {glistenerContent.type === 'loading' ? ((glistenerContent.messages || []).find((m) => m.position === 0)?.text || '…') : glistenerContent.text}{glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
+                </div>
+              )}
+              {can('glisten') && showGlistener && (
+                <Glistener
+                  onTransfer={(crystal) => { setQuestion(crystal || ''); setGlistenerContent(null); setWordless(false); }}
+                  onClose={() => { setShowGlistener(false); setGlistenerContent(null); setGlistenerPhase('idle'); }}
+                  onDisplayContent={setGlistenerContent}
+                  onPhaseChange={setGlistenerPhase}
+                  onGlistenComplete={() => {}} />
+              )}
+              {user && !showGlistener && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
+              {user && !showGlistener && !wordless && (can('glisten') ? (
+                <button type="button" onClick={(e) => { e.stopPropagation(); setShowGlistener(true); }} title={FEATURES.glisten.line}
+                  className="absolute bottom-[1.4rem] left-[4.25rem] z-10 flex items-center gap-1.5 text-[0.625rem] sm:text-[0.6875rem] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-amber-300 transition-colors">
+                  <span className="text-amber-500/70">◇</span><span>Glisten</span>
+                </button>
+              ) : (
+                <span title={`${FEATURES.glisten.line} — ${opensHow('glisten', tierInfo.closed)}`} className="absolute bottom-[1.4rem] left-[4.25rem] z-10 hidden sm:flex items-center gap-1.5 text-[0.625rem] font-mono uppercase tracking-[0.15em] text-zinc-700 whitespace-nowrap">
+                  <span>◇</span><span>Glisten</span><span className="text-zinc-700/80 normal-case tracking-normal">· {opensHow('glisten', tierInfo.closed)}</span>
+                </span>
+              ))}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center whitespace-nowrap"
                   style={{ background: 'linear-gradient(90deg, #f87171, #fb923c, #facc15, #4ade80, #22d3ee, #a78bfa, #f472b6, #f87171)', backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', animation: 'gradient-shift 3s ease infinite, field-breathe 3s ease-in-out infinite' }}>{loading ? '...' : wordless ? 'Just draw' : 'Ask'}{/* .768 (founder, iPhone): 'Draw for wherever I am' wrapped to two lines and swallowed the box */}</span>
@@ -2793,8 +2843,8 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
           {/* .732 (founder, phone): one light line — Read by · Told by · More — each with its current choice in tiny text above it.
               The ‹ › beside Read by are .703: the voice before / after, and it says hello. Each native select is invisible over its word. */}
           <div className="flex flex-wrap justify-center items-end gap-x-5 gap-y-2 [&_.pick-arrow]:hidden"> {/* .765: on the front the arrows stay out of sight — the words alone, in the nav's voice */}
-            {readByPick}
-            {toldByPick}
+            {can('readBy') ? readByPick : (user ? <LockedLine k="readBy" closed={tierInfo.closed} /> : null)} {/* .779: tier 2 holds the voices; the rest see the locked face */}
+            {can('toldBy') ? toldByPick : (user ? <LockedLine k="toldBy" closed={tierInfo.closed} /> : null)}
             {/* .592: ONE QUIET MENU (founder 2026-10-02: "load, unsure, topic and from your readings could be a selection menu instead of
                 buttons. I want it to be clear and clean as possible"). A native select: on a phone it opens the system picker (.576). */}
             <span className={PICK}>
