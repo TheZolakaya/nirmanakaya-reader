@@ -42,7 +42,8 @@ import { HANDING_SET } from '../../lib/handingPrompt'; // THE HANDING (2026-09-3
 import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../../lib/promptSets';
 import { soulBlock } from '../../lib/readerSoul'; // .777 THE READER'S SOUL FILE (pure: the block the page appends from /api/reader/soul)
 import { FEATURES, has as hasFeature, opensHow } from '../../lib/features'; // .779 THE TIERS — every capability belongs to a tier; the page asks
-import Glistener from '../../components/reader/Glistener'; // .779: the Glistener, ported from the full reader (tier 2) // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
+import Glistener from '../../components/reader/Glistener'; // .779: the Glistener, ported from the full reader (tier 2)
+import { motion, AnimatePresence } from 'framer-motion'; // .784: the full reader's ghost stream, whole // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
 const EZ_DEFAULT_SET = 'form-1'; // .758: what you get when you go to Nirmanakaya (founder, 2026-10-13); the Handing is behind ?prompt=handing (admin)
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
 import { getUser, getSession, readingAuth, isAdmin, saveReading, updateReadingContent, getReadings, getReading, rememberAuthReturn, getClosedTopics, addClosedTopic, removeClosedTopic } from '../../lib/supabase';
@@ -1991,6 +1992,17 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const [showGlistener, setShowGlistener] = useState(false);
   const [glistenerContent, setGlistenerContent] = useState(null);
   const [glistenerPhase, setGlistenerPhase] = useState('idle');
+  // .784 (founder): the full Glisten experience — the rainbow stream that scrolls through the story near the end, ported from the full reader
+  const glistenerScrollRef = useRef(null);
+  const prevStreamingType = useRef(null);
+  useEffect(() => {
+    if (glistenerContent?.type === 'streaming' && glistenerScrollRef.current) {
+      const el = glistenerScrollRef.current;
+      if (prevStreamingType.current !== 'streaming') el.scrollTop = 0;
+      else if (glistenerContent?.scrollProgress !== undefined) { const maxScroll = el.scrollHeight - el.clientHeight; if (maxScroll > 0) el.scrollTop = maxScroll * glistenerContent.scrollProgress; }
+    }
+    prevStreamingType.current = glistenerContent?.type || null;
+  }, [glistenerContent]);
   // .767 (founder): the medicine's mini map is a button — it opens the same MinimapModal the full reader opens for a correction (card's home → seat, the second arrow to the medicine's home, the target card's own words), colour emerald
   const [medMap, setMedMap] = useState(null); // { fromT, toId, draw }
   // .762 (founder) 18: THE QUESTION frame always holds the LATEST question the Reader asked — a panel's closing question included
@@ -2850,11 +2862,76 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 </div>
               )}
               {/* .779 THE GLISTENER (tier 2): the ghost stream over the box while it works; the component's own controls sit bottom-left while it is open */}
-              {can('glisten') && glistenerContent && (
-                <div className={`pointer-events-none absolute inset-0 px-4 pt-4 pb-16 pr-12 overflow-hidden ${glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap text-[1.05rem] font-light tracking-wide text-zinc-300' : glistenerContent.type === 'loading' ? 'flex items-center justify-center text-amber-200/80 italic text-base' : 'flex items-center justify-center text-amber-300 italic text-lg'}`} style={{ opacity: glistenerContent.type === 'loading' ? 1 : (glistenerContent.opacity ?? 1) }}>
-                  {glistenerContent.type === 'loading' ? ((glistenerContent.messages || []).find((m) => m.position === 0)?.text || '…') : glistenerContent.text}{glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
-                </div>
-              )}
+              {/* .784 THE GHOST STREAM, whole (the full reader's): the loading stack, then the rainbow stream scrolling through the story, then the crystal typing */}
+              {can('glisten') && (<AnimatePresence>
+{/* Ghost Stream content from Glistener - Loading messages */}
+                        {glistenerContent && glistenerContent.type === 'loading' && (
+                          <motion.div
+                            key="loading"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center overflow-hidden"
+                          >
+                            {/* Scrolling message stack - starts at bottom, scrolls up */}
+                            <div className="flex flex-col-reverse items-center w-full">
+                              <AnimatePresence>
+                                {glistenerContent.messages?.map((msg) => (
+                                  <motion.div
+                                    key={msg.text}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{
+                                      opacity: msg.opacity,
+                                      y: -msg.position * 28,
+                                      scale: msg.position === 0 ? 1 : 0.95,
+                                    }}
+                                    exit={{ opacity: 0, y: -60 }}
+                                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                                    className="italic text-base sm:text-lg absolute whitespace-nowrap animate-rainbow-cycle"
+                                    style={{
+                                      fontWeight: 400,
+                                      textShadow: msg.position === 0
+                                        ? `0 0 ${15 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 8}px rgba(251, 191, 36, 0.5)`
+                                        : 'none',
+                                      opacity: msg.position === 0
+                                        ? 0.85 + Math.sin((glistenerContent.pulsePhase || 0) * 3) * 0.15
+                                        : msg.opacity,
+                                    }}
+                                  >
+                                    {msg.text}
+                                  </motion.div>
+                                ))}
+                              </AnimatePresence>
+                            </div>
+                          </motion.div>
+                        )}
+                        {/* Ghost Stream content from Glistener - Streaming/Typing/Fading */}
+                        {glistenerContent && glistenerContent.type !== 'loading' && (
+                          <motion.div
+                            key={glistenerContent.type === 'fading' ? 'typing' : glistenerContent.type}
+                            ref={glistenerContent.type === 'streaming' ? glistenerScrollRef : undefined}
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              opacity: glistenerContent.type === 'streaming' ? glistenerContent.opacity :
+                                       glistenerContent.type === 'fading' ? glistenerContent.opacity : 1,
+                            }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: glistenerContent.type === 'fading' ? 0.04 : 0.1 }}
+                            className={`absolute inset-0 pt-5 px-4 pb-[4.5rem] pr-12 ${
+                              glistenerContent.type === 'streaming' ? 'leading-relaxed whitespace-pre-wrap overflow-y-auto overflow-x-clip text-[1.05rem] font-light tracking-wide animate-glisten-rainbow' :
+                              glistenerContent.type === 'typing' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' :
+                              glistenerContent.type === 'fading' ? 'text-amber-300 italic flex items-center justify-center text-lg pointer-events-none overflow-hidden' : 'text-zinc-400 pointer-events-none overflow-hidden'
+                            }`}
+                            style={{
+                              ...(glistenerContent.pulse ? { textShadow: '0 0 25px rgba(251, 191, 36, 0.4)' } : {}),
+                              ...(glistenerContent.type === 'streaming' ? { fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' } : {}),
+                            }}
+                          >
+                            {glistenerContent.text}
+                            {glistenerContent.type === 'typing' && <span className="animate-pulse ml-0.5">|</span>}
+                          </motion.div>
+                        )}
+              </AnimatePresence>)}
               {user && <MicButton className="absolute bottom-4 left-4" getAuth={voiceAuth} onStatus={(m) => setVoiceMsg(m)} onText={(txt) => { setQuestion((q) => (q.trim() ? `${q.trim()} ${txt}` : txt)); setWordless(false); try { questionRef.current?.focus(); } catch {} }} />} {/* .635 THE MIC */}
               <button onClick={begin} disabled={loading} className="group absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-1.5 rounded-lg border border-zinc-700/50 hover:border-zinc-600 bg-black/20 hover:bg-white/5 backdrop-blur-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span className="text-[0.8125rem] font-mono uppercase tracking-[0.2em] font-medium inline-flex items-center justify-center whitespace-nowrap"
