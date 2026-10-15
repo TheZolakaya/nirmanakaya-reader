@@ -23,3 +23,27 @@ a painting can't become a line drawing.
 
 Higgsfield job IDs (A0–A2, B0–B2, C0–C2):
 f6ea4bfc, a34558e2, 12d7692f · ffd1a0a8, 679bdb63, 54d63e57 · f3a77e67, 89547974, 1b77515b
+
+## The Rhyme Rule (from Chris's Magic Mirror slides 39–49)
+
+Vertical pairs (n and 20−n, via `verticalPartnerId` in canon) and the two portals **must visually rhyme**.
+They share a compositional skeleton, gesture or motif, and differ in one polarity. This is how the
+Rider–Waite pairs showed the structure in 1991 (four creatures, mirrored poses, stars, pillars, wings, raised hands).
+In the new deck the rhyme is designed in on purpose, so all ten pairs carry it, including the ones
+Rider–Waite left weak (7/13, 8/12, 9/11).
+
+Method: generate the first card of a pair, then generate its partner with the first card attached as an image reference
+and a prompt that names what stays the same and what flips.
+
+## Pilot 02 (2026-10-15): rhyming pairs
+
+`rhyming_pairs.jpg`:
+- **X Source ↔ XXI Creation.** The same four creatures in the same corners, emblems on one card and living creatures on the other.
+  Light pours *in* at the top (Ingress) and *out* at the bottom (Egress). The polarity comes straight from canon.
+- **IX Discipline ↔ XI Equity.** The same hooded figure, tree and horizon. Walking versus standing still. The lantern's
+  height becomes the scales' balance point, and the winding path becomes a level line.
+
+Higgsfield job IDs: Creation af104fe2 (ref a34558e2) · Equity v2 dfa0b243 (ref f6ea4bfc).
+
+This also gives the film its **Rhyme** move for free: the camera dissolves from one partner to the other
+and the shared lines stay put.
