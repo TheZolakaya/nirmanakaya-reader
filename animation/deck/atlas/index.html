@@ -1,0 +1,256 @@
+<title>Archetype Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: night ground, paper cards as lit windows; houses laid out as the 1991 slide, detail panel beside. */
+:root{
+  --bg:#e9ebf0; --panel:#f6f7f9; --fg:#1b1c24; --muted:#5d6070; --line:#c9ccd6;
+  --gold:#a8822e; --dim:.18;
+  --soul:#6f48aa; --spirit:#c03a2f; --mind:#2f7f56; --emotion:#3a68b0; --body:#7a5636; --portal:#8a7a52;
+  --display:"Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c0d14; --panel:#151722; --fg:#ece8dc; --muted:#9a9cab; --line:#2a2d3c; --gold:#d6b25e;
+  --soul:#9a76d6; --spirit:#e0625a; --mind:#5cb184; --emotion:#6d98dc; --body:#b08a63; --portal:#c2b183; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0d14; --panel:#151722; --fg:#ece8dc; --muted:#9a9cab; --line:#2a2d3c; --gold:#d6b25e;
+  --soul:#9a76d6; --spirit:#e0625a; --mind:#5cb184; --emotion:#6d98dc; --body:#b08a63; --portal:#c2b183; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:14px;line-height:1.5}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px;max-width:1500px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,42px);margin:0;letter-spacing:.01em;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:68ch}
+.controls{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.group>span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.chip{font:500 13px var(--ui);color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip:focus-visible,.card:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:1100px){.main{grid-template-columns:minmax(0,1fr)}}
+/* houses board */
+.board{display:grid;grid-template-columns:minmax(0,.55fr) repeat(5,minmax(0,1fr)) minmax(0,.55fr);gap:10px;align-items:center}
+.house{border-top:4px solid var(--hc);padding-top:8px;display:grid;gap:6px}
+.house h2{margin:0;font:600 12px var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--hc);display:flex;gap:6px;align-items:center}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.portal{display:grid;gap:6px}
+.portal h2{margin:0;font:600 12px var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--portal)}
+@media (max-width:820px){
+  .board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .house{grid-column:span 2}
+  .quad{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:480px){.quad{grid-template-columns:1fr 1fr}}
+.card{position:relative;border:0;padding:0;background:none;cursor:pointer;text-align:left;color:inherit;display:grid;gap:3px;transition:opacity .25s, transform .25s}
+.card img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:3px;display:block;box-shadow:0 1px 0 var(--line);transition:filter .3s, opacity .3s}
+.card .lbl{font:500 11px var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .tag{position:absolute;top:6px;left:6px;font:600 11px var(--mono);background:var(--panel);color:var(--fg);border-radius:3px;padding:1px 6px;border:1px solid var(--line)}
+.card .tag[hidden]{display:none}
+.card.self img{outline:3px solid var(--gold);outline-offset:2px}
+.card.faded{opacity:var(--dim)}
+.card.rel-v .tag{border-color:var(--gold);color:var(--gold)}
+.card.rel-d .tag{border-color:var(--spirit);color:var(--spirit)}
+.card.rel-r .tag{border-style:dashed}
+/* status style layer (applied to the art) */
+.s-much .card img{filter:contrast(1.9) brightness(.9) saturate(1.6)}
+.s-little .card img{filter:contrast(.55) brightness(1.18);opacity:.55}
+.s-unack .card img{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(1.1)}
+@media (prefers-reduced-motion:reduce){.card,.card img{transition:none}}
+/* square view */
+.square{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr)) auto;gap:8px;align-items:center;max-width:900px}
+.square .hd{font:600 11px var(--ui);letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.square .rh{font:600 11px var(--ui);letter-spacing:.08em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;color:var(--muted)}
+.sum{font:500 15px var(--mono);font-variant-numeric:tabular-nums;color:var(--gold);text-align:center}
+.sq-note{color:var(--muted);max-width:70ch;margin:0}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* detail */
+aside{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+@media (max-width:1100px){aside{position:static}}
+aside .big{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:start}
+aside img{width:120px;aspect-ratio:2/3;object-fit:cover;border-radius:3px}
+aside h3{font-family:var(--display);font-weight:600;font-size:30px;line-height:1.05;margin:0}
+aside .trad{color:var(--muted);font-style:italic;font-family:var(--display);font-size:17px}
+aside .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pill{font:500 11px var(--mono);border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted)}
+.pill.h{color:var(--hc);border-color:var(--hc)}
+aside .desc{margin:0;font-family:var(--display);font-size:19px;line-height:1.35}
+.rels{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.rels li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;cursor:pointer;border-radius:4px;padding:2px}
+.rels li:hover{background:color-mix(in srgb,var(--line) 40%,transparent)}
+.rels img{width:34px;aspect-ratio:2/3;object-fit:cover;border-radius:2px}
+.rels .k{font:600 11px var(--ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rels .n{font-family:var(--display);font-size:17px}
+.rels .eq{font:500 12px var(--mono);font-variant-numeric:tabular-nums;color:var(--gold);white-space:nowrap}
+.hint{font-size:12px;color:var(--muted);margin:0}
+footer{color:var(--muted);font-size:12px}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Archetype Atlas</h1>
+    <p>The 22 Archetypes of the new Nirmanakaya deck, laid out by House. Pick a card to see its partners. Every relationship shown is read from canon.</p>
+  </header>
+
+  <div class="controls">
+    <div class="group" role="group" aria-label="View">
+      <span>View</span>
+      <button class="chip" id="v-houses" aria-pressed="true">Houses</button>
+      <button class="chip" id="v-square" aria-pressed="false">The Square</button>
+    </div>
+    <div class="group" role="group" aria-label="Relationship" id="relgroup">
+      <span>Show</span>
+      <button class="chip" data-rel="all" aria-pressed="true">All</button>
+      <button class="chip" data-rel="v" aria-pressed="false">Rhyme · 20</button>
+      <button class="chip" data-rel="d" aria-pressed="false">Counterpose · 19/21</button>
+      <button class="chip" data-rel="house" aria-pressed="false">House</button>
+      <button class="chip" data-rel="ch" aria-pressed="false">Channel</button>
+      <button class="chip" data-rel="r" aria-pressed="false">Reduction</button>
+    </div>
+    <div class="group" role="group" aria-label="Status style" id="statgroup">
+      <span>Status</span>
+      <button class="chip" data-s="" aria-pressed="true">Balanced</button>
+      <button class="chip" data-s="s-much" aria-pressed="false">Too Much</button>
+      <button class="chip" data-s="s-little" aria-pressed="false">Too Little</button>
+      <button class="chip" data-s="s-unack" aria-pressed="false">Unacknowledged</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <section id="stage" aria-live="polite">
+      <div class="board" id="board"></div>
+      <div id="squareview" hidden>
+        <div class="toolbar"><button class="chip" id="swap" aria-pressed="false">Swap Mind and Emotion</button><p class="sq-note" id="sqnote"></p></div>
+        <div class="square" id="square" style="margin-top:12px"></div>
+      </div>
+    </section>
+    <aside id="detail" aria-label="Selected card"></aside>
+  </div>
+  <footer>Ink &amp; Light, v1 (AI-generated drawings, 2026-10-16). Status styles are a live sketch applied in the browser, not final art.</footer>
+</div>
+
+<script>
+const A=[{"n":0,"name":"Potential","trad":"The Fool","house":"Gestalt","ch":"Intent","gov":"Spirit","ww":"Wheel","v":20,"d":19,"r":18,"desc":"Pure possibility before differentiation"},{"n":1,"name":"Will","trad":"The Magician","house":"Gestalt","ch":"Structure","gov":"Body","ww":"World","v":19,"d":20,"r":19,"desc":"Directed agency, choosing direction"},{"n":2,"name":"Wisdom","trad":"The High Priestess","house":"Spirit","ch":"Cognition","gov":null,"ww":"Wheel","v":18,"d":17,"r":11,"desc":"Knowing what to attend to"},{"n":3,"name":"Nurturing","trad":"The Empress","house":"Spirit","ch":"Structure","gov":null,"ww":"World","v":17,"d":18,"r":12,"desc":"Care for what is growing"},{"n":4,"name":"Authority","trad":"The Emperor","house":"Mind","ch":"Intent","gov":null,"ww":"Wheel","v":16,"d":15,"r":13,"desc":"Establishing pattern and structure"},{"n":5,"name":"Culture","trad":"The Hierophant","house":"Mind","ch":"Resonance","gov":null,"ww":"World","v":15,"d":16,"r":14,"desc":"Shared meaning and tradition"},{"n":6,"name":"Compassion","trad":"The Lovers","house":"Emotion","ch":"Resonance","gov":null,"ww":"Wheel","v":14,"d":13,"r":15,"desc":"Relational connection and alignment"},{"n":7,"name":"Drive","trad":"The Chariot","house":"Emotion","ch":"Intent","gov":null,"ww":"World","v":13,"d":14,"r":16,"desc":"Directed momentum toward goals"},{"n":8,"name":"Fortitude","trad":"Strength","house":"Body","ch":"Structure","gov":null,"ww":"Wheel","v":12,"d":11,"r":17,"desc":"Endurance and holding capacity"},{"n":9,"name":"Discipline","trad":"The Hermit","house":"Body","ch":"Cognition","gov":null,"ww":"World","v":11,"d":12,"r":18,"desc":"Focused practice and refinement"},{"n":10,"name":"Source","trad":"Wheel of Fortune","house":"Portal","ch":null,"gov":null,"ww":"Wheel","v":21,"d":21,"r":1,"desc":"What is entering now"},{"n":11,"name":"Equity","trad":"Justice","house":"Body","ch":"Resonance","gov":null,"ww":"Wheel","v":9,"d":8,"r":2,"desc":"Fair calibration and balance"},{"n":12,"name":"Faith","trad":"The Hanged Man","house":"Body","ch":"Intent","gov":null,"ww":"World","v":8,"d":9,"r":3,"desc":"Purposeful release"},{"n":13,"name":"Transformation","trad":"Death","house":"Emotion","ch":"Structure","gov":null,"ww":"Wheel","v":7,"d":6,"r":4,"desc":"Necessary endings and clearing"},{"n":14,"name":"Tune","trad":"Temperance","house":"Emotion","ch":"Cognition","gov":null,"ww":"World","v":6,"d":7,"r":5,"desc":"Dynamic equilibrium"},{"n":15,"name":"Abstraction","trad":"The Devil","house":"Mind","ch":"Cognition","gov":null,"ww":"Wheel","v":5,"d":4,"r":6,"desc":"Pure pattern, freed from literal"},{"n":16,"name":"Breakthrough","trad":"The Tower","house":"Mind","ch":"Structure","gov":null,"ww":"World","v":4,"d":5,"r":7,"desc":"Sudden clearing of false structure"},{"n":17,"name":"Inspiration","trad":"The Star","house":"Spirit","ch":"Intent","gov":null,"ww":"Wheel","v":3,"d":2,"r":8,"desc":"Aspirational pull toward light"},{"n":18,"name":"Imagination","trad":"The Moon","house":"Spirit","ch":"Resonance","gov":null,"ww":"World","v":2,"d":3,"r":9,"desc":"Navigating ambiguity"},{"n":19,"name":"Actualization","trad":"The Sun","house":"Gestalt","ch":"Cognition","gov":"Mind","ww":"Wheel","v":1,"d":0,"r":10,"desc":"Becoming what you are"},{"n":20,"name":"Recognition","trad":"Judgement","house":"Gestalt","ch":"Resonance","gov":"Emotion","ww":"World","v":0,"d":1,"r":11,"desc":"Seeing the whole pattern"},{"n":21,"name":"Creation","trad":"The World","house":"Portal","ch":null,"gov":null,"ww":"World","v":10,"d":10,"r":12,"desc":"Integration and completion"}];
+const HOUSES=[["Gestalt","Soul","⊛","--soul",[20,19,0,1]],["Spirit","Spirit","▲","--spirit",[18,17,2,3]],["Mind","Mind","●","--mind",[16,15,4,5]],["Emotion","Emotion","☾","--emotion",[14,13,6,7]],["Body","Body","■","--body",[12,11,8,9]]];
+const HC={Gestalt:"--soul",Spirit:"--spirit",Mind:"--mind",Emotion:"--emotion",Body:"--body",Portal:"--portal"};
+const HNAME={Gestalt:"Soul",Spirit:"Spirit",Mind:"Mind",Emotion:"Emotion",Body:"Body",Portal:"Portal"};
+const GOLD={Intent:"rising flame",Cognition:"straight ray",Resonance:"ripple",Structure:"solid form"};
+const src=n=>`${String(n).padStart(2,"0")}.jpg`;
+let sel=11, rel="all", swapped=false;
+const board=document.getElementById("board"), detail=document.getElementById("detail");
+
+function cardEl(n){
+  const a=A[n], b=document.createElement("button");
+  b.className="card"; b.dataset.n=n; b.setAttribute("aria-label",`${n} ${a.name}`);
+  b.innerHTML=`<img src="${src(n)}" alt="${a.name}, ${a.trad}" loading="lazy"><span class="tag" hidden></span><span class="lbl">${n} ${a.name}</span>`;
+  b.addEventListener("click",()=>{sel=n;render()});
+  return b;
+}
+function buildBoard(){
+  board.innerHTML="";
+  const p21=document.createElement("div"); p21.className="portal"; p21.innerHTML="<h2>World</h2>"; p21.append(cardEl(21)); board.append(p21);
+  for(const [key,label,glyph,col,ns] of HOUSES){
+    const h=document.createElement("div"); h.className="house"; h.style.setProperty("--hc",`var(${col})`);
+    h.innerHTML=`<h2><span aria-hidden="true">${glyph}</span>${label}</h2>`;
+    const q=document.createElement("div"); q.className="quad"; ns.forEach(n=>q.append(cardEl(n))); h.append(q); board.append(h);
+  }
+  const p10=document.createElement("div"); p10.className="portal"; p10.innerHTML="<h2>Wheel</h2>"; p10.append(cardEl(10)); board.append(p10);
+}
+function roles(n){
+  const a=A[n], r={};
+  r[a.v]=["v",`+ ${a.v} = ${n+a.v}`];
+  if(a.d!==a.v) r[a.d]=["d",`+ ${a.d} = ${n+a.d}`];
+  if(a.house!=="Portal") A.forEach(b=>{ if(b.n!==n && b.house===a.house && !r[b.n]) r[b.n]=["house",HNAME[a.house]]; });
+  if(a.ch) A.forEach(b=>{ if(b.n!==n && b.ch===a.ch && !r[b.n]) r[b.n]=["ch",a.ch]; });
+  if(!r[a.r]) r[a.r]=["r","reduces"]; else if(rel==="r") r[a.r]=["r","reduces"];
+  return r;
+}
+function visible(kind){ return rel==="all" || rel===kind; }
+function render(){
+  const a=A[sel], r=roles(sel);
+  document.querySelectorAll(".card").forEach(c=>{
+    const n=+c.dataset.n, t=c.querySelector(".tag");
+    c.className="card"; t.hidden=true;
+    if(n===sel){c.classList.add("self");return;}
+    const role=r[n];
+    let show=false;
+    if(role && visible(role[0])) show=true;
+    if(rel==="r" && n===a.r) show=true;
+    if(rel==="house" && a.house!=="Portal" && A[n].house===a.house) show=true;
+    if(rel==="ch" && a.ch && A[n].ch===a.ch) show=true;
+    if(show){
+      const kind = rel==="all" ? role[0] : rel;
+      c.classList.add("rel-"+kind);
+      const label = kind==="v"?`+ ${a.v} = ${sel+a.v}`: kind==="d"?`+ ${a.d} = ${sel+a.d}`: kind==="r"?"reduction": kind==="ch"?a.ch: HNAME[a.house];
+      if(kind==="v"||kind==="d"||kind==="r"){t.textContent=label;t.hidden=false;}
+    } else c.classList.add("faded");
+  });
+  renderDetail(r);
+  renderSquare();
+}
+function relRow(kind,label,n,eq){
+  const b=A[n];
+  return `<li data-go="${n}"><img src="${src(n)}" alt=""><div><div class="k">${label}</div><div class="n">${n} ${b.name}</div></div><div class="eq">${eq}</div></li>`;
+}
+function renderDetail(){
+  const a=A[sel], hc=`var(${HC[a.house]})`;
+  const light = a.ww==="Wheel" ? "light arriving (Wheel)" : "light released (World)";
+  const ch = a.ch ? `${a.ch}${a.gov?` · governs ${a.gov}`:""} · ${GOLD[a.ch]}` : "portal";
+  let rows="";
+  if(a.house==="Portal"){
+    rows+=relRow("v","Other portal",a.v,`${sel} + ${a.v} = ${sel+a.v}`);
+  } else {
+    rows+=relRow("v","Rhyme · same shape, light flips",a.v,`${sel} + ${a.v} = ${sel+a.v}`);
+    rows+=relRow("d","Counterpose · same light, gesture inverts",a.d,`${sel} + ${a.d} = ${sel+a.d}`);
+  }
+  rows+=relRow("r","Reduction · the shadow's correction",a.r,"");
+  detail.innerHTML=`
+    <div class="big"><img src="${src(sel)}" alt="${a.name}">
+      <div><h3>${sel} · ${a.name}</h3><div class="trad">${a.trad}</div>
+      <div class="meta" style="--hc:${hc}"><span class="pill h">${HNAME[a.house]}</span><span class="pill">${ch}</span><span class="pill">${light}</span></div></div></div>
+    <p class="desc">${a.desc}.</p>
+    <ul class="rels">${rows}</ul>
+    <p class="hint">Click a partner to move to it. Use Show to isolate one kind of relationship and Status to try the four status styles.</p>`;
+  detail.querySelectorAll("[data-go]").forEach(li=>li.addEventListener("click",()=>{sel=+li.dataset.go;render()}));
+}
+/* The Square: rows = Channel, columns = House */
+const ROWS=["Intent","Cognition","Resonance","Structure"];
+function renderSquare(){
+  const cols = swapped ? ["Spirit","Emotion","Mind","Body"] : ["Spirit","Mind","Emotion","Body"];
+  const grid = ROWS.map(ch=>cols.map(h=>A.find(x=>x.house===h && x.ch===ch).n));
+  const sq=document.getElementById("square"); sq.innerHTML="";
+  const cell=(html,cls)=>{const d=document.createElement("div"); if(cls)d.className=cls; d.innerHTML=html; sq.append(d); return d;};
+  cell("");
+  cols.forEach(h=>{const d=cell(HNAME[h],"hd"); d.style.color=`var(${HC[h]})`;});
+  cell("");
+  grid.forEach((row,i)=>{
+    cell(ROWS[i],"rh");
+    row.forEach(n=>sq.append(cardEl(n)));
+    cell(String(row.reduce((s,x)=>s+x,0)),"sum");
+  });
+  cell("");
+  cols.forEach((_,j)=>cell(String(grid.reduce((s,r)=>s+r[j],0)),"sum"));
+  cell("");
+  let blocks=0, hits=0;
+  for(let i=0;i<4;i++)for(let j=0;j<4;j++){blocks++; const s=grid[i][j]+grid[i][(j+1)%4]+grid[(i+1)%4][j]+grid[(i+1)%4][(j+1)%4]; if(s===40)hits++;}
+  document.getElementById("sqnote").textContent = swapped
+    ? `Every row and column adds to 40. With Mind and Emotion swapped, ${hits} of ${blocks} two-by-two blocks add to 40, counting blocks that wrap around the edges.`
+    : `Rows are Channels, columns are Houses. Every row and column adds to 40. Swap two columns to see the second property.`;
+  // keep selection highlighting consistent inside the square
+  sq.querySelectorAll(".card").forEach(c=>{ if(+c.dataset.n===sel) c.classList.add("self"); });
+}
+function setPressed(groupSel,btn){document.querySelectorAll(groupSel).forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));}
+document.querySelectorAll("#relgroup .chip").forEach(b=>b.addEventListener("click",()=>{rel=b.dataset.rel;setPressed("#relgroup .chip",b);render();}));
+document.querySelectorAll("#statgroup .chip").forEach(b=>b.addEventListener("click",()=>{
+  const st=document.getElementById("stage"); st.classList.remove("s-much","s-little","s-unack"); if(b.dataset.s) st.classList.add(b.dataset.s);
+  setPressed("#statgroup .chip",b);
+}));
+const vh=document.getElementById("v-houses"), vs=document.getElementById("v-square");
+vh.addEventListener("click",()=>{board.hidden=false;document.getElementById("squareview").hidden=true;setPressed("#v-houses,#v-square",vh);});
+vs.addEventListener("click",()=>{board.hidden=true;document.getElementById("squareview").hidden=false;setPressed("#v-houses,#v-square",vs);});
+document.getElementById("swap").addEventListener("click",e=>{swapped=!swapped;e.currentTarget.setAttribute("aria-pressed",String(swapped));render();});
+buildBoard(); render();
+</script>
