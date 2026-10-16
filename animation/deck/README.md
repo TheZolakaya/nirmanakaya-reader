@@ -117,3 +117,18 @@ Chris's own slide 49 already circles one: the Fool (0) and the Sun (19) are a di
 **Why it matters beyond looks:** the corrections become *visible*. When a reading draws a card Too Much, its correction
 is the card that makes the opposite gesture. When it's Too Little, its correction is the card with the same shape and the other light.
 A reader can see the correction before reading a word.
+
+## Pilot 03 (2026-10-16): one full House, Body (8 · 9 · 11 · 12)
+
+`pilot-03/body_house.jpg` is laid out as the House's 2×2 (top row 12, 11; bottom row 8, 9), and all four layers are in play.
+
+- **World:** strong. The same tree, horizon, ground and robed figure appear in all four.
+- **Channel gold:** Faith has a rising flame (Intent) and Discipline a straight ray (Cognition). Fortitude has a solid square (Structure).
+  Equity has light settling into the pans (Resonance), but the ripples read faintly and need more ripple.
+- **Counterpose (diagonals):** strong. 8 ↔ 11: kneeling low vs standing upright, with light arriving from above in both (Wheel).
+  9 ↔ 12: walking upright vs inverted, with light released downward in both (World).
+- **Rhyme (verticals):** 9 ↔ 11 is strong. **8 ↔ 12 is weak**, sharing only the low head. The fix is to regenerate 12 with 8 as its reference.
+- Content filter: a figure "hanging by the ankle" was blocked, so Faith is drawn as a serene inverted headstand under the tree.
+  Prompts should avoid the word "hanging."
+
+Job IDs: 9 f9cd473c · 11 5a31c0e3 · 8 69e35a65 · 12 d927364e (all reference f6ea4bfc).
