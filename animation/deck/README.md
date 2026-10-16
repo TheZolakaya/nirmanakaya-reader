@@ -58,7 +58,7 @@ each one readable at a glance and each one checkable against `lib/archetypes.js`
 |---|---|---|---|
 | **House: the world** | `house` | the 4 cards of a House | Same setting, ground and sky, same light temperature. House glyph and color in the frame. |
 | **Channel: the gold** | `channel` | the 4 cards of a row (one per House) | The single gold accent takes the Channel's form |
-| **Pair: the rhyme** | `verticalPartnerId` | 2 cards (n, 20−n), always in the same House | Shared composition, one polarity flipped (Rhyme Rule) |
+| **Pair: the rhyme** | `verticalPartnerId` + `WHEEL_WORLD_ASSOCIATION` | 2 cards (n, 20−n), always in the same House | Shared composition; light arriving (Wheel) vs light released (World) |
 
 **House worlds (proposal):**
 - **Soul / Aether ⊛ (purple):** open high air, horizon and sun. Nothing built, nothing grown. *0 Potential · 1 Will · 19 Actualization · 20 Recognition*
@@ -76,10 +76,20 @@ so the deck is making existing lineage intentional rather than inventing it.
 - **Cognition** (2 · 15 · 14 · 9): a fine straight ray or edge, a clear line (●, air).
 - **Resonance** (18 · 5 · 6 · 11): a curve, ripple or flow (☾).
 - **Structure** (3 · 16 · 13 · 8): a solid gold shape such as a block, crown or square (■).
-- **Soul** cards have no Channel in canon, so their gold is plain radiance.
+- **Soul** cards take the Channel of the House they **govern** (`GOVERNANCE_MAP` in `lib/constants.js`):
+  0 Potential → Spirit (Intent) · 19 Actualization → Mind (Cognition) · 20 Recognition → Emotion (Resonance) · 1 Will → Body (Structure).
 
 **The payoff:** lay out the 16 House cards as the 4×4 square and the structure becomes visible without a single number.
 Columns share a world, rows share a gold, and pairs mirror. The square that sums to 40 both ways can be *seen* as well as counted.
 
-**Open:** canon currently gives the Soul cards no Channel. In 1991 Chris did assign designators to the Soul four.
-Should the deck show them? **[Chris]**
+**Settled (Chris, 2026-10-16):** the Soul cards carry the Houses they govern.
+
+**The Rhyme's polarity is canon, not taste.** `WHEEL_WORLD_ASSOCIATION` in `lib/constants.js` gives every archetype a
+Wheel or World lean. Every vertical pair splits one Wheel card and one World card
+(0W/20Wo · 1Wo/19W · 2W/18Wo · 3Wo/17W · 4W/16Wo · 5Wo/15W · 6W/14Wo · 7Wo/13W · 8W/12Wo · 9Wo/11W). So the one
+thing that flips inside each pair is the same thing that flips between the portals: **Wheel cards show light
+arriving (from above, inward), and World cards show light released (downward, outward).** The whole deck carries
+the Source/Creation polarity.
+
+**Frame:** each card shows its House glyph and its designator glyph, the same as Chris's magic-square slide.
+That slide's colored lines joining same-designator cards across Houses are the film's Tally move for the rows.
