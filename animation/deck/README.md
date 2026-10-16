@@ -93,3 +93,27 @@ the Source/Creation polarity.
 
 **Frame:** each card shows its House glyph and its designator glyph, the same as Chris's magic-square slide.
 That slide's colored lines joining same-designator cards across Houses are the film's Tally move for the rows.
+
+## The Counterpose: diagonal dualities (Chris, 2026-10-16)
+
+Each House is a 2×2 square (two vertical pairs side by side), so every card has two partners inside its House.
+The two relationships behave differently, and canon (`diagonalPartnerId`, `WHEEL_WORLD_ASSOCIATION`) says how:
+
+| | Vertical pair (the Rhyme) | Diagonal pair (the Counterpose) |
+|---|---|---|
+| Sum | 20 | 19 (both Wheel) or 21 (both World) |
+| Wheel/World | **flips** | **shared** |
+| Channels | varies | always Intent ↔ Cognition, or Structure ↔ Resonance |
+| Correction | Too Little → vertical | Too Much → diagonal (the opposite pole) |
+| Visual | same composition, light direction flips | same light direction, **the gesture inverts**: reach ↔ release, rise ↔ settle, face left ↔ face right, mirrored across the card's center |
+
+Verified for all 10 House pairs in `nirmanakaya_78_definitions.json`
+(0/19 · 2/17 · 4/15 · 6/13 · 8/11 sum to 19, Wheel; 1/20 · 3/18 · 5/16 · 7/14 · 9/12 sum to 21, World).
+
+Chris's own slide 49 already circles one: the Fool (0) and the Sun (19) are a diagonal pair.
+
+**In a House's 2×2:** the rhymes run down the columns and the counterposes cross as an X, the same X the 1995 map is laid out on.
+
+**Why it matters beyond looks:** the corrections become *visible*. When a reading draws a card Too Much, its correction
+is the card that makes the opposite gesture. When it's Too Little, its correction is the card with the same shape and the other light.
+A reader can see the correction before reading a word.
