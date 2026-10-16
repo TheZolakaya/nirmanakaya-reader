@@ -47,3 +47,39 @@ Higgsfield job IDs: Creation af104fe2 (ref a34558e2) · Equity v2 dfa0b243 (ref 
 
 This also gives the film its **Rhyme** move for free: the camera dissolves from one partner to the other
 and the shared lines stay put.
+
+## Card grammar: three visual layers, all derived from canon (2026-10-16)
+
+Every archetype sits where a **House** (column of the 4×4 square) crosses a **Channel** (row).
+Each House holds exactly one card per Channel and exactly two vertical pairs. So every image carries three layers,
+each one readable at a glance and each one checkable against `lib/archetypes.js`:
+
+| Layer | Read from | Shared by | Visual cue |
+|---|---|---|---|
+| **House: the world** | `house` | the 4 cards of a House | Same setting, ground and sky, same light temperature. House glyph and color in the frame. |
+| **Channel: the gold** | `channel` | the 4 cards of a row (one per House) | The single gold accent takes the Channel's form |
+| **Pair: the rhyme** | `verticalPartnerId` | 2 cards (n, 20−n), always in the same House | Shared composition, one polarity flipped (Rhyme Rule) |
+
+**House worlds (proposal):**
+- **Soul / Aether ⊛ (purple):** open high air, horizon and sun. Nothing built, nothing grown. *0 Potential · 1 Will · 19 Actualization · 20 Recognition*
+- **Spirit / Fire ▲ (red):** night sky, stars, moon, pillars of light. *2 Wisdom · 3 Nurturing · 17 Inspiration · 18 Imagination*
+- **Mind / Air ● (green):** built things such as stone, towers, thrones, columns and steps. *4 Authority · 5 Culture · 15 Abstraction · 16 Breakthrough*
+- **Emotion / Water ☾ (blue):** water, rivers and wings, with figures in motion. *6 Compassion · 7 Drive · 13 Transformation · 14 Tune*
+- **Body / Earth ■ (brown):** ground, trees, animals and paths. *8 Fortitude · 9 Discipline · 11 Equity · 12 Faith* (pilot 02 already has this world)
+- **Portals 10 Source · 21 Creation:** outside the Houses. The four creatures and the circle.
+
+These mostly confirm what Rider–Waite already carries (the Moon, Star and Priestess are celestial; the Emperor, Hierophant, Tower and Devil are built and enthroned),
+so the deck is making existing lineage intentional rather than inventing it.
+
+**Channel gold (proposal):** the form follows the 1995 glyphs.
+- **Intent** (17 · 4 · 7 · 12): a point or flame, rising (▲).
+- **Cognition** (2 · 15 · 14 · 9): a fine straight ray or edge, a clear line (●, air).
+- **Resonance** (18 · 5 · 6 · 11): a curve, ripple or flow (☾).
+- **Structure** (3 · 16 · 13 · 8): a solid gold shape such as a block, crown or square (■).
+- **Soul** cards have no Channel in canon, so their gold is plain radiance.
+
+**The payoff:** lay out the 16 House cards as the 4×4 square and the structure becomes visible without a single number.
+Columns share a world, rows share a gold, and pairs mirror. The square that sums to 40 both ways can be *seen* as well as counted.
+
+**Open:** canon currently gives the Soul cards no Channel. In 1991 Chris did assign designators to the Soul four.
+Should the deck show them? **[Chris]**
