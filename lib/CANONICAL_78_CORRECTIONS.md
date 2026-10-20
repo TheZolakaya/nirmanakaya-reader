@@ -281,22 +281,22 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 ### Agent → Archetype Reference
 | Agent | Traditional | Archetype | Polarity |
 |-------|-------------|-----------|----------|
-| Page of Wands | Initiate of Intent | Inspiration (17) | Inner |
+| Page of Wands | Initiate of Intent | Inspiration (17) | Outer |
 | Knight of Wands | Catalyst of Intent | Order (4) | Inner |
-| Queen of Wands | Steward of Intent | Drive (7) | Outer |
+| Queen of Wands | Steward of Intent | Drive (7) | Inner |
 | King of Wands | Executor of Intent | Sacrifice (12) | Outer |
 | Page of Swords | Initiate of Cognition | Wisdom (2) | Inner |
-| Knight of Swords | Catalyst of Cognition | Abstraction (15) | Inner |
+| Knight of Swords | Catalyst of Cognition | Abstraction (15) | Outer |
 | Queen of Swords | Steward of Cognition | Tune (14) | Outer |
-| King of Swords | Executor of Cognition | Discipline (9) | Outer |
-| Page of Cups | Initiate of Resonance | Imagination (18) | Inner |
+| King of Swords | Executor of Cognition | Discipline (9) | Inner |
+| Page of Cups | Initiate of Resonance | Imagination (18) | Outer |
 | Knight of Cups | Catalyst of Resonance | Culture (5) | Inner |
-| Queen of Cups | Steward of Resonance | Compassion (6) | Outer |
+| Queen of Cups | Steward of Resonance | Compassion (6) | Inner |
 | King of Cups | Executor of Resonance | Equity (11) | Outer |
 | Page of Pentacles | Initiate of Structure | Nurturing (3) | Inner |
-| Knight of Pentacles | Catalyst of Structure | Breakthrough (16) | Inner |
+| Knight of Pentacles | Catalyst of Structure | Breakthrough (16) | Outer |
 | Queen of Pentacles | Steward of Structure | Transformation (13) | Outer |
-| King of Pentacles | Executor of Structure | Fortitude (8) | Outer |
+| King of Pentacles | Executor of Structure | Fortitude (8) | Inner |
 
 ### Agents Complete Reference
 
@@ -456,3 +456,10 @@ Four rulings, recorded the night of 2026-09-26/27 and held for the founder's res
 With these, the whole 22 is derived and no archetype's medicine is itself.
 
 5. **The Gestalt Bounds follow their families** (founder, 2026-10-02: "they work just like their archetypal families, except they refer to the bounds"). Growth = the family's growth partner, opposite polarity: Activation 22 → Resilience 30; Realization 31 → Orientation 23; Perception 32 → Immersion 39; Clarity 41 → Calculation 34; Receptivity 42 → Allure 48; Completion 51 → Reverie 45; Definition 52 → Support 57; Achievement 61 → Steadfastness 56. Unacknowledged runs through the family's −9 partner with the same flip: Activation → Fulfillment 50; Realization → Merge 43; Receptivity → Reciprocity 47; Completion → Conscience 46; Definition → Clarity 41; Achievement → Perception 32; and the two bounds of Actualization, whose family goes to Source, refer to the portal itself (Perception → Source; Clarity → Source), because the portals are bare. Part V's rows are updated above. No Bound is its own medicine any more; the NOTES ON GESTALT ARCHETYPES paragraph about "no growth opportunity defined" is superseded.
+
+
+---
+
+## RULING 2026-10-17 — Agents' Inner/Outer (founder)
+
+An agent inherits Inner/Outer from its parent archetype (its horizon), NOT from its rank. The data file (`data/nirmanakaya_78_definitions.json`, `innerOuter`) and production were already correct; the Part VI "Inner/Outer" column above was corrected on eight rows to match: Page of Wands → Outer, Queen of Wands → Inner, Knight of Swords → Outer, King of Swords → Inner, Page of Cups → Outer, Queen of Cups → Inner, Knight of Pentacles → Outer, King of Pentacles → Inner. The founder's words: "The data file is accurate." This closes the third of the three record fixes raised in FINDING_True_What_The_Seed_Produces_2026-10-12 (the other two closed in 0.99.752).
