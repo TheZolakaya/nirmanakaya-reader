@@ -247,7 +247,7 @@ function MicButton({ onText, getAuth, className = '', onStatus }) {
 }
 // .543: HEAR IT ANOTHER WAY — 'voice:<register>' is a move like the three: the same turn said again in another register.
 const VOICE_REG = (kind) => (typeof kind === 'string' && kind.startsWith('voice:') ? kind.slice(6) : null);
-const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, grown', map: "the map's words", deep: 'deep', mystical: 'mystical', friend: 'Friend', coach: 'Coach', storyteller: 'Storyteller', mystic: 'Mystic' }; // .712 + the personas
+const VOICE_LABELS = { plain: 'plain words', grown: 'plain words, full', map: "the map's words", deep: 'deep', mystical: 'mystical', friend: 'Friend', coach: 'Coach', storyteller: 'Storyteller', mystic: 'Mystic' }; // .712 + the personas
 const voiceMoveLabel = (reg) => `Say that again, in ${VOICE_LABELS[reg] || reg}.`;
 const voiceMoveRule = (reg, line, srcMedicine = '') => `THE MOVE — SAY IT AGAIN, IN ANOTHER VOICE.${srcMedicine ? ` THE MEDICINE OF THE ORIGINAL TURN — keep it: the same signature, the same move, in the new register: "${srcMedicine}".` : ''} The person wants to hear the turn quoted below in a different register: ${(VOICE_LABELS[reg] || reg).toUpperCase()}. Say the SAME turn again — same signature, same seat, same status, same medicine, the same question at the end — in that register, as a NEW turn under it. Nothing new is introduced and nothing is lost; the register is the only thing that changes. The register: ${line}`;
 // The prompts are the FULL READER'S OWN, verbatim (lib/prompts.js EXPANSION_PROMPTS — founder, .500: "lift what we
@@ -751,7 +751,7 @@ export default function EZPage() {
   // tap says what it did: a small card under the corner naming the register, gone after a moment.
   const VOICE_NOTES = {
     plain: ["Plain words", "For anyone. Short, everyday words; nothing of the map's language."],
-    grown: ['Plain words, grown', 'For an adult who has never seen the map. Plain, not simple.'],
+    grown: ['Plain words, full', 'The same voice, allowed the long sentence and the exact word. For an adult who has never seen the map.'],
     map: ["The map's words", 'The map speaks in its own names: signatures, seats, statuses.'],
     deep: ['Deep', "The map's words and the derivation shown — how this signature, seat and status fix the medicine."],
     mystical: ['Mystical', "The house's own philosophy, leaned into: purpose, the present, the pillars. No borrowed spirituality."],
