@@ -24,7 +24,7 @@
               "type": "string",
               "maxLength": 200
             },
-            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies."
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies. Revoking a key stops that key, not the caller: calls without a key still go through on the shared daily limit. A key is read only from this key query parameter or the x-nkya-key header; a key field in a POST body or in MCP tool arguments is ignored."
           },
           {
             "name": "question",
@@ -170,7 +170,7 @@
               "type": "string",
               "maxLength": 200
             },
-            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies."
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies. Revoking a key stops that key, not the caller: calls without a key still go through on the shared daily limit. A key is read only from this key query parameter or the x-nkya-key header; a key field in a POST body or in MCP tool arguments is ignored."
           }
         ],
         "requestBody": {

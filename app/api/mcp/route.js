@@ -116,7 +116,14 @@ export async function POST(request) {
   try { body = await request.json(); } catch { return Response.json(err(null, -32700, 'parse error'), { status: 400, headers: CORS }); }
   const batch = Array.isArray(body);
   const rawKey = keyFrom(request);
-  const out = (await Promise.all((batch ? body : [body]).map((m) => handle(m, rawKey)))).filter(Boolean);
+  // BRIEF 01 review: a batch's get_reading calls run ONE AT A TIME, in order, so each gate counts the rows the earlier ones inserted (run
+  // concurrently, 50 calls in one POST all passed a key's cap). Everything else stays concurrent. Races between separate requests are not closed here.
+  const drawing = (m) => !!m && m.method === 'tools/call' && m.params?.name === 'get_reading';
+  let chain = Promise.resolve();
+  const out = (await Promise.all((batch ? body : [body]).map((m) => {
+    if (!drawing(m)) return handle(m, rawKey);
+    const run = chain.then(() => handle(m, rawKey)); chain = run.catch(() => null); return run;
+  }))).filter(Boolean);
   if (!out.length) return new Response(null, { status: 202, headers: CORS }); // notifications only
   return Response.json(batch ? out : out[0], { headers: { ...CORS, 'Cache-Control': 'no-store', 'Mcp-Protocol-Version': PROTOCOL } });
 }
