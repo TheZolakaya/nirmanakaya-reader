@@ -3,6 +3,7 @@
 // (shared with /api/mcp, the connector door). v3.1.0: persist-then-interpret, requestId idempotency, readingId retrieval, format=text.
 import { runReading, fetchById, respond, ledger, apiDocs } from '../../../lib/externalReading.js';
 import { doorClosed, drawAllowed, CLOSED_MESSAGE } from '../../../lib/externalGate.js'; // .728: the off switch + the daily cap
+import { keyFrom } from '../../../lib/apiKeys.js'; // BRIEF 01 (2026-10-30): the caller's key — `key=` in the query string or the x-nkya-key header
 
 export const dynamic = 'force-dynamic';
 
@@ -15,11 +16,12 @@ export async function POST(request) {
     const body = await request.json();
     if (body.readingId) { const db = ledger(); const have = db ? await fetchById(db, body.readingId) : null; return have ? respond(have, body.format) : Response.json({ success: false, error: 'no reading with that id' }, { status: 404 }); }
     if (!body.question) return Response.json({ success: false, error: 'question is required' }, { status: 400 });
-    const gate = await drawAllowed(ledger(), body.requestId); if (gate) return Response.json({ success: false, error: gate.error }, { status: gate.status });
-    const result = await runReading({ ...body, mode: body.mode || 'discover', fast: body.fast !== undefined ? !!body.fast : false });
+    const gate = await drawAllowed(ledger(), body.requestId, keyFrom(request)); if (!gate.ok) return Response.json({ success: false, error: gate.error }, { status: gate.status });
+    const result = await runReading({ ...body, mode: body.mode || 'discover', fast: body.fast !== undefined ? !!body.fast : false }, { apiKey: gate.key });
     return respond(result, body.format);
   } catch (error) {
     if (error?.status === 409) return Response.json({ success: false, error: error.message, readingId: error.readingId || null }, { status: 409 }); // a requestId bound to another question
+    if (error?.status === 503) return Response.json({ success: false, error: error.message }, { status: 503 }); // BRIEF 01: a keyed reading that could not be recorded was not made
     console.error('External reading error:', error);
     return Response.json({ success: false, error: error.message || 'Failed to generate reading' }, { status: 500 });
   }
@@ -45,7 +47,7 @@ export async function GET(request) {
   if (!question) return Response.json(apiDocs());
 
   try {
-    const gate = await drawAllowed(ledger(), searchParams.get('requestId')); if (gate) return Response.json({ success: false, error: gate.error }, { status: gate.status });
+    const gate = await drawAllowed(ledger(), searchParams.get('requestId'), keyFrom(request)); if (!gate.ok) return Response.json({ success: false, error: gate.error }, { status: gate.status });
     const result = await runReading({
       question,
       context: searchParams.get('context') || '',
@@ -59,10 +61,11 @@ export async function GET(request) {
       collectiveScope: searchParams.get('collectiveScope') || null,
       scopeSubject: searchParams.get('scopeSubject') || null,
       stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' }
-    });
+    }, { apiKey: gate.key });
     return respond(result, format);
   } catch (error) {
     if (error?.status === 409) return Response.json({ success: false, error: error.message, readingId: error.readingId || null }, { status: 409 }); // a requestId bound to another question
+    if (error?.status === 503) return Response.json({ success: false, error: error.message }, { status: 503 }); // BRIEF 01: a keyed reading that could not be recorded was not made
     console.error('External reading error:', error);
     return Response.json({ success: false, error: error.message || 'Failed to generate reading' }, { status: 500 });
   }

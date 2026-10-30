@@ -391,6 +391,38 @@ export default function AdminPanel() {
   // Feature flags state
   const [featureFlags, setFeatureFlags] = useState(null);
   const [flagsSaving, setFlagsSaving] = useState(false);
+  // Keys tab state (BRIEF 01, 2026-10-30: per-caller keys for /api/external-reading and /api/mcp)
+  const [apiKeys, setApiKeys] = useState(null);
+  const [keysError, setKeysError] = useState(null);
+  const [keysBusy, setKeysBusy] = useState(false);
+  const [mintedKey, setMintedKey] = useState(null); // { label, key } — the plaintext, shown once
+  const [mintForm, setMintForm] = useState({ label: '', shape: 'SEAT', owner: '', dailyCap: '20' });
+
+  // Keys: list, mint, re-mint, revoke (all through /api/admin/keys, behind requireAdmin)
+  const loadApiKeys = async () => {
+    setKeysError(null);
+    try {
+      const res = await adminFetch('/api/admin/keys');
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setKeysError(data.error || `failed (${res.status})`); return; }
+      setApiKeys(data.keys || []);
+    } catch (err) { setKeysError(err.message); }
+  };
+  const keysAction = async (payload) => {
+    setKeysBusy(true); setKeysError(null);
+    try {
+      const res = await adminFetch('/api/admin/keys', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setKeysError(data.error || `failed (${res.status})`); return null; }
+      if (data.key) setMintedKey({ label: data.row?.label, key: data.key });
+      await loadApiKeys();
+      return data;
+    } catch (err) { setKeysError(err.message); return null; } finally { setKeysBusy(false); }
+  };
+  const mintApiKey = async () => {
+    const data = await keysAction({ action: 'mint', label: mintForm.label, shape: mintForm.shape, owner: mintForm.owner || null, dailyCap: mintForm.dailyCap });
+    if (data) setMintForm({ label: '', shape: 'SEAT', owner: '', dailyCap: '20' });
+  };
 
   // Generate Pulse Now
   const generatePulseNow = async () => {
@@ -936,6 +968,7 @@ export default function AdminPanel() {
               { id: 'pulse', label: 'Pulse', onClick: () => { setActiveTab('pulse'); loadPulseAdminSettings(); }},
               { id: 'email', label: 'Email', onClick: () => { setActiveTab('email'); loadEmailSettings(); }},
               { id: 'flags', label: 'Flags', onClick: () => { setActiveTab('flags'); loadFeatureFlags(); }},
+              { id: 'keys', label: 'Keys', onClick: () => { setActiveTab('keys'); setMintedKey(null); loadApiKeys(); }},
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1533,7 +1566,7 @@ export default function AdminPanel() {
                 {/* Persona */}
                 <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
                   <h3 className="text-sm font-medium text-violet-400 mb-2">Who reads this to you?</h3>
-                  <p className="text-xs text-zinc-500 mb-4">Default persona for the reader's voice</p>
+                  <p className="text-xs text-zinc-500 mb-4">Default persona for the reader&apos;s voice</p>
                   <div className="grid grid-cols-3 gap-2">
                     {[
                       { id: 'friend', label: '👋 Friend', icon: '👋' },
@@ -2670,6 +2703,89 @@ export default function AdminPanel() {
                 </div>
               ) : (
                 <p className="text-xs text-zinc-500">Loading feature flags...</p>
+              )}
+            </section>
+          </div>
+        )}
+
+        {/* KEYS TAB (BRIEF 01, 2026-10-30) */}
+        {activeTab === 'keys' && (
+          <div className="space-y-6 max-w-5xl">
+            <div>
+              <h2 className="text-xl font-light text-white">API Keys</h2>
+              <p className="text-xs text-zinc-500 mt-1">Keys for /api/external-reading and /api/mcp, sent as <span className="font-mono">key=…</span> on the URL or in the <span className="font-mono">x-nkya-key</span> header. Each key has its own daily cap; &quot;today&quot; is the last 24 hours. Calls without a key stay on the shared cap.</p>
+            </div>
+
+            {keysError && <p className="text-sm text-rose-400">{keysError}</p>}
+
+            {mintedKey && (
+              <section className="p-4 bg-amber-500/10 rounded-lg border border-amber-500/40 space-y-2">
+                <p className="text-sm text-amber-300">New key for <span className="font-medium">{mintedKey.label}</span>. Shown once: copy it now. Only its hash is kept.</p>
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 text-xs font-mono text-zinc-100 bg-zinc-900/80 px-3 py-2 rounded break-all select-all">{mintedKey.key}</code>
+                  <button onClick={() => { try { navigator.clipboard.writeText(mintedKey.key); } catch {} }} className="px-3 py-2 text-xs rounded bg-zinc-700 hover:bg-zinc-600 text-zinc-100">Copy</button>
+                  <button onClick={() => setMintedKey(null)} className="px-3 py-2 text-xs rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-400">Done</button>
+                </div>
+              </section>
+            )}
+
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30">
+              <h3 className="text-sm font-medium text-amber-400 mb-4">Mint a key</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider sm:col-span-2">Label
+                  <input value={mintForm.label} onChange={(e) => setMintForm({ ...mintForm, label: e.target.value })} placeholder="e.g. council-mind-seat" className="mt-1 w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-sm text-zinc-200 normal-case tracking-normal" />
+                </label>
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider">Shape
+                  <select value={mintForm.shape} onChange={(e) => setMintForm({ ...mintForm, shape: e.target.value })} className="mt-1 w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-sm text-zinc-200">
+                    <option value="SEAT">SEAT</option>
+                    <option value="DELEGATE">DELEGATE</option>
+                  </select>
+                </label>
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider">Daily cap
+                  <input type="number" min="0" value={mintForm.dailyCap} onChange={(e) => setMintForm({ ...mintForm, dailyCap: e.target.value })} className="mt-1 w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-sm text-zinc-200" />
+                </label>
+                <button onClick={mintApiKey} disabled={keysBusy || !mintForm.label.trim()} className="px-4 py-2 text-sm rounded bg-amber-600 hover:bg-amber-500 disabled:opacity-40 text-white">Mint</button>
+                <label className="text-[10px] text-zinc-500 uppercase tracking-wider sm:col-span-5">Owner
+                  <input value={mintForm.owner} onChange={(e) => setMintForm({ ...mintForm, owner: e.target.value })} placeholder={mintForm.shape === 'DELEGATE' ? 'the user id this key acts for (uuid)' : 'the seat this key belongs to (optional)'} className="mt-1 w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-sm text-zinc-200 normal-case tracking-normal" />
+                </label>
+              </div>
+              {mintForm.shape === 'DELEGATE' && <p className="text-[10px] text-zinc-500 mt-3">DELEGATE: saving its readings into the named user&apos;s history is not built yet (held for a ruling). Until then it reads like a SEAT key.</p>}
+            </section>
+
+            <section className="p-6 bg-zinc-800/30 rounded-lg border border-zinc-700/30 overflow-x-auto">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-medium text-amber-400">Keys</h3>
+                <button onClick={loadApiKeys} disabled={keysBusy} className="text-xs text-zinc-400 hover:text-amber-400">Refresh</button>
+              </div>
+              {!apiKeys ? (
+                <p className="text-xs text-zinc-500">{keysError ? 'Keys could not be loaded.' : 'Loading keys...'}</p>
+              ) : apiKeys.length === 0 ? (
+                <p className="text-xs text-zinc-500">No keys yet.</p>
+              ) : (
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="text-left text-zinc-500 uppercase tracking-wider text-[10px]">
+                      <th className="py-2 pr-3">Label</th><th className="py-2 pr-3">Shape</th><th className="py-2 pr-3">Owner</th><th className="py-2 pr-3 text-right">Today / cap</th><th className="py-2 pr-3">State</th><th className="py-2 pr-3">Last used</th><th className="py-2 pr-3">Created</th><th className="py-2"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {apiKeys.map((k) => (
+                      <tr key={k.id} className="border-t border-zinc-700/30 text-zinc-300">
+                        <td className="py-2 pr-3 font-mono">{k.label}</td>
+                        <td className="py-2 pr-3">{k.shape}</td>
+                        <td className="py-2 pr-3 font-mono text-zinc-400 break-all">{k.owner || '—'}</td>
+                        <td className="py-2 pr-3 text-right tabular-nums">{k.today ?? '?'} / {k.daily_cap}</td>
+                        <td className={`py-2 pr-3 ${k.active ? 'text-emerald-400' : 'text-rose-400'}`}>{k.active ? 'active' : 'revoked'}</td>
+                        <td className="py-2 pr-3 text-zinc-500">{k.last_used_at ? new Date(k.last_used_at).toLocaleString() : '—'}</td>
+                        <td className="py-2 pr-3 text-zinc-500">{new Date(k.created_at).toLocaleDateString()}</td>
+                        <td className="py-2 whitespace-nowrap text-right">
+                          {k.active && <button onClick={() => { if (window.confirm(`Revoke ${k.label}? It stops working at once.`)) keysAction({ action: 'revoke', id: k.id }); }} disabled={keysBusy} className="px-2 py-1 rounded bg-rose-900/40 hover:bg-rose-800/60 text-rose-300 mr-2">Revoke</button>}
+                          <button onClick={() => { if (window.confirm(`Re-mint ${k.label}? A new key is shown once and the current one stops working at once.`)) keysAction({ action: 'remint', id: k.id }); }} disabled={keysBusy} className="px-2 py-1 rounded bg-zinc-700 hover:bg-zinc-600 text-zinc-200">Re-mint</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </section>
           </div>

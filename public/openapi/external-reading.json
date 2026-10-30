@@ -17,6 +17,16 @@
         "summary": "Make one reading for a question (idempotent with requestId), or retrieve a persisted reading by readingId.",
         "parameters": [
           {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused (401). Without one, the shared daily limit applies."
+          },
+          {
             "name": "question",
             "in": "query",
             "required": false,
@@ -151,6 +161,18 @@
       "post": {
         "operationId": "postReading",
         "summary": "Make one reading (idempotent with requestId). Same fields as GET, in the body; fast defaults to false here.",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused (401). Without one, the shared daily limit applies."
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {

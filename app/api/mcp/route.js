@@ -5,11 +5,12 @@
 // pair ChatGPT expects: look a reading up in the ledger, fetch one as text).
 import { runReading, fetchById, ledger, asText, asGlass, glassPayload, API_VERSION } from '../../../lib/externalReading.js';
 import { doorClosed, drawAllowed, CLOSED_MESSAGE } from '../../../lib/externalGate.js'; // .728: the off switch + the daily cap
+import { keyFrom } from '../../../lib/apiKeys.js'; // BRIEF 01 (2026-10-30): the caller's key — `key=` on the /api/mcp URL or the x-nkya-key header
 import { VERSION } from '../../../lib/version.js';
 
 export const dynamic = 'force-dynamic';
 const PROTOCOL = '2025-06-18';
-const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Headers': 'Content-Type, Authorization, Mcp-Session-Id, Mcp-Protocol-Version', 'Access-Control-Expose-Headers': 'Mcp-Session-Id' };
+const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Headers': 'Content-Type, Authorization, Mcp-Session-Id, Mcp-Protocol-Version, x-nkya-key', 'Access-Control-Expose-Headers': 'Mcp-Session-Id' };
 
 const RULES = 'ONE GENUINE QUESTION = ONE DRAW. Always pass requestId (e.g. "<experiment>-<date>-<run>-cycle-<n>"); the first call with it makes the one draw and every later call with the same requestId AND the same question returns that same reading, never a second draw — so retry with the SAME requestId if anything fails. A requestId already bound to a DIFFERENT question is refused: one requestId names one question. Before a run, call search with your intended prefix; if anything exists, choose a new prefix. Never reuse a bound requestId for a new question. If status is "pending", call retrieve_reading with the readingId until it is "done". The response has two parts: "draws"/"cards" are the INSTRUMENT (the signature drawn, the seat it landed in, the status 1 Balanced / 2 Too Much / 3 Too Little / 4 Unacknowledged, and the medicine); "interpretation" is the reader\'s CURRENT WORDS. Read the draw yourself first.';
 
@@ -55,13 +56,13 @@ const ok = (id, result) => ({ jsonrpc: '2.0', id, result });
 const err = (id, code, message) => ({ jsonrpc: '2.0', id: id ?? null, error: { code, message } });
 const text = (t, structured) => ({ content: [{ type: 'text', text: t }], ...(structured ? { structuredContent: structured } : {}), isError: false });
 
-async function callTool(name, args = {}) {
+async function callTool(name, args = {}, rawKey = null) {
   const db = ledger();
   if (name === 'get_reading') {
     if (!args.question) throw new Error('question is required');
-    const gate = await drawAllowed(db, args.requestId); if (gate) throw new Error(gate.error);
+    const gate = await drawAllowed(db, args.requestId, rawKey); if (!gate.ok) throw new Error(gate.error); // BRIEF 01: a wrong, revoked or capped key comes back as the tool's error, not a reading
     // parity with the REST GET: the same arguments, the same stance — the transport adds nothing to the reading
-    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, prompt_set: args.prompt_set ? String(args.prompt_set) : null, /* Pass Two */ voice: ['plain', 'plainlit', 'plainshort', 'plainnouns', 'grown', 'deep', 'mystical', 'friend', 'coach', 'storyteller', 'mystic'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } });
+    const r = await runReading({ question: String(args.question), context: args.context ? String(args.context) : '', cardCount: parseInt(args.cardCount) || 1, mode: args.mode || 'discover', fast: args.fast !== false, prompt_set: args.prompt_set ? String(args.prompt_set) : null, /* Pass Two */ voice: ['plain', 'plainlit', 'plainshort', 'plainnouns', 'grown', 'deep', 'mystical', 'friend', 'coach', 'storyteller', 'mystic'].includes(args.voice) ? args.voice : 'plain', requestId: args.requestId || null, monitor: null, collectiveScope: null, scopeSubject: null, stance: { complexity: 'friend', voice: 'warm', focus: 'feel', density: 'essential', scope: 'here', seriousness: 'grounded' } }, { apiKey: gate.key });
     return args.glass === true ? text(asGlass(r), glassPayload(r)) : text(asText(r), r); // .688: glass = only what a person sees on the site
   }
   if (name === 'retrieve_reading' || name === 'fetch') {
@@ -87,7 +88,7 @@ async function callTool(name, args = {}) {
   throw new Error(`unknown tool ${name}`);
 }
 
-async function handle(msg) {
+async function handle(msg, rawKey = null) {
   if (!msg || msg.jsonrpc !== '2.0' || typeof msg.method !== 'string') return err(msg?.id, -32600, 'invalid request');
   const { id, method, params = {} } = msg;
   const isNotification = id === undefined || id === null;
@@ -96,7 +97,7 @@ async function handle(msg) {
     if (method.startsWith('notifications/')) return null;
     if (method === 'ping') return ok(id, {});
     if (method === 'tools/list') return ok(id, { tools: TOOLS });
-    if (method === 'tools/call') { const r = await callTool(params.name, params.arguments || {}); return isNotification ? null : ok(id, r); }
+    if (method === 'tools/call') { const r = await callTool(params.name, params.arguments || {}, rawKey); return isNotification ? null : ok(id, r); }
     if (method === 'resources/list') return ok(id, { resources: [] });
     if (method === 'prompts/list') return ok(id, { prompts: [] });
     return err(id, -32601, `method not found: ${method}`);
@@ -114,7 +115,8 @@ export async function POST(request) {
   let body;
   try { body = await request.json(); } catch { return Response.json(err(null, -32700, 'parse error'), { status: 400, headers: CORS }); }
   const batch = Array.isArray(body);
-  const out = (await Promise.all((batch ? body : [body]).map(handle))).filter(Boolean);
+  const rawKey = keyFrom(request);
+  const out = (await Promise.all((batch ? body : [body]).map((m) => handle(m, rawKey)))).filter(Boolean);
   if (!out.length) return new Response(null, { status: 202, headers: CORS }); // notifications only
   return Response.json(batch ? out : out[0], { headers: { ...CORS, 'Cache-Control': 'no-store', 'Mcp-Protocol-Version': PROTOCOL } });
 }
