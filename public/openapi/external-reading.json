@@ -24,7 +24,7 @@
               "type": "string",
               "maxLength": 200
             },
-            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused (401). Without one, the shared daily limit applies."
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies."
           },
           {
             "name": "question",
@@ -170,7 +170,7 @@
               "type": "string",
               "maxLength": 200
             },
-            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused (401). Without one, the shared daily limit applies."
+            "description": "Optional API key. The same key may be sent in the x-nkya-key header instead. With a key, that key's own daily limit applies; a key that is wrong or revoked is refused: this REST route returns 401; on /api/mcp it is a tool error (isError in an HTTP 200), because an HTTP 401 makes connectors start OAuth discovery. Without a key, the shared daily limit applies."
           }
         ],
         "requestBody": {
