@@ -110,6 +110,14 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 
 ## PART II: GROWTH PAIRS (Balanced State)
 
+### RULING 2026-11-02 — Growth is the twin (R-48, R-49)
+
+**The twin rule (R-48, founder, 2026-11-02):** the Balanced medicine, Growth, is the twin: swap Fire for Air and Earth for Water in all four dimensions (Practice, Activity, Being, Identity). It keeps the stage on all sixteen manifest seats, has no fixed point, and never lands on a vertical, diagonal or reduction pair. Eight rows change: Nurturing 3 ↔ Culture 5, Drive 7 ↔ Discipline 9, Faith 12 ↔ Tune 14, Breakthrough 16 ↔ Imagination 18. The other eight manifest pairs were already twins (2 ↔ 4, 6 ↔ 8, 11 ↔ 13, 15 ↔ 17); the Soul row (0→17, 1→8, 19→15, 20→6) and the portals (10 ↔ 21) are unchanged.
+
+**History:** the transpose (house↔designator) was the rule from 2021 to 2026-11-02; it is the same swap with two dimensions in hand; it remains 'composition with Wisdom' in the kernel.
+
+**Keep-side for the bounds (R-49, founder, 2026-11-02):** a manifest bound grows into the twin parent's bound on the SAME side (inner stays inner, outer stays outer), and an agent into the twin parent's agent; the corrections (V, D, R) keep their side flip, because each correction crosses the parent's half and the twin does not (Lumen's law: side XOR the parent's half is kept by every medicine). This supersedes the transpose tables below, the "polarity flip" growth line in THE LOGIC, and the Balanced columns of Parts III, V and VI for the 48 rows it changes; the authoritative values live in lib/corrections.js.
+
 ### Transpose Pairs — 12 Off-Diagonal Archetypes (Lateral Growth)
 
 | Archetype | Traditional | Growth Partner | Traditional | Dynamic |
