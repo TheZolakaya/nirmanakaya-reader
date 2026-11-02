@@ -43,6 +43,7 @@ import { promptSetFor, baseFor, recordOpts, wantsTele, openingOpts } from '../..
 import { soulBlock } from '../../lib/readerSoul'; // .777 THE READER'S SOUL FILE (pure: the block the page appends from /api/reader/soul)
 import { FEATURES, has as hasFeature, opensHow } from '../../lib/features'; // .779 THE TIERS — every capability belongs to a tier; the page asks
 import Glistener from '../../components/reader/Glistener'; // .779: the Glistener, ported from the full reader (tier 2)
+import FeedbackDoor, { useReadingFeedback } from '../../components/reader/FeedbackDoor'; // BRIEF 08 item 1: THE FEEDBACK DOOR — did this land?
 import { motion, AnimatePresence } from 'framer-motion'; // .784: the full reader's ghost stream, whole // Pass Two (2026-10-11): the prompt-set flag — ?prompt= for an admin; .758: form-1 is the default for everyone
 const EZ_DEFAULT_SET = 'form-1'; // .758: what you get when you go to Nirmanakaya (founder, 2026-10-13); the Handing is behind ?prompt=handing (admin)
 import { lintOutput } from '../../lib/bakeoff/lint'; // the scar tests, run on every reply (the garble guard)
@@ -1074,6 +1075,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
+  const feedback = useReadingFeedback(savedId); // BRIEF 08 item 1: one door, shown after the reading closes and as the small persistent control
   // .721 THE CRASH TRAIL: the page's own events, and the report of a mid-reading reset on the next load
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -2820,6 +2822,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       ) : voiceMsg && (
         <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[90vw] rounded-full border border-amber-500/40 bg-zinc-900/95 px-4 py-1.5 text-[0.8125rem] text-amber-100 shadow-xl">{voiceMsg}</div>
       )}
+      {savedId && turns.length > 0 && !animating && <FeedbackDoor fb={feedback} variant="persistent" lifted={!!speakingId || !!voiceMsg} />} {/* BRIEF 08 item 1: the persistent control, on the reading screen once the reading is saved */}
       {voiceToast && VOICE_NOTES[voiceToast] && (
         <div style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
           <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
@@ -3430,6 +3433,9 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                       </div>
                     </div>
                   )}
+                  {/* BRIEF 08 item 1, THE FEEDBACK DOOR: after the reading closes (the latest write-up), the person tells US — stored apart
+                      from the reading (reading_feedback), read by people, never by a model. The same door is the small control at the bottom left. */}
+                  {t.role === 'wrap' && ti === turns.length - 1 && !loading && <FeedbackDoor fb={feedback} />}
 
                 </div>
               ))}

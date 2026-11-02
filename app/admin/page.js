@@ -22,6 +22,7 @@ import {
   isAdmin,
 } from '../../lib/supabase';
 import TextSizeSlider from '../../components/shared/TextSizeSlider';
+import FeedbackTab from '../../components/admin/FeedbackTab'; // BRIEF 08 item 1: did this land? — the person's words, read by people
 
 const SUPER_ADMIN_EMAIL = 'chriscrilly@gmail.com';
 
@@ -969,6 +970,7 @@ export default function AdminPanel() {
               { id: 'email', label: 'Email', onClick: () => { setActiveTab('email'); loadEmailSettings(); }},
               { id: 'flags', label: 'Flags', onClick: () => { setActiveTab('flags'); loadFeatureFlags(); }},
               { id: 'keys', label: 'Keys', onClick: () => { setActiveTab('keys'); setMintedKey(null); loadApiKeys(); }},
+              { id: 'feedback', label: 'Feedback', onClick: () => setActiveTab('feedback') },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -2790,6 +2792,9 @@ export default function AdminPanel() {
             </section>
           </div>
         )}
+
+        {/* FEEDBACK TAB (BRIEF 08 item 1, 2026-11-02): newest first, filter by version and verdict, export CSV; loads when opened */}
+        {activeTab === 'feedback' && <FeedbackTab adminFetch={adminFetch} />}
       </main>
     </div>
   );
