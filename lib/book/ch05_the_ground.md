@@ -12,7 +12,7 @@ This chapter builds the floor. Everything that follows — the personal narrativ
 
 ---
 
-### Necessary Being
+### The Unnameable Ground
 
 Begin with the oldest question: Why is there something rather than nothing?
 
@@ -30,19 +30,19 @@ Try to conceive it. Really try. Push everything away. Remove all content from aw
 
 You can't. The conceiving is an act of consciousness. The pushing away is an act of consciousness. The very attempt to arrive at absolute nothingness generates the one thing you're trying to eliminate: awareness of the attempt.
 
-This is not a word game. It's a structural proof:
+This is not a word game. It's the reasoning behind the starting point — offered as the argument for the axiom, not as a proof:
 
 1. Assume total non-existence — the absence of everything, including consciousness.
 2. To conceive of this state requires consciousness.
 3. Therefore, consciousness is required even to posit its own absence.
 4. Therefore, consciousness cannot not-exist.
-5. Therefore, consciousness is necessary being.
+5. So the house takes consciousness as the place all knowing begins.
 
-Necessary being means: something that exists in all possible realities, because its non-existence is logically incoherent. Not *practically* difficult to eliminate. *Logically* impossible to remove.
+The house holds, as its working axiom, that consciousness is primary.
 
 This is Ring 0 in the Nirmanakaya framework — the ground beneath the ground. The undifferentiated awareness that cannot be named, cannot be fully known while individuality persists, and cannot be removed from any description of reality because the description itself is an act of the thing being described.
 
-Ring 0 is not a place. It's not a state you achieve. It's the condition that makes everything else possible — the necessary being from which all contingent being arises.
+Ring 0 is not a place. It's not a state you achieve. It's the condition that makes everything else possible — the Unnameable ground.
 
 Start here. Everything else follows.
 
@@ -50,7 +50,7 @@ Start here. Everything else follows.
 
 ### The Only Two Operations
 
-If consciousness is necessary being — if it cannot not-exist — then it exists. And if it exists, the question becomes: what does it do?
+If consciousness cannot not-exist, then it exists. And if it exists, the question becomes: what does it do?
 
 Not "what should it do" or "what would we like it to do." What must it do, given what it is?
 
@@ -128,7 +128,7 @@ For the atheist, the veil is the limit of perception — the recognition that no
 
 ### Six Things That Follow
 
-If consciousness is necessary being, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the ground we've established:
+If consciousness is primary, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the ground we've established:
 
 **One. Consciousness is fundamental, not emergent.**
 

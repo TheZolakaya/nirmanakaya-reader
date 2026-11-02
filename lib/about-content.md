@@ -425,7 +425,7 @@ Ring 0 is outside the navigable system. It is what cannot be known while individ
 
 **Ring 6** is balanced expression — harmonious exchange between wills. Two creators meeting as equals.
 
-**Ring 7** is imbalanced expression — hierarchy, extraction, control. One will dominating another.
+**Ring 7** is where actualization occurs, verb or noun; two faces on every ring.
 
 ### The Quadraverse: Physical Correlations
 

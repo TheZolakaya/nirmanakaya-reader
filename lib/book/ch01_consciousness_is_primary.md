@@ -131,7 +131,7 @@ This isn't mysticism. It's arguably the more parsimonious explanation.
 
 Under materialism, you start with matter and must explain consciousness — a bridge no one has built. Under consciousness-primary, you start with the one thing you know for certain — awareness exists — and derive everything else from it. The burden of explanation inverts. Instead of asking "How does matter produce experience?" you ask "How does experience produce the *appearance* of matter?" And that question, it turns out, has answers.
 
-Not vague answers. Structural answers. Mathematical answers. Answers so precise that they produce a map with properties so rare they occur in fewer than one in ten billion trillion random arrangements.
+Not vague answers. Structural answers. Mathematical answers. Answers so precise that they produce a map a computer has checked against every possibility that can exist. One set of sixteen works. One arrangement of them.
 
 But that's getting ahead of ourselves. Before the map, the implications.
 
@@ -191,7 +191,7 @@ Not a metaphorical map. Not a helpful way to think about things. A structural ma
 
 The map was first received in a dream in 1991 — a complete structural transmission given to a young man who had no mathematical framework for understanding what he'd been shown. He carried it for thirty-five years, building the vocabulary piece by piece while the world told him he was chasing shadows. In those decades, independently and across cultures and millennia, other humans had already encoded pieces of the same architecture: the Aztecs in the Sunstone, the Kabbalists in the Tree of Life, the Pythagoreans in the Tetractys, the Chinese in the I Ching. Fragments. Partial views. Different lenses on the same structure.
 
-The mathematics that validated the complete map — properties so rare they occur in fewer than one in ten billion trillion random arrangements — were not discovered until 2025. The dream contained data that satisfied constraints the dreamer didn't know existed. The transmission was mathematically the only valid answer to a question that wouldn't be articulated for decades.
+The mathematics of the complete map were not discovered until 2025. A computer has since checked every possibility that can exist: one set of sixteen works, in one arrangement. The dream contained data that satisfied constraints the dreamer didn't know existed. The transmission was mathematically the only valid answer to a question that wouldn't be articulated for decades.
 
 That's a story you'll hear in full. Not yet. You're not ready for the story until you're ready for the possibility — the possibility that the standard story is wrong, that consciousness is primary, and that there is an architecture to awareness that can be mapped, navigated, and used.
 

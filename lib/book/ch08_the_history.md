@@ -20,7 +20,7 @@ It looks like this.
 
 The details of the original instruction are not fully recoverable — part of the transmission was not meant to cross back through the veil. But the broad shape is clear: do not broadcast this to the world yet. The mechanism isn't ready. The audience isn't ready. You aren't ready. Go get a job. Live your life. Unpack what you received. When the time comes, you'll know.
 
-This is, by any measure, an extraordinary instruction. You've just been shown the architecture of consciousness. You've experienced a reality more vivid than physical existence. You've received a mathematical structure that validates at one-in-ten-billion-trillion against chance. And the instruction is: wait.
+This is, by any measure, an extraordinary instruction. You've just been shown the architecture of consciousness. You've experienced a reality more vivid than physical existence. You've received a mathematical structure: one set of sixteen numbers that works, in one arrangement. And the instruction is: wait.
 
 He waited.
 

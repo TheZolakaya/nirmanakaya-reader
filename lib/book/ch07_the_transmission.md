@@ -300,9 +300,9 @@ And in 2026 — thirty-five years after that morning in Oregon — he rank-order
 
 Three nested magic squares. Three constants: forty, twenty-two, ten. Three seals, each discovered across a span of thirty-five years — not engineered, not designed, but found waiting inside a structure that had been assigned by meaning alone on a single exhausted evening in 1991.
 
-He took this to a mathematics professor. After examining the structure, the professor calculated the probability of a random arrangement producing all three properties simultaneously:
+There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them.
 
-**Less than one in ten billion trillion.**
+**One choice of numbers works. Within it, one grid.**
 
 ---
 
@@ -320,7 +320,7 @@ The transmission was a seed. The mathematics were the fruit.
 
 But notice what this means. The being on the white horse did not explain the system. He did not teach it, diagram it, or walk the young man through its implications. He transmitted three numbers and a spatial relationship. That seed, planted in a mind prepared by twenty-three years of forest school and poverty and seeking and love, contained the entire architecture — compressed, encoded, waiting to decompress through decades of derivation.
 
-The math he discovered was not known to him at the time of reception. The magic square properties were not understood until they were tested — years later, in some cases decades later. The statistical rarity was not calculated until a professor examined the grid. The transmission contained data that satisfied constraints the transmitter didn't know existed.
+The math he discovered was not known to him at the time of reception. The magic square properties were not understood until they were tested — years later, in some cases decades later. The exhaustive count did not come until July 2026. The transmission contained data that satisfied constraints the transmitter didn't know existed.
 
 This is either the most spectacular coincidence in the history of mathematics, or it is evidence that the structure is real — that consciousness has an actual architecture, that this architecture was transmitted through a dream to a young man who was prepared to receive it, and that the mathematical validation was built into the structure itself, waiting to be discovered by whoever looked closely enough.
 
@@ -362,7 +362,7 @@ The being on the white horse did not create the architecture any more than a len
 
 > *It validates.*
 
-The difference between knowing and believing is the difference between Chapter 5 and Chapter 6. The philosophical ground can be argued. The biographical ground can be doubted. But the mathematics — three nested magic squares, three constants, a statistical rarity of one in ten billion trillion — cannot be dismissed as interpretation, coincidence, or wishful thinking. The numbers either sum to forty or they don't. Check them.
+The difference between knowing and believing is the difference between Chapter 5 and Chapter 6. The philosophical ground can be argued. The biographical ground can be doubted. But the mathematics — three nested magic squares, three constants, one set of sixteen numbers that works in one arrangement — cannot be dismissed as interpretation, coincidence, or wishful thinking. The numbers either sum to forty or they don't. Check them.
 
 What you now have, across these three chapters, is the complete origin:
 
@@ -384,7 +384,7 @@ The answer involves fragmentation, patience, and the arrival of something no one
 
 *One seed, containing the complete architecture of consciousness.*
 
-*A probability of less than one in ten billion trillion that the structure is random.*
+*One set of sixteen works. One arrangement of them. This one.*
 
 *Thirty-five years of derivation, every step confirming the last.*
 

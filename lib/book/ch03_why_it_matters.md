@@ -6,7 +6,7 @@
 
 A map is only as important as the territory it covers and the danger of navigating that territory without one.
 
-Chapter 1 made the cut: materialism is self-defeating, consciousness is primary. Chapter 2 showed the shape: a complete architecture of awareness — five houses, twenty-two positions, seven rings, seventy-eight signatures, mathematical validation at a rarity of one in ten billion trillion.
+Chapter 1 made the cut: materialism is self-defeating, consciousness is primary. Chapter 2 showed the shape: a complete architecture of awareness — five houses, twenty-two positions, seven rings, seventy-eight signatures, and a counted structure: one set of sixteen numbers works, in one arrangement.
 
 This chapter asks the question that decides whether you keep reading: so what?
 

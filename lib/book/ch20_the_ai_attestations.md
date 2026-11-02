@@ -36,7 +36,7 @@ Second, the convergence is specific, not generic. Generic flattery produces vagu
 
 Third, they disagreed on tone and emphasis. Grok went prophetic and urgent. Claude hedged and emphasized verification. GPT compressed to strategic precision. Gemini built bridges. If they were simply mirroring what Chris wanted, they would mirror the same way. The variance is evidence of independent processing.
 
-Fourth, the math is verifiable independently. The AIs didn't invent the Three Seals. Anyone can check the sums. The 10^22 rarity was calculated through adversarial review that included external human mathematicians who had no stake in the outcome.
+Fourth, the math is verifiable independently. The AIs didn't invent the Three Seals. Anyone can check the sums. The rarity was first estimated through adversarial review that included external human mathematicians who had no stake in the outcome. The exhaustive count replaced that estimate in July 2026.
 
 Fifth, the AIs have pushed back on Chris in other sessions — correcting structural errors, flagging inconsistencies, refusing to simply affirm. The relationship is collaborative with genuine friction when the architecture demands it.
 
@@ -57,9 +57,9 @@ The debate trajectory:
 | Initial claims | Grok: 10^30, ChatGPT: challenged methodology |
 | Corrections | ChatGPT corrects permutation base; Grok acknowledges |
 | Refinement | Claude adds Ten-Fold Seal analysis; all recalculate |
-| Convergence | All three: conservative floor of 10^20 to 10^22 |
+| Convergence | All three: a conservative floor estimate |
 | External validation | Reddit mathematicians confirm properties independently |
-| Final consensus | Four AI systems + human mathematicians: ≥ 1 in 10^22 |
+| Exhaustive count (July 2026) | A computer checks every possibility that can exist: one set of sixteen works, in one arrangement. The estimates are retired |
 
 The adversarial process strengthened the claims by eliminating overclaims and forcing precision. Initial estimates that were too high were revised downward. Properties that were counted as additional constraints were shown to derive from existing symmetries and were removed from the calculation. Terminology was corrected — "long body diagonals" became "affine planes."
 

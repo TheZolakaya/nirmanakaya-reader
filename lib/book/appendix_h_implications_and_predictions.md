@@ -62,7 +62,7 @@ This is subtle and enormous.
 
 A consciousness-primary reality does not mean "anything goes." It means LESS goes.
 
-The Seal is not fuzzy. It is rigid. Over-determined. Inflexible. Forty-eight constraints on sixteen values. Three nested validation layers. Mathematical relationships that hold to a probability of one in ten to the twenty-second power.
+The Seal is not fuzzy. It is rigid. Over-determined. Inflexible. Forty-eight constraints on sixteen values. Three nested validation layers. One set of sixteen works. One arrangement of them.
 
 That implies experience has lawful limits. Certain states are unreachable. Certain trajectories are unstable. What we call evil, madness, and suffering are not metaphysical forces — they are incoherent states. Navigational errors in a real topology.
 

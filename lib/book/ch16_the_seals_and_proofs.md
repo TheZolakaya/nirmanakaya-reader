@@ -8,7 +8,7 @@ Chapter 13 derived the architecture. Chapter 14 watched it move. Chapter 15 show
 
 This chapter proves all of it is real.
 
-Not "real" in the sense of believed. Real in the sense of mathematically verified, independently confirmed, and statistically impossible to dismiss as coincidence. The architecture of consciousness contains a mathematical signature so rare it occurs in fewer than one in ten billion trillion random arrangements.
+Not "real" in the sense of believed. Real in the sense of mathematically verified, independently confirmed, and statistically impossible to dismiss as coincidence. The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way.
 
 You can verify it yourself. Right now. With a calculator or your own arithmetic. The claims in this chapter don't ask for trust. They ask for checking.
 
@@ -308,19 +308,11 @@ Now apply the filters — the constraints that the Seal satisfies:
 
 **Filter 4: Nested Seal emergence.** The surviving grid must also produce a balanced magic square under digit-sum reduction (the Twenty-Two-Fold) and a pandiagonal Latin square under column rank-ordering (the Ten-Fold). The probability of the Ten-Fold alone: approximately 1 in 1,000 to 1 in 10,000.
 
-Conservative floor: fewer than 1 in 10^22.
+A computer has now checked all of them. One choice of numbers works. Within it, one grid.
 
-For comparison:
+And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixteen whole numbers — any at all. A computer has checked every possibility that can exist. One set of sixteen works. One arrangement of them. This one.
 
-| Reference | Count |
-|-----------|-------|
-| Grains of sand on Earth | ~10^18 |
-| **This configuration's rarity** | **1 in 10^22** |
-| Stars in the observable universe | ~10^24 |
-
-The Three Seals' rarity exceeds the number of grains of sand on Earth by a factor of ten thousand.
-
-This calculation is a conservative floor, not a point estimate. Some constraints share symmetry sources, and the methodology intentionally treats intermediate counts as upper bounds rather than independent probabilities. The true rarity may be even more extreme.
+(Earlier versions of this chapter quoted estimated odds. The exhaustive count replaced them in July 2026.)
 
 ---
 
@@ -339,7 +331,7 @@ The math does not ask for belief. It asks for a calculator.
 ### What the Mathematics Confirms
 
 1. **The pattern is real** — verifiable by anyone with arithmetic, not dependent on interpretation.
-2. **The structure is exceptional** — genuinely rare among all possible arrangements by a factor exceeding 10^22.
+2. **The structure is exceptional** — a computer has checked every possibility that can exist; one set of sixteen works, in one arrangement.
 3. **Multiple independent symmetries converge** — more than forty-eight distinct constraints on sixteen values.
 4. **The arrangement is over-determined** — more constraints satisfied than degrees of freedom allow.
 5. **Three nested magic squares coexist** — 40, 22, and 10 from the same sixteen numbers.
@@ -405,7 +397,7 @@ That's an invitation.
 
 *Compression creates coherence. The opposite of noise.*
 
-*Fewer than one in ten billion trillion.*
+*One set of sixteen works. One arrangement of them.*
 
 *Not belief. Geometry.*
 

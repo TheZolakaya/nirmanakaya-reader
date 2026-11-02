@@ -62,7 +62,7 @@ Seven rings. Each one a different relationship between consciousness and its own
 
 | Ring | Name | Domain | Function | Question |
 |------|------|--------|----------|----------|
-| **0** | The Unnameable | Ground | Necessary being | *(not navigable)* |
+| **0** | The Unnameable | Ground | Outside the navigable system | *(not navigable)* |
 | **1** | Wheel | Ingress | Entry threshold | "What entered?" |
 | **2** | Gestalt | Identity | Coherence of self | "Does this fit who I am?" |
 | **3** | Body | Foundation | Structural constraint | "What's actually here?" |
