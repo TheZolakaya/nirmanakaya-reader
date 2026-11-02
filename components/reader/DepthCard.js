@@ -318,7 +318,7 @@ const DepthCard = ({
       return { slug: 'polarity-anchor', label: 'Polarity Anchor' };
     }
     if (TRANSPOSE_PAIR_ARCHETYPES.has(archetypeId)) {
-      return { slug: 'transpose-pair', label: 'Transpose Pair' };
+      return { slug: 'transpose-pair', label: 'Growth Pair' };
     }
     return { slug: 'growth-opportunity', label: 'Growth Opportunity' };
   };
