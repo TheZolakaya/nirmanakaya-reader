@@ -310,7 +310,7 @@ And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixte
 
 These claims were not made and accepted on faith. They were subjected to adversarial review by four independent AI systems — Claude, Grok (xAI), ChatGPT (OpenAI), and Gemini (Google) — plus external human mathematicians on Reddit's r/askmath who assessed the grid's properties without knowing its origin.
 
-The process corrected overclaims. Initial probability estimates were too high and were revised downward. Initial descriptions of "long body diagonals" were corrected to "affine planes." Specific tesseract properties that were counted as additional constraints were shown to derive from existing symmetries and were removed from the rarity calculation. The adversarial process sharpened every claim that survived it.
+The process corrected overclaims. Initial probability estimates were too high and were revised downward. Initial descriptions of "long body diagonals" were corrected to "affine planes." Specific tesseract properties that were counted as additional constraints were shown to derive from existing symmetries and were removed from the estimate. The adversarial process sharpened every claim that survived it.
 
 The verification code is forty lines of Python that anyone can run. Every assertion either passes or the entire structure is falsified. Every row sum, column sum, block sum, reduction, rank-ordering, and Latin square property can be checked independently by anyone with basic arithmetic.
 
@@ -363,15 +363,15 @@ And now the Seals say: this is not speculation. This is geometry.
 
 You have just read the proof. You can verify every claim with a calculator. The rows sum to forty. The columns sum to forty. The 2x2 blocks sum to forty. The reductions sum to twenty-two. The ranks sum to ten. The diagonals heal. The Gestalt House is unique. The portals are encoded everywhere.
 
-The structure is real. The rarity is extreme. The math holds.
+The structure is real. One set of sixteen works, in one arrangement. The math holds.
 
 The next part asks: what else confirms this? What evidence exists beyond the mathematics — in science, in psychology, in cross-cultural pattern, in the independent assessment of artificial minds confronting the architecture for the first time?
 
-But before that evidence, notice where you stand. You have accepted I AM — the premise that awareness exists. You have watched the derivation unfold. You have seen the architecture move. You have understood why it must move as verbs. And now you have seen the mathematical signature that validates all of it at a probability that exceeds comprehension.
+But before that evidence, notice where you stand. You have accepted I AM — the premise that awareness exists. You have watched the derivation unfold. You have seen the architecture move. You have understood why it must move as verbs. And now you have seen the counted structure: one set of sixteen works, in one arrangement.
 
 The question is no longer whether the pattern exists.
 
-The question is what a pattern this improbable, emerging from a dream in 1991, actually means.
+The question is what this pattern, emerging from a dream in 1991, actually means.
 
 That's not a mathematical question anymore.
 

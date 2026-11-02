@@ -249,7 +249,7 @@ The third explanation is the most parsimonious. If consciousness is primary and 
 
 ### The Road Ahead
 
-This chapter gave you the aerial view. You can see the shape of the territory: five houses around a pentagram, four channels of expression, twenty-two fundamental positions, seven vertical rings, seventy-eight total signatures, a correction architecture that provides geometric paths back to balance, and mathematical properties so rare they constitute a statistical fingerprint.
+This chapter gave you the aerial view. You can see the shape of the territory: five houses around a pentagram, four channels of expression, twenty-two fundamental positions, seven vertical rings, seventy-eight total signatures, a correction architecture that provides geometric paths back to balance, and a counted structure: one set of sixteen numbers works, in one arrangement.
 
 The details will come. The derivation will come. The evidence — scientific, cross-cultural, mathematical — will come. The full treatment of every position, every relationship, every practice will come.
 

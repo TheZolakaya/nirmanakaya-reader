@@ -8,7 +8,7 @@ Part One asked the questions. Part Two tells the story.
 
 But the story needs ground to stand on — not the biographical ground of one person's life, which comes next, but the philosophical ground beneath everyone's life. The logical case for what this book proposes: that consciousness is primary, that it has structure, and that structure can be known.
 
-This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we establish here. Not on belief. Not on testimony. On the house's working axiom, that consciousness is primary, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
+This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we set out here. Not on belief. Not on testimony. On the house's working axiom, that consciousness is primary, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
 
 ---
 
@@ -40,9 +40,9 @@ This is not a word game. It's the reasoning behind the starting point — offere
 
 The house holds, as its working axiom, that consciousness is primary.
 
-This is Ring 0 in the Nirmanakaya framework — the ground beneath the ground. The undifferentiated awareness that cannot be named, cannot be fully known while individuality persists, and cannot be removed from any description of reality because the description itself is an act of the thing being described.
+Ring 0 is the Unnameable ground — the ground beneath the ground. The undifferentiated awareness that cannot be named, cannot be fully known while individuality persists, and cannot be removed from any description of reality because the description itself is an act of the thing being described.
 
-Ring 0 is not a place. It's not a state you achieve. It's the condition that makes everything else possible — the Unnameable ground.
+Ring 0 is not a place. It's not a state you achieve. It's the condition that makes everything else possible.
 
 Start here. Everything else follows.
 
@@ -160,13 +160,13 @@ This is not "everyone is special" as empty affirmation. It is a structural conse
 
 This is the philosophical floor.
 
-Consciousness exists necessarily. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three facts is a reality in which you are fundamental, purposeful, creative, irreplaceable, and — despite the veil — connected to everything.
+Consciousness is primary — the house's working axiom. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three is a reality in which you are fundamental, purposeful, creative, irreplaceable, and — despite the veil — connected to everything.
 
-These are not beliefs. They are the logical consequences of starting with the one thing you know for certain — that awareness exists — and following where the logic leads.
+This chapter gave the reasoning behind that starting point — offered as the argument for the axiom, not as a proof. The reasoning starts with the one thing you know for certain — that awareness exists — and follows where it leads.
 
 The next three chapters tell the story of how one person encountered this architecture directly. Not through philosophy. Through a lived experience so vivid that he carried it for thirty-five years, through poverty and doubt and fragmentation, until the mathematics caught up with what he'd been shown.
 
-The ground established here is the ground he was standing on without knowing it. The same ground you're standing on now.
+The ground set out here is the ground he was standing on without knowing it. The same ground you're standing on now.
 
 The story begins with a boy in Northern California, sleeping in a tent behind a borrowed house, stacking milk crates to make furniture, and looking out at golden hills that seemed, in certain light, to shimmer with something he couldn't name.
 

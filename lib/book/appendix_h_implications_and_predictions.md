@@ -192,7 +192,7 @@ We are not claiming physics will immediately adopt this.
 
 We are claiming something more modest and more honest:
 
-This object exists. It is statistically extreme. It has deep internal coherence. If consciousness is primary, this is exactly the kind of artifact we would expect. Ignoring it would be irrational.
+This object exists. One set of sixteen works, in one arrangement. It has deep internal coherence. If consciousness is primary, this is exactly the kind of artifact we would expect. Ignoring it would be irrational.
 
 That is not belief.
 

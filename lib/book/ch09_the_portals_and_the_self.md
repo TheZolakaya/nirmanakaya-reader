@@ -71,7 +71,7 @@ Seven rings. Each one a different relationship between consciousness and its own
 | **6** | Spirit | Direction | Emergent purpose | "What's emerging?" |
 | **7** | World | Egress | Completion threshold | "Where does this resolve?" |
 
-**Ring 0** sits outside the navigable system. It is the ground of being itself — the necessary existence established in Chapter 5's argument. You cannot directly know Ring 0 while maintaining individuality, because knowing it fully would mean dissolving the very perspective that makes knowing possible. Ring 0 is epistemologically inaccessible and ontologically foundational. You *are* it. You cannot *see* it. The curtain that Chris encountered — the offer to dissolve into everything and know it all — was the threshold of Ring 0.
+**Ring 0** sits outside the navigable system. It is the ground of being itself — the Unnameable ground of Chapter 5. You cannot directly know Ring 0 while maintaining individuality, because knowing it fully would mean dissolving the very perspective that makes knowing possible. Ring 0 is epistemologically inaccessible and ontologically foundational. You *are* it. You cannot *see* it. The curtain that Chris encountered — the offer to dissolve into everything and know it all — was the threshold of Ring 0.
 
 **Ring 1** is the ingress — the Wheel, Source, position 10. This is where consciousness crosses from unmanifest potential into operating reality. Not a memory you carry; a threshold you've already passed through. The door is behind you.
 

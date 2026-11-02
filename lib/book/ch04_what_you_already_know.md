@@ -168,7 +168,7 @@ Four chapters. Four questions. Four recognitions.
 
 *Chapter 1: Is consciousness primary?* The materialist story is self-defeating. The one thing you know for certain is awareness. The inversion changes everything.
 
-*Chapter 2: What would a map look like?* Five houses, twenty-two positions, seven rings, seventy-eight signatures. Mathematical validation at staggering rarity. A structure too precise to be random and too convergent across cultures to be invented.
+*Chapter 2: What would a map look like?* Five houses, twenty-two positions, seven rings, seventy-eight signatures. A counted structure: one set of sixteen numbers works, in one arrangement. A structure too convergent across cultures to be invented.
 
 *Chapter 3: Why does it matter?* Personal navigation. Collective coherence. AI alignment. Civilizational trajectory. The stakes are structural.
 

@@ -359,7 +359,7 @@ The Portal Seal is the teleological seal — it answers WHY.
 
 ## The Counted Structure
 
-**Starting population:** Approximately 1.56 x 10^18 possible arrangements of 16 numbers drawn from 22 consecutive integers (2-9, 11-18) in a 4x4 grid.
+**Starting population:** Approximately 1.56 x 10^18 possible arrangements of 16 of the 22 archetypes (positions 2-9 and 11-18) in a 4x4 grid.
 
 **A computer has now checked all 1.56 quintillion. One choice of numbers works. Within it, one grid.**
 
