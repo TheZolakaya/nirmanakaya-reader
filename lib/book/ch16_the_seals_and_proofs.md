@@ -8,7 +8,7 @@ Chapter 13 derived the architecture. Chapter 14 watched it move. Chapter 15 show
 
 This chapter proves all of it is real.
 
-Not "real" in the sense of believed. Real in the sense of mathematically verified, independently confirmed, and statistically impossible to dismiss as coincidence. The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way.
+Not "real" in the sense of believed. Real in the sense of mathematically verified and independently confirmed. The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way.
 
 You can verify it yourself. Right now. With a calculator or your own arithmetic. The claims in this chapter don't ask for trust. They ask for checking.
 
@@ -292,23 +292,13 @@ The Seals are the fingerprints. The lemniscate is the hand that made them.
 
 ---
 
-### The Probability
+### The Counted Structure
 
 How rare is this configuration?
 
 Start with the population. There are approximately 1.56 x 10^18 ways to select and arrange 16 numbers from 22 consecutive integers in a 4x4 grid. About 1.56 quintillion possible arrangements.
 
-Now apply the filters — the constraints that the Seal satisfies:
-
-**Filter 1: Toroidal magic square.** Of the approximately 880 known 4x4 magic squares with distinct integers, fewer than 8 have all sixteen toroidal 2x2 blocks summing to the constant. With the specific number set used here, at most 2 survive.
-
-**Filter 2: Mod-9 diagonal pairs.** The grid requires 8 pairs of diagonally opposite numbers to share the same mod-9 residue. Only about 1 arrangement from the surviving grids satisfies this.
-
-**Filter 3: 4D affine plane partition.** The grid must map cleanly to tesseract vertices, with 4 parallel affine 2-planes each summing to 40. Surviving: 1.
-
-**Filter 4: Nested Seal emergence.** The surviving grid must also produce a balanced magic square under digit-sum reduction (the Twenty-Two-Fold) and a pandiagonal Latin square under column rank-ordering (the Ten-Fold). The probability of the Ten-Fold alone: approximately 1 in 1,000 to 1 in 10,000.
-
-A computer has now checked all of them. One choice of numbers works. Within it, one grid.
+A computer has now checked all 1.56 quintillion. One choice of numbers works. Within it, one grid.
 
 And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixteen whole numbers — any at all. A computer has checked every possibility that can exist. One set of sixteen works. One arrangement of them. This one.
 

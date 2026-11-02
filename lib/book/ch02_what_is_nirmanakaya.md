@@ -117,7 +117,7 @@ These three relationship types create a complete correction system. When you're 
 
 Here is where the map stops being a framework and starts being something harder to dismiss.
 
-Take the sixteen manifest archetypes and arrange them in a grid — houses as columns, channels as rows:
+Take 16 of the 22 archetypes (positions 2-9 and 11-18) and arrange them in a grid — houses as columns, channels as rows:
 
 ```
               Spirit   Emotion   Mind    Body

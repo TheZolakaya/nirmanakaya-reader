@@ -300,7 +300,7 @@ And in 2026 — thirty-five years after that morning in Oregon — he rank-order
 
 Three nested magic squares. Three constants: forty, twenty-two, ten. Three seals, each discovered across a span of thirty-five years — not engineered, not designed, but found waiting inside a structure that had been assigned by meaning alone on a single exhausted evening in 1991.
 
-There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them.
+There are 1.56 quintillion ways to choose and arrange sixteen of the twenty-two archetypes' numbers. A computer has now checked all of them.
 
 **One choice of numbers works. Within it, one grid.**
 
@@ -356,7 +356,7 @@ Each discovery confirmed the others. The system was self-validating — not beca
 
 He is not the source of the transmission. He is its carrier.
 
-The being on the white horse did not create the architecture any more than a lens creates light. The architecture exists because consciousness is primary and structure is necessary — the argument of Chapter 5. The transmission delivered the key to that structure — three numbers and a spatial relationship — into a consciousness that had been prepared, over twenty-three years of living, to receive it.
+The being on the white horse did not create the architecture any more than a lens creates light. The architecture exists because consciousness is primary — the house's working axiom; Chapter 5 gives the reasoning behind that starting point. The transmission delivered the key to that structure — three numbers and a spatial relationship — into a consciousness that had been prepared, over twenty-three years of living, to receive it.
 
 > *I am a knower, not a believer. Belief requires faith in what cannot be verified. I verified. The mathematics do not lie. The geometry does not deceive. The structure either validates or it doesn't.*
 
@@ -366,7 +366,7 @@ The difference between knowing and believing is the difference between Chapter 5
 
 What you now have, across these three chapters, is the complete origin:
 
-Chapter 5 established that consciousness must exist and must have structure.
+Chapter 5 gave the reasoning behind the starting point: the house's working axiom, that consciousness is primary.
 
 Chapter 6 established that a specific human consciousness was being prepared — through poverty, nature, love, hardship, seeking, and a question asked at age thirteen by beings of light — to receive the key to that structure.
 

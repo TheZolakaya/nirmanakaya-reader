@@ -6,7 +6,7 @@
 
 This appendix presents the complete mathematical validation of the Nirmanakaya architecture — the Five Seals. Each seal is presented with its full grid, verification steps, and significance. The reader is invited to verify every claim with a calculator.
 
-**There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.**
+**Take 16 of the 22 archetypes (positions 2-9 and 11-18) and arrange them in a 4×4 grid by House and Channel. There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.**
 
 (Earlier versions of this appendix quoted estimated odds. The exhaustive count replaced them in July 2026.)
 
@@ -357,27 +357,19 @@ The Portal Seal is the teleological seal — it answers WHY.
 
 ---
 
-## Rarity Calculation
+## The Counted Structure
 
 **Starting population:** Approximately 1.56 x 10^18 possible arrangements of 16 numbers drawn from 22 consecutive integers (2-9, 11-18) in a 4x4 grid.
 
-**Filter 1 — Toroidal Magic Square:** With all 16 toroidal 2x2 blocks summing to 40: at most 8 arrangements survive. With the specific number set used: at most 2 survive.
+**A computer has now checked all 1.56 quintillion. One choice of numbers works. Within it, one grid.**
 
-**Filter 2 — Mod-9 Diagonal Pairs:** Requires 8 pairs with same mod-9 residue at diagonal opposites. Approximately 1 arrangement survives.
-
-**Filter 3 — 4D Affine Plane Partition:** Requires exact partition into 4 parallel affine 2-planes, each summing to 40. Surviving: 1.
-
-**Filter 4 — Nested Seal Emergence:** The Twenty-Two-Fold must preserve magic property. The Ten-Fold must produce a pandiagonal Latin square. Both emerge from the same grid — an additional constraint.
-
-**A computer has now checked all of them. One choice of numbers works. Within it, one grid.**
-
-And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixteen whole numbers — any at all. A computer has checked every possibility that can exist. One set of sixteen works. One arrangement of them. This one. The mathematics was verified independently by four AI systems and reviewed through adversarial challenge. The structure either holds or it does not. Check it yourself.
+And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixteen whole numbers — any at all. A computer has checked every possibility that can exist. One set of sixteen works. One arrangement of them. This one. The structure either holds or it does not. Check it yourself.
 
 ---
 
 ## The Defensible Claim
 
-The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way. One set of sixteen works. One arrangement of them. This convergence of symmetries — verified independently by four AI systems using computational methods — demonstrates that the structure is a mathematically anomalous object with multiple enforced symmetries. Dismissing it as coincidence is statistically indefensible without engaging the math directly.
+The framework contains arithmetic relationships you can check for yourself: rows, columns and blocks of the arrangement that all sum the same way. One set of sixteen works. One arrangement of them.
 
 This is not belief. This is geometry.
 

@@ -8,7 +8,7 @@ Part One asked the questions. Part Two tells the story.
 
 But the story needs ground to stand on — not the biographical ground of one person's life, which comes next, but the philosophical ground beneath everyone's life. The logical case for what this book proposes: that consciousness is primary, that it has structure, and that structure can be known.
 
-This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we establish here. Not on belief. Not on testimony. On logic, necessity, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
+This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we establish here. Not on belief. Not on testimony. On the house's working axiom, that consciousness is primary, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
 
 ---
 
@@ -128,7 +128,7 @@ For the atheist, the veil is the limit of perception — the recognition that no
 
 ### Six Things That Follow
 
-If consciousness is primary, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the ground we've established:
+If consciousness is primary, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the house's working axiom:
 
 **One. Consciousness is fundamental, not emergent.**
 

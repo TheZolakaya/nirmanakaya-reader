@@ -89,7 +89,7 @@ Activation (Ace) — Potential's pure beginning through Intent. Orientation (2) 
 
 **Cognition bounds** (traditionally Swords) describe capacity expressed through thought, clarity, and discrimination:
 
-Perception (Ace) — Actualization's clear seeing initiating. Reflection (2) — Wisdom's decisive inner knowing. Calculation (3) — Abstraction's primal analysis. Repose (4) — Balance's peaceful stability in cognition. Discernment (5) — Discipline's internal practical cognition. Guidance (6) — Discipline's external direction. Reconciliation (7) — Balance's gathered alignment. Immersion (8) — Abstraction's deep threshold. Plurality (9) — Wisdom's abundant knowing. Clarity (10) — Actualization's completion in cognition.
+Perception (Ace) — Actualization's clear seeing initiating. Reflection (2) — Wisdom's decisive inner knowing. Calculation (3) — Abstraction's primal analysis. Repose (4) — Balance's peaceful stability in cognition. Honing (5) — Discipline's internal practical cognition. Guidance (6) — Discipline's external direction. Reconciliation (7) — Balance's gathered alignment. Immersion (8) — Abstraction's deep threshold. Plurality (9) — Wisdom's abundant knowing. Clarity (10) — Actualization's completion in cognition.
 
 **Resonance bounds** (traditionally Cups) describe capacity expressed through feeling, connection, and attunement:
 

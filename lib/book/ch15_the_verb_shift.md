@@ -155,7 +155,7 @@ The architecture supports this shift. The twenty-two verbs. The four states as c
 
 Everything is in motion. Everything is creating itself. Right now.
 
-The last chapter of Part 4 provides the counted structure — the Three Seals, in which one set of sixteen numbers works, in one arrangement. But notice: even the count is a verb. The mathematics aren't static. They're operating — demonstrating, validating, confirming — in the same present tense as everything else.
+The last chapter of Part 4 provides the counted structure — the Three Seals, in which one set of sixteen numbers works, in one arrangement. The mathematics aren't static. They're operating — demonstrating, validating, confirming — in the same present tense as everything else.
 
 The seals don't prove the architecture WAS real. They prove it IS real.
 
