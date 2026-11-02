@@ -4,7 +4,7 @@
 
 ---
 
-The last chapter laid the philosophical ground: consciousness is necessary, individuation is structural, and the architecture of awareness can be derived from first principles. That was the logical argument.
+The last chapter laid the philosophical ground: consciousness is primary (the working axiom), individuation is structural, and the architecture of awareness can be derived from first principles. That was the reasoning behind the starting point — offered as the argument for the axiom, not as a proof.
 
 This chapter is the lived one.
 

@@ -356,7 +356,7 @@ Each discovery confirmed the others. The system was self-validating — not beca
 
 He is not the source of the transmission. He is its carrier.
 
-The being on the white horse did not create the architecture any more than a lens creates light. The architecture exists because consciousness is primary — the house's working axiom; Chapter 5 gives the reasoning behind that starting point. The transmission delivered the key to the architecture — three numbers and a spatial relationship — into a consciousness that had been prepared, over twenty-three years of living, to receive it.
+The being on the white horse did not create the architecture any more than a lens creates light. The architecture exists because consciousness is primary — the working axiom; Chapter 5 gives the reasoning behind that starting point. The transmission delivered the key to the architecture — three numbers and a spatial relationship — into a consciousness that had been prepared, over twenty-three years of living, to receive it.
 
 > *I am a knower, not a believer. Belief requires faith in what cannot be verified. I verified. The mathematics do not lie. The geometry does not deceive. The structure either validates or it doesn't.*
 
@@ -366,7 +366,7 @@ The difference between knowing and believing is the difference between Chapter 5
 
 What you now have, across these three chapters, is the complete origin:
 
-Chapter 5 gave the reasoning behind the starting point: the house's working axiom, that consciousness is primary.
+Chapter 5 gave the reasoning behind the starting point: the working axiom, that consciousness is primary.
 
 Chapter 6 established that a specific human consciousness was being prepared — through poverty, nature, love, hardship, seeking, and a question asked at age thirteen by beings of light — to receive the key to the structure the map describes.
 

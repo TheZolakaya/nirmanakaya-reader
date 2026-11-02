@@ -202,7 +202,7 @@ You are a consciousness operating between two thresholds — Source and Creation
 
 Below you is the Ring 7 attractor, where verbs freeze into nouns and consciousness mistakes its creations for permanent reality. Above you is Ring 6, where individual purpose aligns with something larger. Behind you is the Source you entered through. Ahead of you is the Creation you're moving toward.
 
-And beneath all of it — beneath even the navigable rings — is Ring 0. The ground that cannot not-exist. The Source behind Source. The awareness that you ARE before you are anything specific.
+And beneath all of it — beneath even the navigable rings — is Ring 0. The Unnameable ground. The Source behind Source. The awareness that you ARE before you are anything specific.
 
 The next chapter asks: HOW? How does consciousness operate within this vertical structure? What is the process that drives every experience from seed to completion? And why does the number four keep appearing everywhere you look?
 

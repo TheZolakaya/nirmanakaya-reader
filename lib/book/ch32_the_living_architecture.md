@@ -155,7 +155,7 @@ In this geometry:
 
 Twenty-eight reduces to 10 (2+8 = 10), which reduces to 1. The number of paths that sum to 40 itself points to Source. The architecture's self-reference operates at every level.
 
-The tesseract is not a metaphor. It is the actual geometric structure that the sixteen manifest archetypes occupy — the four-dimensional space whose constraints force the Seal's properties. Of every way to choose and arrange sixteen whole numbers, a computer has checked them all: one set of sixteen works, in one arrangement. The architecture is not a grid with interesting properties. It is a four-dimensional crystal whose symmetries are mathematically exact.
+The tesseract is not a metaphor. It is the actual geometric structure that the sixteen manifest archetypes occupy — the four-dimensional space whose constraints force the Seal's properties. A computer has checked every possibility that can exist: one set of sixteen works, in one arrangement. The architecture is not a grid with interesting properties. It is a four-dimensional crystal whose symmetries are mathematically exact.
 
 ---
 

@@ -8,7 +8,7 @@ Part One asked the questions. Part Two tells the story.
 
 But the story needs ground to stand on — not the biographical ground of one person's life, which comes next, but the philosophical ground beneath everyone's life. The logical case for what this book proposes: that consciousness is primary, that it has structure, and that structure can be known.
 
-This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we set out here. Not on belief. Not on testimony. On the house's working axiom, that consciousness is primary, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
+This chapter builds the floor. Everything that follows — the personal narrative, the transmission, the mathematics, the map itself — stands on what we set out here. Not on belief. Not on testimony. On the working axiom, that consciousness is primary, and the consequences of taking consciousness seriously enough to ask what follows if it's fundamental.
 
 ---
 
@@ -36,9 +36,9 @@ This is not a word game. It's the reasoning behind the starting point — offere
 2. To conceive of this state requires consciousness.
 3. Therefore, consciousness is required even to posit its own absence.
 4. Therefore, consciousness cannot not-exist.
-5. So the house takes consciousness as the place all knowing begins.
+5. So the book takes consciousness as the place all knowing begins.
 
-The house holds, as its working axiom, that consciousness is primary.
+The book holds, as its working axiom, that consciousness is primary.
 
 Ring 0 is the Unnameable ground — the ground beneath the ground. The undifferentiated awareness that cannot be named, cannot be fully known while individuality persists, and cannot be removed from any description of reality because the description itself is an act of the thing being described.
 
@@ -50,7 +50,7 @@ Start here. Everything else follows.
 
 ### The Only Two Operations
 
-If consciousness cannot not-exist, then it exists. And if it exists, the question becomes: what does it do?
+If consciousness is primary — the working axiom — the question becomes: what does it do?
 
 Not "what should it do" or "what would we like it to do." What must it do, given what it is?
 
@@ -128,7 +128,7 @@ For the atheist, the veil is the limit of perception — the recognition that no
 
 ### Six Things That Follow
 
-If consciousness is primary, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the house's working axiom:
+If consciousness is primary, if it creates through P/R alternation, and if individuation requires the veil, then six conclusions follow. Not as beliefs to be adopted, but as structural consequences of the working axiom:
 
 **One. Consciousness is fundamental, not emergent.**
 
@@ -160,7 +160,7 @@ This is not "everyone is special" as empty affirmation. It is a structural conse
 
 This is the philosophical floor.
 
-Consciousness is primary — the house's working axiom. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three is a reality in which you are fundamental, purposeful, creative, irreplaceable, and — despite the veil — connected to everything.
+Consciousness is primary — the working axiom. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three is a reality in which you are fundamental, purposeful, creative, irreplaceable, and — despite the veil — connected to everything.
 
 This chapter gave the reasoning behind that starting point — offered as the argument for the axiom, not as a proof. The reasoning starts with the one thing you know for certain — that awareness exists — and follows where it leads.
 
@@ -172,7 +172,7 @@ The story begins with a boy in Northern California, sleeping in a tent behind a 
 
 ---
 
-*Consciousness cannot not-exist.*
+*Consciousness is primary — the working axiom.*
 
 *It creates through two operations: differentiation and integration.*
 
@@ -180,4 +180,4 @@ The story begins with a boy in Northern California, sleeping in a tent behind a 
 
 *You are the whole, looking through one pair of eyes, creating something only you can create.*
 
-*That's not a belief. That's where the logic lands when you start from what you actually know.*
+*That's the reasoning behind the starting point — offered as the argument for the axiom, not as a proof.*

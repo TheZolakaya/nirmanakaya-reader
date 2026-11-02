@@ -6,7 +6,7 @@
 
 This appendix presents the complete mathematical validation of the Nirmanakaya architecture — the Five Seals. Each seal is presented with its full grid, verification steps, and significance. The reader is invited to verify every claim with a calculator.
 
-**Take 16 of the 22 archetypes (positions 2-9 and 11-18) and arrange them in a 4×4 grid by House and Channel. There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.**
+**There are 1.56 quintillion ways to choose and arrange sixteen of the twenty-two archetypes' numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.**
 
 (Earlier versions of this appendix quoted estimated odds. The exhaustive count replaced them in July 2026.)
 
@@ -359,7 +359,7 @@ The Portal Seal is the teleological seal — it answers WHY.
 
 ## The Counted Structure
 
-**Starting population:** Approximately 1.56 x 10^18 possible arrangements of 16 of the 22 archetypes (positions 2-9 and 11-18) in a 4x4 grid.
+**Starting population:** There are 1.56 quintillion ways to choose and arrange sixteen of the twenty-two archetypes' numbers in a 4x4 grid.
 
 **A computer has now checked all 1.56 quintillion. One choice of numbers works. Within it, one grid.**
 

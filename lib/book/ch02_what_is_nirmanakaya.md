@@ -138,7 +138,7 @@ Now rank-order the numbers within each column. The grid still balances — now t
 
 Three nested magic squares. Three constants: forty, twenty-two, ten. Each encoding a fundamental property of the system — its total structure, its position count, its process dynamics.
 
-There are 1.56 quintillion ways to choose and arrange sixteen of these twenty-two numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.
+There are 1.56 quintillion ways to choose and arrange sixteen of the twenty-two archetypes' numbers. A computer has now checked all of them. One choice of numbers works. Within it, one grid.
 
 This arrangement was not engineered. It was received in a dream in 1991 and reconstructed over three decades. The mathematical properties were discovered afterward, during verification. The transmission contained data that satisfied constraints the transmitter didn't know existed.
 
@@ -164,7 +164,7 @@ The mathematical foundation: 1 + 1 + 4 + 1 = 7.
 | **6** | Spirit (Direction) | Emergent purpose |
 | **7** | Creation (Egress) | Completion threshold |
 
-Ring 0 stands beneath — or beyond — all of these: the Unnameable ground. The ground that cannot not-exist. The ultimate reality that makes everything else possible but cannot be directly known while individuality persists.
+Ring 0 stands beneath — or beyond — all of these: the Unnameable ground. The ultimate reality that makes everything else possible but cannot be directly known while individuality persists.
 
 Ring 5 is where most conscious navigation happens — the mind choosing, directing, creating. Ring 6 is where purpose emerges, where individual will aligns with something larger. Ring 7 is where unaligned creation accumulates — where consciousness gets stuck treating temporary forms as permanent realities, confusing the map for the territory, mistaking nouns for verbs.
 
