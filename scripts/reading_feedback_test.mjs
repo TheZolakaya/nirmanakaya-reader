@@ -97,6 +97,9 @@ console.log('THE ROUTE (POST /api/reading-feedback):');
   const row = db.tables.reading_feedback.find((x) => x.reading_id === OLD);
   check('a reading with no recorded prompt set → prompt_set null (never guessed)', r.status === 200 && row?.prompt_set === null);
   check('text capped at 4000', row?.text?.length === 4000);
+  await handleFeedbackPost(post({ readingId: OLD, verdict: 'not_for_me', text: '🌱'.repeat(4001) }), asUser(ME));
+  const row2 = db.tables.reading_feedback.find((x) => x.reading_id === OLD);
+  check('text capped at 4000 CHARACTERS (as the SQL char_length counts), no emoji split', Array.from(row2.text).length === 4000 && !/[\uD800-\uDBFF](?![\uDC00-\uDFFF])/.test(row2.text));
 }
 
 console.log('THE ROUTE (GET /api/reading-feedback):');

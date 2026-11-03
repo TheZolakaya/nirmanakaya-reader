@@ -1148,7 +1148,9 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     + (u.output_tokens || 0) * MODEL_PRICING.sonnet.output) / 1e4;
   const endRef = useRef(null);
   const saveTimer = useRef(null);
+  const answerRef = useRef(null); // BRIEF 08 fix round 4: THE answer box, by ref (data-ez-answer) — never a placeholder lookup, which could land on the feedback field
   const lastSaveRef = useRef(null); // BRIEF 08 fix round 3: what the timed save last wrote (all but the mark), so a mark-only write skips the summary
+  const markSummarizedRef = useRef(false); // BRIEF 08 fix round 4: markLanding has summarised since the timed save last fired
 
   // Gate: signed in AND (admin OR ez_enabled flag). Then load the history block.
   // Runs on mount and again the moment someone signs in, so the door opens in place.
@@ -1208,11 +1210,14 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     saveTimer.current = setTimeout(() => {
       // BRIEF 08 fix round 3: when the only thing that changed since this effect's last write is the mark, the write still happens (so
       // the mark is kept) but the summary is skipped — markLanding has already asked for one. One tap, one summary.
+      // Fix round 4: and once markLanding has summarised since the last timed write, only new TURNS earn another summary — a voice
+      // piece or a ledger row alone does not. Otherwise the rule is as it was.
       const inputs = { savedId, turns, usage, panelLog, pieces: voiceSpend.pieces, ledgerLen: ledger.length };
       const prev = lastSaveRef.current; lastSaveRef.current = inputs;
-      const onlyMark = !!prev && Object.keys(inputs).every((k) => prev[k] === inputs[k]);
+      const marked = markSummarizedRef.current; markSummarizedRef.current = false;
+      const skipSummary = (!!prev && Object.keys(inputs).every((k) => prev[k] === inputs[k])) || (marked && !!prev && prev.savedId === savedId && prev.turns === turns);
       updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}), ...(ledger.length ? { ledger: ledger.slice(-200), cents: Math.round(usd * 1e5) / 1e3 } : {}) } }, usage, ...(ledger.length ? { estimatedCost: usd + (voiceSpend.usd || 0) } : {}) }) /* .788: the per-call ledger + the cost priced by the model that answered, words + voice */ /* .713 + the panels · .746 + the voice ledger */
-        .then(() => { const n = turns.length; if (!onlyMark && (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap')) summarize(savedId, n > 1); })
+        .then(() => { const n = turns.length; if (!skipSummary && (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap')) summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
@@ -1985,7 +1990,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const runOffer = (o) => {
     if (!o) return; setOffer(null); setInput('');
     const words = String(o.text || '').trim();
-    if (o.tool === 'reflect' || o.tool === 'forge') { sayLabel(o.tool); setFieldMode(o.tool); if (words) send(words, o.tool); else { try { setTimeout(() => document.querySelector('textarea[placeholder^="Ask the field"], textarea[placeholder^="Declare"], textarea[placeholder^="Answer"]')?.focus(), 120); } catch {} } return; }
+    if (o.tool === 'reflect' || o.tool === 'forge') { sayLabel(o.tool); setFieldMode(o.tool); if (words) send(words, o.tool); else { try { setTimeout(() => answerRef.current?.focus(), 120); /* BRIEF 08 fix round 4: the answer box by ref (was a placeholder lookup) */ } catch {} } return; }
     if (o.tool === 'find') { sayLabel('find-it'); send(words && o.from === 'you' ? words : 'Help me find which thing this is.', 'locate', { locate: words || 'the thing this turn is pointing at' }); return; }
     if (lastReader) openDoor(lastReader, o.tool);
   };
@@ -2326,6 +2331,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
     try {
       await updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, resolution: k, ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}) } } });
       summarize(savedId, true); // the mark rides into the summary the suggester reads
+      markSummarizedRef.current = true; // BRIEF 08 fix round 4: the timed save need not summarise again unless the turns change
     } catch {}
   };
 
@@ -2499,7 +2505,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       <button onClick={landOnQuestion} title="down to the question and the box" className="rounded-full border bg-zinc-950 px-2 py-0.5 text-[0.625rem] sm:px-2.5 sm:text-[0.6875rem] tracking-wide whitespace-nowrap transition-colors border-zinc-600 text-zinc-300 hover:bg-zinc-800">Answer ↓</button>
     </div>
   );
-  const landOnQuestion = () => { try { const q = document.querySelector('[data-question-frame]') || document.querySelector('textarea[placeholder^="Answer"]'); q?.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch {} }; // .763 (founder, item 20): the one way down to the question and the box
+  const landOnQuestion = () => { try { const q = document.querySelector('[data-question-frame]') || answerRef.current; /* BRIEF 08 fix round 4: was textarea[placeholder^="Answer"] */ q?.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch {} }; // .763 (founder, item 20): the one way down to the question and the box
   const showPanels = (kind) => { setTimeout(() => { try {
     const el = (kind && document.querySelector(`[data-ez-panel="${kind}"]`)) || panelsRef.current;
     if (!el) return;
@@ -3483,7 +3489,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
               </div>
             )}
             <div className="mt-4 relative">
-              <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={3}
+              <textarea ref={answerRef} data-ez-answer="" value={input} onChange={(e) => setInput(e.target.value)} rows={3}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(undefined, undefined, claiming ? { claim: true } : undefined); setClaiming(false); } }}
                 placeholder={claiming ? 'Name it in your own words — whatever you have got…' : fieldMode === 'reflect' ? 'Ask the field…' : fieldMode === 'forge' ? 'Declare what you will do…' : 'Answer in your own words…'}
                 style={{ '--pill': '251 191 36' }} className="pill-breathe block w-full resize-y rounded-xl bg-zinc-900/70 border border-zinc-700/60 px-4 pt-3 pb-14 text-[1.0625rem] leading-relaxed text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-500/60" />
@@ -3569,7 +3575,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                 })()}
                 {lastReader?.locating && !lastReader.located && !loading && (
                   <div className="flex flex-wrap justify-center gap-2 mt-1">
-                    <button onClick={() => { setClaiming(true); try { document.querySelector('textarea[placeholder]')?.focus(); } catch {} }}
+                    <button onClick={() => { setClaiming(true); try { answerRef.current?.focus(); /* BRIEF 08 fix round 4: was querySelector('textarea[placeholder]'), which could find the feedback field first */ } catch {} }}
                       className="px-3 py-1.5 rounded-full border border-violet-500/40 text-[0.8125rem] text-violet-200 hover:bg-violet-900/20">
                       I've got it — let me name it
                     </button>

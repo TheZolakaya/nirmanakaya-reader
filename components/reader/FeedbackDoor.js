@@ -8,17 +8,24 @@
 // a tap outside, on Escape, or on its ×; the pill hides while the inline door is on screen (one question at a time).
 // Fix round 2: the field waits for a tap that SAVED; the reading's mark follows only a saved tap; waiting words go out on pagehide and
 // on a hidden tab; the field is 16px (no iOS zoom); an open panel never vanishes while the inline door scrolls into view.
+// Fix round 4: the session header the closing page sends is kept fresh (the load, every token refresh, the tab coming back, typing);
+// the field is hidden, not greyed, until a tap has saved; the × has a 44px hit area; the panel closes on a TAP outside, never a scroll;
+// the field carries data-feedback-field and is never found by the reader's own focus logic (which now uses a ref to its answer box).
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { readingAuth } from '../../lib/supabase';
+import { supabase, readingAuth } from '../../lib/supabase';
 
 export const FEEDBACK_CHOICES = [['landed', 'landed'], ['partly', 'partly'], ['not_for_me', 'not for me']];
 const QUESTION = 'did this land?';
 const PLACEHOLDER = 'anything you want us to know (optional)';
 const TEXT_SAVE_MS = 1200;
 
-let lastAuth = {}; // the last session header a save used, kept so a page that is closing can send without awaiting the session
+let lastAuth = {}; // the freshest session header, kept so a page that is closing can send without awaiting the session
+let lastAuthAt = 0;
+const keepAuth = (h) => { if (h?.Authorization) { lastAuth = h; lastAuthAt = Date.now(); } return h || {}; };
+/** Re-read the session (readingAuth refreshes a token that is about to expire). Cheap; throttled to once per 30 s unless forced. */
+const refreshAuth = async (force = false) => { if (!force && Date.now() - lastAuthAt < 30000) return lastAuth; try { return keepAuth(await readingAuth()); } catch { return lastAuth; } };
 async function post(readingId, verdict, text) {
-  const send = async (force) => { const h = await readingAuth({ force }); if (h.Authorization) lastAuth = h; return fetch('/api/reading-feedback', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ readingId, verdict, text }) }); };
+  const send = async (force) => { const h = keepAuth(await readingAuth({ force })); return fetch('/api/reading-feedback', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ readingId, verdict, text }) }); };
   try {
     let r = await send(false);
     if (r.status === 401) r = await send(true);
@@ -50,7 +57,7 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
     let on = true;
     if (readingId) (async () => { // what this person already said about this reading, so a second visit shows it and a tap updates it
       try {
-        const r = await fetch(`/api/reading-feedback?readingId=${encodeURIComponent(readingId)}`, { headers: { ...(await readingAuth()) } });
+        const r = await fetch(`/api/reading-feedback?readingId=${encodeURIComponent(readingId)}`, { headers: { ...(await refreshAuth(true)) } }); // the load also fills the closing page's header
         const j = await r.json().catch(() => ({}));
         const f = j?.feedback;
         if (!on || !f || s.touched) return;
@@ -75,10 +82,12 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
           .then((r) => { if (r.ok && live.current === c) c.saved = t; }).catch(() => {});
       } catch { /* nothing more can be done as the page goes */ }
     };
-    const onVis = () => { if (document.visibilityState === 'hidden') sendNow(); };
+    const onVis = () => { if (document.visibilityState === 'hidden') sendNow(); else refreshAuth(true); }; // back in view: the header is re-read
     window.addEventListener('pagehide', sendNow);
     document.addEventListener('visibilitychange', onVis);
-    return () => { window.removeEventListener('pagehide', sendNow); document.removeEventListener('visibilitychange', onVis); };
+    let sub = null; // every token refresh (and sign-in) replaces the header the closing page would send; a sign-out clears it
+    try { sub = supabase?.auth?.onAuthStateChange((_e, session) => { if (session?.access_token) keepAuth({ Authorization: `Bearer ${session.access_token}` }); else { lastAuth = {}; lastAuthAt = 0; } })?.data?.subscription || null; } catch { sub = null; }
+    return () => { window.removeEventListener('pagehide', sendNow); document.removeEventListener('visibilitychange', onVis); try { sub?.unsubscribe(); } catch {} };
   }, []);
 
   const choose = useCallback(async (v) => {
@@ -109,6 +118,7 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
   const setText = useCallback((t) => {
     const c = live.current; if (!c.verdict || c.pending) return; // the field is closed until a tap has SAVED (it is disabled on screen too)
     c.touched = true; c.text = t; setTextState(t);
+    refreshAuth(); // typing keeps the closing page's header fresh (throttled to once per 30 s)
     clearTimeout(c.timer);
     c.timer = setTimeout(() => { flush(); }, TEXT_SAVE_MS);
   }, [flush]);
@@ -130,11 +140,12 @@ function Choices({ fb }) {
 }
 
 function Field({ fb }) {
-  const open = !!fb.confirmed && !fb.pending; // nothing can be typed until a tap has SAVED, so nothing typed can be lost
+  if (!fb.confirmed) return null; // hidden until a tap has SAVED: no dead box, and nothing can be typed that has no row to go to
+  const open = !fb.pending; // a later tap in flight holds the field still for a moment
   return ( // 16px: below that, iOS Safari zooms the page when the field takes focus
-    <textarea value={fb.text} onChange={(e) => fb.setText(e.target.value)} onBlur={() => fb.flush()} rows={2} maxLength={4000}
+    <textarea data-feedback-field="" value={fb.text} onChange={(e) => fb.setText(e.target.value)} onBlur={() => fb.flush()} rows={2} maxLength={4000}
       disabled={!open} placeholder={PLACEHOLDER} aria-label={PLACEHOLDER}
-      className={`mt-2 w-full resize-y rounded-lg border border-zinc-700/60 bg-zinc-950/60 px-3 py-2 text-[16px] text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-opacity ${open ? '' : 'opacity-40 cursor-not-allowed'}`} />
+      className={`mt-2 w-full resize-y rounded-lg border border-zinc-700/60 bg-zinc-950/60 px-3 py-2 text-[16px] text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-opacity ${open ? '' : 'opacity-60'}`} />
   );
 }
 
@@ -145,11 +156,18 @@ function Persistent({ fb, lifted }) {
   const close = useCallback(() => { flush(); setOpen(false); }, [flush]);
   useEffect(() => {
     if (!open) return undefined;
-    const outside = (e) => { if (box.current && !box.current.contains(e.target)) close(); };
+    // a TAP outside closes it: down and up outside, with no movement between (a scroll or a drag never closes it)
+    let start = null;
+    const down = (e) => { start = box.current && !box.current.contains(e.target) ? { x: e.clientX, y: e.clientY, id: e.pointerId } : null; };
+    const up = (e) => { const s = start; start = null; if (!s || s.id !== e.pointerId || !box.current || box.current.contains(e.target)) return; if (Math.hypot(e.clientX - s.x, e.clientY - s.y) <= 10) close(); };
+    const cancel = () => { start = null; }; // the browser took the gesture for a scroll
     const esc = (e) => { if (e.key === 'Escape') close(); };
-    document.addEventListener('pointerdown', outside);
+    document.addEventListener('pointerdown', down);
+    document.addEventListener('pointerup', up);
+    document.addEventListener('pointercancel', cancel);
+    document.addEventListener('scroll', cancel, true);
     document.addEventListener('keydown', esc);
-    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', esc); };
+    return () => { document.removeEventListener('pointerdown', down); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', cancel); document.removeEventListener('scroll', cancel, true); document.removeEventListener('keydown', esc); };
   }, [open, close]);
   if (fb.inlineVisible && !open) return null; // the door after the reading is on screen: one question at a time — but an OPEN panel stays until it is closed (never vanishes mid-typing)
   return (
@@ -157,8 +175,9 @@ function Persistent({ fb, lifted }) {
       style={{ bottom: `calc(${lifted ? '4rem' : '0.75rem'} + env(safe-area-inset-bottom, 0px))` }}>
       {open ? (
         <div className="relative w-[19rem] max-w-full rounded-xl border border-zinc-700/70 bg-zinc-900/95 backdrop-blur-sm p-3 shadow-2xl">
+          {/* a 44px hit area; the × itself is the same size and in the same place as before */}
           <button type="button" onClick={close} aria-label="close"
-            className="absolute right-1.5 top-1 px-1.5 text-[1rem] leading-none text-zinc-500 hover:text-zinc-200">×</button>
+            className="absolute -right-1.5 -top-2.5 flex h-11 w-11 items-start justify-end pr-[18px] pt-3.5 text-[1rem] leading-none text-zinc-500 hover:text-zinc-200">×</button>
           <div className="text-center text-[0.75rem] tracking-[0.06em] text-emerald-300/80 mb-2 px-5">{QUESTION}</div>
           <Choices fb={fb} />
           <Field fb={fb} />
