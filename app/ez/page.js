@@ -62,6 +62,7 @@ import { useBackdropPrefs, Backdrop, CornerControls, isLean } from '../../compon
 import Footer from '../../components/layout/Footer';
 
 const EZ_VERSION = 'ez-2';
+const LANDING_OF_FEEDBACK = { landed: 'landed', partly: 'open', not_for_me: 'missed' }; // BRIEF 08 item 1: the feedback door's verdict → the .511 mark
 const STATUS_COLOR = { 1: '#34d399', 2: '#fbbf24', 3: '#38bdf8', 4: '#a78bfa' };
 
 // THE VOICES. The founder's wife read her first reading on 2026-09-14 and could not use it: "it
@@ -1075,7 +1076,10 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedId, setSavedId] = useState(null);
-  const feedback = useReadingFeedback(savedId); // BRIEF 08 item 1: one door, shown after the reading closes and as the small persistent control
+  // BRIEF 08 item 1: one door, shown after the reading closes and as the small persistent control. It replaces the .511 row on screen
+  // (True, 11-02 §2) and still sets that row's mark on the reading, which the summary and the suggester read (lib/readingSummary.js):
+  // landed → 'landed', partly → 'open', not for me → 'missed'. A verdict read back on a later visit restores the mark in state only.
+  const feedback = useReadingFeedback(savedId, { onChoose: (v) => markLanding(LANDING_OF_FEEDBACK[v]), onLoad: (v) => setResolution(LANDING_OF_FEEDBACK[v] || null) });
   // .721 THE CRASH TRAIL: the page's own events, and the report of a mid-reading reset on the next load
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -2822,7 +2826,7 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
       ) : voiceMsg && (
         <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[90vw] rounded-full border border-amber-500/40 bg-zinc-900/95 px-4 py-1.5 text-[0.8125rem] text-amber-100 shadow-xl">{voiceMsg}</div>
       )}
-      {savedId && turns.length > 0 && !animating && <FeedbackDoor fb={feedback} variant="persistent" lifted={!!speakingId || !!voiceMsg} />} {/* BRIEF 08 item 1: the persistent control, on the reading screen once the reading is saved */}
+      {savedId && turns.some((x) => x.role === 'wrap') && !animating && <FeedbackDoor fb={feedback} variant="persistent" lifted={!!speakingId || !!voiceMsg} />} {/* BRIEF 08 item 1: the persistent control, once the saved reading has a closing turn (the write-up); it steps aside while the door under the write-up is on screen */}
       {voiceToast && VOICE_NOTES[voiceToast] && (
         <div style={{ marginTop: 'var(--safe-top, 0px)' }} className="fixed top-3 right-14 z-50 max-w-[16rem] rounded-xl border border-zinc-700/60 bg-zinc-900/95 backdrop-blur-sm px-3 py-2 shadow-2xl" role="status" aria-live="polite">
           <div className={`text-[0.8125rem] font-medium ${voiceToast === 'plain' ? 'text-amber-200' : voiceToast === 'grown' ? 'text-violet-200' : voiceToast === 'deep' ? 'text-cyan-200' : voiceToast === 'mystical' ? 'text-rose-200' : 'text-zinc-200'}`}>{VOICE_NOTES[voiceToast][0]}</div>
@@ -3417,22 +3421,10 @@ YOUR LAST REPLY WAS SET ASIDE: ${pf[0].detail}. Write the floor again, same mean
                   {fitRow(t)} {/* .760 (founder, 2026-10-13): THE FIT ROW — under the geometry disclosure, above the moves, inside the reading's frame; only the latest turn that made a hunch shows it (fitRow checks) */}
                   {['reader', 'catchup', 'wrap'].includes(t.role) && !t.pending && !loading && movesRow(t)} {/* .755 (founder): the moves sit on the reading's own bottom line, latest turn included; the .749 hoist is retired */}
 
-                  {/* DID IT LAND? (.511) — after the write-up, three taps in the reading's own voice. Not a survey:
-                      did you figure it out? The mark is saved with the reading, carried into its summary, and the
-                      Personalized suggester reads it — an open thread is the best next question; a landed one is done. */}
-                  {t.role === 'wrap' && !loading && (
-                    <div className="mt-4 text-center">
-                      <div className="text-[0.625rem] uppercase tracking-[0.18em] text-emerald-300/60 mb-2">{resolution ? 'noted' : 'did it land?'}</div>
-                      <div className="flex flex-wrap justify-center gap-2">
-                        {[['landed', "I've got it"], ['open', 'Still turning it over'], ['missed', "That wasn't it"]].map(([k, label]) => (
-                          <button key={k} onClick={() => markLanding(k)}
-                            className={`px-3 py-1.5 rounded-lg border text-[0.8125rem] transition-colors ${resolution === k ? 'border-emerald-400/70 bg-emerald-950/40 text-emerald-100' : 'border-zinc-700/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`}>
-                            {label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {/* DID IT LAND? (.511) — the row's three taps ("I've got it / Still turning it over / That wasn't it") are retired from the
+                      screen (True, 11-02 §2: one question, not two). Its mark lives on: markLanding is unchanged, and the door below calls it
+                      on every tap (landed → landed, partly → open, not for me → missed), so the summary and the Personalized suggester read
+                      what they read before. */}
                   {/* BRIEF 08 item 1, THE FEEDBACK DOOR: after the reading closes (the latest write-up), the person tells US — stored apart
                       from the reading (reading_feedback), read by people, never by a model. The same door is the small control at the bottom left. */}
                   {t.role === 'wrap' && ti === turns.length - 1 && !loading && <FeedbackDoor fb={feedback} />}
