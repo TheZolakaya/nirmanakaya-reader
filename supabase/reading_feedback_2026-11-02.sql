@@ -18,3 +18,9 @@ revoke all on table public.reading_feedback from anon, authenticated;
 drop policy if exists "reading_feedback insert own" on public.reading_feedback;
 create index if not exists reading_feedback_created_idx on public.reading_feedback (created_at desc);
 create index if not exists reading_feedback_version_verdict_idx on public.reading_feedback (version, verdict);
+-- The text length check, also when the table already existed (create table if not exists would skip it): safe to run twice.
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'reading_feedback_text_len' and conrelid = 'public.reading_feedback'::regclass) then
+    alter table public.reading_feedback add constraint reading_feedback_text_len check (text is null or char_length(text) <= 4000);
+  end if;
+end $$;

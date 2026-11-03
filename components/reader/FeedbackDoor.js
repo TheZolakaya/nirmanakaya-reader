@@ -128,7 +128,7 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
 
 function Choices({ fb }) {
   return (
-    <div className={`flex flex-wrap justify-center gap-2 ${fb.failed ? 'rounded-lg ring-1 ring-rose-500/50' : ''}`}>
+    <div className={`flex flex-wrap justify-center gap-2 ${fb.failed ? 'rounded-lg ring-2 ring-rose-400' : ''}`}>
       {FEEDBACK_CHOICES.map(([k, label]) => (
         <button key={k} type="button" onClick={() => fb.choose(k)} aria-pressed={fb.verdict === k}
           className={`px-3 py-1.5 rounded-lg border text-[0.8125rem] transition-colors ${fb.pending === k ? 'animate-pulse ' : ''}${fb.verdict === k ? 'border-emerald-400/70 bg-emerald-950/40 text-emerald-100' : 'border-zinc-700/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`}>
