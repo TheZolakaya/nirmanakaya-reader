@@ -1165,7 +1165,7 @@ function TriageSidebar({ triage, seed, showSeed, setShowSeed, onRegenerate, draw
 
         {/* Being Health */}
         {beingHealth && (
-          <SidebarSection title="BEING (What?)" titleColor="#10b981" help="Four kinds of experiential substance — Mantle (force beneath), Kindle (knowing through), Vessel (form around), Passage (freedom away). Each group has one archetype from every Practice and Activity.">
+          <SidebarSection title="BEING (What?)" titleColor="#10b981" help="Four kinds of experiential substance — Mantle (force beneath), Kindle (knowing through), Vessel (form around), Flow (freedom away). Each group has one archetype from every Practice and Activity.">
             {Object.entries(BEING_GROUPS).map(([groupName, groupDef]) => {
               const health = beingHealth[groupName];
               if (!health) return null;

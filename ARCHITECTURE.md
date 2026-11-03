@@ -124,10 +124,10 @@ Each bound has `number` (1–10), `channel`, parent `archetype`, `horizon` (inne
 Roles: **Initiate** (Page), **Catalyst** (Knight), **Steward** (Queen), **Executor** (King). Each has channel, parent archetype, traditional name, horizon, and a nickname (e.g. "The Judge" = King of Swords). **Agents always represent the querent's own consciousness, never external people.**
 
 ### Group structures (`lib/constants.js`)
-- **Being groups:** Mantle, Kindle, Vessel, Passage
+- **Being groups:** Mantle, Kindle, Vessel, Flow
 - **Identity groups:** Composure, Conviction, Exploration, Intimacy
 
-> Current nomenclature is locked: **Kindle / Passage / Intimacy / Underlie** (formerly Torch / Clearing / Communion / Mantle-Create).
+> Current nomenclature is locked: **Kindle / Flow / Intimacy / Underlie** (formerly Torch / Clearing, then Passage until R-60 / Communion / Mantle-Create).
 
 ---
 

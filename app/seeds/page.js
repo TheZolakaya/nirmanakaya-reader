@@ -37,7 +37,7 @@ const SEEDS = {
     paths: {
       Practice:  { group: 'Emotion',    verb: 'Will',        color: '#4ade80', seq: [6, 7, 13, 14] },
       Activity:  { group: 'Resonance',  verb: 'Connect',     color: '#ef4444', seq: [6, 5, 11, 18] },
-      Being:     { group: 'Passage',    verb: 'Release',     color: '#fbbf24', seq: [6, 9, 17, 16] },
+      Being:     { group: 'Flow',       verb: 'Release',     color: '#fbbf24', seq: [6, 9, 17, 16] },
       Identity:  { group: 'Intimacy',   verb: 'Merge',       color: '#a855f7', seq: [6, 3, 15, 12] },
     }
   }
@@ -67,7 +67,7 @@ const BEING_DEFS = {
   Mantle:  { verb: 'Underlie',   members: [8, 7, 15, 18] },
   Kindle:  { verb: 'Understand', members: [2, 5, 13, 12] },
   Vessel:  { verb: 'Hold',       members: [4, 3, 11, 14] },
-  Passage: { verb: 'Release',    members: [6, 9, 17, 16] },
+  Flow:    { verb: 'Release',    members: [6, 9, 17, 16] },
 };
 const IDENTITY_DEFS = {
   Composure:   { verb: 'Center',  members: [8, 5, 17, 14] },

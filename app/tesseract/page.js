@@ -6,7 +6,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 // Grid: cols=Practice(Spirit=00, Mind=01, Emotion=10, Body=11)
 //        rows=Activity(Intent=00, Cognit=01, Reson=10, Struct=11)
 // Verified against Council_Posit_Fourth_Dimension_Healing_Matrix.md:
-//   G3 (Passage) = {0000, 0111, 1010, 1101} = {17, 16, 6, 9} — subgroup of Z₂⁴
+//   G3 (Flow) = {0000, 0111, 1010, 1101} = {17, 16, 6, 9} — subgroup of Z₂⁴
 const VERTICES = {
   17: { bits: [0,0,0,0], name: 'Inspiration' },   // Spirit, Intent
    7: { bits: [1,0,0,0], name: 'Drive' },          // Emotion, Intent
@@ -31,7 +31,7 @@ const BEING = {
   Mantle:  { ids: [8,7,15,18],  color: '#fbbf24' },
   Kindle:  { ids: [2,5,13,12],  color: '#22d3ee' },
   Vessel:  { ids: [4,3,11,14],  color: '#4ade80' },
-  Passage: { ids: [6,9,17,16],  color: '#fb7185' },
+  Flow:    { ids: [6,9,17,16],  color: '#fb7185' },
 };
 
 // Identity groups

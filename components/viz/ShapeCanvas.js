@@ -30,17 +30,17 @@ const ADDRESSES = {
   3:  { practice: 'Spirit',  activity: 'Structure', being: 'Vessel',  identity: 'Intimacy',    stage: 'Bridge'   },
   4:  { practice: 'Mind',    activity: 'Intent',    being: 'Vessel',  identity: 'Exploration', stage: 'Seed'     },
   5:  { practice: 'Mind',    activity: 'Resonance', being: 'Kindle',  identity: 'Composure',   stage: 'Bridge'   },
-  6:  { practice: 'Emotion', activity: 'Resonance', being: 'Passage', identity: 'Intimacy',    stage: 'Seed'     },
+  6:  { practice: 'Emotion', activity: 'Resonance', being: 'Flow',    identity: 'Intimacy',    stage: 'Seed'     },
   7:  { practice: 'Emotion', activity: 'Intent',    being: 'Mantle',  identity: 'Conviction',  stage: 'Bridge'   },
   8:  { practice: 'Body',    activity: 'Structure', being: 'Mantle',  identity: 'Composure',   stage: 'Seed'     },
-  9:  { practice: 'Body',    activity: 'Cognition', being: 'Passage', identity: 'Exploration', stage: 'Bridge'   },
+  9:  { practice: 'Body',    activity: 'Cognition', being: 'Flow',    identity: 'Exploration', stage: 'Bridge'   },
   11: { practice: 'Body',    activity: 'Resonance', being: 'Vessel',  identity: 'Conviction',  stage: 'Fruition' },
   12: { practice: 'Body',    activity: 'Intent',    being: 'Kindle',  identity: 'Intimacy',    stage: 'Feedback' },
   13: { practice: 'Emotion', activity: 'Structure', being: 'Kindle',  identity: 'Exploration', stage: 'Fruition' },
   14: { practice: 'Emotion', activity: 'Cognition', being: 'Vessel',  identity: 'Composure',   stage: 'Feedback' },
   15: { practice: 'Mind',    activity: 'Cognition', being: 'Mantle',  identity: 'Intimacy',    stage: 'Fruition' },
-  16: { practice: 'Mind',    activity: 'Structure', being: 'Passage', identity: 'Conviction',  stage: 'Feedback' },
-  17: { practice: 'Spirit',  activity: 'Intent',    being: 'Passage', identity: 'Composure',   stage: 'Fruition' },
+  16: { practice: 'Mind',    activity: 'Structure', being: 'Flow',    identity: 'Conviction',  stage: 'Feedback' },
+  17: { practice: 'Spirit',  activity: 'Intent',    being: 'Flow',    identity: 'Composure',   stage: 'Fruition' },
   18: { practice: 'Spirit',  activity: 'Resonance', being: 'Mantle',  identity: 'Exploration', stage: 'Feedback' },
 };
 const MANIFEST_IDS = Object.keys(ADDRESSES).map(Number);
@@ -194,7 +194,7 @@ function PlaceholderForm({ id, status }) {
   });
 
   const geo = addr.being === 'Kindle' ? <octahedronGeometry args={[0.8, 0]} />
-    : addr.being === 'Passage' ? <torusGeometry args={[0.7, 0.2, 16, 48]} />
+    : addr.being === 'Flow' ? <torusGeometry args={[0.7, 0.2, 16, 48]} />
     : addr.being === 'Vessel' ? <cylinderGeometry args={[0.75, 0.4, 1, 5, 1, true]} />
     : <icosahedronGeometry args={[0.8, 0]} />;
 

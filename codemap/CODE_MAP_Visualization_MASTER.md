@@ -27,7 +27,7 @@
 ## THE DATA CONTRACT (for new graphics)
 
 - Structural data: `ARCHETYPES`(0-21)/`BOUNDS`(22-61)/`AGENTS`(62-77) from `@/lib/archetypes`. ID-range = type. Archetype fields: `house`(Practice), `channel`(Activity), `function`(Stage), `states{}`.
-- Tables/groups: `@/lib/constants` — HOUSES, CHANNELS(→element), STATUSES, BEING_GROUPS (Mantle/Kindle/Vessel/Passage), IDENTITY_GROUPS (Composure/Conviction/Exploration/Intimacy), GOVERNANCE_MAP.
+- Tables/groups: `@/lib/constants` — HOUSES, CHANNELS(→element), STATUSES, BEING_GROUPS (Mantle/Kindle/Vessel/Flow), IDENTITY_GROUPS (Composure/Conviction/Exploration/Intimacy), GOVERNANCE_MAP.
 - Corrections: `@/lib/corrections` — GROWTH/DIAGONAL/VERTICAL/REDUCTION_PAIRS by status 1/2/3/4.
 - **Live state:** `analyzeFullMap(draws)` from `@/lib/mapAnalysis` → `{health{score}, correctiveVector, traces, governance, wheelWorldFields, positions, ...}`. `triageReading` → L0–L5 hierarchy.
 - **4D address** = join of (house, channel→element, BEING group, IDENTITY group, function=Stage). Only the 16 manifest archetypes (2-9,11-18) have all four; Gestalt {0,1,19,20} + Portals {10,21} don't. **The tesseract's 4-bit `VERTICES` ARE the true 4D address as a binary embedding** (verified: bits[2,3] encode channel; all dims recoverable — MOLS structure) — currently hand-assigned in-page; a small deriver could emit them from the constants group tables for a clean single source.

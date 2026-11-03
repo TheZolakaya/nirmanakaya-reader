@@ -44,7 +44,7 @@ const SEEDS = {
   6: { name: 'Compassion', traditional: 'Lovers', paths: {
     Practice: { group: 'Emotion', verb: 'Will', color: '#4ade80', seq: [6, 7, 13, 14] },
     Activity: { group: 'Resonance', verb: 'Connect', color: '#ef4444', seq: [6, 5, 11, 18] },
-    Being: { group: 'Passage', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
+    Being: { group: 'Flow', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
     Identity: { group: 'Intimacy', verb: 'Merge', color: '#a855f7', seq: [6, 3, 15, 12] },
   }},
 };
@@ -61,7 +61,7 @@ const BEING_DEFS = {
   Mantle:  { verb: 'Underlie',   members: [8, 7, 15, 18] },
   Kindle:  { verb: 'Understand', members: [2, 5, 13, 12] },
   Vessel:  { verb: 'Hold',       members: [4, 3, 11, 14] },
-  Passage: { verb: 'Release',    members: [6, 9, 17, 16] },
+  Flow:    { verb: 'Release',    members: [6, 9, 17, 16] },
 };
 const IDENTITY_DEFS = {
   Composure:   { verb: 'Center',  members: [8, 5, 17, 14] },
@@ -86,7 +86,7 @@ const DIMENSION_ORDER = ['Practice', 'Activity', 'Being', 'Identity'];
 const OFFSETS = [-6, -2, 2, 6];
 
 // Tesseract constants
-const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Passage: { ids: [6,9,17,16], color: '#fb7185' } };
+const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Flow: { ids: [6,9,17,16], color: '#fb7185' } };
 const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Intimacy: { ids: [6,3,15,12], color: '#fb7185' } };
 const PRACTICE_T = { Spirit: { ids: [17,2,18,3], color: '#c084fc' }, Emotion: { ids: [7,14,6,13], color: '#fb7185' }, Mind: { ids: [4,15,5,16], color: '#22d3ee' }, Body: { ids: [12,9,11,8], color: '#4ade80' } };
 const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Bridge: { ids: [7,9,5,3], color: '#3b82f6' }, Fruition: { ids: [17,15,11,13], color: '#22c55e' }, Feedback: { ids: [12,14,18,16], color: '#3b82f6' } };

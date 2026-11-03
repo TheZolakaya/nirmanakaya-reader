@@ -56,7 +56,7 @@ const SEEDS = {
   6: { name: 'Compassion', traditional: 'Lovers', paths: {
     Practice: { group: 'Emotion', verb: 'Will', color: '#4ade80', seq: [6, 7, 13, 14] },
     Activity: { group: 'Resonance', verb: 'Connect', color: '#ef4444', seq: [6, 5, 11, 18] },
-    Being: { group: 'Passage', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
+    Being: { group: 'Flow', verb: 'Release', color: '#fbbf24', seq: [6, 9, 17, 16] },
     Identity: { group: 'Intimacy', verb: 'Merge', color: '#a855f7', seq: [6, 3, 15, 12] },
   }},
 };
@@ -73,7 +73,7 @@ const BEING_DEFS = {
   Mantle:  { verb: 'Underlie',   members: [8, 7, 15, 18] },
   Kindle:  { verb: 'Understand', members: [2, 5, 13, 12] },
   Vessel:  { verb: 'Hold',       members: [4, 3, 11, 14] },
-  Passage: { verb: 'Release',    members: [6, 9, 17, 16] },
+  Flow:    { verb: 'Release',    members: [6, 9, 17, 16] },
 };
 const IDENTITY_DEFS = {
   Composure:   { verb: 'Center',  members: [8, 5, 17, 14] },
@@ -98,7 +98,7 @@ const DIMENSION_ORDER = ['Practice', 'Activity', 'Being', 'Identity'];
 const OFFSETS = [-6, -2, 2, 6];
 
 // Tesseract constants
-const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Passage: { ids: [6,9,17,16], color: '#fb7185' } };
+const BEING_T = { Mantle: { ids: [8,7,15,18], color: '#fbbf24' }, Kindle: { ids: [2,5,13,12], color: '#22d3ee' }, Vessel: { ids: [4,3,11,14], color: '#4ade80' }, Flow: { ids: [6,9,17,16], color: '#fb7185' } };
 const IDENTITY_T = { Composure: { ids: [8,5,17,14], color: '#22d3ee' }, Conviction: { ids: [2,7,11,16], color: '#fbbf24' }, Exploration: { ids: [4,9,13,18], color: '#4ade80' }, Intimacy: { ids: [6,3,15,12], color: '#fb7185' } };
 const PRACTICE_T = { Spirit: { ids: [17,2,18,3], color: '#c084fc' }, Emotion: { ids: [7,14,6,13], color: '#fb7185' }, Mind: { ids: [4,15,5,16], color: '#22d3ee' }, Body: { ids: [12,9,11,8], color: '#4ade80' } };
 const STAGE_T = { Seed: { ids: [4,2,6,8], color: '#22c55e' }, Bridge: { ids: [7,9,5,3], color: '#f59e0b' }, Fruition: { ids: [17,15,11,13], color: '#06b6d4' }, Feedback: { ids: [12,14,18,16], color: '#7c3aed' } };
@@ -110,7 +110,7 @@ const GROUP_COLORS = {
   // Activity groups (distinct colors for channels)
   Intent: '#ef4444', Cognition: '#22d3ee', Resonance: '#f59e0b', Structure: '#4ade80',
   // Being groups (from BEING_T)
-  Mantle: BEING_T.Mantle.color, Kindle: BEING_T.Kindle.color, Vessel: BEING_T.Vessel.color, Passage: BEING_T.Passage.color,
+  Mantle: BEING_T.Mantle.color, Kindle: BEING_T.Kindle.color, Vessel: BEING_T.Vessel.color, Flow: BEING_T.Flow.color,
   // Identity groups (from IDENTITY_T)
   Composure: IDENTITY_T.Composure.color, Conviction: IDENTITY_T.Conviction.color, Exploration: IDENTITY_T.Exploration.color, Intimacy: IDENTITY_T.Intimacy.color,
   // Stage groups (from STAGE_T)
@@ -240,7 +240,7 @@ const MIXED_ORBITS = {
     weight: 'Medium-low',
     weightNote: 'Anomaly worth flagging',
     oneLine: 'Three companions and a stranger — 2 anomaly quads in the receptive Beings.',
-    desc: 'The only orbit where three members share a single Being group while one stands alone. {3,11,12,14}: three Vessels (Nurturing, Equity, Balance) with Sacrifice as the lone Kindle. {6,8,9,17}: three Passages (Compassion, Discipline, Inspiration) with Fortitude as the lone Mantle. Both quads center on the "receptive" Beings (Vessel, Passage) with a single expressive break. Both completely fall apart under the opposite-corner flip — neither survives as a sum-40 quad. Worth a footnote in the canon, not a feature.',
+    desc: 'The only orbit where three members share a single Being group while one stands alone. {3,11,12,14}: three Vessels (Nurturing, Equity, Balance) with Sacrifice as the lone Kindle. {6,8,9,17}: three in Flow (Compassion, Discipline, Inspiration) with Fortitude as the lone Mantle. Both quads center on the "receptive" Beings (Vessel, Flow) with a single expressive break. Both completely fall apart under the opposite-corner flip — neither survives as a sum-40 quad. Worth a footnote in the canon, not a feature.',
     members: [[3,11,12,14],[6,8,9,17]],
   },
   O2: {
@@ -386,7 +386,7 @@ const DERIVATION_CONTENT = {
   },
   Being: {
     title: 'BEING -- Latin Square Overlay',
-    body: 'Being answers WHAT. The four Being groups (Mantle, Kindle, Vessel, Passage) are a Latin square overlay on the grid -- an invisible fourth dimension that cuts diagonally across both Practice and Activity.\n\nEach group contains one archetype from every Practice, every Activity, every Stage, and every Identity. Maximum diversity. This guarantees that Being groups reveal patterns invisible to Practice or Activity alone.',
+    body: 'Being answers WHAT. The four Being groups (Mantle, Kindle, Vessel, Flow) are a Latin square overlay on the grid -- an invisible fourth dimension that cuts diagonally across both Practice and Activity.\n\nEach group contains one archetype from every Practice, every Activity, every Stage, and every Identity. Maximum diversity. This guarantees that Being groups reveal patterns invisible to Practice or Activity alone.',
   },
   Identity: {
     title: 'IDENTITY -- Latin Square Overlay',

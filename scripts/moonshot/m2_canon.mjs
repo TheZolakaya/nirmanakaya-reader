@@ -60,7 +60,7 @@ const ROLE_OF_K = Object.fromEntries(Object.entries(ROLE_K).map(([r, k]) => [k, 
 let stageHits = 0, beingHits = 0, identityHits = 0;
 for (const c of CARDS) { const [a, b] = coord(c); if (ROLE_OF_K[Em(1, [a, b])] === c.S) stageHits++; if (E[Em(W2, [a, b])] === c.Bel) beingHits++; if (E[Em(W, [a, b])] === c.Iel) identityHits++; }
 ok(stageHits === 16, `Stage(card) = E_1(a,b) = b² + a + 1, read as a ROLE through the Soul row: ${stageHits}/16  (Seed=0, Bridge=ω, Fruition=1, Feedback=ω²)`);
-ok(beingHits === 16, `Being element(card) = E_ω²(a,b): ${beingHits}/16 match the FOUNDER-RULED elements of 2026-10-04 (Kindle Fire · Passage Water · Vessel Air · Mantle Earth)`);
+ok(beingHits === 16, `Being element(card) = E_ω²(a,b): ${beingHits}/16 match the FOUNDER-RULED elements of 2026-10-04 (Kindle Fire · Flow Water · Vessel Air · Mantle Earth)`);
 ok(identityHits === 16, `Identity element(card) = E_ω(a,b): ${identityHits}/16 match the FOUNDER-RULED elements (Conviction Fire · Intimacy Water · Exploration Air · Composure Earth)`);
 console.log('  the origin card (Fire/Fire = the zero law) carries the three slopes as its three labels:', CARDS.filter((c) => c.P === 'Fire' && c.A === 'Fire').map((c) => `${c.name}: Stage ${c.S}=${name(Em(1, [0, 0]))}, Identity ${c.Iel}=${name(Em(W, [0, 0]))}, Being ${c.Bel}=${name(Em(W2, [0, 0]))}`).join(''));
 const wis = CARDS.find((c) => c.name === 'Wisdom'); console.log(`  the all-zero-labels card is (a,b) = (0,1) = Γ itself: ${wis.name} (${wis.P}/${wis.A}): Stage ${wis.S}, Being ${wis.Bel}, Identity ${wis.Iel}`);

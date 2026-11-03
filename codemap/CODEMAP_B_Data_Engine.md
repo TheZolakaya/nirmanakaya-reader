@@ -63,8 +63,8 @@ Note: Gestalt (0,1,19,20) and Portal (10,21) archetypes have `channel:null`. Por
 These are the two "hidden" dimensions not stored on each archetype object — they live as
 group→members lists:
 
-- `BEING_GROUPS` (constants.js:237) — Mantle/Kindle/Vessel/Passage. Each: {question:"What?", verb, cycle, members:[4 ids], stages:{Seed,Medium,Fruition,Feedback}}.
-  - Mantle [8,7,15,18], Kindle [2,5,13,12], Vessel [4,3,11,14], Passage [6,9,17,16].
+- `BEING_GROUPS` (constants.js:237) — Mantle/Kindle/Vessel/Flow. Each: {question:"What?", verb, cycle, members:[4 ids], stages:{Seed,Medium,Fruition,Feedback}}.
+  - Mantle [8,7,15,18], Kindle [2,5,13,12], Vessel [4,3,11,14], Flow [6,9,17,16].
 - `IDENTITY_GROUPS` (constants.js:288) — Composure/Conviction/Exploration/Intimacy. Each: {question:"Who?", verb, cycle, center, members:[4 ids], stages}.
   - Composure [8,5,17,14], Conviction [2,7,11,16], Exploration [4,9,13,18], Intimacy [6,3,15,12].
 - `DIMENSION_VERBS` (constants.js:337) — the verb per group across all four dimensions (Practice/Activity/Being/Identity).
