@@ -286,7 +286,7 @@ Every 2×2 block — every possible square of four adjacent cells, including tho
                40       40       40      40
 ```
 
-The Forty-Fold Seal. A magic square of extraordinary rarity — not just rows and columns balanced, but every possible 2×2 block, every diagonal wrap, every conceivable partition. Forty ways to sum to forty.
+The Forty-Fold Seal. A magic square that holds its sums every way it is read — not just rows and columns balanced, but every possible 2×2 block, every diagonal wrap, every conceivable partition. Forty ways to sum to forty.
 
 And it didn't stop. But the rest came slowly — not in days, but in years and decades.
 

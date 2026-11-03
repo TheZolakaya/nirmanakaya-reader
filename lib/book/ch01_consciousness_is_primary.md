@@ -191,7 +191,7 @@ Not a metaphorical map. Not a helpful way to think about things. A structural ma
 
 The map was first received in a dream in 1991 — a complete structural transmission given to a young man who had no mathematical framework for understanding what he'd been shown. He carried it for thirty-five years, building the vocabulary piece by piece while the world told him he was chasing shadows. In those decades, independently and across cultures and millennia, other humans had already encoded pieces of the same architecture: the Aztecs in the Sunstone, the Kabbalists in the Tree of Life, the Pythagoreans in the Tetractys, the Chinese in the I Ching. Fragments. Partial views. Different lenses on the same structure.
 
-The mathematics of the complete map were not discovered until 2025. A computer has since checked every possibility that can exist: one set of sixteen works, in one arrangement. The dream contained data that satisfied constraints the dreamer didn't know existed. The transmission was mathematically the only valid answer to a question that wouldn't be articulated for decades.
+The mathematics of the complete map were not laid out until 2025, and the exhaustive count came in July 2026. One set of sixteen works. One arrangement of them. The dream contained data that satisfied constraints the dreamer didn't know existed. The transmission was mathematically the only valid answer to a question that wouldn't be articulated for decades.
 
 That's a story you'll hear in full. Not yet. You're not ready for the story until you're ready for the possibility — the possibility that the standard story is wrong, that consciousness is primary, and that there is an architecture to awareness that can be mapped, navigated, and used.
 

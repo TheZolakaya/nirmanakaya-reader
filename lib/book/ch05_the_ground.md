@@ -160,7 +160,7 @@ This is not "everyone is special" as empty affirmation. It is a structural conse
 
 This is the philosophical floor.
 
-Consciousness is primary — the working axiom. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three is a reality in which you are fundamental, purposeful, creative, irreplaceable, and — despite the veil — connected to everything.
+Consciousness is primary — the working axiom. It creates through the alternation of polarity and recursion. It individuates through the veil. What follows from these three is a reality in which we are creators born of a creator, each seeing from a vantage point that exists nowhere else, and — despite the veil — connected to everything.
 
 This chapter gave the reasoning behind that starting point — offered as the argument for the axiom, not as a proof. The reasoning starts with the one thing you know for certain — that awareness exists — and follows where it leads.
 
@@ -178,6 +178,6 @@ The story begins with a boy in Northern California, sleeping in a tent behind a 
 
 *It individuates through a veil that makes your perspective genuinely yours.*
 
-*You are the whole, looking through one pair of eyes, creating something only you can create.*
+*Where you stand, the whole looks through one pair of eyes and creates something only you can create.*
 
-*That's the reasoning behind the starting point — offered as the argument for the axiom, not as a proof.*
+*That's the reasoning behind the starting point.*

@@ -310,7 +310,7 @@ And it's not one-in-a-quintillion among these twenty-two numbers. Take any sixte
 
 These claims were not made and accepted on faith. They were subjected to adversarial review by four independent AI systems — Claude, Grok (xAI), ChatGPT (OpenAI), and Gemini (Google) — plus external human mathematicians on Reddit's r/askmath who assessed the grid's properties without knowing its origin.
 
-The process corrected overclaims. Initial probability estimates were too high and were revised downward. Initial descriptions of "long body diagonals" were corrected to "affine planes." Specific tesseract properties that were counted as additional constraints were shown to derive from existing symmetries and were removed from the estimate. The adversarial process sharpened every claim that survived it.
+The process corrected overclaims. Initial probability estimates were too high and were revised downward. Initial descriptions of "long body diagonals" were corrected to "affine planes." Specific tesseract properties that were counted as additional constraints were shown to derive from existing symmetries and were removed from the earlier estimates. The adversarial process sharpened every claim that survived it.
 
 The verification code is forty lines of Python that anyone can run. Every assertion either passes or the entire structure is falsified. Every row sum, column sum, block sum, reduction, rank-ordering, and Latin square property can be checked independently by anyone with basic arithmetic.
 

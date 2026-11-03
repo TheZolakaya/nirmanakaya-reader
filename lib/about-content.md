@@ -416,14 +416,12 @@ Ring 0 is outside the navigable system. It is what cannot be known while individ
 
 ### Balance and Imbalance
 
-| State | Orientation | Ring | What Happens |
-|-------|-------------|------|--------------|
-| **Balanced** | Now-aligned | Ring 5-6 | Expands reality — creates lasting structure |
-| **Too Much** | Future-projected | Ring 7 | Creates temporary forms — anxiety, grasping |
-| **Too Little** | Past-anchored | Ring 7 | Creates temporary forms — regret, withholding |
-| **Unacknowledged** | Dissociated | Ring 7 | Creates without awareness — shadow operation |
-
-**Ring 6** is balanced expression — harmonious exchange between wills. Two creators meeting as equals.
+| State | Orientation | What Happens |
+|-------|-------------|--------------|
+| **Balanced** | Now-aligned | Expands reality — creates lasting structure |
+| **Too Much** | Future-projected | Creates temporary forms — anxiety, grasping |
+| **Too Little** | Past-anchored | Creates temporary forms — regret, withholding |
+| **Unacknowledged** | Dissociated | Creates without awareness — shadow operation |
 
 **Ring 7** is where actualization occurs, verb or noun; two faces on every ring.
 
