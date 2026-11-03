@@ -1148,6 +1148,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     + (u.output_tokens || 0) * MODEL_PRICING.sonnet.output) / 1e4;
   const endRef = useRef(null);
   const saveTimer = useRef(null);
+  const lastSaveRef = useRef(null); // BRIEF 08 fix round 3: what the timed save last wrote (all but the mark), so a mark-only write skips the summary
 
   // Gate: signed in AND (admin OR ez_enabled flag). Then load the history block.
   // Runs on mount and again the moment someone signs in, so the door opens in place.
@@ -1205,8 +1206,13 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
     if (!savedId || turns.length === 0) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
+      // BRIEF 08 fix round 3: when the only thing that changed since this effect's last write is the mark, the write still happens (so
+      // the mark is kept) but the summary is skipped — markLanding has already asked for one. One tap, one summary.
+      const inputs = { savedId, turns, usage, panelLog, pieces: voiceSpend.pieces, ledgerLen: ledger.length };
+      const prev = lastSaveRef.current; lastSaveRef.current = inputs;
+      const onlyMark = !!prev && Object.keys(inputs).every((k) => prev[k] === inputs[k]);
       updateReadingContent(savedId, { synthesis: { _ez: { version: EZ_VERSION, prompt: promptSet.name, turns, voice, ...(resolution ? { resolution } : {}), ...(frame ? { frame } : {}), ...(panelLog.length ? { panels: panelLog } : {}), ...(voiceSpend.pieces ? { spoken: { name: voiceName, ...voiceSpend, rows: voiceLog } } : {}), ...(ledger.length ? { ledger: ledger.slice(-200), cents: Math.round(usd * 1e5) / 1e3 } : {}) } }, usage, ...(ledger.length ? { estimatedCost: usd + (voiceSpend.usd || 0) } : {}) }) /* .788: the per-call ledger + the cost priced by the model that answered, words + voice */ /* .713 + the panels · .746 + the voice ledger */
-        .then(() => { const n = turns.length; if (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap') summarize(savedId, n > 1); })
+        .then(() => { const n = turns.length; if (!onlyMark && (n === 1 || n % 4 === 0 || turns[n - 1]?.role === 'wrap')) summarize(savedId, n > 1); })
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
