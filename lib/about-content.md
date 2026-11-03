@@ -414,6 +414,8 @@ Ring 0 is outside the navigable system. It is what cannot be known while individ
 | **6** | Spirit | Emergent purpose | 2, 3, 17, 18 |
 | **7** | World (Egress) | Completion threshold | Creation (21) |
 
+**Ring 7** is where actualization occurs, verb or noun; two faces on every ring.
+
 ### Balance and Imbalance
 
 | State | Orientation | What Happens |
@@ -422,8 +424,6 @@ Ring 0 is outside the navigable system. It is what cannot be known while individ
 | **Too Much** | Future-projected | Creates temporary forms — anxiety, grasping |
 | **Too Little** | Past-anchored | Creates temporary forms — regret, withholding |
 | **Unacknowledged** | Dissociated | Creates without awareness — shadow operation |
-
-**Ring 7** is where actualization occurs, verb or noun; two faces on every ring.
 
 ### The Quadraverse: Physical Correlations
 

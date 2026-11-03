@@ -137,7 +137,7 @@ Fire → Water → Air → Earth → Fire
 
 Each line of the pentagram connects two non-adjacent houses. Spirit connects to Emotion (skipping Mind). Emotion connects to Mind (skipping Body). Mind connects to Body (skipping Spirit). Body connects to Spirit (skipping Emotion). The trace skips what's between, connecting the most distant manifest houses — creating the creative tension that drives the system.
 
-This trace order IS the column order of the Seal. The sixteen manifest archetypes sit in a 4×4 grid whose columns follow the pentagram trace: Intent (Fire/Spirit), Resonance (Water/Emotion), Cognition (Air/Mind), Structure (Earth/Body). The Seal's magic square properties — every row, every column, every diagonal summing to 40 — emerge from this trace order.
+This trace order IS the column order of the Seal. The sixteen manifest archetypes sit in a 4×4 grid whose columns follow the pentagram trace: Intent (Fire/Spirit), Resonance (Water/Emotion), Cognition (Air/Mind), Structure (Earth/Body). The Seal's magic square properties — every row, every column, the four corners and every 2×2 block, wrapped ones included, summing to 40 — emerge from this trace order.
 
 The Seal didn't inherit the pentagram's order. The pentagram's order generates the Seal. The geometry creates the arithmetic. The shape produces the number.
 
