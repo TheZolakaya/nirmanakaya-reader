@@ -6,6 +6,8 @@
 // Fix round (COLDREAD_08_Item1, True 11-02 §2): the field opens only once a choice is made, so no typed word can be left unsaved
 // (the SQL keeps verdict not null); a pending text save is flushed, not dropped, when the reading changes; the opened pill closes on
 // a tap outside, on Escape, or on its ×; the pill hides while the inline door is on screen (one question at a time).
+// Fix round 2: the field waits for a tap that SAVED; the reading's mark follows only a saved tap; waiting words go out on pagehide and
+// on a hidden tab; the field is 16px (no iOS zoom); an open panel never vanishes while the inline door scrolls into view.
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { readingAuth } from '../../lib/supabase';
 
@@ -14,8 +16,9 @@ const QUESTION = 'did this land?';
 const PLACEHOLDER = 'anything you want us to know (optional)';
 const TEXT_SAVE_MS = 1200;
 
+let lastAuth = {}; // the last session header a save used, kept so a page that is closing can send without awaiting the session
 async function post(readingId, verdict, text) {
-  const send = async (force) => fetch('/api/reading-feedback', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', ...(await readingAuth({ force })) }, body: JSON.stringify({ readingId, verdict, text }) });
+  const send = async (force) => { const h = await readingAuth({ force }); if (h.Authorization) lastAuth = h; return fetch('/api/reading-feedback', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', ...h }, body: JSON.stringify({ readingId, verdict, text }) }); };
   try {
     let r = await send(false);
     if (r.status === 401) r = await send(true);
@@ -23,23 +26,27 @@ async function post(readingId, verdict, text) {
   } catch { return false; }
 }
 
-/** One reading's feedback: { readingId, verdict, text, pending, failed, choose(v), setText(t), flush(), inlineVisible, setInlineVisible }.
- *  readingId null = nothing to say it about. onChoose(v) fires on every tap (the page maps it into the reading's own landing mark);
- *  onLoad(v) fires when a verdict this person gave earlier is read back (state only, no write). */
+/** One reading's feedback: { readingId, verdict, confirmed, text, pending, failed, choose(v), setText(t), flush(), inlineVisible, setInlineVisible }.
+ *  readingId null = nothing to say it about. `verdict` is what the buttons show (a tap in flight included); `confirmed` is the verdict the
+ *  server has (a tap that saved, or a row read back). onChoose(v) fires only after a tap SAVES (the page maps it into the reading's own
+ *  landing mark); onLoad(v) fires when a verdict this person gave earlier is read back (state only, no write). Fix round 2 (COLDREAD_08):
+ *  the field opens only on a confirmed verdict; words waiting on the timer go out on pagehide / a hidden tab (keepalive). */
 export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
   const [verdict, setVerdict] = useState(null);
+  const [confirmed, setConfirmed] = useState(null);
   const [text, setTextState] = useState('');
   const [pending, setPending] = useState(null);
   const [failed, setFailed] = useState(false);
   const [inlineVisible, setInlineVisible] = useState(false);
-  const live = useRef({ id: readingId, verdict: null, text: '', saved: null, touched: false, timer: null });
+  // c.verdict = the confirmed verdict (never a tap in flight); c.pending = the tap in flight
+  const live = useRef({ id: readingId, verdict: null, pending: null, text: '', saved: null, touched: false, timer: null });
   const hooks = useRef({ onChoose, onLoad });
   hooks.current = { onChoose, onLoad };
 
   useEffect(() => {
-    const s = { id: readingId, verdict: null, text: '', saved: null, touched: false, timer: null };
+    const s = { id: readingId, verdict: null, pending: null, text: '', saved: null, touched: false, timer: null };
     live.current = s;
-    setVerdict(null); setTextState(''); setPending(null); setFailed(false);
+    setVerdict(null); setConfirmed(null); setTextState(''); setPending(null); setFailed(false);
     let on = true;
     if (readingId) (async () => { // what this person already said about this reading, so a second visit shows it and a tap updates it
       try {
@@ -48,7 +55,7 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
         const f = j?.feedback;
         if (!on || !f || s.touched) return;
         s.verdict = f.verdict; s.text = f.text || ''; s.saved = s.text;
-        setVerdict(f.verdict); setTextState(s.text);
+        setVerdict(f.verdict); setConfirmed(f.verdict); setTextState(s.text);
         hooks.current.onLoad?.(f.verdict);
       } catch { /* the door still works; it just starts empty */ }
     })();
@@ -58,23 +65,40 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
     };
   }, [readingId]);
 
+  useEffect(() => { // the page closing, or the tab going to the background (a phone's usual "close"): send the waiting words now
+    const sendNow = () => {
+      const c = live.current; clearTimeout(c.timer);
+      if (!c.id || !c.verdict || c.pending || c.text === c.saved) return;
+      const t = c.text;
+      try {
+        fetch('/api/reading-feedback', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', ...lastAuth }, body: JSON.stringify({ readingId: c.id, verdict: c.verdict, text: t }) })
+          .then((r) => { if (r.ok && live.current === c) c.saved = t; }).catch(() => {});
+      } catch { /* nothing more can be done as the page goes */ }
+    };
+    const onVis = () => { if (document.visibilityState === 'hidden') sendNow(); };
+    window.addEventListener('pagehide', sendNow);
+    document.addEventListener('visibilitychange', onVis);
+    return () => { window.removeEventListener('pagehide', sendNow); document.removeEventListener('visibilitychange', onVis); };
+  }, []);
+
   const choose = useCallback(async (v) => {
-    const c = live.current; if (!c.id) return;
+    const c = live.current; if (!c.id || c.pending) return; // one tap in flight at a time
     c.touched = true; clearTimeout(c.timer);
-    const before = c.verdict; c.verdict = v;
+    c.pending = v;
     setPending(v); setFailed(false); setVerdict(v);
-    hooks.current.onChoose?.(v);
     const t = c.text;
     const ok = await post(c.id, v, t);
     if (live.current !== c) return;
-    setPending(null);
-    if (ok) c.saved = t;
-    else { c.verdict = before; setVerdict(before); setFailed(true); }
+    c.pending = null; setPending(null);
+    if (ok) {
+      c.verdict = v; c.saved = t; setConfirmed(v);
+      hooks.current.onChoose?.(v); // the reading's own mark follows only a saved tap
+    } else { setVerdict(c.verdict); setFailed(true); } // the buttons fall back to what the server has; the field stays as it was
   }, []);
 
   const flush = useCallback(async () => {
     const c = live.current; clearTimeout(c.timer);
-    if (!c.id || !c.verdict || c.text === c.saved) return;
+    if (!c.id || !c.verdict || c.pending || c.text === c.saved) return;
     const t = c.text;
     const ok = await post(c.id, c.verdict, t);
     if (live.current !== c) return;
@@ -83,13 +107,13 @@ export function useReadingFeedback(readingId, { onChoose, onLoad } = {}) {
   }, []);
 
   const setText = useCallback((t) => {
-    const c = live.current; if (!c.verdict) return; // the field is closed until a choice is made (it is disabled on screen too)
+    const c = live.current; if (!c.verdict || c.pending) return; // the field is closed until a tap has SAVED (it is disabled on screen too)
     c.touched = true; c.text = t; setTextState(t);
     clearTimeout(c.timer);
     c.timer = setTimeout(() => { flush(); }, TEXT_SAVE_MS);
   }, [flush]);
 
-  return { readingId, verdict, text, pending, failed, choose, setText, flush, inlineVisible, setInlineVisible };
+  return { readingId, verdict, confirmed, text, pending, failed, choose, setText, flush, inlineVisible, setInlineVisible };
 }
 
 function Choices({ fb }) {
@@ -106,11 +130,11 @@ function Choices({ fb }) {
 }
 
 function Field({ fb }) {
-  const open = !!fb.verdict; // nothing can be typed before a choice, so nothing typed can be lost
-  return (
+  const open = !!fb.confirmed && !fb.pending; // nothing can be typed until a tap has SAVED, so nothing typed can be lost
+  return ( // 16px: below that, iOS Safari zooms the page when the field takes focus
     <textarea value={fb.text} onChange={(e) => fb.setText(e.target.value)} onBlur={() => fb.flush()} rows={2} maxLength={4000}
       disabled={!open} placeholder={PLACEHOLDER} aria-label={PLACEHOLDER}
-      className={`mt-2 w-full resize-y rounded-lg border border-zinc-700/60 bg-zinc-950/60 px-3 py-2 text-[0.8125rem] text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-opacity ${open ? '' : 'opacity-40 cursor-not-allowed'}`} />
+      className={`mt-2 w-full resize-y rounded-lg border border-zinc-700/60 bg-zinc-950/60 px-3 py-2 text-[16px] text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none transition-opacity ${open ? '' : 'opacity-40 cursor-not-allowed'}`} />
   );
 }
 
@@ -127,7 +151,7 @@ function Persistent({ fb, lifted }) {
     document.addEventListener('keydown', esc);
     return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', esc); };
   }, [open, close]);
-  if (fb.inlineVisible) return null; // the door after the reading is on screen: one question at a time
+  if (fb.inlineVisible && !open) return null; // the door after the reading is on screen: one question at a time — but an OPEN panel stays until it is closed (never vanishes mid-typing)
   return (
     <div ref={box} className="fixed left-3 z-40 max-w-[calc(100vw-1.5rem)] transition-[bottom] duration-300"
       style={{ bottom: `calc(${lifted ? '4rem' : '0.75rem'} + env(safe-area-inset-bottom, 0px))` }}>
@@ -141,7 +165,7 @@ function Persistent({ fb, lifted }) {
         </div>
       ) : (
         <button type="button" onClick={() => setOpen(true)} aria-expanded="false"
-          className={`rounded-full border bg-zinc-900/90 backdrop-blur-sm px-3 py-1.5 text-[0.75rem] shadow-lg transition-colors ${fb.verdict ? 'border-emerald-500/50 text-emerald-200/90' : 'border-zinc-700/70 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`}>
+          className={`rounded-full border bg-zinc-900/90 backdrop-blur-sm px-3 py-1.5 text-[0.75rem] shadow-lg transition-colors ${fb.confirmed ? 'border-emerald-500/50 text-emerald-200/90' : 'border-zinc-700/70 text-zinc-400 hover:text-zinc-200 hover:border-zinc-500'}`}>
           {QUESTION}
         </button>
       )}

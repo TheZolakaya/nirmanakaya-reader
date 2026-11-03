@@ -1210,7 +1210,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
         .catch(() => {});
     }, 1500);
     return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
-  }, [turns, savedId, usage, panelLog, voiceSpend.pieces, ledger.length]); // .746: a finished piece saves too (debounced) · .788 and a new ledger row
+  }, [turns, savedId, usage, panelLog, voiceSpend.pieces, ledger.length, resolution]); // .746: a finished piece saves too (debounced) · .788 and a new ledger row · BRIEF 08 fix round 2: and the mark, so a timer already waiting with the old value is replaced, never left to overwrite a tap
 
   // THE HANDING (founder 2026-10-02: 'let's get that handing in'): admins read on the rewritten prompt set first; everyone else stays on live
   // until the switch widens. Same composition seam (ezSystem) the bench measured, so what ships is what was benched.
@@ -1731,6 +1731,7 @@ Respond with ONLY JSON: {"q": "<the question>", "why": "<one sentence quoting wh
       if (!saved?.turns?.length || !savedDraws) throw new Error('That reading has no conversation saved.');
       setQuestion(data.topic || data.question || '');
       setDraws(savedDraws.map((d) => ({ position: d.position, transient: d.transient, status: d.status })));
+      setResolution(['landed', 'open', 'missed'].includes(saved?.resolution) ? saved.resolution : null); // BRIEF 08 fix round 2: the .511 mark comes back with the reading, BEFORE the turns, so the debounced save below re-writes it instead of dropping it
       setTurns(saved.turns);
       setSavedId(data.id);
       setShowPast(false); setDoor(null); setFieldMode(null);
