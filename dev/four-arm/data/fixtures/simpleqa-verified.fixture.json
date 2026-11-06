@@ -1,0 +1,37 @@
+{
+  "fixture": true,
+  "note": "FIXTURE (offline fallback only): the first three rows. A paid run refuses a fixture.",
+  "copiedFrom": "simpleqa_verified.csv @ google/simpleqa-verified 0dc97e0d28d8233463e005cdc4475cc2a13ba2dc",
+  "rows": [
+    {
+      "original_index": "5",
+      "problem": "How much money, in euros, was the surgeon held responsible for Stella Obasanjo's death ordered to pay her son?",
+      "answer": "120,000 euros",
+      "topic": "Politics",
+      "answer_type": "Number",
+      "multi_step": "True",
+      "requires_reasoning": "False",
+      "urls": "https://en.wikipedia.org/wiki/Stella_Obasanjo,https://www.abc.net.au/news/2009-09-22/doctor-jailed-over-former-first-ladys-lipo-death/1437416),https://www.independent.co.uk/news/world/africa/surgeon-jailed-over-death-of-first-lady-1791712.html)"
+    },
+    {
+      "original_index": "8",
+      "problem": "What is the name of the former Prime Minister of Iceland who worked as a cabin crew member until 1971?",
+      "answer": "Jóhanna Sigurðardóttir",
+      "topic": "Politics",
+      "answer_type": "Person",
+      "multi_step": "True",
+      "requires_reasoning": "False",
+      "urls": "https://kids.kiddle.co/J%C3%B3hanna_Sigur%C3%B0ard%C3%B3ttir,https://en.wikipedia.org/wiki/J%C3%B3hanna_Sigur%C3%B0ard%C3%B3ttir,https://www.britannica.com/biography/Johanna-Sigurdardottir"
+    },
+    {
+      "original_index": "9",
+      "problem": "To whom did Mehbooba Mufti Sayed contest the 2019 Lok Sabha elections and lose?",
+      "answer": "Hasnain Masoodi",
+      "topic": "Politics",
+      "answer_type": "Person",
+      "multi_step": "False",
+      "requires_reasoning": "False",
+      "urls": "https://www.indiatoday.in/elections/lok-sabha-2019/story/j-k-lok-sabha-results-2019-pdp-chief-mehbooba-mufti-loses-anantnag-seat-to-nc-hasnain-masoodi-1533245-2019-05-23,https://timesofindia.indiatimes.com/elections/lok-sabha-constituencies/jammu-kashmir/anantnag,https://en.wikipedia.org/wiki/Mehbooba_Mufti"
+    }
+  ]
+}
