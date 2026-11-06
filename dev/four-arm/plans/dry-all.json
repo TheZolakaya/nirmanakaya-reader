@@ -1,0 +1,17 @@
+{
+  "name": "dry-all",
+  "kind": "dry",
+  "description": "The free dry run (BRIEF acceptance 2): every battery, every arm, the B-diag switch on, two mock models, one repeat. No paid call; every model answer is a deterministic MOCK. It proves the harness runs end to end; it is not used to tune any prompt.",
+  "batteries": [
+    { "name": "february10" },
+    { "name": "xstest", "pairs": 2 },
+    { "name": "simpleqa-verified", "n": 3 },
+    { "name": "truthfulqa", "n": 3 },
+    { "name": "agentdojo" }
+  ],
+  "arms": ["A", "B", "C", "C-diag", "D", "D-diag", "B-loop"],
+  "bDiag": true,
+  "repeats": 1,
+  "seed": "four-arm-dry-2026-11-06",
+  "capUsd": 5
+}
