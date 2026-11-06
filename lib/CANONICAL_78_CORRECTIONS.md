@@ -471,3 +471,22 @@ With these, the whole 22 is derived and no archetype's medicine is itself.
 ## RULING 2026-10-17 — Agents' Inner/Outer (founder)
 
 An agent inherits Inner/Outer from its parent archetype (its horizon), NOT from its rank. The data file (`data/nirmanakaya_78_definitions.json`, `innerOuter`) and production were already correct; the Part VI "Inner/Outer" column above was corrected on eight rows to match: Page of Wands → Outer, Queen of Wands → Inner, Knight of Swords → Outer, King of Swords → Inner, Page of Cups → Outer, Queen of Cups → Inner, Knight of Pentacles → Outer, King of Pentacles → Inner. The founder's words: "The data file is accurate." This closes the third of the three record fixes raised in FINDING_True_What_The_Seed_Produces_2026-10-12 (the other two closed in 0.99.752).
+
+---
+
+## AMENDMENT — R-70, THE HALF RULE FOR ALL FORTY BOUNDS (founder, 2026-11-06)
+
+**The rule.** One side rule for all forty Bounds. A Bound's medicine lands on the target archetype's Bound on the SAME side (Inner stays Inner, Outer stays Outer) when the parent archetype's medicine stays within its half of the process (stages Seed and Bridge = the opening half; Fruition and Feedback = the closing half), and on the OPPOSITE side when the parent's medicine crosses halves. When the parent's medicine is a door (Source 10 or Creation 21, which have no Bounds), the Bound's medicine is the door itself. Inner = numbers Ace–5, Outer = 6–10. This is Lumen's law (side XOR the parent's half is kept by every medicine), now applied to every status and every Bound, the Soul row included.
+
+**What changed (six entries, all Soul-row Bounds; old → new):**
+
+- Ace of Pentacles (Definition, 52), Balanced / growth: 6 of Pentacles (Support, 57) → 5 of Pentacles (Steadfastness, 56). Will 1 → Fortitude 8 is Bridge → Seed, inside the opening half.
+- 10 of Pentacles (Achievement, 61), Balanced / growth: 5 of Pentacles (Steadfastness, 56) → 6 of Pentacles (Support, 57).
+- Ace of Swords (Perception, 32), Balanced / growth: 8 of Swords (Immersion, 39) → 3 of Swords (Calculation, 34). Actualization 19 → Abstraction 15 is Fruition → Fruition, inside the closing half.
+- 10 of Swords (Clarity, 41), Balanced / growth: 3 of Swords (Calculation, 34) → 8 of Swords (Immersion, 39).
+- Ace of Cups (Receptivity, 42), Unacknowledged / reduction: 6 of Cups (Reciprocity, 47) → 5 of Cups (Conscience, 46). Recognition 20 → Equity 11 is Feedback → Fruition, inside the closing half.
+- 10 of Cups (Completion, 51), Unacknowledged / reduction: 5 of Cups (Conscience, 46) → 6 of Cups (Reciprocity, 47).
+
+**What did not change.** All 32 manifest Bounds (archetypes 2–9 and 11–18) under all four statuses: identical, because their growth (the twin) keeps the stage and their Too Much, Too Little and Unacknowledged pairs always cross the half (verified by scripts/verify_r70_half_rule.mjs, 0 diffs). The Soul-row cases that cross the half still flip: Potential's growth (0 → 17) and Recognition's growth (20 → 6), and every Soul-row Too Much and Too Little. The two portal cases are unchanged: Actualization's Ace and 10 of Swords (32, 41) under Unacknowledged still refer to the door itself, Source 10 (the Wheel).
+
+**Supersedes.** Item 5 of THE MEDICINE SWEEP above is superseded on SIDE, not on TARGET: each Gestalt Bound still goes to its family's partner archetype, but its side now follows the half rule instead of always flipping. The Part V rows for these six entries are superseded by this amendment. Live values: lib/corrections.js, BOUND_GROWTH_TARGETS (rows 32, 41, 52, 61) and getBoundCorrection (the half rule, for Too Much / Too Little / Unacknowledged).
