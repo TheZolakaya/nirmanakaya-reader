@@ -24,7 +24,7 @@ for (let id = 0; id <= 77; id++) {
   const before = JSON.stringify(sig.corrections ?? null), after = JSON.stringify(next);
   if (before !== after) { changed++; for (const k of Object.keys(next)) if (JSON.stringify(sig.corrections?.[k]) !== JSON.stringify(next[k])) changes.push(`${sig.traditional ?? sig.name} ${k}: ${sig.corrections?.[k]?.targetTraditional ?? sig.corrections?.[k]?.targetName ?? '—'} → ${next[k].targetTraditional ?? next[k].targetName}`); sig.corrections = next; } else same++;
 }
-doc._meta = { ...(doc._meta ?? {}), correctionsSynced: { at: new Date().toISOString().slice(0, 10), from: 'lib/corrections.js (BOUND_GROWTH_TARGETS fixed 2026-10-12 to the flip rule; the 2026-10-02 Gestalt-bound ruling)', changedSignatures: changed } };
+doc._meta = { ...(doc._meta ?? {}), correctionsSynced: { at: new Date().toISOString().slice(0, 10), from: 'lib/corrections.js (R-70, 2026-11-06: one side rule for all forty Bounds, the half rule; six Soul-Bound entries corrected)', changedSignatures: changed } };
 fs.writeFileSync(PATH, JSON.stringify(doc, null, 2) + '\n');
 try { fs.copyFileSync(PATH, WIKI); } catch (e) { console.log('wiki copy not written:', e.message); }
 console.log(`corrections synced: ${changed} signatures changed, ${same} unchanged, ${missing} missing`);

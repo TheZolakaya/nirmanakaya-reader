@@ -241,7 +241,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Swords** | 10 of Wands | 10 of Pentacles | Source (the portal itself) | 8 of Swords (Immersion) |
+| **Ace of Swords** | 10 of Wands | 10 of Pentacles | Source (the portal itself) | 3 of Swords (Calculation) |
 | **2 of Swords** | 9 of Wands | 9 of Cups | 6 of Cups | **8 of Wands** |
 | **3 of Swords** | 8 of Wands | 8 of Cups | 7 of Cups | **7 of Cups** |
 | **4 of Swords** | 7 of Wands | 7 of Cups | 8 of Cups | **8 of Cups** |
@@ -250,13 +250,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Swords** | 4 of Wands | 4 of Cups | 3 of Cups | **3 of Cups** |
 | **8 of Swords** | 3 of Wands | 3 of Cups | 4 of Cups | **4 of Cups** |
 | **9 of Swords** | 2 of Wands | 2 of Cups | 5 of Cups | **3 of Wands** |
-| **10 of Swords** | Ace of Wands | Ace of Pentacles | Source (the portal itself) | 3 of Swords (Calculation) |
+| **10 of Swords** | Ace of Wands | Ace of Pentacles | Source (the portal itself) | 8 of Swords (Immersion) |
 
 ### CUPS
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Cups** | 10 of Pentacles | 10 of Wands | 6 of Cups (Reciprocity) | 7 of Cups (Allure) |
+| **Ace of Cups** | 10 of Pentacles | 10 of Wands | 5 of Cups (Conscience) | 7 of Cups (Allure) |
 | **2 of Cups** | 9 of Pentacles | 9 of Swords | 6 of Swords | **7 of Wands** |
 | **3 of Cups** | 8 of Pentacles | 8 of Swords | 7 of Swords | **7 of Swords** |
 | **4 of Cups** | 7 of Pentacles | 7 of Swords | 8 of Swords | **8 of Swords** |
@@ -265,13 +265,13 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Cups** | 4 of Pentacles | 4 of Swords | 3 of Swords | **3 of Swords** |
 | **8 of Cups** | 3 of Pentacles | 3 of Swords | 4 of Swords | **4 of Swords** |
 | **9 of Cups** | 2 of Pentacles | 2 of Swords | 5 of Swords | **4 of Wands** |
-| **10 of Cups** | Ace of Pentacles | Ace of Wands | 5 of Cups (Conscience) | 4 of Cups (Reverie) |
+| **10 of Cups** | Ace of Pentacles | Ace of Wands | 6 of Cups (Reciprocity) | 4 of Cups (Reverie) |
 
 ### PENTACLES
 
 | Bound | Too Much → | Too Little → | Unacknowledged → | **Balanced → (Growth)** |
 |-------|------------|--------------|------------------|-------------------------|
-| **Ace of Pentacles** | 10 of Cups | 10 of Swords | 10 of Swords (Clarity) | 6 of Pentacles (Support) |
+| **Ace of Pentacles** | 10 of Cups | 10 of Swords | 10 of Swords (Clarity) | 5 of Pentacles (Steadfastness) |
 | **2 of Pentacles** | 9 of Cups | 9 of Wands | 6 of Wands | **6 of Wands** |
 | **3 of Pentacles** | 8 of Cups | 8 of Wands | 7 of Wands | **6 of Swords** |
 | **4 of Pentacles** | 7 of Cups | 7 of Wands | 8 of Wands | **6 of Cups** |
@@ -280,7 +280,7 @@ For Bounds and Agents: Follow the associated Archetype's growth partner with **p
 | **7 of Pentacles** | 4 of Cups | 4 of Wands | 3 of Wands | **5 of Cups** |
 | **8 of Pentacles** | 3 of Cups | 3 of Wands | 4 of Wands | **5 of Swords** |
 | **9 of Pentacles** | 2 of Cups | 2 of Wands | 5 of Wands | **5 of Wands** |
-| **10 of Pentacles** | Ace of Cups | Ace of Swords | Ace of Swords (Perception) | 5 of Pentacles (Steadfastness) |
+| **10 of Pentacles** | Ace of Cups | Ace of Swords | Ace of Swords (Perception) | 6 of Pentacles (Support) |
 
 ---
 
