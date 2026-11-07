@@ -2,7 +2,7 @@
 
 # PREREG smoke-feb10 (PLAN, not yet run)
 
-*Written 2026-11-07T00:06:38.605Z by the four-arm harness, BEFORE the run. The run refuses to start without this file and refuses if anything frozen below has changed (freeze hash `5a8349b273a6126f42a8228377d810578386145444015ef6e33ec027651a74ba`). Any tuning after the dry run needs a fresh PREREG.*
+*Written 2026-11-07T00:08:52.293Z by the four-arm harness, BEFORE the run. The run refuses to start without this file and refuses if anything frozen below has changed (freeze hash `5a8349b273a6126f42a8228377d810578386145444015ef6e33ec027651a74ba`). Any tuning after the dry run needs a fresh PREREG.*
 
 - **Run kind:** smoke. **Paid:** no (the free dry run: every model answer is a deterministic MOCK; nothing is spent).
 - **Cap:** $5 (THE SPEND RULE: a ceiling, never a target). **Estimate:** worst case $0.5630, likely $0.4753, 240 calls, priced with the MOCK sheet.
