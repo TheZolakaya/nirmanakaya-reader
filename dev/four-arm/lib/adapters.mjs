@@ -54,11 +54,14 @@ const mockLatency = (b) => 300 + ((b[5] << 8) | b[6]) % 1700; // a deterministic
 
 // ── the paid call (OpenRouter, Anthropic format) ────────────────────────────────────────────────────────────────────────────
 const OPENROUTER_MESSAGES = 'https://openrouter.ai/api/v1/messages';
-async function openrouterCall({ model, system, messages, max_tokens, temperature, top_p, seed }) {
+// The request body is the house's known-working shape for this endpoint (lib/provider.js, lib/bakeoff/readerJudge.js): no seed (the
+// Anthropic format has none; the harness records its seed per call), no top_p beside temperature (newer Claude models refuse both),
+// thinking disabled (a thinking model otherwise spends the whole budget thinking). usage.cost comes back on this endpoint unasked.
+async function openrouterCall({ model, system, messages, max_tokens, temperature }) {
   loadEnvNames([ENV.openrouterKey]);
   const key = process.env[ENV.openrouterKey];
   if (!key) throw new Error(`REFUSED: ${ENV.openrouterKey} is not set (the key is read by name and never printed)`);
-  const body = { model, max_tokens, temperature, ...(top_p != null ? { top_p } : {}), ...(seed != null ? { seed } : {}), ...(system ? { system } : {}), messages, thinking: { type: 'disabled' }, provider: { data_collection: 'deny' }, usage: { include: true } };
+  const body = { model, max_tokens, temperature, ...(system ? { system } : {}), messages, thinking: { type: 'disabled' }, provider: { data_collection: 'deny' } };
   const t0 = Date.now();
   const res = await fetch(OPENROUTER_MESSAGES, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}`, 'x-api-key': key, 'anthropic-version': '2023-06-01', 'HTTP-Referer': 'https://www.nirmanakaya.com', 'X-Title': 'Nirmanakaya four-arm harness' }, body: JSON.stringify(body) });
   const data = await res.json().catch(() => ({ error: { message: `HTTP ${res.status}, not JSON` } }));
@@ -70,14 +73,14 @@ async function openrouterCall({ model, system, messages, max_tokens, temperature
 /** The generator: gen({ role, model, system, messages, max_tokens, temperature, top_p, seed, meta }) → a call record. */
 export function makeGenerator({ prices, spend }) {
   return async function gen(args) {
-    const { role, model, system = '', messages = [], max_tokens, temperature, top_p, seed, meta = {} } = args;
+    const { role, model, system = '', messages = [], max_tokens, temperature, seed, meta = {} } = args;
     if (!PAID) {
       const text = mockGeneratorText({ role, system, messages, meta });
       const usage = mockUsage(system, messages, text);
       const call = { role, text, usage, model, provider: 'mock', latencyMs: mockLatency(bytes(`${role}|${text}`)), costUsd: priceOf(prices, model, usage), mock: true, seed: seed ?? null };
       spend.add(call); return call;
     }
-    const r = await openrouterCall({ model, system, messages, max_tokens, temperature, top_p, seed });
+    const r = await openrouterCall({ model, system, messages, max_tokens, temperature });
     const call = { role, text: r.text, usage: r.usage, model: r.model, requestedModel: model, provider: 'openrouter', latencyMs: r.latencyMs, costUsd: r.reportedCost ?? priceOf(prices, model, r.usage), mock: false, seed: seed ?? null, stop: r.stop };
     spend.add(call); return call;
   };

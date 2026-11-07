@@ -29,7 +29,7 @@ export const DEFAULTS = {
   judgeModel: 'deepseek/deepseek-v4.1-flash',
   recognitionModel: 'deepseek/deepseek-v4.1-flash',
   mockModels: ['mock/production-stand-in', 'mock/second-family-stand-in'],
-  decoding: { temperature: 0.7, top_p: 1 },        // shared by every arm; judges and the Recognition's two prompts run at temperature 0
+  decoding: { temperature: 0.7 },                  // shared by every arm (top_p left at the provider's default 1); judges and the Recognition's two prompts run at temperature 0
   budgets: { draft: 900, review: 450, firstLook: 350, rewrite: 900, agentStep: 400, agentRewrite: 400 },
   judgeBudgets: { continuity5: 120, xstest: 16, simpleqa: 8, truthfulqa: 120 },
   bootstrap: { resamples: 10000, alpha: 0.05 },
