@@ -109,10 +109,11 @@ export function makeJudge({ prices, spend, model }) {
   };
 }
 
-/** The Recognition's model roles (classifier, validator) for the IN-PROCESS route: the route's own mocks, or DeepSeek, priced and tracked. */
-export function makeRecognitionCaller({ prices, spend, model }) {
+/** The Recognition's model roles (classifier, validator) for the IN-PROCESS route: the route's own mocks, or DeepSeek, priced and tracked.
+ *  faults: the dry run's failure-path exercise only (a plan's mockFaults, frozen in its PREREG); a paid run refuses a plan that has them. */
+export function makeRecognitionCaller({ prices, spend, model, faults = null }) {
   if (!PAID) {
-    const inner = mockModelCaller({ price: (m, usage) => priceOf(prices, m, usage) });
+    const inner = mockModelCaller({ price: (m, usage) => priceOf(prices, m, usage), faults: faults || {} });
     return async (args) => { const r = await inner(args); spend.add(r); return r; };
   }
   if (!JUDGE_MUST_BE.test(model)) throw new Error(`REFUSED: the Recognition's classifier and validator run on DeepSeek, not ${model}`);

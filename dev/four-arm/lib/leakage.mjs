@@ -50,6 +50,6 @@ export function assertNoLeak(passInputs, modelSeen, { hidden = null, where = '' 
     const pass = norm(atoms.map(([, v]) => v).join('\n'));
     for (const v of leaves(hidden)) { const h = norm(v); if (h.length >= 6 && pass.includes(h) && !seen.includes(h)) problems.push(`an evaluator-side value reached the pass: "${String(v).slice(0, 60)}"`); }
   }
-  if (problems.length) throw new LeakError(`LEAKAGE ${where}: ${problems.length} problem(s): ${problems.slice(0, 3).join('; ')}`, problems);
+  if (problems.length) throw new LeakError(`LEAKAGE${where ? ` at ${where}` : ''}: ${problems.length} problem(s): ${problems.slice(0, 3).join('; ')}`, problems);
   return { ok: true, atoms: atoms.length };
 }

@@ -24,11 +24,21 @@ import { recognize } from '../../../lib/recognition.js';
 
 export class RefusedError extends Error { constructor(msg) { super(msg); this.name = 'RefusedError'; } }
 const slug = (s) => String(s).replace(/[^a-z0-9.-]+/gi, '_');
+const itemPath = (dir, r) => path.join(dir, 'items', r.battery, slug(r.itemId), slug(r.model), String(r.rep), `${r.arm}.json`);
 export const dryRunPassPath = () => path.join(RUNS_DIR, 'DRYRUN_PASS.json');
 
+/** The plan's mockFaults ({ validator: { fail: [ids], garble: [ids] }, classifier: { garble: [ids], misquote: [ids] } }) as the mock
+ *  caller's fault functions, matched on the item's task text (the mock sees what the pass sees, never an item id). Dry runs only. */
+export function faultsFor(plan, itemsById) {
+  if (!plan.mockFaults) return null;
+  if (PAID) throw new RefusedError('REFUSED: a plan with mockFaults is a dry-run exercise and never runs paid');
+  const pick = (role) => { const spec = plan.mockFaults[role] || {}; const byTask = new Map(); for (const [fault, ids] of Object.entries(spec)) for (const id of ids) if (itemsById[id]) byTask.set(itemsById[id].task, fault); return (meta) => byTask.get(meta.task) || null; };
+  return { validator: pick('validator'), classifier: pick('classifier') };
+}
+
 /** The Recognition for the harness: the same engine in-process (default), or a running route over HTTP with the harness key. */
-export function makeRecognizer({ prices, spend, model, routeUrl = null }) {
-  const callModel = makeRecognitionCaller({ prices, spend, model });
+export function makeRecognizer({ prices, spend, model, routeUrl = null, faults = null }) {
+  const callModel = makeRecognitionCaller({ prices, spend, model, faults });
   if (!routeUrl) return async (input, { drawSeed }) => recognize(input, { DEFS, callModel, nextInt: seededInt(drawSeed) });
   loadEnvNames([ENV.routeKey]);
   return async (input) => {
@@ -63,7 +73,7 @@ export async function executeRun(runId, { log = console.log } = {}) {
   const spend = spendTracker(prereg.capUsd);
   const gen = makeGenerator({ prices: prereg.prices, spend });
   const judge = makeJudge({ prices: prereg.prices, spend, model: F.judge });
-  const recognizeFn = makeRecognizer({ prices: prereg.prices, spend, model: F.recModel, routeUrl: plan.routeUrl || null });
+  const recognizeFn = makeRecognizer({ prices: prereg.prices, spend, model: F.recModel, routeUrl: plan.routeUrl || null, faults: faultsFor(plan, itemsById) });
   const leak = { checks: 0, failures: 0 };
   const ctx = {
     gen, recognize: recognizeFn, prompts, budgets: DEFAULTS.budgets, decoding: DEFAULTS.decoding, store: draftStore(path.join(dir, 'draft0')), runId, runSeed: plan.seed,
@@ -84,7 +94,7 @@ export async function executeRun(runId, { log = console.log } = {}) {
     const unit = [];
     for (const arm of arms) {
       const rec = item.kind === 'multistep' ? await runMultiArm(ctx, { arm, model, item, seed, rep, t0: base }) : await runSingleArm(ctx, { arm, model, item, seed, rep, d0: base });
-      writeJson(path.join(dir, 'items', item.battery, slug(item.id), slug(model), String(rep), `${arm}.json`), rec);
+      writeJson(itemPath(dir, rec), rec);
       records.push(rec); unit.push(rec);
     }
     if (item.kind === 'multistep') { // the environment's own checks are known now: a new unauthorized action on a real answer holds the run at once
@@ -110,6 +120,10 @@ export async function executeRun(runId, { log = console.log } = {}) {
   const byRecord = {};
   for (const j of judged) { const m = map[j.blindId]; (byRecord[m.recordKey] ||= { judgments: {}, treatmentInOutput: 0 }); byRecord[m.recordKey].judgments[j.rubricId] = j.parsed; byRecord[m.recordKey].treatmentInOutput += j.treatmentInOutput; }
   const rows = records.map((r) => { const k = `${r.itemId}|${r.model}|${r.rep}|${r.arm}`; return { record: r, metrics: recordMetrics(r, itemsById[r.itemId], byRecord[k]?.judgments || {}), treatmentInOutput: byRecord[k]?.treatmentInOutput || 0 }; });
+  // the per-item JSON, completed after unsealing: its judge inputs (exactly as sent) and outputs, and its metrics
+  const sent = new Map(fs.readFileSync(inputsLog, 'utf8').split('\n').filter(Boolean).map((l) => { const o = JSON.parse(l); return [o.blindId, o]; }));
+  const judging = {}; for (const j of judged) { const m = map[j.blindId]; (judging[m.recordKey] ||= []).push({ blindId: j.blindId, rubricId: j.rubricId, input: sent.get(j.blindId), output: j.raw, parsed: j.parsed, call: j.call }); }
+  for (const { record, metrics } of rows) writeJson(itemPath(dir, record), { ...record, judging: judging[`${record.itemId}|${record.model}|${record.rep}|${record.arm}`] || [], metrics });
   const batteries = F.batteries.map((b) => b.battery);
   const cs = contrasts(rows, { batteries, seed: plan.seed, resamples: DEFAULTS.bootstrap.resamples, margin: prereg.freeze.decision.margin });
   const arms = perArm(rows);
@@ -161,7 +175,7 @@ export async function executeRun(runId, { log = console.log } = {}) {
   const md = renderReport(R);
   writeText(path.join(dir, 'REPORT.md'), md);
   const adj = exportAdjudication({ runDir: dir, records, itemsById, treatment });
-  if (!PAID && integrity.ok && prereg.kind === 'dry') writeJson(dryRunPassPath(), { at: new Date().toISOString(), runId, codeHash: prereg.freeze.code, prompts: prereg.freeze.prompts, note: 'a paid run requires a passing free dry run on this exact code and these prompts' });
+  if (!PAID && integrity.ok && prereg.kind === 'dry' && !plan.mockFaults) writeJson(dryRunPassPath(), { at: new Date().toISOString(), runId, codeHash: prereg.freeze.code, prompts: prereg.freeze.prompts, note: 'a paid run requires a passing free dry run on this exact code and these prompts' });
   return { dir, R, md, adj };
 }
 

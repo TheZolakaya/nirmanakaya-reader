@@ -9,6 +9,10 @@
 //   node dev/four-arm/run.mjs report --synthetic [n]               the headline rule on a synthetic n-item sample (default 10)
 //   node dev/four-arm/run.mjs kappa --run <id> --labels <csv>      score the adjudicated labels (C-diag, and C as the chance baseline)
 //   node dev/four-arm/run.mjs kappa --synthetic                    the kappa scorer on a synthetic label set
+//   node dev/four-arm/run.mjs plan --plan smoke-feb10              write plans/PLAN_<name>.md (the PREREG as it will read; runs nothing)
+//   node dev/four-arm/run.mjs export-calibration --run <id>        the judged outputs, blind, for two human raters
+//   node dev/four-arm/run.mjs calibrate --run <id> --labels <csv>  the judge's kappa per dimension → runs/calibration/calibration.json
+//   node dev/four-arm/accept.mjs                                   the acceptance checks (free; no paid call)
 //
 // The smoke test, once the founder sets the paid flag (and FOUR_ARM_MODELS):
 //   PAID_RUNS_ENABLED=true node dev/four-arm/run.mjs prereg --plan smoke-feb10 --run smoke-feb10-w0 --cap 5
@@ -75,6 +79,24 @@ const main = async () => {
       return 0;
     }
     console.log(fs.readFileSync(path.join(RUNS_DIR, opt('run'), 'REPORT.md'), 'utf8'));
+    return 0;
+  }
+  if (cmd === 'plan') {
+    const { loadPlan, writePlanDoc } = await import('./lib/prereg.mjs');
+    const { out, estimate } = await writePlanDoc(loadPlan(opt('plan') || 'smoke-feb10'));
+    console.log(`plan written (not run): ${out}\nworst-case tokens ${estimate.inputTokens} in / ${estimate.outputTokens} out over ${estimate.calls} calls`);
+    return 0;
+  }
+  if (cmd === 'export-calibration') {
+    const { exportCalibration } = await import('./lib/calibration.mjs');
+    const r = exportCalibration(opt('run'));
+    console.log(`calibration set for two raters: ${r.csv} (${r.rows} rows); the judge's own scores are sealed in ${r.map}`);
+    return 0;
+  }
+  if (cmd === 'calibrate') {
+    const { calibrate } = await import('./lib/calibration.mjs');
+    const { result, target } = calibrate(opt('run'), opt('labels'));
+    console.log(`${result.status}: written to ${target}`); for (const [k, v] of Object.entries(result.perDimension)) console.log(`  ${k}: judge vs A ${v.judgeVsA?.toFixed(3)}, judge vs B ${v.judgeVsB?.toFixed(3)}, A vs B ${v.aVsB?.toFixed(3)} (${v.statistic}, n=${v.n})`);
     return 0;
   }
   if (cmd === 'kappa') {

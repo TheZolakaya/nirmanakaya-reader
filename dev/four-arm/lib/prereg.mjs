@@ -51,6 +51,7 @@ export async function buildFreeze(plan, { offline = false } = {}) {
 
 export async function writePrereg(plan, { runId, capUsd, offline = false } = {}) {
   if (PAID && plan.kind === 'dry') throw new Error('REFUSED: a dry plan runs with PAID_RUNS_ENABLED unset');
+  if (PAID && plan.mockFaults) throw new Error('REFUSED: mockFaults are a dry-run exercise and never run paid');
   if (!PAID && plan.kind !== 'dry') { /* a non-dry plan may be PREREG'd for planning; the run itself refuses until the flag is set */ }
   const F = await buildFreeze(plan, { offline });
   if (PAID && F.batteries.some((b) => b.fixture)) throw new Error(`REFUSED: a paid run never uses a fixture (${F.batteries.filter((b) => b.fixture).map((b) => b.battery).join(', ')})`);
@@ -66,6 +67,21 @@ export async function writePrereg(plan, { runId, capUsd, offline = false } = {})
   const md = renderPrereg(prereg, F);
   writeText(path.join(dir, `PREREG_${id}.md`), md);
   return { dir, prereg, md };
+}
+
+/** A plan written down BEFORE any paid flag: the PREREG as it would read, with the MOCK sheet standing where the fetched prices will
+ *  go (the token counts are real; the dollars come at PREREG time with the paid flag). Writes plans/PLAN_<name>.md; runs nothing. */
+export async function writePlanDoc(plan) {
+  const F = await buildFreeze(plan);
+  const priceModels = [...F.models, F.judge, F.recModel];
+  const prices = PAID ? await fetchPriceSheet(priceModels) : mockPriceSheet(priceModels);
+  const estimate = estimateCost({ items: F.items, models: F.models, arms: plan.arms, bDiag: !!plan.bDiag, repeats: plan.repeats || 1, prompts: F.prompts, budgets: DEFAULTS.budgets, judgeBudgets: DEFAULTS.judgeBudgets, prices, judgeModel: F.judge, recognitionModel: F.recModel });
+  const p = { runId: `${plan.name} (PLAN, not yet run)`, createdAt: new Date().toISOString(), paid: false, kind: plan.kind, plan, capUsd: plan.capUsd ?? DEFAULTS.capUsd, freeze: F.freeze, freezeHash: F.freezeHash, provenance: F.prov.checks, prices, estimate, envNames: { generators: ENV.generatorModels, judge: ENV.judgeModel, recognition: ENV.recognitionModel, key: ENV.openrouterKey, paidFlag: ENV.paidFlag }, calibration: readCalibration(), warnings: F.batteries.flatMap((b) => b.warnings) };
+  const head = [`> **PLAN, NOT YET RUN.** This is the ${plan.name} PREREG as it will read. Models shown are the dry-run stand-ins until \`${ENV.generatorModels}\` is set; prices are the MOCK sheet until the PREREG is written with \`${ENV.paidFlag}=true\`, which fetches the live prices and refuses to start over the cap. Worst-case tokens for this plan: ${estimate.inputTokens.toLocaleString('en-US')} in, ${estimate.outputTokens.toLocaleString('en-US')} out, over ${estimate.calls} calls per model set shown.`, ''];
+  const md = [...head, renderPrereg(p, F)].join('\n');
+  const out = path.join(HARNESS, 'plans', `PLAN_${plan.name}.md`);
+  writeText(out, md);
+  return { out, estimate };
 }
 
 export function readCalibration() {

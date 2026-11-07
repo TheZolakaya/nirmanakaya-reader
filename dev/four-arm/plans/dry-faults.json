@@ -1,0 +1,15 @@
+{
+  "name": "dry-faults",
+  "kind": "dry",
+  "description": "The failure-path exercise (acceptance 8): the February ten through A, B, C and C-diag with faults injected into the MOCK Recognition calls (never possible on a paid run). The semantic validator is forced to fail on S1 and to answer unreadably on S2; the classifier answers unreadably on H1 and quotes words that are not in the draft on H2. Every failure must be counted and none regenerated.",
+  "batteries": [ { "name": "february10" } ],
+  "arms": ["A", "B", "C", "C-diag"],
+  "bDiag": false,
+  "repeats": 1,
+  "seed": "four-arm-dry-faults-2026-11-06",
+  "capUsd": 5,
+  "mockFaults": {
+    "validator": { "fail": ["S1"], "garble": ["S2"] },
+    "classifier": { "garble": ["H1"], "misquote": ["H2"] }
+  }
+}
